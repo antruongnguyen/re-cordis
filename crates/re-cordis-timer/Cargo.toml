@@ -1,0 +1,20 @@
+[package]
+name = "re-cordis-timer"
+description = "Owner-scoped timers (timeout, interval, throttle, debounce) for re-cordis"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+publish = false
+
+[dependencies]
+re-cordis-core = { path = "../re-cordis-core" }
+futures-util.workspace = true
+tokio = { workspace = true, features = ["rt", "time"] }
+
+[dev-dependencies]
+tokio = { workspace = true, features = ["rt", "time", "macros", "test-util"] }
+
+[lints]
+workspace = true
