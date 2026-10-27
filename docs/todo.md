@@ -56,14 +56,130 @@ and behavioral tests, not just public type declarations.
   See [m6.md](m6.md). Checked cases include documented Rust representations,
   not unrestricted JavaScript object/property/reflection compatibility.
 
-## Satellite packages
+## Next implementation targets: satellites
 
-Only after M6. Choose the next package from concrete application needs:
+Selected roadmap order on **2026-10-27**: **`cordis-timer` → `cordis-logger` →
+`cordis-loader`**, then evaluate other satellites. These are implementation
+targets, not delivered crates or frozen API/dependency decisions. This change
+plans the work; it does not implement any satellite or assign a broader M7.
+Start the next session with the timer source review and bounded design gate.
 
-- [ ] `cordis-timer` — timer service.
-- [ ] `cordis-logger` — console exporter; core logging is already part of M2-M6.
-- [ ] `cordis-loader` — plugin loading/configuration, not assumed native hot reload.
-- [ ] Others as they prove necessary (`group`, `hmr`, `include`, `create`).
+The TypeScript specification remains pinned to
+`35fdc969e4b6c48c48ed44717c7a018324e4dd88` in `local/cordis`.
+The independent `local/cordis-rs` at
+`1754062cef67cfc119fc7a2084c0321a231b9092` is an engineering reference only;
+its redesigned timer/loader contracts and older TS parity pin are not our spec.
+
+| Target | Actual prerequisites | Initial focus | Exit evidence |
+|---|---|---|---|
+| `cordis-timer` | Existing core effects, explicit local hosting and lifecycle | Owner-scoped time operations with explicit cancellation and joined cleanup | Source-case map, deterministic clock/gate tests, runnable example, bilingual guide/API |
+| `cordis-logger` | Existing core Logger/exporter APIs | Console/export adapter, not a second logging core | Exact captured output/routing/error tests and scoped exporter teardown |
+| `cordis-loader` | Existing core plugins, validation, injection and cleanup | Explicit Rust plugin registration/resolution and bounded configuration loading | Fixture-backed load/update/rollback/teardown tests with documented resolution limits |
+
+This is a preferred sequence, not a false dependency chain: logger does not
+require timer, and loader should not depend on either unless an approved
+contract demonstrates the need.
+
+### 1. cordis-timer — next bounded implementation
+
+- [ ] Review `packages/timer/src/index.ts` and `packages/timer/tests/index.spec.ts`
+  at the TS pin. Inventory callback timeout/interval, awaited timeout, interval
+  iterator next/return/throw/disposal, throttle, debounce and deprecated aliases.
+  Map every source case to a Rust equivalent or an explicit limitation; do not
+  silently replace the TS API with the independent port's sleep/timeout design.
+- [ ] Show a concise context map, proposed public Rust API, ownership/cancellation
+  rules, dependencies/features, exclusions and measurable exit criteria.
+  Review the bounded scope before implementation; do not scaffold other crates.
+- [ ] Implement the agreed slice in an unpublished `crates/cordis-timer`, keeping
+  Rust 2024/MSRV 1.85 and reusing core effects. Timer-required Tokio features
+  belong to the timer crate; do not add a hidden runtime or expand core's
+  production dependencies speculatively.
+- [ ] Define duration admission, zero/overflow behavior, first/subsequent tick
+  behavior, callback errors/panics, once-only delivery, cancellation, dropped
+  waiters and owner disposal. Resolve TS wall-clock versus Tokio clock behavior
+  explicitly, especially throttle/debounce. Document omitted overloads/aliases.
+- [ ] Test just-before/at-deadline behavior, manual/owner cancellation, restart,
+  acquired-resource cleanup, no callbacks after joined disposal, concurrent
+  interval reads, and source-backed throttle/debounce edges for included APIs.
+  Use controlled time and channels, not wall-clock sleeps.
+- [ ] Add a runnable lifecycle example, public Rustdoc/type checks, and
+  English/Vietnamese timer documentation; complete the shared acceptance checklist.
+
+### 2. cordis-logger — console adapter over existing core logging
+
+- [ ] Review TS `packages/logger-console/src/{index,shared,browser}.ts` and
+  `packages/logger-console/tests/index.spec.ts`. Record why the Rust crate is
+  named `cordis-logger` while the upstream satellite is `logger-console`.
+- [ ] Agree on writer ownership, formatting/level routing, color and timestamp
+  policy, terminal detection, synchronous I/O/backpressure behavior, write-error
+  visibility and scoped removal before selecting dependencies.
+- [ ] Implement only the agreed adapter using `Logger`, `LogRecord`,
+  `ExporterOptions` and existing formatting/color helpers. Do not duplicate the
+  default buffer, error tree, service tracing or lifecycle core.
+- [ ] Verify deterministic captured output, Unicode/line limits, plain/color
+  modes, independent exporters, failed writes, and no output after exact removal
+  or owner cleanup. Document Node/browser-specific behavior not reproduced.
+- [ ] Add a console example and paired language guide/API pages; preserve core
+  logging acceptance and complete the shared checklist.
+
+### 3. cordis-loader — explicit Rust loading, not native hot reload
+
+- [ ] Review TS `packages/loader/src/` and `packages/loader/tests/`, especially
+  resolve/import, entry/tree/group, validation/commit, evaluation and isolation.
+  Separate core loading contracts from include/HMR/file-persistence features.
+- [ ] Choose a bounded first slice: explicitly registered Rust plugin factories
+  and typed configuration/resolution contracts. Agree on input format and
+  serialization dependencies before adding them to a new loader crate.
+- [ ] Define missing/duplicate/unknown entries, validation timing, admission
+  versus readiness, load ordering, exact dependency retention, partial-load
+  rollback, explicit updates and parent-owned teardown. Missing requirements
+  remain Pending; Failed recovery remains an explicit update.
+- [ ] Map JS module imports, runtime expressions, schema discovery and mutable
+  entry/group behavior to supported Rust equivalents or clear exclusions.
+  Do not imply arbitrary JavaScript execution, native shared-library reload,
+  filesystem watching or transparent JS compatibility.
+- [ ] Test fixtures and controlled failure paths through the public core APIs,
+  including loading/unloading gates and repeated baseline restoration.
+  Any demonstrated core gap needs a separately justified, targeted fix.
+- [ ] Add runnable boot/reconfigure/shutdown examples and paired language
+  guide/API pages; complete the shared checklist.
+
+### Other satellites — assess after the first three targets
+
+- [ ] `group`: determine whether existing parent-owned plugins already cover
+  the needed behavior before introducing a crate.
+- [ ] `include`: evaluate configuration includes, patches, provenance and
+  failure-safe persistence after loader format/ownership contracts exist.
+- [ ] `hmr`: define what Rust reconfiguration/reload actually means after loader
+  acceptance. File watching and native hot loading require separate decisions.
+- [ ] `create`: consider scaffolding only once public crate names, dependency
+  setup and application layout are sufficiently settled.
+
+Do not treat this list as approval to implement all satellites together.
+Publication, API stabilization, public ingress and new external-service
+integrations remain separate scope decisions.
+
+### Shared implementation and documentation acceptance
+
+- [ ] Before each slice, identify affected files, TS source cases, public
+  contracts, dependencies and measurable thresholds. Reuse existing helpers.
+- [ ] Add only the selected crate to the workspace; keep Rust 1.85 support,
+  unpublished status and existing core behavior unless deliberately revised.
+- [ ] Run targeted tests first, then applicable workspace/M0 tests, all-target
+  checks, strict Clippy, formatting and warnings-denied Rustdoc with explicit
+  MSRV/stable tool paths and isolated artifacts. Preserve the six paired
+  lifecycle scenarios and 73 observations; do not equate satellite tests with
+  expanded differential parity.
+- [ ] Update matching `docs/en/` and `docs/vi/` guides/API indexes, examples,
+  glossary terms as needed, and `docs/llms.txt` in the same slice. Extend
+  `tests/docs/check.py` for each delivered crate's exports/snippet dependencies;
+  its current automated export coverage is core-only.
+- [ ] Keep `README.md` status/layout/star matrices, `CHANGELOG.md`,
+  `docs/todo.md`, `docs/decision.md`, `docs/limitation.md` and `AGENTS.md` accurate.
+  Preserve old milestone evidence as historical, not claims of new delivery.
+- [ ] Run documentation regressions and both toolchain documentation checks.
+  Commit only the approved, verified slice under repository conventions;
+  never push automatically.
 
 ## Post-M6 core hardening
 
@@ -83,9 +199,10 @@ Only after M6. Choose the next package from concrete application needs:
   No production fix, new dependency, or public API change was required.
 
 These are bounded executed compositions, not complete upstream failure/recovery
-protocol parity. Both slices are complete; no further parity slice, satellite,
-or broader M7 is selected. Retain all acceptance checks and require evidence
-before changing production behavior.
+protocol parity. Both slices are complete; they did not select satellites.
+The later satellite roadmap above is a separate workstream, not another parity
+slice or a broader M7. Retain acceptance checks and require evidence before
+changing production behavior.
 
 ## Approved first consumers: GitHub activity
 
@@ -102,10 +219,29 @@ unless an approved requirement demonstrates a gap. See
   validation, limits, append-before-ack and graceful in-flight shutdown.
 - [x] Final consumer acceptance: explicitly selected Rust 1.85.0/stable matrices,
   the six paired scenarios, and offline executable checks.
+- [x] Authorized one-shot live collector/digest pilots on 2026-10-27:
+  `antruongnguyen/cordis-rust` returned no issues/PRs; `cordiverse/cordis`
+  returned 52 issues and 100 PRs (PR cap reached). Point-in-time application
+  observations only; no new parity or live webhook claim, no committed live data.
 
 Public ingress, real GitHub webhook configuration/delivery, mutations,
 notifications to other people and durable/exactly-once delivery are excluded.
 These consumers are not a generic harness or a new satellite/M7 commitment.
+
+## User documentation
+
+- [x] Add matching English/Vietnamese user guides and grouped public API reference.
+- [x] Add language navigation, a shared terminology glossary, and `docs/llms.txt`.
+- [x] Add repeatable offline link/coverage checks and execute complete guide
+  examples with explicitly selected Rust 1.85.0 and stable.
+- [x] Rereview both language sets against public source; correct config-stage,
+  initialization/injection and snapshot/filter wording; add checker regressions.
+- [x] Add source-pinned README comparison matrices with row-specific star ratings
+  and explicit limits; no unmeasured performance or universal-winner claim.
+
+See [the documentation map](README.md). These pages document the existing
+unpublished core; the satellite roadmap is future work, not an API-stability promise.
+Maintain both languages and the agent index when public contracts change.
 
 ## Cross-cutting
 

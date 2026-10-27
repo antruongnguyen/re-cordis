@@ -4,6 +4,57 @@ A lightweight log of decisions made for this project and the reasoning behind
 them. Newest first. This is intentionally not a heavy ADR process; it records
 *what we chose and why* so the choices aren't re-litigated silently.
 
+## 2026-10-27 — Order satellite targets without claiming implementation
+
+The user selected roadmap planning for `cordis-timer`, `cordis-logger`,
+`cordis-loader` and other satellites. Use that order for the next implementation
+slices, starting with pinned TypeScript timer source/tests. Each slice still
+requires an explicit context map, API/dependency review, exclusions and measurable
+acceptance criteria before coding. This documentation change does not add a
+crate, freeze those APIs or authorize implementing every target at once.
+
+Timer reuses scoped effects and local hosting; its source-case inventory must
+include timeout/interval overloads, iterator cancellation, throttle/debounce and
+deprecated aliases, even if an initial slice documents exclusions. The Rust
+`cordis-logger` target is a console/export adapter corresponding to TS
+`logger-console`, not a replacement for existing core logging. Loader begins
+with explicit Rust registration/configuration contracts, not assumed native
+hot reload. Logger/timer are not automatic loader dependencies.
+
+Each delivered satellite updates both language trees, the AI-agent index,
+README status/comparison ratings and its executable documentation checks.
+Existing local/non-Send hosting, parent ownership, exact provider retention,
+explicit recovery and cancellation boundaries remain unless a demonstrated
+requirement justifies a separately reviewed change. Do not adopt independent
+cordis-rs redesigns as TypeScript parity.
+
+**Why:** Core delivery and the first consumers are complete; the next framework
+work should progress through bounded satellites rather than more application
+features or indefinite parity expansion. See [the roadmap](todo.md).
+
+## 2026-10-27 — Separate current user documentation from milestone history
+
+Add task-oriented guides and a grouped API reference in matching `docs/en/`
+and `docs/vi/` trees, with counterpart links and a shared glossary. Translate
+prose, preserving API identifiers and Rust/TOML/shell examples. Current source
+and generated Rustdoc own exact signatures; milestone documents retain their
+historical scope and evidence rather than becoming the onboarding sequence.
+
+Use plain Markdown and a concise `docs/llms.txt` retrieval index, not a new
+documentation site, dependency, generated full-book copy, or publishing system.
+The agent index identifies local paths, constraints and reading routes; it is
+not repository policy or authorization to perform network/remote operations.
+
+An opt-in standard-library Python check verifies local links/anchors, bilingual
+code/navigation alignment, public export/hook coverage, and compiles/runs
+complete guide snippets with explicitly selected MSRV/stable tools. It reuses
+locked offline Cargo artifacts and leaves production code and CI unchanged.
+
+**Why:** Application authors need current instructions without interpreting
+historical M1-M6 gaps. Equivalent language coverage and executable examples
+reduce drift, while Rustdoc avoids hand-maintained copies of complex signatures.
+See [the documentation map](README.md).
+
 ## 2026-10-23 — Select bounded GitHub activity consumers
 
 After workflow selection and explicit scope/dependency approval, implement a

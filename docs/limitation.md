@@ -170,6 +170,11 @@ integrated framework or resolve every behavioral gap.
 
 ## Scope limitations (current)
 
+- [English](en/README.md) and [Vietnamese](vi/README.md) user documentation
+  covers the current unpublished core. The API reference complements generated
+  Rustdoc; it does not establish a stable release, translated Rust identifiers,
+  full upstream compatibility or satellite availability. `llms.txt` is a local
+  retrieval index, not a published documentation service or agent permissions.
 - Approved [GitHub activity consumers](github-activity.md) are application
   examples, not production satellites. The digest supports bounded GitHub.com
   snapshots and programmatic updates/recovery; its CLI is one-shot. Atomic
@@ -183,7 +188,10 @@ integrated framework or resolve every behavioral gap.
   and failed writes may require manual partial-line repair.
   Public ingress, live webhook delivery, mutations, and durable/exactly-once
   delivery are excluded. See the consumer document for exact resource/time limits.
-- Only `cordis-core` is in scope initially; satellite packages are deferred.
+- Only `cordis-core` is currently implemented. Timer, console logger and loader
+  are the selected next roadmap targets, not available APIs; other satellites
+  remain candidate work. Each slice needs its own source/API/dependency review
+  and acceptance, including bilingual documentation. See [the roadmap](todo.md).
 - No stability guarantees — the API will change freely until the core is proven.
 - `spikes/m0` uses separate test-only models: one dependency per lifecycle
   Fiber, synchronous setup, and no integrated update/recovery/logger protocol.

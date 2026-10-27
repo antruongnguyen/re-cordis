@@ -151,9 +151,10 @@ existing fixtures/runner and strengthens the Rust-only contracts in
 mismatch was demonstrated. This is not every failure/recovery, cancellation,
 observer-error, or exporter-error protocol. It does not change the Pending
 settlement boundary or make update/provider waits runtime-wide convergence
-barriers. No satellite, public API redesign, new dependency, or broader M7 is
-selected. Prefer concrete consuming application needs over indefinite parity
-expansion, and change production only for evidenced mismatches.
+barriers. These parity slices selected no satellite, public API redesign, new
+dependency or broader M7. The later [satellite roadmap](todo.md#next-implementation-targets-satellites)
+is a separate workstream and does not expand this differential evidence.
+Change production only for evidenced mismatches or explicitly reviewed new scope.
 
 The subsequently approved [GitHub activity consumers](github-activity.md) add
 12 Unix application tests (164 workspace integration tests total). Their

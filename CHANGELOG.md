@@ -8,6 +8,22 @@ This project does not yet follow semantic versioning — the API is unstable.
 ## [Unreleased]
 
 ### Added
+- Ordered satellite roadmap: timer, console logger, then loader, with pinned
+  source-case inventories, per-slice API/dependency gates, measurable acceptance,
+  paired language documentation, and later group/include/HMR/create assessment.
+  No satellite implementation or production-core change is included.
+- README matrices compare benefits/tradeoffs and delivered core concepts against
+  pinned TypeScript Cordis and independent cordis-rs, distinguishing explicit
+  Rust adapters, intentional redesigns, deferred satellites and evidence limits.
+  Row-specific star ratings and a quick-choice summary clarify fit without
+  implying benchmark results or an overall winner.
+- Parallel English/Vietnamese user guides and API reference under `docs/en`
+  and `docs/vi`, with local dependency setup, executable examples, lifecycle/
+  resource contracts, troubleshooting, and a shared glossary.
+- Documentation navigation and `docs/llms.txt` for AI-assisted development.
+  An offline standard-library checker verifies bilingual structure, links,
+  export/hook coverage and runnable examples using explicit stable/MSRV tools.
+  Production APIs, dependencies and existing acceptance boundaries are unchanged.
 - Signed loopback GitHub webhook journal with constant-time raw-body HMAC-SHA256
   verification, bounded HTTP/queue resources, append-before-ack, poisoned-sink
   errors, key/destination updates, and owned/joined HTTP and file tasks.
@@ -109,6 +125,10 @@ This project does not yet follow semantic versioning — the API is unstable.
   `docs/{todo,decision,limitation}.md`.
 
 ### Fixed
+- Documentation rereview clarifies source/resolved types, initialization's
+  injection barrier, and event snapshot/filter ordering in both languages.
+  The documentation checker rejects unchecked Rust blocks in either language
+  and unclosed fences, with standard-library regression coverage.
 - Collector timeout/reaping tests use the actual spawned child ID, not a PID
   file whose creation can lose a startup/deadline race under load. Missing or
   non-Unicode webhook-secret errors never include the supplied secret value.

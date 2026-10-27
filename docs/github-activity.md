@@ -218,8 +218,9 @@ to other people and durable/exactly-once delivery remain excluded.
 Start with the relevant `github_*` integration tests and executable. Preserve
 the explicit MSRV/stable selection and complete acceptance matrix in
 [m6.md](m6.md#verification), and the six paired scenarios in
-[lifecycle-parity.md](lifecycle-parity.md). Application acceptance uses synthetic
-files and local peers, not authenticated live GitHub requests.
+[lifecycle-parity.md](lifecycle-parity.md). The repeatable acceptance matrix below
+uses synthetic files and local peers, not authenticated live GitHub requests.
+Separately authorized live pilots are recorded after that historical matrix.
 
 Verified on 2026-10-23, using explicit PATH/RUSTC/RUSTDOC selection and separate
 `target/msrv` / `target/stable` artifacts:
@@ -244,5 +245,33 @@ assuming fixture startup time. No sleeps or shared-cache deletion were added.
 Normal production dependencies remain only futures-util and Tokio; JSON,
 HTTP/crypto crates and expanded Tokio features are dev-only. No files under
 `crates/cordis-core/src/` or parity fixtures changed. Both isolated references
-retain their original pins and tracked contents. These application checks do
-not add live GitHub evidence or broaden the established TS parity boundary.
+retain their original pins and tracked contents. Those 2026-10-23 application
+checks do not add live GitHub evidence or broaden the established TS parity
+boundary.
+
+## Authorized live collector/digest pilots
+
+On 2026-10-27, two separately authorized one-shot runs used installed `gh`
+with existing authentication, followed by the existing digest executable.
+Both executables were built offline with explicitly selected stable 1.97.1.
+Outputs were stored outside Git with private local permissions; no live data
+or private session artifact paths are required to reproduce the offline tests.
+
+| Repository | Captured UTC | Observed snapshot |
+|---|---|---|
+| `antruongnguyen/cordis-rust` | 2026-10-27 06:35:35 | 0 issues, 0 PRs; exact empty report |
+| `cordiverse/cordis` | 2026-10-27 06:39:10 | 52 issues (8 open, 44 closed); 100 PRs (54 open, 20 closed, 26 merged) |
+
+Both validated snapshots produced Markdown matching their contents. The
+nonempty run checked all 152 linked entries, state grouping, descending
+timestamps, Unicode, and 16 titles requiring escaping. There were no timestamp
+ties, so the tie-break rule remained fixture-based evidence. The 100-PR cap
+was reached; older PRs may be omitted. An activity index is not a day-over-day
+diff, and no new digest feature was implemented.
+
+These are point-in-time application observations, not a continuous monitor,
+complete inventory, new differential core parity, or live webhook delivery.
+No credentials were created, no GitHub mutation/webhook configuration or public
+server was performed, and neither pilot authorizes future authenticated access.
+Retain the offline acceptance matrix and request fresh authorization for new
+live operations.

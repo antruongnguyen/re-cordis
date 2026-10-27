@@ -320,10 +320,14 @@ finishing a slice does not imply full core parity.
 | M5: traced scoping and updates | M4 | Implemented with explicit Rust adapters: isolation boundaries, own/injected views, intercept precedence/custom merging, bound calls, accessors/mixins/associations/invocation, typed internal hooks, and update/noSave/validation/recovery/latest-target coalescing. See `m5.md` and the case checklist for tested representations and deviations; native JS property/decorator syntax is not implemented. |
 | M6: core acceptance | M5 | Implemented: logger names/levels/weak metadata/error/format adapters, explicit initialization/method injection, public type checks, a tested end-to-end example and compatibility audit. Every source-map area has integrated evidence or an explicit Rust representation/restriction; this is not unrestricted JS reflection compatibility. See `m6.md`. |
 
-After M6 choose satellites from application needs: likely timer, then console
-logging or loader. Timer cleanup reuses effects; file formats/serialization
-belong with loader. Do not promise native shared-library hot reload as a direct
-equivalent of JS loading.
+The current next-target order, selected on 2026-10-27, is timer, console logging,
+then loader; see [the satellite roadmap](todo.md#next-implementation-targets-satellites).
+Each target starts with pinned-source review and a bounded API/dependency gate.
+Timer cleanup reuses effects; console output reuses core exporters; file
+formats/serialization belong with loader. No satellite is implemented yet.
+Do not promise native shared-library hot reload as a direct equivalent of JS
+loading. The ordered targets supersede the earlier open package-selection
+decision without redefining completed core milestones.
 
 The first approved post-M6 slice instead hardens core evidence:
 [executable lifecycle parity](lifecycle-parity.md) covers three paired

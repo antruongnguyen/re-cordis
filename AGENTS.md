@@ -15,7 +15,10 @@ evidence boundaries.
 The approved first-consumer scope is implemented: snapshot digest, bounded `gh`
 collector and signed loopback webhook journal (12 additional application tests
 on Unix). See `docs/github-activity.md`. Application dependencies are dev-only.
-No satellite or broader M7 scope is selected; see `docs/todo.md`.
+The selected next-target order is timer, console logger, then loader, followed
+by assessment of other satellites; none is implemented yet. See `docs/todo.md`
+for source review, per-slice design gates and documentation acceptance.
+The current change is documentation/roadmap delivery, not a broader M7.
 The root Rust 2024 workspace contains only the unpublished `crates/cordis-core`
 (Rust 1.85 minimum). Use `cargo test --workspace`.
 Acceptance, logging, examples and compatibility restrictions are in `docs/m6.md`.
@@ -55,6 +58,13 @@ change, update the relevant doc in the same change:
 - `docs/todo.md` — the porting roadmap.
 - `docs/decision.md` — decisions made and why.
 - `docs/limitation.md` — known gaps and unresolved tensions.
+- `docs/en/` and `docs/vi/` — matching current user guides and API reference.
+- `docs/llms.txt` — concise AI-agent reading paths and framework constraints.
+
+Run `python3 -B tests/docs/test_check.py` and the documentation checker for
+explicit stable/1.85.0 toolchains after guide/API changes; see `docs/README.md`.
+Its current export/snippet checks target core and need extension when a
+satellite is delivered.
 
 ## Tooling conventions
 

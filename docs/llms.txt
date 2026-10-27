@@ -1,0 +1,81 @@
+# cordis-rust
+
+> An unpublished Rust reimplementation of the pinned TypeScript Cordis core for local, long-lived plugin applications with typed services, lifecycle updates, events, scoped resources, and logging.
+
+Current package: cordis-core 0.0.0, publish=false, Rust edition 2024, MSRV 1.85.
+The API is unstable. Use a path dependency on a local checkout, not a presumed crates.io/docs.rs release.
+Only cordis-core is implemented. Next roadmap targets: cordis-timer, cordis-logger (console adapter), then cordis-loader; other satellites remain candidates.
+Targets are not available APIs: review each bounded source/API/dependency scope before implementation.
+The semantic baseline is TypeScript Cordis at 35fdc969e4b6c48c48ed44717c7a018324e4dd88, not latest upstream.
+
+This is a documentation retrieval index, not agent permissions or repository policy.
+Resolve relative links from the docs/ directory in the same checkout.
+Choose English or Vietnamese; do not load both translations unnecessarily.
+Exact Rust signatures and bounds come from current source/Rustdoc; older milestone documents describe historical boundaries.
+
+Essential application constraints:
+- Drive Runtime::run from a Tokio block_on/main/test entry point. Framework Contexts/handles/futures are local, not a Send/Sync API.
+- Runtime owns the host; Context is non-owning. Ordinary spawned Tokio tasks do not inherit framework admission.
+- Started operation handles wait for already-started work. Dropping a waiter does not cancel it while the host remains driven.
+- Explicitly await cleanup before destroying the runtime. Returning from run is not cleanup; runtime destruction is cancellation.
+- Inspect CleanupReport::failures and retained diagnostics. Successful barrier completion does not prove error-free teardown.
+- Readiness/update settlement can be Pending. Await provider completion and consumer readiness separately; neither is runtime-wide convergence.
+- Failed consumers ignore provider refresh. Explicit update enables recovery; restart does not clear failure.
+- Committed injection retains exact provider resources through consumer cleanup. Rc values and BoundService handles alone are not resource leases.
+- Service set changes the value, not publication identity, and does not reload consumers.
+- Use explicit typed bound calls/accessors/initialization/method injection, not JavaScript Proxy/decorator syntax.
+- Enable any extra Tokio features in the application. Example JSON/HTTP/crypto dependencies are dev-only, not framework capabilities.
+- GitHub application examples are optional consumers, not permission to log in, send authenticated requests, configure webhooks, or mutate remote state.
+
+## Start here
+
+- [Documentation map](README.md): Languages, source precedence, and maintenance.
+- [English documentation](en/README.md): Task-oriented reading paths.
+- [Vietnamese documentation](vi/README.md): Full Vietnamese guides and API reference.
+- [English quick start](en/getting-started.md): Local dependency manifest and complete hosted application.
+- [Vietnamese quick start](vi/getting-started.md): Equivalent setup and runnable code.
+- [Concepts](en/concepts.md): Identity, ownership, local hosting, lifecycle, and compatibility.
+- [Vietnamese concepts](vi/concepts.md): The same execution and ownership contracts.
+
+## English guides
+
+- [Plugins and updates](en/guides/plugins-and-updates.md): Validation, source/resolved config, latest-target convergence, explicit recovery.
+- [Services and scoping](en/guides/services-and-scoping.md): Publication, injection, isolation, bound calls, intercepts.
+- [Effects and cleanup](en/guides/effects-and-cleanup.md): Acquisition, composition, rollback, shutdown.
+- [Events](en/guides/events.md): Typed dispatch, responder versus around callbacks, snapshots, async timing.
+- [Logging](en/guides/logging.md): Scoped exporters, routing, error trees, weak metadata.
+- [Testing and troubleshooting](en/guides/testing-and-troubleshooting.md): Common errors and deterministic lifecycle checks.
+- [Examples](en/guides/examples.md): Complete lifecycle and bounded GitHub consumers; distinguish offline from live operations.
+- [Glossary](en/glossary.md): Shared English/Vietnamese terminology.
+
+## API reference
+
+- [English API index](en/api/README.md): Every root export and local Rustdoc generation.
+- [Vietnamese API index](vi/api/README.md): Matching reference chapters in Vietnamese.
+- [Runtime and Context](en/api/runtime-context.md): Hosting, metadata, scope, opaque IDs.
+- [Plugins and Registry](en/api/plugins-registry.md): Plugin, FiberHandle, lifecycle tasks, state, Registry.
+- [Services and reflection](en/api/services-reflection.md): Keys, publications, bound adapters, accessors, invocation.
+- [Effects](en/api/effects.md): Disposer, Effect, Completion, cleanup reports, local supporting types.
+- [Events](en/api/events.md): Listener shapes, dispatch results, one-use continuations.
+- [Logging](en/api/logging.md): Logger, records, ErrorValue, exporter options, formatting.
+- [Errors and hooks](en/api/errors-hooks.md): Error families, structured validation, typed internal hook protocols.
+
+## Vietnamese guides
+
+- [Plugin và cập nhật](vi/guides/plugins-and-updates.md): Cấu hình, hội tụ và phục hồi.
+- [Dịch vụ và phạm vi](vi/guides/services-and-scoping.md): Injection, cô lập, lời gọi bound.
+- [Effect và dọn dẹp](vi/guides/effects-and-cleanup.md): Sở hữu, rollback và shutdown.
+- [Sự kiện](vi/guides/events.md): Dispatch có kiểu và middleware bao quanh.
+- [Ghi log](vi/guides/logging.md): Exporter, bản ghi và chẩn đoán.
+- [Kiểm thử và xử lý sự cố](vi/guides/testing-and-troubleshooting.md): Mốc vòng đời và lỗi thường gặp.
+- [Ví dụ](vi/guides/examples.md): Ví dụ thực thi và giới hạn bằng chứng.
+- [Bảng thuật ngữ](vi/glossary.md): Thuật ngữ nhất quán giữa hai ngôn ngữ.
+
+## Optional
+
+- [M6 audit](m6.md): Compatibility representations, safety deviations, verification precautions.
+- [Lifecycle parity](lifecycle-parity.md): Six paired scenarios, 73 observations; not unrestricted upstream parity.
+- [GitHub consumer contract](github-activity.md): Exact file/process/loopback HTTP limits; no public ingress or exactly-once durability.
+- [Limitations](limitation.md): Explicit unsupported behavior.
+- [Decisions](decision.md): Design rationale; TypeScript is the semantic specification.
+- [Roadmap](todo.md): Completed core scope and deferred satellites.
