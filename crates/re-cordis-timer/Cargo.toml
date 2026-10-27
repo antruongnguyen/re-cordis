@@ -11,7 +11,7 @@ publish = false
 [dependencies]
 re-cordis-core = { path = "../re-cordis-core" }
 futures-util.workspace = true
-tokio = { workspace = true, features = ["rt", "time"] }
+tokio = { workspace = true, features = ["rt", "time", "macros"] }
 
 [dev-dependencies]
 tokio = { workspace = true, features = ["rt", "time", "macros", "test-util"] }

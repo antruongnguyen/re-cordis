@@ -84,6 +84,20 @@ pub trait TimerExt: sealed::Sealed {
     fn interval<F>(&self, delay: Duration, callback: F) -> Result<Effect, TimerError>
     where
         F: FnMut() + 'static;
+
+    /// A [`Stream`](futures_util::Stream) of ticks every `delay`.
+    ///
+    /// Each tick yields `Ok(())`. The stream ends (`None`) when its
+    /// [`control`](IntervalStream::control) handle calls `stop()`, after a
+    /// final `Err(reason)` when it calls `fail(reason)`, and after a final
+    /// `Err(TimerError::Disposed)` on owner disposal. The first tick is at
+    /// `delay`, not zero.
+    ///
+    /// Unlike the TypeScript async iterator, a `Stream` has a single logical
+    /// consumer: the concurrent multi-reader `return(value)`/`throw(reason)`
+    /// protocol is not reproduced. Use [`interval`](TimerExt::interval) with a
+    /// callback when you need fan-out.
+    fn interval_stream(&self, delay: Duration) -> Result<IntervalStream, TimerError>;
 }
 
 impl TimerExt for Context {
@@ -149,6 +163,110 @@ impl TimerExt for Context {
             Ok::<_, std::convert::Infallible>(())
         })?;
         Ok(effect)
+    }
+
+    fn interval_stream(&self, delay: Duration) -> Result<IntervalStream, TimerError> {
+        let delay = check_delay(delay)?;
+        let (tx, rx) = tokio::sync::mpsc::unbounded_channel::<Result<(), TimerError>>();
+        // The terminal gate is shared by the ticker, the control handle, and
+        // the disposal cleanup. Once closed, no further items are sent.
+        let gate = std::rc::Rc::new(TerminalGate {
+            sender: std::cell::RefCell::new(Some(tx)),
+        });
+        let ticker_gate = gate.clone();
+        let handle = tokio::task::spawn_local(async move {
+            let start = tokio::time::Instant::now() + delay;
+            let mut ticker = tokio::time::interval_at(start, delay);
+            ticker.set_missed_tick_behavior(tokio::time::MissedTickBehavior::Skip);
+            loop {
+                ticker.tick().await;
+                if !ticker_gate.send(Ok(())) {
+                    break;
+                }
+            }
+        });
+        let abort = handle.abort_handle();
+        let dispose_gate = gate.clone();
+        let effect = self.on_dispose_sync(move || {
+            dispose_gate.close_with(Some(TimerError::Disposed));
+            abort.abort();
+            Ok::<_, std::convert::Infallible>(())
+        })?;
+        Ok(IntervalStream {
+            receiver: rx,
+            control: IntervalControl { gate },
+            _effect: effect,
+        })
+    }
+}
+
+/// The single terminal gate shared across an interval stream's producers.
+struct TerminalGate {
+    sender: std::cell::RefCell<Option<tokio::sync::mpsc::UnboundedSender<Result<(), TimerError>>>>,
+}
+
+impl TerminalGate {
+    /// Send one item while the gate is open. Returns `false` once closed.
+    fn send(&self, item: Result<(), TimerError>) -> bool {
+        match self.sender.borrow().as_ref() {
+            Some(sender) => sender.send(item).is_ok(),
+            None => false,
+        }
+    }
+
+    /// Close the gate, optionally delivering one final error first.
+    fn close_with(&self, error: Option<TimerError>) {
+        if let Some(sender) = self.sender.borrow_mut().take() {
+            if let Some(error) = error {
+                let _ = sender.send(Err(error));
+            }
+        }
+    }
+}
+
+/// Controls termination of an [`IntervalStream`].
+///
+/// Obtained from [`IntervalStream::control`]; cheaply cloneable. `stop` ends
+/// the stream cleanly; `fail` delivers one final error then ends it.
+#[derive(Clone)]
+pub struct IntervalControl {
+    gate: std::rc::Rc<TerminalGate>,
+}
+
+impl IntervalControl {
+    /// End the stream cleanly: no further ticks, no trailing item.
+    pub fn stop(&self) {
+        self.gate.close_with(None);
+    }
+
+    /// Deliver one final `Err(reason)`, then end the stream.
+    pub fn fail(&self, reason: TimerError) {
+        self.gate.close_with(Some(reason));
+    }
+}
+
+/// A [`Stream`](futures_util::Stream) of interval ticks from
+/// [`TimerExt::interval_stream`]. Each item is `Ok(())`; termination is
+/// signalled as described on that method. Holds its disposal registration
+/// alive for its lifetime.
+pub struct IntervalStream {
+    receiver: tokio::sync::mpsc::UnboundedReceiver<Result<(), TimerError>>,
+    control: IntervalControl,
+    _effect: Effect,
+}
+
+impl IntervalStream {
+    /// A handle to stop or fail this stream.
+    pub fn control(&self) -> IntervalControl {
+        self.control.clone()
+    }
+}
+
+impl futures_util::Stream for IntervalStream {
+    type Item = Result<(), TimerError>;
+
+    fn poll_next(mut self: Pin<&mut Self>, cx: &mut TaskContext<'_>) -> Poll<Option<Self::Item>> {
+        self.receiver.poll_recv(cx)
     }
 }
 
