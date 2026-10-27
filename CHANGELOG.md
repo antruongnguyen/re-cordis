@@ -8,6 +8,17 @@ This project does not yet follow semantic versioning — the API is unstable.
 ## [Unreleased]
 
 ### Added
+- First satellite crate `re-cordis-timer` (unpublished, Rust 2024, MSRV 1.85):
+  owner-scoped `timeout`/`sleep`/`interval`/`interval_stream`/`throttle`/
+  `debounce` over existing core effects, reached through a sealed `TimerExt`
+  trait on `Context` (no service registration). Operations schedule on the
+  runtime's local task set and are cancelled by owner disposal; the monotonic
+  `tokio::time` clock replaces wall-clock windows. 15 deterministic crate tests
+  over a paused clock, a runnable `timer_lifecycle` example, and paired
+  English/Vietnamese guide and API pages. The `tokio` `time`/`macros` features
+  belong to the timer crate; the core's dependencies are unchanged. Deprecated
+  `setTimeout`/`setInterval` aliases and the JavaScript async-iterator
+  multi-reader protocol are intentionally omitted (see limitations).
 - Ordered satellite roadmap: timer, console logger, then loader, with pinned
   source-case inventories, per-slice API/dependency gates, measurable acceptance,
   paired language documentation, and later group/include/HMR/create assessment.

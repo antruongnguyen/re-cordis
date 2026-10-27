@@ -24,8 +24,11 @@ meta-framework for spatiotemporal composability.
 > workspace integration tests and the same 17 Rustdoc checks).
 > See [GitHub activity consumers](docs/github-activity.md).
 > Application-only dependencies do not extend the production core.
-> Next roadmap targets are timer, console logger, then loader; no satellite is
-> implemented yet. See [the ordered roadmap](docs/todo.md#next-implementation-targets-satellites).
+> Next roadmap targets are timer, console logger, then loader. The
+> **`re-cordis-timer`** satellite is now delivered (owner-scoped timeout, sleep,
+> interval/stream, throttle and debounce over core effects; 15 crate tests);
+> the console logger and loader are not implemented yet. See
+> [the ordered roadmap](docs/todo.md#next-implementation-targets-satellites).
 > The concept map below remains the framework target, not a shipped feature list.
 
 ## User guides and API documentation
@@ -102,7 +105,7 @@ worse engineering.
 | Automatic parent/child teardown | **★★★** Parent-owned children and reusable root drains follow the TS model; drains are snapshots, not global shutdown barriers. | **★★★** Parent cascade and reusable root disposal; applications must still await asynchronous cleanup. | **☆☆☆** Independent Fiber lifetimes can outlive their spawn origin instead; applications must arrange collective teardown explicitly. |
 | Concurrent independent cleanup | **★★★** Concurrent top-level cleanup avoids imposing a global sequential dependency; sibling completion order is not guaranteed. Composed cleanup is reverse sequential. | **★★★** Concurrent top-level disposal and reverse sequential composed effects; Promise completion must be handled explicitly. | **☆☆☆** Strict sequential reverse-commit, attempt-all cleanup instead gives a fixed order; later cleanups wait for earlier ones. |
 | Original callback-error inspection | **★★★** Preserves original Rust error sources and explicit cause/aggregate trees; callers must inspect operation results and cleanup reports. | **★★★** Retains native Error objects and cause/aggregate behavior; JavaScript formatting and reflective error handling do not translate transparently to Rust. | **★☆☆** Operation-specific typed failures retain callback kind/diagnostic text; normalized callback failures do not expose the original error object for downcasting. |
-| Ready-to-adopt package breadth | **★☆☆** Small unpublished core, MSRV 1.85, plus application examples; no stable API or timer/loader satellites yet. | **★★★** Broader timer, loader, console-logger and other JS packages; the reviewed core is an unstable release candidate. | **★★☆** Versioned facade, core, timer and declarative loader crates; requires Rust 1.88 and remains pre-1.0. |
+| Ready-to-adopt package breadth | **★☆☆** Small unpublished core plus the first timer satellite, MSRV 1.85, and application examples; no stable API, console-logger or loader satellites yet. | **★★★** Broader timer, loader, console-logger and other JS packages; the reviewed core is an unstable release candidate. | **★★☆** Versioned facade, core, timer and declarative loader crates; requires Rust 1.88 and remains pre-1.0. |
 | Compatibility evidence (not ranked) | **—** Six executed Rust/TS scenarios compare 73 observations; this is bounded evidence, not full upstream-suite parity. | **—** Behavioral specification and original tests; its JavaScript mechanisms remain the reference, not a Rust API prescription. | **—** Own parity ledger and concurrency/type-checking tests; its ledger targets a different, older TS pin, so classifications are not directly interchangeable. |
 
 **Quick choice:** favor TypeScript Cordis for native JS ergonomics and its wider
@@ -138,7 +141,7 @@ capability. A deliberate redesign can be preferable despite a lower TS-fit score
 | Event routing, snapshots and once | **★★★** Explicit filters/global listeners; selected callback snapshots survive removal. | **★★★ Implemented:** typed filters/global listeners, service-realm filters and TS-style selected snapshots. | **★★☆ Redesigned:** ancestor-or-self Event Scope routing and invocation-time occurrence claims; removal can skip unclaimed delivery. |
 | Core logging | **★★★** Contextual names, exporter levels, default 1000-record buffer, weak Fiber metadata and error flattening. | **★★☆ Implemented/adapter:** buffer, scoped exporters, weak metadata and explicit ErrorValue trees; Rust formatting replaces JS formatters. | **★★☆** Named channels, scoped exporters and opt-in BufferExporter; no default retained log history. |
 | Internal hooks and observations | **★★★** Internal events for plugin/status/service/config/update/get/set/listener/dispatch. | **★★☆ Adapter:** public typed `hooks` payloads and explicit update adapters, with documented observer-error safety differences. | **★★☆ Redesigned:** typed postcommit runtime observations and a separate, non-dispatchable precommit update pipeline. |
-| Timer, console exporter, loader and HMR packages | **★★★** Separate JS satellite packages, including timer, loader and HMR. | **☆☆☆ Deferred:** only core is a workspace package; GitHub consumers are examples, not satellites. | **★★☆** Timer and immutable declarative loader crates plus facade; not a native hot-loading or full JS satellite port. |
+| Timer, console exporter, loader and HMR packages | **★★★** Separate JS satellite packages, including timer, loader and HMR. | **★☆☆ Partial:** the `re-cordis-timer` satellite is delivered; console logger, loader and HMR are not. GitHub consumers are examples, not satellites. | **★★☆** Timer and immutable declarative loader crates plus facade; not a native hot-loading or full JS satellite port. |
 | Identity-breaking Fiber replacement | **☆☆☆** No corresponding lifecycle operation at the reviewed TS pin. | **☆☆☆** Not selected; restart/update preserve Fiber identity. | **★★★** Additional `era_swap` operation creates a successor with a fresh Fiber identity. |
 
 Our contracts and evidence are detailed in the [M6 audit](docs/m6.md),
@@ -171,18 +174,18 @@ A Cargo workspace mirroring the original `cordis` packages, built up in stages:
 ```
 crates/
   re-cordis-core      # Plugins/Fibers/Context/services/injection/effects/events/diagnostics
+  re-cordis-timer     # owner-scoped timers (timeout, interval, throttle, debounce)
   re-cordis-loader    # (later) plugin loading
-  re-cordis-timer     # (later) timer service
   re-cordis-logger    # (later) console logger
   ...
 ```
 
-Only `re-cordis-core` currently exists in the workspace. The next implementation
-targets are `re-cordis-timer`, `re-cordis-logger` (console exporter), then
+`re-cordis-core` and the `re-cordis-timer` satellite exist in the workspace. The
+next implementation targets are `re-cordis-logger` (console exporter), then
 `re-cordis-loader`; other satellites follow demonstrated needs. The
 [ordered roadmap](docs/todo.md#next-implementation-targets-satellites) records
 per-slice source reviews, design gates, tests and bilingual documentation
-requirements. These targets are not delivered crates or a stable API promise.
+requirements. These remaining targets are not delivered crates or a stable API promise.
 The [implementation plan](docs/implementation-plan.md) preserves the core's
 source review, Rust design gates, milestone dependencies and acceptance criteria.
 

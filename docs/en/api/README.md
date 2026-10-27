@@ -2,10 +2,11 @@
 
 [Tiếng Việt](../../vi/api/README.md) | [English home](../README.md)
 
-This reference covers the public exports of `re-cordis-core`, not its private
-storage or example-private handles. It describes usage and behavioral contracts;
-generated Rustdoc is authoritative for exact signatures, generic bounds,
-trait implementations, and public fields.
+This reference covers the public exports of `re-cordis-core` and the
+`re-cordis-timer` satellite, not their private storage or example-private
+handles. It describes usage and behavioral contracts; generated Rustdoc is
+authoritative for exact signatures, generic bounds, trait implementations, and
+public fields.
 
 ## Generate exact API documentation
 
@@ -22,7 +23,9 @@ An unpublished `0.0.0` package is not a supported crates.io installation target.
 ## Public export map
 
 Every root export from [lib.rs](../../../crates/re-cordis-core/src/lib.rs) belongs
-to one of these chapters. Context extension methods are documented by concern.
+to one of these chapters, and the `re-cordis-timer` satellite's exports are
+covered by the [timer chapter](timer.md). Context extension methods are
+documented by concern.
 
 | Chapter | Public types / module |
 |---|---|
@@ -33,6 +36,7 @@ to one of these chapters. Context extension methods are documented by concern.
 | [Events](events.md) | `Event`, `Listener`, `ListenerOptions`, `DispatchOptions`, `ListenerRegistration`, `Next`, `AsyncNext`, `EventTask`, `EventError` |
 | [Logging](logging.md) | `Logger`, `LoggerConfig`, `Level`, `LogRecord`, `WeakFiber`, `ErrorValue`, `ColorDepth`, `ExporterOptions`, `ExporterRegistration`, `LogError` |
 | [Errors and hooks](errors-hooks.md) | `HostError`, `AdmissionError`, `CompletionError`, `ValidationError`, `ValidationIssue`, `PathSegment`, public `hooks` module |
+| [Timer satellite](timer.md) | `TimerExt`, `Sleep`, `IntervalStream`, `IntervalControl`, `Scheduled`, `TimerError` |
 
 ## Read method results in two stages
 

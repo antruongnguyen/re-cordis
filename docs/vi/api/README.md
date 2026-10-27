@@ -2,8 +2,8 @@
 
 [English](../../en/api/README.md) | [Trang tiếng Việt](../README.md)
 
-Tài liệu bao phủ export công khai của `re-cordis-core`, không phải bộ lưu trữ nội bộ
-hay handle riêng của ví dụ. Nội dung mô tả cách dùng và hợp đồng hành vi;
+Tài liệu bao phủ export công khai của `re-cordis-core` và vệ tinh
+`re-cordis-timer`, không phải bộ lưu trữ nội bộ hay handle riêng của ví dụ. Nội dung mô tả cách dùng và hợp đồng hành vi;
 Rustdoc được sinh từ mã nguồn là tham chiếu chính xác cho chữ ký, ràng buộc
 generic, trait implementation và trường công khai.
 
@@ -22,7 +22,8 @@ Package `0.0.0` chưa phát hành không phải đích cài đặt crates.io đ�
 ## Bản đồ export công khai
 
 Mỗi export gốc từ [lib.rs](../../../crates/re-cordis-core/src/lib.rs) thuộc một
-chương bên dưới. Phương thức mở rộng Context được phân theo chức năng.
+chương bên dưới, và export của vệ tinh `re-cordis-timer` được bao phủ bởi
+[chương timer](timer.md). Phương thức mở rộng Context được phân theo chức năng.
 
 | Chương | Kiểu / module công khai |
 |---|---|
@@ -33,6 +34,7 @@ chương bên dưới. Phương thức mở rộng Context được phân theo c
 | [Sự kiện](events.md) | `Event`, `Listener`, `ListenerOptions`, `DispatchOptions`, `ListenerRegistration`, `Next`, `AsyncNext`, `EventTask`, `EventError` |
 | [Ghi log](logging.md) | `Logger`, `LoggerConfig`, `Level`, `LogRecord`, `WeakFiber`, `ErrorValue`, `ColorDepth`, `ExporterOptions`, `ExporterRegistration`, `LogError` |
 | [Lỗi và hook](errors-hooks.md) | `HostError`, `AdmissionError`, `CompletionError`, `ValidationError`, `ValidationIssue`, `PathSegment`, module công khai `hooks` |
+| [Vệ tinh Timer](timer.md) | `TimerExt`, `Sleep`, `IntervalStream`, `IntervalControl`, `Scheduled`, `TimerError` |
 
 ## Đọc kết quả phương thức theo hai giai đoạn
 

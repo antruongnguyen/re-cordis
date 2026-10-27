@@ -188,10 +188,11 @@ integrated framework or resolve every behavioral gap.
   and failed writes may require manual partial-line repair.
   Public ingress, live webhook delivery, mutations, and durable/exactly-once
   delivery are excluded. See the consumer document for exact resource/time limits.
-- Only `re-cordis-core` is currently implemented. Timer, console logger and loader
-  are the selected next roadmap targets, not available APIs; other satellites
-  remain candidate work. Each slice needs its own source/API/dependency review
-  and acceptance, including bilingual documentation. See [the roadmap](todo.md).
+- `re-cordis-core` and the `re-cordis-timer` satellite are implemented. The
+  console logger and loader are the selected next roadmap targets, not available
+  APIs; other satellites remain candidate work. Each slice needs its own
+  source/API/dependency review and acceptance, including bilingual
+  documentation. See [the roadmap](todo.md).
 - No stability guarantees — the API will change freely until the core is proven.
 - `spikes/m0` uses separate test-only models: one dependency per lifecycle
   Fiber, synchronous setup, and no integrated update/recovery/logger protocol.
@@ -204,3 +205,22 @@ Core safety deviations: observer hook failures are diagnosed without interruptin
 retained-provider cleanup; shared-slot aliases also receive dependency refresh.
 These strengthen error/teardown safety rather than claiming identical upstream
 observer-failure or name-only alias notification behavior.
+
+## Timer satellite
+
+- The callback-less `interval` is a `futures_util::Stream`, not the JavaScript
+  async iterator. The concurrent multi-reader protocol — `return(value)`
+  resolving all pending reads with one value and `throw(reason)` rejecting all
+  — is not reproduced; a `Stream` has one logical consumer. Use `interval` with
+  a callback for fan-out. Termination is a clean end (`stop`), a final
+  `Err(reason)` (`fail`), or a final `Err(Disposed)` (owner disposal).
+- The deprecated `setTimeout`/`setInterval` upstream aliases are not ported.
+- Timers use the monotonic `tokio::time` clock, not wall-clock `Date.now()`.
+  Throttle/debounce windows are therefore monotonic. This is deliberate; see
+  [decisions](decision.md#timer-satellite).
+- There is no ambient `ctx.timeout()` mixin: operations come from the sealed
+  `TimerExt` trait, which must be imported. There is no `TimerService`.
+- Timer operations schedule on the runtime's local task set and require the
+  owning context to be live. They are cancelled by owner disposal; dropping a
+  handle is not itself asynchronous cleanup of in-flight work beyond the
+  task-abort the disposal registration performs.
