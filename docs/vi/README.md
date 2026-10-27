@@ -7,12 +7,14 @@ thay đổi theo thời gian. `re-cordis` biểu diễn ngữ nghĩa của lõi 
 TypeScript bằng API Rust tường minh, có kiểu.
 
 Sản phẩm hiện tại là **`re-cordis-core` chưa phát hành**, phiên bản `0.0.0`, dùng
-Rust 2024 và yêu cầu Rust 1.85 trở lên. API chưa ổn định. Các crate vệ tinh timer,
-console logger và loader chưa được triển khai. Đây không phải lớp tương thích
+Rust 2024 và yêu cầu Rust 1.85 trở lên, cùng crate vệ tinh đầu tiên
+**`re-cordis-timer`**. API chưa ổn định. Các vệ tinh console logger và loader
+chưa được triển khai. Đây không phải lớp tương thích
 trong suốt với Proxy hay decorator của JavaScript.
 [Lộ trình mục tiêu tiếp theo](../todo.md#next-implementation-targets-satellites)
-xếp timer, console logger, rồi loader; mỗi phần cần rà soát mã nguồn/API/phụ
-thuộc và cập nhật tài liệu tương ứng. Crate dự kiến chưa phải API sử dụng được.
+đã giao timer trước và tiếp theo xếp console logger, rồi loader; mỗi phần cần
+rà soát mã nguồn/API/phụ thuộc và cập nhật tài liệu tương ứng. Crate dự kiến
+chưa phải API sử dụng được.
 
 ## Chọn lộ trình đọc
 
@@ -22,6 +24,7 @@ thuộc và cập nhật tài liệu tương ứng. Crate dự kiến chưa ph�
 | Tạo thành phần có thể nạp lại | [Plugin và cập nhật](guides/plugins-and-updates.md) |
 | Kết nối các thành phần an toàn | [Dịch vụ và phạm vi](guides/services-and-scoping.md) |
 | Sở hữu tài nguyên và dừng ứng dụng | [Effect và dọn dẹp](guides/effects-and-cleanup.md) |
+| Lên lịch timer theo phạm vi chủ sở hữu | [Timer](guides/timers.md) |
 | Phát thông báo và chạy middleware | [Sự kiện](guides/events.md) |
 | Xuất thông tin chẩn đoán | [Ghi log](guides/logging.md) |
 | Tìm nguyên nhân plugin Pending hoặc Failed | [Kiểm thử và xử lý sự cố](guides/testing-and-troubleshooting.md) |
