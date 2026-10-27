@@ -96,6 +96,12 @@ def check_structure():
     for group, single in re.findall(r"pub use \w+::(?:\{([^}]+)\}|(\w+));", source, re.S):
         exports.update(re.findall(r"\b\w+\b", group or single))
     require(exports, "No public exports discovered")
+    # Timer satellite exports: public items declared directly in its lib.rs
+    # (traits, types, enums). Each must be indexed and covered in a chapter.
+    timer_source = (ROOT / "crates/re-cordis-timer/src/lib.rs").read_text(encoding="utf-8")
+    timer_exports = set(re.findall(
+        r"^pub (?:trait|struct|enum) (\w+)", timer_source, re.M))
+    require(timer_exports, "No public timer exports discovered")
     hooks = (ROOT / "crates/re-cordis-core/src/hooks.rs").read_text(encoding="utf-8")
     payloads = re.findall(r"^pub struct (\w+)", hooks, re.M)
     functions = re.findall(r"^pub fn (\w+)", hooks, re.M)
@@ -104,7 +110,7 @@ def check_structure():
         chapters = "\n".join(path.read_text(encoding="utf-8")
                              for path in (DOCS / language / "api").glob("*.md")
                              if path.name != "README.md")
-        for name in exports:
+        for name in exports | timer_exports:
             require(f"`{name}`" in index, f"{language}: export not indexed: {name}")
             require(re.search(rf"\b{re.escape(name)}\b", chapters),
                     f"{language}: export not covered in a chapter: {name}")
@@ -123,6 +129,7 @@ def check_structure():
         require(all(not line.strip() or re.fullmatch(r"- \[.+\]\([^)]+\): .+", line)
                     for line in section.splitlines()), "llms.txt H2 sections must be file lists")
     print(f"Checked {len(english)} page pairs, {len(exports)} root exports, "
+          f"{len(timer_exports)} timer exports, "
           f"{len(payloads)} hook payloads, {len(functions)} hooks, local links and llms.txt.")
     require(snippets, "No runnable Rust documentation examples found")
     return snippets
@@ -146,18 +153,22 @@ def run_examples(toolchain, snippets):
     env["CARGO_TARGET_DIR"] = str(ROOT / "target" / ("msrv" if toolchain == "1.85.0" else "stable"))
     for name in ("cargo", "rustc", "rustdoc"):
         print(run([tools[name], "--version"], env, 30).strip())
-    output = run([tools["cargo"], "build", "-p", "re-cordis-core", "--lib",
+    # Build the timer crate; because it depends on the core, one build yields
+    # every rlib documentation snippets may link: the core, the timer, tokio,
+    # and futures-util. Snippets that use only the core simply ignore the rest.
+    wanted = {"re_cordis_core", "re_cordis_timer", "tokio", "futures_util"}
+    output = run([tools["cargo"], "build", "-p", "re-cordis-timer", "--lib",
                   "--offline", "--locked", "--message-format=json"], env)
     libraries = {}
     for line in output.splitlines():
         message = json.loads(line)
         if message.get("reason") == "compiler-artifact":
             name = message["target"]["name"]
-            if name in ("re_cordis_core", "tokio"):
+            if name in wanted:
                 for filename in message["filenames"]:
                     if filename.endswith(".rlib"):
                         libraries[name] = Path(filename)
-    require(set(libraries) == {"re_cordis_core", "tokio"}, "Missing compiler library artifacts")
+    require(set(libraries) == wanted, "Missing compiler library artifacts")
     with tempfile.TemporaryDirectory(prefix="cordis-docs-") as directory:
         folder = Path(directory)
         for index, (code, label) in enumerate(snippets.items()):

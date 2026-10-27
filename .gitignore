@@ -227,6 +227,9 @@ $RECYCLE.BIN/
 
 local/
 
+# Python bytecode cache from the documentation checker.
+__pycache__/
+
 # Keep workspace CI and the independent spike reproducible.
 !/Cargo.lock
 !spikes/m0/Cargo.lock
