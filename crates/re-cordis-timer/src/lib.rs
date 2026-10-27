@@ -5,7 +5,9 @@
 //! context is disposed. See the crate docs for the deliberate deviations from
 //! the JavaScript async-iterator protocol and wall-clock timing.
 
-use re_cordis_core::{AdmissionError, Context};
+use std::time::Duration;
+
+use re_cordis_core::{AdmissionError, Context, Effect};
 
 mod sealed {
     pub trait Sealed {}
@@ -41,10 +43,51 @@ impl From<AdmissionError> for TimerError {
     }
 }
 
+/// Validate a requested delay. Zero is admitted (the operation fires on the
+/// next runtime turn); only unrepresentable ranges are rejected.
+fn check_delay(delay: Duration) -> Result<Duration, TimerError> {
+    Ok(delay)
+}
+
 /// Owner-scoped timer operations, implemented for [`Context`].
 ///
 /// This trait is sealed: it is implemented only for [`Context`] and cannot be
-/// implemented downstream. Operations are added as the crate grows.
-pub trait TimerExt: sealed::Sealed {}
+/// implemented downstream. Every operation schedules work on the runtime's
+/// local task set and registers a disposal cleanup, so disposing the owning
+/// context cancels the operation and no callback fires afterward.
+pub trait TimerExt: sealed::Sealed {
+    /// Fire `callback` once after `delay`, then self-dispose.
+    ///
+    /// Returns the registration [`Effect`]; dispose it to cancel before the
+    /// deadline. The callback runs at most once: a fired timeout does not run
+    /// again, and a disposed timeout never runs. Owner disposal cancels it.
+    fn timeout<F>(&self, delay: Duration, callback: F) -> Result<Effect, TimerError>
+    where
+        F: FnOnce() + 'static;
+}
 
-impl TimerExt for Context {}
+impl TimerExt for Context {
+    fn timeout<F>(&self, delay: Duration, callback: F) -> Result<Effect, TimerError>
+    where
+        F: FnOnce() + 'static,
+    {
+        let delay = check_delay(delay)?;
+        let fired = std::rc::Rc::new(std::cell::Cell::new(false));
+        let armed = fired.clone();
+        let handle = tokio::task::spawn_local(async move {
+            tokio::time::sleep(delay).await;
+            if !armed.get() {
+                armed.set(true);
+                callback();
+            }
+        });
+        let abort = handle.abort_handle();
+        let guard = fired;
+        let effect = self.on_dispose_sync(move || {
+            guard.set(true);
+            abort.abort();
+            Ok::<_, std::convert::Infallible>(())
+        })?;
+        Ok(effect)
+    }
+}
