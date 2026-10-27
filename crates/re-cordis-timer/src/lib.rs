@@ -98,6 +98,34 @@ pub trait TimerExt: sealed::Sealed {
     /// protocol is not reproduced. Use [`interval`](TimerExt::interval) with a
     /// callback when you need fan-out.
     fn interval_stream(&self, delay: Duration) -> Result<IntervalStream, TimerError>;
+
+    /// Rate-limit `callback`: the first call in a window fires immediately
+    /// (leading edge). Within the window, calls are suppressed; unless
+    /// `no_trailing` is set, the most recent suppressed call fires once the
+    /// window elapses (trailing edge). The window is monotonic.
+    ///
+    /// Returns a [`Scheduled`] handle: call it with [`Scheduled::call`], and
+    /// cancel it with [`Scheduled::dispose`]. Owner disposal cancels any
+    /// pending trailing call and makes further calls inert.
+    fn throttle<F>(
+        &self,
+        delay: Duration,
+        no_trailing: bool,
+        callback: F,
+    ) -> Result<Scheduled, TimerError>
+    where
+        F: FnMut() + 'static;
+
+    /// Coalesce bursts of calls to a single trailing fire: each call restarts
+    /// the `delay` window, and `callback` runs once the calls go quiet for the
+    /// full delay. The window is monotonic.
+    ///
+    /// Returns a [`Scheduled`] handle: call it with [`Scheduled::call`], and
+    /// cancel it with [`Scheduled::dispose`]. Owner disposal cancels any
+    /// pending fire and makes further calls inert.
+    fn debounce<F>(&self, delay: Duration, callback: F) -> Result<Scheduled, TimerError>
+    where
+        F: FnMut() + 'static;
 }
 
 impl TimerExt for Context {
@@ -197,6 +225,163 @@ impl TimerExt for Context {
             control: IntervalControl { gate },
             _effect: effect,
         })
+    }
+
+    fn throttle<F>(
+        &self,
+        delay: Duration,
+        no_trailing: bool,
+        callback: F,
+    ) -> Result<Scheduled, TimerError>
+    where
+        F: FnMut() + 'static,
+    {
+        Scheduled::new(self, ScheduleKind::Throttle { no_trailing }, delay, callback)
+    }
+
+    fn debounce<F>(&self, delay: Duration, callback: F) -> Result<Scheduled, TimerError>
+    where
+        F: FnMut() + 'static,
+    {
+        Scheduled::new(self, ScheduleKind::Debounce, delay, callback)
+    }
+}
+
+/// How a [`Scheduled`] handle maps a call onto a (re)fire.
+#[derive(Clone, Copy)]
+enum ScheduleKind {
+    /// Leading-edge rate limit with an optional trailing call.
+    Throttle { no_trailing: bool },
+    /// Trailing-edge coalescing: each call resets the timer.
+    Debounce,
+}
+
+/// Mutable state shared between a [`Scheduled`] handle and its pending task.
+struct ScheduleState {
+    callback: Box<dyn FnMut()>,
+    last_call: Option<tokio::time::Instant>,
+    pending: Option<tokio::task::AbortHandle>,
+    disposed: bool,
+}
+
+impl ScheduleState {
+    fn execute(&mut self) {
+        self.last_call = Some(tokio::time::Instant::now());
+        (self.callback)();
+    }
+}
+
+/// A callable, cancellable scheduled operation from
+/// [`throttle`](TimerExt::throttle) or [`debounce`](TimerExt::debounce).
+///
+/// Invoke it with [`call`](Scheduled::call). Cancel it with
+/// [`dispose`](Scheduled::dispose); owner disposal cancels it too and makes
+/// later calls inert.
+pub struct Scheduled {
+    kind: ScheduleKind,
+    delay: Duration,
+    state: std::rc::Rc<std::cell::RefCell<ScheduleState>>,
+    effect: std::cell::RefCell<Option<Effect>>,
+}
+
+impl Scheduled {
+    fn new<F>(
+        ctx: &Context,
+        kind: ScheduleKind,
+        delay: Duration,
+        callback: F,
+    ) -> Result<Self, TimerError>
+    where
+        F: FnMut() + 'static,
+    {
+        let delay = check_delay(delay)?;
+        let state = std::rc::Rc::new(std::cell::RefCell::new(ScheduleState {
+            callback: Box::new(callback),
+            last_call: None,
+            pending: None,
+            disposed: false,
+        }));
+        let cleanup_state = state.clone();
+        let effect = ctx.on_dispose_sync(move || {
+            let mut state = cleanup_state.borrow_mut();
+            state.disposed = true;
+            if let Some(pending) = state.pending.take() {
+                pending.abort();
+            }
+            Ok::<_, std::convert::Infallible>(())
+        })?;
+        Ok(Scheduled {
+            kind,
+            delay,
+            state,
+            effect: std::cell::RefCell::new(Some(effect)),
+        })
+    }
+
+    /// Invoke the scheduled operation. Throttle fires on the leading edge and
+    /// (unless `no_trailing`) once more at the end of the window; debounce
+    /// fires once the calls go quiet for the full delay. A disposed handle
+    /// does nothing.
+    pub fn call(&self) {
+        let delay = self.delay;
+        match self.kind {
+            ScheduleKind::Throttle { no_trailing } => {
+                let mut state = self.state.borrow_mut();
+                if state.disposed {
+                    return;
+                }
+                if let Some(pending) = state.pending.take() {
+                    pending.abort();
+                }
+                let now = tokio::time::Instant::now();
+                let remaining = match state.last_call {
+                    None => Duration::ZERO,
+                    Some(last) => delay.saturating_sub(now.duration_since(last)),
+                };
+                if remaining.is_zero() {
+                    state.execute();
+                } else if !no_trailing {
+                    drop(state);
+                    self.arm_trailing(remaining);
+                }
+            }
+            ScheduleKind::Debounce => {
+                {
+                    let mut state = self.state.borrow_mut();
+                    if state.disposed {
+                        return;
+                    }
+                    if let Some(pending) = state.pending.take() {
+                        pending.abort();
+                    }
+                }
+                self.arm_trailing(delay);
+            }
+        }
+    }
+
+    /// Arm a trailing fire after `wait`; records its abort handle so a later
+    /// call or disposal can cancel it.
+    fn arm_trailing(&self, wait: Duration) {
+        let state = self.state.clone();
+        let handle = tokio::task::spawn_local(async move {
+            tokio::time::sleep(wait).await;
+            let mut state = state.borrow_mut();
+            if state.disposed {
+                return;
+            }
+            state.pending = None;
+            state.execute();
+        });
+        self.state.borrow_mut().pending = Some(handle.abort_handle());
+    }
+
+    /// Cancel this operation: abort any pending fire and ignore later calls.
+    pub fn dispose(&self) -> Result<(), TimerError> {
+        if let Some(effect) = self.effect.borrow_mut().take() {
+            let _completion = effect.dispose()?;
+        }
+        Ok(())
     }
 }
 
