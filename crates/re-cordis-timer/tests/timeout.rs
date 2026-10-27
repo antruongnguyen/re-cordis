@@ -4,6 +4,7 @@ use std::cell::Cell;
 use std::rc::Rc;
 use std::time::Duration;
 
+use re_cordis_core::BoxError;
 use re_cordis_timer::TimerExt;
 
 include!("common/mod.rs");

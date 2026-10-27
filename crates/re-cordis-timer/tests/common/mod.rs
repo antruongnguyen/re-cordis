@@ -7,20 +7,20 @@
 // `advance` the clock. The pattern is: create op → yield → advance → yield →
 // assert.
 
-use re_cordis_core::{BoxError, Runtime};
-
+// Fully-qualified to avoid clashing with per-test `use` imports of these
+// names (each test file is a separate crate that `include!`s this file).
 #[allow(dead_code)]
-fn block<F, Fut>(body: F) -> Result<(), BoxError>
+fn block<F, Fut>(body: F) -> Result<(), re_cordis_core::BoxError>
 where
     F: FnOnce(re_cordis_core::Context) -> Fut,
-    Fut: std::future::Future<Output = Result<(), BoxError>>,
+    Fut: std::future::Future<Output = Result<(), re_cordis_core::BoxError>>,
 {
     let executor = tokio::runtime::Builder::new_current_thread()
         .enable_time()
         .start_paused(true)
         .build()?;
     executor.block_on(async {
-        let runtime = Runtime::new();
+        let runtime = re_cordis_core::Runtime::new();
         runtime
             .run(async {
                 let root = runtime.context();

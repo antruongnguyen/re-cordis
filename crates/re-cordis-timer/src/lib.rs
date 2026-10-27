@@ -5,6 +5,9 @@
 //! context is disposed. See the crate docs for the deliberate deviations from
 //! the JavaScript async-iterator protocol and wall-clock timing.
 
+use std::future::Future;
+use std::pin::Pin;
+use std::task::{Context as TaskContext, Poll};
 use std::time::Duration;
 
 use re_cordis_core::{AdmissionError, Context, Effect};
@@ -64,6 +67,14 @@ pub trait TimerExt: sealed::Sealed {
     fn timeout<F>(&self, delay: Duration, callback: F) -> Result<Effect, TimerError>
     where
         F: FnOnce() + 'static;
+
+    /// Resolve after `delay` (the awaited form of [`timeout`](TimerExt::timeout)).
+    ///
+    /// The returned future yields `Ok(())` exactly once at the deadline, or
+    /// `Err(TimerError::Disposed)` if the owning context is disposed first.
+    /// A delay rejected by range validation yields `Err(TimerError::InvalidDelay)`
+    /// on first poll, so callers have a single await point.
+    fn sleep(&self, delay: Duration) -> Sleep;
 }
 
 impl TimerExt for Context {
@@ -89,5 +100,60 @@ impl TimerExt for Context {
             Ok::<_, std::convert::Infallible>(())
         })?;
         Ok(effect)
+    }
+
+    fn sleep(&self, delay: Duration) -> Sleep {
+        // Register a disposal cleanup that signals the sleeper. If the context
+        // cannot admit the registration, fold the failure into the future.
+        let (tx, rx) = tokio::sync::oneshot::channel::<()>();
+        let tx = std::cell::RefCell::new(Some(tx));
+        let registration = check_delay(delay).and_then(|delay| {
+            let effect = self.on_dispose_sync(move || {
+                if let Some(tx) = tx.borrow_mut().take() {
+                    let _ = tx.send(());
+                }
+                Ok::<_, std::convert::Infallible>(())
+            })?;
+            Ok((delay, effect))
+        });
+        Sleep::new(registration, rx)
+    }
+}
+
+/// Future returned by [`TimerExt::sleep`].
+///
+/// Resolves `Ok(())` at the deadline, or `Err(TimerError::Disposed)` if the
+/// owning context is disposed first. Holds the disposal registration alive for
+/// its lifetime so the cancellation signal remains wired.
+pub struct Sleep {
+    inner: Pin<Box<dyn Future<Output = Result<(), TimerError>>>>,
+}
+
+impl Sleep {
+    fn new(
+        registration: Result<(Duration, Effect), TimerError>,
+        rx: tokio::sync::oneshot::Receiver<()>,
+    ) -> Self {
+        let inner = Box::pin(async move {
+            let (delay, effect) = registration?;
+            let result = tokio::select! {
+                biased;
+                _ = rx => Err(TimerError::Disposed),
+                () = tokio::time::sleep(delay) => Ok(()),
+            };
+            // Keep the registration alive until the race settles, then release
+            // it so the disposal cleanup is not left dangling.
+            drop(effect);
+            result
+        });
+        Sleep { inner }
+    }
+}
+
+impl Future for Sleep {
+    type Output = Result<(), TimerError>;
+
+    fn poll(mut self: Pin<&mut Self>, cx: &mut TaskContext<'_>) -> Poll<Self::Output> {
+        self.inner.as_mut().poll(cx)
     }
 }
