@@ -4,7 +4,7 @@
 
 Current package: re-cordis-core 0.0.0, publish=false, Rust edition 2024, MSRV 1.85.
 The API is unstable. Use a path dependency on a local checkout, not a presumed crates.io/docs.rs release.
-Only re-cordis-core is implemented. Next roadmap targets: re-cordis-timer, re-cordis-logger (console adapter), then re-cordis-loader; other satellites remain candidates.
+re-cordis-core and the re-cordis-timer satellite are implemented. Next roadmap targets: re-cordis-logger (console adapter), then re-cordis-loader; other satellites remain candidates.
 Targets are not available APIs: review each bounded source/API/dependency scope before implementation.
 The semantic baseline is TypeScript Cordis at 35fdc969e4b6c48c48ed44717c7a018324e4dd88, not latest upstream.
 
@@ -42,6 +42,7 @@ Essential application constraints:
 - [Plugins and updates](en/guides/plugins-and-updates.md): Validation, source/resolved config, latest-target convergence, explicit recovery.
 - [Services and scoping](en/guides/services-and-scoping.md): Publication, injection, isolation, bound calls, intercepts.
 - [Effects and cleanup](en/guides/effects-and-cleanup.md): Acquisition, composition, rollback, shutdown.
+- [Timers](en/guides/timers.md): Owner-scoped timeout, sleep, interval/stream, throttle, debounce.
 - [Events](en/guides/events.md): Typed dispatch, responder versus around callbacks, snapshots, async timing.
 - [Logging](en/guides/logging.md): Scoped exporters, routing, error trees, weak metadata.
 - [Testing and troubleshooting](en/guides/testing-and-troubleshooting.md): Common errors and deterministic lifecycle checks.
@@ -59,12 +60,14 @@ Essential application constraints:
 - [Events](en/api/events.md): Listener shapes, dispatch results, one-use continuations.
 - [Logging](en/api/logging.md): Logger, records, ErrorValue, exporter options, formatting.
 - [Errors and hooks](en/api/errors-hooks.md): Error families, structured validation, typed internal hook protocols.
+- [Timer satellite](en/api/timer.md): Sealed TimerExt, Sleep, IntervalStream, Scheduled, TimerError.
 
 ## Vietnamese guides
 
 - [Plugin và cập nhật](vi/guides/plugins-and-updates.md): Cấu hình, hội tụ và phục hồi.
 - [Dịch vụ và phạm vi](vi/guides/services-and-scoping.md): Injection, cô lập, lời gọi bound.
 - [Effect và dọn dẹp](vi/guides/effects-and-cleanup.md): Sở hữu, rollback và shutdown.
+- [Bộ đếm thời gian](vi/guides/timers.md): Timeout, sleep, interval/stream, throttle, debounce theo phạm vi chủ sở hữu.
 - [Sự kiện](vi/guides/events.md): Dispatch có kiểu và middleware bao quanh.
 - [Ghi log](vi/guides/logging.md): Exporter, bản ghi và chẩn đoán.
 - [Kiểm thử và xử lý sự cố](vi/guides/testing-and-troubleshooting.md): Mốc vòng đời và lỗi thường gặp.

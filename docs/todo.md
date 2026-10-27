@@ -59,10 +59,10 @@ and behavioral tests, not just public type declarations.
 ## Next implementation targets: satellites
 
 Selected roadmap order on **2026-10-27**: **`re-cordis-timer` → `re-cordis-logger` →
-`re-cordis-loader`**, then evaluate other satellites. These are implementation
-targets, not delivered crates or frozen API/dependency decisions. This change
-plans the work; it does not implement any satellite or assign a broader M7.
-Start the next session with the timer source review and bounded design gate.
+`re-cordis-loader`**, then evaluate other satellites. **`re-cordis-timer` is now
+delivered** (see below); `re-cordis-logger` is the next target. These remaining
+entries are implementation targets, not delivered crates or frozen
+API/dependency decisions.
 
 The TypeScript specification remains pinned to
 `35fdc969e4b6c48c48ed44717c7a018324e4dd88` in `local/cordis`.
@@ -80,29 +80,35 @@ This is a preferred sequence, not a false dependency chain: logger does not
 require timer, and loader should not depend on either unless an approved
 contract demonstrates the need.
 
-### 1. re-cordis-timer — next bounded implementation
+### 1. re-cordis-timer — delivered
 
-- [ ] Review `packages/timer/src/index.ts` and `packages/timer/tests/index.spec.ts`
+Delivered on **2026-10-27** as an unpublished `crates/re-cordis-timer`. Design
+and plan: [spec](superpowers/specs/2026-10-27-re-cordis-timer-design.md),
+[plan](superpowers/plans/2026-10-27-re-cordis-timer.md). Decisions and
+deviations are in [decision.md](decision.md#timer-satellite) and
+[limitation.md](limitation.md#timer-satellite).
+
+- [x] Review `packages/timer/src/index.ts` and `packages/timer/tests/index.spec.ts`
   at the TS pin. Inventory callback timeout/interval, awaited timeout, interval
   iterator next/return/throw/disposal, throttle, debounce and deprecated aliases.
   Map every source case to a Rust equivalent or an explicit limitation; do not
   silently replace the TS API with the independent port's sleep/timeout design.
-- [ ] Show a concise context map, proposed public Rust API, ownership/cancellation
+- [x] Show a concise context map, proposed public Rust API, ownership/cancellation
   rules, dependencies/features, exclusions and measurable exit criteria.
   Review the bounded scope before implementation; do not scaffold other crates.
-- [ ] Implement the agreed slice in an unpublished `crates/re-cordis-timer`, keeping
+- [x] Implement the agreed slice in an unpublished `crates/re-cordis-timer`, keeping
   Rust 2024/MSRV 1.85 and reusing core effects. Timer-required Tokio features
   belong to the timer crate; do not add a hidden runtime or expand core's
   production dependencies speculatively.
-- [ ] Define duration admission, zero/overflow behavior, first/subsequent tick
+- [x] Define duration admission, zero/overflow behavior, first/subsequent tick
   behavior, callback errors/panics, once-only delivery, cancellation, dropped
   waiters and owner disposal. Resolve TS wall-clock versus Tokio clock behavior
   explicitly, especially throttle/debounce. Document omitted overloads/aliases.
-- [ ] Test just-before/at-deadline behavior, manual/owner cancellation, restart,
+- [x] Test just-before/at-deadline behavior, manual/owner cancellation, restart,
   acquired-resource cleanup, no callbacks after joined disposal, concurrent
   interval reads, and source-backed throttle/debounce edges for included APIs.
   Use controlled time and channels, not wall-clock sleeps.
-- [ ] Add a runnable lifecycle example, public Rustdoc/type checks, and
+- [x] Add a runnable lifecycle example, public Rustdoc/type checks, and
   English/Vietnamese timer documentation; complete the shared acceptance checklist.
 
 ### 2. re-cordis-logger — console adapter over existing core logging

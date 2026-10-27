@@ -324,6 +324,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "re-cordis-timer"
+version = "0.0.0"
+dependencies = [
+ "futures-util",
+ "re-cordis-core",
+ "tokio",
+]
+
+[[package]]
 name = "serde"
 version = "1.0.229"
 source = "registry+https://github.com/rust-lang/crates.io-index"

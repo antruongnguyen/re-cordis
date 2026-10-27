@@ -499,3 +499,60 @@ The planned layout is a Cargo workspace whose crates mirror the original
 
 **Why:** It keeps the correspondence to the upstream package structure explicit
 and lets satellite capabilities stay optional, as they are upstream.
+
+## Timer satellite
+
+Decisions made delivering the first satellite, `re-cordis-timer` (2026-10-27).
+The TypeScript `packages/timer` remains the semantic specification; the
+independent `cordis-rs` port is engineering evidence only.
+
+### `interval(delay)` without a callback is a `Stream`, not an async iterator
+
+The callback-less `interval` returns a type implementing `futures_util::Stream`
+(plus a control handle with `stop`/`fail`), not a faithful reimplementation of
+the JavaScript `next`/`return(value)`/`throw(reason)` async-iterator protocol.
+
+**Why:** `Stream` is the idiomatic Rust async-sequence type, composes with
+`StreamExt`, and is what the independent `cordis-rs` port also chose. The JS
+iterator's concurrent-reader behavior — `return(value)` resolving *all* pending
+reads with one value, `throw(reason)` rejecting all — is an iterator-protocol
+artifact with no natural single-consumer `Stream` analogue. A Rust consumer who
+needs "stop and notify waiters" is better served by owner disposal plus the
+callback form. The dropped cases are documented in `docs/limitation.md`.
+
+### Operations are reached through a sealed `TimerExt` trait, with no service
+
+Timer methods are an extension trait on `Context`, sealed so only `Context`
+implements it. There is **no** published `TimerService` and no installation
+step; importing the trait is sufficient.
+
+**Why:** The sealed trait is the closest honest Rust analogue to the upstream
+`ctx.mixin(...)` that exposes `ctx.timeout()` etc., and matches the one existing
+Rust precedent (`cordis-rs`). In the TypeScript core the `timer` service is
+load-bearing because mixin and `inject: ['timer']` gating depend on it; in our
+design the methods come from the trait, so a service would only be a presence
+check — surface and an install step for no behavioral gain (CLAUDE.md
+simplicity-first). This revises an initial lean toward an explicit
+`Timer::of(&ctx)` handle, changed after reviewing `cordis-rs`.
+
+### Deprecated `setTimeout`/`setInterval` aliases are omitted
+
+The upstream deprecated aliases are not ported.
+
+**Why:** They are deprecated upstream and forward to `timeout`/`interval`.
+Porting deprecated surface adds maintenance and documentation cost with no
+value. Documented in `docs/limitation.md`.
+
+### Timers use the monotonic `tokio::time` clock
+
+Throttle/debounce windows and all delays use the monotonic clock the local
+runtime drives, not wall-clock time. Deterministic tests use a paused runtime
+with `tokio::time::advance`, never wall-clock sleeps.
+
+**Why:** It is the clock the `LocalSet` host already drives, so timers stay on
+the runtime's own time source. Monotonic timing is also more correct than the
+upstream `Date.now()`-based windows, which can skew under wall-clock
+adjustments. Pausing the clock makes the tests fast and reproducible. One
+consequence recorded during delivery: a timer task must be polled once (a
+`yield_now().await`) after it is created or called so its `sleep` registers on
+the paused driver before the test advances the clock.

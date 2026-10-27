@@ -16,11 +16,16 @@ The approved first-consumer scope is implemented: snapshot digest, bounded `gh`
 collector and signed loopback webhook journal (12 additional application tests
 on Unix). See `docs/github-activity.md`. Application dependencies are dev-only.
 The selected next-target order is timer, console logger, then loader, followed
-by assessment of other satellites; none is implemented yet. See `docs/todo.md`
-for source review, per-slice design gates and documentation acceptance.
-The current change is documentation/roadmap delivery, not a broader M7.
-The root Rust 2024 workspace contains only the unpublished `crates/re-cordis-core`
-(Rust 1.85 minimum). Use `cargo test --workspace`.
+by assessment of other satellites. The **`re-cordis-timer`** satellite is
+delivered (unpublished `crates/re-cordis-timer`: owner-scoped timeout, sleep,
+interval/stream, throttle and debounce over core effects, via a sealed
+`TimerExt` trait; the `tokio` `time`/`macros` features live in the timer crate,
+not the core; 15 deterministic tests over a paused clock). The console logger
+and loader are not implemented yet. See `docs/todo.md` for source review,
+per-slice design gates and documentation acceptance, and
+`docs/superpowers/specs`/`docs/superpowers/plans` for the timer design and plan.
+The root Rust 2024 workspace contains the unpublished `crates/re-cordis-core`
+and `crates/re-cordis-timer` (Rust 1.85 minimum). Use `cargo test --workspace`.
 Acceptance, logging, examples and compatibility restrictions are in `docs/m6.md`.
 Isolation/bound-call/update contracts are in `docs/m5.md`;
 publication/access/dependency-retention contracts are in `docs/m4.md`;
