@@ -75,6 +75,15 @@ pub trait TimerExt: sealed::Sealed {
     /// A delay rejected by range validation yields `Err(TimerError::InvalidDelay)`
     /// on first poll, so callers have a single await point.
     fn sleep(&self, delay: Duration) -> Sleep;
+
+    /// Fire `callback` every `delay`. The first tick is at `delay`, not zero.
+    ///
+    /// Returns the registration [`Effect`]; dispose it to stop. Missed ticks
+    /// coalesce without shifting phase. Owner disposal stops the interval and
+    /// no callback fires afterward.
+    fn interval<F>(&self, delay: Duration, callback: F) -> Result<Effect, TimerError>
+    where
+        F: FnMut() + 'static;
 }
 
 impl TimerExt for Context {
@@ -117,6 +126,29 @@ impl TimerExt for Context {
             Ok((delay, effect))
         });
         Sleep::new(registration, rx)
+    }
+
+    fn interval<F>(&self, delay: Duration, mut callback: F) -> Result<Effect, TimerError>
+    where
+        F: FnMut() + 'static,
+    {
+        let delay = check_delay(delay)?;
+        let handle = tokio::task::spawn_local(async move {
+            // First tick at `delay`, not zero; missed ticks coalesce (skip).
+            let start = tokio::time::Instant::now() + delay;
+            let mut ticker = tokio::time::interval_at(start, delay);
+            ticker.set_missed_tick_behavior(tokio::time::MissedTickBehavior::Skip);
+            loop {
+                ticker.tick().await;
+                callback();
+            }
+        });
+        let abort = handle.abort_handle();
+        let effect = self.on_dispose_sync(move || {
+            abort.abort();
+            Ok::<_, std::convert::Infallible>(())
+        })?;
+        Ok(effect)
     }
 }
 
