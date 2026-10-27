@@ -2,7 +2,7 @@
 
 [English](../../en/api/events.md) | [Mục lục API](README.md)
 
-Mã nguồn: [events.rs](../../../crates/cordis-core/src/events.rs).
+Mã nguồn: [events.rs](../../../crates/re-cordis-core/src/events.rs).
 Hướng dẫn có mã chạy: [sự kiện](../guides/events.md).
 
 ## Hợp đồng và đăng ký

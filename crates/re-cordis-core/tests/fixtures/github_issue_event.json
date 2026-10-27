@@ -1,0 +1,9 @@
+{
+  "action": "opened",
+  "repository": { "full_name": "antruongnguyen/re-cordis" },
+  "issue": {
+    "number": 1,
+    "title": "Synthetic local event",
+    "html_url": "https://github.com/antruongnguyen/re-cordis/issues/1"
+  }
+}

@@ -6,8 +6,8 @@ them. Newest first. This is intentionally not a heavy ADR process; it records
 
 ## 2026-10-27 — Order satellite targets without claiming implementation
 
-The user selected roadmap planning for `cordis-timer`, `cordis-logger`,
-`cordis-loader` and other satellites. Use that order for the next implementation
+The user selected roadmap planning for `re-cordis-timer`, `re-cordis-logger`,
+`re-cordis-loader` and other satellites. Use that order for the next implementation
 slices, starting with pinned TypeScript timer source/tests. Each slice still
 requires an explicit context map, API/dependency review, exclusions and measurable
 acceptance criteria before coding. This documentation change does not add a
@@ -16,7 +16,7 @@ crate, freeze those APIs or authorize implementing every target at once.
 Timer reuses scoped effects and local hosting; its source-case inventory must
 include timeout/interval overloads, iterator cancellation, throttle/debounce and
 deprecated aliases, even if an initial slice documents exclusions. The Rust
-`cordis-logger` target is a console/export adapter corresponding to TS
+`re-cordis-logger` target is a console/export adapter corresponding to TS
 `logger-console`, not a replacement for existing core logging. Loader begins
 with explicit Rust registration/configuration contracts, not assumed native
 hot reload. Logger/timer are not automatic loader dependencies.
@@ -361,7 +361,7 @@ loop. Full traced naming and JS formatting remain M5/M6 work.
 
 ## 2026-10-23 — M1 owns the host; Context is a non-owning view
 
-The root workspace contains only the unpublished `cordis-core` crate. Use
+The root workspace contains only the unpublished `re-cordis-core` crate. Use
 Rust 2024, resolver 3, and an initially tested MSRV of Rust 1.85. Commit both
 workspace lockfiles for stable/MSRV CI. Adopt MIT licensing for this project.
 
@@ -395,7 +395,7 @@ Logger integration remain M2 onward. See [M1 contracts](m1.md).
 
 Keep the disposable, unpublished Rust 2024 experiments under `spikes/m0`,
 with their own resolver-3 manifest and lockfile. Their behavioral models are
-not `cordis-core`. Record the source case inventory and executable findings
+not `re-cordis-core`. Record the source case inventory and executable findings
 in [m0-cases.md](m0-cases.md) and [m0.md](m0.md); production parity remains
 unchecked until integrated tests exist.
 
@@ -494,8 +494,8 @@ original leans on JavaScript-only mechanisms that do not exist in Rust.
 ## 2026-10-22 — Cargo workspace mirroring the TS packages
 
 The planned layout is a Cargo workspace whose crates mirror the original
-`cordis` packages (`cordis-core` first, then `cordis-loader`, `cordis-timer`,
-`cordis-logger`, …), rather than a single monolithic crate.
+`cordis` packages (`re-cordis-core` first, then `re-cordis-loader`, `re-cordis-timer`,
+`re-cordis-logger`, …), rather than a single monolithic crate.
 
 **Why:** It keeps the correspondence to the upstream package structure explicit
 and lets satellite capabilities stay optional, as they are upstream.

@@ -2,9 +2,9 @@
 
 [English](../../en/api/runtime-context.md) | [Mục lục API](README.md)
 
-Mã nguồn: [runtime.rs](../../../crates/cordis-core/src/runtime.rs),
-[context.rs](../../../crates/cordis-core/src/context.rs),
-[identity.rs](../../../crates/cordis-core/src/identity.rs).
+Mã nguồn: [runtime.rs](../../../crates/re-cordis-core/src/runtime.rs),
+[context.rs](../../../crates/re-cordis-core/src/context.rs),
+[identity.rs](../../../crates/re-cordis-core/src/identity.rs).
 
 ## Runtime
 

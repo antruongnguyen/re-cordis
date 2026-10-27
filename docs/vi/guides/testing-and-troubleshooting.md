@@ -14,9 +14,9 @@ thành công, Registry/effect trở về mốc ban đầu sau teardown.
 `Registry::len` đếm nhóm khai báo, còn `instances` trả định danh của một khai báo.
 
 Với trường hợp phức tạp, tham khảo mẫu trong
-[updates](../../../crates/cordis-core/tests/updates.rs),
-[service disposal](../../../crates/cordis-core/tests/service_dispose.rs) và
-[lifecycle parity](../../../crates/cordis-core/tests/lifecycle_parity.rs).
+[updates](../../../crates/re-cordis-core/tests/updates.rs),
+[service disposal](../../../crates/re-cordis-core/tests/service_dispose.rs) và
+[lifecycle parity](../../../crates/re-cordis-core/tests/lifecycle_parity.rs).
 Kiểm thử có thể dùng feature Tokio chỉ bật ở dev-dependencies; phụ thuộc ứng
 dụng phải bật feature thực sự sử dụng.
 
@@ -61,7 +61,7 @@ Chạy từ thư mục gốc:
 cargo test --workspace --locked
 cargo fmt --all --check
 cargo clippy --workspace --all-targets --locked -- -D warnings
-cargo doc -p cordis-core --no-deps --locked
+cargo doc -p re-cordis-core --no-deps --locked
 ```
 
 Về chọn MSRV/stable tường minh trong môi trường này, xem

@@ -2,7 +2,7 @@
 
 [Tiếng Việt](../../vi/api/plugins-registry.md) | [API index](README.md)
 
-Source: [plugin.rs](../../../crates/cordis-core/src/plugin.rs).
+Source: [plugin.rs](../../../crates/re-cordis-core/src/plugin.rs).
 Runnable guide: [plugins and updates](../guides/plugins-and-updates.md).
 
 ## Plugin declarations and admission

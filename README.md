@@ -1,10 +1,10 @@
-# cordis-rust
+# re-cordis
 
 A Rust reimplementation of [Cordis](https://github.com/cordiverse/cordis) — a
 meta-framework for spatiotemporal composability.
 
 > **Status: M0-M6 Rust core delivery and acceptance implemented.**
-> The unpublished `cordis-core` has local
+> The unpublished `re-cordis-core` has local
 > hosting, typed plugins/Registry grouping, scoped effects and diagnostics,
 > typed events, validation, restart, parent-owned disposal, typed service
 > publication/lookup, and dependency-driven injection convergence.
@@ -38,7 +38,7 @@ current user docs from historical milestone evidence.
 
 For AI-assisted application development, give your coding agent
 [`docs/llms.txt`](docs/llms.txt) and access to this checkout. Exact API signatures
-are available locally through `cargo doc -p cordis-core --no-deps --locked`;
+are available locally through `cargo doc -p re-cordis-core --no-deps --locked`;
 the crate is not published to crates.io/docs.rs.
 
 ## Why
@@ -95,7 +95,7 @@ Scores reflect the priority named in the first column. Each cell retains the
 benefit and its constraint or alternative design; fewer stars need not mean
 worse engineering.
 
-| Priority / criterion | This project: cordis-rust | Original: TypeScript Cordis | Independent: cordis-rs |
+| Priority / criterion | This project: re-cordis | Original: TypeScript Cordis | Independent: cordis-rs |
 |---|---|---|---|
 | JS-style API convenience | **★★☆** Typed keys, callbacks and config contracts; explicit adapters require more application code than JS property/decorator syntax. | **★★★** Native Proxy, class and decorator ergonomics; dynamic access and lifecycle errors still require runtime checks. | **★☆☆** Typed Service/Plugin traits and sealed prepared inputs; applications adopt a redesigned API rather than a direct TS translation. |
 | Send-based multi-thread integration | **☆☆☆** Accepts local `Rc` resources and non-Send futures instead; requires explicit Tokio/LocalSet driving and is not a multi-thread API. | **☆☆☆** Natural JavaScript event-loop/Promise execution instead; not a Rust Send/Sync API. | **★★★** Send + Sync Context/Fiber handles and conditionally Send operation futures; introduces synchronization and completion-runtime machinery. |
@@ -121,7 +121,7 @@ explicit Rust equivalents—not syntax identity or full behavioral parity.
 The last row instead rates the additional identity-breaking replacement
 capability. A deliberate redesign can be preferable despite a lower TS-fit score.
 
-| Feature / concept | Original: TypeScript Cordis | This project: cordis-rust | Independent: cordis-rs |
+| Feature / concept | Original: TypeScript Cordis | This project: re-cordis | Independent: cordis-rs |
 |---|---|---|---|
 | Context derivation and metadata | **★★★** Prototype-derived `extend`, root view, isolation and intercept layers. | **★★★ Implemented:** typed `extend`/metadata, root views and retained scope boundaries. | **★★☆ Redesigned:** orthogonal isolate, Event Scope and intercept axes; no general Context ancestry or metadata-extension API. |
 | Plugin identity and Registry | **★★★** Function/class/object plugin shapes; callback-identity grouping and public Registry. | **★★★ Implemented:** reusable `Plugin<C, R>` allocation identity, typed Fiber handles and public Registry controls. | **★★☆ Redesigned:** Plugin trait, prepared wrappers and typed group removal; Registry is private. |
@@ -170,16 +170,16 @@ A Cargo workspace mirroring the original `cordis` packages, built up in stages:
 
 ```
 crates/
-  cordis-core      # Plugins/Fibers/Context/services/injection/effects/events/diagnostics
-  cordis-loader    # (later) plugin loading
-  cordis-timer     # (later) timer service
-  cordis-logger    # (later) console logger
+  re-cordis-core      # Plugins/Fibers/Context/services/injection/effects/events/diagnostics
+  re-cordis-loader    # (later) plugin loading
+  re-cordis-timer     # (later) timer service
+  re-cordis-logger    # (later) console logger
   ...
 ```
 
-Only `cordis-core` currently exists in the workspace. The next implementation
-targets are `cordis-timer`, `cordis-logger` (console exporter), then
-`cordis-loader`; other satellites follow demonstrated needs. The
+Only `re-cordis-core` currently exists in the workspace. The next implementation
+targets are `re-cordis-timer`, `re-cordis-logger` (console exporter), then
+`re-cordis-loader`; other satellites follow demonstrated needs. The
 [ordered roadmap](docs/todo.md#next-implementation-targets-satellites) records
 per-slice source reviews, design gates, tests and bilingual documentation
 requirements. These targets are not delivered crates or a stable API promise.
@@ -195,13 +195,13 @@ Cargo resolver 3. From the repository root:
 cargo test --workspace --locked
 cargo fmt --all --check
 cargo clippy --workspace --all-targets --locked -- -D warnings
-cargo run -p cordis-core --example lifecycle --locked
+cargo run -p re-cordis-core --example lifecycle --locked
 ```
 
 See [M6 acceptance and compatibility](docs/m6.md), [M5 scope/update APIs](docs/m5.md),
 [M4 service APIs](docs/m4.md), [M3 lifecycle APIs](docs/m3.md),
 [M2 APIs](docs/m2.md), and the examples in the
-[`cordis-core` crate docs](crates/cordis-core/src/lib.rs). The runtime must be
+[`re-cordis-core` crate docs](crates/re-cordis-core/src/lib.rs). The runtime must be
 explicitly driven from Tokio; Context values do not keep their host alive.
 CI covers Rust 1.85.0 and stable, including the independent M0 experiments.
 
@@ -218,8 +218,8 @@ The first application consumer converts a bounded GitHub activity snapshot to
 Markdown:
 
 ```sh
-cargo run -p cordis-core --example github_digest --locked -- \
-  crates/cordis-core/tests/fixtures/github_snapshot.json /tmp/cordis-report.md
+cargo run -p re-cordis-core --example github_digest --locked -- \
+  crates/re-cordis-core/tests/fixtures/github_snapshot.json /tmp/cordis-report.md
 ```
 
 See [the consumer contract](docs/github-activity.md) for the format, scoped

@@ -9,10 +9,10 @@ Chạy các lệnh từ thư mục gốc repository. Ví dụ dùng cùng produc
 ## Lifecycle: tổng quan framework
 
 ```sh
-cargo run -p cordis-core --example lifecycle --locked
+cargo run -p re-cordis-core --example lifecycle --locked
 ```
 
-[Mã nguồn](../../../crates/cordis-core/examples/lifecycle.rs).
+[Mã nguồn](../../../crates/re-cordis-core/examples/lifecycle.rs).
 Khởi tạo store cô lập, inject consumer, cập nhật cấu hình cả hai và assert lần
 đọc cuối của consumer trước khi provider chính xác được dọn.
 Đây là ví dụ hoàn chỉnh phù hợp nhất để học ngữ nghĩa framework.
@@ -20,11 +20,11 @@ Khởi tạo store cô lập, inject consumer, cập nhật cấu hình cả hai
 ## Digest: xử lý tệp ngoại tuyến
 
 ```sh
-cargo run -p cordis-core --example github_digest --locked -- \
-  crates/cordis-core/tests/fixtures/github_snapshot.json /tmp/cordis-report.md
+cargo run -p re-cordis-core --example github_digest --locked -- \
+  crates/re-cordis-core/tests/fixtures/github_snapshot.json /tmp/cordis-report.md
 ```
 
-[Mã nguồn](../../../crates/cordis-core/examples/github_digest.rs).
+[Mã nguồn](../../../crates/re-cordis-core/examples/github_digest.rs).
 Kiểm tra snapshot giới hạn và ghi Markdown xác định, có escape, bằng thay tệp
 nguyên tử cùng thư mục. Đích là một service; processor inject giữ nó khi xử lý.
 Cập nhật đầu vào/đích là thao tác lập trình qua handle riêng của ví dụ, không
@@ -40,18 +40,18 @@ kiểm tra tài liệu vì lệnh có yêu cầu mạng được xác thực.
 Khi đã được cho phép với repository chọn, lệnh là:
 
 ```sh
-cargo run -p cordis-core --example github_collect --locked -- \
+cargo run -p re-cordis-core --example github_collect --locked -- \
   OWNER/REPO /tmp/cordis-snapshot.json
 ```
 
-[Mã nguồn](../../../crates/cordis-core/examples/github_collect.rs).
+[Mã nguồn](../../../crates/re-cordis-core/examples/github_collect.rs).
 Hai truy vấn giới hạn công bố một snapshot mới nhất hoàn chỉnh.
 Thêm khoảng thời gian để chạy định kỳ; shutdown chờ poll đã tiếp nhận.
 Không tích hợp đăng nhập, thay đổi GitHub hay gửi thông báo.
 
 ## Webhook: chỉ replay cục bộ có chữ ký
 
-[Mã nguồn](../../../crates/cordis-core/examples/github_webhook.rs).
+[Mã nguồn](../../../crates/re-cordis-core/examples/github_webhook.rs).
 Receiver chỉ loopback sở hữu các task HTTP và writer journal tuần tự.
 Xem [hợp đồng consumer và hướng dẫn replay](../../github-activity.md) để biết
 cách đặt secret, giới hạn và lệnh chính xác. Không đặt secret thật vào mã nguồn,
@@ -65,7 +65,8 @@ Public ingress và cấu hình webhook GitHub thật nằm ngoài phạm vi ví 
 
 Kiểm thử tích hợp ngoại tuyến chạy đúng các triển khai này. Riêng ngày
 2026-10-27, hai pilot collector/digest one-shot được cho phép đã quan sát
-snapshot rỗng từ `antruongnguyen/cordis-rust` và snapshot có dữ liệu từ
+snapshot rỗng từ `antruongnguyen/cordis-rust` (tên cũ của dự án, nay đã đổi
+thành `antruongnguyen/re-cordis`) và snapshot có dữ liệu từ
 `cordiverse/cordis` (52 issue, 100 PR). Đã chạm giới hạn PR.
 
 Đó là bằng chứng ứng dụng tại một thời điểm, không phải fixture được commit,

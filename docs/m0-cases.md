@@ -268,7 +268,7 @@ source-case representation is checked.
 [Lifecycle parity](lifecycle-parity.md) adds six Rust/TypeScript paired
 scenarios without changing these checkmarks or treating further protocols as
 complete. `tests/parity/lifecycle.spec.ts` executes against the pinned TS core;
-`crates/cordis-core/tests/lifecycle_parity.rs` uses production Rust APIs.
+`crates/re-cordis-core/tests/lifecycle_parity.rs` uses production Rust APIs.
 
 | Paired scenario | Existing source cases strengthened |
 |---|---|

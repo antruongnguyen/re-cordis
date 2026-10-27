@@ -171,13 +171,13 @@ Keep weak Fiber attribution from retaining an otherwise released lifecycle.
 
 ### Lessons from the prior Rust port
 
-Read `RS:crates/cordis-core/src/context.rs`, `service.rs`, `plugin.rs`,
+Read `RS:crates/re-cordis-core/src/context.rs`, `service.rs`, `plugin.rs`,
 `effect.rs`, `fiber/mod.rs`, `events/dispatch.rs`, and `logger.rs` under that
 same `src/` directory. Relevant tests include
-`RS:crates/cordis-core/tests/service_v3.rs`,
-`RS:crates/cordis-core/tests/lifecycle_v3.rs`,
-`RS:crates/cordis-core/tests/event_dispatch.rs`,
-`RS:crates/cordis-core/tests/realms.rs`, and its `ui-*` directories.
+`RS:crates/re-cordis-core/tests/service_v3.rs`,
+`RS:crates/re-cordis-core/tests/lifecycle_v3.rs`,
+`RS:crates/re-cordis-core/tests/event_dispatch.rs`,
+`RS:crates/re-cordis-core/tests/realms.rs`, and its `ui-*` directories.
 
 Evaluate cheap Context handles, checked type erasure, exact registration tokens,
 snapshot-before-callback dispatch, and avoiding user code under storage locks.
@@ -189,11 +189,11 @@ automatic dependency list for this project.
 | Edition 2024, MSRV 1.88, resolver 3 (`RS:Cargo.toml`) | Adopt edition 2024/resolver 3; choose our own tested MSRV. |
 | Orthogonal event Scope ancestry; no general Context ancestry | Do not inherit: TS access checks and filters need different relations. |
 | Spawn does not own children; no root disposal | Preserve TS parent effects and reusable-root disposal. |
-| Sequential generation cleanup (`RS:crates/cordis-core/src/effect.rs`) | Preserve concurrent top-level and sequential composed cleanup. |
-| Prepared config before admission (`RS:crates/cordis-core/src/plugin.rs`) | Use typed validation without changing TS timing/failure visibility. |
+| Sequential generation cleanup (`RS:crates/re-cordis-core/src/effect.rs`) | Preserve concurrent top-level and sequential composed cleanup. |
+| Prepared config before admission (`RS:crates/re-cordis-core/src/plugin.rs`) | Use typed validation without changing TS timing/failure visibility. |
 | Async `emit`, `emit_parallel`/`query` surface | Retain five TS modes and distinguish sync/async behavior. |
-| Reclaim listener occurrences before each invocation (`RS:crates/cordis-core/src/events/dispatch.rs`) | Retain TS callback-snapshot behavior, including waterfall. |
-| Opt-in buffer exporter (`RS:crates/cordis-core/src/logger.rs`) | Keep the default TS core buffer. |
+| Reclaim listener occurrences before each invocation (`RS:crates/re-cordis-core/src/events/dispatch.rs`) | Retain TS callback-snapshot behavior, including waterfall. |
+| Opt-in buffer exporter (`RS:crates/re-cordis-core/src/logger.rs`) | Keep the default TS core buffer. |
 | Era replacement, observation protocols, completion runtime | No initial requirement; add only for a demonstrated problem. |
 
 ## 3. Proposed Rust shape and design gates
@@ -203,7 +203,7 @@ in [decision.md](decision.md) before implementation depends on it.
 
 ### Workspace and toolchain
 
-Start with a virtual workspace containing only `crates/cordis-core`. Set
+Start with a virtual workspace containing only `crates/re-cordis-core`. Set
 `[workspace.package] edition = "2024"`, inherit it in all members, and use
 `[workspace] resolver = "3"`. Edition 2024 requires Rust 1.85 or later; that
 was not an MSRV promise during planning. M1 now declares and tests Rust 1.85
@@ -212,7 +212,7 @@ changes to that minimum must be deliberate; do not copy the prior port's 1.88
 minimum by default. See the
 [edition guide](https://doc.rust-lang.org/edition-guide/rust-2024/index.html).
 
-| Proposed module in `cordis-core/src/` | Responsibility |
+| Proposed module in `re-cordis-core/src/` | Responsibility |
 |---|---|
 | `context.rs` | Root/derived views, metadata, isolation/intercept layers |
 | `reflect.rs`, `service.rs` | Typed keys, checked/direct lookup, publication ownership, bound-call context |
@@ -348,7 +348,7 @@ satellite selection or approval to change core behavior speculatively.
 
 ## 5. Acceptance and validation
 
-Put integration tests under `crates/cordis-core/tests/`, named by concern
+Put integration tests under `crates/re-cordis-core/tests/`, named by concern
 (for example `events.rs`, `service_dispose.rs`, `updates.rs`). Link cases to
 the pinned TS filename and test name. Start small type-safety checks with
 Rustdoc compile-fail examples; add trybuild only if insufficient. The prior
@@ -404,7 +404,7 @@ from readiness after provider arrival. Only required causal edges and checkpoint
 summaries are compared.
 
 Once Cargo exists, use `cargo fmt --all --check`, targeted
-`cargo test -p cordis-core --test <concern>`, and
+`cargo test -p re-cordis-core --test <concern>`, and
 `cargo clippy --workspace --all-targets -- -D warnings`. Core acceptance also
 requires `cargo test --workspace` including doc tests, and declared-MSRV plus
 current-stable checks. Add concurrency modeling/benchmarks only when the

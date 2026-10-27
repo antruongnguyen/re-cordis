@@ -1,4 +1,4 @@
-# cordis-rust documentation
+# re-cordis documentation
 
 ## User documentation / Tài liệu người dùng
 
@@ -8,20 +8,20 @@
 | Tiếng Việt | [Bắt đầu đọc](vi/README.md) |
 | AI agents | [llms.txt](llms.txt) |
 
-These pages describe the current **unpublished, unstable `cordis-core`** API.
+These pages describe the current **unpublished, unstable `re-cordis-core`** API.
 They are organized by user tasks, not implementation milestones. Both language
 trees have matching paths, equivalent explanations, and identical executable
 code. Each page links to its counterpart.
 
-Các trang này mô tả API **`cordis-core` chưa phát hành, chưa ổn định** hiện tại.
+Các trang này mô tả API **`re-cordis-core` chưa phát hành, chưa ổn định** hiện tại.
 Nội dung tổ chức theo công việc của người dùng, không theo cột mốc triển khai.
 Hai cây ngôn ngữ có đường dẫn tương ứng, diễn giải tương đương và mã chạy giống
 nhau. Mỗi trang liên kết đến bản ngôn ngữ còn lại.
 
 ## Exact API signatures
 
-Generate Rustdoc locally with `cargo doc -p cordis-core --no-deps --locked`.
-Open `target/doc/cordis_core/index.html`, adjusted for `CARGO_TARGET_DIR`.
+Generate Rustdoc locally with `cargo doc -p re-cordis-core --no-deps --locked`.
+Open `target/doc/re_cordis_core/index.html`, adjusted for `CARGO_TARGET_DIR`.
 The bilingual reference explains contracts and maps public exports; Rustdoc
 supplies exact signatures and bounds. There is no published docs.rs release.
 

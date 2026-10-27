@@ -2,8 +2,8 @@
 
 [Tiếng Việt](../../vi/api/services-reflection.md) | [API index](README.md)
 
-Sources: [service.rs](../../../crates/cordis-core/src/service.rs),
-[reflect.rs](../../../crates/cordis-core/src/reflect.rs).
+Sources: [service.rs](../../../crates/re-cordis-core/src/service.rs),
+[reflect.rs](../../../crates/re-cordis-core/src/reflect.rs).
 Runnable guide: [services and scoping](../guides/services-and-scoping.md).
 
 ## Keys, requirements, and publications

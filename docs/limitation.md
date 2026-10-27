@@ -188,7 +188,7 @@ integrated framework or resolve every behavioral gap.
   and failed writes may require manual partial-line repair.
   Public ingress, live webhook delivery, mutations, and durable/exactly-once
   delivery are excluded. See the consumer document for exact resource/time limits.
-- Only `cordis-core` is currently implemented. Timer, console logger and loader
+- Only `re-cordis-core` is currently implemented. Timer, console logger and loader
   are the selected next roadmap targets, not available APIs; other satellites
   remain candidate work. Each slice needs its own source/API/dependency review
   and acceptance, including bilingual documentation. See [the roadmap](todo.md).

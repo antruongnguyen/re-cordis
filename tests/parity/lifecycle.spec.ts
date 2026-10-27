@@ -37,7 +37,7 @@ function assertDiagnostic(root: Context, failure: Error) {
   expect(records[0].args[0]).toBe(failure)
 }
 
-describe('cordis-rust executable lifecycle parity', () => {
+describe('re-cordis executable lifecycle parity', () => {
   for (const mode of ['combined', 'coalesced', 'removed'] as const) {
     it(mode, async () => {
       const root = new Context()

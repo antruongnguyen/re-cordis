@@ -1,12 +1,12 @@
-# cordis-rust documentation
+# re-cordis documentation
 
 [Tiếng Việt](../vi/README.md) | [Documentation home](../README.md) | [AI-agent index](../llms.txt)
 
 Cordis is a framework for applications whose plugins, services, configuration,
-and resources change over time. `cordis-rust` expresses the TypeScript Cordis
+and resources change over time. `re-cordis` expresses the TypeScript Cordis
 core's semantics through explicit, typed Rust APIs.
 
-The current deliverable is **unpublished `cordis-core`**, version `0.0.0`, Rust
+The current deliverable is **unpublished `re-cordis-core`**, version `0.0.0`, Rust
 2024, requiring Rust 1.85 or newer. The API is unstable. Timer, console-logger,
 and loader satellite crates are not implemented. This is not transparent
 JavaScript Proxy or decorator compatibility.

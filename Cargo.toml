@@ -1,5 +1,5 @@
 [workspace]
-members = ["crates/cordis-core"]
+members = ["crates/re-cordis-core"]
 exclude = ["spikes/m0"]
 resolver = "3"
 
@@ -8,7 +8,7 @@ version = "0.0.0"
 edition = "2024"
 rust-version = "1.85"
 license = "MIT"
-repository = "https://github.com/antruongnguyen/cordis-rust"
+repository = "https://github.com/antruongnguyen/re-cordis"
 
 [workspace.dependencies]
 futures-util = { version = "0.3.31", default-features = false, features = ["std", "async-await"] }

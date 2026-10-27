@@ -2,7 +2,7 @@
 
 [English](../../en/api/plugins-registry.md) | [Mục lục API](README.md)
 
-Mã nguồn: [plugin.rs](../../../crates/cordis-core/src/plugin.rs).
+Mã nguồn: [plugin.rs](../../../crates/re-cordis-core/src/plugin.rs).
 Hướng dẫn có mã chạy: [plugin và cập nhật](../guides/plugins-and-updates.md).
 
 ## Khai báo và tiếp nhận Plugin

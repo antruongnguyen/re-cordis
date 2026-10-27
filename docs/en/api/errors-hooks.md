@@ -2,8 +2,8 @@
 
 [Tiếng Việt](../../vi/api/errors-hooks.md) | [API index](README.md)
 
-Sources: [error.rs](../../../crates/cordis-core/src/error.rs),
-[hooks.rs](../../../crates/cordis-core/src/hooks.rs).
+Sources: [error.rs](../../../crates/re-cordis-core/src/error.rs),
+[hooks.rs](../../../crates/re-cordis-core/src/hooks.rs).
 
 ## Error families
 

@@ -22,7 +22,7 @@ Implementation evidence is `fiber.ts`'s `_setEpoch`, `_reload`, `_unload`,
 `await`, and `update`, plus `reflect.ts`'s exact-publication withdrawal.
 
 The Rust fixture is
-[`tests/lifecycle_parity.rs`](../crates/cordis-core/tests/lifecycle_parity.rs).
+[`tests/lifecycle_parity.rs`](../crates/re-cordis-core/tests/lifecycle_parity.rs).
 Its TypeScript counterpart is
 [`tests/parity/lifecycle.spec.ts`](../tests/parity/lifecycle.spec.ts).
 Both assert six shared `.txt` traces under `tests/parity/`.
@@ -100,7 +100,7 @@ The standard-library Python runner:
 - Exclusively creates a temporary test in the upstream core tests directory,
   lints it with upstream ESLint (explicitly including the normally ignored test),
   type-checks it with upstream TypeScript and core compiler allowances, and
-  runs `corepack yarn test core/cordis-rust-lifecycle-parity`. This uses the
+  runs `corepack yarn test core/re-cordis-lifecycle-parity`. This uses the
   existing Yakumo/Vitest configuration, not a replacement JS runner.
 - Removes the copied fixture in a `finally` block, including test failures.
   It never overwrites an existing fixture or edits upstream tracked files.

@@ -12,7 +12,7 @@ Dùng injection thay vì đọc trực tiếp không hạn chế nếu consumer 
 nguyên provider trong suốt setup và teardown.
 
 ```rust
-use cordis_core::{BoxError, FiberState, Runtime, ServiceKey};
+use re_cordis_core::{BoxError, FiberState, Runtime, ServiceKey};
 use std::io;
 
 fn main() -> Result<(), BoxError> {
@@ -108,4 +108,4 @@ minh, không tạo prototype động. `service_filter`/`dispatch_options` chọn
 theo realm dịch vụ; listener global bỏ qua bộ lọc.
 
 Tra cứu: [API dịch vụ và reflection](../api/services-reflection.md).
-Ví dụ tài nguyên hoàn chỉnh: [lifecycle.rs](../../../crates/cordis-core/examples/lifecycle.rs).
+Ví dụ tài nguyên hoàn chỉnh: [lifecycle.rs](../../../crates/re-cordis-core/examples/lifecycle.rs).

@@ -8,7 +8,7 @@ Core has structured records and a bounded buffer, not an implicit console
 exporter. Register an exporter on the owner that should control its lifetime.
 
 ```rust
-use cordis_core::{BoxError, ExporterOptions, Runtime};
+use re_cordis_core::{BoxError, ExporterOptions, Runtime};
 use std::convert::Infallible;
 
 fn main() -> Result<(), BoxError> {

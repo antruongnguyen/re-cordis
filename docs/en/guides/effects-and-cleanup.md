@@ -10,7 +10,7 @@ setup runs. A `Disposer` is a cleanup value: register or yield it; dropping it
 does not execute cleanup.
 
 ```rust
-use cordis_core::{BoxError, Disposer, Runtime};
+use re_cordis_core::{BoxError, Disposer, Runtime};
 use std::{cell::RefCell, convert::Infallible, rc::Rc};
 
 fn main() -> Result<(), BoxError> {

@@ -50,14 +50,14 @@ def main():
         typescript = work / "typescript"
         rust.mkdir()
         typescript.mkdir()
-        destination = UPSTREAM / "packages/core/tests/cordis-rust-lifecycle-parity.spec.ts"
+        destination = UPSTREAM / "packages/core/tests/re-cordis-lifecycle-parity.spec.ts"
         with destination.open("x") as target:
             target.write((FIXTURES / "lifecycle.spec.ts").read_text())
         try:
             run(
                 [
                     "corepack", "yarn", "eslint", "--no-ignore", "--max-warnings", "0",
-                    "packages/core/tests/cordis-rust-lifecycle-parity.spec.ts",
+                    "packages/core/tests/re-cordis-lifecycle-parity.spec.ts",
                 ],
                 cwd=UPSTREAM,
                 env=env,
@@ -69,7 +69,7 @@ def main():
                     "--allowImportingTsExtensions", "--strict",
                     "--noImplicitAny", "false", "--noImplicitThis", "false",
                     "--strictFunctionTypes", "false",
-                    "packages/core/tests/cordis-rust-lifecycle-parity.spec.ts",
+                    "packages/core/tests/re-cordis-lifecycle-parity.spec.ts",
                 ],
                 cwd=UPSTREAM,
                 env=env,
@@ -77,7 +77,7 @@ def main():
             env["CORDIS_PARITY_OUTPUT"] = str(typescript)
             run(
                 [
-                    "corepack", "yarn", "test", "core/cordis-rust-lifecycle-parity",
+                    "corepack", "yarn", "test", "core/re-cordis-lifecycle-parity",
                 ],
                 cwd=UPSTREAM,
                 env=env,
@@ -87,7 +87,7 @@ def main():
         env["CORDIS_PARITY_OUTPUT"] = str(rust)
         run(
             [
-                tools["cargo"], "test", "-p", "cordis-core",
+                tools["cargo"], "test", "-p", "re-cordis-core",
                 "--test", "lifecycle_parity", "--locked",
             ],
             env=env,

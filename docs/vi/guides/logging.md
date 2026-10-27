@@ -8,7 +8,7 @@ Core có bản ghi có cấu trúc và bộ đệm giới hạn, không có expo
 Đăng ký exporter trên owner cần điều khiển vòng đời của nó.
 
 ```rust
-use cordis_core::{BoxError, ExporterOptions, Runtime};
+use re_cordis_core::{BoxError, ExporterOptions, Runtime};
 use std::convert::Infallible;
 
 fn main() -> Result<(), BoxError> {

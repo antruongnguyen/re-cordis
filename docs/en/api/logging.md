@@ -2,7 +2,7 @@
 
 [Tiếng Việt](../../vi/api/logging.md) | [API index](README.md)
 
-Source: [logger.rs](../../../crates/cordis-core/src/logger.rs).
+Source: [logger.rs](../../../crates/re-cordis-core/src/logger.rs).
 Runnable guide: [logging](../guides/logging.md).
 
 ## Logger and configuration

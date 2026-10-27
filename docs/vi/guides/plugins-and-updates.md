@@ -19,7 +19,7 @@ schema hoặc serde.
 Ví dụ chỉ cần các phụ thuộc trong [bắt đầu sử dụng](../getting-started.md).
 
 ```rust
-use cordis_core::{BoxError, FiberState, Plugin, Runtime};
+use re_cordis_core::{BoxError, FiberState, Plugin, Runtime};
 use std::io;
 
 fn main() -> Result<(), BoxError> {
@@ -102,5 +102,5 @@ trả về. Đăng ký mới của cùng khai báo tạo nhóm mới.
 `Registry::len` đếm nhóm, không đếm phiên bản.
 
 Tra cứu: [API plugin và Registry](../api/plugins-registry.md).
-Bằng chứng: [kiểm thử cập nhật](../../../crates/cordis-core/tests/updates.rs) và
+Bằng chứng: [kiểm thử cập nhật](../../../crates/re-cordis-core/tests/updates.rs) và
 [các kịch bản vòng đời đối chiếu](../../lifecycle-parity.md).

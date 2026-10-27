@@ -1,5 +1,5 @@
-use cordis_m0_spike::{LocalFuture, Next, SyncNext};
 use futures::future::join_all;
+use re_cordis_m0_spike::{LocalFuture, Next, SyncNext};
 use std::any::Any;
 use std::cell::{Cell, RefCell};
 use std::collections::BTreeMap;

@@ -2,8 +2,8 @@
 
 [Tiếng Việt](../../vi/api/effects.md) | [API index](README.md)
 
-Sources: [effect.rs](../../../crates/cordis-core/src/effect.rs),
-[setup.rs](../../../crates/cordis-core/src/setup.rs).
+Sources: [effect.rs](../../../crates/re-cordis-core/src/effect.rs),
+[setup.rs](../../../crates/re-cordis-core/src/setup.rs).
 Runnable guide: [effects and cleanup](../guides/effects-and-cleanup.md).
 
 ## Owned cleanup values

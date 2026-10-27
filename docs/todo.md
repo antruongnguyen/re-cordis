@@ -18,12 +18,12 @@ milestone prerequisites, and exit criteria live in the
   Record local-first execution, cancellation/dispatch restrictions, and the
   production handoff in [m0.md](m0.md); parity cases remain pending M2-M6.
 - [x] Choose MIT licensing (see `LICENSE`).
-- [x] M1: Add only `cordis-core` to the root Cargo workspace (edition 2024,
+- [x] M1: Add only `re-cordis-core` to the root Cargo workspace (edition 2024,
   resolver 3, Rust 1.85 minimum), explicit local hosting, Context/metadata/root
   cleanup foundations, integrated ownership/error checks, and stable/MSRV CI.
   Supported APIs and scope are documented in [m1.md](m1.md).
 
-## Core delivery (`cordis-core`)
+## Core delivery (`re-cordis-core`)
 
 M2-M6 depend on their predecessor; see the implementation plan for the
 additional design gates and exact tests. Each slice lands with documentation
@@ -58,8 +58,8 @@ and behavioral tests, not just public type declarations.
 
 ## Next implementation targets: satellites
 
-Selected roadmap order on **2026-10-27**: **`cordis-timer` → `cordis-logger` →
-`cordis-loader`**, then evaluate other satellites. These are implementation
+Selected roadmap order on **2026-10-27**: **`re-cordis-timer` → `re-cordis-logger` →
+`re-cordis-loader`**, then evaluate other satellites. These are implementation
 targets, not delivered crates or frozen API/dependency decisions. This change
 plans the work; it does not implement any satellite or assign a broader M7.
 Start the next session with the timer source review and bounded design gate.
@@ -72,15 +72,15 @@ its redesigned timer/loader contracts and older TS parity pin are not our spec.
 
 | Target | Actual prerequisites | Initial focus | Exit evidence |
 |---|---|---|---|
-| `cordis-timer` | Existing core effects, explicit local hosting and lifecycle | Owner-scoped time operations with explicit cancellation and joined cleanup | Source-case map, deterministic clock/gate tests, runnable example, bilingual guide/API |
-| `cordis-logger` | Existing core Logger/exporter APIs | Console/export adapter, not a second logging core | Exact captured output/routing/error tests and scoped exporter teardown |
-| `cordis-loader` | Existing core plugins, validation, injection and cleanup | Explicit Rust plugin registration/resolution and bounded configuration loading | Fixture-backed load/update/rollback/teardown tests with documented resolution limits |
+| `re-cordis-timer` | Existing core effects, explicit local hosting and lifecycle | Owner-scoped time operations with explicit cancellation and joined cleanup | Source-case map, deterministic clock/gate tests, runnable example, bilingual guide/API |
+| `re-cordis-logger` | Existing core Logger/exporter APIs | Console/export adapter, not a second logging core | Exact captured output/routing/error tests and scoped exporter teardown |
+| `re-cordis-loader` | Existing core plugins, validation, injection and cleanup | Explicit Rust plugin registration/resolution and bounded configuration loading | Fixture-backed load/update/rollback/teardown tests with documented resolution limits |
 
 This is a preferred sequence, not a false dependency chain: logger does not
 require timer, and loader should not depend on either unless an approved
 contract demonstrates the need.
 
-### 1. cordis-timer — next bounded implementation
+### 1. re-cordis-timer — next bounded implementation
 
 - [ ] Review `packages/timer/src/index.ts` and `packages/timer/tests/index.spec.ts`
   at the TS pin. Inventory callback timeout/interval, awaited timeout, interval
@@ -90,7 +90,7 @@ contract demonstrates the need.
 - [ ] Show a concise context map, proposed public Rust API, ownership/cancellation
   rules, dependencies/features, exclusions and measurable exit criteria.
   Review the bounded scope before implementation; do not scaffold other crates.
-- [ ] Implement the agreed slice in an unpublished `crates/cordis-timer`, keeping
+- [ ] Implement the agreed slice in an unpublished `crates/re-cordis-timer`, keeping
   Rust 2024/MSRV 1.85 and reusing core effects. Timer-required Tokio features
   belong to the timer crate; do not add a hidden runtime or expand core's
   production dependencies speculatively.
@@ -105,11 +105,11 @@ contract demonstrates the need.
 - [ ] Add a runnable lifecycle example, public Rustdoc/type checks, and
   English/Vietnamese timer documentation; complete the shared acceptance checklist.
 
-### 2. cordis-logger — console adapter over existing core logging
+### 2. re-cordis-logger — console adapter over existing core logging
 
 - [ ] Review TS `packages/logger-console/src/{index,shared,browser}.ts` and
   `packages/logger-console/tests/index.spec.ts`. Record why the Rust crate is
-  named `cordis-logger` while the upstream satellite is `logger-console`.
+  named `re-cordis-logger` while the upstream satellite is `logger-console`.
 - [ ] Agree on writer ownership, formatting/level routing, color and timestamp
   policy, terminal detection, synchronous I/O/backpressure behavior, write-error
   visibility and scoped removal before selecting dependencies.
@@ -122,7 +122,7 @@ contract demonstrates the need.
 - [ ] Add a console example and paired language guide/API pages; preserve core
   logging acceptance and complete the shared checklist.
 
-### 3. cordis-loader — explicit Rust loading, not native hot reload
+### 3. re-cordis-loader — explicit Rust loading, not native hot reload
 
 - [ ] Review TS `packages/loader/src/` and `packages/loader/tests/`, especially
   resolve/import, entry/tree/group, validation/commit, evaluation and isolation.
@@ -220,7 +220,8 @@ unless an approved requirement demonstrates a gap. See
 - [x] Final consumer acceptance: explicitly selected Rust 1.85.0/stable matrices,
   the six paired scenarios, and offline executable checks.
 - [x] Authorized one-shot live collector/digest pilots on 2026-10-27:
-  `antruongnguyen/cordis-rust` returned no issues/PRs; `cordiverse/cordis`
+  `antruongnguyen/cordis-rust` (the repository's former name, since renamed to
+  `antruongnguyen/re-cordis`) returned no issues/PRs; `cordiverse/cordis`
   returned 52 issues and 100 PRs (PR cap reached). Point-in-time application
   observations only; no new parity or live webhook claim, no committed live data.
 

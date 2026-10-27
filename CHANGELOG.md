@@ -106,7 +106,7 @@ This project does not yet follow semantic versioning — the API is unstable.
 - Structured diagnostic logger, default 1000-record buffer, scoped exporters
   with independent verbosity routing, and source-preserving automatic diagnostics.
 - M2 API/compatibility notes and integrated evidence for 32 pinned root cases.
-- Rust 2024/resolver-3 production workspace containing unpublished `cordis-core`,
+- Rust 2024/resolver-3 production workspace containing unpublished `re-cordis-core`,
   with Rust 1.85 minimum and MIT licensing.
 - Explicit local runtime hosting, weak Context views and typed metadata ancestry,
   opaque runtime/root identities, root-owned cleanup, eager completion handles,

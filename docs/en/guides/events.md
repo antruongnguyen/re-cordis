@@ -9,7 +9,7 @@ Named events share identity by name and check live type contracts. Symbol events
 allocate unique identity; cloning shares it, repeating the description does not.
 
 ```rust
-use cordis_core::{BoxError, DispatchOptions, Event, Listener, Runtime};
+use re_cordis_core::{BoxError, DispatchOptions, Event, Listener, Runtime};
 use std::{convert::Infallible, ops::ControlFlow};
 
 fn main() -> Result<(), BoxError> {

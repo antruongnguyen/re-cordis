@@ -1,5 +1,5 @@
-use cordis_m0_spike::LocalFuture;
 use futures::{FutureExt, future::join_all};
+use re_cordis_m0_spike::LocalFuture;
 use std::cell::{Cell, RefCell};
 use std::collections::BTreeMap;
 use std::panic::AssertUnwindSafe;

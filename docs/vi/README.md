@@ -1,12 +1,12 @@
-# Tài liệu cordis-rust
+# Tài liệu re-cordis
 
 [English](../en/README.md) | [Trang tài liệu chung](../README.md) | [Mục lục cho AI agent](../llms.txt)
 
 Cordis là framework dành cho ứng dụng có plugin, dịch vụ, cấu hình và tài nguyên
-thay đổi theo thời gian. `cordis-rust` biểu diễn ngữ nghĩa của lõi Cordis
+thay đổi theo thời gian. `re-cordis` biểu diễn ngữ nghĩa của lõi Cordis
 TypeScript bằng API Rust tường minh, có kiểu.
 
-Sản phẩm hiện tại là **`cordis-core` chưa phát hành**, phiên bản `0.0.0`, dùng
+Sản phẩm hiện tại là **`re-cordis-core` chưa phát hành**, phiên bản `0.0.0`, dùng
 Rust 2024 và yêu cầu Rust 1.85 trở lên. API chưa ổn định. Các crate vệ tinh timer,
 console logger và loader chưa được triển khai. Đây không phải lớp tương thích
 trong suốt với Proxy hay decorator của JavaScript.

@@ -2,8 +2,8 @@
 
 [English](../../en/api/services-reflection.md) | [Mục lục API](README.md)
 
-Mã nguồn: [service.rs](../../../crates/cordis-core/src/service.rs),
-[reflect.rs](../../../crates/cordis-core/src/reflect.rs).
+Mã nguồn: [service.rs](../../../crates/re-cordis-core/src/service.rs),
+[reflect.rs](../../../crates/re-cordis-core/src/reflect.rs).
 Hướng dẫn có mã chạy: [dịch vụ và phạm vi](../guides/services-and-scoping.md).
 
 ## Key, yêu cầu và publication

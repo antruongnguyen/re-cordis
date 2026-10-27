@@ -9,7 +9,7 @@ Dùng `effect`/`effect_async` khi framework cần giữ quyền sở hữu trư�
 `Disposer` là giá trị dọn dẹp: phải đăng ký hoặc yield nó; thả nó không chạy cleanup.
 
 ```rust
-use cordis_core::{BoxError, Disposer, Runtime};
+use re_cordis_core::{BoxError, Disposer, Runtime};
 use std::{cell::RefCell, convert::Infallible, rc::Rc};
 
 fn main() -> Result<(), BoxError> {

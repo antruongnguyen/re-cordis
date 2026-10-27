@@ -2,9 +2,9 @@
 
 [Tiếng Việt](../../vi/api/runtime-context.md) | [API index](README.md)
 
-Sources: [runtime.rs](../../../crates/cordis-core/src/runtime.rs),
-[context.rs](../../../crates/cordis-core/src/context.rs),
-[identity.rs](../../../crates/cordis-core/src/identity.rs).
+Sources: [runtime.rs](../../../crates/re-cordis-core/src/runtime.rs),
+[context.rs](../../../crates/re-cordis-core/src/context.rs),
+[identity.rs](../../../crates/re-cordis-core/src/identity.rs).
 
 ## Runtime
 

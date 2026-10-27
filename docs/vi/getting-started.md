@@ -4,14 +4,14 @@
 
 ## Yêu cầu và khai báo phụ thuộc
 
-Dùng Rust 1.85 trở lên. `cordis-core` chưa được phát hành lên crates.io; không
+Dùng Rust 1.85 trở lên. `re-cordis-core` chưa được phát hành lên crates.io; không
 cài một package khác chỉ vì tên tương tự.
 
-Ví dụ ứng dụng nằm cạnh bản checkout `cordis-rust`:
+Ví dụ ứng dụng nằm cạnh bản checkout `re-cordis`:
 
 ```text
 workspace/
-  cordis-rust/
+  re-cordis/
   my-app/
     Cargo.toml
     src/main.rs
@@ -27,11 +27,11 @@ edition = "2024"
 rust-version = "1.85"
 
 [dependencies]
-cordis-core = { path = "../cordis-rust/crates/cordis-core" }
+re-cordis-core = { path = "../re-cordis/crates/re-cordis-core" }
 tokio = { version = "1.48", default-features = false, features = ["rt", "sync"] }
 ```
 
-Điều chỉnh đường dẫn theo checkout của bạn. Tên import là `cordis_core`, dùng
+Điều chỉnh đường dẫn theo checkout của bạn. Tên import là `re_cordis_core`, dùng
 dấu gạch dưới. Nếu ứng dụng dùng timer, I/O, signal hoặc macro của Tokio, hãy
 bật các feature tương ứng trong phụ thuộc Tokio của **ứng dụng**; bộ feature
 tối thiểu của core không tự bật chúng.
@@ -41,7 +41,7 @@ tối thiểu của core không tự bật chúng.
 Đặt mã sau vào `src/main.rs`, rồi chạy `cargo run` trong `my-app`.
 
 ```rust
-use cordis_core::{BoxError, Disposer, FiberState, Plugin, Runtime};
+use re_cordis_core::{BoxError, Disposer, FiberState, Plugin, Runtime};
 use std::convert::Infallible;
 
 fn main() -> Result<(), BoxError> {
@@ -97,7 +97,7 @@ kết thúc tiến trình và hủy host không phải các nhánh dừng thành
 Để xem cây provider/consumer hoàn chỉnh, chạy ví dụ sẵn có của repository:
 
 ```sh
-cargo run -p cordis-core --example lifecycle --locked
+cargo run -p re-cordis-core --example lifecycle --locked
 ```
 
-Chạy lệnh của repository tại thư mục gốc `cordis-rust`, không phải trong `my-app`.
+Chạy lệnh của repository tại thư mục gốc `re-cordis`, không phải trong `my-app`.

@@ -4,7 +4,7 @@ Instructions for agents (and humans) working in this repository.
 
 ## What this project is
 
-`cordis-rust` is a from-scratch Rust reimplementation of the
+`re-cordis` is a from-scratch Rust reimplementation of the
 [Cordis](https://github.com/cordiverse/cordis) meta-framework.
 
 **Status: M0-M6 Rust core delivery and acceptance implemented.**
@@ -19,7 +19,7 @@ The selected next-target order is timer, console logger, then loader, followed
 by assessment of other satellites; none is implemented yet. See `docs/todo.md`
 for source review, per-slice design gates and documentation acceptance.
 The current change is documentation/roadmap delivery, not a broader M7.
-The root Rust 2024 workspace contains only the unpublished `crates/cordis-core`
+The root Rust 2024 workspace contains only the unpublished `crates/re-cordis-core`
 (Rust 1.85 minimum). Use `cargo test --workspace`.
 Acceptance, logging, examples and compatibility restrictions are in `docs/m6.md`.
 Isolation/bound-call/update contracts are in `docs/m5.md`;

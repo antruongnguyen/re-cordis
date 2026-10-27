@@ -2,8 +2,8 @@
 
 [English](../../en/api/effects.md) | [Mục lục API](README.md)
 
-Mã nguồn: [effect.rs](../../../crates/cordis-core/src/effect.rs),
-[setup.rs](../../../crates/cordis-core/src/setup.rs).
+Mã nguồn: [effect.rs](../../../crates/re-cordis-core/src/effect.rs),
+[setup.rs](../../../crates/re-cordis-core/src/setup.rs).
 Hướng dẫn có mã chạy: [effect và dọn dẹp](../guides/effects-and-cleanup.md).
 
 ## Giá trị cleanup thuộc quyền sở hữu

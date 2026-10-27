@@ -14,9 +14,9 @@ Registry/effect baselines after teardown. `Registry::len` counts declaration
 groups, while `instances` returns identities for one declaration.
 
 For more complex cases, reuse patterns in
-[updates](../../../crates/cordis-core/tests/updates.rs),
-[service disposal](../../../crates/cordis-core/tests/service_dispose.rs), and
-[lifecycle parity](../../../crates/cordis-core/tests/lifecycle_parity.rs).
+[updates](../../../crates/re-cordis-core/tests/updates.rs),
+[service disposal](../../../crates/re-cordis-core/tests/service_dispose.rs), and
+[lifecycle parity](../../../crates/re-cordis-core/tests/lifecycle_parity.rs).
 Test code may use dev-only Tokio features; application dependencies must enable
 the features they use.
 
@@ -61,7 +61,7 @@ Run from the repository root:
 cargo test --workspace --locked
 cargo fmt --all --check
 cargo clippy --workspace --all-targets --locked -- -D warnings
-cargo doc -p cordis-core --no-deps --locked
+cargo doc -p re-cordis-core --no-deps --locked
 ```
 
 For this environment's explicit MSRV/stable selection precautions, see

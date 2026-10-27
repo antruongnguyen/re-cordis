@@ -2,7 +2,7 @@
 
 [English](../../en/api/logging.md) | [Mục lục API](README.md)
 
-Mã nguồn: [logger.rs](../../../crates/cordis-core/src/logger.rs).
+Mã nguồn: [logger.rs](../../../crates/re-cordis-core/src/logger.rs).
 Hướng dẫn có mã chạy: [ghi log](../guides/logging.md).
 
 ## Logger và cấu hình

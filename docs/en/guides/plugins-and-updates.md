@@ -19,7 +19,7 @@ library or serde discovery is implicit.
 This example uses only the dependencies from [getting started](../getting-started.md).
 
 ```rust
-use cordis_core::{BoxError, FiberState, Plugin, Runtime};
+use re_cordis_core::{BoxError, FiberState, Plugin, Runtime};
 use std::io;
 
 fn main() -> Result<(), BoxError> {
@@ -104,5 +104,5 @@ returned task. New registrations of that declaration form a fresh group.
 `Registry::len` counts groups, not instances.
 
 Reference: [plugins and Registry API](../api/plugins-registry.md).
-Evidence: [updates tests](../../../crates/cordis-core/tests/updates.rs) and
+Evidence: [updates tests](../../../crates/re-cordis-core/tests/updates.rs) and
 [paired lifecycle scenarios](../../lifecycle-parity.md).

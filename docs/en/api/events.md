@@ -2,7 +2,7 @@
 
 [Tiếng Việt](../../vi/api/events.md) | [API index](README.md)
 
-Source: [events.rs](../../../crates/cordis-core/src/events.rs).
+Source: [events.rs](../../../crates/re-cordis-core/src/events.rs).
 Runnable guide: [events](../guides/events.md).
 
 ## Contracts and registration

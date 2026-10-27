@@ -10,7 +10,7 @@ kiểu đang tồn tại. Event symbol tạo định danh riêng; clone chia s�
 mô tả không tạo cùng định danh.
 
 ```rust
-use cordis_core::{BoxError, DispatchOptions, Event, Listener, Runtime};
+use re_cordis_core::{BoxError, DispatchOptions, Event, Listener, Runtime};
 use std::{convert::Infallible, ops::ControlFlow};
 
 fn main() -> Result<(), BoxError> {

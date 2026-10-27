@@ -91,12 +91,12 @@ def check_structure():
     for path in pages:
         links(path)
 
-    source = (ROOT / "crates/cordis-core/src/lib.rs").read_text(encoding="utf-8")
+    source = (ROOT / "crates/re-cordis-core/src/lib.rs").read_text(encoding="utf-8")
     exports = set()
     for group, single in re.findall(r"pub use \w+::(?:\{([^}]+)\}|(\w+));", source, re.S):
         exports.update(re.findall(r"\b\w+\b", group or single))
     require(exports, "No public exports discovered")
-    hooks = (ROOT / "crates/cordis-core/src/hooks.rs").read_text(encoding="utf-8")
+    hooks = (ROOT / "crates/re-cordis-core/src/hooks.rs").read_text(encoding="utf-8")
     payloads = re.findall(r"^pub struct (\w+)", hooks, re.M)
     functions = re.findall(r"^pub fn (\w+)", hooks, re.M)
     for language in ("en", "vi"):
@@ -115,7 +115,7 @@ def check_structure():
             require(f"hooks::{name}()" in hook_doc, f"{language}: missing hooks::{name}()")
 
     llms = (DOCS / "llms.txt").read_text(encoding="utf-8")
-    require(llms.startswith("# cordis-rust\n\n> "), "llms.txt needs project heading and summary")
+    require(llms.startswith("# re-cordis\n\n> "), "llms.txt needs project heading and summary")
     require(len(re.findall(r"^# ", llms, re.M)) == 1, "llms.txt needs exactly one H1")
     require(len(llms.encode("utf-8")) < 8192, "Keep llms.txt below 8 KiB")
     require("## Optional\n" in llms, "llms.txt needs optional evidence links")
@@ -146,18 +146,18 @@ def run_examples(toolchain, snippets):
     env["CARGO_TARGET_DIR"] = str(ROOT / "target" / ("msrv" if toolchain == "1.85.0" else "stable"))
     for name in ("cargo", "rustc", "rustdoc"):
         print(run([tools[name], "--version"], env, 30).strip())
-    output = run([tools["cargo"], "build", "-p", "cordis-core", "--lib",
+    output = run([tools["cargo"], "build", "-p", "re-cordis-core", "--lib",
                   "--offline", "--locked", "--message-format=json"], env)
     libraries = {}
     for line in output.splitlines():
         message = json.loads(line)
         if message.get("reason") == "compiler-artifact":
             name = message["target"]["name"]
-            if name in ("cordis_core", "tokio"):
+            if name in ("re_cordis_core", "tokio"):
                 for filename in message["filenames"]:
                     if filename.endswith(".rlib"):
                         libraries[name] = Path(filename)
-    require(set(libraries) == {"cordis_core", "tokio"}, "Missing compiler library artifacts")
+    require(set(libraries) == {"re_cordis_core", "tokio"}, "Missing compiler library artifacts")
     with tempfile.TemporaryDirectory(prefix="cordis-docs-") as directory:
         folder = Path(directory)
         for index, (code, label) in enumerate(snippets.items()):
@@ -175,9 +175,9 @@ def run_examples(toolchain, snippets):
     print(f"Executed {len(snippets)} unique Rust examples on {toolchain}.")
 
     quickstart = dict(blocks((DOCS / "en/getting-started.md").read_text(encoding="utf-8")))
-    dependency = ROOT / "crates/cordis-core"
+    dependency = ROOT / "crates/re-cordis-core"
     manifest = quickstart["toml"].replace(
-        '"../cordis-rust/crates/cordis-core"', json.dumps(dependency.as_posix())
+        '"../re-cordis/crates/re-cordis-core"', json.dumps(dependency.as_posix())
     )
     with tempfile.TemporaryDirectory(prefix="cordis-quickstart-") as directory:
         folder = Path(directory)

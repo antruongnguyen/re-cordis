@@ -9,8 +9,8 @@ ownership/cancellation restrictions remain unchanged.
 ## Snapshot digest
 
 ```sh
-cargo run -p cordis-core --example github_digest --locked -- \
-  crates/cordis-core/tests/fixtures/github_snapshot.json /tmp/cordis-report.md
+cargo run -p re-cordis-core --example github_digest --locked -- \
+  crates/re-cordis-core/tests/fixtures/github_snapshot.json /tmp/cordis-report.md
 ```
 
 The fixture is synthetic, not an assertion about real repository activity.
@@ -18,14 +18,14 @@ For a real snapshot, the JSON contract is:
 
 ```json
 {
-  "repository": "antruongnguyen/cordis-rust",
+  "repository": "antruongnguyen/re-cordis",
   "captured_at": 1792742400,
   "issues": [
     {
       "number": 1,
       "title": "Example issue",
       "state": "OPEN",
-      "url": "https://github.com/antruongnguyen/cordis-rust/issues/1",
+      "url": "https://github.com/antruongnguyen/re-cordis/issues/1",
       "updatedAt": "2026-10-23T12:00:00Z"
     }
   ],
@@ -75,11 +75,11 @@ reconfiguration, explicit recovery and restored Registry/effect baselines.
 
 ```sh
 # Uses your existing gh authentication; performs read-only GitHub requests.
-cargo run -p cordis-core --example github_collect --locked -- \
-  antruongnguyen/cordis-rust /tmp/cordis-snapshot.json
+cargo run -p re-cordis-core --example github_collect --locked -- \
+  antruongnguyen/re-cordis /tmp/cordis-snapshot.json
 # Repeat after a 300-second delay following each completed poll.
-cargo run -p cordis-core --example github_collect --locked -- \
-  antruongnguyen/cordis-rust /tmp/cordis-snapshot.json 300
+cargo run -p re-cordis-core --example github_collect --locked -- \
+  antruongnguyen/re-cordis /tmp/cordis-snapshot.json 300
 ```
 
 `gh` must already be installed and authenticated. The application does not log
@@ -125,8 +125,8 @@ Set `CORDIS_GITHUB_WEBHOOK_SECRET` from your local secret manager (at least
 32 bytes; never commit a real key), then:
 
 ```sh
-cargo run -p cordis-core --example github_webhook --locked -- \
-  antruongnguyen/cordis-rust /tmp/cordis-events.jsonl 3000
+cargo run -p re-cordis-core --example github_webhook --locked -- \
+  antruongnguyen/re-cordis /tmp/cordis-events.jsonl 3000
 ```
 
 Only loopback addresses are admitted; the CLI binds `127.0.0.1` and defaults
@@ -191,7 +191,7 @@ error result, not silently converted to successful teardown.
 With the listener running and the same secret available in the calling shell:
 
 ```sh
-payload=crates/cordis-core/tests/fixtures/github_issue_event.json
+payload=crates/re-cordis-core/tests/fixtures/github_issue_event.json
 signature=$(python3 -c 'import hashlib,hmac,os,pathlib,sys; print("sha256="+hmac.new(os.environ["CORDIS_GITHUB_WEBHOOK_SECRET"].encode(),pathlib.Path(sys.argv[1]).read_bytes(),hashlib.sha256).hexdigest())' "$payload")
 curl --fail-with-body http://127.0.0.1:3000/github \
   -H 'Content-Type: application/json' \
@@ -244,7 +244,7 @@ assuming fixture startup time. No sleeps or shared-cache deletion were added.
 
 Normal production dependencies remain only futures-util and Tokio; JSON,
 HTTP/crypto crates and expanded Tokio features are dev-only. No files under
-`crates/cordis-core/src/` or parity fixtures changed. Both isolated references
+`crates/re-cordis-core/src/` or parity fixtures changed. Both isolated references
 retain their original pins and tracked contents. Those 2026-10-23 application
 checks do not add live GitHub evidence or broaden the established TS parity
 boundary.
@@ -256,6 +256,9 @@ with existing authentication, followed by the existing digest executable.
 Both executables were built offline with explicitly selected stable 1.97.1.
 Outputs were stored outside Git with private local permissions; no live data
 or private session artifact paths are required to reproduce the offline tests.
+The first repository was queried under its former name
+`antruongnguyen/cordis-rust`, since renamed to `antruongnguyen/re-cordis`; the
+row below records the name actually queried at that time.
 
 | Repository | Captured UTC | Observed snapshot |
 |---|---|---|

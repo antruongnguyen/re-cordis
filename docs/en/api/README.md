@@ -2,7 +2,7 @@
 
 [Tiếng Việt](../../vi/api/README.md) | [English home](../README.md)
 
-This reference covers the public exports of `cordis-core`, not its private
+This reference covers the public exports of `re-cordis-core`, not its private
 storage or example-private handles. It describes usage and behavioral contracts;
 generated Rustdoc is authoritative for exact signatures, generic bounds,
 trait implementations, and public fields.
@@ -12,16 +12,16 @@ trait implementations, and public fields.
 From the repository root:
 
 ```sh
-cargo doc -p cordis-core --no-deps --locked
+cargo doc -p re-cordis-core --no-deps --locked
 ```
 
-Open `target/doc/cordis_core/index.html`, or the equivalent path under your
+Open `target/doc/re_cordis_core/index.html`, or the equivalent path under your
 `CARGO_TARGET_DIR`. Nothing is published to docs.rs by this command.
 An unpublished `0.0.0` package is not a supported crates.io installation target.
 
 ## Public export map
 
-Every root export from [lib.rs](../../../crates/cordis-core/src/lib.rs) belongs
+Every root export from [lib.rs](../../../crates/re-cordis-core/src/lib.rs) belongs
 to one of these chapters. Context extension methods are documented by concern.
 
 | Chapter | Public types / module |

@@ -2,8 +2,8 @@
 
 [English](../../en/api/errors-hooks.md) | [Mục lục API](README.md)
 
-Mã nguồn: [error.rs](../../../crates/cordis-core/src/error.rs),
-[hooks.rs](../../../crates/cordis-core/src/hooks.rs).
+Mã nguồn: [error.rs](../../../crates/re-cordis-core/src/error.rs),
+[hooks.rs](../../../crates/re-cordis-core/src/hooks.rs).
 
 ## Nhóm lỗi
 

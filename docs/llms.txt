@@ -1,10 +1,10 @@
-# cordis-rust
+# re-cordis
 
 > An unpublished Rust reimplementation of the pinned TypeScript Cordis core for local, long-lived plugin applications with typed services, lifecycle updates, events, scoped resources, and logging.
 
-Current package: cordis-core 0.0.0, publish=false, Rust edition 2024, MSRV 1.85.
+Current package: re-cordis-core 0.0.0, publish=false, Rust edition 2024, MSRV 1.85.
 The API is unstable. Use a path dependency on a local checkout, not a presumed crates.io/docs.rs release.
-Only cordis-core is implemented. Next roadmap targets: cordis-timer, cordis-logger (console adapter), then cordis-loader; other satellites remain candidates.
+Only re-cordis-core is implemented. Next roadmap targets: re-cordis-timer, re-cordis-logger (console adapter), then re-cordis-loader; other satellites remain candidates.
 Targets are not available APIs: review each bounded source/API/dependency scope before implementation.
 The semantic baseline is TypeScript Cordis at 35fdc969e4b6c48c48ed44717c7a018324e4dd88, not latest upstream.
 

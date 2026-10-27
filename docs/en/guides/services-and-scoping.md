@@ -12,7 +12,7 @@ Use injection rather than an unrestricted direct read for a consumer that needs
 provider resources through setup and teardown.
 
 ```rust
-use cordis_core::{BoxError, FiberState, Runtime, ServiceKey};
+use re_cordis_core::{BoxError, FiberState, Runtime, ServiceKey};
 use std::io;
 
 fn main() -> Result<(), BoxError> {
@@ -110,4 +110,4 @@ dynamic prototypes. `service_filter`/`dispatch_options` select service-realm
 event listeners; global listeners bypass the filter.
 
 Reference: [services and reflection API](../api/services-reflection.md).
-Complete resource-backed example: [lifecycle.rs](../../../crates/cordis-core/examples/lifecycle.rs).
+Complete resource-backed example: [lifecycle.rs](../../../crates/re-cordis-core/examples/lifecycle.rs).

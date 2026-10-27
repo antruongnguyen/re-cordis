@@ -4,14 +4,14 @@
 
 ## Requirements and dependency setup
 
-Use Rust 1.85 or newer. `cordis-core` is not published to crates.io; do not
+Use Rust 1.85 or newer. `re-cordis-core` is not published to crates.io; do not
 install an unrelated package with a similar name.
 
-For an application next to a local `cordis-rust` checkout:
+For an application next to a local `re-cordis` checkout:
 
 ```text
 workspace/
-  cordis-rust/
+  re-cordis/
   my-app/
     Cargo.toml
     src/main.rs
@@ -27,11 +27,11 @@ edition = "2024"
 rust-version = "1.85"
 
 [dependencies]
-cordis-core = { path = "../cordis-rust/crates/cordis-core" }
+re-cordis-core = { path = "../re-cordis/crates/re-cordis-core" }
 tokio = { version = "1.48", default-features = false, features = ["rt", "sync"] }
 ```
 
-Adjust the path to your checkout. The crate import is `cordis_core`, with an
+Adjust the path to your checkout. The crate import is `re_cordis_core`, with an
 underscore. If your application uses Tokio timers, I/O, signals, or macros,
 enable those features in **your application's** Tokio dependency; core's minimal
 feature set does not enable them for you.
@@ -41,7 +41,7 @@ feature set does not enable them for you.
 Put this in `src/main.rs`, then run `cargo run` from `my-app`.
 
 ```rust
-use cordis_core::{BoxError, Disposer, FiberState, Plugin, Runtime};
+use re_cordis_core::{BoxError, Disposer, FiberState, Plugin, Runtime};
 use std::convert::Infallible;
 
 fn main() -> Result<(), BoxError> {
@@ -99,7 +99,7 @@ Read [concepts](concepts.md), then [plugins and updates](guides/plugins-and-upda
 For a complete provider/consumer tree, run the repository's existing example:
 
 ```sh
-cargo run -p cordis-core --example lifecycle --locked
+cargo run -p re-cordis-core --example lifecycle --locked
 ```
 
-Run repository commands from the `cordis-rust` root, not from `my-app`.
+Run repository commands from the `re-cordis` root, not from `my-app`.

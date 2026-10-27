@@ -9,7 +9,7 @@ pub type LocalFuture<T> = Pin<Box<dyn Future<Output = T>>>;
 /// A continuation whose ownership makes a second invocation a compile error.
 ///
 /// ```compile_fail
-/// use cordis_m0_spike::Next;
+/// use re_cordis_m0_spike::Next;
 /// let next = Next::new(|| async { 1 });
 /// let first = next.call();
 /// let second = next.call(); // use of moved value
