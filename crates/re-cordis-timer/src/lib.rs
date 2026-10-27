@@ -236,7 +236,12 @@ impl TimerExt for Context {
     where
         F: FnMut() + 'static,
     {
-        Scheduled::new(self, ScheduleKind::Throttle { no_trailing }, delay, callback)
+        Scheduled::new(
+            self,
+            ScheduleKind::Throttle { no_trailing },
+            delay,
+            callback,
+        )
     }
 
     fn debounce<F>(&self, delay: Duration, callback: F) -> Result<Scheduled, TimerError>

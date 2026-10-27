@@ -79,7 +79,10 @@ pub(crate) fn run() -> Result<(), BoxError> {
                 tokio::task::yield_now().await;
                 assert!(!fired.get(), "child timeout cancelled by owner disposal");
 
-                println!("done: {} immediate callback(s), interval + child cancelled cleanly", log.get());
+                println!(
+                    "done: {} immediate callback(s), interval + child cancelled cleanly",
+                    log.get()
+                );
                 Ok::<_, BoxError>(())
             })
             .await??;

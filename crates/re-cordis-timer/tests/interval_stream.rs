@@ -35,7 +35,11 @@ fn stream_yields_ticks_then_ends_on_stop() -> Result<(), BoxError> {
         control.stop();
         tokio::task::yield_now().await;
         let got = seen.borrow();
-        assert_eq!(got.len(), 2, "two Ok ticks, then clean end (no trailing item)");
+        assert_eq!(
+            got.len(),
+            2,
+            "two Ok ticks, then clean end (no trailing item)"
+        );
         assert!(got.iter().all(|item| item.is_ok()));
         Ok(())
     })

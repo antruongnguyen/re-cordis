@@ -87,8 +87,7 @@ fn throttle_manual_dispose_prevents_all() -> Result<(), BoxError> {
 fn throttle_owner_dispose_stops() -> Result<(), BoxError> {
     block(|root| async move {
         let count = Rc::new(Cell::new(0u32));
-        let holder: Rc<RefCell<Option<re_cordis_timer::Scheduled>>> =
-            Rc::new(RefCell::new(None));
+        let holder: Rc<RefCell<Option<re_cordis_timer::Scheduled>>> = Rc::new(RefCell::new(None));
         let c = count.clone();
         let slot = holder.clone();
         let child = root.plugin(
@@ -117,7 +116,11 @@ fn throttle_owner_dispose_stops() -> Result<(), BoxError> {
         child.dispose()?.await?;
         tokio::time::advance(Duration::from_millis(2000)).await;
         tokio::task::yield_now().await;
-        assert_eq!(count.get(), 1, "owner dispose cancels the pending trailing call");
+        assert_eq!(
+            count.get(),
+            1,
+            "owner dispose cancels the pending trailing call"
+        );
         throttled.call();
         assert_eq!(count.get(), 1, "calls after owner dispose are inert");
         Ok(())
