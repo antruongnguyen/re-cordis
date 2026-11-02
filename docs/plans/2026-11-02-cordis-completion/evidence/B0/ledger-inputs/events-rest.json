@@ -419,43 +419,19 @@
               "source_assertion_lines": [
                 72
               ],
-              "class": "source-mapped-test",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/tests/events.rs",
-                  "symbol": "symbols_named_contracts_prototype_names_and_empty_bucket_removal",
-                  "lines": [
-                    71,
-                    72,
-                    73,
-                    74,
-                    75,
-                    76,
-                    77,
-                    78,
-                    84,
-                    85,
-                    86,
-                    87,
-                    88,
-                    89,
-                    90,
-                    91,
-                    92,
-                    93
-                  ],
-                  "assertion": "The live bucket retains its contract until final removal; afterward the same name accepts a different checked contract.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ]
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
               "restriction": null,
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+              "gap": {
+                "id": "G-B0-events.spec.ts:65-a72",
+                "kind": "missing-evidence",
+                "next_action": "Extend the existing bucket regression with two symbol listeners; remove the first and assert a surviving typed bucket/contract before removing the last.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: a passing regression closes evidence without production change; conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The named-key test checks a contract mismatch before removal and release after the last listener. It never removes one of two symbol listeners before checking the surviving bucket."
             },
             {
               "id": "core/events.spec.ts:65/default/a74",
@@ -505,6 +481,7 @@
         }
       ],
       "classes": [
+        "missing-evidence",
         "source-mapped-test"
       ]
     },
@@ -578,23 +555,50 @@
               "rust_evidence": [
                 {
                   "file": "crates/re-cordis-core/tests/events.rs",
-                  "symbol": "symbols_named_contracts_prototype_names_and_empty_bucket_removal",
+                  "symbol": "removal_after_selection_does_not_cancel_in_flight_snapshots",
                   "lines": [
-                    39,
-                    40,
-                    41,
-                    44,
-                    45,
-                    49,
-                    50,
-                    51,
-                    55,
-                    70,
-                    78,
-                    79,
-                    83
+                    301,
+                    302,
+                    303,
+                    304,
+                    305,
+                    306,
+                    307,
+                    308,
+                    309,
+                    310,
+                    311,
+                    312,
+                    313,
+                    314,
+                    315,
+                    316,
+                    317,
+                    318,
+                    319,
+                    320,
+                    321,
+                    322,
+                    323,
+                    324,
+                    325,
+                    326,
+                    327,
+                    328,
+                    329,
+                    330,
+                    331,
+                    332,
+                    333,
+                    334,
+                    335,
+                    336,
+                    337,
+                    338,
+                    339,
+                    340
                   ],
-                  "assertion": "The listener receives dispatch, exact removal succeeds, and later dispatch leaves its call history unchanged.",
+                  "assertion": "Two successive emit traces are [first,selected] and [first]; the surviving first listener appears exactly once in each, so it receives both emits.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -609,7 +613,7 @@
               },
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+              "rationale": "The trace is cleared between emits, and both assertions explicitly include first. This supplies repeated emit evidence; the earlier named-key test supplies exact removal evidence for the other rows."
             },
             {
               "id": "core/events.spec.ts:77/default/a87",
@@ -922,79 +926,27 @@
               "rust_evidence": [
                 {
                   "file": "crates/re-cordis-core/tests/events.rs",
-                  "symbol": "prepend_and_global_filters_apply_to_each_dispatch_shape",
+                  "symbol": "symbols_named_contracts_prototype_names_and_empty_bucket_removal",
                   "lines": [
-                    187,
-                    188,
-                    189,
-                    190,
-                    191,
-                    192,
-                    193,
-                    194,
-                    195,
-                    196,
-                    197,
-                    198,
-                    199,
-                    200,
-                    201,
-                    202,
-                    203,
-                    204,
-                    205,
-                    206,
-                    207,
-                    208,
-                    209,
-                    210,
-                    211,
-                    212,
-                    213,
-                    214,
-                    215,
-                    216,
-                    217,
-                    218,
-                    219,
-                    220,
-                    221,
-                    222,
-                    223,
-                    224,
-                    225,
-                    226,
-                    227,
-                    228,
-                    229,
-                    230,
-                    231,
-                    232,
-                    233,
-                    234,
-                    235,
-                    236,
-                    237,
-                    238,
-                    239,
-                    240,
-                    241,
-                    242,
-                    243,
-                    244,
-                    245,
-                    246,
-                    247,
-                    248,
-                    249,
-                    250,
-                    251,
-                    252,
-                    253,
-                    254,
-                    255
+                    39,
+                    40,
+                    41,
+                    42,
+                    43,
+                    44,
+                    45,
+                    46,
+                    47,
+                    48,
+                    49,
+                    50,
+                    66,
+                    67,
+                    68,
+                    69,
+                    70
                   ],
-                  "assertion": "For emit/parallel/serial/bail, filtered dispatch invokes global then visible and excludes hidden; unfiltered dispatch invokes all.",
+                  "assertion": "Unfiltered parallel invokes the sole named listener once: its distinct argument is present exactly once in [1,0,2,3].",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -1009,7 +961,7 @@
               },
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+              "rationale": "This joins the actual unfiltered parallel assertion. The filter-loop\u2019s unfiltered operation is emit, so it is not attributed to another mode."
             },
             {
               "id": "core/events.spec.ts:103/default/a112",
@@ -1023,11 +975,6 @@
                   "file": "crates/re-cordis-core/tests/events.rs",
                   "symbol": "prepend_and_global_filters_apply_to_each_dispatch_shape",
                   "lines": [
-                    187,
-                    188,
-                    189,
-                    190,
-                    191,
                     192,
                     193,
                     194,
@@ -1074,26 +1021,10 @@
                     235,
                     236,
                     237,
-                    238,
-                    239,
                     240,
-                    241,
-                    242,
-                    243,
-                    244,
-                    245,
-                    246,
-                    247,
-                    248,
-                    249,
-                    250,
-                    251,
-                    252,
-                    253,
-                    254,
-                    255
+                    248
                   ],
-                  "assertion": "For emit/parallel/serial/bail, filtered dispatch invokes global then visible and excludes hidden; unfiltered dispatch invokes all.",
+                  "assertion": "The filtered parallel branch yields exactly [global,visible], excludes hidden; the unfiltered check at 250\u2013254 uses emit only.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -1108,7 +1039,7 @@
               },
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+              "rationale": "Typed filtering is directly asserted by the selected mode branch. Global bypass is an additional Rust assertion; this row claims the source listener\u2019s selection only."
             },
             {
               "id": "core/events.spec.ts:103/default/a114",
@@ -1122,11 +1053,6 @@
                   "file": "crates/re-cordis-core/tests/events.rs",
                   "symbol": "prepend_and_global_filters_apply_to_each_dispatch_shape",
                   "lines": [
-                    187,
-                    188,
-                    189,
-                    190,
-                    191,
                     192,
                     193,
                     194,
@@ -1173,26 +1099,10 @@
                     235,
                     236,
                     237,
-                    238,
-                    239,
                     240,
-                    241,
-                    242,
-                    243,
-                    244,
-                    245,
-                    246,
-                    247,
-                    248,
-                    249,
-                    250,
-                    251,
-                    252,
-                    253,
-                    254,
-                    255
+                    248
                   ],
-                  "assertion": "For emit/parallel/serial/bail, filtered dispatch invokes global then visible and excludes hidden; unfiltered dispatch invokes all.",
+                  "assertion": "The filtered parallel branch yields exactly [global,visible], includes visible once alongside global; the unfiltered check at 250\u2013254 uses emit only.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -1207,7 +1117,7 @@
               },
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+              "rationale": "Typed filtering is directly asserted by the selected mode branch. Global bypass is an additional Rust assertion; this row claims the source listener\u2019s selection only."
             },
             {
               "id": "core/events.spec.ts:103/default/a127",
@@ -1300,7 +1210,7 @@
             },
             {
               "id": "core/events.spec.ts:103/default/a128",
-              "behavior": "In 'ctx.parallel()', the pinned source checks: expect(error.message).to.equal('one or more listeners of event \"custom-event\" failed')",
+              "behavior": "Structured parallel failure retains the explicitly asserted symbol label as a typed Rust substitute.",
               "source_assertion_lines": [
                 128
               ],
@@ -1364,13 +1274,9 @@
                     399,
                     400,
                     401,
-                    402,
-                    403,
-                    404,
-                    405,
-                    406
+                    402
                   ],
-                  "assertion": "Parallel starts every responder, awaits the gated async responder, labels the event, and retains all failures in snapshot order.",
+                  "assertion": "Awaited parallel returns EventError::Callbacks; the asserted label is Symbol(parallel), failures.len() is 3, and the third failure is a panic.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -1385,11 +1291,35 @@
               },
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+              "rationale": "The only asserted label is Symbol(parallel), not a named custom-event label. Aggregate/all-settled evidence is retained, with the missing detail in the sibling gap."
+            },
+            {
+              "id": "core/events.spec.ts:103/default/a128-named-label",
+              "behavior": "Parallel callback failure on a named event reports that named event in the returned error label.",
+              "source_assertion_lines": [
+                128
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": {
+                "id": "G-B0-events.spec.ts:103-a128-named-label",
+                "kind": "missing-evidence",
+                "next_action": "Extend the existing parallel error regression with a named event and assert its returned label/message.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: a passing regression closes evidence without production change; conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The only asserted label is Symbol(parallel), not a named custom-event label."
             },
             {
               "id": "core/events.spec.ts:103/default/a129",
-              "behavior": "In 'ctx.parallel()', the pinned source checks: expect(error.errors.map((e: Error) => e.message)).to.have.members(['test', 'async'])",
+              "behavior": "Structured parallel failure contains the asserted three failures including the third panic; callback message content is separate.",
               "source_assertion_lines": [
                 129
               ],
@@ -1453,13 +1383,9 @@
                     399,
                     400,
                     401,
-                    402,
-                    403,
-                    404,
-                    405,
-                    406
+                    402
                   ],
-                  "assertion": "Parallel starts every responder, awaits the gated async responder, labels the event, and retains all failures in snapshot order.",
+                  "assertion": "Awaited parallel returns EventError::Callbacks; the asserted label is Symbol(parallel), failures.len() is 3, and the third failure is a panic.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -1474,7 +1400,31 @@
               },
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+              "rationale": "The test asserts three failures and a panic flag; it never asserts the first two sources/messages. Aggregate/all-settled evidence is retained, with the missing detail in the sibling gap."
+            },
+            {
+              "id": "core/events.spec.ts:103/default/a129-callback-messages",
+              "behavior": "Parallel aggregate exposes both original callback error messages.",
+              "source_assertion_lines": [
+                129
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": {
+                "id": "G-B0-events.spec.ts:103-a129-callback-messages",
+                "kind": "missing-evidence",
+                "next_action": "Extend the existing parallel regression to inspect the first two returned callback sources/messages in snapshot order.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: a passing regression closes evidence without production change; conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The test asserts three failures and a panic flag; it never asserts the first two sources/messages."
             },
             {
               "id": "core/events.spec.ts:103/default/a130",
@@ -1744,35 +1694,61 @@
               "rust_evidence": [
                 {
                   "file": "crates/re-cordis-core/tests/events.rs",
-                  "symbol": "synchronous_emit_failure_stops_later_callbacks",
+                  "symbol": "prepend_and_global_filters_apply_to_each_dispatch_shape",
                   "lines": [
-                    521,
-                    522,
-                    523,
-                    524,
-                    525,
-                    526,
-                    527,
-                    528,
-                    529,
-                    530,
-                    531,
-                    532,
-                    533,
-                    534,
-                    535,
-                    536,
-                    537,
-                    538,
-                    539,
-                    540,
-                    541,
-                    542,
-                    543,
-                    544,
-                    545
+                    192,
+                    193,
+                    194,
+                    195,
+                    196,
+                    197,
+                    198,
+                    199,
+                    200,
+                    201,
+                    202,
+                    203,
+                    204,
+                    205,
+                    206,
+                    207,
+                    208,
+                    209,
+                    210,
+                    211,
+                    212,
+                    213,
+                    214,
+                    215,
+                    216,
+                    217,
+                    218,
+                    219,
+                    220,
+                    221,
+                    222,
+                    223,
+                    224,
+                    225,
+                    226,
+                    227,
+                    228,
+                    229,
+                    230,
+                    231,
+                    232,
+                    233,
+                    234,
+                    235,
+                    236,
+                    249,
+                    250,
+                    251,
+                    252,
+                    253,
+                    254
                   ],
-                  "assertion": "A synchronous emit failure returns EventError::Callbacks immediately and prevents the later callback.",
+                  "assertion": "Unfiltered emit yields exactly [global,visible,hidden], including each registered listener once.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -1787,7 +1763,7 @@
               },
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+              "rationale": "This joins the actual unfiltered emit assertion. The filter-loop\u2019s unfiltered operation is emit, so it is not attributed to another mode."
             },
             {
               "id": "core/events.spec.ts:145/default/a154",
@@ -1799,35 +1775,58 @@
               "rust_evidence": [
                 {
                   "file": "crates/re-cordis-core/tests/events.rs",
-                  "symbol": "synchronous_emit_failure_stops_later_callbacks",
+                  "symbol": "prepend_and_global_filters_apply_to_each_dispatch_shape",
                   "lines": [
-                    521,
-                    522,
-                    523,
-                    524,
-                    525,
-                    526,
-                    527,
-                    528,
-                    529,
-                    530,
-                    531,
-                    532,
-                    533,
-                    534,
-                    535,
-                    536,
-                    537,
-                    538,
-                    539,
-                    540,
-                    541,
-                    542,
-                    543,
-                    544,
-                    545
+                    192,
+                    193,
+                    194,
+                    195,
+                    196,
+                    197,
+                    198,
+                    199,
+                    200,
+                    201,
+                    202,
+                    203,
+                    204,
+                    205,
+                    206,
+                    207,
+                    208,
+                    209,
+                    210,
+                    211,
+                    212,
+                    213,
+                    214,
+                    215,
+                    216,
+                    217,
+                    218,
+                    219,
+                    220,
+                    221,
+                    222,
+                    223,
+                    224,
+                    225,
+                    226,
+                    227,
+                    228,
+                    229,
+                    230,
+                    231,
+                    232,
+                    233,
+                    234,
+                    235,
+                    236,
+                    237,
+                    239,
+                    248
                   ],
-                  "assertion": "A synchronous emit failure returns EventError::Callbacks immediately and prevents the later callback.",
+                  "assertion": "The filtered emit branch yields exactly [global,visible], excludes hidden; the unfiltered check at 250\u2013254 uses emit only.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -1842,7 +1841,7 @@
               },
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+              "rationale": "Typed filtering is directly asserted by the selected mode branch. Global bypass is an additional Rust assertion; this row claims the source listener\u2019s selection only."
             },
             {
               "id": "core/events.spec.ts:145/default/a156",
@@ -1854,35 +1853,58 @@
               "rust_evidence": [
                 {
                   "file": "crates/re-cordis-core/tests/events.rs",
-                  "symbol": "synchronous_emit_failure_stops_later_callbacks",
+                  "symbol": "prepend_and_global_filters_apply_to_each_dispatch_shape",
                   "lines": [
-                    521,
-                    522,
-                    523,
-                    524,
-                    525,
-                    526,
-                    527,
-                    528,
-                    529,
-                    530,
-                    531,
-                    532,
-                    533,
-                    534,
-                    535,
-                    536,
-                    537,
-                    538,
-                    539,
-                    540,
-                    541,
-                    542,
-                    543,
-                    544,
-                    545
+                    192,
+                    193,
+                    194,
+                    195,
+                    196,
+                    197,
+                    198,
+                    199,
+                    200,
+                    201,
+                    202,
+                    203,
+                    204,
+                    205,
+                    206,
+                    207,
+                    208,
+                    209,
+                    210,
+                    211,
+                    212,
+                    213,
+                    214,
+                    215,
+                    216,
+                    217,
+                    218,
+                    219,
+                    220,
+                    221,
+                    222,
+                    223,
+                    224,
+                    225,
+                    226,
+                    227,
+                    228,
+                    229,
+                    230,
+                    231,
+                    232,
+                    233,
+                    234,
+                    235,
+                    236,
+                    237,
+                    239,
+                    248
                   ],
-                  "assertion": "A synchronous emit failure returns EventError::Callbacks immediately and prevents the later callback.",
+                  "assertion": "The filtered emit branch yields exactly [global,visible], includes visible once alongside global; the unfiltered check at 250\u2013254 uses emit only.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -1897,11 +1919,11 @@
               },
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+              "rationale": "Typed filtering is directly asserted by the selected mode branch. Global bypass is an additional Rust assertion; this row claims the source listener\u2019s selection only."
             },
             {
               "id": "core/events.spec.ts:145/default/a161",
-              "behavior": "In 'ctx.emit()', the pinned source checks: expect(() => root.emit(event)).to.throw('test')",
+              "behavior": "Synchronous emit failure returns immediately and stops later callbacks through the explicit Rust error adapter.",
               "source_assertion_lines": [
                 161
               ],
@@ -1937,7 +1959,7 @@
                     544,
                     545
                   ],
-                  "assertion": "A synchronous emit failure returns EventError::Callbacks immediately and prevents the later callback.",
+                  "assertion": "The synchronous emit request returns EventError::Callbacks immediately and the later callback is suppressed.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -1952,12 +1974,37 @@
               },
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+              "rationale": "The panic terminal and returned enum match prove immediate failure/short-circuit only; the sibling gap owns message content."
+            },
+            {
+              "id": "core/events.spec.ts:145/default/a161-message",
+              "behavior": "Synchronous emit returns the original callback error message.",
+              "source_assertion_lines": [
+                161
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": {
+                "id": "G-B0-events.spec.ts:145-a161-message",
+                "kind": "missing-evidence",
+                "next_action": "Extend synchronous_emit_failure_stops_later_callbacks to assert the returned original callback source/message.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: a passing regression closes evidence without production change; conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The returned error is only matched as EventError::Callbacks; the input error(\"stop\") is not a source/message assertion."
             }
           ]
         }
       ],
       "classes": [
+        "missing-evidence",
         "rust-representation"
       ]
     },
@@ -2012,79 +2059,56 @@
               "rust_evidence": [
                 {
                   "file": "crates/re-cordis-core/tests/events.rs",
-                  "symbol": "prepend_and_global_filters_apply_to_each_dispatch_shape",
+                  "symbol": "symbols_named_contracts_prototype_names_and_empty_bucket_removal",
                   "lines": [
-                    187,
-                    188,
-                    189,
-                    190,
-                    191,
-                    192,
-                    193,
-                    194,
-                    195,
-                    196,
-                    197,
-                    198,
-                    199,
-                    200,
-                    201,
-                    202,
-                    203,
-                    204,
-                    205,
-                    206,
-                    207,
-                    208,
-                    209,
-                    210,
-                    211,
-                    212,
-                    213,
-                    214,
-                    215,
-                    216,
-                    217,
-                    218,
-                    219,
-                    220,
-                    221,
-                    222,
-                    223,
-                    224,
-                    225,
-                    226,
-                    227,
-                    228,
-                    229,
-                    230,
-                    231,
-                    232,
-                    233,
-                    234,
-                    235,
-                    236,
-                    237,
-                    238,
-                    239,
-                    240,
-                    241,
-                    242,
-                    243,
-                    244,
-                    245,
-                    246,
-                    247,
-                    248,
-                    249,
-                    250,
-                    251,
-                    252,
-                    253,
-                    254,
-                    255
+                    39,
+                    40,
+                    41,
+                    42,
+                    43,
+                    44,
+                    45,
+                    46,
+                    47,
+                    48,
+                    49,
+                    50,
+                    59,
+                    60,
+                    61,
+                    62,
+                    63,
+                    64,
+                    70
                   ],
-                  "assertion": "Serial selects global plus visible under a filter, excludes hidden, and selects all listeners without a filter.",
+                  "assertion": "Unfiltered serial invokes the sole named listener once: its distinct argument is present exactly once in [1,0,2,3].",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                },
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "serial_has_an_immediate_first_prefix_and_stops_on_zero_or_empty_answers",
+                  "lines": [
+                    421,
+                    422,
+                    423,
+                    424,
+                    425,
+                    426,
+                    427,
+                    428,
+                    429,
+                    430,
+                    431,
+                    432,
+                    433,
+                    434,
+                    449,
+                    450
+                  ],
+                  "assertion": "The first serial listener factory prefix is asserted before awaiting its task.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -2099,7 +2123,7 @@
               },
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+              "rationale": "This joins the actual unfiltered serial assertion. The split adapter\u2019s immediate first-prefix test supplies timing; it is separate from the awaited named/filter traces."
             },
             {
               "id": "core/events.spec.ts:164/default/a173",
@@ -2113,11 +2137,6 @@
                   "file": "crates/re-cordis-core/tests/events.rs",
                   "symbol": "prepend_and_global_filters_apply_to_each_dispatch_shape",
                   "lines": [
-                    187,
-                    188,
-                    189,
-                    190,
-                    191,
                     192,
                     193,
                     194,
@@ -2164,26 +2183,37 @@
                     235,
                     236,
                     237,
-                    238,
-                    239,
-                    240,
-                    241,
                     242,
-                    243,
-                    244,
-                    245,
-                    246,
-                    247,
-                    248,
-                    249,
-                    250,
-                    251,
-                    252,
-                    253,
-                    254,
-                    255
+                    248
                   ],
-                  "assertion": "Serial selects global plus visible under a filter, excludes hidden, and selects all listeners without a filter.",
+                  "assertion": "The filtered serial branch yields exactly [global,visible], excludes hidden; the unfiltered check at 250\u2013254 uses emit only.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                },
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "serial_has_an_immediate_first_prefix_and_stops_on_zero_or_empty_answers",
+                  "lines": [
+                    421,
+                    422,
+                    423,
+                    424,
+                    425,
+                    426,
+                    427,
+                    428,
+                    429,
+                    430,
+                    431,
+                    432,
+                    433,
+                    434,
+                    449,
+                    450
+                  ],
+                  "assertion": "The first asynchronous listener factory sets prefix and assert!(prefix.get()) runs before awaiting the returned serial task.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -2198,7 +2228,7 @@
               },
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+              "rationale": "Typed filtering is directly asserted by the selected mode branch. The independent first-factory prefix assertion supplies the eager-prefix representation for the source\u2019s immediate callback checks; the filter test alone observes its trace after awaiting."
             },
             {
               "id": "core/events.spec.ts:164/default/a175",
@@ -2212,11 +2242,6 @@
                   "file": "crates/re-cordis-core/tests/events.rs",
                   "symbol": "prepend_and_global_filters_apply_to_each_dispatch_shape",
                   "lines": [
-                    187,
-                    188,
-                    189,
-                    190,
-                    191,
                     192,
                     193,
                     194,
@@ -2263,26 +2288,37 @@
                     235,
                     236,
                     237,
-                    238,
-                    239,
-                    240,
-                    241,
                     242,
-                    243,
-                    244,
-                    245,
-                    246,
-                    247,
-                    248,
-                    249,
-                    250,
-                    251,
-                    252,
-                    253,
-                    254,
-                    255
+                    248
                   ],
-                  "assertion": "Serial selects global plus visible under a filter, excludes hidden, and selects all listeners without a filter.",
+                  "assertion": "The filtered serial branch yields exactly [global,visible], includes visible once alongside global; the unfiltered check at 250\u2013254 uses emit only.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                },
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "serial_has_an_immediate_first_prefix_and_stops_on_zero_or_empty_answers",
+                  "lines": [
+                    421,
+                    422,
+                    423,
+                    424,
+                    425,
+                    426,
+                    427,
+                    428,
+                    429,
+                    430,
+                    431,
+                    432,
+                    433,
+                    434,
+                    449,
+                    450
+                  ],
+                  "assertion": "The first asynchronous listener factory sets prefix and assert!(prefix.get()) runs before awaiting the returned serial task.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -2297,7 +2333,7 @@
               },
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+              "rationale": "Typed filtering is directly asserted by the selected mode branch. The independent first-factory prefix assertion supplies the eager-prefix representation for the source\u2019s immediate callback checks; the filter test alone observes its trace after awaiting."
             },
             {
               "id": "core/events.spec.ts:164/default/a180",
@@ -2382,79 +2418,27 @@
               "rust_evidence": [
                 {
                   "file": "crates/re-cordis-core/tests/events.rs",
-                  "symbol": "prepend_and_global_filters_apply_to_each_dispatch_shape",
+                  "symbol": "symbols_named_contracts_prototype_names_and_empty_bucket_removal",
                   "lines": [
-                    187,
-                    188,
-                    189,
-                    190,
-                    191,
-                    192,
-                    193,
-                    194,
-                    195,
-                    196,
-                    197,
-                    198,
-                    199,
-                    200,
-                    201,
-                    202,
-                    203,
-                    204,
-                    205,
-                    206,
-                    207,
-                    208,
-                    209,
-                    210,
-                    211,
-                    212,
-                    213,
-                    214,
-                    215,
-                    216,
-                    217,
-                    218,
-                    219,
-                    220,
-                    221,
-                    222,
-                    223,
-                    224,
-                    225,
-                    226,
-                    227,
-                    228,
-                    229,
-                    230,
-                    231,
-                    232,
-                    233,
-                    234,
-                    235,
-                    236,
-                    237,
-                    238,
-                    239,
-                    240,
-                    241,
-                    242,
-                    243,
-                    244,
-                    245,
-                    246,
-                    247,
-                    248,
-                    249,
-                    250,
-                    251,
-                    252,
-                    253,
-                    254,
-                    255
+                    39,
+                    40,
+                    41,
+                    42,
+                    43,
+                    44,
+                    45,
+                    46,
+                    47,
+                    48,
+                    49,
+                    50,
+                    55,
+                    56,
+                    57,
+                    58,
+                    70
                   ],
-                  "assertion": "Bail selects global plus visible under a filter, excludes hidden, and selects all listeners without a filter.",
+                  "assertion": "Unfiltered bail invokes the sole named listener once: its distinct argument is present exactly once in [1,0,2,3].",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -2469,7 +2453,7 @@
               },
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+              "rationale": "This joins the actual unfiltered bail assertion. The filter-loop\u2019s unfiltered operation is emit, so it is not attributed to another mode."
             },
             {
               "id": "core/events.spec.ts:183/default/a192",
@@ -2483,11 +2467,6 @@
                   "file": "crates/re-cordis-core/tests/events.rs",
                   "symbol": "prepend_and_global_filters_apply_to_each_dispatch_shape",
                   "lines": [
-                    187,
-                    188,
-                    189,
-                    190,
-                    191,
                     192,
                     193,
                     194,
@@ -2534,26 +2513,10 @@
                     235,
                     236,
                     237,
-                    238,
-                    239,
-                    240,
-                    241,
-                    242,
-                    243,
-                    244,
                     245,
-                    246,
-                    247,
-                    248,
-                    249,
-                    250,
-                    251,
-                    252,
-                    253,
-                    254,
-                    255
+                    248
                   ],
-                  "assertion": "Bail selects global plus visible under a filter, excludes hidden, and selects all listeners without a filter.",
+                  "assertion": "The filtered bail branch yields exactly [global,visible], excludes hidden; the unfiltered check at 250\u2013254 uses emit only.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -2568,7 +2531,7 @@
               },
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+              "rationale": "Typed filtering is directly asserted by the selected mode branch. Global bypass is an additional Rust assertion; this row claims the source listener\u2019s selection only."
             },
             {
               "id": "core/events.spec.ts:183/default/a194",
@@ -2582,11 +2545,6 @@
                   "file": "crates/re-cordis-core/tests/events.rs",
                   "symbol": "prepend_and_global_filters_apply_to_each_dispatch_shape",
                   "lines": [
-                    187,
-                    188,
-                    189,
-                    190,
-                    191,
                     192,
                     193,
                     194,
@@ -2633,26 +2591,10 @@
                     235,
                     236,
                     237,
-                    238,
-                    239,
-                    240,
-                    241,
-                    242,
-                    243,
-                    244,
                     245,
-                    246,
-                    247,
-                    248,
-                    249,
-                    250,
-                    251,
-                    252,
-                    253,
-                    254,
-                    255
+                    248
                   ],
-                  "assertion": "Bail selects global plus visible under a filter, excludes hidden, and selects all listeners without a filter.",
+                  "assertion": "The filtered bail branch yields exactly [global,visible], includes visible once alongside global; the unfiltered check at 250\u2013254 uses emit only.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -2667,7 +2609,7 @@
               },
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+              "rationale": "Typed filtering is directly asserted by the selected mode branch. Global bypass is an additional Rust assertion; this row claims the source listener\u2019s selection only."
             },
             {
               "id": "core/events.spec.ts:183/default/a199",
@@ -2762,23 +2704,9 @@
                     581,
                     582,
                     583,
-                    584,
-                    585,
-                    586,
-                    587,
-                    588,
-                    589,
-                    590,
-                    591,
-                    592,
-                    593,
-                    594,
-                    595,
-                    596,
-                    597,
-                    598
+                    584
                   ],
-                  "assertion": "Two around frames and the terminal return 4; an inner veto omits next and the outer frame resumes around it.",
+                  "assertion": "Two forwarding frames with value 1 and terminal 2 return 4; the outer frame trace is exactly [before,after].",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -2839,23 +2767,9 @@
                     581,
                     582,
                     583,
-                    584,
-                    585,
-                    586,
-                    587,
-                    588,
-                    589,
-                    590,
-                    591,
-                    592,
-                    593,
-                    594,
-                    595,
-                    596,
-                    597,
-                    598
+                    584
                   ],
-                  "assertion": "Two around frames and the terminal return 4; an inner veto omits next and the outer frame resumes around it.",
+                  "assertion": "Two forwarding frames with value 1 and terminal 2 return 4; the outer frame trace is exactly [before,after].",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -2874,7 +2788,7 @@
             },
             {
               "id": "core/events.spec.ts:202/default/a211",
-              "behavior": "In 'ctx.waterfall()', the pinned source checks: expect(cb2.mock.calls).to.have.length(1)",
+              "behavior": "A selected inner forwarding listener in the two-frame owned-Next substitute is invoked once.",
               "source_assertion_lines": [
                 211
               ],
@@ -2882,57 +2796,49 @@
               "rust_evidence": [
                 {
                   "file": "crates/re-cordis-core/tests/events.rs",
-                  "symbol": "waterfall_is_around_middleware_with_veto_and_nested_async_calls",
+                  "symbol": "snapshots_survive_removal_in_serial_parallel_bail_and_waterfall",
                   "lines": [
-                    552,
-                    553,
-                    554,
-                    555,
-                    556,
-                    557,
-                    558,
-                    559,
-                    560,
-                    561,
-                    562,
-                    563,
-                    564,
-                    565,
-                    566,
-                    567,
-                    568,
-                    569,
-                    570,
-                    571,
-                    572,
-                    573,
-                    574,
-                    575,
-                    576,
-                    577,
-                    578,
-                    579,
-                    580,
-                    581,
-                    582,
-                    583,
-                    584,
-                    585,
-                    586,
-                    587,
-                    588,
-                    589,
-                    590,
-                    591,
-                    592,
-                    593,
-                    594,
-                    595,
-                    596,
-                    597,
-                    598
+                    688,
+                    689,
+                    690,
+                    691,
+                    692,
+                    693,
+                    694,
+                    695,
+                    696,
+                    697,
+                    698,
+                    699,
+                    700,
+                    701,
+                    702,
+                    703,
+                    704,
+                    705,
+                    706,
+                    707,
+                    708,
+                    709,
+                    710,
+                    711,
+                    712,
+                    713,
+                    714,
+                    715,
+                    716,
+                    717,
+                    718,
+                    719,
+                    720,
+                    721,
+                    722,
+                    723,
+                    724,
+                    725,
+                    811
                   ],
-                  "assertion": "Two around frames and the terminal return 4; an inner veto omits next and the outer frame resumes around it.",
+                  "assertion": "The sync waterfall branch measures the selected inner forwarding callback exactly once with calls.get() == 1.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -2947,11 +2853,11 @@
               },
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+              "rationale": "This runnable two-frame substitute measures the inner callback; a209 separately preserves arithmetic result 4. It does not attest the four-listener veto or nested async counters."
             },
             {
               "id": "core/events.spec.ts:202/default/a219",
-              "behavior": "In 'ctx.waterfall()', the pinned source checks: expect(root.waterfall('test/waterfall', 1, () => 2)).to.equal(3)",
+              "behavior": "A simplified typed outer-plus-veto chain composes result 10 and suppresses its terminal.",
               "source_assertion_lines": [
                 219
               ],
@@ -2961,13 +2867,6 @@
                   "file": "crates/re-cordis-core/tests/events.rs",
                   "symbol": "waterfall_is_around_middleware_with_veto_and_nested_async_calls",
                   "lines": [
-                    552,
-                    553,
-                    554,
-                    555,
-                    556,
-                    557,
-                    558,
                     559,
                     560,
                     561,
@@ -2983,17 +2882,6 @@
                     571,
                     572,
                     573,
-                    574,
-                    575,
-                    576,
-                    577,
-                    578,
-                    579,
-                    580,
-                    581,
-                    582,
-                    583,
-                    584,
                     585,
                     586,
                     587,
@@ -3009,7 +2897,7 @@
                     597,
                     598
                   ],
-                  "assertion": "Two around frames and the terminal return 4; an inner veto omits next and the outer frame resumes around it.",
+                  "assertion": "After inner removal, the remaining outer adds value 1 to veto result 9, yielding 10; the panic terminal is never reached.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -3024,7 +2912,31 @@
               },
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+              "rationale": "The selected typed around/veto mechanism is observed in a simpler topology. The sibling topology gap owns source result 3 and all four-listener structure."
+            },
+            {
+              "id": "core/events.spec.ts:202/default/a219-topology",
+              "behavior": "Two forwarding frames followed by a third veto and fourth suppressed listener produce source result 3.",
+              "source_assertion_lines": [
+                219
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": {
+                "id": "G-B0-events.spec.ts:202-a219-topology",
+                "kind": "missing-evidence",
+                "next_action": "Extend the existing veto regression to keep both forwarding listeners, append a veto returning value and a fourth listener, and assert result 3 with terminal suppression.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: a passing regression closes evidence without production change; conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "Rust removes the initial inner frame and tests one outer plus veto, producing 10, not the four-listener source topology/result 3."
             },
             {
               "id": "core/events.spec.ts:202/default/a220",
@@ -3032,76 +2944,23 @@
               "source_assertion_lines": [
                 220
               ],
-              "class": "rust-representation",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/tests/events.rs",
-                  "symbol": "waterfall_is_around_middleware_with_veto_and_nested_async_calls",
-                  "lines": [
-                    552,
-                    553,
-                    554,
-                    555,
-                    556,
-                    557,
-                    558,
-                    559,
-                    560,
-                    561,
-                    562,
-                    563,
-                    564,
-                    565,
-                    566,
-                    567,
-                    568,
-                    569,
-                    570,
-                    571,
-                    572,
-                    573,
-                    574,
-                    575,
-                    576,
-                    577,
-                    578,
-                    579,
-                    580,
-                    581,
-                    582,
-                    583,
-                    584,
-                    585,
-                    586,
-                    587,
-                    588,
-                    589,
-                    590,
-                    591,
-                    592,
-                    593,
-                    594,
-                    595,
-                    596,
-                    597,
-                    598
-                  ],
-                  "assertion": "Two around frames and the terminal return 4; an inner veto omits next and the outer frame resumes around it.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ]
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
               "restriction": {
                 "document": "docs/m2.md",
                 "anchor": "five-dispatch-modes-with-honest-callback-shapes",
                 "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
               },
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+              "gap": {
+                "id": "G-B0-events.spec.ts:202-a220",
+                "kind": "missing-evidence",
+                "next_action": "In the same four-listener veto regression as G-B0-events.spec.ts:202-a219-topology, count 1th listener calls and assert one.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: a passing regression closes evidence without production change; conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The simpler veto test has one outer and a veto, no fourth listener, and no call counters; source listener 1 count is unobserved."
             },
             {
               "id": "core/events.spec.ts:202/default/a221",
@@ -3109,76 +2968,23 @@
               "source_assertion_lines": [
                 221
               ],
-              "class": "rust-representation",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/tests/events.rs",
-                  "symbol": "waterfall_is_around_middleware_with_veto_and_nested_async_calls",
-                  "lines": [
-                    552,
-                    553,
-                    554,
-                    555,
-                    556,
-                    557,
-                    558,
-                    559,
-                    560,
-                    561,
-                    562,
-                    563,
-                    564,
-                    565,
-                    566,
-                    567,
-                    568,
-                    569,
-                    570,
-                    571,
-                    572,
-                    573,
-                    574,
-                    575,
-                    576,
-                    577,
-                    578,
-                    579,
-                    580,
-                    581,
-                    582,
-                    583,
-                    584,
-                    585,
-                    586,
-                    587,
-                    588,
-                    589,
-                    590,
-                    591,
-                    592,
-                    593,
-                    594,
-                    595,
-                    596,
-                    597,
-                    598
-                  ],
-                  "assertion": "Two around frames and the terminal return 4; an inner veto omits next and the outer frame resumes around it.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ]
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
               "restriction": {
                 "document": "docs/m2.md",
                 "anchor": "five-dispatch-modes-with-honest-callback-shapes",
                 "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
               },
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+              "gap": {
+                "id": "G-B0-events.spec.ts:202-a221",
+                "kind": "missing-evidence",
+                "next_action": "In the same four-listener veto regression as G-B0-events.spec.ts:202-a219-topology, count 2th listener calls and assert one.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: a passing regression closes evidence without production change; conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The simpler veto test has one outer and a veto, no fourth listener, and no call counters; source listener 2 count is unobserved."
             },
             {
               "id": "core/events.spec.ts:202/default/a222",
@@ -3186,76 +2992,23 @@
               "source_assertion_lines": [
                 222
               ],
-              "class": "rust-representation",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/tests/events.rs",
-                  "symbol": "waterfall_is_around_middleware_with_veto_and_nested_async_calls",
-                  "lines": [
-                    552,
-                    553,
-                    554,
-                    555,
-                    556,
-                    557,
-                    558,
-                    559,
-                    560,
-                    561,
-                    562,
-                    563,
-                    564,
-                    565,
-                    566,
-                    567,
-                    568,
-                    569,
-                    570,
-                    571,
-                    572,
-                    573,
-                    574,
-                    575,
-                    576,
-                    577,
-                    578,
-                    579,
-                    580,
-                    581,
-                    582,
-                    583,
-                    584,
-                    585,
-                    586,
-                    587,
-                    588,
-                    589,
-                    590,
-                    591,
-                    592,
-                    593,
-                    594,
-                    595,
-                    596,
-                    597,
-                    598
-                  ],
-                  "assertion": "Two around frames and the terminal return 4; an inner veto omits next and the outer frame resumes around it.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ]
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
               "restriction": {
                 "document": "docs/m2.md",
                 "anchor": "five-dispatch-modes-with-honest-callback-shapes",
                 "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
               },
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+              "gap": {
+                "id": "G-B0-events.spec.ts:202-a222",
+                "kind": "missing-evidence",
+                "next_action": "In the same four-listener veto regression as G-B0-events.spec.ts:202-a219-topology, count 3th listener calls and assert one.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: a passing regression closes evidence without production change; conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The simpler veto test has one outer and a veto, no fourth listener, and no call counters; source listener 3 count is unobserved."
             },
             {
               "id": "core/events.spec.ts:202/default/a223",
@@ -3263,81 +3016,29 @@
               "source_assertion_lines": [
                 223
               ],
-              "class": "rust-representation",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/tests/events.rs",
-                  "symbol": "waterfall_is_around_middleware_with_veto_and_nested_async_calls",
-                  "lines": [
-                    552,
-                    553,
-                    554,
-                    555,
-                    556,
-                    557,
-                    558,
-                    559,
-                    560,
-                    561,
-                    562,
-                    563,
-                    564,
-                    565,
-                    566,
-                    567,
-                    568,
-                    569,
-                    570,
-                    571,
-                    572,
-                    573,
-                    574,
-                    575,
-                    576,
-                    577,
-                    578,
-                    579,
-                    580,
-                    581,
-                    582,
-                    583,
-                    584,
-                    585,
-                    586,
-                    587,
-                    588,
-                    589,
-                    590,
-                    591,
-                    592,
-                    593,
-                    594,
-                    595,
-                    596,
-                    597,
-                    598
-                  ],
-                  "assertion": "Two around frames and the terminal return 4; an inner veto omits next and the outer frame resumes around it.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ]
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
               "restriction": {
                 "document": "docs/m2.md",
                 "anchor": "five-dispatch-modes-with-honest-callback-shapes",
                 "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
               },
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+              "gap": {
+                "id": "G-B0-events.spec.ts:202-a223",
+                "kind": "missing-evidence",
+                "next_action": "In the same four-listener veto regression as G-B0-events.spec.ts:202-a219-topology, count 4th listener calls and assert zero.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: a passing regression closes evidence without production change; conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The simpler veto test has one outer and a veto, no fourth listener, and no call counters; source listener 4 count is unobserved."
             }
           ]
         }
       ],
       "classes": [
+        "missing-evidence",
         "rust-representation"
       ]
     },
@@ -3403,35 +3104,61 @@
             },
             {
               "id": "core/events.spec.ts:230/default/a240",
-              "behavior": "In 'ctx.waterfall() rejects duplicate next()', the pinned source checks: expect(callback.mock.calls).to.have.length(1)",
+              "behavior": "A valid owned-Next waterfall invokes the measured forwarding callback exactly once; direct duplicate use is rejected separately.",
               "source_assertion_lines": [
                 240
               ],
               "class": "rust-representation",
               "rust_evidence": [
                 {
-                  "file": "crates/re-cordis-core/src/events.rs",
-                  "symbol": "events::Next",
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "snapshots_survive_removal_in_serial_parallel_bail_and_waterfall",
                   "lines": [
-                    249,
-                    250,
-                    251,
-                    252,
-                    253,
-                    254,
-                    255,
-                    256,
-                    257,
-                    258,
-                    259
+                    688,
+                    689,
+                    690,
+                    691,
+                    692,
+                    693,
+                    694,
+                    695,
+                    696,
+                    697,
+                    698,
+                    699,
+                    700,
+                    701,
+                    702,
+                    703,
+                    704,
+                    705,
+                    706,
+                    707,
+                    708,
+                    709,
+                    710,
+                    711,
+                    712,
+                    713,
+                    714,
+                    715,
+                    716,
+                    717,
+                    718,
+                    719,
+                    720,
+                    721,
+                    722,
+                    723,
+                    724,
+                    725,
+                    811
                   ],
-                  "assertion": "Next::call consumes the continuation, so a second call is rejected at compile time.",
+                  "assertion": "In the sync waterfall branch, the selected inner around listener forwards its owned Next once and calls.get() is exactly 1 after dispatch.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
-                  ],
-                  "rustdoc_line": 250,
-                  "compile_fail": true
+                  ]
                 }
               ],
               "paired_evidence": [],
@@ -3442,55 +3169,37 @@
               },
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+              "rationale": "Direct Next reuse is statically rejected in a239. The runnable valid one-use substitute measures one selected callback; it does not execute an invalid double-call program."
             },
             {
               "id": "core/events.spec.ts:230/default/a241",
-              "behavior": "In 'ctx.waterfall() rejects duplicate next()', the pinned source checks: expect(terminal.mock.calls).to.have.length(1)",
+              "behavior": "The terminal is invoked exactly once in the runnable single-use substitute.",
               "source_assertion_lines": [
                 241
               ],
-              "class": "rust-representation",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/src/events.rs",
-                  "symbol": "events::Next",
-                  "lines": [
-                    249,
-                    250,
-                    251,
-                    252,
-                    253,
-                    254,
-                    255,
-                    256,
-                    257,
-                    258,
-                    259
-                  ],
-                  "assertion": "Next::call consumes the continuation, so a second call is rejected at compile time.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ],
-                  "rustdoc_line": 250,
-                  "compile_fail": true
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
               "restriction": {
                 "document": "docs/m2.md",
                 "anchor": "five-dispatch-modes-with-honest-callback-shapes",
                 "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
               },
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+              "gap": {
+                "id": "G-B0-events.spec.ts:230-a241",
+                "kind": "missing-evidence",
+                "next_action": "Add a terminal counter to a valid one-use sync waterfall regression and assert one call; retain a239\u2019s static double-move rejection.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: a passing regression closes evidence without production change; conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The compile-fail item does not run. Existing runnable nested/snapshot results do not assert this single-layer terminal count or arithmetic result."
             }
           ]
         }
       ],
       "classes": [
+        "missing-evidence",
         "rust-representation"
       ]
     },
@@ -3611,7 +3320,7 @@
                     271,
                     272
                   ],
-                  "assertion": "AsyncNext::call consumes the continuation, so a second post-await call is rejected at compile time.",
+                  "assertion": "AsyncNext::call consumes the handle; the snippet statically rejects its second move without awaiting or executing either call.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -3628,100 +3337,61 @@
               },
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+              "rationale": "The documented owned-continuation representation replaces the TS runtime duplicate-next exception with static ownership rejection. No post-await runtime behavior, result, or count is attributed to this compile-fail snippet."
             },
             {
               "id": "core/events.spec.ts:265/default/a274",
-              "behavior": "In 'ctx.waterfall() rejects duplicate next() after awaiting', the pinned source checks: expect(await root.waterfall('test/async-waterfall', 1, terminal)).to.equal(3)",
+              "behavior": "A valid single-layer async waterfall computes value + awaited next as 3.",
               "source_assertion_lines": [
                 274
               ],
-              "class": "rust-representation",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/src/events.rs",
-                  "symbol": "events::AsyncNext",
-                  "lines": [
-                    261,
-                    262,
-                    263,
-                    264,
-                    265,
-                    266,
-                    267,
-                    268,
-                    269,
-                    270,
-                    271,
-                    272
-                  ],
-                  "assertion": "AsyncNext::call consumes the continuation, so a second post-await call is rejected at compile time.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ],
-                  "rustdoc_line": 263,
-                  "compile_fail": true
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
               "restriction": {
                 "document": "docs/m2.md",
                 "anchor": "five-dispatch-modes-with-honest-callback-shapes",
                 "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
               },
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+              "gap": {
+                "id": "G-B0-events.spec.ts:265-a274",
+                "kind": "missing-evidence",
+                "next_action": "Add a runnable valid one-use async around callback with value 1 and terminal 2 and assert result 3; retain a270\u2019s static rejection.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: a passing regression closes evidence without production change; conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The compile-fail item does not run. Existing runnable nested/snapshot results do not assert this single-layer terminal count or arithmetic result."
             },
             {
               "id": "core/events.spec.ts:265/default/a275",
-              "behavior": "In 'ctx.waterfall() rejects duplicate next() after awaiting', the pinned source checks: expect(terminal.mock.calls).to.have.length(1)",
+              "behavior": "The terminal is invoked exactly once in a valid single-use async waterfall.",
               "source_assertion_lines": [
                 275
               ],
-              "class": "rust-representation",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/src/events.rs",
-                  "symbol": "events::AsyncNext",
-                  "lines": [
-                    261,
-                    262,
-                    263,
-                    264,
-                    265,
-                    266,
-                    267,
-                    268,
-                    269,
-                    270,
-                    271,
-                    272
-                  ],
-                  "assertion": "AsyncNext::call consumes the continuation, so a second post-await call is rejected at compile time.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ],
-                  "rustdoc_line": 263,
-                  "compile_fail": true
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
               "restriction": {
                 "document": "docs/m2.md",
                 "anchor": "five-dispatch-modes-with-honest-callback-shapes",
                 "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
               },
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+              "gap": {
+                "id": "G-B0-events.spec.ts:265-a275",
+                "kind": "missing-evidence",
+                "next_action": "Add a terminal counter to the same runnable async one-use regression and assert one call.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: a passing regression closes evidence without production change; conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The compile-fail item does not run. Existing runnable nested/snapshot results do not assert this single-layer terminal count or arithmetic result."
             }
           ]
         }
       ],
       "classes": [
+        "missing-evidence",
         "rust-representation"
       ]
     },
@@ -3818,69 +3488,23 @@
               "source_assertion_lines": [
                 291
               ],
-              "class": "rust-representation",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/tests/events.rs",
-                  "symbol": "waterfall_is_around_middleware_with_veto_and_nested_async_calls",
-                  "lines": [
-                    599,
-                    600,
-                    601,
-                    602,
-                    603,
-                    604,
-                    605,
-                    606,
-                    607,
-                    608,
-                    609,
-                    610,
-                    611,
-                    612,
-                    613,
-                    614,
-                    615,
-                    616,
-                    617,
-                    618,
-                    619,
-                    620,
-                    621,
-                    622,
-                    623,
-                    624,
-                    625,
-                    626,
-                    627,
-                    628,
-                    629,
-                    630,
-                    631,
-                    632,
-                    633,
-                    634,
-                    635,
-                    636,
-                    637,
-                    638
-                  ],
-                  "assertion": "The async listener recursively dispatches the same event for value 2 and combines both terminal results to 4.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ]
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
               "restriction": {
                 "document": "docs/m2.md",
                 "anchor": "five-dispatch-modes-with-honest-callback-shapes",
                 "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
               },
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+              "gap": {
+                "id": "G-B0-events.spec.ts:278-a291",
+                "kind": "missing-evidence",
+                "next_action": "Extend the existing nested async waterfall regression with a listener counter and assert exactly two calls; keep the existing result-4 assertion.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: a passing regression closes evidence without production change; conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The nested async body asserts prefix and result 4 but uses no listener counter."
             },
             {
               "id": "core/events.spec.ts:278/default/a292",
@@ -3888,74 +3512,29 @@
               "source_assertion_lines": [
                 292
               ],
-              "class": "rust-representation",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/tests/events.rs",
-                  "symbol": "waterfall_is_around_middleware_with_veto_and_nested_async_calls",
-                  "lines": [
-                    599,
-                    600,
-                    601,
-                    602,
-                    603,
-                    604,
-                    605,
-                    606,
-                    607,
-                    608,
-                    609,
-                    610,
-                    611,
-                    612,
-                    613,
-                    614,
-                    615,
-                    616,
-                    617,
-                    618,
-                    619,
-                    620,
-                    621,
-                    622,
-                    623,
-                    624,
-                    625,
-                    626,
-                    627,
-                    628,
-                    629,
-                    630,
-                    631,
-                    632,
-                    633,
-                    634,
-                    635,
-                    636,
-                    637,
-                    638
-                  ],
-                  "assertion": "The async listener recursively dispatches the same event for value 2 and combines both terminal results to 4.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ]
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
               "restriction": {
                 "document": "docs/m2.md",
                 "anchor": "five-dispatch-modes-with-honest-callback-shapes",
                 "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
               },
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+              "gap": {
+                "id": "G-B0-events.spec.ts:278-a292",
+                "kind": "missing-evidence",
+                "next_action": "Extend the existing nested async waterfall regression with a terminal counter and assert exactly two calls; keep the existing result-4 assertion.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: a passing regression closes evidence without production change; conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The nested async body asserts prefix and result 4 but uses no terminal counter."
             }
           ]
         }
       ],
       "classes": [
+        "missing-evidence",
         "rust-representation"
       ]
     },
@@ -3979,7 +3558,7 @@
           "obligations": [
             {
               "id": "core/events.spec.ts:296/default/a310",
-              "behavior": "In 'does not accumulate across reloads', the pinned source checks: expect(calls).to.deep.equal([1, 2, 3])",
+              "behavior": "The local update hook remains correctly scoped across child reloads without multiplying callbacks.",
               "source_assertion_lines": [
                 310
               ],
@@ -4038,7 +3617,7 @@
                     470,
                     471
                   ],
-                  "assertion": "Five updates invoke the local hook exactly five times, proving retired hooks do not accumulate.",
+                  "assertion": "After five sequential child updates, local.get() == 5; payload parameters are ignored, so no config-value sequence is asserted.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -4049,12 +3628,33 @@
               "restriction": null,
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+              "rationale": "The count/lifetime observation is preserved as bounded evidence. The sibling gap separately owns current resolved payload values and their order; update input arguments do not establish delivery."
+            },
+            {
+              "id": "core/events.spec.ts:296/default/a310-payload-sequence",
+              "behavior": "The local update hook receives current resolved values in exact order [1,2,3] across reloads.",
+              "source_assertion_lines": [
+                310
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-events.spec.ts:296-a310-payload-sequence",
+                "kind": "missing-evidence",
+                "next_action": "Extend local_update_hooks_do_not_accumulate_and_global_hooks_survive_child_reload to record resolved local payloads and assert the ordered sequence across reloads alongside existing counts.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: a passing regression closes evidence without production change; conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The shared count test ignores payloads; the typed-update candidate asserts only [resolved 2] in a vetoing local hook, not this sequence across reloads."
             }
           ]
         }
       ],
       "classes": [
+        "missing-evidence",
         "source-mapped-test"
       ]
     },
@@ -4184,7 +3784,7 @@
           "obligations": [
             {
               "id": "core/events.spec.ts:330/default/a349",
-              "behavior": "In 'global listeners are not tied to a child fiber reload', the pinned source checks: expect(globalCalls).to.deep.equal([1, 2])",
+              "behavior": "The global update hook remains correctly scoped across child reloads without multiplying callbacks.",
               "source_assertion_lines": [
                 349
               ],
@@ -4243,7 +3843,7 @@
                     470,
                     471
                   ],
-                  "assertion": "Root-global and Fiber-local update hooks each observe every child update across reloads.",
+                  "assertion": "After five sequential child updates, global.get() == 5; payload parameters are ignored, so no config-value sequence is asserted.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -4254,11 +3854,31 @@
               "restriction": null,
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+              "rationale": "The count/lifetime observation is preserved as bounded evidence. The sibling gap separately owns current resolved payload values and their order; update input arguments do not establish delivery."
+            },
+            {
+              "id": "core/events.spec.ts:330/default/a349-payload-sequence",
+              "behavior": "The global update hook receives current resolved values in exact order [1,2] across reloads.",
+              "source_assertion_lines": [
+                349
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-events.spec.ts:330-a349-payload-sequence",
+                "kind": "missing-evidence",
+                "next_action": "Extend local_update_hooks_do_not_accumulate_and_global_hooks_survive_child_reload to record resolved global payloads and assert the ordered sequence across reloads alongside existing counts.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: a passing regression closes evidence without production change; conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The shared count test ignores payloads; the typed-update candidate asserts only [resolved 2] in a vetoing local hook, not this sequence across reloads."
             },
             {
               "id": "core/events.spec.ts:330/default/a350",
-              "behavior": "In 'global listeners are not tied to a child fiber reload', the pinned source checks: expect(localCalls).to.deep.equal([1, 2])",
+              "behavior": "The local update hook remains correctly scoped across child reloads without multiplying callbacks.",
               "source_assertion_lines": [
                 350
               ],
@@ -4317,7 +3937,7 @@
                     470,
                     471
                   ],
-                  "assertion": "Root-global and Fiber-local update hooks each observe every child update across reloads.",
+                  "assertion": "After five sequential child updates, local.get() == 5; payload parameters are ignored, so no config-value sequence is asserted.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -4328,12 +3948,33 @@
               "restriction": null,
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+              "rationale": "The count/lifetime observation is preserved as bounded evidence. The sibling gap separately owns current resolved payload values and their order; update input arguments do not establish delivery."
+            },
+            {
+              "id": "core/events.spec.ts:330/default/a350-payload-sequence",
+              "behavior": "The local update hook receives current resolved values in exact order [1,2] across reloads.",
+              "source_assertion_lines": [
+                350
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-events.spec.ts:330-a350-payload-sequence",
+                "kind": "missing-evidence",
+                "next_action": "Extend local_update_hooks_do_not_accumulate_and_global_hooks_survive_child_reload to record resolved local payloads and assert the ordered sequence across reloads alongside existing counts.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: a passing regression closes evidence without production change; conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The shared count test ignores payloads; the typed-update candidate asserts only [resolved 2] in a vetoing local hook, not this sequence across reloads."
             }
           ]
         }
       ],
       "classes": [
+        "missing-evidence",
         "source-mapped-test"
       ]
     }
