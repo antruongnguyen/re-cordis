@@ -24,7 +24,7 @@ The older milestones below retain their historical delivery evidence. A
 checked historical box does not override an open repair in the completion plan.
 
 Current execution: **B0 family corrections and independent scoped reviews are
-complete; final ledger assembly and acceptance are in progress**. Fresh
+complete; the assembled ledger is under final independent review**. Fresh
 gpt-6.1-sol/high subagents execute work; gpt-6-astra/high reviews it.
 The accepted matrix/report, FR-1, first-two events and recovered validation
 remain preserved. All corrected family fragments and six type representations
@@ -33,9 +33,10 @@ have independent acceptance with tracked gaps:
 [lifecycle/update](plans/2026-11-02-cordis-completion/evidence/B0/lifecycle-update-rereview.md),
 [services](plans/2026-11-02-cordis-completion/evidence/B0/services-rereview.md), and
 [events/effects/types](plans/2026-11-02-cordis-completion/evidence/B0/events-effects-types-rereview.md).
-One ledger owner now reconciles seven confirmed inventory non-obligations,
-assembles all 144 declarations / 156 variants and six types, and validates the
-complete data and controls before final independent B0 acceptance.
+The integrated ledger preserves 144 declarations / 156 variants, 540 runtime
+obligations, six types and seven separate non-obligations. Normal validation
+and 36 negative checks pass; 147 owned evidence gaps remain explicit. Final
+independent B0 acceptance is still required.
 These are evidence tasks, not missing implementations or demonstrated core
 defects. B0 is not accepted, and T0 has not started. Follow
 [detailed progress](plans/2026-11-02-cordis-completion/progress.md#resume-next)
