@@ -18,7 +18,7 @@ review, integration, documentation and current verification.
 
 | ID | Status | Dependencies | Owner / role / model | Worktree / branch | Implementation commit | Review result | Evidence location |
 |---|---|---|---|---|---|---|---|
-| B0 | in_progress | None | b0_ledger_extra_retry / execution / gpt-6.1-sol high; b0_matrix_review / review / gpt-6-astra high | integration | c3fbcb0 (partial evidence) | matrix review dispatched; full ledger review pending | evidence/B0/ |
+| B0 | in_progress | None | b0_ledger_extra_retry and b0_events / execution / gpt-6.1-sol high; b0_matrix_review / review / gpt-6-astra high | integration | c3fbcb0, 7d1552a (partial evidence) | matrix review active; full ledger review pending | evidence/B0/ |
 | B1 | planned | B0 | unassigned | integration | — | not started | evidence/B1/ |
 | T0 | planned | B0 | unassigned | integration | — | not started | evidence/T0/ |
 | T1 | planned | T0 | unassigned | integration | — | not started | evidence/T1/ |
@@ -94,4 +94,5 @@ review, integration, documentation and current verification.
 - 2026-11-02 CP010: b0_matrix turn disconnected after successful execution. Command logs/results survive; resume only report completion on same model. Avoid redundant matrix reruns while executable inputs are unchanged.
 - 2026-11-02 CP011: Same-context recovery failed for both ledger and matrix with invalid_encrypted_content HTTP 400. Do not resume those corrupted contexts again. Fresh b0_ledger_extra_retry is testing bounded recovery; independent astra/high matrix review can proceed from stable logs, JSON results and hashes. No dependent production package is admitted yet.
 - 2026-11-02 CP012: Committed partial evidence/inventory at c3fbcb0 and force-added owned command logs (repository ignores *.log) in the next evidence commit. Dispatch b0_matrix_review (astra/high) against these stable artifacts; it must not count the incomplete ledger as accepted.
+- 2026-11-02 CP013: Fresh source worker saved five decorator/reflect records; matrix reviewer is making progress. Use durable short file-based handoffs to recover from corrupted contexts. Dispatch b0_events (sol/high) for 19 events declarations only, owned ledger-inputs/events.json and report-events.md. Reviewer observed evidence-summary metadata omissions; findings are pending, no production defect established.
 
