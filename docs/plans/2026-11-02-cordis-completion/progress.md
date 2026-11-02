@@ -18,7 +18,7 @@ review, integration, documentation and current verification.
 
 | ID | Status | Dependencies | Owner / role / model | Worktree / branch | Implementation commit | Review result | Evidence location |
 |---|---|---|---|---|---|---|---|
-| B0 | in_progress | None | b0_plan / planning / gpt-6-astra high; b0_matrix / verification / gpt-6.1-sol high | integration | — | matrix task accepted from acceptance.md and planner source checks; ledger plan pending | evidence/B0/ |
+| B0 | in_progress | None | b0_matrix / verification / gpt-6.1-sol high; b0_ledger / evidence / gpt-6.1-sol high | integration | — | B0 plan accepted; independent result review pending | evidence/B0/ |
 | B1 | planned | B0 | unassigned | integration | — | not started | evidence/B1/ |
 | T0 | planned | B0 | unassigned | integration | — | not started | evidence/T0/ |
 | T1 | planned | T0 | unassigned | integration | — | not started | evidence/T1/ |
@@ -70,7 +70,7 @@ review, integration, documentation and current verification.
 
 1. Read this file, relevant evidence, README.md, schedule.md and acceptance.md in this directory.
 2. Inspect git status/history/worktrees; reconcile worker commits before duplicate dispatch. Interrupted in_progress is not proof of active work or absence of implementation.
-3. Complete B0 plan at evidence/B0/plan.md, dispatch sol/high baseline and ledger execution, then independent astra/high review. Preserve complete command/version/result evidence.
+3. B0 plan is accepted at evidence/B0/plan.md. Reconcile matrix/ and ledger/ worker outputs, join actual test results into the ledger, then dispatch independent astra/high review. Preserve complete command/version/result evidence.
 4. After B0 acceptance, start T0. B1 and C0/L0 source planning may overlap only when prerequisites and ownership permit.
 
 ## Checkpoint log (append only)
@@ -78,4 +78,5 @@ review, integration, documentation and current verification.
 - 2026-11-02 CP001: Read master/schedule/acceptance/core/timer; clean main c5019cc, one worktree, fixed clean TS pin. Created local feat/cordis-completion. Initialized all 35 rows before dispatch. No verification claims.
 - 2026-11-02 CP002: b0_plan (gpt-6-astra/high) confirmed startup pins and documentation-only changes since 808c9f5. Planning identified independent matrix/ledger work and eight parameterized declarations. Waiting for concrete B0 plan before execution dispatch.
 - 2026-11-02 CP003: Accepted the independent B0 command-matrix task: exact acceptance.md commands with explicit tools, isolated artifacts, complete exit/version logs, then docs and parity sequentially. Dispatch b0_matrix (sol/high) while b0_plan finishes ledger instructions. This is read-only baseline execution, with no production design dependency.
+- 2026-11-02 CP004: Accepted evidence/B0/plan.md from b0_plan: exact commands, 144 declaration/156 registered-case controls, six type expressions, concrete evidence classes. Dispatch b0_ledger (sol/high) with exclusive ledger/ ownership; matrix/ remains exclusive to b0_matrix. Missing evidence may be tracked, never counted as parity; required failures prevent a green baseline.
 
