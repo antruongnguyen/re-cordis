@@ -18,7 +18,7 @@ review, integration, documentation and current verification.
 
 | ID | Status | Dependencies | Owner / role / model | Worktree / branch | Implementation commit | Review result | Evidence location |
 |---|---|---|---|---|---|---|---|
-| B0 | in_progress | None | b0_matrix, b0_ledger, b0_ledger_extra_retry / execution / gpt-6.1-sol high | integration | — | B0 plan accepted; independent result review pending | evidence/B0/ |
+| B0 | in_progress | None | b0_ledger_extra_retry / execution / gpt-6.1-sol high; b0_matrix_review / review / gpt-6-astra high | integration | c3fbcb0 (partial evidence) | matrix review dispatched; full ledger review pending | evidence/B0/ |
 | B1 | planned | B0 | unassigned | integration | — | not started | evidence/B1/ |
 | T0 | planned | B0 | unassigned | integration | — | not started | evidence/T0/ |
 | T1 | planned | T0 | unassigned | integration | — | not started | evidence/T1/ |
@@ -93,4 +93,5 @@ review, integration, documentation and current verification.
 - 2026-11-02 CP009: Matrix executor reports all required checks passed at 578c066 with identical 71 executable-input hashes through e23dbac. Each toolchain ran 164 core + 15 timer integration tests, 17 core Rustdoc checks, M0 20 + 1 Rustdoc; guides 8 + quick start; six/73 paired preserved. Report assembly/review pending. Extra ledger failed a second time; dispatch a fresh same-model context on decorator/reflect (5 declarations) first, preserving remaining ownership.
 - 2026-11-02 CP010: b0_matrix turn disconnected after successful execution. Command logs/results survive; resume only report completion on same model. Avoid redundant matrix reruns while executable inputs are unchanged.
 - 2026-11-02 CP011: Same-context recovery failed for both ledger and matrix with invalid_encrypted_content HTTP 400. Do not resume those corrupted contexts again. Fresh b0_ledger_extra_retry is testing bounded recovery; independent astra/high matrix review can proceed from stable logs, JSON results and hashes. No dependent production package is admitted yet.
+- 2026-11-02 CP012: Committed partial evidence/inventory at c3fbcb0 and force-added owned command logs (repository ignores *.log) in the next evidence commit. Dispatch b0_matrix_review (astra/high) against these stable artifacts; it must not count the incomplete ledger as accepted.
 
