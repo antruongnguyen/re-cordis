@@ -65,7 +65,7 @@ The original b0_ledger and b0_matrix contexts cannot be resumed (HTTP 400). Thei
 | Full command matrix | executed, independent review active | matrix/ at c3fbcb0 and logs at 7d1552a |
 | Matrix review | accepted by b0_matrix_review / astra high | matrix-review.md; two evidence housekeeping findings |
 | Decorator + reflect (5 declarations) | mapping/join complete, review pending | ledger-inputs/decorator-reflect.json and report-decorator-reflect.md |
-| Events (19 declarations) | fresh b0_events failed HTTP 400; incomplete, inspect saved files | ledger-inputs/events.json and report-events.md if present; handoffs/events.md |
+| Events (19 declarations) | fresh b0_events failed HTTP 400; inventory only, no completed mappings/report | ledger-inputs/events.json (19 declarations/61 initial obligations); handoffs/events.md |
 | Associate (6) + invoke (2) | handoff prepared, not dispatched after fresh-worker failure | handoffs/associate-invoke.md |
 | Intercept (7), isolate (6), logger (11), shadow (8) | unassigned after extra-worker failure | no accepted fragments yet |
 | Dispose (13), fiber (22), plugin (10), service-dispose (17 sites/27 cases), service (8), update (10 sites/12 cases) | unassigned after main-worker failure | inventory-only ledger/cases.json |
@@ -117,4 +117,5 @@ Do not replace pending inventory with blanket exclusions or claim missing mappin
 - 2026-11-02 CP013: Fresh source worker saved five decorator/reflect records; matrix reviewer is making progress. Use durable short file-based handoffs to recover from corrupted contexts. Dispatch b0_events (sol/high) for 19 events declarations only, owned ledger-inputs/events.json and report-events.md. Reviewer observed evidence-summary metadata omissions; findings are pending, no production defect established.
 - 2026-11-02 CP014: Fresh sol/high recovery succeeded: decorator/reflect fragment has 5 declarations/23 obligations (9 mapped, 4 representations, 3 existing exclusions, 7 concrete evidence gaps, zero paired comparisons), with both matrix-log joins validated. Commit as unreviewed evidence and continue the healthy worker with associate/invoke (8 declarations).
 - 2026-11-02 CP015: Matrix review accepted 7d1552a; report and summary-attempt metadata findings remain. Fresh b0_events failed invalid_encrypted_content HTTP 400 at 08:49:25Z, so mark B0 blocked instead of cycling through equivalent recovery attempts. Associate/invoke handoff was saved but never dispatched. Finish bounded matrix-report repair and independent five-record fragment review, then save the final recovery checkpoint.
+- 2026-11-02 CP016: Preserved the interrupted events inventory (19 declarations/61 initial obligations; no completed source dispositions), created evidence.md index and B0/infrastructure.md with exact errors, remedies and recovery boundary. b0_matrix_report and b0_fragment_review are the only remaining active workers; no dependent implementation is running.
 
