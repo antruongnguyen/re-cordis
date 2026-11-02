@@ -24,6 +24,9 @@ The independent Rust port remains engineering evidence, not a specification.
 
 | Document | Purpose | Work packages |
 |---|---|---|
+| [Decision log](../../decision.md) | Previously selected contracts and their rationale; carry forward applicable decisions | All |
+| [Limitations](../../limitation.md) | Existing Rust representations, safety deviations and unresolved boundaries | All |
+| [Previous implementation plan](../../implementation-plan.md) | Completed M0–M6 gates, source map and acceptance history | B0–B2; inherited contracts for satellites |
 | [Core and evidence](core.md) | Baseline, compatibility audit, narrowly justified integration fixes | B0–B2 |
 | [Timer repair](timer.md) | Admission, deadlines, authority, cancellation, terminal cleanup, callback safety | T0–T5 |
 | [Console logger](logger.md) | Rendering and writer/exporter adapter over core logging | C0–C3 |
@@ -42,6 +45,40 @@ a new public API, its first work package produces and reviews exact signatures
 and a short test-first coding plan. Freezing every loader/HMR signature now
 would hide unresolved architectural choices. Near-term timer regressions are
 more concrete because the public surface already exists.
+
+## Prior decisions and evidence reuse
+
+Read the three historical documents above before planning a package. They
+supply prior decisions and evidence, not a new work queue or authorization.
+Their dated planning restrictions describe that phase; current user
+authorization and package state are recorded in [progress.md](progress.md).
+Keep the pinned TypeScript implementation as the semantic specification.
+
+| Area | Carry forward | Remaining work in this program |
+|---|---|---|
+| Previous gates A–C and M0–M6 | Local Tokio/LocalSet hosting, non-Send handles, started operations, explicit cleanup, distinct identities, bound views, typed event continuations and synchronous source/resolved validation; see the previous plan's completion boundary and the later decision entries | B0 reconciles evidence; B2 changes core only for its required failing public-API reproducer. Do not repeat the original prototypes or reselect the runtime/type architecture. |
+| Core compatibility | Existing M5/M6 typed reflection/injection/logging representations and documented safety deviations, including sync-only bail, one-use next, observer-error cleanup and shared-slot notifications | Attach the existing restriction and tested substitute to the relevant case. Investigate only an uncovered assertion, changed contract, contradiction or dependent satellite requirement; exclusions remain separate from parity. |
+| Completed evidence | Historical case checklist and M2–M6 source maps; six paired lifecycle scenarios / 73 observations; bounded GitHub consumers; accepted B0 matrix and fragment reviews | Reuse applicable results with their revision, exact scope and test/trace references. Complete missing B0 assertion/variant/type provenance and joins; historical checkmarks alone do not establish those finer claims. |
+| Delivered timer choices | Sealed TimerExt, no TimerService/install step, monotonic Tokio clock, single-consumer Stream representation, omitted deprecated aliases; see both documents' Timer satellite sections | T0 resolves zero/range, admission-time deadlines, backpressure, wrapper Drop, disabled-driver and panic/reentry contracts. The old first-poll/yield observation is subject to TF7 repair, not a permanent deadline guarantee. Preserve unrelated accepted choices. |
+| Satellite composition | Console output extends core exporters; loader uses core plugin/service ownership; serialization belongs at satellite boundaries; timer→console→loader order is selected | Review the new satellite APIs and integration behavior. Do not reimplement core logging, lifecycle, validation or retention merely because a satellite uses them. Include/HMR/create contracts remain new work. |
+| Historical wording | Later implemented milestones and specific current decisions supersede earlier prototype directions or narrower phase status | B1 reconciles stale phrases such as “No further slice or satellite is selected” and core-only documentation descriptions. They do not reopen completed selection/design gates or erase genuine limitations. |
+
+Every new handoff identifies **carried decisions/evidence**, **the uncovered
+delta**, and **the reason to reopen anything**. Link the original record rather
+than creating another competing decision log. Reopen only the affected claim
+when source/implementation/dependencies changed, evidence is insufficient or
+contradictory, a demonstrated consumer need requires it, or the user changes
+the contract. A new worker/session or old “unresolved” heading is not a reason.
+
+B0's remaining ledger entries measure unfinished reconciliation, not missing
+features or a reversal of M6 delivery. For each obligation, reuse a sufficient
+existing mapping and join its current execution evidence; inspect source and
+tests only as needed to establish missing provenance or resolve a mismatch.
+Do not add duplicate tests to recreate existing evidence. Keep newly identified
+gaps explicit, and preserve complete 144-declaration/156-variant and six-type
+accounting. Reusing evidence does not waive independent review or required
+verification of changed integrated code; unchanged prose needs only the
+planning checks specified in [acceptance](acceptance.md).
 
 ## Current baseline
 

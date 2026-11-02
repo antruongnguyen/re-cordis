@@ -195,6 +195,20 @@ M2–M6 source maps, all 15 pinned core spec bodies/helpers, events.types.ts,
 relevant TS implementation, and current Rust tests/Rustdoc. Checkmarks and test
 names are search leads, not proof. The detailed audit belongs to this executor.
 
+**Resume clarification (2026-11-02 user request):** Apply the master plan's
+[reuse rule](../../README.md#prior-decisions-and-evidence-reuse) first, including
+[decisions](../../../../decision.md), [limitations](../../../../limitation.md)
+and the [previous plan](../../../../implementation-plan.md). Start each family
+from its existing M2–M6 mapping and accepted B0 fragments. The source list above
+defines the audit's coverage, not a requirement to repeat a previously
+substantiated semantic evaluation. Carry forward sufficient mappings with
+their original document/section, exact case/variant, Rust assertion or trace,
+revision and current matrix join, using existing evidence/rationale fields.
+Read uncovered or mismatched bodies/helpers to supply missing provenance;
+do not infer assertions from checkmarks. Preserve historical M6 delivery while
+finishing the finer B0 ledger. Independent review verifies this reconciliation
+and its new findings without reopening accepted unchanged design decisions.
+
 **Outputs:** ledger/cases.json (144 declaration records), event-types.json
 (six expression obligations), report.md (family findings/counts/gaps), and a
 small standard-library validate.py for inventory/reference consistency.

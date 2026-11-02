@@ -7,6 +7,10 @@ implementation work package; R0/R1 are final integration/distribution decisions.
 
 - [ ] Confirm selected work package, current revision, understood worktree
   and prerequisite acceptance. Do not discard unrelated changes.
+- [ ] Apply the [prior-decision/evidence reuse rule](README.md#prior-decisions-and-evidence-reuse):
+  cite relevant decision.md, limitation.md and implementation-plan.md sections,
+  carried evidence and the uncovered delta in the handoff. Give a concrete
+  reason before reopening a completed decision, review or implementation.
 - [ ] Read pinned source and every parameter variant relevant to this slice.
   Check the accepted decision record and exact public signatures.
 - [ ] Complete the package's design gate before implementation. Expand only
