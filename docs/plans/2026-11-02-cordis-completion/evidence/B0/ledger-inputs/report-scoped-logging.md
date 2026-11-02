@@ -58,12 +58,129 @@ A passing targeted regression can close any item without production code. None i
 
 ## Commands and limits
 
-Commands actually used were read-only source/log queries plus the standard-library structural/join validator summarized above. No Cargo, Rustdoc, upstream Vitest, parity fixture, production code, test, manifest, or upstream checkout was changed or rerun. The final repository checks for this owned output were:
+Commands actually used were read-only source/log queries plus the standard-library structural/join validator summarized above. No Cargo, Rustdoc, upstream Vitest, parity fixture, production code, test, manifest, or upstream checkout was changed or rerun. The final bounded check was rerun from the repository root with this exact command block; all three commands exited 0. The validator and docs helper printed the results shown below; the whitespace check was silent.
+
+~~~sh
+set -e
+python3 -B - <<'PY'
+import json, re
+from collections import Counter
+from pathlib import Path
+
+root = Path.cwd()
+base = root / 'docs/plans/2026-11-02-cordis-completion/evidence/B0'
+source_root = Path('/Users/I756434/Projects/private/cordis-rust')
+upstream = source_root / 'local/cordis'
+families = ['associate', 'invoke', 'intercept', 'isolate', 'logger', 'shadow']
+expected = {'associate': 6, 'invoke': 2, 'intercept': 7, 'isolate': 6, 'logger': 11, 'shadow': 8}
+inventory = json.loads((base / 'ledger/cases.json').read_text())
+inventory_by_id = {item['id']: item for item in inventory['declarations']}
+matrix = json.loads((base / 'matrix/results.json').read_text())
+rows = {(item['command_id'], item['suite'], item['test'], item['outcome']) for item in matrix['tests']}
+command_ids = ['stable-workspace-test', '1.85.0-workspace-test']
+logs = {
+    command_id: (source_root / base.relative_to(root) / 'matrix/logs' / f'{command_id}.log').read_text()
+    for command_id in command_ids
+}
+counts = Counter()
+tests = set()
+seen = set()
+
+for family in families:
+    data = json.loads((base / 'ledger-inputs' / f'{family}.json').read_text())
+    assert len(data['declarations']) == expected[family]
+    for declaration in data['declarations']:
+        assert declaration['id'] not in seen
+        seen.add(declaration['id'])
+        counts['declarations'] += 1
+        original = inventory_by_id[declaration['id']]
+        current_identity = [
+            (variant['parameters'], [item['id'] for item in variant['obligations']])
+            for variant in declaration['variants']
+        ]
+        original_identity = [
+            (variant['parameters'], [item['id'] for item in variant['obligations']])
+            for variant in original['variants']
+        ]
+        assert current_identity == original_identity
+        source = upstream / Path(declaration['source_file']).relative_to('local/cordis')
+        source_lines = source.read_text().splitlines()
+        assert declaration['source_end_line'] <= len(source_lines)
+        derived = set()
+        for variant in declaration['variants']:
+            counts['variants'] += 1
+            assert variant['obligations']
+            for obligation in variant['obligations']:
+                counts['obligations'] += 1
+                counts[obligation['class']] += 1
+                derived.add(obligation['class'])
+                assert obligation['behavior'] and obligation['rationale']
+                assert not obligation['paired_evidence']
+                assert all(
+                    declaration['source_line'] <= line <= declaration['source_end_line']
+                    for line in obligation['source_assertion_lines']
+                )
+                assert obligation['execution_status'] in {'passed', 'failed', 'not-executed', 'not-applicable'}
+                if obligation['class'] == 'missing-evidence':
+                    assert not obligation['rust_evidence']
+                    assert obligation['gap'] and obligation['execution_status'] == 'not-executed'
+                    assert all(
+                        obligation['gap'].get(field)
+                        for field in ['id', 'kind', 'next_action', 'owner', 'work_package']
+                    )
+                else:
+                    assert obligation['rust_evidence']
+                    assert obligation['gap'] is None and obligation['execution_status'] == 'passed'
+                if obligation['class'] == 'rust-representation':
+                    assert obligation['restriction']
+                if obligation['restriction']:
+                    document = root / obligation['restriction']['document']
+                    assert document.is_file()
+                    anchors = []
+                    for line in document.read_text().splitlines():
+                        if line.startswith('#'):
+                            heading = line.lstrip('#').strip().lower()
+                            anchors.append(re.sub(r'[^a-z0-9 _-]', '', heading).replace(' ', '-'))
+                    assert obligation['restriction']['anchor'] in anchors
+                for evidence in obligation['rust_evidence']:
+                    path = root / evidence['file']
+                    rust_lines = path.read_text().splitlines()
+                    assert path.is_file()
+                    assert all(1 <= line <= len(rust_lines) for line in evidence['lines'])
+                    assert re.search(
+                        r'\b(?:async\s+)?fn\s+' + re.escape(evidence['symbol']) + r'\b',
+                        '\n'.join(rust_lines),
+                    )
+                    assert set(evidence['command_ids']) == set(command_ids)
+                    suite = 'tests/' + path.name
+                    tests.add((suite, evidence['symbol']))
+                    for command_id in command_ids:
+                        assert (command_id, suite, evidence['symbol'], 'ok') in rows
+                        assert f'test {evidence["symbol"]} ... ok' in logs[command_id]
+        assert declaration['classes'] == sorted(derived)
+
+assert counts['declarations'] == 40
+assert counts['variants'] == 40
+assert counts['obligations'] == 136
+assert len(tests) == 15
+assert 'pending-matrix' not in ''.join(
+    (base / 'ledger-inputs' / f'{family}.json').read_text() for family in families
+)
+print(
+    f"OK declarations={counts['declarations']} variants={counts['variants']} "
+    f"obligations={counts['obligations']} actual_tests={len(tests)} "
+    f"gaps={counts['missing-evidence']} classes={{'missing-evidence': {counts['missing-evidence']}, "
+    f"'rust-representation': {counts['rust-representation']}, "
+    f"'source-mapped-test': {counts['source-mapped-test']}}}"
+)
+PY
+PYTHONPATH=tests/docs python3 -B -c "from pathlib import Path; import check; p=Path('docs/plans/2026-11-02-cordis-completion/evidence/B0/ledger-inputs/report-scoped-logging.md').resolve(); check.links(p); print('OK links', p)"
+git diff --check -- docs/plans/2026-11-02-cordis-completion/evidence/B0/ledger-inputs/report-scoped-logging.md
+~~~
 
 ~~~text
-python3 -B <inline scoped-fragment structural/reference/matrix validator>  # exit 0; summary above
-python3 -B <docs link helper invocation for this report>                   # exit 0
-git diff --check -- <six JSON fragments> <this report>                    # exit 0
+OK declarations=40 variants=40 obligations=136 actual_tests=15 gaps=37 classes={'missing-evidence': 37, 'rust-representation': 61, 'source-mapped-test': 38}
+OK links /Users/I756434/.codex/worktrees/b0-scoped-logging/cordis-rust/docs/plans/2026-11-02-cordis-completion/evidence/B0/ledger-inputs/report-scoped-logging.md
 ~~~
 
 Integration still owns the full 144-declaration/156-variant/six-type merge validator and independent semantic review.
