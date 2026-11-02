@@ -63,10 +63,10 @@ The original b0_ledger and b0_matrix contexts cannot be resumed (HTTP 400). Thei
 | B0 subtask | Owner/state | Durable output |
 |---|---|---|
 | Full command matrix | executed and independently accepted | matrix/ at c3fbcb0 and logs at 7d1552a |
-| Matrix review | accepted by b0_matrix_review / astra high; report added, scoped re-review not yet dispatched | matrix-review.md; matrix/report.md at 25dcde8; handoffs/matrix-rereview.md |
+| Matrix review | matrix and report accepted; fresh b0_report_review astra/high closed B0-MATRIX-01/02 | matrix-review.md; matrix/report.md at 25dcde8; matrix-rereview.md integrated at b87c1b9 |
 | Decorator + reflect (5 declarations) | semantic mappings/joins accepted; scheduling correction FR-1 remains open | ledger-inputs/decorator-reflect.json, report-decorator-reflect.md, fragment-review.md, handoffs/fragment-fix.md |
-| Events (19 declarations) | fresh b0_events failed HTTP 400; inventory only, no completed mappings/report | ledger-inputs/events.json (19 declarations/61 initial obligations); handoffs/events.md |
-| Associate (6) + invoke (2) | handoff prepared, not dispatched after fresh-worker failure | handoffs/associate-invoke.md |
+| Events (19 declarations) | b0_events_resume failed HTTP 400 with no changes; b0_events_pair sol/high tries only the first two declarations | ledger-inputs/events.json remains inventory; handoffs/events-first-two.md; events-first-two fragment pending |
+| Associate (6) + invoke (2) | b0_associate_invoke sol/high dispatched in an isolated managed worktree | handoffs/associate-invoke.md; ledger-inputs/associate-invoke.json and report-associate-invoke.md |
 | Intercept (7), isolate (6), logger (11), shadow (8) | unassigned after extra-worker failure | no accepted fragments yet |
 | Dispose (13), fiber (22), plugin (10), service-dispose (17 sites/27 cases), service (8), update (10 sites/12 cases) | unassigned after main-worker failure | inventory-only ledger/cases.json |
 | Event types (6 expression obligations) | unassigned | event-types.json not produced |
@@ -82,6 +82,8 @@ Do not replace pending inventory with blanket exclusions or claim missing mappin
 - D006: An honest missing-evidence item requires evidence/regression follow-up, not automatic admission to B2. Only a failing public-API reproducer opens conditional B2; a passing new regression can close the evidence gap without production changes.
 
 ## Active blockers, failures and retries
+
+- Resumed-session failure: b0_events_resume returned HTTP 400 UPSTREAM_LLM_ERROR / invalid_encrypted_content at 2026-11-02T09:28:15.787083149Z, item `rs_0b3c38b5802df639016ae856fdbe7c8194bb02560fff38d3e6`. Its managed worktree remains clean at `25329ad`; no completed events mapping was lost. Do not resume that corrupted context. One narrower fresh attempt, b0_events_pair (sol/high), owns only two declarations via handoffs/events-first-two.md. Other active fragment/associate work continues independently.
 
 - Initialization attempt failed with a Python quoting SyntaxError before any file was written. Recreated tracking using a structured patch; no source changes affected.
 - Startup had no pre-existing uncommitted changes or extra worktrees. Baseline command checks are now accepted; this does not complete the B0 ledger gate.
@@ -138,4 +140,7 @@ instructions below remain the outstanding B0 sequence.
 - 2026-11-02 CP019: Matrix report and all validation attempts committed at 25dcde8. New summary validation passed; initial report check failed on its not-yet-created log link, retry passed. Preserve all logs and metadata. Dispatch scoped independent re-review for B0-MATRIX-01/02; source fragment correction remains separate.
 - 2026-11-02 CP020: The fragment correction follow-up arrived at its worker as opaque ciphertext; worker stopped without editing. Matrix re-review handoff was prepared but never dispatched. Independent fragment review FR-1 is saved, report/validation artifacts are committed, and all workers have completed/failed. No package is marked done: B0 blocked, 34 planned. Final checkpoint preserves exact resume steps; no background continuation.
 - 2026-11-02 CP021: New resume reconciled clean `25329ad`, one integration checkout, no attached worktrees, previous chat idle, unchanged production/test/manifest/CI inputs since `808c9f5`, and clean pinned TS `35fdc969e4b6c48c48ed44717c7a018324e4dd88`. No completed task is restarted. Fresh bounded FR-1 correction (sol/high) and matrix-report re-review (astra/high) are dispatched with separate owned outputs; B0 returns to in_progress while testing current worker transport. All 34 dependent packages remain planned.
+- 2026-11-02 CP022: Both fresh workers received their scope and created isolated worktrees at `/Users/I756434/.codex/worktrees/cordis-b0-fragment-repair/cordis-rust` and `/Users/I756434/.codex/worktrees/cordis-b0-report-review/cordis-rust`, based on `25329ad`. This establishes readable dispatch, not completed execution. The independent events-family audit can use the third slot: b0_events_resume (sol/high), owning only its two ledger-inputs outputs and committing in its own managed worktree.
+- 2026-11-02 CP023: b0_report_review completed on astra/high: both matrix findings addressed, 65 original artifacts preserved and 71 input hashes unchanged. Integrated its scoped independent report from `ea10c5c` as `b87c1b9`; this is not whole-B0 acceptance. The newly available slot is assigned to the independent eight-declaration associate/invoke audit (sol/high), using its existing handoff and an isolated worktree.
+- 2026-11-02 CP024: The fresh events worker failed the same encrypted-content HTTP 400 as the previous session. Git inspection found no saved changes or new commits in its worktree. A single reduced two-declaration file-based recovery is assigned to fresh sol/high; no model substitution and no dependent package admission. The FR-1 worker has saved its two-file correction and is validating; associate/invoke is independent.
 
