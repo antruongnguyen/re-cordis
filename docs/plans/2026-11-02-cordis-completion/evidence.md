@@ -4,7 +4,7 @@ Execution began 2026-11-02 on local branch feat/cordis-completion in
 /Users/I756434/Projects/private/cordis-rust. See [canonical progress](progress.md)
 for all 35 package states, ownership, decisions, blockers and exact resume steps.
 
-## B0 baseline (partial package; paused by user)
+## B0 baseline (partial package; resumed for acceptance)
 
 - [Accepted execution plan](evidence/B0/plan.md).
 - [Independent matrix review](evidence/B0/matrix-review.md): command portion accepted at 7d1552a. Executed inputs at 578c066 through e23dbac have identical hashes and no executable delta from implementation baseline 808c9f5.
@@ -24,7 +24,9 @@ for all 35 package states, ownership, decisions, blockers and exact resume steps
 - [Events/effects/types drafts](evidence/B0/report-events-effects-types.md): 30 declarations / 30 variants, 99 runtime records and six type records, integrated through bdc73a4. The exact Rustdoc-metadata correction resolved 20 mechanical join failures; all 105 records pass shared partial schema/reference checks. Initial semantic review remains pending.
 - [Services drafts](evidence/B0/ledger-inputs/report-services.md): 25 declarations / 35 variants / 81 records, integrated at 7edb4f9. Initial semantic review must also assess four proposed guarded-variant omissions.
 
-The user paused execution after active subagent tasks finished. All draft
+The user resumed B0 after the committed pause checkpoint at 7fd7cde. Fresh
+gpt-6.1-sol/high correction workers and gpt-6-astra/high independent reviewers
+are authorized; the failed CLI path remains prohibited. All draft
 fragments are preserved: 144 declarations / 156 variants, 532 raw runtime
 records and six types. Transfer checks confirmed exact worker-commit bytes;
 all 538 records pass partial schema/reference/log checks. This does not resolve
