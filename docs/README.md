@@ -8,20 +8,23 @@
 | Tiếng Việt | [Bắt đầu đọc](vi/README.md) |
 | AI agents | [llms.txt](llms.txt) |
 
-These pages describe the current **unpublished, unstable `re-cordis-core`** API.
+These pages describe the current **unpublished, unstable `re-cordis-core` and
+`re-cordis-timer`** APIs.
 They are organized by user tasks, not implementation milestones. Both language
 trees have matching paths, equivalent explanations, and identical executable
 code. Each page links to its counterpart.
 
-Các trang này mô tả API **`re-cordis-core` chưa phát hành, chưa ổn định** hiện tại.
+Các trang này mô tả API **`re-cordis-core` và `re-cordis-timer` chưa phát hành,
+chưa ổn định** hiện tại.
 Nội dung tổ chức theo công việc của người dùng, không theo cột mốc triển khai.
 Hai cây ngôn ngữ có đường dẫn tương ứng, diễn giải tương đương và mã chạy giống
 nhau. Mỗi trang liên kết đến bản ngôn ngữ còn lại.
 
 ## Exact API signatures
 
-Generate Rustdoc locally with `cargo doc -p re-cordis-core --no-deps --locked`.
-Open `target/doc/re_cordis_core/index.html`, adjusted for `CARGO_TARGET_DIR`.
+Generate Rustdoc locally with `cargo doc --workspace --no-deps --locked`.
+Open `target/doc/re_cordis_core/index.html` or
+`target/doc/re_cordis_timer/index.html`, adjusted for `CARGO_TARGET_DIR`.
 The bilingual reference explains contracts and maps public exports; Rustdoc
 supplies exact signatures and bounds. There is no published docs.rs release.
 
@@ -51,6 +54,7 @@ context; current capabilities are described by the new guides and current source
 | [Limitations](limitation.md) | Known restrictions and unresolved tensions |
 | [Decisions](decision.md) | Rationale and conventions |
 | [Roadmap](todo.md) | Delivered and deferred scope |
+| [Completion plan](plans/2026-11-02-cordis-completion/README.md) | Core/timer repair, all seven satellites, decisions, acceptance and scheduling |
 | [Implementation plan](implementation-plan.md) | Pinned references, design gates, milestone sequence |
 | [M0 results](m0.md), [case checklist](m0-cases.md) | Research evidence and source-case mapping |
 
@@ -61,7 +65,7 @@ Rust/TOML/shell blocks identical; translate explanatory prose and use the paired
 glossary. A new public export must appear in both API indexes and its chapter.
 Add/update the corresponding `llms.txt` entry when reading paths change.
 For each delivered satellite, add paired guide/API coverage and extend the
-checker's currently core-only export and snippet-dependency handling. Keep
+checker's core-and-timer export and snippet-dependency handling. Keep
 planned targets distinct from available APIs; see [the satellite roadmap](todo.md#next-implementation-targets-satellites).
 
 Run the standard-library-only documentation checker (Python 3.9+) from the
@@ -75,7 +79,7 @@ python3 tests/docs/check.py --toolchain 1.85.0
 
 It checks local file links/heading anchors, counterpart navigation, identical
 code blocks, root-export/hook coverage, and the llms.txt structure. It explicitly
-selects compiler/Cargo/rustdoc paths, builds core with the committed lockfile
+selects compiler/Cargo/rustdoc paths, builds core and timer with the committed lockfile
 offline into `target/stable` or `target/msrv`, then compiles and executes each
 unique complete Rust documentation example with warnings denied.
 The identical translated examples share that execution evidence.

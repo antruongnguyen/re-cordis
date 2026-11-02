@@ -25,10 +25,13 @@ meta-framework for spatiotemporal composability.
 > See [GitHub activity consumers](docs/github-activity.md).
 > Application-only dependencies do not extend the production core.
 > Next roadmap targets are timer, console logger, then loader. The
-> **`re-cordis-timer`** satellite is now delivered (owner-scoped timeout, sleep,
+> **`re-cordis-timer`** satellite is implemented (owner-scoped timeout, sleep,
 > interval/stream, throttle and debounce over core effects; 15 crate tests);
 > the console logger and loader are not implemented yet. See
 > [the ordered roadmap](docs/todo.md#next-implementation-targets-satellites).
+> Timer contract repair remains open after the 2026-11-02 source review.
+> The [completion plan](docs/plans/2026-11-02-cordis-completion/README.md) covers
+> core evidence, timer fixes and all seven upstream satellites, with scheduling gates.
 > The concept map below remains the framework target, not a shipped feature list.
 
 ## User guides and API documentation

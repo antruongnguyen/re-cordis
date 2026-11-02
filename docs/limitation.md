@@ -208,6 +208,16 @@ observer-failure or name-only alias notification behavior.
 
 ## Timer satellite
 
+The 2026-11-02 source review identified open repair work in the delivered
+implementation: delay validation is ineffective; task creation precedes
+admission; completed one-shots retain registrations; raw Tokio tasks do not
+inherit Cordis admission; stream termination, callback reentry and joined
+capture release need stronger contracts and tests. See the
+[timer repair register](plans/2026-11-02-cordis-completion/timer.md).
+These are source observations and investigation items, not newly executed
+failure results. Existing passing tests do not close this acceptance work.
+
+
 - The callback-less `interval` is a `futures_util::Stream`, not the JavaScript
   async iterator. The concurrent multi-reader protocol — `return(value)`
   resolving all pending reads with one value and `throw(reason)` rejecting all

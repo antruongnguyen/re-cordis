@@ -5,6 +5,7 @@
 Current package: re-cordis-core 0.0.0, publish=false, Rust edition 2024, MSRV 1.85.
 The API is unstable. Use a path dependency on a local checkout, not a presumed crates.io/docs.rs release.
 re-cordis-core and the re-cordis-timer satellite are implemented. Next roadmap targets: re-cordis-logger (console adapter), then re-cordis-loader; other satellites remain candidates.
+Timer contract repair remains open; see the completion plan before relying on its full acceptance claims.
 Targets are not available APIs: review each bounded source/API/dependency scope before implementation.
 The semantic baseline is TypeScript Cordis at 35fdc969e4b6c48c48ed44717c7a018324e4dd88, not latest upstream.
 
@@ -81,4 +82,5 @@ Essential application constraints:
 - [GitHub consumer contract](github-activity.md): Exact file/process/loopback HTTP limits; no public ingress or exactly-once durability.
 - [Limitations](limitation.md): Explicit unsupported behavior.
 - [Decisions](decision.md): Design rationale; TypeScript is the semantic specification.
-- [Roadmap](todo.md): Completed core scope and deferred satellites.
+- [Roadmap](todo.md): Delivered scope, timer repair and remaining satellites.
+- [Completion plan](plans/2026-11-02-cordis-completion/README.md): Proposed core/all-satellite work packages, decisions, acceptance and scheduling.

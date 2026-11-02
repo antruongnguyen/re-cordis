@@ -21,7 +21,9 @@ delivered (unpublished `crates/re-cordis-timer`: owner-scoped timeout, sleep,
 interval/stream, throttle and debounce over core effects, via a sealed
 `TimerExt` trait; the `tokio` `time`/`macros` features live in the timer crate,
 not the core; 15 deterministic tests over a paused clock). The console logger
-and loader are not implemented yet. See `docs/todo.md` for source review,
+and loader are not implemented yet. Timer contract repair remains open; see
+`docs/plans/2026-11-02-cordis-completion/README.md` for the proposed core/all-satellite
+work packages and scheduling gates. See `docs/todo.md` for source review,
 per-slice design gates and documentation acceptance, and
 `docs/superpowers/specs`/`docs/superpowers/plans` for the timer design and plan.
 The root Rust 2024 workspace contains the unpublished `crates/re-cordis-core`
@@ -68,8 +70,8 @@ change, update the relevant doc in the same change:
 
 Run `python3 -B tests/docs/test_check.py` and the documentation checker for
 explicit stable/1.85.0 toolchains after guide/API changes; see `docs/README.md`.
-Its current export/snippet checks target core and need extension when a
-satellite is delivered.
+Its current export/snippet checks cover core and timer; extend them for each
+new delivered satellite.
 
 ## Tooling conventions
 

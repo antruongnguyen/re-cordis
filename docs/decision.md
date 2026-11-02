@@ -4,6 +4,27 @@ A lightweight log of decisions made for this project and the reasoning behind
 them. Newest first. This is intentionally not a heavy ADR process; it records
 *what we chose and why* so the choices aren't re-litigated silently.
 
+## 2026-11-02 — Plan complete coverage before scheduling implementation
+
+The user requested careful planning for remaining core fixes and all upstream
+satellites, saved under docs, with implementation scheduling afterward. The
+[completion program](plans/2026-11-02-cordis-completion/README.md) separates core
+evidence, timer repair, console logger, loader, group, include, HMR and create.
+It supplies decision gates, file boundaries, behavioral acceptance and a
+schedule dependency graph. These are proposed work packages; this planning
+change does not approve their future APIs, dependencies, exclusions or releases.
+
+Source inspection found timer admission/ownership/terminal-state gaps that
+need executable regressions before fixes. The recommended first sequence is
+baseline, timer hardening, console logger, then loader. Upstream group is a
+loader re-export; group behavior belongs in loader even if packaging later
+adds a facade. Include reconciliation and HMR replacement need distinct slices.
+
+**Why:** Cover every package without equating a minimal slice with full parity,
+freezing unknown contracts, or assigning dates before prerequisites are known.
+The seven satellite packages contain 323 syntactic test declaration lines;
+parameter variants and supported Rust dispositions remain gate responsibilities.
+
 ## 2026-10-27 — Order satellite targets without claiming implementation
 
 The user selected roadmap planning for `re-cordis-timer`, `re-cordis-logger`,

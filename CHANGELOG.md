@@ -8,6 +8,12 @@ This project does not yet follow semantic versioning — the API is unstable.
 ## [Unreleased]
 
 ### Added
+- Source-backed completion planning for core evidence/targeted fixes and all seven
+  upstream satellites under `docs/plans/2026-11-02-cordis-completion/`: timer
+  repair findings, per-satellite work packages, API/dependency decision gates,
+  shared acceptance, and a dependency-based scheduling worksheet. The pinned
+  satellite inventory records 323 syntactic test declarations, not executed
+  parity coverage. Future APIs, dates and releases remain proposals.
 - First satellite crate `re-cordis-timer` (unpublished, Rust 2024, MSRV 1.85):
   owner-scoped `timeout`/`sleep`/`interval`/`interval_stream`/`throttle`/
   `debounce` over existing core effects, reached through a sealed `TimerExt`

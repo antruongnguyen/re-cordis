@@ -7,6 +7,22 @@ we learn; it is not a contract. Detailed source evidence, design gates,
 milestone prerequisites, and exit criteria live in the
 [implementation plan](implementation-plan.md).
 
+## Completion planning (2026-11-02)
+
+- [x] Save a [source-backed completion plan](plans/2026-11-02-cordis-completion/README.md)
+  for core evidence, timer repair and all seven pinned upstream satellites.
+  Separate observed source gaps, investigation, Rust representations and
+  missing evidence; index all 323 satellite test declaration lines.
+- [ ] Execute B0's fresh core/compatibility baseline, then T0–T5 timer repair.
+  Timer code exists, but admission/deadline, task authority, unregistration,
+  bounded streams, reentry and joined resource-release acceptance remain open.
+- [ ] Review and schedule the [work packages](plans/2026-11-02-cordis-completion/schedule.md):
+  console logger, loader/group, include, HMR, create, then integrated acceptance.
+  API/dependency choices and calendar dates in this program are not frozen.
+
+The older milestones below retain their historical delivery evidence. A
+checked historical box does not override an open repair in the completion plan.
+
 ## Planning and project setup
 
 - [x] Initialize documentation (`AGENTS.md`, `README.md`, `docs/*`).
@@ -60,7 +76,8 @@ and behavioral tests, not just public type declarations.
 
 Selected roadmap order on **2026-10-27**: **`re-cordis-timer` → `re-cordis-logger` →
 `re-cordis-loader`**, then evaluate other satellites. **`re-cordis-timer` is now
-delivered** (see below); `re-cordis-logger` is the next target. These remaining
+implemented** (see below), with repair acceptance open; `re-cordis-logger` is
+the next new satellite after timer hardening. These remaining
 entries are implementation targets, not delivered crates or frozen
 API/dependency decisions.
 
@@ -80,10 +97,12 @@ This is a preferred sequence, not a false dependency chain: logger does not
 require timer, and loader should not depend on either unless an approved
 contract demonstrates the need.
 
-### 1. re-cordis-timer — delivered
+### 1. re-cordis-timer — implemented; repair acceptance open
 
-Delivered on **2026-10-27** as an unpublished `crates/re-cordis-timer`. Design
-and plan: [spec](superpowers/specs/2026-10-27-re-cordis-timer-design.md),
+Initially delivered on **2026-10-27** as an unpublished `crates/re-cordis-timer`.
+The [2026-11-02 repair plan](plans/2026-11-02-cordis-completion/timer.md) records
+source-level contract gaps and the required regressions before renewed
+acceptance. Historical design and plan: [spec](superpowers/specs/2026-10-27-re-cordis-timer-design.md),
 [plan](superpowers/plans/2026-10-27-re-cordis-timer.md). Decisions and
 deviations are in [decision.md](decision.md#timer-satellite) and
 [limitation.md](limitation.md#timer-satellite).
@@ -100,16 +119,18 @@ deviations are in [decision.md](decision.md#timer-satellite) and
   Rust 2024/MSRV 1.85 and reusing core effects. Timer-required Tokio features
   belong to the timer crate; do not add a hidden runtime or expand core's
   production dependencies speculatively.
-- [x] Define duration admission, zero/overflow behavior, first/subsequent tick
-  behavior, callback errors/panics, once-only delivery, cancellation, dropped
+- [ ] Reconcile and verify duration admission, zero/overflow behavior,
+  first/subsequent tick behavior, callback errors/panics, once-only delivery, cancellation, dropped
   waiters and owner disposal. Resolve TS wall-clock versus Tokio clock behavior
   explicitly, especially throttle/debounce. Document omitted overloads/aliases.
-- [x] Test just-before/at-deadline behavior, manual/owner cancellation, restart,
-  acquired-resource cleanup, no callbacks after joined disposal, concurrent
+- [ ] Complete coverage of just-before/at-deadline behavior, manual/owner
+  cancellation, restart, acquired-resource cleanup, no callbacks after joined disposal, concurrent
   interval reads, and source-backed throttle/debounce edges for included APIs.
   Use controlled time and channels, not wall-clock sleeps.
-- [x] Add a runnable lifecycle example, public Rustdoc/type checks, and
-  English/Vietnamese timer documentation; complete the shared acceptance checklist.
+- [x] Add a runnable lifecycle example, public Rustdoc, and English/Vietnamese
+  timer documentation.
+- [ ] Complete timer compile-time API checks and renew shared acceptance after
+  the open timer repair tasks above.
 
 ### 2. re-cordis-logger — console adapter over existing core logging
 
@@ -150,10 +171,11 @@ deviations are in [decision.md](decision.md#timer-satellite) and
 - [ ] Add runnable boot/reconfigure/shutdown examples and paired language
   guide/API pages; complete the shared checklist.
 
-### Other satellites — assess after the first three targets
+### Other satellites — planned after the first three targets
 
-- [ ] `group`: determine whether existing parent-owned plugins already cover
-  the needed behavior before introducing a crate.
+- [ ] `group`: implement structural group behavior with loader; decide whether
+  a thin facade crate is useful. Upstream group re-exports loader Group. See
+  [G0–G1](plans/2026-11-02-cordis-completion/group.md).
 - [ ] `include`: evaluate configuration includes, patches, provenance and
   failure-safe persistence after loader format/ownership contracts exist.
 - [ ] `hmr`: define what Rust reconfiguration/reload actually means after loader
@@ -179,7 +201,7 @@ integrations remain separate scope decisions.
 - [ ] Update matching `docs/en/` and `docs/vi/` guides/API indexes, examples,
   glossary terms as needed, and `docs/llms.txt` in the same slice. Extend
   `tests/docs/check.py` for each delivered crate's exports/snippet dependencies;
-  its current automated export coverage is core-only.
+  its current automated export coverage includes core and timer.
 - [ ] Keep `README.md` status/layout/star matrices, `CHANGELOG.md`,
   `docs/todo.md`, `docs/decision.md`, `docs/limitation.md` and `AGENTS.md` accurate.
   Preserve old milestone evidence as historical, not claims of new delivery.
@@ -247,7 +269,8 @@ These consumers are not a generic harness or a new satellite/M7 commitment.
   and explicit limits; no unmeasured performance or universal-winner claim.
 
 See [the documentation map](README.md). These pages document the existing
-unpublished core; the satellite roadmap is future work, not an API-stability promise.
+unpublished core and timer; the remaining satellite roadmap is future work,
+not an API-stability promise.
 Maintain both languages and the agent index when public contracts change.
 
 ## Cross-cutting

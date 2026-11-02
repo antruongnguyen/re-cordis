@@ -324,7 +324,9 @@ The current next-target order, selected on 2026-10-27, is timer, console logging
 then loader; see [the satellite roadmap](todo.md#next-implementation-targets-satellites).
 Each target starts with pinned-source review and a bounded API/dependency gate.
 Timer cleanup reuses effects; console output reuses core exporters; file
-formats/serialization belong with loader. No satellite is implemented yet.
+formats/serialization belong at satellite boundaries. Timer is implemented;
+its remaining acceptance repairs and every later satellite are planned in the
+[2026-11-02 completion program](plans/2026-11-02-cordis-completion/README.md).
 Do not promise native shared-library hot reload as a direct equivalent of JS
 loading. The ordered targets supersede the earlier open package-selection
 decision without redefining completed core milestones.
