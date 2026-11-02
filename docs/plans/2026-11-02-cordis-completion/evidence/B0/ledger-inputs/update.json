@@ -1,0 +1,2853 @@
+{
+  "schema_version": 1,
+  "rust_revision": "9a7633c0b3b98e5f37e9f2211f3ffa67fdac5edc",
+  "implementation_revision": "808c9f573dd96c56fa2ec43e0b1bfb9ed39b2f3f",
+  "typescript_revision": "35fdc969e4b6c48c48ed44717c7a018324e4dd88",
+  "status": "update family complete; all 12 registered variants reviewed and existing stable/MSRV and bounded paired results joined; independent integration review pending",
+  "declarations": [
+    {
+      "id": "core/update.spec.ts:7",
+      "source_file": "local/cordis/packages/core/tests/update.spec.ts",
+      "source_line": 7,
+      "source_end_line": 53,
+      "title": "settles concurrent updates on the latest config (inject: %s)",
+      "suite": [
+        "Fiber: concurrent updates"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {
+            "inject": false
+          },
+          "obligations": [
+            {
+              "id": "core/update.spec.ts:7/false/a21",
+              "behavior": "The source guard skips the dependency-value assertion for the non-injecting variant.",
+              "source_assertion_lines": [
+                21
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/update.spec.ts:7/false/a21",
+                "kind": "observed-source-gap",
+                "next_action": "During final ledger integration, retain this conditional branch as non-executed for inject=false and correct the variant-aware inventory extractor/control only after preserving the original provenance; no production regression is warranted.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The source assertion is guarded by if (inject), so the false variant never executes it; attaching a Rust pass would fabricate a variant assertion."
+            },
+            {
+              "id": "core/update.spec.ts:7/false/a40",
+              "behavior": "While config 1 and the latest config 3 are gated, only sources 0, 1, and 3 have applied; source 2 is skipped.",
+              "source_assertion_lines": [
+                40
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "all_concurrent_waiters_follow_latest_config_with_and_without_dependencies",
+                  "lines": [
+                    21,
+                    22,
+                    28,
+                    29,
+                    38,
+                    41,
+                    49,
+                    50,
+                    51,
+                    52,
+                    63,
+                    64,
+                    65,
+                    66,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    74,
+                    75,
+                    76,
+                    77,
+                    78,
+                    79,
+                    80,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85
+                  ],
+                  "assertion": "Both loop variants assert applied == [0, 1, 3].",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The single Rust regression loops over inject=false and directly asserts the latest-target/coalesced-cleanup boundary for that exact registered variant."
+            },
+            {
+              "id": "core/update.spec.ts:7/false/a41",
+              "behavior": "Before the latest load finishes, cleanup has completed only for sources 0 and 1.",
+              "source_assertion_lines": [
+                41
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "all_concurrent_waiters_follow_latest_config_with_and_without_dependencies",
+                  "lines": [
+                    21,
+                    22,
+                    28,
+                    29,
+                    38,
+                    41,
+                    49,
+                    50,
+                    51,
+                    52,
+                    63,
+                    64,
+                    65,
+                    66,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    74,
+                    75,
+                    76,
+                    77,
+                    78,
+                    79,
+                    80,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85
+                  ],
+                  "assertion": "Both loop variants assert disposed == [0, 1] before releasing latest.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The single Rust regression loops over inject=false and directly asserts the latest-target/coalesced-cleanup boundary for that exact registered variant."
+            },
+            {
+              "id": "core/update.spec.ts:7/false/a42",
+              "behavior": "None of the three update waiters has settled while the latest load remains gated.",
+              "source_assertion_lines": [
+                42
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/update.spec.ts:7/false/a42",
+                "kind": "missing-evidence",
+                "next_action": "In all_concurrent_waiters_follow_latest_config_with_and_without_dependencies, poll all three non-injecting waiters before latest_release and assert each remains pending; run both workspace toolchains.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The waiters are retained but the current test does not poll or count their pre-release settlement."
+            },
+            {
+              "id": "core/update.spec.ts:7/false/a43",
+              "behavior": "The Fiber remains Loading while the latest config 3 apply is gated.",
+              "source_assertion_lines": [
+                43
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "all_concurrent_waiters_follow_latest_config_with_and_without_dependencies",
+                  "lines": [
+                    21,
+                    22,
+                    28,
+                    29,
+                    38,
+                    41,
+                    49,
+                    50,
+                    51,
+                    52,
+                    63,
+                    64,
+                    65,
+                    66,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    74,
+                    75,
+                    76,
+                    77,
+                    78,
+                    79,
+                    80,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85
+                  ],
+                  "assertion": "Both loop variants assert Loading while config 3 is gated.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The single Rust regression loops over inject=false and directly asserts the latest-target/coalesced-cleanup boundary for that exact registered variant."
+            },
+            {
+              "id": "core/update.spec.ts:7/false/a47",
+              "behavior": "After the latest gate opens, all three update waiters settle.",
+              "source_assertion_lines": [
+                47
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "all_concurrent_waiters_follow_latest_config_with_and_without_dependencies",
+                  "lines": [
+                    21,
+                    22,
+                    28,
+                    29,
+                    38,
+                    41,
+                    49,
+                    50,
+                    51,
+                    52,
+                    63,
+                    64,
+                    65,
+                    66,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    74,
+                    75,
+                    76,
+                    77,
+                    78,
+                    79,
+                    80,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85
+                  ],
+                  "assertion": "Each of the three update results is awaited and asserted Active.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The single Rust regression loops over inject=false and directly asserts the latest-target/coalesced-cleanup boundary for that exact registered variant."
+            },
+            {
+              "id": "core/update.spec.ts:7/false/a48",
+              "behavior": "The committed source config is the latest value 3.",
+              "source_assertion_lines": [
+                48
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "all_concurrent_waiters_follow_latest_config_with_and_without_dependencies",
+                  "lines": [
+                    21,
+                    22,
+                    28,
+                    29,
+                    38,
+                    41,
+                    49,
+                    50,
+                    51,
+                    52,
+                    63,
+                    64,
+                    65,
+                    66,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    74,
+                    75,
+                    76,
+                    77,
+                    78,
+                    79,
+                    80,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85
+                  ],
+                  "assertion": "fiber.config() is asserted as latest source 3.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The single Rust regression loops over inject=false and directly asserts the latest-target/coalesced-cleanup boundary for that exact registered variant."
+            },
+            {
+              "id": "core/update.spec.ts:7/false/a49",
+              "behavior": "The Fiber settles Active after the latest load.",
+              "source_assertion_lines": [
+                49
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "all_concurrent_waiters_follow_latest_config_with_and_without_dependencies",
+                  "lines": [
+                    21,
+                    22,
+                    28,
+                    29,
+                    38,
+                    41,
+                    49,
+                    50,
+                    51,
+                    52,
+                    63,
+                    64,
+                    65,
+                    66,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    74,
+                    75,
+                    76,
+                    77,
+                    78,
+                    79,
+                    80,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85
+                  ],
+                  "assertion": "Each waiter returns Active for the latest pass.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The single Rust regression loops over inject=false and directly asserts the latest-target/coalesced-cleanup boundary for that exact registered variant."
+            },
+            {
+              "id": "core/update.spec.ts:7/false/a51",
+              "behavior": "Root disposal cleans sources 0, 1, and 3 exactly once.",
+              "source_assertion_lines": [
+                51
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "all_concurrent_waiters_follow_latest_config_with_and_without_dependencies",
+                  "lines": [
+                    21,
+                    22,
+                    28,
+                    29,
+                    38,
+                    41,
+                    49,
+                    50,
+                    51,
+                    52,
+                    63,
+                    64,
+                    65,
+                    66,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    74,
+                    75,
+                    76,
+                    77,
+                    78,
+                    79,
+                    80,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85
+                  ],
+                  "assertion": "After root drain, disposed is asserted [0, 1, 3].",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The single Rust regression loops over inject=false and directly asserts the latest-target/coalesced-cleanup boundary for that exact registered variant."
+            }
+          ]
+        },
+        {
+          "parameters": {
+            "inject": true
+          },
+          "obligations": [
+            {
+              "id": "core/update.spec.ts:7/true/a21",
+              "behavior": "The injecting variant resolves dependency foo as value 1 inside apply.",
+              "source_assertion_lines": [
+                21
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/update.spec.ts:7/true/a21",
+                "kind": "missing-evidence",
+                "next_action": "In all_concurrent_waiters_follow_latest_config_with_and_without_dependencies, use a value-bearing ServiceKey for inject=true and assert the apply Context resolves the supplied dependency before gating; run both workspace toolchains.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The Rust loop exercises dependency-gated convergence, but its unit service is not read/asserted inside apply."
+            },
+            {
+              "id": "core/update.spec.ts:7/true/a40",
+              "behavior": "While config 1 and the latest config 3 are gated, only sources 0, 1, and 3 have applied; source 2 is skipped.",
+              "source_assertion_lines": [
+                40
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "all_concurrent_waiters_follow_latest_config_with_and_without_dependencies",
+                  "lines": [
+                    21,
+                    22,
+                    28,
+                    29,
+                    38,
+                    41,
+                    49,
+                    50,
+                    51,
+                    52,
+                    63,
+                    64,
+                    65,
+                    66,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    74,
+                    75,
+                    76,
+                    77,
+                    78,
+                    79,
+                    80,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85
+                  ],
+                  "assertion": "Both loop variants assert applied == [0, 1, 3].",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The single Rust regression loops over inject=true and directly asserts the latest-target/coalesced-cleanup boundary for that exact registered variant."
+            },
+            {
+              "id": "core/update.spec.ts:7/true/a41",
+              "behavior": "Before the latest load finishes, cleanup has completed only for sources 0 and 1.",
+              "source_assertion_lines": [
+                41
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "all_concurrent_waiters_follow_latest_config_with_and_without_dependencies",
+                  "lines": [
+                    21,
+                    22,
+                    28,
+                    29,
+                    38,
+                    41,
+                    49,
+                    50,
+                    51,
+                    52,
+                    63,
+                    64,
+                    65,
+                    66,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    74,
+                    75,
+                    76,
+                    77,
+                    78,
+                    79,
+                    80,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85
+                  ],
+                  "assertion": "Both loop variants assert disposed == [0, 1] before releasing latest.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The single Rust regression loops over inject=true and directly asserts the latest-target/coalesced-cleanup boundary for that exact registered variant."
+            },
+            {
+              "id": "core/update.spec.ts:7/true/a42",
+              "behavior": "None of the three update waiters has settled while the latest load remains gated.",
+              "source_assertion_lines": [
+                42
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/update.spec.ts:7/true/a42",
+                "kind": "missing-evidence",
+                "next_action": "In all_concurrent_waiters_follow_latest_config_with_and_without_dependencies, poll all three injecting waiters before latest_release and assert each remains pending; run both workspace toolchains.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The waiters are retained but the current test does not poll or count their pre-release settlement."
+            },
+            {
+              "id": "core/update.spec.ts:7/true/a43",
+              "behavior": "The Fiber remains Loading while the latest config 3 apply is gated.",
+              "source_assertion_lines": [
+                43
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "all_concurrent_waiters_follow_latest_config_with_and_without_dependencies",
+                  "lines": [
+                    21,
+                    22,
+                    28,
+                    29,
+                    38,
+                    41,
+                    49,
+                    50,
+                    51,
+                    52,
+                    63,
+                    64,
+                    65,
+                    66,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    74,
+                    75,
+                    76,
+                    77,
+                    78,
+                    79,
+                    80,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85
+                  ],
+                  "assertion": "Both loop variants assert Loading while config 3 is gated.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The single Rust regression loops over inject=true and directly asserts the latest-target/coalesced-cleanup boundary for that exact registered variant."
+            },
+            {
+              "id": "core/update.spec.ts:7/true/a47",
+              "behavior": "After the latest gate opens, all three update waiters settle.",
+              "source_assertion_lines": [
+                47
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "all_concurrent_waiters_follow_latest_config_with_and_without_dependencies",
+                  "lines": [
+                    21,
+                    22,
+                    28,
+                    29,
+                    38,
+                    41,
+                    49,
+                    50,
+                    51,
+                    52,
+                    63,
+                    64,
+                    65,
+                    66,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    74,
+                    75,
+                    76,
+                    77,
+                    78,
+                    79,
+                    80,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85
+                  ],
+                  "assertion": "Each of the three update results is awaited and asserted Active.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The single Rust regression loops over inject=true and directly asserts the latest-target/coalesced-cleanup boundary for that exact registered variant."
+            },
+            {
+              "id": "core/update.spec.ts:7/true/a48",
+              "behavior": "The committed source config is the latest value 3.",
+              "source_assertion_lines": [
+                48
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "all_concurrent_waiters_follow_latest_config_with_and_without_dependencies",
+                  "lines": [
+                    21,
+                    22,
+                    28,
+                    29,
+                    38,
+                    41,
+                    49,
+                    50,
+                    51,
+                    52,
+                    63,
+                    64,
+                    65,
+                    66,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    74,
+                    75,
+                    76,
+                    77,
+                    78,
+                    79,
+                    80,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85
+                  ],
+                  "assertion": "fiber.config() is asserted as latest source 3.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The single Rust regression loops over inject=true and directly asserts the latest-target/coalesced-cleanup boundary for that exact registered variant."
+            },
+            {
+              "id": "core/update.spec.ts:7/true/a49",
+              "behavior": "The Fiber settles Active after the latest load.",
+              "source_assertion_lines": [
+                49
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "all_concurrent_waiters_follow_latest_config_with_and_without_dependencies",
+                  "lines": [
+                    21,
+                    22,
+                    28,
+                    29,
+                    38,
+                    41,
+                    49,
+                    50,
+                    51,
+                    52,
+                    63,
+                    64,
+                    65,
+                    66,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    74,
+                    75,
+                    76,
+                    77,
+                    78,
+                    79,
+                    80,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85
+                  ],
+                  "assertion": "Each waiter returns Active for the latest pass.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The single Rust regression loops over inject=true and directly asserts the latest-target/coalesced-cleanup boundary for that exact registered variant."
+            },
+            {
+              "id": "core/update.spec.ts:7/true/a51",
+              "behavior": "Root disposal cleans sources 0, 1, and 3 exactly once.",
+              "source_assertion_lines": [
+                51
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "all_concurrent_waiters_follow_latest_config_with_and_without_dependencies",
+                  "lines": [
+                    21,
+                    22,
+                    28,
+                    29,
+                    38,
+                    41,
+                    49,
+                    50,
+                    51,
+                    52,
+                    63,
+                    64,
+                    65,
+                    66,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    74,
+                    75,
+                    76,
+                    77,
+                    78,
+                    79,
+                    80,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85
+                  ],
+                  "assertion": "After root drain, disposed is asserted [0, 1, 3].",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The single Rust regression loops over inject=true and directly asserts the latest-target/coalesced-cleanup boundary for that exact registered variant."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/update.spec.ts:54",
+      "source_file": "local/cordis/packages/core/tests/update.spec.ts",
+      "source_line": 54,
+      "source_end_line": 68,
+      "title": "skips superseded loads before executing the plugin",
+      "suite": [
+        "Fiber: concurrent updates"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/update.spec.ts:54/default/a64",
+              "behavior": "Updates queued before the initial pass apply only the latest source 3.",
+              "source_assertion_lines": [
+                64
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "queued_initial_sources_are_skipped_and_pending_loads_validate_only_the_latest_source",
+                  "lines": [
+                    147,
+                    155,
+                    164,
+                    172,
+                    173,
+                    174,
+                    175,
+                    176,
+                    177
+                  ],
+                  "assertion": "Before initial scheduling runs, updates 2 and 3 are started; after both join, applied is exactly [3].",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The Rust test directly queues sources before the initial pass and asserts only the latest is applied."
+            },
+            {
+              "id": "core/update.spec.ts:54/default/a65",
+              "behavior": "The Fiber settles Active after applying only the latest queued initial source.",
+              "source_assertion_lines": [
+                65
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "queued_initial_sources_are_skipped_and_pending_loads_validate_only_the_latest_source",
+                  "lines": [
+                    147,
+                    155,
+                    164,
+                    172,
+                    173,
+                    174,
+                    175,
+                    176,
+                    177
+                  ],
+                  "assertion": "Both update tasks join successfully after the sole latest load.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The Rust test directly queues sources before the initial pass and asserts only the latest is applied."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/update.spec.ts:69",
+      "source_file": "local/cordis/packages/core/tests/update.spec.ts",
+      "source_line": 69,
+      "source_end_line": 95,
+      "title": "coalesces updates during unloading",
+      "suite": [
+        "Fiber: concurrent updates"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/update.spec.ts:69/default/a86",
+              "behavior": "While old cleanup is gated, only source 0 has applied.",
+              "source_assertion_lines": [
+                86
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "updates_during_unloading_never_interrupt_cleanup_or_load_the_middle_source",
+                  "lines": [
+                    95,
+                    105,
+                    108,
+                    115,
+                    116,
+                    117,
+                    118,
+                    119,
+                    127,
+                    128,
+                    129,
+                    130,
+                    131,
+                    132,
+                    133,
+                    134,
+                    135,
+                    136,
+                    137
+                  ],
+                  "assertion": "While cleanup is gated, applied is asserted [0].",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The gated Rust cleanup directly proves unload is not interrupted and middle source 1 is skipped."
+            },
+            {
+              "id": "core/update.spec.ts:69/default/a87",
+              "behavior": "The Fiber remains Unloading while old cleanup is gated.",
+              "source_assertion_lines": [
+                87
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "updates_during_unloading_never_interrupt_cleanup_or_load_the_middle_source",
+                  "lines": [
+                    95,
+                    105,
+                    108,
+                    115,
+                    116,
+                    117,
+                    118,
+                    119,
+                    127,
+                    128,
+                    129,
+                    130,
+                    131,
+                    132,
+                    133,
+                    134,
+                    135,
+                    136,
+                    137
+                  ],
+                  "assertion": "The Fiber state is asserted Unloading before cleanup release.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The gated Rust cleanup directly proves unload is not interrupted and middle source 1 is skipped."
+            },
+            {
+              "id": "core/update.spec.ts:69/default/a91",
+              "behavior": "After cleanup, only latest source 2 loads; middle source 1 is skipped.",
+              "source_assertion_lines": [
+                91
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "updates_during_unloading_never_interrupt_cleanup_or_load_the_middle_source",
+                  "lines": [
+                    95,
+                    105,
+                    108,
+                    115,
+                    116,
+                    117,
+                    118,
+                    119,
+                    127,
+                    128,
+                    129,
+                    130,
+                    131,
+                    132,
+                    133,
+                    134,
+                    135,
+                    136,
+                    137
+                  ],
+                  "assertion": "After both waiters settle, applied is asserted [0,2].",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The gated Rust cleanup directly proves unload is not interrupted and middle source 1 is skipped."
+            },
+            {
+              "id": "core/update.spec.ts:69/default/a92",
+              "behavior": "The Fiber returns Active after the latest post-cleanup load.",
+              "source_assertion_lines": [
+                92
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/update.spec.ts:69/default/a92",
+                "kind": "missing-evidence",
+                "next_action": "Add assert_eq!(fiber.state(), FiberState::Active) after both unloading update tasks settle in updates_during_unloading_never_interrupt_cleanup_or_load_the_middle_source, then run both workspace toolchains.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The test asserts [0,2] after both waiters but does not explicitly assert the final Active state."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/update.spec.ts:96",
+      "source_file": "local/cordis/packages/core/tests/update.spec.ts",
+      "source_line": 96,
+      "source_end_line": 120,
+      "title": "honors %s while loading even when config is unchanged",
+      "suite": [
+        "Fiber: concurrent updates"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {
+            "mode": "restart"
+          },
+          "obligations": [
+            {
+              "id": "core/update.spec.ts:96/restart/a115",
+              "behavior": "A restart or config-ABA intent during Loading forces a second apply of the unchanged final source.",
+              "source_assertion_lines": [
+                115
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "config_aba_and_explicit_restart_force_a_new_load_even_with_equal_final_source",
+                  "lines": [
+                    544,
+                    545,
+                    555,
+                    559,
+                    563,
+                    575,
+                    576,
+                    577,
+                    578,
+                    579,
+                    581,
+                    582,
+                    583,
+                    585
+                  ],
+                  "assertion": "The loop branch for this exact mode joins its waiter(s) and asserts applied == [1,1].",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The Rust regression loops over explicit restart and config ABA and proves both preserve restart intent despite equal final source."
+            },
+            {
+              "id": "core/update.spec.ts:96/restart/a116",
+              "behavior": "The final retained source is the original source.",
+              "source_assertion_lines": [
+                116
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/update.spec.ts:96/restart/a116",
+                "kind": "missing-evidence",
+                "next_action": "In config_aba_and_explicit_restart_force_a_new_load_even_with_equal_final_source, retain the original source in a handle-friendly value for the restart branch and assert both final source equality and FiberState::Active after waiters settle; run both workspace toolchains.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The forced second apply is asserted, but the exact final-source equality/identity boundary is not."
+            },
+            {
+              "id": "core/update.spec.ts:96/restart/a117",
+              "behavior": "The Fiber is Active after the forced unchanged-source reload.",
+              "source_assertion_lines": [
+                117
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/update.spec.ts:96/restart/a117",
+                "kind": "missing-evidence",
+                "next_action": "In config_aba_and_explicit_restart_force_a_new_load_even_with_equal_final_source, retain the original source in a handle-friendly value for the restart branch and assert both final source equality and FiberState::Active after waiters settle; run both workspace toolchains.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The forced second apply is asserted, but the exact final Active state boundary is not."
+            }
+          ]
+        },
+        {
+          "parameters": {
+            "mode": "config ABA"
+          },
+          "obligations": [
+            {
+              "id": "core/update.spec.ts:96/config aba/a115",
+              "behavior": "A restart or config-ABA intent during Loading forces a second apply of the unchanged final source.",
+              "source_assertion_lines": [
+                115
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "config_aba_and_explicit_restart_force_a_new_load_even_with_equal_final_source",
+                  "lines": [
+                    544,
+                    545,
+                    555,
+                    559,
+                    563,
+                    575,
+                    576,
+                    577,
+                    578,
+                    579,
+                    581,
+                    582,
+                    583,
+                    585
+                  ],
+                  "assertion": "The loop branch for this exact mode joins its waiter(s) and asserts applied == [1,1].",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The Rust regression loops over explicit restart and config ABA and proves both preserve restart intent despite equal final source."
+            },
+            {
+              "id": "core/update.spec.ts:96/config aba/a116",
+              "behavior": "The final retained source is the original source.",
+              "source_assertion_lines": [
+                116
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/update.spec.ts:96/config aba/a116",
+                "kind": "missing-evidence",
+                "next_action": "In config_aba_and_explicit_restart_force_a_new_load_even_with_equal_final_source, retain the original source in a handle-friendly value for the config ABA branch and assert both final source equality and FiberState::Active after waiters settle; run both workspace toolchains.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The forced second apply is asserted, but the exact final-source equality/identity boundary is not."
+            },
+            {
+              "id": "core/update.spec.ts:96/config aba/a117",
+              "behavior": "The Fiber is Active after the forced unchanged-source reload.",
+              "source_assertion_lines": [
+                117
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/update.spec.ts:96/config aba/a117",
+                "kind": "missing-evidence",
+                "next_action": "In config_aba_and_explicit_restart_force_a_new_load_even_with_equal_final_source, retain the original source in a handle-friendly value for the config ABA branch and assert both final source equality and FiberState::Active after waiters settle; run both workspace toolchains.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The forced second apply is asserted, but the exact final Active state boundary is not."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/update.spec.ts:121",
+      "source_file": "local/cordis/packages/core/tests/update.spec.ts",
+      "source_line": 121,
+      "source_end_line": 151,
+      "title": "cleans up a superseded failure without failing the latest update",
+      "suite": [
+        "Fiber: concurrent updates"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/update.spec.ts:121/default/a144",
+              "behavior": "A superseded failure applies source 1 then latest source 2.",
+              "source_assertion_lines": [
+                144
+              ],
+              "class": "executed-comparison",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/lifecycle_parity.rs",
+                  "symbol": "superseded_failure_rolls_back_without_poisoning_latest_target",
+                  "lines": [
+                    312,
+                    331,
+                    351,
+                    353,
+                    354,
+                    355,
+                    357,
+                    358,
+                    359,
+                    361,
+                    363,
+                    370,
+                    371,
+                    372,
+                    381,
+                    385,
+                    387,
+                    388,
+                    393,
+                    394,
+                    395,
+                    396,
+                    399,
+                    403,
+                    404,
+                    405,
+                    406,
+                    409,
+                    410,
+                    413,
+                    416,
+                    418,
+                    419,
+                    424,
+                    425,
+                    426,
+                    427,
+                    428,
+                    429,
+                    453,
+                    454
+                  ],
+                  "assertion": "The superseded-failure test asserts/traces apply 1 and apply 2 with successful latest settlement.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [
+                {
+                  "scenario": "superseded-failure",
+                  "observation": "apply 1",
+                  "scope": "The paired superseded-failure fixture executes this exact obsolete-failure rollback/latest-success boundary in Rust and pinned TypeScript."
+                },
+                {
+                  "scenario": "superseded-failure",
+                  "observation": "apply 2",
+                  "scope": "The paired superseded-failure fixture executes this exact obsolete-failure rollback/latest-success boundary in Rust and pinned TypeScript."
+                }
+              ],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "This declaration is exactly one accepted paired failure scenario; current Rust assertions also preserve rollback and diagnostic ownership."
+            },
+            {
+              "id": "core/update.spec.ts:121/default/a145",
+              "behavior": "Rollback cleans only failed source 1 before latest source 2 becomes current.",
+              "source_assertion_lines": [
+                145
+              ],
+              "class": "executed-comparison",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/lifecycle_parity.rs",
+                  "symbol": "superseded_failure_rolls_back_without_poisoning_latest_target",
+                  "lines": [
+                    312,
+                    331,
+                    351,
+                    353,
+                    354,
+                    355,
+                    357,
+                    358,
+                    359,
+                    361,
+                    363,
+                    370,
+                    371,
+                    372,
+                    381,
+                    385,
+                    387,
+                    388,
+                    393,
+                    394,
+                    395,
+                    396,
+                    399,
+                    403,
+                    404,
+                    405,
+                    406,
+                    409,
+                    410,
+                    413,
+                    416,
+                    418,
+                    419,
+                    424,
+                    425,
+                    426,
+                    427,
+                    428,
+                    429,
+                    453,
+                    454
+                  ],
+                  "assertion": "The superseded-failure test asserts/traces dispose 1 with successful latest settlement.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [
+                {
+                  "scenario": "superseded-failure",
+                  "observation": "dispose 1",
+                  "scope": "The paired superseded-failure fixture executes this exact obsolete-failure rollback/latest-success boundary in Rust and pinned TypeScript."
+                }
+              ],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "This declaration is exactly one accepted paired failure scenario; current Rust assertions also preserve rollback and diagnostic ownership."
+            },
+            {
+              "id": "core/update.spec.ts:121/default/a146",
+              "behavior": "The superseded failure is diagnosed exactly once.",
+              "source_assertion_lines": [
+                146
+              ],
+              "class": "executed-comparison",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/lifecycle_parity.rs",
+                  "symbol": "superseded_failure_rolls_back_without_poisoning_latest_target",
+                  "lines": [
+                    312,
+                    331,
+                    351,
+                    353,
+                    354,
+                    355,
+                    357,
+                    358,
+                    359,
+                    361,
+                    363,
+                    370,
+                    371,
+                    372,
+                    381,
+                    385,
+                    387,
+                    388,
+                    393,
+                    394,
+                    395,
+                    396,
+                    399,
+                    403,
+                    404,
+                    405,
+                    406,
+                    409,
+                    410,
+                    413,
+                    416,
+                    418,
+                    419,
+                    424,
+                    425,
+                    426,
+                    427,
+                    428,
+                    429,
+                    453,
+                    454
+                  ],
+                  "assertion": "The superseded-failure test asserts/traces diagnostics=1 with successful latest settlement.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [
+                {
+                  "scenario": "superseded-failure",
+                  "observation": "diagnostics=1",
+                  "scope": "The paired superseded-failure fixture executes this exact obsolete-failure rollback/latest-success boundary in Rust and pinned TypeScript."
+                }
+              ],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "This declaration is exactly one accepted paired failure scenario; current Rust assertions also preserve rollback and diagnostic ownership."
+            },
+            {
+              "id": "core/update.spec.ts:121/default/a147",
+              "behavior": "The successful latest update leaves the Fiber Active.",
+              "source_assertion_lines": [
+                147
+              ],
+              "class": "executed-comparison",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/lifecycle_parity.rs",
+                  "symbol": "superseded_failure_rolls_back_without_poisoning_latest_target",
+                  "lines": [
+                    312,
+                    331,
+                    351,
+                    353,
+                    354,
+                    355,
+                    357,
+                    358,
+                    359,
+                    361,
+                    363,
+                    370,
+                    371,
+                    372,
+                    381,
+                    385,
+                    387,
+                    388,
+                    393,
+                    394,
+                    395,
+                    396,
+                    399,
+                    403,
+                    404,
+                    405,
+                    406,
+                    409,
+                    410,
+                    413,
+                    416,
+                    418,
+                    419,
+                    424,
+                    425,
+                    426,
+                    427,
+                    428,
+                    429,
+                    453,
+                    454
+                  ],
+                  "assertion": "The superseded-failure test asserts/traces waiters=Active with successful latest settlement.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [
+                {
+                  "scenario": "superseded-failure",
+                  "observation": "waiters=Active",
+                  "scope": "The paired superseded-failure fixture executes this exact obsolete-failure rollback/latest-success boundary in Rust and pinned TypeScript."
+                }
+              ],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "This declaration is exactly one accepted paired failure scenario; current Rust assertions also preserve rollback and diagnostic ownership."
+            },
+            {
+              "id": "core/update.spec.ts:121/default/a149",
+              "behavior": "Final root disposal also cleans source 2.",
+              "source_assertion_lines": [
+                149
+              ],
+              "class": "executed-comparison",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/lifecycle_parity.rs",
+                  "symbol": "superseded_failure_rolls_back_without_poisoning_latest_target",
+                  "lines": [
+                    312,
+                    331,
+                    351,
+                    353,
+                    354,
+                    355,
+                    357,
+                    358,
+                    359,
+                    361,
+                    363,
+                    370,
+                    371,
+                    372,
+                    381,
+                    385,
+                    387,
+                    388,
+                    393,
+                    394,
+                    395,
+                    396,
+                    399,
+                    403,
+                    404,
+                    405,
+                    406,
+                    409,
+                    410,
+                    413,
+                    416,
+                    418,
+                    419,
+                    424,
+                    425,
+                    426,
+                    427,
+                    428,
+                    429,
+                    453,
+                    454
+                  ],
+                  "assertion": "The superseded-failure test asserts/traces dispose 2 with successful latest settlement.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [
+                {
+                  "scenario": "superseded-failure",
+                  "observation": "dispose 2",
+                  "scope": "The paired superseded-failure fixture executes this exact obsolete-failure rollback/latest-success boundary in Rust and pinned TypeScript."
+                }
+              ],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "This declaration is exactly one accepted paired failure scenario; current Rust assertions also preserve rollback and diagnostic ownership."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "executed-comparison"
+      ]
+    },
+    {
+      "id": "core/update.spec.ts:152",
+      "source_file": "local/cordis/packages/core/tests/update.spec.ts",
+      "source_line": 152,
+      "source_end_line": 187,
+      "title": "rejects all waiting updates when the latest load fails",
+      "suite": [
+        "Fiber: concurrent updates"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/update.spec.ts:152/default/a177",
+              "behavior": "Every retained update waiter rejects when the latest load fails.",
+              "source_assertion_lines": [
+                177
+              ],
+              "class": "executed-comparison",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/lifecycle_parity.rs",
+                  "symbol": "latest_failure_reaches_waiters_after_rollback_despite_abandoned_update",
+                  "lines": [
+                    312,
+                    320,
+                    321,
+                    331,
+                    351,
+                    353,
+                    361,
+                    363,
+                    370,
+                    371,
+                    372,
+                    378,
+                    381,
+                    382,
+                    383,
+                    387,
+                    388,
+                    389,
+                    390,
+                    393,
+                    394,
+                    395,
+                    396,
+                    399,
+                    403,
+                    404,
+                    405,
+                    406,
+                    407,
+                    408,
+                    413,
+                    414,
+                    418,
+                    419,
+                    424,
+                    425,
+                    426,
+                    427,
+                    428,
+                    429,
+                    458,
+                    459
+                  ],
+                  "assertion": "The latest-failure test asserts/traces waiters=Failed and verifies both retained waiters receive the same original failure.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [
+                {
+                  "scenario": "latest-failure",
+                  "observation": "waiters=Failed",
+                  "scope": "The paired latest-failure fixture executes this exact latest-load failure/waiter/rollback boundary; language-specific assertions retain the original error identity."
+                }
+              ],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "This declaration is exactly the accepted paired latest-failure scenario, including rollback before Failed waiter settlement and one diagnostic."
+            },
+            {
+              "id": "core/update.spec.ts:152/default/a179",
+              "behavior": "Every rejection carries the latest-load failure.",
+              "source_assertion_lines": [
+                179
+              ],
+              "class": "executed-comparison",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/lifecycle_parity.rs",
+                  "symbol": "latest_failure_reaches_waiters_after_rollback_despite_abandoned_update",
+                  "lines": [
+                    312,
+                    320,
+                    321,
+                    331,
+                    351,
+                    353,
+                    361,
+                    363,
+                    370,
+                    371,
+                    372,
+                    378,
+                    381,
+                    382,
+                    383,
+                    387,
+                    388,
+                    389,
+                    390,
+                    393,
+                    394,
+                    395,
+                    396,
+                    399,
+                    403,
+                    404,
+                    405,
+                    406,
+                    407,
+                    408,
+                    413,
+                    414,
+                    418,
+                    419,
+                    424,
+                    425,
+                    426,
+                    427,
+                    428,
+                    429,
+                    458,
+                    459
+                  ],
+                  "assertion": "The latest-failure test asserts/traces fail 2 and waiters=Failed and verifies both retained waiters receive the same original failure.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [
+                {
+                  "scenario": "latest-failure",
+                  "observation": "fail 2",
+                  "scope": "The paired latest-failure fixture executes this exact latest-load failure/waiter/rollback boundary; language-specific assertions retain the original error identity."
+                },
+                {
+                  "scenario": "latest-failure",
+                  "observation": "waiters=Failed",
+                  "scope": "The paired latest-failure fixture executes this exact latest-load failure/waiter/rollback boundary; language-specific assertions retain the original error identity."
+                }
+              ],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "This declaration is exactly the accepted paired latest-failure scenario, including rollback before Failed waiter settlement and one diagnostic."
+            },
+            {
+              "id": "core/update.spec.ts:152/default/a182",
+              "behavior": "The initial, intermediate, and failing latest sources 0, 1, and 2 all begin apply.",
+              "source_assertion_lines": [
+                182
+              ],
+              "class": "executed-comparison",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/lifecycle_parity.rs",
+                  "symbol": "latest_failure_reaches_waiters_after_rollback_despite_abandoned_update",
+                  "lines": [
+                    312,
+                    320,
+                    321,
+                    331,
+                    351,
+                    353,
+                    361,
+                    363,
+                    370,
+                    371,
+                    372,
+                    378,
+                    381,
+                    382,
+                    383,
+                    387,
+                    388,
+                    389,
+                    390,
+                    393,
+                    394,
+                    395,
+                    396,
+                    399,
+                    403,
+                    404,
+                    405,
+                    406,
+                    407,
+                    408,
+                    413,
+                    414,
+                    418,
+                    419,
+                    424,
+                    425,
+                    426,
+                    427,
+                    428,
+                    429,
+                    458,
+                    459
+                  ],
+                  "assertion": "The latest-failure test asserts/traces apply 0 and apply 1 and apply 2 and verifies both retained waiters receive the same original failure.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [
+                {
+                  "scenario": "latest-failure",
+                  "observation": "apply 0",
+                  "scope": "The paired latest-failure fixture executes this exact latest-load failure/waiter/rollback boundary; language-specific assertions retain the original error identity."
+                },
+                {
+                  "scenario": "latest-failure",
+                  "observation": "apply 1",
+                  "scope": "The paired latest-failure fixture executes this exact latest-load failure/waiter/rollback boundary; language-specific assertions retain the original error identity."
+                },
+                {
+                  "scenario": "latest-failure",
+                  "observation": "apply 2",
+                  "scope": "The paired latest-failure fixture executes this exact latest-load failure/waiter/rollback boundary; language-specific assertions retain the original error identity."
+                }
+              ],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "This declaration is exactly the accepted paired latest-failure scenario, including rollback before Failed waiter settlement and one diagnostic."
+            },
+            {
+              "id": "core/update.spec.ts:152/default/a183",
+              "behavior": "Rollback/final cleanup disposes sources 0, 1, and 2.",
+              "source_assertion_lines": [
+                183
+              ],
+              "class": "executed-comparison",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/lifecycle_parity.rs",
+                  "symbol": "latest_failure_reaches_waiters_after_rollback_despite_abandoned_update",
+                  "lines": [
+                    312,
+                    320,
+                    321,
+                    331,
+                    351,
+                    353,
+                    361,
+                    363,
+                    370,
+                    371,
+                    372,
+                    378,
+                    381,
+                    382,
+                    383,
+                    387,
+                    388,
+                    389,
+                    390,
+                    393,
+                    394,
+                    395,
+                    396,
+                    399,
+                    403,
+                    404,
+                    405,
+                    406,
+                    407,
+                    408,
+                    413,
+                    414,
+                    418,
+                    419,
+                    424,
+                    425,
+                    426,
+                    427,
+                    428,
+                    429,
+                    458,
+                    459
+                  ],
+                  "assertion": "The latest-failure test asserts/traces dispose 0 and dispose 1 and dispose 2 and verifies both retained waiters receive the same original failure.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [
+                {
+                  "scenario": "latest-failure",
+                  "observation": "dispose 0",
+                  "scope": "The paired latest-failure fixture executes this exact latest-load failure/waiter/rollback boundary; language-specific assertions retain the original error identity."
+                },
+                {
+                  "scenario": "latest-failure",
+                  "observation": "dispose 1",
+                  "scope": "The paired latest-failure fixture executes this exact latest-load failure/waiter/rollback boundary; language-specific assertions retain the original error identity."
+                },
+                {
+                  "scenario": "latest-failure",
+                  "observation": "dispose 2",
+                  "scope": "The paired latest-failure fixture executes this exact latest-load failure/waiter/rollback boundary; language-specific assertions retain the original error identity."
+                }
+              ],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "This declaration is exactly the accepted paired latest-failure scenario, including rollback before Failed waiter settlement and one diagnostic."
+            },
+            {
+              "id": "core/update.spec.ts:152/default/a184",
+              "behavior": "The latest failing load leaves the Fiber Failed.",
+              "source_assertion_lines": [
+                184
+              ],
+              "class": "executed-comparison",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/lifecycle_parity.rs",
+                  "symbol": "latest_failure_reaches_waiters_after_rollback_despite_abandoned_update",
+                  "lines": [
+                    312,
+                    320,
+                    321,
+                    331,
+                    351,
+                    353,
+                    361,
+                    363,
+                    370,
+                    371,
+                    372,
+                    378,
+                    381,
+                    382,
+                    383,
+                    387,
+                    388,
+                    389,
+                    390,
+                    393,
+                    394,
+                    395,
+                    396,
+                    399,
+                    403,
+                    404,
+                    405,
+                    406,
+                    407,
+                    408,
+                    413,
+                    414,
+                    418,
+                    419,
+                    424,
+                    425,
+                    426,
+                    427,
+                    428,
+                    429,
+                    458,
+                    459
+                  ],
+                  "assertion": "The latest-failure test asserts/traces waiters=Failed and verifies both retained waiters receive the same original failure.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [
+                {
+                  "scenario": "latest-failure",
+                  "observation": "waiters=Failed",
+                  "scope": "The paired latest-failure fixture executes this exact latest-load failure/waiter/rollback boundary; language-specific assertions retain the original error identity."
+                }
+              ],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "This declaration is exactly the accepted paired latest-failure scenario, including rollback before Failed waiter settlement and one diagnostic."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "executed-comparison"
+      ]
+    },
+    {
+      "id": "core/update.spec.ts:188",
+      "source_file": "local/cordis/packages/core/tests/update.spec.ts",
+      "source_line": 188,
+      "source_end_line": 211,
+      "title": "stops advancing an outdated async generator and collects its final yield",
+      "suite": [
+        "Fiber: concurrent updates"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/update.spec.ts:188/default/a207",
+              "behavior": "Invalidating an async generator after its first pending yield records load 1, final-yield cleanup 1, then load 2 without advancing the obsolete continuation.",
+              "source_assertion_lines": [
+                207
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "outdated_effect_stream_stops_after_its_in_flight_final_yield",
+                  "lines": [
+                    698,
+                    708,
+                    710,
+                    712,
+                    716,
+                    718,
+                    719,
+                    721,
+                    723,
+                    724,
+                    725,
+                    726,
+                    727,
+                    729,
+                    730,
+                    731,
+                    733,
+                    742,
+                    743,
+                    752,
+                    753,
+                    754,
+                    755,
+                    756,
+                    757
+                  ],
+                  "assertion": "After invalidation, trace is asserted [1,10,2], proving final-yield cleanup and no obsolete continuation.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "updates-and-hooks",
+                "reason": "Rust represents an async generator acquisition with an explicit owned effect_stream: invalidation stops further advancement while retaining and cleaning the already in-flight final disposer."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The explicit owned effect_stream is the documented Rust substitute for async-generator acquisition and proves the same stop/final-yield/latest-load behavior."
+            },
+            {
+              "id": "core/update.spec.ts:188/default/a208",
+              "behavior": "After the explicit effect stream hands off to source 2, the Fiber is Active.",
+              "source_assertion_lines": [
+                208
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "outdated_effect_stream_stops_after_its_in_flight_final_yield",
+                  "lines": [
+                    698,
+                    708,
+                    710,
+                    712,
+                    716,
+                    718,
+                    719,
+                    721,
+                    723,
+                    724,
+                    725,
+                    726,
+                    727,
+                    729,
+                    730,
+                    731,
+                    733,
+                    742,
+                    743,
+                    752,
+                    753,
+                    754,
+                    755,
+                    756,
+                    757
+                  ],
+                  "assertion": "The update task joins successfully, no failures remain, and the latest load is current.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "updates-and-hooks",
+                "reason": "Rust represents an async generator acquisition with an explicit owned effect_stream: invalidation stops further advancement while retaining and cleaning the already in-flight final disposer."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The explicit owned effect_stream is the documented Rust substitute for async-generator acquisition and proves the same stop/final-yield/latest-load behavior."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/update.spec.ts:212",
+      "source_file": "local/cordis/packages/core/tests/update.spec.ts",
+      "source_line": 212,
+      "source_end_line": 233,
+      "title": "waits for dependencies and loads only the latest config",
+      "suite": [
+        "Fiber: concurrent updates"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/update.spec.ts:212/default/a218",
+              "behavior": "When the missing dependency becomes available, apply observes that available service.",
+              "source_assertion_lines": [
+                218
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "injection_inertia_preserves_loading_and_unloading_until_gated_work_finishes",
+                  "lines": [
+                    402,
+                    403,
+                    404,
+                    405,
+                    418,
+                    419,
+                    420,
+                    435,
+                    469,
+                    470,
+                    473,
+                    474,
+                    475
+                  ],
+                  "assertion": "The injecting apply reads the exact ServiceKey value and the latest load asserts replacement value 2 after readiness.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The current injection regression directly asserts service availability inside apply; the queued-source regression supplies the update-specific latest-only boundary."
+            },
+            {
+              "id": "core/update.spec.ts:212/default/a224",
+              "behavior": "Updates while the dependency is absent settle the Fiber Pending.",
+              "source_assertion_lines": [
+                224
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "queued_initial_sources_are_skipped_and_pending_loads_validate_only_the_latest_source",
+                  "lines": [
+                    147,
+                    152,
+                    155,
+                    172,
+                    178,
+                    179,
+                    180,
+                    181,
+                    182,
+                    183,
+                    189,
+                    190,
+                    191
+                  ],
+                  "assertion": "After pending updates, state is asserted Pending before provider arrival.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The pending-validation Rust fixture retains only the latest source until its required provider arrives."
+            },
+            {
+              "id": "core/update.spec.ts:212/default/a225",
+              "behavior": "No plugin apply runs while the dependency is absent.",
+              "source_assertion_lines": [
+                225
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/update.spec.ts:212/default/a225",
+                "kind": "missing-evidence",
+                "next_action": "In queued_initial_sources_are_skipped_and_pending_loads_validate_only_the_latest_source, snapshot the apply count immediately after the Pending assertions and verify the pending Fiber has not added an apply before provider arrival; run both workspace toolchains.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The shared applied vector has an earlier independent entry and is not asserted at the pre-provider boundary."
+            },
+            {
+              "id": "core/update.spec.ts:212/default/a229",
+              "behavior": "After provider arrival, only the latest pending source 2 applies.",
+              "source_assertion_lines": [
+                229
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "queued_initial_sources_are_skipped_and_pending_loads_validate_only_the_latest_source",
+                  "lines": [
+                    147,
+                    152,
+                    155,
+                    172,
+                    178,
+                    179,
+                    180,
+                    181,
+                    182,
+                    183,
+                    189,
+                    190,
+                    191
+                  ],
+                  "assertion": "After provider arrival and readiness, applied is asserted [3,4], where 4 is the sole latest pending source.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The pending-validation Rust fixture retains only the latest source until its required provider arrives."
+            },
+            {
+              "id": "core/update.spec.ts:212/default/a230",
+              "behavior": "The dependency-activated latest load leaves the Fiber Active.",
+              "source_assertion_lines": [
+                230
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/update.spec.ts:212/default/a230",
+                "kind": "missing-evidence",
+                "next_action": "Add assert_eq!(pending.state(), FiberState::Active) immediately after pending.ready() in queued_initial_sources_are_skipped_and_pending_loads_validate_only_the_latest_source, then run both workspace toolchains.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "Readiness succeeds and the latest value is applied, but the exact final state is not asserted."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/update.spec.ts:234",
+      "source_file": "local/cordis/packages/core/tests/update.spec.ts",
+      "source_line": 234,
+      "source_end_line": 258,
+      "title": "does not restart when a listener accepts an update during loading",
+      "suite": [
+        "Fiber: concurrent updates"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/update.spec.ts:234/default/a252",
+              "behavior": "An update listener that accepts during Loading prevents a second apply.",
+              "source_assertion_lines": [
+                252
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "accepted_update_during_loading_keeps_the_current_apply_and_new_source",
+                  "lines": [
+                    372,
+                    383,
+                    388,
+                    393,
+                    394,
+                    395,
+                    396,
+                    398,
+                    399,
+                    407,
+                    408,
+                    409,
+                    410,
+                    411,
+                    412,
+                    413,
+                    414
+                  ],
+                  "assertion": "After accepted update and original readiness, applied remains exactly one.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The Rust local update-hook fixture directly accepts without next during Loading and preserves the current apply/new source."
+            },
+            {
+              "id": "core/update.spec.ts:234/default/a253",
+              "behavior": "The local update listener receives source 2.",
+              "source_assertion_lines": [
+                253
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "accepted_update_during_loading_keeps_the_current_apply_and_new_source",
+                  "lines": [
+                    372,
+                    383,
+                    388,
+                    393,
+                    394,
+                    395,
+                    396,
+                    398,
+                    399,
+                    407,
+                    408,
+                    409,
+                    410,
+                    411,
+                    412,
+                    413,
+                    414
+                  ],
+                  "assertion": "The local hook records source value 2.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The Rust local update-hook fixture directly accepts without next during Loading and preserves the current apply/new source."
+            },
+            {
+              "id": "core/update.spec.ts:234/default/a254",
+              "behavior": "The accepted update still commits source config 2.",
+              "source_assertion_lines": [
+                254
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "accepted_update_during_loading_keeps_the_current_apply_and_new_source",
+                  "lines": [
+                    372,
+                    383,
+                    388,
+                    393,
+                    394,
+                    395,
+                    396,
+                    398,
+                    399,
+                    407,
+                    408,
+                    409,
+                    410,
+                    411,
+                    412,
+                    413,
+                    414
+                  ],
+                  "assertion": "The handle config is asserted as source 2 while the original apply remains Loading.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The Rust local update-hook fixture directly accepts without next during Loading and preserves the current apply/new source."
+            },
+            {
+              "id": "core/update.spec.ts:234/default/a255",
+              "behavior": "After the original apply gate opens, the Fiber is Active.",
+              "source_assertion_lines": [
+                255
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/update.spec.ts:234/default/a255",
+                "kind": "missing-evidence",
+                "next_action": "Add assert_eq!(fiber.state(), FiberState::Active) after fiber.ready() in accepted_update_during_loading_keeps_the_current_apply_and_new_source, then run both workspace toolchains.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The current test joins readiness and checks one apply, but does not explicitly assert the final Active state."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/update.spec.ts:259",
+      "source_file": "local/cordis/packages/core/tests/update.spec.ts",
+      "source_line": 259,
+      "source_end_line": 283,
+      "title": "does not load a queued config after disposal",
+      "suite": [
+        "Fiber: concurrent updates"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/update.spec.ts:259/default/a278",
+              "behavior": "Disposal wins over a queued update, so only source 1 applies.",
+              "source_assertion_lines": [
+                278
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "disposal_beats_queued_updates_and_dropped_waiters_do_not_cancel_cleanup",
+                  "lines": [
+                    321,
+                    332,
+                    337,
+                    342,
+                    343,
+                    344,
+                    347,
+                    348,
+                    356,
+                    357,
+                    358,
+                    359,
+                    360,
+                    361,
+                    362
+                  ],
+                  "assertion": "After disposal wins, applied is asserted [1].",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The current gated disposal regression directly proves terminal disposal beats queued config and joins in-flight cleanup despite a dropped disposal waiter."
+            },
+            {
+              "id": "core/update.spec.ts:259/default/a279",
+              "behavior": "The in-flight source 1 cleanup runs exactly once.",
+              "source_assertion_lines": [
+                279
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "disposal_beats_queued_updates_and_dropped_waiters_do_not_cancel_cleanup",
+                  "lines": [
+                    321,
+                    332,
+                    337,
+                    342,
+                    343,
+                    344,
+                    347,
+                    348,
+                    356,
+                    357,
+                    358,
+                    359,
+                    360,
+                    361,
+                    362
+                  ],
+                  "assertion": "The owned cleanup counter is asserted exactly one.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The current gated disposal regression directly proves terminal disposal beats queued config and joins in-flight cleanup despite a dropped disposal waiter."
+            },
+            {
+              "id": "core/update.spec.ts:259/default/a280",
+              "behavior": "The Fiber settles Disposed without applying queued source 2.",
+              "source_assertion_lines": [
+                280
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "disposal_beats_queued_updates_and_dropped_waiters_do_not_cancel_cleanup",
+                  "lines": [
+                    321,
+                    332,
+                    337,
+                    342,
+                    343,
+                    344,
+                    347,
+                    348,
+                    356,
+                    357,
+                    358,
+                    359,
+                    360,
+                    361,
+                    362
+                  ],
+                  "assertion": "The queued update waiter itself resolves FiberState::Disposed.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The current gated disposal regression directly proves terminal disposal beats queued config and joins in-flight cleanup despite a dropped disposal waiter."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    }
+  ]
+}
