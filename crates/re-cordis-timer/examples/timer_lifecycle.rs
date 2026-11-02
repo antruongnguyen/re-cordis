@@ -1,16 +1,10 @@
-//! Owner-scoped timers over a deterministic (paused) clock.
-//!
-//! Shows `timeout`, `interval_stream`, `throttle`, and `debounce`, then
-//! disposes the owning fiber and confirms no further callbacks fire. The clock
-//! is paused and advanced explicitly so the run is fast and reproducible.
-
-use std::cell::Cell;
-use std::rc::Rc;
-use std::time::Duration;
+//! All six timer operations follow plugin configuration and owner disposal.
+//! Run with cargo run -p re-cordis-timer --example timer_lifecycle --locked.
 
 use futures_util::StreamExt;
-use re_cordis_core::{BoxError, Plugin, Runtime};
+use re_cordis_core::{BoxError, Context, Plugin, Runtime};
 use re_cordis_timer::TimerExt;
+use std::{cell::RefCell, rc::Rc, time::Duration};
 
 pub(crate) fn run() -> Result<(), BoxError> {
     let executor = tokio::runtime::Builder::new_current_thread()
@@ -22,67 +16,70 @@ pub(crate) fn run() -> Result<(), BoxError> {
         runtime
             .run(async {
                 let root = runtime.context();
-                let log = Rc::new(Cell::new(0u32));
+                let events = Rc::new(RefCell::new(Vec::<String>::new()));
+                let schedules = Rc::new(RefCell::new(None));
+                let output = events.clone();
+                let handles = schedules.clone();
+                let worker = Plugin::new("timer-worker", move |ctx: Context, milliseconds: u64| {
+                    let events = output.clone();
+                    let handles = handles.clone();
+                    async move {
+                        let period = Duration::from_millis(milliseconds);
+                        let log = events.clone();
+                        ctx.timeout(period, move || log.borrow_mut().push("timeout".into()))?;
+                        let log = events.clone();
+                        ctx.interval(period, move || log.borrow_mut().push("interval".into()))?;
 
-                // A one-shot timeout.
-                let hit = log.clone();
-                root.timeout(Duration::from_millis(100), move || {
-                    hit.set(hit.get() + 1);
-                    println!("timeout fired");
-                })?;
-                tokio::task::yield_now().await;
-                tokio::time::advance(Duration::from_millis(100)).await;
-                tokio::task::yield_now().await;
+                        let wait = ctx.sleep(period);
+                        let log = events.clone();
+                        ctx.task(async move {
+                            let result = wait.await;
+                            move || log.borrow_mut().push(format!("sleep: {result:?}"))
+                        })?;
 
-                // Three interval ticks via the Stream form.
-                let stream = root.interval_stream(Duration::from_millis(50))?;
-                let control = stream.control();
-                tokio::task::spawn_local(async move {
-                    futures_util::pin_mut!(stream);
-                    let mut ticks = 0;
-                    while let Some(Ok(())) = stream.next().await {
-                        ticks += 1;
-                        println!("interval tick {ticks}");
-                        if ticks == 3 {
-                            control.stop();
-                        }
+                        let mut stream = ctx.interval_stream(period)?;
+                        let log = events.clone();
+                        ctx.task(async move {
+                            let tick = stream.next().await;
+                            move || log.borrow_mut().push(format!("stream: {tick:?}"))
+                        })?;
+
+                        let log = events.clone();
+                        let throttle = ctx.throttle(period, false, move || {
+                            log.borrow_mut().push("throttle".into())
+                        })?;
+                        throttle.call()?;
+                        throttle.call()?;
+                        let debounce = ctx.debounce(period, move || {
+                            events.borrow_mut().push("debounce".into())
+                        })?;
+                        debounce.call()?;
+                        *handles.borrow_mut() = Some((throttle, debounce));
+                        Ok::<_, BoxError>(())
                     }
                 });
-                for _ in 0..3 {
-                    tokio::task::yield_now().await;
-                    tokio::time::advance(Duration::from_millis(50)).await;
-                    tokio::task::yield_now().await;
-                }
-
-                // Everything scheduled on the root is cancelled when the owner
-                // (the whole runtime, here) drains. Run one more scheduled op
-                // under a child fiber and dispose it to show cancellation.
-                let fired = Rc::new(Cell::new(false));
-                let flag = fired.clone();
-                let child = root.plugin(
-                    &Plugin::new("worker", move |ctx: re_cordis_core::Context, (): ()| {
-                        let flag = flag.clone();
-                        async move {
-                            ctx.timeout(Duration::from_millis(1000), move || {
-                                flag.set(true);
-                                println!("this must NOT print");
-                            })?;
-                            Ok::<_, BoxError>(())
-                        }
-                    }),
-                    (),
-                )?;
+                let child = root.plugin(&worker, 10)?;
                 child.ready()?.await?;
+                tokio::time::advance(Duration::from_millis(10)).await;
+                tokio::task::yield_now().await;
+
+                // Reconfigure through the ordinary plugin lifecycle. The old
+                // generation's timers are joined before the new period is installed.
+                child.update(20)?.await?;
+                tokio::time::advance(Duration::from_millis(20)).await;
                 tokio::task::yield_now().await;
                 child.dispose()?.await?;
-                tokio::time::advance(Duration::from_millis(2000)).await;
-                tokio::task::yield_now().await;
-                assert!(!fired.get(), "child timeout cancelled by owner disposal");
 
-                println!(
-                    "done: {} immediate callback(s), interval + child cancelled cleanly",
-                    log.get()
-                );
+                let (throttle, debounce) = schedules.borrow_mut().take().unwrap();
+                throttle.call()?;
+                debounce.call()?;
+                let count = events.borrow().len();
+                tokio::time::advance(Duration::from_secs(1)).await;
+                tokio::task::yield_now().await;
+                assert_eq!(events.borrow().len(), count);
+                assert!(root.get_effects()?.is_empty());
+                assert!(root.registry().is_empty()?);
+                println!("joined timer lifecycle: {}", events.borrow().join(", "));
                 Ok::<_, BoxError>(())
             })
             .await??;

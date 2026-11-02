@@ -25,14 +25,17 @@ meta-framework for spatiotemporal composability.
 > See [GitHub activity consumers](docs/github-activity.md).
 > Application-only dependencies do not extend the production core.
 > The **`re-cordis-timer`** satellite is implemented (owner-scoped timeout,
-> sleep, interval/stream, throttle and debounce; 15 crate tests). The
+> sleep, interval/stream, throttle and debounce; 48 crate tests and three
+> Rustdoc checks). Checked admission-time clocks, hosted callbacks, bounded
+> streams and joined owner cancellation are implemented. The
 > **`re-cordis-logger`** console adapter is implemented with scoped owned writers,
 > deterministic rendering, explicit color/UTC policy and visible I/O errors
 > (21 logger tests); final review/acceptance is tracked in its
 > [work package](docs/plans/2026-11-02-cordis-completion/logger.md).
 > Loader remains a future target. See
 > [the ordered roadmap](docs/todo.md#next-implementation-targets-satellites).
-> Timer contract repair remains open after the 2026-11-02 source review.
+> The [timer acceptance report](docs/plans/2026-11-02-cordis-completion/evidence/timer-acceptance.md)
+> records repair verification and its declared Rust adaptations.
 > The [completion plan](docs/plans/2026-11-02-cordis-completion/README.md) covers
 > core evidence, timer fixes and all seven upstream satellites, with scheduling gates.
 > The concept map below remains the framework target, not a shipped feature list.
@@ -188,7 +191,8 @@ crates/
 
 `re-cordis-core`, `re-cordis-timer` and `re-cordis-logger` exist in the workspace.
 The console [guide](docs/en/guides/console-logging.md) includes runnable setup,
-removal and cleanup. Timer repair acceptance is open; `re-cordis-loader` remains
+removal and cleanup. The [timer guide](docs/en/guides/timers.md) covers repaired
+admission, deadlines, cancellation and streams; `re-cordis-loader` remains
 a future implementation target. Other satellites follow demonstrated needs. The
 [ordered roadmap](docs/todo.md#next-implementation-targets-satellites) records
 per-slice source reviews, design gates, tests and bilingual documentation

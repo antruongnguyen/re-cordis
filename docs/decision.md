@@ -560,60 +560,66 @@ and lets satellite capabilities stay optional, as they are upstream.
 
 ## Timer satellite
 
-Decisions made delivering the first satellite, `re-cordis-timer` (2026-10-27).
-The TypeScript `packages/timer` remains the semantic specification; the
-independent `cordis-rs` port is engineering evidence only.
+The original 2026-10-27 delivery uses a sealed TimerExt extension on Context,
+with no TimerService/install step and no deprecated setTimeout/setInterval
+aliases. The 2026-11-03 T0–T5 repair keeps these Rust representations and the
+pinned TypeScript timer implementation as the semantic reference. The pinned
+spec has 22 declaration lines, not the earlier reported 20; this is an
+inventory count, not a parity or Rust-test count.
 
-### `interval(delay)` without a callback is a `Stream`, not an async iterator
+### Hosted ownership and admission-time clocks
 
-The callback-less `interval` returns a type implementing `futures_util::Stream`
-(plus a control handle with `stop`/`fail`), not a faithful reimplementation of
-the JavaScript `next`/`return(value)`/`throw(reason)` async-iterator protocol.
+Concrete regressions showed raw spawned callbacks lacked HOST authority,
+refused work retained callbacks, and completed timers retained effects.
+The smallest required core bridge is Context::task: a local future returns its
+terminal synchronous callback; core hosts and contains the future, retires its
+exact registration, then invokes the callback without another await.
+TaskControl only marks cancellation and requests abort. The existing owner
+cleanup starts cancellation synchronously and awaits the supervisor's join.
+Effect Drop and transfer/composition contracts remain unchanged.
+Context::invoke_callback validates the actual host/owner and preserves one
+original CallbackError diagnostic, without granting authority to raw Tokio tasks.
 
-**Why:** `Stream` is the idiomatic Rust async-sequence type, composes with
-`StreamExt`, and is what the independent `cordis-rs` port also chose. The JS
-iterator's concurrent-reader behavior — `return(value)` resolving *all* pending
-reads with one value, `throw(reason)` rejecting all — is an iterator-protocol
-artifact with no natural single-consumer `Stream` analogue. A Rust consumer who
-needs "stop and notify waiters" is better served by owner disposal plus the
-callback form. The dropped cases are documented in `docs/limitation.md`.
+Check host/owner admission before constructing Tokio time or spawning work.
+Deadlines use checked monotonic Instant arithmetic and are pinned eagerly at
+successful construction, including Sleep whose polling is delayed. Scheduled
+calls pin their trailing deadline at successful call admission. Constructors
+return InvalidDelay for unrepresentable deadlines and zero repeat periods.
+Positive periods below a millisecond are accepted with Tokio millisecond precision.
+Zero timeout/sleep/debounce remain asynchronous; zero throttle leads immediately.
+Tokio's ordinary Skip behavior still bursts for lags below 5ms, so repeat delivery
+explicitly resets to the next original phase after each tick. If the next phase
+cannot be represented, callback repetition stops and a stream ends with InvalidDelay.
 
-### Operations are reached through a sealed `TimerExt` trait, with no service
+### Owned wrappers, bounded streams, and callbacks
 
-Timer methods are an extension trait on `Context`, sealed so only `Context`
-implements it. There is **no** published `TimerService` and no installation
-step; importing the trait is sufficient.
+Core Effect/TaskControl Drop remains inert. Sleep, IntervalStream and Scheduled
+Drop explicitly request cancellation; destruction and effect retirement require
+the original host to be driven or the owner's cancellation barrier awaited.
+Idle Scheduled captures release synchronously; captures in an executing callback
+release when it returns. Separately claimed manual Effect completions remain
+independent waiters under the existing core contract.
 
-**Why:** The sealed trait is the closest honest Rust analogue to the upstream
-`ctx.mixin(...)` that exposes `ctx.timeout()` etc., and matches the one existing
-Rust precedent (`cordis-rs`). In the TypeScript core the `timer` service is
-load-bearing because mixin and `inject: ['timer']` gating depend on it; in our
-design the methods come from the trait, so a service would only be a presence
-check — surface and an install step for no behavioral gain (CLAUDE.md
-simplicity-first). This revises an initial lean toward an explicit
-`Timer::of(&ctx)` handle, changed after reviewing `cordis-rs`.
+IntervalStream is a single-consumer Stream with one coalesced pending tick.
+This intentionally differs from TS, which only serves pending next() calls.
+A committed terminal gate discards stale ticks: stop produces clean None,
+fail/error produces one Err then stable None. The first committed gate wins;
+owner disposal requests and delivered owner cancellation are distinct moments.
+Concurrent JS return(value)/throw(reason) multi-reader semantics remain omitted.
 
-### Deprecated `setTimeout`/`setInterval` aliases are omitted
+Callbacks execute outside framework mutable borrows. Positive-delay recursive
+calls coalesce through the ordinary trailing window; recursive zero-delay calls
+are ignored to bound recursion/zero loops. Self-disposal and nested Context
+work are supported. Panics stop only the affected repeating/scheduled operation
+and retain one core diagnostic; leading throttle returns its original failure.
+Existing self/ancestor lifecycle waits are refused during task/callback scopes.
 
-The upstream deprecated aliases are not ported.
-
-**Why:** They are deprecated upstream and forward to `timeout`/`interval`.
-Porting deprecated surface adds maintenance and documentation cost with no
-value. Documented in `docs/limitation.md`.
-
-### Timers use the monotonic `tokio::time` clock
-
-Throttle/debounce windows and all delays use the monotonic clock the local
-runtime drives, not wall-clock time. Deterministic tests use a paused runtime
-with `tokio::time::advance`, never wall-clock sleeps.
-
-**Why:** It is the clock the `LocalSet` host already drives, so timers stay on
-the runtime's own time source. Monotonic timing is also more correct than the
-upstream `Date.now()`-based windows, which can skew under wall-clock
-adjustments. Pausing the clock makes the tests fast and reproducible. One
-consequence recorded during delivery: a timer task must be polled once (a
-`yield_now().await`) after it is created or called so its `sleep` registers on
-the paused driver before the test advances the clock.
+Tokio exposes no public driver-presence query. Catch its synchronous timer
+construction panic as TimeDriverUnavailable; the standard panic hook still runs.
+Do not replace the global hook or create a detached panic/retained callback
+diagnostic for this ordinary construction refusal. See
+[repair evidence](plans/2026-11-02-cordis-completion/timer.md#executed-repair-evidence)
+and [acceptance](plans/2026-11-02-cordis-completion/evidence/timer-acceptance.md).
 
 ## Console logger satellite
 

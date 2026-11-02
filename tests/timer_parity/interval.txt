@@ -1,0 +1,5 @@
+scheduled count=0
+advance 10 count=1
+advance 20 count=2
+stopped
+advance 40 count=2

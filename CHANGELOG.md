@@ -151,6 +151,14 @@ This project does not yet follow semantic versioning — the API is unstable.
   `docs/{todo,decision,limitation}.md`.
 
 ### Fixed
+- Timer T0–T5 contract repair: admission before clock/task creation, checked eager
+  deadlines, exact pre-callback retirement, hosted nested callbacks and one
+  diagnostic per panic, joined owner cancellation, bounded single-tick streams,
+  reentry-safe scheduled callbacks and prompt capture release. Scheduled::call
+  now returns Result. Zero repeat periods are rejected; one-shot zero stays async.
+  A minimal core TaskControl/CallbackError task/callback bridge preserves inert
+  Effect Drop and composition. 48 timer tests, three Rustdoc checks and six
+  focused core tests; all-six lifecycle example and paired guide/API.
 - Documentation rereview clarifies source/resolved types, initialization's
   injection barrier, and event snapshot/filter ordering in both languages.
   The documentation checker rejects unchecked Rust blocks in either language

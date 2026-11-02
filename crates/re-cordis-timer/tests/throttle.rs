@@ -18,17 +18,17 @@ fn throttle_leading_and_trailing() -> Result<(), BoxError> {
         let throttled = root.throttle(Duration::from_millis(1000), false, move || {
             c.set(c.get() + 1)
         })?;
-        throttled.call();
+        throttled.call()?;
         assert_eq!(count.get(), 1, "leading edge fires immediately");
         tokio::task::yield_now().await;
         tokio::time::advance(Duration::from_millis(600)).await;
         tokio::task::yield_now().await;
-        throttled.call();
+        throttled.call()?;
         assert_eq!(count.get(), 1, "within window, suppressed (trailing armed)");
         tokio::task::yield_now().await; // register the armed trailing task
         tokio::time::advance(Duration::from_millis(600)).await;
         tokio::task::yield_now().await;
-        throttled.call();
+        throttled.call()?;
         assert_eq!(count.get(), 2);
         tokio::task::yield_now().await; // let the armed trailing task register
         tokio::time::advance(Duration::from_millis(2000)).await;
@@ -46,17 +46,17 @@ fn throttle_no_trailing_suppresses_trailing_call() -> Result<(), BoxError> {
         let throttled = root.throttle(Duration::from_millis(1000), true, move || {
             c.set(c.get() + 1)
         })?;
-        throttled.call();
+        throttled.call()?;
         assert_eq!(count.get(), 1);
         tokio::task::yield_now().await;
         tokio::time::advance(Duration::from_millis(500)).await;
         tokio::task::yield_now().await;
-        throttled.call();
+        throttled.call()?;
         assert_eq!(count.get(), 1);
         tokio::time::advance(Duration::from_millis(2000)).await;
         tokio::task::yield_now().await;
         assert_eq!(count.get(), 1, "no trailing fire");
-        throttled.call();
+        throttled.call()?;
         assert_eq!(count.get(), 2, "window elapsed, leading fires again");
         Ok(())
     })
@@ -71,11 +71,11 @@ fn throttle_manual_dispose_prevents_all() -> Result<(), BoxError> {
             c.set(c.get() + 1)
         })?;
         throttled.dispose()?;
-        throttled.call();
+        throttled.call()?;
         assert_eq!(count.get(), 0);
         tokio::time::advance(Duration::from_millis(500)).await;
         tokio::task::yield_now().await;
-        throttled.call();
+        throttled.call()?;
         tokio::time::advance(Duration::from_millis(2000)).await;
         tokio::task::yield_now().await;
         assert_eq!(count.get(), 0, "disposed throttle never fires");
@@ -107,12 +107,12 @@ fn throttle_owner_dispose_stops() -> Result<(), BoxError> {
         )?;
         child.ready()?.await?;
         let throttled = holder.borrow_mut().take().unwrap();
-        throttled.call();
+        throttled.call()?;
         assert_eq!(count.get(), 1);
         tokio::task::yield_now().await;
         tokio::time::advance(Duration::from_millis(500)).await;
         tokio::task::yield_now().await;
-        throttled.call(); // arms a trailing call within the window
+        throttled.call()?; // arms a trailing call within the window
         child.dispose()?.await?;
         tokio::time::advance(Duration::from_millis(2000)).await;
         tokio::task::yield_now().await;
@@ -121,7 +121,7 @@ fn throttle_owner_dispose_stops() -> Result<(), BoxError> {
             1,
             "owner dispose cancels the pending trailing call"
         );
-        throttled.call();
+        throttled.call()?;
         assert_eq!(count.get(), 1, "calls after owner dispose are inert");
         Ok(())
     })

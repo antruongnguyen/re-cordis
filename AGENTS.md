@@ -20,11 +20,15 @@ followed by assessment of other satellites. The **`re-cordis-timer`** satellite 
 delivered (unpublished `crates/re-cordis-timer`: owner-scoped timeout, sleep,
 interval/stream, throttle and debounce over core effects, via a sealed
 `TimerExt` trait; the `tokio` `time`/`macros` features live in the timer crate,
-not the core; 15 deterministic tests over a paused clock). The unpublished
+not the core; 48 deterministic integration tests and three Rustdoc checks).
+The T0–T5 repair adds eager checked deadlines, hosted callbacks, bounded stream
+state and joined owner cancellation; six focused core task-bridge tests cover
+the minimal Context::task/TaskControl/Context::invoke_callback seam. The unpublished
 **`re-cordis-logger`** console adapter is implemented (owned scoped writers,
 plain/ANSI/Auto policy, UTC record rendering, visible I/O errors; 21 tests).
 Console final review/acceptance is tracked in its logger work package; loader
-is not implemented. Timer contract repair remains open; see
+is not implemented. Timer repair verification is recorded in
+`docs/plans/2026-11-02-cordis-completion/evidence/timer-acceptance.md`; see
 `docs/plans/2026-11-02-cordis-completion/README.md` for the proposed core/all-satellite
 work packages and scheduling gates. See `docs/todo.md` for source review,
 per-slice design gates and documentation acceptance, and

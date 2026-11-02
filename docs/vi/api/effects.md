@@ -84,3 +84,31 @@ dẹp thành công. Giữ completion thủ công đã nhận quyền riêng khi 
 `RecursiveComposition`, `HostStopped`, `DriverPanicked`.
 Bị từ chối tức thời không bao giờ có nghĩa bước thu nhận đã thành công.
 Xem [lỗi và hook](errors-hooks.md).
+
+## Task có host và callback đồng bộ
+
+Mã nguồn: [task.rs](../../../crates/re-cordis-core/src/task.rs).
+
+`Context::task(future)` trả `Result<(Effect, TaskControl), AdmissionError>`.
+Future cục bộ `'static` trả callback `FnOnce()` đồng bộ cuối cùng.
+Lõi poll dưới host/chủ sở hữu đã tiếp nhận, bắt panic, xóa đúng đăng ký rồi gọi
+callback mà không có điểm tạm dừng giữa xóa và gọi. Task đã chuyển vào composition
+vẫn hoàn tất bình thường; disposer đã hoàn tất không làm gì khi cleanup sau.
+
+`TaskControl::cancel()` nhân bản được chỉ cấp quyền hủy. Nó đánh dấu và yêu cầu
+abort an toàn ngoài Runtime::run, không tiếp nhận hay gọi mã người dùng.
+Supervisor chờ hủy task trước khi xóa đăng ký. Cleanup chủ sở hữu bắt đầu hủy
+đồng bộ và chờ lần join chung đó. Drop của Effect/TaskControl lõi thụ động;
+wrapper timer yêu cầu hủy tường minh. Completion Effect đã claim riêng giữ hợp
+đồng waiter độc lập hiện có. Giữ host gốc sống và được điều khiển qua cleanup.
+
+`Context::invoke_callback(callback)` kiểm tra host hiện tại/chủ sở hữu còn sống,
+rồi gọi callback đồng bộ với bắt panic. Nó không tạo quyền host cho task Tokio
+người dùng tự tạo. `CallbackError` phân biệt `Admission(AdmissionError)` với
+`Callback(CleanupFailure)`, giữ nguồn và báo panic gốc đúng một lần qua chẩn đoán
+thông thường. Giá trị trả bình thường, kể cả Result lồng nhau, được trả nguyên.
+
+Poll future task và callback cuối/đồng bộ dùng guard lifecycle chính mình/tổ
+tiên sẵn có. Từ chối chờ lifecycle/drain của chính chủ task; vẫn hỗ trợ đăng ký
+lồng nhau. Hủy task đang chờ completion của Effect chính nó đã claim thủ công
+sẽ abort task để supervisor hoàn tất.

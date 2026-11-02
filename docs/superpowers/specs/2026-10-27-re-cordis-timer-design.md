@@ -1,6 +1,10 @@
 # re-cordis-timer — Design
 
 Date: 2026-10-27
+
+Historical design. T0–T5 on 2026-11-03 supersedes its zero-repeat, first-poll
+clock, stream retention and cancellation claims; see
+[the current repair contract](../../plans/2026-11-02-cordis-completion/timer.md).
 Status: Approved for implementation (bounded design gate passed)
 Scope: First satellite crate. Timer only. Not logger, not loader, not M7.
 
@@ -21,7 +25,7 @@ though we use it as evidence of what is workable in Rust.
 `TimerService extends Service` mixes six methods onto `Context`. Every
 operation wraps a JS `setTimeout`/`setInterval` inside
 `ctx.effect(() => { …; return () => clearTimeout(timer) })`, so **owner
-disposal cancels the timer**. The 20 test cases
+disposal cancels the timer**. The 22 pinned test declarations
 (`packages/timer/tests/index.spec.ts`) are the behavioral source of truth.
 
 | TS API | Behavior established by tests |
@@ -108,8 +112,10 @@ pub trait TimerExt: sealed::Sealed {
 
 ## 5. Ownership and cancellation
 
-Every operation registers an `on_dispose_sync` cleanup that aborts its Tokio
-timer task. Therefore:
+The repaired implementation uses `Context::task`: owner cleanup requests
+abort in its synchronous prefix, then joins task destruction asynchronously.
+Core Effect Drop remains inert; Sleep/Stream/Scheduled Drop requests cancellation
+without promising a synchronous join. Therefore:
 
 - **Owner/context disposal** cancels every outstanding timer (matches TS
   `ctx.effect` teardown). No callback fires after joined disposal.
@@ -129,7 +135,8 @@ wall-clock sleeps**. Throttle/debounce windows are therefore monotonic, not
 wall-clock. Documented in `limitation.md` as a deliberate, more-correct fork.
 
 ### Behavior definitions (resolve before coding)
-- **Zero delay:** admitted; fires on the next runtime turn (does not reject).
+- **Zero delay:** one-shots/debounce run asynchronously, throttle leads immediately;
+  zero interval/stream periods are rejected. Recursive zero scheduled calls are ignored.
 - **Overflow:** delays beyond `Duration`/Tokio range are rejected at
   construction with `TimerError::InvalidDelay`, not silently clamped.
 - **First vs subsequent interval tick:** first tick at `delay` (not at 0),

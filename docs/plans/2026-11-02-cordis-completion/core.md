@@ -85,6 +85,13 @@ both language docs remain correct for actually available APIs.
 
 ## B2 — Conditional core bridge or targeted regression fix
 
+**Timer scope accepted (2026-11-03):** reproduced HOST/retirement failures
+justified the small owned-task and admitted-callback bridge. The final
+[acceptance report](evidence/timer-acceptance.md) records independent review,
+all core/timer regressions and explicit stable/1.85.0 verification. Future
+features still need their own reproducer before further core changes.
+
+
 **Entry:** T1/T2 or a satellite gate supplies a failing public-API reproducer.
 Candidate files are crates/re-cordis-core/src/runtime.rs, context.rs, effect.rs,
 error.rs and tests/foundations.rs or effect_metadata.rs. Service/loader issues
@@ -95,20 +102,20 @@ uses raw tokio::task::spawn_local. Runtime::run explicitly documents that raw
 spawned tasks lack admission authority. A callback that registers another
 timer/effect, and completion that disposes its own Effect, exercise this gap.
 
-- [ ] Prove the failure under a real Runtime::run and compare intended callback
+- [x] Prove the failure under a real Runtime::run and compare intended callback
   behavior with pinned TS. Include wrong-host and disposed-owner refusals.
-- [ ] Try existing public effect/setup APIs first. If they cannot carry owned
+- [x] Try existing public effect/setup APIs first. If they cannot carry owned
   timer work with host attribution and joined cancellation, specify the smallest
   scoped bridge: admission, owner attribution, start/return boundary, callback
   panic reporting, terminal ownership and cancellation acknowledgment.
-- [ ] Review exact signatures and a regression before changing public exports.
+- [x] Review exact signatures and a regression before changing public exports.
   Do not expose private State or an unbounded general-purpose scheduler merely
   to bypass task-local checks.
-- [ ] Implement only the proven gap. Keep core's Tokio time/macros features
+- [x] Implement only the proven gap. Keep core's Tokio time/macros features
   unchanged unless independently required by core behavior.
-- [ ] Verify nested callbacks, wrong runtime, non-running host, late owner
+- [x] Verify nested callbacks, wrong runtime, non-running host, late owner
   disposal, host destruction, dropped waiters and exact diagnostics.
-- [ ] Run the complete core compatibility and type-check matrix; document and
+- [x] Run the complete core compatibility and type-check matrix; document and
   commit any new public contract with both language references.
 
 **Exit:** the reproducer passes without weakening admission or ownership. If

@@ -5,7 +5,7 @@
 Current package: re-cordis-core 0.0.0, publish=false, Rust edition 2024, MSRV 1.85.
 The API is unstable. Use a path dependency on a local checkout, not a presumed crates.io/docs.rs release.
 re-cordis-core, re-cordis-timer and re-cordis-logger are implemented. Console review/final acceptance is tracked in its work package. Loader and other satellites remain future targets.
-Timer contract repair remains open; see the completion plan before relying on its full acceptance claims.
+Timer repair provides checked admission-time clocks, hosted callbacks, bounded streams and joined owner cancellation; see its acceptance report for verified scope.
 Targets are not available APIs: review each bounded source/API/dependency scope before implementation.
 The semantic baseline is TypeScript Cordis at 35fdc969e4b6c48c48ed44717c7a018324e4dd88, not latest upstream.
 
@@ -17,7 +17,8 @@ Exact Rust signatures and bounds come from current source/Rustdoc; older milesto
 Essential application constraints:
 - Drive Runtime::run from a Tokio block_on/main/test entry point. Framework Contexts/handles/futures are local, not a Send/Sync API.
 - Runtime owns the host; Context is non-owning. Ordinary spawned Tokio tasks do not inherit framework admission.
-- Started operation handles wait for already-started work. Dropping a waiter does not cancel it while the host remains driven.
+- Started core operation handles wait for already-started work; dropping their waiter does not cancel. Timer Sleep/IntervalStream/Scheduled Drop explicitly requests cancellation and needs host progress or awaited owner cleanup to join.
+- Context::task hosts a local future returning its final sync callback; TaskControl::cancel requests abort without new admission. Context::invoke_callback validates actual host authority and preserves one callback diagnostic.
 - Explicitly await cleanup before destroying the runtime. Returning from run is not cleanup; runtime destruction is cancellation.
 - Inspect CleanupReport::failures and retained diagnostics. Successful barrier completion does not prove error-free teardown.
 - Readiness/update settlement can be Pending. Await provider completion and consumer readiness separately; neither is runtime-wide convergence.
@@ -62,7 +63,7 @@ Essential application constraints:
 - [Events](en/api/events.md): Listener shapes, dispatch results, one-use continuations.
 - [Logging](en/api/logging.md): Logger, records, ErrorValue, exporter options, formatting.
 - [Errors and hooks](en/api/errors-hooks.md): Error families, structured validation, typed internal hook protocols.
-- [Timer satellite](en/api/timer.md): Sealed TimerExt, Sleep, IntervalStream, Scheduled, TimerError.
+- [Timer satellite](en/api/timer.md): Sealed TimerExt, eager Sleep, bounded IntervalStream, Scheduled call Result, TimerError and cancellation contracts.
 - [Console satellite](en/api/console-logger.md): register/register_stdout/render, ConsoleOptions, color and writer contracts.
 
 ## Vietnamese guides

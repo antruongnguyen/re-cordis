@@ -211,7 +211,7 @@ integrated framework or resolve every behavioral gap.
   delivery are excluded. See the consumer document for exact resource/time limits.
 - `re-cordis-core`, `re-cordis-timer` and `re-cordis-logger` are implemented.
   Console C0–C3 is independently accepted within its declared scope; timer repair
-  acceptance remains open. Loader is a future target; other satellites remain
+  delivers its documented Rust contract and records shared acceptance separately. Loader is a future target; other satellites remain
   candidate work. Each slice needs its own
   source/API/dependency review and acceptance, including bilingual
   documentation. See [the roadmap](todo.md).
@@ -230,32 +230,49 @@ observer-failure or name-only alias notification behavior.
 
 ## Timer satellite
 
-The 2026-11-02 source review identified open repair work in the delivered
-implementation: delay validation is ineffective; task creation precedes
-admission; completed one-shots retain registrations; raw Tokio tasks do not
-inherit Cordis admission; stream termination, callback reentry and joined
-capture release need stronger contracts and tests. See the
-[timer repair register](plans/2026-11-02-cordis-completion/timer.md).
-These are source observations and investigation items, not newly executed
-failure results. Existing passing tests do not close this acceptance work.
+T0–T5 repairs admission, eager deadlines, hosted callbacks, registration retirement,
+bounded tick storage, callback reentry and joined owner cancellation. Executed
+regressions and their original failure reasons are recorded in the
+[timer repair plan](plans/2026-11-02-cordis-completion/timer.md#executed-repair-evidence);
+[final acceptance](plans/2026-11-02-cordis-completion/evidence/timer-acceptance.md)
+separates implementation evidence from shared verification.
 
+- **Language/API representation:** sealed TimerExt on Context, owned 'static
+  FnOnce/FnMut callbacks and explicit Scheduled::call replace JS mixins/callable
+  objects. Contexts, wrappers and futures remain local and non-Send. Deprecated
+  setTimeout/setInterval aliases and TimerService installation are omitted.
+- **Deliberate clock adaptation:** checked monotonic Tokio deadlines replace
+  Date.now() wall-clock windows. Deadline admission is eager; late first polling
+  does not extend the requested delay. Zero one-shots/debounce are asynchronous,
+  throttle leads immediately, and zero repeat periods/unrepresentable deadlines
+  return InvalidDelay. Positive sub-millisecond periods retain Tokio millisecond
+  precision. Missed ticks skip to the next original phase even below Tokio's
+  native 5ms skip threshold. Exhausted next-phase arithmetic stops callback
+  repetition or terminates a stream with InvalidDelay.
+- **Deliberate stream adaptation:** one logical consumer and one coalesced pending
+  tick; TS serves only pending next() calls. Committed terminal state wins over
+  queued ticks. stop gives None, fail gives one original Err then stable None,
+  and delivered owner cancellation gives Disposed once. The first committed gate
+  wins; an owner lifecycle request alone has not yet committed that gate.
+  JS concurrent-reader return(value)/throw(reason), return values and repeated
+  rejection after termination are unavailable. Use callback interval for fan-out.
+- **Ownership/hosting constraint:** Sleep/Stream/Scheduled Drop requests abort;
+  synchronous Drop is not an asynchronous join. Drive the original host or
+  await owner cancellation to join captures/registration retirement. Core Effect
+  and TaskControl Drop remain inert, and separately claimed manual Effect
+  completions are separate barriers. TaskControl cancellation cannot admit work.
+  Raw user-spawned tasks still lack HOST authority; timer callbacks have it.
+- **Callback policy:** user code runs outside mutable framework borrows.
+  Positive-delay recursive calls coalesce; recursive zero-delay calls are ignored.
+  Panic stops the affected repeating/scheduled operation and reports once while
+  siblings remain usable. Self/ancestor lifecycle waits are refused.
+- **Runtime environment:** Tokio has no public time-driver-presence query.
+  Missing-driver construction returns TimeDriverUnavailable after containing its
+  synchronous panic; the normal panic hook is still visible. No detached timer
+  task or retained core callback diagnostic is created.
 
-- The callback-less `interval` is a `futures_util::Stream`, not the JavaScript
-  async iterator. The concurrent multi-reader protocol — `return(value)`
-  resolving all pending reads with one value and `throw(reason)` rejecting all
-  — is not reproduced; a `Stream` has one logical consumer. Use `interval` with
-  a callback for fan-out. Termination is a clean end (`stop`), a final
-  `Err(reason)` (`fail`), or a final `Err(Disposed)` (owner disposal).
-- The deprecated `setTimeout`/`setInterval` upstream aliases are not ported.
-- Timers use the monotonic `tokio::time` clock, not wall-clock `Date.now()`.
-  Throttle/debounce windows are therefore monotonic. This is deliberate; see
-  [decisions](decision.md#timer-satellite).
-- There is no ambient `ctx.timeout()` mixin: operations come from the sealed
-  `TimerExt` trait, which must be imported. There is no `TimerService`.
-- Timer operations schedule on the runtime's local task set and require the
-  owning context to be live. They are cancelled by owner disposal; dropping a
-  handle is not itself asynchronous cleanup of in-flight work beyond the
-  task-abort the disposal registration performs.
+Remaining satellites remain future work; timer repair does not implement loader,
+group/include/HMR/create or settle unrelated B0 evidence gaps.
 
 ## Console logger satellite
 

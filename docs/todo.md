@@ -19,11 +19,12 @@ B0's evidence gaps are not a blanket prerequisite for satellite delivery.
   Separate observed source gaps, investigation, Rust representations and
   missing evidence; index all 323 satellite test declaration lines.
 - [x] Complete B0’s baseline and case ledger with [independent acceptance](plans/2026-11-02-cordis-completion/evidence/B0/review.md) and 147 tracked evidence gaps.
-- [ ] Execute T0–T5 timer repair after the next selected work instruction.
-  Timer code exists, but admission/deadline, task authority, unregistration,
-  bounded streams, reentry and joined resource-release acceptance remain open.
+- [x] Implement T0–T5 timer repair: checked eager deadlines, hosted task authority,
+  self-retirement, bounded streams, reentry and joined owner capture release.
+  Shared review/toolchain acceptance is recorded in the
+  [timer report](plans/2026-11-02-cordis-completion/evidence/timer-acceptance.md).
 - [ ] Review and schedule the [work packages](plans/2026-11-02-cordis-completion/schedule.md):
-  console logger, loader/group, include, HMR, create, then integrated acceptance.
+  loader/group, include, HMR, create, then integrated acceptance.
   API/dependency choices and calendar dates in this program are not frozen.
 
 The older milestones below retain their historical delivery evidence. A
@@ -42,7 +43,10 @@ preserved matrix/report, FR-1, first-two-events and recovered-validation evidenc
 The six paired scenarios / 73 observations remain unchanged. The subsequent
 logger C0–C3 delivery is complete with independent approval and stable/1.85.0
 acceptance; see [logger evidence](plans/2026-11-02-cordis-completion/evidence/logger-acceptance.md).
-All remaining 30 packages, including timer repair, stay planned. No background
+Timer T0–T5 and its required minimal B2 task bridge are independently accepted,
+with 48 timer tests/three Rustdoc checks and six focused core tests.
+The full stable/1.85.0 matrix and both paired fixtures passed.
+All remaining 23 packages stay planned. No background
 continuation is scheduled. See
 [detailed progress](plans/2026-11-02-cordis-completion/progress.md#resume-next)
 and [B0 evidence](plans/2026-11-02-cordis-completion/evidence.md).
@@ -101,7 +105,7 @@ and behavioral tests, not just public type declarations.
 The **2026-10-27** roadmap selected timer → console logger → loader.
 The user's **2026-11-03** execution direction selected console before timer
 repair. **`re-cordis-timer` and `re-cordis-logger` are implemented** (see below);
-console C0–C3 is independently accepted; timer repair remains open. Loader and other
+console C0–C3 and timer repair T0–T5 are independently accepted. Loader and other
 remaining entries are future targets, not available APIs.
 
 The TypeScript specification remains pinned to
@@ -120,12 +124,13 @@ This is a preferred sequence, not a false dependency chain: logger does not
 require timer, and loader should not depend on either unless an approved
 contract demonstrates the need.
 
-### 1. re-cordis-timer — implemented; repair acceptance open
+### 1. re-cordis-timer — implemented with repaired contracts
 
 Initially delivered on **2026-10-27** as an unpublished `crates/re-cordis-timer`.
 The [2026-11-02 repair plan](plans/2026-11-02-cordis-completion/timer.md) records
-source-level contract gaps and the required regressions before renewed
-acceptance. Historical design and plan: [spec](superpowers/specs/2026-10-27-re-cordis-timer-design.md),
+the resolved T0 contracts and executed TF1–TF10 regression evidence.
+The [acceptance report](plans/2026-11-02-cordis-completion/evidence/timer-acceptance.md)
+records independent review and shared verification. Historical design and plan: [spec](superpowers/specs/2026-10-27-re-cordis-timer-design.md),
 [plan](superpowers/plans/2026-10-27-re-cordis-timer.md). Decisions and
 deviations are in [decision.md](decision.md#timer-satellite) and
 [limitation.md](limitation.md#timer-satellite).
@@ -142,18 +147,19 @@ deviations are in [decision.md](decision.md#timer-satellite) and
   Rust 2024/MSRV 1.85 and reusing core effects. Timer-required Tokio features
   belong to the timer crate; do not add a hidden runtime or expand core's
   production dependencies speculatively.
-- [ ] Reconcile and verify duration admission, zero/overflow behavior,
+- [x] Reconcile and verify duration admission, zero/overflow behavior,
   first/subsequent tick behavior, callback errors/panics, once-only delivery, cancellation, dropped
   waiters and owner disposal. Resolve TS wall-clock versus Tokio clock behavior
   explicitly, especially throttle/debounce. Document omitted overloads/aliases.
-- [ ] Complete coverage of just-before/at-deadline behavior, manual/owner
+- [x] Complete coverage of just-before/at-deadline behavior, manual/owner
   cancellation, restart, acquired-resource cleanup, no callbacks after joined disposal, concurrent
-  interval reads, and source-backed throttle/debounce edges for included APIs.
+  iterator exclusions, and source-backed throttle/debounce edges for included APIs.
   Use controlled time and channels, not wall-clock sleeps.
 - [x] Add a runnable lifecycle example, public Rustdoc, and English/Vietnamese
   timer documentation.
-- [ ] Complete timer compile-time API checks and renew shared acceptance after
-  the open timer repair tasks above.
+- [x] Complete timer compile-time API checks (sealed trait, static captures, local Sleep).
+- [x] Record final shared acceptance in the timer report after independent review
+  and stable/1.85.0 verification.
 
 ### 2. re-cordis-logger — implemented and independently accepted
 
