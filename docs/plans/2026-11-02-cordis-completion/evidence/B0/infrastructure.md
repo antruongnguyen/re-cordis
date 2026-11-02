@@ -167,3 +167,18 @@ dispatched. B0 remains blocked. A concrete worker-runtime change must precede
 the next bounded source probe; accepted matrix/FR-1/integrated-validation
 work must not be replayed.
 
+## Authorized model fallback
+
+During the B0-focused continuation, a distinct codex-cli 0.166.0 ephemeral
+execution with explicit gpt-6.1-sol/high also exhausted bounded stream retries
+and exited 1 without owned output. It used a plain-text file handoff and JSONL
+logging in `/tmp/cordis-b0-cli.RCndZD/`; it did not establish transport recovery.
+
+The user then explicitly authorized gpt-5.6-sol/high as fallback. Fresh
+`b0_events_fallback` completed the two-record source audit in the prepared
+worktree, committed `1df1de1`, and returned a readable final handoff. Its
+five assertion obligations join to the two passing Rust tests on both
+toolchains; the report includes the actual validation command. Independent
+review remains required. This permits further work through the authorized
+fallback without claiming the gpt-6.1-sol transport problem is fixed.
+

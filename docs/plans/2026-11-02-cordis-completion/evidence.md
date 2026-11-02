@@ -4,7 +4,7 @@ Execution began 2026-11-02 on local branch feat/cordis-completion in
 /Users/I756434/Projects/private/cordis-rust. See [canonical progress](progress.md)
 for all 35 package states, ownership, decisions, blockers and exact resume steps.
 
-## B0 baseline (partial package; blocked)
+## B0 baseline (partial package; reconciliation in progress)
 
 - [Accepted execution plan](evidence/B0/plan.md).
 - [Independent matrix review](evidence/B0/matrix-review.md): command portion accepted at 7d1552a. Executed inputs at 578c066 through e23dbac have identical hashes and no executable delta from implementation baseline 808c9f5.
@@ -15,15 +15,16 @@ for all 35 package states, ownership, decisions, blockers and exact resume steps
 - [Core inventory](evidence/B0/ledger/cases.json): 144 declarations / 156 expanded cases; mapping incomplete. It is not an accepted case ledger.
 - [Decorator/reflection fragment](evidence/B0/ledger-inputs/report-decorator-reflect.md): 5 declarations / 23 obligations mapped to source tests, deliberate Rust representations, existing exclusions or named evidence gaps. FR-1 was corrected in 59be2db and [independently accepted](evidence/B0/fragment-rereview.md) in b28a608. All seven evidence gaps remain open; their regressions and dependency triage precede conditional B2. No other semantic classification changed.
 - [Interrupted events inventory](evidence/B0/ledger-inputs/events.json): 19 declarations / 61 initial obligations; audit did not finish. Initial missing-evidence fields are unreviewed placeholders, not accepted dispositions.
+- [First two events](evidence/B0/ledger-inputs/report-events-first-two.md) now have five tested Rust-representation obligations and zero gaps or paired claims. [Independent review](evidence/B0/events-first-two-review.md) accepted the fragment; implementation/review integrated at `0c934ed` / `11d84b1`. Together with decorator/reflect, seven declarations / 28 obligations have accepted dispositions.
 - [Worker infrastructure failures](evidence/B0/infrastructure.md) recurred in fresh events and associate/invoke audits, and a reduced two-declaration recovery disconnected. All three failed worktrees had no new output. Some bounded corrections/reviews succeeded, but required source auditing remains blocked. No model substitution was made.
 - The earlier integrated recovery validation failed HTTP 400 before saving a report. A fresh executor at `f2ff4c3` has now saved [integrated validation](evidence/B0/resume-validation.md), including passing bounded checks and an actual raw-byte failure caused only by commands.tsv working-copy line endings; all 65 committed original artifacts are unchanged. That worker then disconnected before its final handoff. The completed [scoped independent review](evidence/B0/resume-validation-review.md), at review HEAD `fb0c194`, accepts the integrated-check gate with this preservation boundary. The original failing result remains recorded; no rerun or artifact normalization is required. This does not establish reliable source-audit transport or supersede accepted matrix/FR-1 reviews.
 
-The matrix acceptance is one part of B0. The remaining core/type mappings,
-including the user-requested fresh two-record events attempt at `63736bc`
-which disconnected without saving mappings or a report, remain unfinished.
-See the [latest transport record](evidence/B0/infrastructure.md#user-requested-two-record-continuation).
-The remaining
-case-ledger validation and independent review must finish before B0 can be done.
+The exact-model attempts failed as preserved in the transport record. The
+user-authorized gpt-5.6-sol/high fallback completed the bounded task and enables
+continued reconciliation; it does not establish recovery of gpt-6.1-sol.
+The matrix acceptance is one part of B0. The remaining 137 declaration
+mappings and six type obligations, complete case-ledger validation and independent review must finish
+before B0 can be done.
 No production code, runtime dependencies, public APIs, source pins or existing
 compatibility contracts changed. T0 and all later packages remain unstarted;
 no release-readiness proposal exists yet. R1 remains a local proposal-only gate.
