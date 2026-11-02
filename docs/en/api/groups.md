@@ -11,7 +11,9 @@ Use `Loader::create_in/move_entry/update/remove/settle/dispose`.
 `EntrySnapshot.children` is ordered and `parent` is the current logical
 owner. Nested groups remain present while their verdict disables descendants.
 Whole runtime group input is preflighted; source updates preserve independently
-valid child entries. Same-group reorder is inert; cross-group/scope moves
+valid child entries. Groups with condition/intercept callbacks reevaluate through an outer lifecycle
+rebuild, so descendant Fiber IDs may change; logical EntryIds stay stable.
+Same-group reorder is inert; cross-group/scope moves
 preserve EntryId while rebuilding outer/inner Fiber allocations after cleanup.
 
 Each retired generation has a retained shared barrier. Parent/loader disposal

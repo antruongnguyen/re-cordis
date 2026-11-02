@@ -334,6 +334,8 @@ See [loader API](en/api/loader.md), [groups](en/api/groups.md) and the
   but rebuild outer/inner Fiber allocations after old cleanup. Use immutable
   snapshots for new Fiber IDs; old committed consumer Contexts retain exact
   providers through cleanup. Same-group reorder does not restart.
+  Callback-bearing group reevaluation also rebuilds its outer lifecycle and
+  may replace descendant Fiber IDs; logical entry identity remains stable.
   Framework self/ancestor lifecycle calls remain refused inside callbacks;
   loaders do not silently acquire deferred authority.
 - **Namespace adaptation:** IDs are globally unique within a loader across

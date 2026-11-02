@@ -68,6 +68,9 @@ impl Scope {
         }
         Ok(context)
     }
+    pub(crate) fn is_empty(&self) -> bool {
+        self.layers.is_empty()
+    }
     pub(crate) fn same(&self, other: &Self) -> bool {
         self.layers.len() == other.layers.len()
             && self

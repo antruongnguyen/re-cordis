@@ -1214,10 +1214,15 @@ impl Loader {
         Ok(id)
     }
     fn reconcile_group(&self, entry: &Rc<Entry>, group: &Group) -> Result<(), LoaderError> {
+        let revision = entry.revision.get();
+        let current = || entry.live.get() && entry.revision.get() == revision;
         let old = entry.children.borrow().clone();
         let origin = entry.origin.borrow().clone();
         let mut desired = Vec::new();
         for (position, spec) in group.entries.iter().cloned().enumerate() {
+            if !current() {
+                return Ok(());
+            }
             let existing = spec
                 .id
                 .as_ref()
@@ -1226,11 +1231,17 @@ impl Loader {
             let id = if let Some(id) = existing {
                 if self.entry(&id)?.parent.borrow().as_ref() != Some(&entry.id) {
                     drop(self.move_origin(&id, Some(&entry.id), position, origin.clone())?);
+                    if !current() {
+                        return Ok(());
+                    }
                 }
-                if let Err(error) = self
+                let outcome = self
                     .update_origin(&id, spec.clone(), origin.clone())
-                    .map(drop)
-                {
+                    .map(drop);
+                if !current() {
+                    return Ok(());
+                }
+                if let Err(error) = outcome {
                     let child = self.entry(&id)?;
                     let previous = child
                         .rejected
@@ -1239,11 +1250,18 @@ impl Loader {
                 }
                 id
             } else {
-                self.create_in_origin(Some(&entry.id), position, spec, origin.clone())?
+                let id = self.create_in_origin(Some(&entry.id), position, spec, origin.clone())?;
+                if !current() {
+                    return Ok(());
+                }
+                id
             };
             desired.push(id);
         }
         for id in old {
+            if !current() {
+                return Ok(());
+            }
             if !desired.contains(&id)
                 && self
                     .entry(&id)
@@ -1253,7 +1271,9 @@ impl Loader {
                 drop(self.remove_origin(&id, origin.clone())?);
             }
         }
-        *entry.children.borrow_mut() = desired;
+        if current() {
+            *entry.children.borrow_mut() = desired;
+        }
         Ok(())
     }
     /// Read a value-only snapshot with the current structural address.
@@ -1413,6 +1433,11 @@ impl Loader {
         } else {
             Vec::new()
         };
+        let mut ancestor = self.entry(id)?.parent.borrow().clone();
+        while let Some(parent) = ancestor {
+            ids.push(parent.0.clone());
+            ancestor = self.entry(&parent)?.parent.borrow().clone();
+        }
         self.preflight(&spec, 0, &mut ids)?;
         self.capacity(&spec, true)?;
         let factory = if matches!(spec.kind, EntryKind::Group(_)) {
@@ -1440,6 +1465,13 @@ impl Loader {
             .checked_add(1)
             .ok_or_else(|| LoaderError::Invalid("entry revision exhausted".into()))?;
         let previous_spec = entry.spec.borrow().clone();
+        let obsolete_children = if matches!(previous_spec.kind, EntryKind::Group(_))
+            && !matches!(spec.kind, EntryKind::Group(_))
+        {
+            entry.children.borrow().clone()
+        } else {
+            Vec::new()
+        };
         let same = entry.factory.borrow().id == factory.id
             && (previous_spec.inject.is_empty() && spec.inject.is_empty()
                 || Rc::ptr_eq(&previous_spec.inject_token, &spec.inject_token))
@@ -1468,6 +1500,8 @@ impl Loader {
         };
         let structural = same
             && matches!(spec.kind, EntryKind::Group(_))
+            && spec.condition.is_none()
+            && spec.intercept.is_empty()
             && !entry.running.get()
             && entry
                 .outer
@@ -1496,8 +1530,20 @@ impl Loader {
             new: self.snapshot(id),
             from: None,
             group,
-            origin,
+            origin: origin.clone(),
         })?;
+        for child in obsolete_children {
+            if !entry.live.get() || entry.revision.get() != next {
+                break;
+            }
+            if self
+                .entry(&child)
+                .ok()
+                .is_some_and(|child| child.parent.borrow().as_ref() == Some(id))
+            {
+                drop(self.remove_origin(&child, origin.clone())?);
+            }
+        }
         if structural {
             let outer = entry.outer.borrow().clone();
             if let Some(outer) = outer {

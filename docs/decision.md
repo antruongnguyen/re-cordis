@@ -710,7 +710,10 @@ Groups are structural loader nodes, including when their verdict disables
 descendants; no facade crate or duplicate registry is added. Global EntryId
 survives adoption, while mutable group addresses aid navigation. Crossing
 groups/scopes rebuilds core Fibers after joined cleanup; same-group reorder is
-inert. This deliberately replaces JS mutable-prototype reparenting.
+inert. Groups carrying condition/intercept callbacks reevaluate through an
+outer lifecycle rebuild, so their descendant Fiber IDs may change while
+logical EntryIds remain stable; pure structural groups retain the incremental
+path. This deliberately replaces JS mutable-prototype reparenting.
 Upstream ':' denotes nested source trees, not ordinary group ownership;
 Rust globally unique IDs across source documents are a namespace adaptation.
 

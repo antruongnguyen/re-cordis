@@ -11,7 +11,9 @@ Dùng `Loader::create_in/move_entry/update/remove/settle/dispose`.
 `EntrySnapshot.children` có thứ tự; `parent` là owner logic hiện tại.
 Group lồng nhau vẫn tồn tại khi verdict disabled ngăn hậu duệ.
 Đầu vào group runtime được preflight toàn bộ; cập nhật source giữ các entry
-con hợp lệ độc lập. Đổi thứ tự cùng group không restart; chuyển group/scope
+con hợp lệ độc lập. Group có callback condition/intercept được đánh giá lại qua rebuild lifecycle
+outer; Fiber ID của hậu duệ có thể đổi, nhưng EntryId logic giữ nguyên.
+Đổi thứ tự cùng group không restart; chuyển group/scope
 giữ EntryId nhưng rebuild Fiber outer/inner sau cleanup.
 
 Mỗi generation retire có barrier chia sẻ được giữ lại. Disposal parent/loader
