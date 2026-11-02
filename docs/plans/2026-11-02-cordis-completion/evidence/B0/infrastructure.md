@@ -132,3 +132,15 @@ accepted matrix/report or FR-1 semantic reviews. B0 remains blocked on reliable
 execution and the remaining declaration/type evidence reconciliation; no
 source mappings or downstream implementations were added.
 
+The fresh astra/high reviewer completed with a readable final file-path handoff.
+[Its review](resume-validation-review.md) accepts the recovered integrated-check
+gate at review HEAD `fb0c194`, with the original exit-1 assertion preserved.
+The TSV's filtered object ID also equals its accepted Git blob; no normalization
+or validation rerun is required. This successful review does not erase the
+sol execution failure. Both workers ended, and there is no background work.
+After a concrete runtime repair or changed runtime condition, the next bounded
+sol/high probe is the existing two-declaration source-reconciliation task,
+requiring saved mappings/checks/report and a readable completed final handoff
+before broader audit dispatch. The completed integrated validation must not
+be repeated solely as a transport probe.
+
