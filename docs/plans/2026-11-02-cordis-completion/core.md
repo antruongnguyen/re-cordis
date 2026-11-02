@@ -40,19 +40,22 @@ Create docs/plans/2026-11-02-cordis-completion/evidence.md during execution.
 **Produces:** revision/toolchain-tagged results and a case ledger separating
 executed comparisons, source-mapped Rust tests, representations and open gaps.
 
-- [ ] Run the shared baseline matrix on stable and 1.85.0 with explicit tools
+- [x] Run the shared baseline matrix on stable and 1.85.0 with explicit tools
   and separate artifact directories. Record actual test totals rather than
   copying historical counts.
-- [ ] Run six paired scenarios with the existing runner; verify 73 observations
+- [x] Run six paired scenarios with the existing runner; verify 73 observations
   and preserve its source-pin/dirty-tree safeguards.
-- [ ] Reconcile the 144-declaration core ledger and events.types.ts inventory
+- [x] Reconcile the 144-declaration core ledger and events.types.ts inventory
   against current test names. Parameterized declarations are expanded before
   claiming each variant is covered.
-- [ ] Audit each semantic family: Context/metadata; plugin identity; effects
+- [x] Audit each semantic family: Context/metadata; plugin identity; effects
   and cancellation; five event modes; publication/retention; isolation and
   traced calls; update/recovery; logging/error identity; explicit injection.
   Map gaps to a concrete regression or an existing documented restriction.
-- [ ] Commit the evidence with no production change if no core defect is found.
+- [x] Commit the evidence with no production change if no core defect is found.
+
+**Acceptance (2026-11-03):** [independent B0 review](evidence/B0/review.md) accepts
+the baseline and complete accounting with 147 tracked evidence gaps.
 
 **Exit:** every existing core case has an explicit evidence class; unexpected
 failures have a reproducer and owner work package. No new suite-wide parity claim.

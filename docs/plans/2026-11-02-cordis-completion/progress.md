@@ -7,11 +7,11 @@ review, integration, documentation and current verification.
 ## Execution scope and revision
 
 - Authorized 2026-11-02: local recommended scope in all 35 packages, including routine design gates resolved by independent planning/review. R1 ends in a proposal. No push, publication, deployment, credentials, or live integrations.
-- **Resumed by the user on 2026-11-02 for B0 only.** Finish corrections, scoped re-reviews, remaining initial reviews, coordinated accounting, ledger validation and independent acceptance. T0 and all other packages remain unstarted.
+- **B0 completed and independently accepted with tracked gaps on 2026-11-03 (Asia/Ho_Chi_Minh).** The authorized continuation ended at B0. T0 and all other packages remain unstarted; no background continuation is scheduled.
 - Baseline implementation: 808c9f5; starting checkout/plans: c5019cc.
 - Fixed TypeScript spec: 35fdc969e4b6c48c48ed44717c7a018324e4dd88 in local/cordis; tracked tree clean at startup. local/cordis-rs is reference only.
 - Integration branch: feat/cordis-completion. Worktree: /Users/I756434/Projects/private/cordis-rust (table shorthand: integration).
-- Last accepted full command matrix: **7d1552a**. Recovered report review is integrated at **b87c1b9**; FR-1 correction at **59be2db** and its independent re-review at **b28a608**. Recovered integrated validation is independently accepted at **e9c0be3**. First-two-events acceptance is **11d84b1**. All resumed family correction reviews are now accepted through **a54d045**. Fresh gpt-6.1-sol/high subagents completed corrections; the failed CLI path was not retried. Final ledger validation/acceptance remains open.
+- Last accepted full command matrix: **7d1552a**. Recovered report review is integrated at **b87c1b9**; FR-1 correction at **59be2db** and its independent re-review at **b28a608**. Recovered integrated validation is independently accepted at **e9c0be3**. First-two-events acceptance is **11d84b1**. All resumed family correction reviews are now accepted through **a54d045**. Fresh gpt-6.1-sol/high subagents completed corrections; the failed CLI path was not retried. Final ledger/control validation passed and independent acceptance is integrated at **3690447**; B0 accounting is complete with 147 owned evidence gaps.
 - Planning/architecture/review: gpt-6-astra/high. The user explicitly clarified the resumed executor routing as **fresh gpt-6.1-sol/high subagents; avoid only the failed CLI path**. Historical fallback work used gpt-5.6-sol/high. Do not resume failed contexts. Explicit model/effort and fork_turns=none on every spawn. Three worker slots plus orchestrator.
 - Preserve Rust 2024/resolver 3/MSRV 1.85.0, local non-Send hosting, provider retention, Pending/readiness/Failed recovery, Effect/Fiber Drop, six paired scenarios/73 observations, bilingual shipped APIs.
 
@@ -19,7 +19,7 @@ review, integration, documentation and current verification.
 
 | ID | Status | Dependencies | Owner / role / model | Worktree / branch | Implementation commit | Review result | Evidence location |
 |---|---|---|---|---|---|---|---|
-| B0 | in_review | None | final_acceptance: gpt-6-astra/high | isolated acceptance worktree; integration serialized | ledger 68db90f; report correction f810136; all family reviews accepted | normal full-data validator and 36 negatives pass; 540 runtime/6 types/7 non-obligations; final independent acceptance pending | evidence/B0/ |
+| B0 | done | None | completed: sol/high execution, astra/high independent acceptance | integration; worker checkouts archived recoverably | ledger 68db90f; report f810136; final acceptance 3690447 | accepted-with-tracked-gaps; 144 declarations/156 variants/540 runtime/6 types/7 non-obligations; 147 owned gaps; 36 negatives pass | evidence/B0/review.md |
 | B1 | planned | B0 | unassigned | integration | — | not started | evidence/B1/ |
 | T0 | planned | B0 | unassigned | integration | — | not started | evidence/T0/ |
 | T1 | planned | T0 | unassigned | integration | — | not started | evidence/T1/ |
@@ -68,10 +68,10 @@ The original b0_ledger and b0_matrix contexts cannot be resumed (HTTP 400). Thei
 | Decorator + reflect (5 declarations) | FR-1 corrected at 59be2db and independently accepted at b28a608; recovered integrated validation independently accepted at review HEAD fb0c194 | ledger-inputs/decorator-reflect.json, report-decorator-reflect.md, fragment-review.md, fragment-rereview.md; resume-validation.md and resume-validation-review.md |
 | Events (19 declarations) | first two accepted 11d84b1; remaining EET corrections independently accepted a54d045 | events-first-two.json and events-rest.json; events-effects-types-rereview.md |
 | Associate (6), invoke (2), intercept (7), isolate (6), logger (11), shadow (8) | SL-1–SL-6 correction c462dfd independently accepted b515447 with 50 tracked gaps | six family JSON files, report-scoped-logging.md, scoped-logging-rereview.md |
-| Fiber (22), plugin (10), update (10 sites/12 cases) | LR2–LR5 correction f438233 independently accepted 6945d90; LR1 awaits shared accounting | plugin.json, fiber.json, update.json, report-lifecycle-update.md, lifecycle-update-rereview.md |
+| Fiber (22), plugin (10), update (10 sites/12 cases) | LR2–LR5 correction f438233 independently accepted 6945d90; LR1 accounting accepted 3690447 | plugin.json, fiber.json, update.json, report-lifecycle-update.md, lifecycle-update-rereview.md |
 | Dispose (13) and event types (six expressions) | six types accepted ff414b5; EET runtime corrections independently accepted a54d045 | dispose.json, event-types.json, B0/report-events-effects-types.md and events-effects-types-rereview.md |
 | Service-dispose (17 sites/27 cases), service (8) | SR-1–SR-5 correction a1c6ef7 independently accepted 1083dfa; four guarded non-obligations confirmed | service.json, service-dispose.json, report-services.md; services-rereview.md |
-| Merge, validator, complete report, independent ledger review | assembly/control implementation 13e143e integrated 68db90f; report correction 39d960e integrated f810136; integration normal/self-test checks pass | ledger/cases.json, event-types.json, report.md, report-validator.md and validate.py; B0/review.md pending |
+| Merge, validator, complete report, independent ledger review | implementation 68db90f/f810136; normal/self-test checks pass; final independent acceptance 2625010 integrated 3690447 | ledger/cases.json, event-types.json, report.md, report-validator.md, validate.py and B0/review.md |
 
 Do not replace pending inventory with blanket exclusions or claim missing mappings as reviewed gaps. Save each completed family before moving on; no duplicate audit of accepted fragments.
 
@@ -85,7 +85,10 @@ Do not replace pending inventory with blanket exclusions or claim missing mappin
 - D008: The user requests focused completion of B0 and explicitly authorizes gpt-5.6-sol/high as fallback for failed gpt-6.1-sol/high execution. Independent review remains gpt-6-astra/high; all spawns remain fresh with explicit settings. This changes executor routing, not evidence classes or acceptance gates. No T0 or later package is included in the current B0-focused turn.
 - D009: On resume, the user clarified that fresh gpt-6.1-sol/high subagents should execute corrections and assembly; only the failed CLI path is prohibited. This supersedes D008's current routing, preserves historical fallback evidence and does not authorize resuming failed contexts. The resumed scope ends at B0 independent acceptance.
 
-## Active blockers, failures and retries
+## Preserved blockers, failures and retries
+
+Historical records below describe earlier incomplete states. B0 now has final
+independent acceptance; no active B0 blocker or worker remains.
 
 ### Preserved user pause checkpoint
 
@@ -143,14 +146,12 @@ Do not replace pending inventory with blanket exclusions or claim missing mappin
 
 ## Resume next
 
-1. Read this file and the master's prior-decisions-and-evidence-reuse section, then docs/decision.md, docs/limitation.md and docs/implementation-plan.md. Read evidence.md, evidence/B0/infrastructure.md, evidence/B0/plan.md, matrix/fragment reviews and any validation outputs; read schedule/acceptance after context loss. Carry completed decisions forward before assigning new work.
-2. The user has explicitly resumed B0. Git confirms clean integration at expected checkpoint `7fd7cde` on `feat/cordis-completion`; preserve newer commits as work proceeds. Integration remains `/Users/I756434/Projects/private/cordis-rust`. The `b0-cli-source` managed checkout is a detached snapshot at that checkpoint, not the integration branch.
-3. Use D009's clarified fresh gpt-6.1-sol/high subagents for execution and gpt-6-astra/high for independent review, with explicit settings and fork_turns=none. Do not use the failed CLI path, resume failed contexts or repeat accepted audits. All four correction sets and their scoped re-reviews are integrated and accepted. Ledger integration and focused verification are complete; final independent acceptance is the current task.
-4. Preserve completed recovery work: matrix report findings are closed in `b87c1b9`; FR-1 correction is integrated at `59be2db` and independently accepted at `b28a608`. The recovered integrated validation is also accepted by `evidence/B0/resume-validation-review.md` at review HEAD `fb0c194`. Do not reapply or re-review these completed tasks or repeat the integrated validation as a probe. All 65 committed artifacts are preserved; commands.tsv differs only in working-copy line endings, and the original failing assertion must remain recorded. No artifact normalization is needed.
-5. SL-1–SL-6 and LR2–LR5 are closed by scoped re-reviews at b515447 and 6945d90. LR1's shared inventory/control correction belongs to the single current ledger owner. Do not repeat accepted corrections/reviews or implement new production regressions in B0.
-6. SR-1–SR-5 and EET-1–EET-9 are closed by scoped re-reviews at 1083dfa and a54d045. The six type representations remain accepted and unchanged. Preserve the original seven decorator/reflect gaps. Old events.json remains obsolete inventory, not a merge input.
-7. Ledger assembly/control is integrated at 68db90f and its report correction at f810136. Normal complete-data validation and all 36 negative checks passed in the worker and integration checkouts. It accounts for 144 declarations/156 variants, 540 runtime obligations, six types and seven exact non-obligations; all 147 gaps retain owners/actions. Follow handoffs/final-acceptance.md for the remaining independent Astra integration review, including validator code. Correct any resulting findings before B0 acceptance; do not repeat accepted family audits.
-8. Reuse the accepted baseline matrix while its hashes establish applicability; rerun only on executable-input change. Accept and commit B0 only after all correction, review, integration and documentation gates pass. The resumed focus is B0; all 34 dependent packages remain planned until their entry gates. R1 is proposal-only; no push, publication, deployment or scope expansion.
+1. B0 is complete. Read [final independent acceptance](evidence/B0/review.md) and [the ledger report](evidence/B0/ledger/report.md) for its exact evidence scope. Do not repeat the accepted matrix/report, FR-1, first-two-events, recovered validation, family reviews/corrections or final ledger audit.
+2. Reconcile Git before any future work. Integration is `/Users/I756434/Projects/private/cordis-rust` on `feat/cordis-completion`. Preserve newer changes. The `b0-cli-source` managed worktree remains a detached snapshot at 7fd7cde, not the integration branch.
+3. The current authorization stops at B0. T0 and all 34 dependent packages remain planned; no worker or automation continues them. A subsequent user instruction must select the next work before execution.
+4. Carry all 147 owned evidence gaps forward with their precise actions. A passing regression can close evidence; only an actual dependent gate plus a failing public-API reproducer admits conditional B2. B0 acceptance is accounting, not implementation of those gaps or unrestricted TS parity.
+5. Reuse the accepted six-scenario/73-observation matrix while recorded executable hashes establish applicability. Preserve original artifacts, historical failures and commands.tsv's reviewed working-copy line-ending qualification. No normalization or repeat recovery probe is needed.
+6. For later authorized work, retain D009 routing: fresh gpt-6.1-sol/high execution and gpt-6-astra/high planning/review, with explicit model/effort and fork_turns=none. Do not use the failed CLI path or resume failed contexts. Keep shared integration serialized and new worker work isolated.
 
 ## Checkpoint log (append only)
 
@@ -209,3 +210,5 @@ Do not replace pending inventory with blanket exclusions or claim missing mappin
 
 
 - 2026-11-02 CP051: Integrated final ledger/control/report 13e143e as 68db90f. A bounded report-only follow-up corrected inaccurate gap summaries and premature validator-review wording (39d960e→f810136); data and validator stayed unchanged. Integration ran the normal validator and --self-test --source-repo /Users/I756434/Projects/private/cordis-rust: both exit 0, 540 runtime obligations/6 types/7 non-obligations/94 Rust identities and 36 expected negatives. Runtime classes: 180 mapped, 186 representations, 24 comparisons, 3 unsupported, 147 owned gaps. Final independent Astra acceptance remains required; B0 moves to in_review, all 34 dependent packages stay planned. An earlier tracking patch syntax failure wrote nothing; corrected tracking links/whitespace passed before commit.
+
+- 2026-11-03 CP052: Final independent Astra review 2625010 integrated as 3690447, verdict accepted-with-tracked-gaps, quality accepted and no actionable findings. LR1 is discharged. Independent checks passed exact assembly/provenance, normal validation, 36 expected negatives, 834 joins/94 identities, 71 executable hashes, all 65 original committed artifacts and 55 B0 Markdown files. B0 becomes done with 540 runtime obligations, six types, seven separate non-obligations and 147 owned gaps. All 34 dependent packages remain planned; no T0, push, publication or deployment. Closing current-status/link/whitespace and reviewed-byte preservation checks are recorded in this completion checkpoint; completed worker worktrees are archived recoverably.

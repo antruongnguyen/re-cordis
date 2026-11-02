@@ -4,15 +4,16 @@ Execution began 2026-11-02 on local branch feat/cordis-completion in
 /Users/I756434/Projects/private/cordis-rust. See [canonical progress](progress.md)
 for all 35 package states, ownership, decisions, blockers and exact resume steps.
 
-## B0 baseline (assembled and validated; final acceptance pending)
+## B0 baseline — accepted with tracked gaps (2026-11-03)
 
+- [Final independent acceptance](evidence/B0/review.md), integrated at **3690447**: accepted-with-tracked-gaps, quality accepted, no actionable findings. B0 accounting is complete; all 147 owned gaps remain explicit.
 - [Accepted execution plan](evidence/B0/plan.md).
 - [Independent matrix review](evidence/B0/matrix-review.md): command portion accepted at 7d1552a. Executed inputs at 578c066 through e23dbac have identical hashes and no executable delta from implementation baseline 808c9f5.
 - [Command index](evidence/B0/matrix/commands.tsv), [actual results](evidence/B0/matrix/results.json), and full committed logs under evidence/B0/matrix/logs/.
 - [Matrix report](evidence/B0/matrix/report.md) at 25dcde8 records all results, failed evidence-assembly attempts, successful validation and known metadata limits. [Scoped re-review](evidence/B0/matrix-rereview.md), integrated at b87c1b9, closed B0-MATRIX-01/02 and verified original artifact preservation.
 - Stable 1.97.1 and 1.85.0 each passed 164 core integration tests (including 12 Unix application tests), 15 timer tests, 17 core Rustdoc checks, 20 M0 tests and one M0 Rustdoc check. Both examples and guide checks (8 snippets plus external quick start per toolchain) passed; five Python regressions passed.
 - The fixed TypeScript specification is 35fdc969e4b6c48c48ed44717c7a018324e4dd88. Exactly six paired scenarios and 73 observations passed. These counts do not establish full upstream parity or non-macOS platform acceptance.
-- [Complete ledger report](evidence/B0/ledger/report.md), [runtime ledger](evidence/B0/ledger/cases.json), [type ledger](evidence/B0/ledger/event-types.json) and [validator evidence](evidence/B0/ledger/report-validator.md): integrated 68db90f/f810136. Normal complete-data and 36 negative checks pass in worker and integration checkouts. Counts are 144 declarations / 156 variants / 540 runtime obligations / six types / seven separate non-obligations / 94 Rust identities. Runtime classes are 180 mapped, 186 representations, 24 comparisons, three unsupported and 147 owned gaps. Final independent B0 acceptance remains pending.
+- [Complete ledger report](evidence/B0/ledger/report.md), [runtime ledger](evidence/B0/ledger/cases.json), [type ledger](evidence/B0/ledger/event-types.json) and [validator evidence](evidence/B0/ledger/report-validator.md): integrated 68db90f/f810136. Normal complete-data and 36 negative checks pass in worker and integration checkouts. Counts are 144 declarations / 156 variants / 540 runtime obligations / six types / seven separate non-obligations / 94 Rust identities. Runtime classes are 180 mapped, 186 representations, 24 comparisons, three unsupported and 147 owned gaps. Final independent B0 acceptance is recorded at 3690447.
 - [Decorator/reflection fragment](evidence/B0/ledger-inputs/report-decorator-reflect.md): 5 declarations / 23 obligations mapped to source tests, deliberate Rust representations, existing exclusions or named evidence gaps. FR-1 was corrected in 59be2db and [independently accepted](evidence/B0/fragment-rereview.md) in b28a608. All seven evidence gaps remain open; their regressions and dependency triage precede conditional B2. No other semantic classification changed.
 - [Interrupted events inventory](evidence/B0/ledger-inputs/events.json): 19 declarations / 61 initial obligations; audit did not finish. Initial missing-evidence fields are unreviewed placeholders, not accepted dispositions.
 - [First two events](evidence/B0/ledger-inputs/report-events-first-two.md) now have five tested Rust-representation obligations and zero gaps or paired claims. [Independent review](evidence/B0/events-first-two-review.md) accepted the fragment; implementation/review integrated at `0c934ed` / `11d84b1`. Together with decorator/reflect, seven declarations / 28 obligations have accepted dispositions.
@@ -31,12 +32,12 @@ are authorized; the failed CLI path remains prohibited. The pause checkpoint's
 in Git. All four correction cycles now have independent acceptance with
 tracked gaps, and integrated corrected files match their reviewed worker bytes.
 The assembled ledger reconciles seven confirmed non-obligations and fifteen
-reviewed additions, and passes complete-data validation. The remaining gate
-is independent review of the integrated ledger and validator.
+reviewed additions, and passes complete-data validation. Independent review of the integrated
+ledger and validator is accepted; LR1 is satisfied.
 
-Complete [final independent acceptance](evidence/B0/handoffs/final-acceptance.md).
-Do not repeat accepted correction or initial reviews. The final-ledger
-validation passed; no B0-wide independent acceptance exists yet.
+The [final acceptance gate](evidence/B0/handoffs/final-acceptance.md) is complete.
+Do not repeat accepted audits or correction cycles. B0 completion does not
+implement the tracked gaps or authorize the next package.
 No production code, runtime dependencies, public APIs, source pins or existing
 compatibility contracts changed. T0 and all later packages remain unstarted;
 no release-readiness proposal exists yet. R1 remains a local proposal-only gate.

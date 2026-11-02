@@ -13,7 +13,8 @@ milestone prerequisites, and exit criteria live in the
   for core evidence, timer repair and all seven pinned upstream satellites.
   Separate observed source gaps, investigation, Rust representations and
   missing evidence; index all 323 satellite test declaration lines.
-- [ ] Execute B0's fresh core/compatibility baseline, then T0–T5 timer repair.
+- [x] Complete B0’s baseline and case ledger with [independent acceptance](plans/2026-11-02-cordis-completion/evidence/B0/review.md) and 147 tracked evidence gaps.
+- [ ] Execute T0–T5 timer repair after the next selected work instruction.
   Timer code exists, but admission/deadline, task authority, unregistration,
   bounded streams, reentry and joined resource-release acceptance remain open.
 - [ ] Review and schedule the [work packages](plans/2026-11-02-cordis-completion/schedule.md):
@@ -23,25 +24,21 @@ milestone prerequisites, and exit criteria live in the
 The older milestones below retain their historical delivery evidence. A
 checked historical box does not override an open repair in the completion plan.
 
-Current execution: **B0 family corrections and independent scoped reviews are
-complete; the assembled ledger is under final independent review**. Fresh
-gpt-6.1-sol/high subagents execute work; gpt-6-astra/high reviews it.
-The accepted matrix/report, FR-1, first-two events and recovered validation
-remain preserved. All corrected family fragments and six type representations
-have independent acceptance with tracked gaps:
-[scoped/logging](plans/2026-11-02-cordis-completion/evidence/B0/scoped-logging-rereview.md),
-[lifecycle/update](plans/2026-11-02-cordis-completion/evidence/B0/lifecycle-update-rereview.md),
-[services](plans/2026-11-02-cordis-completion/evidence/B0/services-rereview.md), and
-[events/effects/types](plans/2026-11-02-cordis-completion/evidence/B0/events-effects-types-rereview.md).
-The integrated ledger preserves 144 declarations / 156 variants, 540 runtime
-obligations, six types and seven separate non-obligations. Normal validation
-and 36 negative checks pass; 147 owned evidence gaps remain explicit. Final
-independent B0 acceptance is still required.
-These are evidence tasks, not missing implementations or demonstrated core
-defects. B0 is not accepted, and T0 has not started. Follow
+Current execution: **B0 is complete and independently accepted with tracked
+gaps on 2026-11-03**. All correction, scoped review, non-obligation accounting,
+ledger validation and final acceptance gates passed. The ledger preserves
+144 declarations / 156 variants, 540 runtime obligations, six type obligations
+and seven separate non-obligations. It records 147 owned evidence gaps; these
+are not demonstrated core defects or implemented follow-ups.
+
+[Final acceptance](plans/2026-11-02-cordis-completion/evidence/B0/review.md)
+confirms normal validation, 36 negative checks, exact reviewed assembly and
+preserved matrix/report, FR-1, first-two-events and recovered-validation evidence.
+The six paired scenarios / 73 observations remain unchanged. T0 and all other
+34 packages remain planned. This B0-focused continuation is finished; no next
+package or background continuation has started. See
 [detailed progress](plans/2026-11-02-cordis-completion/progress.md#resume-next)
-and [B0 evidence](plans/2026-11-02-cordis-completion/evidence.md); the other
-34 packages remain planned through R1's release-readiness proposal.
+and [B0 evidence](plans/2026-11-02-cordis-completion/evidence.md).
 
 ## Planning and project setup
 
