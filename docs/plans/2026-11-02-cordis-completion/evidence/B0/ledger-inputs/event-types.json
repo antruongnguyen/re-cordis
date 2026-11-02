@@ -17,7 +17,7 @@
       "rust_evidence": [
         {
           "file": "crates/re-cordis-core/src/events.rs",
-          "symbol": "Event runnable Rustdoc example",
+          "symbol": "events::Event",
           "lines": [
             62,
             63,
@@ -47,7 +47,9 @@
           "command_ids": [
             "stable-workspace-test",
             "1.85.0-workspace-test"
-          ]
+          ],
+          "rustdoc_line": 62,
+          "compile_fail": false
         }
       ],
       "paired_evidence": [],
@@ -73,7 +75,7 @@
       "rust_evidence": [
         {
           "file": "crates/re-cordis-core/src/events.rs",
-          "symbol": "Event runnable Rustdoc example",
+          "symbol": "events::Event",
           "lines": [
             62,
             63,
@@ -103,7 +105,9 @@
           "command_ids": [
             "stable-workspace-test",
             "1.85.0-workspace-test"
-          ]
+          ],
+          "rustdoc_line": 62,
+          "compile_fail": false
         }
       ],
       "paired_evidence": [],
@@ -129,7 +133,7 @@
       "rust_evidence": [
         {
           "file": "crates/re-cordis-core/src/events.rs",
-          "symbol": "Event compile-fail Rustdoc example",
+          "symbol": "events::Event",
           "lines": [
             53,
             54,
@@ -144,7 +148,9 @@
           "command_ids": [
             "stable-workspace-test",
             "1.85.0-workspace-test"
-          ]
+          ],
+          "rustdoc_line": 55,
+          "compile_fail": true
         }
       ],
       "paired_evidence": [],
@@ -170,7 +176,7 @@
       "rust_evidence": [
         {
           "file": "crates/re-cordis-core/src/events.rs",
-          "symbol": "Listener argument compile-fail Rustdoc example",
+          "symbol": "events::Listener",
           "lines": [
             159,
             160,
@@ -188,7 +194,9 @@
           "command_ids": [
             "stable-workspace-test",
             "1.85.0-workspace-test"
-          ]
+          ],
+          "rustdoc_line": 162,
+          "compile_fail": true
         }
       ],
       "paired_evidence": [],

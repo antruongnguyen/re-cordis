@@ -6,9 +6,15 @@ TypeScript execution, or a production compatibility claim.
 
 ## Scope and revisions
 
-- Rust execution revision: `9a7633c0b3b98e5f37e9f2211f3ffa67fdac5edc`.
-  `git diff --quiet` confirms that current HEAD has no executable-source, test,
-  manifest, lockfile, or toolchain delta from that matrix input.
+- Ledger control/evidence provenance revision:
+  `9a7633c0b3b98e5f37e9f2211f3ffa67fdac5edc`. `git diff --quiet` confirms
+  that current HEAD has no executable-source, test, manifest, lockfile, or
+  toolchain delta from that control revision.
+- The preserved matrix actually executed from
+  `578c066b8618bec9b1b2afc0a9757bb9b0f3a87e` through
+  `e23dbac846454d4573eee2ba3eebbc5e33085d17`. Its accepted report records
+  identical executable hashes at those endpoints; `9a7633c` is not presented
+  as the matrix execution HEAD.
 - TypeScript specification: clean
   `35fdc969e4b6c48c48ed44717c7a018324e4dd88`.
 - Carried evidence: accepted matrix/report review, accepted first-two events,
@@ -91,20 +97,18 @@ for o in obligations:
     assert (o['class'] == 'missing-evidence') == (not o['rust_evidence'])
 results = json.loads((b0 / 'matrix/results.json').read_text())['tests']
 logs = {c: (b0 / f'matrix/logs/{c}.log').read_text() for c in ('stable-workspace-test','1.85.0-workspace-test')}
-rustdoc = {
- 'Event runnable Rustdoc example':'crates/re-cordis-core/src/events.rs - events::Event (line 62)',
- 'Event compile-fail Rustdoc example':'crates/re-cordis-core/src/events.rs - events::Event (line 55) - compile fail',
- 'Listener argument compile-fail Rustdoc example':'crates/re-cordis-core/src/events.rs - events::Listener (line 162) - compile fail',
- 'Next rustdoc compile-fail example':'crates/re-cordis-core/src/events.rs - events::Next (line 250) - compile fail',
- 'AsyncNext rustdoc compile-fail example':'crates/re-cordis-core/src/events.rs - events::AsyncNext (line 263) - compile fail',
-}
 joins = set()
 for o in obligations:
     for e in o['rust_evidence']:
         assert max(e['lines']) <= len((root / e['file']).read_text().splitlines()) and e['assertion']
-        item = rustdoc.get(e['symbol'], e['symbol'])
         for command in e['command_ids']:
-            assert any(t['command_id'] == command and t['test'] == item and t['outcome'] == 'ok' for t in results)
+            if 'rustdoc_line' in e:
+                prefix = f"{e['file']} - {e['symbol']} (line {e['rustdoc_line']})"
+                matches = [t for t in results if t['command_id'] == command and t['outcome'] == 'ok' and t['suite'] == 'rustdoc' and t['test'].startswith(prefix) and t['compile_fail'] is e['compile_fail']]
+            else:
+                matches = [t for t in results if t['command_id'] == command and t['outcome'] == 'ok' and t['test'] == e['symbol']]
+            assert len(matches) == 1
+            item = matches[0]['test']
             assert f'test {item} ... ok' in logs[command]
             joins.add((command, item))
 print(f'validated declarations=30 variants=30 obligations={len(obligations)} joined_command_items={len(joins)} gaps={sum(o["class"] == "missing-evidence" for o in obligations)}')
@@ -127,6 +131,64 @@ Exit `0`, no output.
 
 The local-link helper and final whitespace checks are recorded after this file
 exists; their exact commands and outputs follow in the final section.
+
+## Shared-validator Rustdoc metadata correction
+
+The integration owner applied the shared `validate_obligation()` helper to all
+105 records and reported 20 `no unique matching passing result` errors: two
+toolchains each for event-type lines 13, 14, 17, and 19; the three obligations
+at `events.spec.ts:230`; and the three obligations at `events.spec.ts:265`.
+The affected records used friendly labels that only the fragment's first local
+validator translated. They now use the shared schema's exact identities
+`events::Event`, `events::Listener`, `events::Next`, and `events::AsyncNext`,
+with exact `rustdoc_line` and `compile_fail` metadata. No class, source
+provenance, command ID, behavior, or asserted pass was changed.
+
+The corrected public-helper check was run exactly as follows. A first local
+transcription had an unterminated Python string before importing/calling the
+helper; it produced no validation result.
+
+```sh
+python3 -B - <<'PY'
+import importlib.util
+import json
+from pathlib import Path
+repo = Path.cwd().resolve()
+integration = Path('/Users/I756434/Projects/private/cordis-rust').resolve()
+validator_path = integration / 'docs/plans/2026-11-02-cordis-completion/evidence/B0/ledger/validate.py'
+spec = importlib.util.spec_from_file_location('b0_validator', validator_path)
+validator = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(validator)
+b0 = repo / 'docs/plans/2026-11-02-cordis-completion/evidence/B0'
+events = json.loads((b0 / 'ledger-inputs/events-rest.json').read_text())
+dispose = json.loads((b0 / 'ledger-inputs/dispose.json').read_text())
+types = json.loads((b0 / 'ledger-inputs/event-types.json').read_text())
+errors, context = validator.evidence_context(str(repo), str(integration))
+errors = list(errors)
+obligation_ids, gap_ids, rust_identities, paired_scenarios = set(), set(), set(), set()
+checked = 0
+for family in (events, dispose):
+    for declaration in family['declarations']:
+        bounds = (declaration['source_line'], declaration['source_end_line'])
+        for variant in declaration['variants']:
+            for obligation in variant['obligations']:
+                validator.validate_obligation(obligation, obligation['id'], errors, context, repo, integration, bounds, obligation_ids, gap_ids, rust_identities, paired_scenarios)
+                checked += 1
+for obligation in types['obligations']:
+    line = obligation['source_line']
+    validator.validate_obligation(obligation, obligation['id'], errors, context, repo, integration, (line, line), obligation_ids, gap_ids, rust_identities, paired_scenarios)
+    checked += 1
+if errors:
+    raise SystemExit(chr(10).join(errors))
+print(f'shared-validator obligations={checked} errors=0 rust_identities={len(rust_identities)} gaps={len(gap_ids)}')
+PY
+```
+
+Exit `0`:
+
+```text
+shared-validator obligations=105 errors=0 rust_identities=24 gaps=12
+```
 
 ## Limits
 

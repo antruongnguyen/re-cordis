@@ -3368,7 +3368,7 @@
               "rust_evidence": [
                 {
                   "file": "crates/re-cordis-core/src/events.rs",
-                  "symbol": "Next rustdoc compile-fail example",
+                  "symbol": "events::Next",
                   "lines": [
                     249,
                     250,
@@ -3386,7 +3386,9 @@
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
-                  ]
+                  ],
+                  "rustdoc_line": 250,
+                  "compile_fail": true
                 }
               ],
               "paired_evidence": [],
@@ -3409,7 +3411,7 @@
               "rust_evidence": [
                 {
                   "file": "crates/re-cordis-core/src/events.rs",
-                  "symbol": "Next rustdoc compile-fail example",
+                  "symbol": "events::Next",
                   "lines": [
                     249,
                     250,
@@ -3427,7 +3429,9 @@
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
-                  ]
+                  ],
+                  "rustdoc_line": 250,
+                  "compile_fail": true
                 }
               ],
               "paired_evidence": [],
@@ -3450,7 +3454,7 @@
               "rust_evidence": [
                 {
                   "file": "crates/re-cordis-core/src/events.rs",
-                  "symbol": "Next rustdoc compile-fail example",
+                  "symbol": "events::Next",
                   "lines": [
                     249,
                     250,
@@ -3468,7 +3472,9 @@
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
-                  ]
+                  ],
+                  "rustdoc_line": 250,
+                  "compile_fail": true
                 }
               ],
               "paired_evidence": [],
@@ -3590,7 +3596,7 @@
               "rust_evidence": [
                 {
                   "file": "crates/re-cordis-core/src/events.rs",
-                  "symbol": "AsyncNext rustdoc compile-fail example",
+                  "symbol": "events::AsyncNext",
                   "lines": [
                     261,
                     262,
@@ -3609,7 +3615,9 @@
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
-                  ]
+                  ],
+                  "rustdoc_line": 263,
+                  "compile_fail": true
                 }
               ],
               "paired_evidence": [],
@@ -3632,7 +3640,7 @@
               "rust_evidence": [
                 {
                   "file": "crates/re-cordis-core/src/events.rs",
-                  "symbol": "AsyncNext rustdoc compile-fail example",
+                  "symbol": "events::AsyncNext",
                   "lines": [
                     261,
                     262,
@@ -3651,7 +3659,9 @@
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
-                  ]
+                  ],
+                  "rustdoc_line": 263,
+                  "compile_fail": true
                 }
               ],
               "paired_evidence": [],
@@ -3674,7 +3684,7 @@
               "rust_evidence": [
                 {
                   "file": "crates/re-cordis-core/src/events.rs",
-                  "symbol": "AsyncNext rustdoc compile-fail example",
+                  "symbol": "events::AsyncNext",
                   "lines": [
                     261,
                     262,
@@ -3693,7 +3703,9 @@
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
-                  ]
+                  ],
+                  "rustdoc_line": 263,
+                  "compile_fail": true
                 }
               ],
               "paired_evidence": [],
