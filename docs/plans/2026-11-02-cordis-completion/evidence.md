@@ -19,9 +19,9 @@ for all 35 package states, ownership, decisions, blockers and exact resume steps
 - [Worker infrastructure failures](evidence/B0/infrastructure.md) recurred in native and CLI gpt-6.1-sol attempts. The user subsequently authorized gpt-5.6-sol/high, which completed the remaining source drafts. This is an authorized fallback, not proof that the original model transport is repaired.
 - The earlier integrated recovery validation failed HTTP 400 before saving a report. A fresh executor at `f2ff4c3` has now saved [integrated validation](evidence/B0/resume-validation.md), including passing bounded checks and an actual raw-byte failure caused only by commands.tsv working-copy line endings; all 65 committed original artifacts are unchanged. That worker then disconnected before its final handoff. The completed [scoped independent review](evidence/B0/resume-validation-review.md), at review HEAD `fb0c194`, accepts the integrated-check gate with this preservation boundary. The original failing result remains recorded; no rerun or artifact normalization is required. This does not establish reliable source-audit transport or supersede accepted matrix/FR-1 reviews.
 
-- [Scoped/logging drafts](evidence/B0/ledger-inputs/report-scoped-logging.md): 40 declarations / 136 raw obligations, integrated through b453ac6. [Independent review](evidence/B0/scoped-logging-review.md), integrated at 4407379, requires SL-1–SL-6 corrections. Submitted counts are not accepted semantic pass totals.
+- [Scoped/logging corrections](evidence/B0/ledger-inputs/report-scoped-logging.md): SL-1–SL-6 fixes integrated c462dfd, preserving 40 declarations / 136 obligations with 59 representations / 27 mappings / 50 gaps. [Initial review](evidence/B0/scoped-logging-review.md) remains the binding findings record; scoped re-review is pending.
 - [Lifecycle/update drafts](evidence/B0/ledger-inputs/report-lifecycle-update.md): 42 declarations / 44 variants / 188 raw records, integrated through 4ca5d39. [Independent review](evidence/B0/lifecycle-update-review.md), integrated at 64b7c54, requires LR1-LR5 corrections, including explicit non-obligation metadata for three inventory artifacts.
-- [Events/effects/types drafts](evidence/B0/report-events-effects-types.md): 30 declarations / 30 variants, 99 runtime records and six type records, integrated through bdc73a4. The exact Rustdoc-metadata correction resolved 20 mechanical join failures; all 105 records pass shared partial schema/reference checks. Initial semantic review remains pending.
+- [Events/effects/types drafts](evidence/B0/report-events-effects-types.md): 30 declarations / 30 variants, 99 runtime records and six type records, integrated through bdc73a4. [Initial independent review](evidence/B0/events-effects-types-review.md), integrated ff414b5, accepts the six type representations and requests EET-1–EET-9 runtime corrections. These corrections are active.
 - [Services drafts](evidence/B0/ledger-inputs/report-services.md): 25 declarations / 35 variants / 81 records, integrated at 7edb4f9. [Initial independent review](evidence/B0/services-review.md), integrated 1c38165, requests SR-1–SR-5 corrections and confirms the four guarded-variant omissions for separate non-obligation metadata.
 
 The user resumed B0 after the committed pause checkpoint at 7fd7cde. Fresh
@@ -34,8 +34,8 @@ semantic review findings, the non-obligation accounting or the complete-ledger
 gate. Only the prior seven declarations / 28 obligations are independently
 accepted.
 
-Resume with [review corrections](evidence/B0/handoffs/review-corrections.md),
-the two pending initial reviews, then coordinated inventory/control repair,
+Continue [review corrections](evidence/B0/handoffs/review-corrections.md) and
+the findings from both completed initial reviews, then coordinated inventory/control repair,
 ledger assembly/validation and final independent review. No final-ledger
 passing result or B0-wide acceptance exists yet.
 No production code, runtime dependencies, public APIs, source pins or existing

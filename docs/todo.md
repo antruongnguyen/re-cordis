@@ -32,11 +32,14 @@ events records bring accepted dispositions to seven declarations / 28 obligation
 The [scoped/logging review](plans/2026-11-02-cordis-completion/evidence/B0/scoped-logging-review.md)
 requests SL-1–SL-6 corrections, and the
 [lifecycle/update review](plans/2026-11-02-cordis-completion/evidence/B0/lifecycle-update-review.md)
-requests LR1-LR5. Scoped/logging and lifecycle corrections plus the initial
-events/effects/types review are active in isolated worktrees. The
+requests LR1-LR5. Scoped/logging corrections are integrated and awaiting scoped
+re-review. Lifecycle, events/effects and services corrections are active in
+isolated worktrees. The
 [services review](plans/2026-11-02-cordis-completion/evidence/B0/services-review.md)
 is complete, requesting SR-1–SR-5 corrections and confirming four guarded
 non-obligations for final accounting.
+The [events/effects/types review](plans/2026-11-02-cordis-completion/evidence/B0/events-effects-types-review.md)
+accepts all six type representations and requires EET-1–EET-9 runtime corrections.
 Next: correct those evidence claims, review the remaining fragments, reconcile
 inventory non-obligations, then merge/validate/review the complete ledger.
 These are evidence tasks, not missing implementations or demonstrated core
