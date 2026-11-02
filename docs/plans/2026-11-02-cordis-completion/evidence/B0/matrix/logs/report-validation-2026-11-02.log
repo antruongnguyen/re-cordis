@@ -1,0 +1,64 @@
+COMMAND: /opt/homebrew/opt/python@3.14/bin/python3.14 -B -c '
+import csv, hashlib, importlib.util, json, shlex, subprocess
+from pathlib import Path
+root=Path.cwd()
+p=root/'"'"'docs/plans/2026-11-02-cordis-completion/evidence/B0/matrix'"'"'
+spec=importlib.util.spec_from_file_location('"'"'docs_check'"'"',root/'"'"'tests/docs/check.py'"'"')
+module=importlib.util.module_from_spec(spec)
+spec.loader.exec_module(module)
+module.links(p/'"'"'report.md'"'"')
+print('"'"'Report local links/anchors: passed'"'"')
+commands=json.loads((p/'"'"'commands.json'"'"').read_text())
+rows=list(csv.DictReader((p/'"'"'commands.tsv'"'"').open(),delimiter='"'"'	'"'"'))
+assert len(commands)==len(rows)==53
+for command,row in zip(commands,rows):
+ assert row['"'"'command'"'"']==shlex.join(command['"'"'argv'"'"'])
+ assert json.loads(row['"'"'environment'"'"'])==command['"'"'environment'"'"']
+ for key in ['"'"'id'"'"','"'"'cwd'"'"','"'"'start_utc'"'"','"'"'end_utc'"'"','"'"'exit_code'"'"','"'"'log'"'"']:
+  assert row[key]==str(command[key]),(command['"'"'id'"'"'],key)
+ text=(p/command['"'"'log'"'"']).read_text()
+ for key,label in [('"'"'cwd'"'"','"'"'CWD'"'"'),('"'"'start_utc'"'"','"'"'START_UTC'"'"'),('"'"'end_utc'"'"','"'"'END_UTC'"'"'),('"'"'exit_code'"'"','"'"'EXIT_CODE'"'"')]:
+  assert label+'"'"': '"'"'+str(command[key]) in text,(command['"'"'id'"'"'],label)
+ assert '"'"'COMMAND: '"'"'+shlex.join(command['"'"'argv'"'"']) in text
+ assert command['"'"'exit_code'"'"']==0
+required={tc+'"'"'-'"'"'+suffix for tc in ['"'"'stable'"'"','"'"'1.85.0'"'"'] for suffix in ['"'"'workspace-check'"'"','"'"'workspace-test'"'"','"'"'workspace-clippy'"'"','"'"'workspace-doc'"'"','"'"'m0-test'"'"','"'"'m0-clippy'"'"','"'"'example-lifecycle'"'"','"'"'example-timer_lifecycle'"'"']}
+required.update(['"'"'stable-workspace-fmt'"'"','"'"'stable-m0-fmt'"'"','"'"'docs-regressions'"'"','"'"'docs-stable'"'"','"'"'docs-1.85.0'"'"','"'"'parity'"'"'])
+assert len(required)==22 and required.issubset({c['"'"'id'"'"'] for c in commands})
+print('"'"'53 JSON/TSV rows and full log metadata match; all 22 required IDs present; indexed exits: 0'"'"')
+snapshots=[json.loads((p/name).read_text()) for name in ['"'"'before.json'"'"','"'"'after.json'"'"','"'"'after-supplement.json'"'"']]
+inputs=snapshots[0]['"'"'executable_input_sha256'"'"']
+assert len(inputs)==71
+for snapshot in snapshots:
+ assert snapshot['"'"'executable_input_sha256'"'"']==inputs
+ assert snapshot['"'"'ts_head'"'"']=='"'"'35fdc969e4b6c48c48ed44717c7a018324e4dd88'"'"'
+ assert not snapshot['"'"'ts_tracked_status'"'"'] and not snapshot['"'"'fixture_exists'"'"'] and not snapshot['"'"'executable_delta_since_808c9f5'"'"']
+ assert snapshot['"'"'untracked_upstream_yarn_lock'"'"']==snapshots[0]['"'"'untracked_upstream_yarn_lock'"'"']
+for name,digest in inputs.items():
+ assert hashlib.sha256((root/name).read_bytes()).hexdigest()==digest,name
+changes=subprocess.check_output(['"'"'git'"'"','"'"'diff'"'"','"'"'--name-only'"'"',snapshots[0]['"'"'head'"'"'],snapshots[1]['"'"'head'"'"']],text=True).splitlines()
+assert changes==['"'"'docs/plans/2026-11-02-cordis-completion/progress.md'"'"'],changes
+print('"'"'All 71 recorded executable inputs match snapshots and current bytes; tested revision diff contains progress.md only'"'"')
+meta=json.loads((p/'"'"'summarize-validation-2026-11-02.json'"'"').read_text())
+assert meta['"'"'exit_code'"'"']==0 and meta['"'"'preserved_bytes_unchanged'"'"']
+assert meta['"'"'preserved_sha256_before'"'"']==meta['"'"'preserved_sha256_after'"'"']
+for name,digest in meta['"'"'preserved_sha256_after'"'"'].items():
+ assert hashlib.sha256((p/name).read_bytes()).hexdigest()==digest,name
+print('"'"'Summary exit: 0; results/script/original attempt bytes remain unchanged'"'"')
+subprocess.run(['"'"'git'"'"','"'"'diff'"'"','"'"'--check'"'"'],check=True)
+print('"'"'git diff --check: passed'"'"')
+'
+CWD: /Users/I756434/Projects/private/cordis-rust
+START_UTC: 2026-11-02T08:55:12.186969+00:00
+
+Traceback (most recent call last):
+  File "<string>", line 9, in <module>
+    module.links(p/'report.md')
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/I756434/Projects/private/cordis-rust/tests/docs/check.py", line 58, in links
+    require(resolved.exists(), f"{path}: missing link target: {target}")
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/I756434/Projects/private/cordis-rust/tests/docs/check.py", line 20, in require
+    raise ValueError(message)
+ValueError: /Users/I756434/Projects/private/cordis-rust/docs/plans/2026-11-02-cordis-completion/evidence/B0/matrix/report.md: missing link target: logs/report-validation-2026-11-02.log
+END_UTC: 2026-11-02T08:55:12.286734+00:00
+EXIT_CODE: 1

@@ -1,0 +1,31 @@
+{
+  "id": "summary-validation-2026-11-02",
+  "argv": [
+    "/opt/homebrew/opt/python@3.14/bin/python3.14",
+    "-B",
+    "docs/plans/2026-11-02-cordis-completion/evidence/B0/matrix/summarize.py"
+  ],
+  "cwd": "/Users/I756434/Projects/private/cordis-rust",
+  "environment": {
+    "PATH": "/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin"
+  },
+  "start_utc": "2026-11-02T08:53:17.908594+00:00",
+  "end_utc": "2026-11-02T08:53:17.945149+00:00",
+  "exit_code": 0,
+  "log": "logs/summarize-validation-2026-11-02.log",
+  "head": "3463486544d7b3c7a34c2f14f57321651a92f5ef",
+  "python": "3.14.7 (main, Aug  5 2026, 10:29:49) [Clang 21.0.0 (clang-2100.1.1.101)]",
+  "preserved_sha256_before": {
+    "results.json": "9df5eb61108398c8db0df80269f4e99523901384077e8b2b66a1db258a8eadd9",
+    "summarize.py": "49841ecea043cb60f6402c337220b742fcacf2031404bd7f64bb376f1c360c3d",
+    "logs/summarize-attempt-1.log": "cfac76fda8dc0fa25ee9b8ecf5ed6bdf1f51d99fdd58643c8096ac9b07711746",
+    "logs/summarize-attempt-2.log": "14ec1fc7713f17f2a7e8ce4a6248738e201a28b4fbb8e14bd3e23eabfbacabc2"
+  },
+  "preserved_sha256_after": {
+    "results.json": "9df5eb61108398c8db0df80269f4e99523901384077e8b2b66a1db258a8eadd9",
+    "summarize.py": "49841ecea043cb60f6402c337220b742fcacf2031404bd7f64bb376f1c360c3d",
+    "logs/summarize-attempt-1.log": "cfac76fda8dc0fa25ee9b8ecf5ed6bdf1f51d99fdd58643c8096ac9b07711746",
+    "logs/summarize-attempt-2.log": "14ec1fc7713f17f2a7e8ce4a6248738e201a28b4fbb8e14bd3e23eabfbacabc2"
+  },
+  "preserved_bytes_unchanged": true
+}
