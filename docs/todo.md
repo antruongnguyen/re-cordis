@@ -23,6 +23,18 @@ milestone prerequisites, and exit criteria live in the
 The older milestones below retain their historical delivery evidence. A
 checked historical box does not override an open repair in the completion plan.
 
+Current execution: **B0 remains blocked**; the matrix/report findings and FR-1
+correction/re-review are accepted. A fresh bounded integrated recovery check
+saved a report but disconnected before its final handoff; its working-copy
+line-ending discrepancy awaits scoped review. The 139 remaining declaration
+records and six type obligations are evidence reconciliation, not missing
+implementations. Review the recovered check, establish reliable source-audit
+execution, reconcile/review the complete
+ledger, and admit T0 only after B0 acceptance. Follow
+[detailed progress](plans/2026-11-02-cordis-completion/progress.md#resume-next)
+and [B0 evidence](plans/2026-11-02-cordis-completion/evidence.md); the other
+34 packages remain planned through R1's release-readiness proposal.
+
 ## Planning and project setup
 
 - [x] Initialize documentation (`AGENTS.md`, `README.md`, `docs/*`).

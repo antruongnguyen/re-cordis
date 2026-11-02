@@ -100,3 +100,35 @@ grounds to erase either the correction or its review. All workers ended, and
 their clean worktrees are archived recoverably. No new mappings, production
 code or full-program acceptance claim resulted from the failed tasks.
 
+## Fresh bounded validation at f2ff4c3
+
+On 2026-11-02 the next session reconciled clean integration HEAD `f2ff4c3`,
+one registered worktree, no attached artifacts or prior live workers, and
+idle prior completion chats. Executable paths and the matrix directory were
+unchanged; the fixed TypeScript checkout was clean. The exact next handoff
+was assigned to fresh `b0_resume_verify_fresh` with gpt-6.1-sol/high and
+fork_turns=none. No corrupted worker was resumed or model substituted.
+
+The worker executed the bounded checks at 12:49:27–12:50:32 UTC and saved
+[resume-validation.md](resume-validation.md). Structural accounting, all 71
+input hashes, the clean fixed TS pin, scoped links and Git whitespace checks
+passed. Its original artifact-byte check exited 1: commands.tsv has 54 CRLF
+line endings in the working copy, while accepted and current committed blobs
+have LF. The subsequent recorded checks establish all 65 original committed
+artifacts unchanged and no other raw-byte difference. The working copy and
+Git settings were left intact; the failed assertion remains in the report.
+
+After saving this evidence and sending a readable progress message, the worker
+errored with `stream disconnected before completion: stream closed before
+response.completed`. No exact failure timestamp was returned. Its final
+handoff did not complete. Readable saved files and partial execution therefore
+do not establish reliable transport, even for this bounded fresh task. Do not
+resume this worker or keep issuing equivalent execution retries in this session.
+
+A fresh gpt-6-astra/high reviewer is assigned only
+[the recovered validation review](handoffs/resume-validation-review.md),
+including the preservation interpretation. This recovery does not repeat the
+accepted matrix/report or FR-1 semantic reviews. B0 remains blocked on reliable
+execution and the remaining declaration/type evidence reconciliation; no
+source mappings or downstream implementations were added.
+
