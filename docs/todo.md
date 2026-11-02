@@ -23,15 +23,19 @@ milestone prerequisites, and exit criteria live in the
 The older milestones below retain their historical delivery evidence. A
 checked historical box does not override an open repair in the completion plan.
 
-Current execution: **B0 is in progress through the user-authorized
-gpt-5.6-sol/high fallback**. The matrix/report, FR-1 correction/re-review and
-recovered integrated validation remain accepted. The first two events records
-are now [independently accepted](plans/2026-11-02-cordis-completion/evidence/B0/events-first-two-review.md)
-and integrated at `11d84b1`; seven declarations / 28 obligations have accepted
-dispositions. The remaining 137 declarations and six type obligations are
-evidence reconciliation, not missing implementations. Complete the remaining
-family mappings, full validator and independent ledger review before accepting
-B0 or admitting T0. The current turn focuses only on B0. Follow
+Current execution: **B0 is paused at the user's request after active tasks
+finished**. The authorized gpt-5.6-sol/high fallback produced draft fragments
+for all 144 declarations / 156 variants and six type obligations. The prior
+matrix/report, FR-1 and recovered validation remain accepted; the first two
+events records bring accepted dispositions to seven declarations / 28 obligations.
+The [scoped/logging review](plans/2026-11-02-cordis-completion/evidence/B0/scoped-logging-review.md)
+requests SL-1–SL-6 corrections, and the
+[lifecycle/update review](plans/2026-11-02-cordis-completion/evidence/B0/lifecycle-update-review.md)
+requests LR1-LR5. Events/effects/types and services still need initial review.
+Next: correct those evidence claims, review the remaining fragments, reconcile
+inventory non-obligations, then merge/validate/review the complete ledger.
+These are evidence tasks, not missing implementations or demonstrated core
+defects. B0 is not accepted, and T0 has not started. Wait for explicit resume. Follow
 [detailed progress](plans/2026-11-02-cordis-completion/progress.md#resume-next)
 and [B0 evidence](plans/2026-11-02-cordis-completion/evidence.md); the other
 34 packages remain planned through R1's release-readiness proposal.

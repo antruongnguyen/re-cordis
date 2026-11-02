@@ -182,3 +182,12 @@ toolchains; the report includes the actual validation command. Independent
 review remains required. This permits further work through the authorized
 fallback without claiming the gpt-6.1-sol transport problem is fixed.
 
+The fallback subsequently completed all remaining family drafts and the
+validator. Some new task payloads still arrived unreadably; short durable
+file-path follow-ups allowed those healthy contexts to proceed. Completed
+source tasks and both active astra reviews returned readable final handoffs.
+The two reviews request ledger corrections; they establish no production
+failure. At the user's request, work is paused after these tasks, with no
+new correction/review assignments or background continuation. Current outputs,
+integration commits and precise next steps are in [progress](../../progress.md).
+
