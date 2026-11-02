@@ -26,8 +26,10 @@ checked historical box does not override an open repair in the completion plan.
 Current execution: **B0 remains blocked**; the matrix/report findings and FR-1
 correction/re-review and recovered integrated validation are accepted; see the
 [scoped validation review](plans/2026-11-02-cordis-completion/evidence/B0/resume-validation-review.md).
-The fresh executor still disconnected before its final handoff, so reliable
-source-audit execution remains unresolved. The 139 remaining declaration
+The subsequent user-requested fresh two-record events executor also disconnected
+without saving mappings or a report, so reliable source-audit execution remains
+unresolved; see the [transport evidence](plans/2026-11-02-cordis-completion/evidence/B0/infrastructure.md#user-requested-two-record-continuation).
+The 139 remaining declaration
 records and six type obligations are evidence reconciliation, not missing
 implementations. After a concrete runtime change, complete the bounded
 two-record source task with a readable final handoff, reconcile/review the complete

@@ -144,3 +144,26 @@ requiring saved mappings/checks/report and a readable completed final handoff
 before broader audit dispatch. The completed integrated validation must not
 be repeated solely as a transport probe.
 
+## User-requested two-record continuation
+
+After checkpoint `e9c0be3`, the user explicitly requested the next item. The
+existing events-first-two handoff was updated with carried evidence and the
+uncovered assertion/matrix joins, then committed at `63736bc`. This authorized
+one bounded attempt; it did not establish that the runtime was repaired.
+
+Fresh `b0_events_two_fresh`, gpt-6.1-sol/high with fork_turns=none, created
+`/Users/I756434/.codex/worktrees/b0-events-two-evidence/cordis-rust` at that
+commit. It then failed with `stream disconnected before completion: stream
+closed before response.completed`. No exact failure timestamp was returned.
+Reconciliation at 2026-11-02T13:04:51Z found no new integration changes; a
+direct worker-worktree check confirmed clean detached HEAD `63736bc`, no new
+commit and neither owned output (`events-first-two.json` or
+`report-events-first-two.md`). No source disposition or validation completed.
+
+The app confirmed the clean worktree archived recoverably; Git again lists
+only the integration checkout. No failed context
+was resumed, no model was substituted, and no equivalent follow-up was
+dispatched. B0 remains blocked. A concrete worker-runtime change must precede
+the next bounded source probe; accepted matrix/FR-1/integrated-validation
+work must not be replayed.
+

@@ -19,6 +19,10 @@ for all 35 package states, ownership, decisions, blockers and exact resume steps
 - The earlier integrated recovery validation failed HTTP 400 before saving a report. A fresh executor at `f2ff4c3` has now saved [integrated validation](evidence/B0/resume-validation.md), including passing bounded checks and an actual raw-byte failure caused only by commands.tsv working-copy line endings; all 65 committed original artifacts are unchanged. That worker then disconnected before its final handoff. The completed [scoped independent review](evidence/B0/resume-validation-review.md), at review HEAD `fb0c194`, accepts the integrated-check gate with this preservation boundary. The original failing result remains recorded; no rerun or artifact normalization is required. This does not establish reliable source-audit transport or supersede accepted matrix/FR-1 reviews.
 
 The matrix acceptance is one part of B0. The remaining core/type mappings,
+including the user-requested fresh two-record events attempt at `63736bc`
+which disconnected without saving mappings or a report, remain unfinished.
+See the [latest transport record](evidence/B0/infrastructure.md#user-requested-two-record-continuation).
+The remaining
 case-ledger validation and independent review must finish before B0 can be done.
 No production code, runtime dependencies, public APIs, source pins or existing
 compatibility contracts changed. T0 and all later packages remain unstarted;
