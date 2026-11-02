@@ -657,37 +657,23 @@
               "source_assertion_lines": [
                 169
               ],
-              "class": "rust-representation",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/tests/acceptance.rs",
-                  "symbol": "associated_service_and_accessor_adapters_use_original_authority_and_receiver_identity",
-                  "lines": [
-                    555,
-                    556,
-                    557,
-                    558,
-                    569,
-                    571,
-                    574,
-                    575
-                  ],
-                  "assertion": "Before the required associated authority is injected, the typed session accessor/association returns an explicit error.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ]
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
               "restriction": {
                 "document": "docs/m6.md",
                 "anchor": "source-map-audit",
                 "reason": "Typed ServiceKey, AccessorKey, associated, map/rebind, ordinary Rust fields and Debug are the accepted substitutes for JavaScript property/prototype tracking. The cited assertions establish the substitute behavior, not transparent Proxy or class syntax compatibility."
               },
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "Before the required associated authority is injected, the typed session accessor/association returns an explicit error. Both accepted workspace-test command logs list this test as ok."
+              "gap": {
+                "id": "G-B0-associate-114-a169",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/acceptance.rs::associated_service_and_accessor_adapters_use_original_authority_and_receiver_identity at 571\u2013586: after injecting bar and rebinding the Session but before write_accessor, assert read_accessor succeeds and returns the typed initial receiver value 0. Keep the later setter/read assertion 101 separate. This represents the TS authorized unset-field read with ordinary Rust initialization, not an access error.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 169 is inside the bar-authorized injection at 167, before any setter call: the successful accessor returns its initially unset receiver field. In acceptance.rs, associated_service_and_accessor_adapters_use_original_authority_and_receiver_identity initializes Session.secret to 0 at 571\u2013573, then checks unauthorized errors at 574\u2013575. Its authorized rebind at 576\u2013584 writes 100 before the first successful read at 585\u2013586. No authorized initial-value read is asserted. Ordinary Rust field initialization and the accepted typed accessor representation remain valid; unauthorized errors do not witness this read."
             },
             {
               "id": "core/associate.spec.ts:114/default/a171",
@@ -726,6 +712,7 @@
         }
       ],
       "classes": [
+        "missing-evidence",
         "rust-representation"
       ]
     },
@@ -940,17 +927,13 @@
                   "file": "crates/re-cordis-core/tests/acceptance.rs",
                   "symbol": "typed_rooted_values_dynamic_events_and_context_type_guards_need_no_proxy_reflection",
                   "lines": [
-                    698,
-                    700,
-                    701,
-                    702,
                     706,
                     707,
                     708,
                     709,
                     710
                   ],
-                  "assertion": "A value passed through an explicit bound call uses ordinary Rust Debug and renders X.",
+                  "assertion": "Inside the explicit bound callback, a locally constructed X is formatted with ordinary Rust Debug and renders X; no X argument adapter or forwarding hop is exercised.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -965,7 +948,7 @@
               },
               "gap": null,
               "execution_status": "passed",
-              "rationale": "A value passed through an explicit bound call uses ordinary Rust Debug and renders X. Both accepted workspace-test command logs list this test as ok."
+              "rationale": "Inside the explicit bound callback, a locally constructed X is formatted with ordinary Rust Debug and renders X; no X argument adapter or forwarding hop is exercised. Both accepted workspace-test command logs list this test as ok."
             },
             {
               "id": "core/associate.spec.ts:235/default/a247",
@@ -984,12 +967,12 @@
               "gap": {
                 "id": "G-B0-associate-235-a247",
                 "kind": "missing-evidence",
-                "next_action": "Extend associated_service_and_accessor_adapters_use_original_authority_and_receiver_identity with the missing nested/forwarded typed-adapter assertion for core/associate.spec.ts:235 line 247: expect(arg.toString()).to.include('class X').",
+                "next_action": "Extend crates/re-cordis-core/tests/acceptance.rs::typed_rooted_values_dynamic_events_and_context_type_guards_need_no_proxy_reflection at 706\u2013710 with an X value forwarded through a second/nested bound callback, then assert ordinary Debug still renders X at the second hop (TS associate.spec.ts:247). The association fixture has no Debug path and is not the candidate for this follow-up.",
                 "owner": "core evidence maintainer",
                 "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
               },
               "execution_status": "not-executed",
-              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+              "rationale": "The candidate is acceptance.rs::typed_rooted_values_dynamic_events_and_context_type_guards_need_no_proxy_reflection at 706\u2013710: X is created and formatted inside one bound callback. There is no second nested forwarding call or Debug value crossing that boundary. The first formatting representation at /a242 remains supported."
             }
           ]
         }

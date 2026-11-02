@@ -184,31 +184,23 @@
               "source_assertion_lines": [
                 53
               ],
-              "class": "rust-representation",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/tests/scoping.rs",
-                  "symbol": "explicit_accessors_mixins_associations_and_callable_extensions_preserve_authority",
-                  "lines": [
-                    361,
-                    363
-                  ],
-                  "assertion": "The mapped callable preserves its definition Context and returns 7 + 2 = 9.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ]
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
               "restriction": {
                 "document": "docs/m5.md",
                 "anchor": "deliberate-representations-and-safety-deviations",
                 "reason": "ServiceInvoke and BoundService::map/rebind are explicit typed callable/extension adapters; Rust does not expose a callable service object or implicit return-value tracing."
               },
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "The mapped callable preserves its definition Context and returns 7 + 2 = 9. Both accepted workspace-test command logs list this test as ok."
+              "gap": {
+                "id": "G-B0-invoke-5-a53",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::explicit_accessors_mixins_associations_and_callable_extensions_preserve_authority at 328\u2013363 with a Callable carrying config/state. Map it to a value with additional or changed state, invoke original and mapped values with identical arguments, and assert the mapped state affects the result while definition dependency authority is preserved. Keep use-site intercept composition gaps /a46, /a56 and /a59 separate.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS lines 51\u201353 extend stored config with c: 3 and invoke that changed value. scoping.rs::explicit_accessors_mixins_associations_and_callable_extensions_preserve_authority uses a unit Callable at 328\u2013333 and maps it to another unit value at 363. The result 9 comes from changing the invocation argument to 2 while dependency remains 7, not from changed extension state. The existing callability/definition-authority evidence at /a52 is retained, but no invocation reads changed mapped state."
             },
             {
               "id": "core/invoke.spec.ts:5/default/a55",

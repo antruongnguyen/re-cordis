@@ -48,19 +48,25 @@
               "source_assertion_lines": [
                 39
               ],
-              "class": "source-mapped-test",
+              "class": "rust-representation",
               "rust_evidence": [
                 {
                   "file": "crates/re-cordis-core/tests/scoping.rs",
                   "symbol": "intercepts_merge_nearest_injection_then_outer_to_inner_and_own_provisions_do_not_borrow_it",
                   "lines": [
+                    227,
+                    228,
+                    229,
+                    230,
+                    231,
+                    232,
                     270,
                     271,
                     272,
                     273,
                     274
                   ],
-                  "assertion": "Without injected config, the explicit direct binding resolves outer then inner intercept layers in order.",
+                  "assertion": "Without injected config, direct.resolve_intercept receives outer then inner typed layers and the service-specific concatenating merge returns [outer, inner].",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -68,17 +74,21 @@
                 }
               ],
               "paired_evidence": [],
-              "restriction": null,
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "scope-and-bound-calls",
+                "reason": "TS Service.mergeIntercept shallowly assigns colliding object properties. Rust supplies ordered typed layers to a caller-provided service-specific resolve_intercept merge; this fixture concatenates vectors. Its asserted ordered-layer result is the documented substitute, not evidence of overlapping-property overwrite or a built-in shallow object merge."
+              },
               "gap": null,
               "execution_status": "passed",
-              "rationale": "Without injected config, the explicit direct binding resolves outer then inner intercept layers in order. Both accepted workspace-test command logs list this test as ok."
+              "rationale": "Without injected config, direct.resolve_intercept receives outer then inner typed layers and the service-specific concatenating merge returns [outer, inner]. The TS overlapping b-property result is represented by the accepted typed service-specific merge contract, not claimed as an executed object-overwrite assertion. Both accepted workspace-test command logs list this test as ok."
             }
           ]
         }
       ],
       "classes": [
         "missing-evidence",
-        "source-mapped-test"
+        "rust-representation"
       ]
     },
     {
@@ -104,7 +114,7 @@
               "source_assertion_lines": [
                 49
               ],
-              "class": "source-mapped-test",
+              "class": "rust-representation",
               "rust_evidence": [
                 {
                   "file": "crates/re-cordis-core/tests/scoping.rs",
@@ -118,12 +128,18 @@
                     220,
                     225,
                     226,
+                    227,
+                    228,
+                    229,
+                    230,
+                    231,
+                    232,
                     233,
                     234,
                     235,
                     236
                   ],
-                  "assertion": "The resolved list is injection, outer Context layer, then inner Context layer.",
+                  "assertion": "resolve_intercept receives the nearest injection config, then outer and inner typed layers; the service-specific concatenating merge returns [inject, outer, inner].",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -131,16 +147,20 @@
                 }
               ],
               "paired_evidence": [],
-              "restriction": null,
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "scope-and-bound-calls",
+                "reason": "TS Service.mergeIntercept shallowly assigns colliding object properties. Rust supplies ordered typed layers to a caller-provided service-specific resolve_intercept merge; this fixture concatenates vectors. Its asserted ordered-layer result is the documented substitute, not evidence of overlapping-property overwrite or a built-in shallow object merge."
+              },
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The resolved list is injection, outer Context layer, then inner Context layer. Both accepted workspace-test command logs list this test as ok."
+              "rationale": "resolve_intercept receives the nearest injection config, then outer and inner typed layers; the service-specific concatenating merge returns [inject, outer, inner]. The TS overlapping b-property result is represented by the accepted typed service-specific merge contract, not claimed as an executed object-overwrite assertion. Both accepted workspace-test command logs list this test as ok."
             }
           ]
         }
       ],
       "classes": [
-        "source-mapped-test"
+        "rust-representation"
       ]
     },
     {

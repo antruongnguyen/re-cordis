@@ -405,43 +405,23 @@
               "source_assertion_lines": [
                 149
               ],
-              "class": "rust-representation",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/tests/scoping.rs",
-                  "symbol": "bound_nested_calls_keep_definition_authority_but_use_caller_realm_metadata_and_effects",
-                  "lines": [
-                    145,
-                    148,
-                    151,
-                    152,
-                    153,
-                    166,
-                    167,
-                    168,
-                    169,
-                    170,
-                    171,
-                    172,
-                    173,
-                    174
-                  ],
-                  "assertion": "The captured holder/bound view resolves the definition's dependency while the caller selects the use-site realm.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ]
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
               "restriction": {
                 "document": "docs/m5.md",
                 "anchor": "deliberate-representations-and-safety-deviations",
                 "reason": "Definition, use and caller views are explicit BoundService contexts. Native Proxy shadow/caller properties and automatic tracing of arbitrary returned objects are not provided."
               },
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "The captured holder/bound view resolves the definition's dependency while the caller selects the use-site realm. Both accepted workspace-test command logs list this test as ok."
+              "gap": {
+                "id": "G-B0-shadow-93-a149",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::bound_nested_calls_keep_definition_authority_but_use_caller_realm_metadata_and_effects at 175\u2013180 with an explicit mapped/retraced holder. Enter from root, call a holder probe after map/rebind, and assert both its owning service and injected dependency values under the original definition authority. Use the returned holder for the reads, not the earlier bound.call result (TS shadow.spec.ts:149).",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 149 calls create().probe() through the returned holder from root entry. scoping.rs::bound_nested_calls_keep_definition_authority_but_use_caller_realm_metadata_and_effects reads the dependency on the original bound service at 148\u2013174, before retraced is created at 175. Only definition identity and use metadata are inspected on retraced at 176\u2013180; neither a post-map dependency read nor an injected-consumer holder entry is asserted. The accepted map/rebind identity representation at /a150 and /a153 is preserved."
             },
             {
               "id": "core/shadow.spec.ts:93/default/a150",
@@ -485,43 +465,23 @@
               "source_assertion_lines": [
                 152
               ],
-              "class": "rust-representation",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/tests/scoping.rs",
-                  "symbol": "bound_nested_calls_keep_definition_authority_but_use_caller_realm_metadata_and_effects",
-                  "lines": [
-                    145,
-                    148,
-                    151,
-                    152,
-                    153,
-                    166,
-                    167,
-                    168,
-                    169,
-                    170,
-                    171,
-                    172,
-                    173,
-                    174
-                  ],
-                  "assertion": "The captured holder/bound view resolves the definition's dependency while the caller selects the use-site realm.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ]
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
               "restriction": {
                 "document": "docs/m5.md",
                 "anchor": "deliberate-representations-and-safety-deviations",
                 "reason": "Definition, use and caller views are explicit BoundService contexts. Native Proxy shadow/caller properties and automatic tracing of arbitrary returned objects are not provided."
               },
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "The captured holder/bound view resolves the definition's dependency while the caller selects the use-site realm. Both accepted workspace-test command logs list this test as ok."
+              "gap": {
+                "id": "G-B0-shadow-93-a152",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::bound_nested_calls_keep_definition_authority_but_use_caller_realm_metadata_and_effects at 175\u2013180 with an explicit mapped/retraced holder. Enter from injected consumer, call a holder probe after map/rebind, and assert both its owning service and injected dependency values under the original definition authority. Use the returned holder for the reads, not the earlier bound.call result (TS shadow.spec.ts:152).",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 152 calls create().probe() through the returned holder from injected consumer entry. scoping.rs::bound_nested_calls_keep_definition_authority_but_use_caller_realm_metadata_and_effects reads the dependency on the original bound service at 148\u2013174, before retraced is created at 175. Only definition identity and use metadata are inspected on retraced at 176\u2013180; neither a post-map dependency read nor an injected-consumer holder entry is asserted. The accepted map/rebind identity representation at /a150 and /a153 is preserved."
             },
             {
               "id": "core/shadow.spec.ts:93/default/a153",
@@ -563,6 +523,7 @@
         }
       ],
       "classes": [
+        "missing-evidence",
         "rust-representation"
       ]
     },

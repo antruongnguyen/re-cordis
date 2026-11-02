@@ -248,37 +248,19 @@
               "source_assertion_lines": [
                 47
               ],
-              "class": "source-mapped-test",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/tests/logger.rs",
-                  "symbol": "exporter_removal_is_exact_and_buffer_survives_reusable_root_drains",
-                  "lines": [
-                    309,
-                    310,
-                    315,
-                    316,
-                    318,
-                    319,
-                    320,
-                    321,
-                    322,
-                    323,
-                    324,
-                    325
-                  ],
-                  "assertion": "Two exporters receive the first record; exact removal leaves only the second; removing/draining both prevents later delivery.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ]
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
               "restriction": null,
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "Two exporters receive the first record; exact removal leaves only the second; removing/draining both prevents later delivery. Both accepted workspace-test command logs list this test as ok."
+              "gap": {
+                "id": "G-B0-logger-37-a47",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/logger.rs::exporter_removal_is_exact_and_buffer_survives_reusable_root_drains at 299\u2013325 with distinct first/second destinations and retain both removal handles. After removing the first handle, log and assert the first destination remains empty. Match TS logger.spec.ts:47; keep aggregate-count/root-drain assertions separate.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 47 proves the first exporter destination stops receiving after its exact handle is removed. logger.rs::exporter_removal_is_exact_and_buffer_survives_reusable_root_drains at 299\u2013325 routes both registrations to the same counter; 2 then 3 proves only one survivor, not which one. The remaining registration is removed through root drain at 323, not its own second handle. The aggregate counts and post-drain silence remain valid scoped evidence in the report, not witnesses for exporter identity or second-token removal."
             },
             {
               "id": "core/logger.spec.ts:37/default/a48",
@@ -286,37 +268,19 @@
               "source_assertion_lines": [
                 48
               ],
-              "class": "source-mapped-test",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/tests/logger.rs",
-                  "symbol": "exporter_removal_is_exact_and_buffer_survives_reusable_root_drains",
-                  "lines": [
-                    309,
-                    310,
-                    315,
-                    316,
-                    318,
-                    319,
-                    320,
-                    321,
-                    322,
-                    323,
-                    324,
-                    325
-                  ],
-                  "assertion": "Two exporters receive the first record; exact removal leaves only the second; removing/draining both prevents later delivery.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ]
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
               "restriction": null,
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "Two exporters receive the first record; exact removal leaves only the second; removing/draining both prevents later delivery. Both accepted workspace-test command logs list this test as ok."
+              "gap": {
+                "id": "G-B0-logger-37-a48",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/logger.rs::exporter_removal_is_exact_and_buffer_survives_reusable_root_drains at 299\u2013325 with distinct first/second destinations and retain both removal handles. After removing the first handle, log and assert the distinct second destination receives one record. Match TS logger.spec.ts:48; keep aggregate-count/root-drain assertions separate.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 48 proves the second exporter destination alone receives after removal of the first handle. logger.rs::exporter_removal_is_exact_and_buffer_survives_reusable_root_drains at 299\u2013325 routes both registrations to the same counter; 2 then 3 proves only one survivor, not which one. The remaining registration is removed through root drain at 323, not its own second handle. The aggregate counts and post-drain silence remain valid scoped evidence in the report, not witnesses for exporter identity or second-token removal."
             },
             {
               "id": "core/logger.spec.ts:37/default/a52",
@@ -324,43 +288,25 @@
               "source_assertion_lines": [
                 52
               ],
-              "class": "source-mapped-test",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/tests/logger.rs",
-                  "symbol": "exporter_removal_is_exact_and_buffer_survives_reusable_root_drains",
-                  "lines": [
-                    309,
-                    310,
-                    315,
-                    316,
-                    318,
-                    319,
-                    320,
-                    321,
-                    322,
-                    323,
-                    324,
-                    325
-                  ],
-                  "assertion": "Two exporters receive the first record; exact removal leaves only the second; removing/draining both prevents later delivery.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ]
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
               "restriction": null,
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "Two exporters receive the first record; exact removal leaves only the second; removing/draining both prevents later delivery. Both accepted workspace-test command logs list this test as ok."
+              "gap": {
+                "id": "G-B0-logger-37-a52",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/logger.rs::exporter_removal_is_exact_and_buffer_survives_reusable_root_drains at 299\u2013325 with distinct first/second destinations and retain both removal handles. Remove the second exporter with its own handle, log again and assert its distinct destination count stays one, before any root drain. Match TS logger.spec.ts:52; keep aggregate-count/root-drain assertions separate.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 52 proves the explicit second removal handle stops that surviving exporter. logger.rs::exporter_removal_is_exact_and_buffer_survives_reusable_root_drains at 299\u2013325 routes both registrations to the same counter; 2 then 3 proves only one survivor, not which one. The remaining registration is removed through root drain at 323, not its own second handle. The aggregate counts and post-drain silence remain valid scoped evidence in the report, not witnesses for exporter identity or second-token removal."
             }
           ]
         }
       ],
       "classes": [
-        "source-mapped-test"
+        "missing-evidence"
       ]
     },
     {
