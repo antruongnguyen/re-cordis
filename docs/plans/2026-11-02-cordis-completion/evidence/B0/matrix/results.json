@@ -1,0 +1,4263 @@
+{
+  "command_count": 53,
+  "commands_all_exit_zero": true,
+  "suites": [
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "unit",
+      "result": "ok",
+      "passed": 0,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/acceptance.rs",
+      "result": "ok",
+      "passed": 12,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effect_metadata.rs",
+      "result": "ok",
+      "passed": 12,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effects.rs",
+      "result": "ok",
+      "passed": 8,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/events.rs",
+      "result": "ok",
+      "passed": 12,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/foundations.rs",
+      "result": "ok",
+      "passed": 15,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/github_collect.rs",
+      "result": "ok",
+      "passed": 3,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/github_digest.rs",
+      "result": "ok",
+      "passed": 3,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/github_webhook.rs",
+      "result": "ok",
+      "passed": 6,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/hooks.rs",
+      "result": "ok",
+      "passed": 5,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/lifecycle_parity.rs",
+      "result": "ok",
+      "passed": 6,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/logger.rs",
+      "result": "ok",
+      "passed": 8,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "result": "ok",
+      "passed": 21,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/scoping.rs",
+      "result": "ok",
+      "passed": 8,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "result": "ok",
+      "passed": 18,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/services.rs",
+      "result": "ok",
+      "passed": 11,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/updates.rs",
+      "result": "ok",
+      "passed": 16,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "unit",
+      "result": "ok",
+      "passed": 0,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/debounce.rs",
+      "result": "ok",
+      "passed": 3,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/interval_callback.rs",
+      "result": "ok",
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/interval_stream.rs",
+      "result": "ok",
+      "passed": 3,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/sleep.rs",
+      "result": "ok",
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/throttle.rs",
+      "result": "ok",
+      "passed": 4,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/timeout.rs",
+      "result": "ok",
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "result": "ok",
+      "passed": 4,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "result": "ok",
+      "passed": 13,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "rustdoc",
+      "result": "ok",
+      "passed": 0,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "stable-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "unit",
+      "result": "ok",
+      "passed": 0,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "stable-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/access.rs",
+      "result": "ok",
+      "passed": 4,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "stable-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/config.rs",
+      "result": "ok",
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "stable-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/events.rs",
+      "result": "ok",
+      "passed": 5,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "stable-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/lifecycle.rs",
+      "result": "ok",
+      "passed": 9,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "stable-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "rustdoc",
+      "result": "ok",
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "unit",
+      "result": "ok",
+      "passed": 0,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/acceptance.rs",
+      "result": "ok",
+      "passed": 12,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effect_metadata.rs",
+      "result": "ok",
+      "passed": 12,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effects.rs",
+      "result": "ok",
+      "passed": 8,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/events.rs",
+      "result": "ok",
+      "passed": 12,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/foundations.rs",
+      "result": "ok",
+      "passed": 15,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/github_collect.rs",
+      "result": "ok",
+      "passed": 3,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/github_digest.rs",
+      "result": "ok",
+      "passed": 3,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/github_webhook.rs",
+      "result": "ok",
+      "passed": 6,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/hooks.rs",
+      "result": "ok",
+      "passed": 5,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/lifecycle_parity.rs",
+      "result": "ok",
+      "passed": 6,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/logger.rs",
+      "result": "ok",
+      "passed": 8,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "result": "ok",
+      "passed": 21,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/scoping.rs",
+      "result": "ok",
+      "passed": 8,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "result": "ok",
+      "passed": 18,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/services.rs",
+      "result": "ok",
+      "passed": 11,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/updates.rs",
+      "result": "ok",
+      "passed": 16,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "unit",
+      "result": "ok",
+      "passed": 0,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/debounce.rs",
+      "result": "ok",
+      "passed": 3,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/interval_callback.rs",
+      "result": "ok",
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/interval_stream.rs",
+      "result": "ok",
+      "passed": 3,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/sleep.rs",
+      "result": "ok",
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/throttle.rs",
+      "result": "ok",
+      "passed": 4,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/timeout.rs",
+      "result": "ok",
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "result": "ok",
+      "passed": 17,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "rustdoc",
+      "result": "ok",
+      "passed": 0,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "1.85.0-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "unit",
+      "result": "ok",
+      "passed": 0,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "1.85.0-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/access.rs",
+      "result": "ok",
+      "passed": 4,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "1.85.0-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/config.rs",
+      "result": "ok",
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "1.85.0-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/events.rs",
+      "result": "ok",
+      "passed": 5,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "1.85.0-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/lifecycle.rs",
+      "result": "ok",
+      "passed": 9,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "1.85.0-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "rustdoc",
+      "result": "ok",
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    },
+    {
+      "command_id": "parity",
+      "crate": "re-cordis-core",
+      "suite": "tests/lifecycle_parity.rs",
+      "result": "ok",
+      "passed": 6,
+      "failed": 0,
+      "ignored": 0,
+      "measured": 0,
+      "filtered": 0
+    }
+  ],
+  "tests": [
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/acceptance.rs",
+      "test": "service_filters_retain_only_identity_and_use_each_listener_runtime_after_origin_drop",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/acceptance.rs",
+      "test": "typed_rooted_values_dynamic_events_and_context_type_guards_need_no_proxy_reflection",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/acceptance.rs",
+      "test": "failed_status_observers_are_diagnosed_without_stranding_owned_cleanup",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/acceptance.rs",
+      "test": "executable_example_proves_isolated_reconfigure_and_final_read_before_provider_close",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/acceptance.rs",
+      "test": "callable_adapters_expose_the_accessing_definition_not_the_outermost_consumer",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/acceptance.rs",
+      "test": "associated_service_and_accessor_adapters_use_original_authority_and_receiver_identity",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/acceptance.rs",
+      "test": "optional_publication_presence_and_shared_updated_handles_are_explicit_typed_contracts",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/acceptance.rs",
+      "test": "method_injection_owns_cleanup_and_reloads_without_macros_or_constructor_reflection",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/acceptance.rs",
+      "test": "explicit_initialization_is_an_availability_barrier_and_failure_is_diagnosed_once",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/acceptance.rs",
+      "test": "explicit_bound_effects_keep_root_provisions_accessible_with_and_without_injection",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/acceptance.rs",
+      "test": "injection_inertia_preserves_loading_and_unloading_until_gated_work_finishes",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/acceptance.rs",
+      "test": "repeated_initialized_services_restore_registry_effect_and_listener_baselines",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effect_metadata.rs",
+      "test": "synchronous_manual_disposal_and_value_only_snapshots_do_not_retain_resources",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effect_metadata.rs",
+      "test": "transferred_exporter_is_labeled_and_removed_before_sync_group_disposal_returns",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effect_metadata.rs",
+      "test": "mixed_composition_runs_sync_prefix_now_and_never_advances_past_pending_child",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effect_metadata.rs",
+      "test": "sync_cleanup_can_reenter_metadata_and_register_the_next_root_snapshot",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effect_metadata.rs",
+      "test": "nested_setup_keeps_the_outer_acquisition_guard_until_its_poll_finishes",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effect_metadata.rs",
+      "test": "labels_do_not_create_cross_runtime_ownership_and_wrong_host_transfers_leave_roots_unchanged",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effect_metadata.rs",
+      "test": "nested_labels_track_only_yielded_effects_and_sync_children_run_before_return",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effect_metadata.rs",
+      "test": "async_acquisition_updates_child_metadata_and_ready_cleanup_remains_an_async_barrier",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effect_metadata.rs",
+      "test": "active_setup_cannot_transfer_itself_or_an_ancestor_into_its_own_tree",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effect_metadata.rs",
+      "test": "synchronous_iterator_error_and_panic_finish_partial_rollback_before_return",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effect_metadata.rs",
+      "test": "failed_composed_cleanup_stops_its_chain_but_independent_root_effects_are_attempted",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effect_metadata.rs",
+      "test": "failed_stream_reports_cleanup_panic_and_setup_error_after_rollback",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effects.rs",
+      "test": "sync_setup_is_immediate_and_nested_effects_and_listeners_transfer_ownership",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effects.rs",
+      "test": "composed_async_cleanup_waits_in_reverse_order_and_root_siblings_progress",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effects.rs",
+      "test": "async_return_is_not_cancelled_by_immediate_disposal_and_dropped_waiter",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effects.rs",
+      "test": "effect_readiness_does_not_dispose_successful_acquisitions",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effects.rs",
+      "test": "stream_failure_rolls_back_before_ready_rejects_and_preserves_source",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effects.rs",
+      "test": "async_stream_stops_before_next_step_but_collects_in_flight_final_yield",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effects.rs",
+      "test": "finite_stream_readiness_preserves_all_resources_and_async_failure_is_explicit",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effects.rs",
+      "test": "synchronous_iterator_failure_starts_partial_rollback_and_setup_panics_are_explicit",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/events.rs",
+      "test": "host_destruction_cancels_dispatch_and_setup_without_context_reference_cycles",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/events.rs",
+      "test": "synchronous_emit_failure_stops_later_callbacks",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/events.rs",
+      "test": "emitted_async_failure_is_diagnosed_when_waiter_is_dropped",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/events.rs",
+      "test": "removal_after_selection_does_not_cancel_in_flight_snapshots",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/events.rs",
+      "test": "once_is_removed_before_recursive_invocation_and_manual_remove_is_exact",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/events.rs",
+      "test": "root_removal_does_not_cancel_an_already_started_listener",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/events.rs",
+      "test": "serial_has_an_immediate_first_prefix_and_stops_on_zero_or_empty_answers",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/events.rs",
+      "test": "waterfall_is_around_middleware_with_veto_and_nested_async_calls",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/events.rs",
+      "test": "parallel_invokes_prefixes_immediately_and_aggregates_all_failures",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/events.rs",
+      "test": "snapshots_survive_removal_in_serial_parallel_bail_and_waterfall",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/events.rs",
+      "test": "symbols_named_contracts_prototype_names_and_empty_bucket_removal",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/events.rs",
+      "test": "prepend_and_global_filters_apply_to_each_dispatch_shape",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/foundations.rs",
+      "test": "independent_runtime_identities_and_layered_metadata",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/foundations.rs",
+      "test": "missing_executor_and_unhosted_registration_are_explicit_and_inert",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/foundations.rs",
+      "test": "cancelled_run_scope_releases_the_host_for_later_progress",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/foundations.rs",
+      "test": "destroying_host_reports_cancelled_completion_not_success",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/foundations.rs",
+      "test": "refused_manual_claim_remains_root_owned",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/foundations.rs",
+      "test": "callback_destructors_can_reenter_without_a_journal_borrow",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/foundations.rs",
+      "test": "captured_context_ancestry_and_reentrant_requests_do_not_create_cycles",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/foundations.rs",
+      "test": "cleanup_of_one_runtime_cannot_acquire_another_hosts_admission",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/foundations.rs",
+      "test": "eager_snapshot_drain_is_concurrent_shared_and_root_remains_usable",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/foundations.rs",
+      "test": "dropping_tokens_keeps_root_ownership_and_manual_claims_run_once",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/foundations.rs",
+      "test": "running_operations_pause_resume_and_survive_dropped_waiters",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/foundations.rs",
+      "test": "wrong_host_nested_host_and_raw_task_admission_are_refused",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/foundations.rs",
+      "test": "panicking_error_formatter_does_not_erase_the_failure_or_stall_the_barrier",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/foundations.rs",
+      "test": "user_failure_sources_survive_and_panics_do_not_skip_other_cleanup",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/foundations.rs",
+      "test": "panicking_panic_payload_destructor_is_a_supervised_driver_failure",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/github_collect.rs",
+      "test": "executable_collects_complete_snapshot_and_preserves_last_good_on_query_failure",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/github_collect.rs",
+      "test": "timed_out_and_oversized_subprocesses_are_reaped_without_publishing",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/github_collect.rs",
+      "test": "periodic_work_finishes_before_reconfiguration_and_shutdown_and_failed_loads_recover_explicitly",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/github_digest.rs",
+      "test": "destination_reconfiguration_and_explicit_recovery_use_existing_lifecycle",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/github_digest.rs",
+      "test": "executable_writes_exact_markdown_and_preserves_output_on_invalid_input",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/github_digest.rs",
+      "test": "bounded_input_and_failed_rename_do_not_publish_partial_reports",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/github_webhook.rs",
+      "test": "signature_verification_matches_rfc4231_and_rejects_modified_or_malformed_input",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/github_webhook.rs",
+      "test": "failed_bind_requires_explicit_recovery_and_invalid_config_cannot_open_output",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/github_webhook.rs",
+      "test": "journal_write_failure_returns_error_and_poisoned_sink_never_acknowledges_success",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/github_webhook.rs",
+      "test": "held_requests_retain_old_journal_through_reconfiguration_and_shutdown",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/github_webhook.rs",
+      "test": "body_deadline_and_connection_limit_are_measured_without_sleeps",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/github_webhook.rs",
+      "test": "authenticated_events_append_before_ack_and_invalid_requests_do_not_write",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/hooks.rs",
+      "test": "listener_interception_replaces_the_exact_typed_callback_without_recursion",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/hooks.rs",
+      "test": "dispatch_observation_has_typed_args_and_omits_all_internal_protocol_events",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/hooks.rs",
+      "test": "status_and_plugin_snapshots_do_not_retain_fibers_and_terminal_sequences_are_stable",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/hooks.rs",
+      "test": "provider_transitions_notify_current_publications_once_not_retired_bindings_or_drain_pauses",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/hooks.rs",
+      "test": "get_set_and_realm_service_hooks_preserve_contracts_and_set_does_not_notify",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/lifecycle_parity.rs",
+      "test": "superseded_failure_rolls_back_without_poisoning_latest_target",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/lifecycle_parity.rs",
+      "test": "latest_failure_reaches_waiters_after_rollback_despite_abandoned_update",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/lifecycle_parity.rs",
+      "test": "failed_consumer_ignores_provider_refresh_and_update_awaits_recovery",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/lifecycle_parity.rs",
+      "test": "combined_provider_and_consumer_update",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/lifecycle_parity.rs",
+      "test": "registry_removed_consumer_retains_provider_and_cannot_reload",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/lifecycle_parity.rs",
+      "test": "latest_target_during_gated_cleanup",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/logger.rs",
+      "test": "error_causes_and_aggregates_preserve_empty_aggregates_exact_sources_and_order",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/logger.rs",
+      "test": "named_level_overrides_win_and_exporters_select_independently",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/logger.rs",
+      "test": "exporter_removal_is_exact_and_buffer_survives_reusable_root_drains",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/logger.rs",
+      "test": "callback_diagnostics_use_logger_and_failing_exporters_cannot_skip_others",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/logger.rs",
+      "test": "formatting_obeys_per_line_utf16_budgets_crlf_and_exact_palette_shapes",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/logger.rs",
+      "test": "nested_service_names_restore_and_explicit_and_intercept_names_have_correct_precedence",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/logger.rs",
+      "test": "normalized_diagnostic_names_keep_acronyms_delimiters_and_nonowning_attribution",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/logger.rs",
+      "test": "default_buffer_has_exact_capacity_chronological_order_and_root_attribution",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "immediate_disposal_skips_queued_validation_and_apply",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "host_destruction_cancels_loading_and_contexts_do_not_keep_runtime_alive",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "registration_tokens_remain_inert_after_the_disposed_owner_is_released",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "dropping_handles_is_inert_and_explicit_disposal_unlinks_parent_ownership",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "child_effect_streams_and_exporters_follow_child_ownership_not_the_root",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "initial_failure_waits_for_partial_cleanup_and_failed_fiber_stays_resident",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "disposing_child_rejects_new_work_but_final_cleanup_can_dispatch",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "lifecycle_self_and_ancestor_waits_are_refused_without_detaching_registry_groups",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "cleanup_failures_are_attempted_and_reported_without_blocking_disposal",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "cloned_declarations_group_distinct_instances_and_empty_groups_are_pruned",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "terminal_disposal_during_apply_wins_over_a_queued_restart_and_dropped_waiters",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "restart_preserves_identity_and_waits_for_cleanup_while_requests_coalesce",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "parent_cleanup_cascades_to_nested_plugins_and_preserves_root_listeners",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "retired_registry_group_cannot_remove_a_new_group_of_the_same_plugin",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "superseded_load_failure_rolls_back_without_failing_a_later_restart",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "typed_object_method_adapter_keeps_config_and_cleanup_with_its_instance",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "root_drain_waits_for_children_and_remains_usable_after_an_abandoned_waiter",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "validation_and_apply_factory_panics_fail_only_their_instances",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "validation_runs_per_load_and_source_remains_distinct_from_resolved_input",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "repeated_registry_removal_and_recreation_restore_listener_and_effect_baselines",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "idle_disposed_handles_do_not_retain_cleanup_captures_or_parent_journal_entries",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/scoping.rs",
+      "test": "realm_filtered_events_still_admit_global_listeners",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/scoping.rs",
+      "test": "shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/scoping.rs",
+      "test": "bound_nested_calls_keep_definition_authority_but_use_caller_realm_metadata_and_effects",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/scoping.rs",
+      "test": "intercepts_merge_nearest_injection_then_outer_to_inner_and_own_provisions_do_not_borrow_it",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/scoping.rs",
+      "test": "fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/scoping.rs",
+      "test": "explicit_accessors_mixins_associations_and_callable_extensions_preserve_authority",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/scoping.rs",
+      "test": "same_name_publications_in_two_realms_keep_resources_until_the_exact_consumer_finishes",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/scoping.rs",
+      "test": "an_injected_publication_is_released_even_after_providing_the_same_name_in_another_realm",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "host_destruction_cancels_a_provider_waiting_for_removed_consumer_cleanup",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "inherited_own_provision_survives_a_composed_child_disposal",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "cleanup_errors_release_dependencies_and_keep_final_provider_listeners_alive",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "equal_value_replacement_during_initialization_rolls_back_the_exact_old_snapshot",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "a_child_explicitly_injecting_its_parent_service_does_not_deadlock_parent_unload",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "old_withdrawal_does_not_wait_for_a_replacement_load",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "ancestor_injection_is_retained_until_a_child_finishes_inherited_cleanup",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "lifecycle_disposal_joins_a_prior_journal_drain_then_cleans_later_effects_before_releasing_providers",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "one_withdrawal_does_not_wait_for_another_publication_from_the_same_provider",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "pending_effect_acquisition_and_its_final_cleanup_keep_the_committed_injection",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "root_owned_resources_wait_for_consumers_and_root_remains_reusable",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "withdrawal_waits_for_a_consumer_already_removed_from_the_registry",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "replacement_intent_coalesces_during_unload_without_loading_the_middle_publication",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "composed_publication_cleanup_retains_resources_on_manual_and_owner_disposal",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "transitive_cleanup_retains_providers_while_unrelated_owners_and_siblings_progress",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "snapshots_survive_in_flight_apply_and_partial_failure_rollback",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "provider_shutdown_waits_for_current_and_already_withdrawn_publications",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "provider_resources_survive_all_disposal_orders_and_restart",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/services.rs",
+      "test": "publication_requires_host_admission_and_values_do_not_keep_runtime_alive",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/services.rs",
+      "test": "injection_lists_are_per_fiber_but_plugin_identity_is_shared",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/services.rs",
+      "test": "failed_resident_fibers_release_dependency_values_after_rollback",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/services.rs",
+      "test": "restart_and_other_service_notifications_do_not_recheck_an_unaffected_readiness_check",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/services.rs",
+      "test": "failed_consumers_ignore_dependency_refresh_and_mismatches_fail_explicitly",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/services.rs",
+      "test": "publication_ownership_type_contracts_and_set_are_not_replacement",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/services.rs",
+      "test": "loading_provider_blocks_consumers_and_pending_defers_validation",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/services.rs",
+      "test": "root_invocation_does_not_grant_a_captured_plugin_context_root_authority",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/services.rs",
+      "test": "checked_access_distinguishes_undeclared_inactive_and_direct_paths",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/services.rs",
+      "test": "readiness_checks_block_and_report_without_running_under_store_borrows",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/services.rs",
+      "test": "repeated_republication_restores_baselines_and_disposed_handles_release_snapshot_values",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/updates.rs",
+      "test": "disposal_beats_queued_updates_and_dropped_waiters_do_not_cancel_cleanup",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/updates.rs",
+      "test": "accepted_update_during_loading_keeps_the_current_apply_and_new_source",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/updates.rs",
+      "test": "an_obsolete_apply_failure_does_not_poison_the_new_config",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/updates.rs",
+      "test": "outdated_effect_stream_stops_after_its_in_flight_final_yield",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/updates.rs",
+      "test": "invalid_loaded_update_cannot_commit_or_reach_resolved_middleware_and_no_save_only_skips_commit",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/updates.rs",
+      "test": "explicit_update_hook_removal_and_local_before_global_order_match_the_router",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/updates.rs",
+      "test": "validation_issues_retain_structured_paths_and_format_like_the_pinned_contract",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/updates.rs",
+      "test": "config_aba_and_explicit_restart_force_a_new_load_even_with_equal_final_source",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/updates.rs",
+      "test": "asynchronous_recovery_is_awaited_and_dropped_failed_recovery_is_still_diagnosed",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/updates.rs",
+      "test": "provider_update_and_consumer_update_converge_without_an_old_provider_new_config_load",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/updates.rs",
+      "test": "failed_loads_recover_only_on_update_and_latest_failure_reaches_every_waiter_once",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/updates.rs",
+      "test": "source_transformation_hooks_run_before_validation_and_schema_contract_mismatches_are_errors",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/updates.rs",
+      "test": "updates_during_unloading_never_interrupt_cleanup_or_load_the_middle_source",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/updates.rs",
+      "test": "queued_initial_sources_are_skipped_and_pending_loads_validate_only_the_latest_source",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/updates.rs",
+      "test": "local_update_hooks_do_not_accumulate_and_global_hooks_survive_child_reload",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/updates.rs",
+      "test": "all_concurrent_waiters_follow_latest_config_with_and_without_dependencies",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/debounce.rs",
+      "test": "debounce_manual_dispose_prevents_fire",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/debounce.rs",
+      "test": "debounce_coalesces_to_trailing_edge",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/debounce.rs",
+      "test": "debounce_owner_dispose_prevents_fire",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/interval_callback.rs",
+      "test": "interval_fires_each_period_and_stops_on_dispose",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/interval_stream.rs",
+      "test": "stream_yields_ticks_then_ends_on_stop",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/interval_stream.rs",
+      "test": "stream_fail_delivers_terminal_error",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/interval_stream.rs",
+      "test": "stream_ends_with_disposed_on_owner_dispose",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/sleep.rs",
+      "test": "sleep_resolves_once_at_deadline",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/sleep.rs",
+      "test": "sleep_rejects_on_owner_dispose",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/throttle.rs",
+      "test": "throttle_no_trailing_suppresses_trailing_call",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/throttle.rs",
+      "test": "throttle_leading_and_trailing",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/throttle.rs",
+      "test": "throttle_manual_dispose_prevents_all",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/throttle.rs",
+      "test": "throttle_owner_dispose_stops",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/timeout.rs",
+      "test": "timeout_manual_dispose_prevents_fire",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/timeout.rs",
+      "test": "timeout_fires_once_at_deadline",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "test": "crates/re-cordis-core/src/lib.rs - (line 10)",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "test": "crates/re-cordis-core/src/events.rs - events::Event (line 62)",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "test": "crates/re-cordis-core/src/plugin.rs - plugin::Plugin (line 52)",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "test": "crates/re-cordis-core/src/service.rs - service::ServiceKey (line 27)",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "test": "crates/re-cordis-core/src/events.rs - events::AsyncNext (line 263) - compile fail",
+      "outcome": "ok",
+      "compile_fail": true
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "test": "crates/re-cordis-core/src/events.rs - events::Next (line 250) - compile fail",
+      "outcome": "ok",
+      "compile_fail": true
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "test": "crates/re-cordis-core/src/plugin.rs - plugin::Plugin<C,R>::validated (line 143) - compile fail",
+      "outcome": "ok",
+      "compile_fail": true
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "test": "crates/re-cordis-core/src/plugin.rs - plugin::Plugin (line 85) - compile fail",
+      "outcome": "ok",
+      "compile_fail": true
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "test": "crates/re-cordis-core/src/events.rs - events::Event (line 55) - compile fail",
+      "outcome": "ok",
+      "compile_fail": true
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "test": "crates/re-cordis-core/src/events.rs - events::Listener (line 171) - compile fail",
+      "outcome": "ok",
+      "compile_fail": true
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "test": "crates/re-cordis-core/src/plugin.rs - plugin::Plugin (line 78) - compile fail",
+      "outcome": "ok",
+      "compile_fail": true
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "test": "crates/re-cordis-core/src/service.rs - service::ServiceInvoke (line 966) - compile fail",
+      "outcome": "ok",
+      "compile_fail": true
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "test": "crates/re-cordis-core/src/plugin.rs - plugin::FiberHandle<C>::update (line 810) - compile fail",
+      "outcome": "ok",
+      "compile_fail": true
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "test": "crates/re-cordis-core/src/context.rs - context::Context (line 37) - compile fail",
+      "outcome": "ok",
+      "compile_fail": true
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "test": "crates/re-cordis-core/src/reflect.rs - reflect::AccessorKey (line 14) - compile fail",
+      "outcome": "ok",
+      "compile_fail": true
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "test": "crates/re-cordis-core/src/service.rs - service::ServiceKey (line 21) - compile fail",
+      "outcome": "ok",
+      "compile_fail": true
+    },
+    {
+      "command_id": "stable-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "test": "crates/re-cordis-core/src/events.rs - events::Listener (line 162) - compile fail",
+      "outcome": "ok",
+      "compile_fail": true
+    },
+    {
+      "command_id": "stable-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/access.rs",
+      "test": "typed_extension_and_explicit_accessor_keep_inherited_metadata",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/access.rs",
+      "test": "named_type_contracts_shared_labels_and_plugin_identity_are_distinct",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/access.rs",
+      "test": "nearest_inject_own_provisions_and_same_label_boundaries",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/access.rs",
+      "test": "nested_calls_keep_definition_authority_and_use_site_intercepts_and_effects",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/config.rs",
+      "test": "invalid_loaded_update_cannot_reach_middleware_or_mutate_source",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/config.rs",
+      "test": "pending_defers_validation_and_loads_only_latest_source",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/events.rs",
+      "test": "synchronous_error_stops_emit_and_named_contracts_are_checked",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/events.rs",
+      "test": "emit_is_immediate_snapshot_based_filtered_and_once_reentrant",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/events.rs",
+      "test": "waterfall_is_around_middleware_can_veto_and_supports_nested_async_calls",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/events.rs",
+      "test": "parallel_waits_for_all_failures_and_serial_bails_on_zero",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/events.rs",
+      "test": "split_async_emit_starts_prefix_now_and_reports_detached_failure",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/lifecycle.rs",
+      "test": "executor_shutdown_is_not_a_cleanup_completion_guarantee",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/lifecycle.rs",
+      "test": "same_fiber_cleanup_request_is_refused_before_admission",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/lifecycle.rs",
+      "test": "pending_consumer_keeps_exact_binding_through_removed_consumer_cleanup",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/lifecycle.rs",
+      "test": "transitive_provider_chain_drains_from_leaf_to_provider",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/lifecycle.rs",
+      "test": "composed_cleanup_sequences_async_children_in_reverse_order",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/lifecycle.rs",
+      "test": "withdrawal_returns_consumer_to_pending_then_rebinds",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/lifecycle.rs",
+      "test": "individual_withdrawal_does_not_wait_for_another_binding",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/lifecycle.rs",
+      "test": "parent_cascades_root_reuses_and_dropped_waiter_does_not_cancel",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/lifecycle.rs",
+      "test": "top_level_cleanup_is_concurrent_attempt_all_and_exactly_once",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "stable-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "rustdoc",
+      "test": "src/lib.rs - Next (line 11) - compile fail",
+      "outcome": "ok",
+      "compile_fail": true
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/acceptance.rs",
+      "test": "service_filters_retain_only_identity_and_use_each_listener_runtime_after_origin_drop",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/acceptance.rs",
+      "test": "typed_rooted_values_dynamic_events_and_context_type_guards_need_no_proxy_reflection",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/acceptance.rs",
+      "test": "failed_status_observers_are_diagnosed_without_stranding_owned_cleanup",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/acceptance.rs",
+      "test": "executable_example_proves_isolated_reconfigure_and_final_read_before_provider_close",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/acceptance.rs",
+      "test": "callable_adapters_expose_the_accessing_definition_not_the_outermost_consumer",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/acceptance.rs",
+      "test": "associated_service_and_accessor_adapters_use_original_authority_and_receiver_identity",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/acceptance.rs",
+      "test": "method_injection_owns_cleanup_and_reloads_without_macros_or_constructor_reflection",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/acceptance.rs",
+      "test": "optional_publication_presence_and_shared_updated_handles_are_explicit_typed_contracts",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/acceptance.rs",
+      "test": "explicit_initialization_is_an_availability_barrier_and_failure_is_diagnosed_once",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/acceptance.rs",
+      "test": "explicit_bound_effects_keep_root_provisions_accessible_with_and_without_injection",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/acceptance.rs",
+      "test": "injection_inertia_preserves_loading_and_unloading_until_gated_work_finishes",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/acceptance.rs",
+      "test": "repeated_initialized_services_restore_registry_effect_and_listener_baselines",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effect_metadata.rs",
+      "test": "transferred_exporter_is_labeled_and_removed_before_sync_group_disposal_returns",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effect_metadata.rs",
+      "test": "synchronous_manual_disposal_and_value_only_snapshots_do_not_retain_resources",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effect_metadata.rs",
+      "test": "labels_do_not_create_cross_runtime_ownership_and_wrong_host_transfers_leave_roots_unchanged",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effect_metadata.rs",
+      "test": "nested_labels_track_only_yielded_effects_and_sync_children_run_before_return",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effect_metadata.rs",
+      "test": "sync_cleanup_can_reenter_metadata_and_register_the_next_root_snapshot",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effect_metadata.rs",
+      "test": "nested_setup_keeps_the_outer_acquisition_guard_until_its_poll_finishes",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effect_metadata.rs",
+      "test": "mixed_composition_runs_sync_prefix_now_and_never_advances_past_pending_child",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effect_metadata.rs",
+      "test": "synchronous_iterator_error_and_panic_finish_partial_rollback_before_return",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effect_metadata.rs",
+      "test": "async_acquisition_updates_child_metadata_and_ready_cleanup_remains_an_async_barrier",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effect_metadata.rs",
+      "test": "active_setup_cannot_transfer_itself_or_an_ancestor_into_its_own_tree",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effect_metadata.rs",
+      "test": "failed_composed_cleanup_stops_its_chain_but_independent_root_effects_are_attempted",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effect_metadata.rs",
+      "test": "failed_stream_reports_cleanup_panic_and_setup_error_after_rollback",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effects.rs",
+      "test": "composed_async_cleanup_waits_in_reverse_order_and_root_siblings_progress",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effects.rs",
+      "test": "async_return_is_not_cancelled_by_immediate_disposal_and_dropped_waiter",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effects.rs",
+      "test": "effect_readiness_does_not_dispose_successful_acquisitions",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effects.rs",
+      "test": "stream_failure_rolls_back_before_ready_rejects_and_preserves_source",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effects.rs",
+      "test": "sync_setup_is_immediate_and_nested_effects_and_listeners_transfer_ownership",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effects.rs",
+      "test": "async_stream_stops_before_next_step_but_collects_in_flight_final_yield",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effects.rs",
+      "test": "finite_stream_readiness_preserves_all_resources_and_async_failure_is_explicit",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/effects.rs",
+      "test": "synchronous_iterator_failure_starts_partial_rollback_and_setup_panics_are_explicit",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/events.rs",
+      "test": "host_destruction_cancels_dispatch_and_setup_without_context_reference_cycles",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/events.rs",
+      "test": "once_is_removed_before_recursive_invocation_and_manual_remove_is_exact",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/events.rs",
+      "test": "removal_after_selection_does_not_cancel_in_flight_snapshots",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/events.rs",
+      "test": "root_removal_does_not_cancel_an_already_started_listener",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/events.rs",
+      "test": "synchronous_emit_failure_stops_later_callbacks",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/events.rs",
+      "test": "emitted_async_failure_is_diagnosed_when_waiter_is_dropped",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/events.rs",
+      "test": "waterfall_is_around_middleware_with_veto_and_nested_async_calls",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/events.rs",
+      "test": "parallel_invokes_prefixes_immediately_and_aggregates_all_failures",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/events.rs",
+      "test": "serial_has_an_immediate_first_prefix_and_stops_on_zero_or_empty_answers",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/events.rs",
+      "test": "symbols_named_contracts_prototype_names_and_empty_bucket_removal",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/events.rs",
+      "test": "snapshots_survive_removal_in_serial_parallel_bail_and_waterfall",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/events.rs",
+      "test": "prepend_and_global_filters_apply_to_each_dispatch_shape",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/foundations.rs",
+      "test": "independent_runtime_identities_and_layered_metadata",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/foundations.rs",
+      "test": "missing_executor_and_unhosted_registration_are_explicit_and_inert",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/foundations.rs",
+      "test": "destroying_host_reports_cancelled_completion_not_success",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/foundations.rs",
+      "test": "cancelled_run_scope_releases_the_host_for_later_progress",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/foundations.rs",
+      "test": "refused_manual_claim_remains_root_owned",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/foundations.rs",
+      "test": "cleanup_of_one_runtime_cannot_acquire_another_hosts_admission",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/foundations.rs",
+      "test": "captured_context_ancestry_and_reentrant_requests_do_not_create_cycles",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/foundations.rs",
+      "test": "callback_destructors_can_reenter_without_a_journal_borrow",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/foundations.rs",
+      "test": "eager_snapshot_drain_is_concurrent_shared_and_root_remains_usable",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/foundations.rs",
+      "test": "dropping_tokens_keeps_root_ownership_and_manual_claims_run_once",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/foundations.rs",
+      "test": "running_operations_pause_resume_and_survive_dropped_waiters",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/foundations.rs",
+      "test": "wrong_host_nested_host_and_raw_task_admission_are_refused",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/foundations.rs",
+      "test": "panicking_error_formatter_does_not_erase_the_failure_or_stall_the_barrier",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/foundations.rs",
+      "test": "user_failure_sources_survive_and_panics_do_not_skip_other_cleanup",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/foundations.rs",
+      "test": "panicking_panic_payload_destructor_is_a_supervised_driver_failure",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/github_collect.rs",
+      "test": "executable_collects_complete_snapshot_and_preserves_last_good_on_query_failure",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/github_collect.rs",
+      "test": "timed_out_and_oversized_subprocesses_are_reaped_without_publishing",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/github_collect.rs",
+      "test": "periodic_work_finishes_before_reconfiguration_and_shutdown_and_failed_loads_recover_explicitly",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/github_digest.rs",
+      "test": "destination_reconfiguration_and_explicit_recovery_use_existing_lifecycle",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/github_digest.rs",
+      "test": "executable_writes_exact_markdown_and_preserves_output_on_invalid_input",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/github_digest.rs",
+      "test": "bounded_input_and_failed_rename_do_not_publish_partial_reports",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/github_webhook.rs",
+      "test": "signature_verification_matches_rfc4231_and_rejects_modified_or_malformed_input",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/github_webhook.rs",
+      "test": "failed_bind_requires_explicit_recovery_and_invalid_config_cannot_open_output",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/github_webhook.rs",
+      "test": "journal_write_failure_returns_error_and_poisoned_sink_never_acknowledges_success",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/github_webhook.rs",
+      "test": "held_requests_retain_old_journal_through_reconfiguration_and_shutdown",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/github_webhook.rs",
+      "test": "body_deadline_and_connection_limit_are_measured_without_sleeps",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/github_webhook.rs",
+      "test": "authenticated_events_append_before_ack_and_invalid_requests_do_not_write",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/hooks.rs",
+      "test": "listener_interception_replaces_the_exact_typed_callback_without_recursion",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/hooks.rs",
+      "test": "dispatch_observation_has_typed_args_and_omits_all_internal_protocol_events",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/hooks.rs",
+      "test": "status_and_plugin_snapshots_do_not_retain_fibers_and_terminal_sequences_are_stable",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/hooks.rs",
+      "test": "provider_transitions_notify_current_publications_once_not_retired_bindings_or_drain_pauses",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/hooks.rs",
+      "test": "get_set_and_realm_service_hooks_preserve_contracts_and_set_does_not_notify",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/lifecycle_parity.rs",
+      "test": "superseded_failure_rolls_back_without_poisoning_latest_target",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/lifecycle_parity.rs",
+      "test": "latest_failure_reaches_waiters_after_rollback_despite_abandoned_update",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/lifecycle_parity.rs",
+      "test": "failed_consumer_ignores_provider_refresh_and_update_awaits_recovery",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/lifecycle_parity.rs",
+      "test": "registry_removed_consumer_retains_provider_and_cannot_reload",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/lifecycle_parity.rs",
+      "test": "combined_provider_and_consumer_update",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/lifecycle_parity.rs",
+      "test": "latest_target_during_gated_cleanup",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/logger.rs",
+      "test": "error_causes_and_aggregates_preserve_empty_aggregates_exact_sources_and_order",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/logger.rs",
+      "test": "exporter_removal_is_exact_and_buffer_survives_reusable_root_drains",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/logger.rs",
+      "test": "named_level_overrides_win_and_exporters_select_independently",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/logger.rs",
+      "test": "formatting_obeys_per_line_utf16_budgets_crlf_and_exact_palette_shapes",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/logger.rs",
+      "test": "callback_diagnostics_use_logger_and_failing_exporters_cannot_skip_others",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/logger.rs",
+      "test": "nested_service_names_restore_and_explicit_and_intercept_names_have_correct_precedence",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/logger.rs",
+      "test": "normalized_diagnostic_names_keep_acronyms_delimiters_and_nonowning_attribution",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/logger.rs",
+      "test": "default_buffer_has_exact_capacity_chronological_order_and_root_attribution",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "host_destruction_cancels_loading_and_contexts_do_not_keep_runtime_alive",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "immediate_disposal_skips_queued_validation_and_apply",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "registration_tokens_remain_inert_after_the_disposed_owner_is_released",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "dropping_handles_is_inert_and_explicit_disposal_unlinks_parent_ownership",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "child_effect_streams_and_exporters_follow_child_ownership_not_the_root",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "lifecycle_self_and_ancestor_waits_are_refused_without_detaching_registry_groups",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "initial_failure_waits_for_partial_cleanup_and_failed_fiber_stays_resident",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "disposing_child_rejects_new_work_but_final_cleanup_can_dispatch",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "cloned_declarations_group_distinct_instances_and_empty_groups_are_pruned",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "cleanup_failures_are_attempted_and_reported_without_blocking_disposal",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "terminal_disposal_during_apply_wins_over_a_queued_restart_and_dropped_waiters",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "restart_preserves_identity_and_waits_for_cleanup_while_requests_coalesce",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "parent_cleanup_cascades_to_nested_plugins_and_preserves_root_listeners",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "retired_registry_group_cannot_remove_a_new_group_of_the_same_plugin",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "superseded_load_failure_rolls_back_without_failing_a_later_restart",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "typed_object_method_adapter_keeps_config_and_cleanup_with_its_instance",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "root_drain_waits_for_children_and_remains_usable_after_an_abandoned_waiter",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "validation_runs_per_load_and_source_remains_distinct_from_resolved_input",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "validation_and_apply_factory_panics_fail_only_their_instances",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "repeated_registry_removal_and_recreation_restore_listener_and_effect_baselines",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/plugins.rs",
+      "test": "idle_disposed_handles_do_not_retain_cleanup_captures_or_parent_journal_entries",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/scoping.rs",
+      "test": "realm_filtered_events_still_admit_global_listeners",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/scoping.rs",
+      "test": "shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/scoping.rs",
+      "test": "intercepts_merge_nearest_injection_then_outer_to_inner_and_own_provisions_do_not_borrow_it",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/scoping.rs",
+      "test": "bound_nested_calls_keep_definition_authority_but_use_caller_realm_metadata_and_effects",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/scoping.rs",
+      "test": "fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/scoping.rs",
+      "test": "explicit_accessors_mixins_associations_and_callable_extensions_preserve_authority",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/scoping.rs",
+      "test": "same_name_publications_in_two_realms_keep_resources_until_the_exact_consumer_finishes",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/scoping.rs",
+      "test": "an_injected_publication_is_released_even_after_providing_the_same_name_in_another_realm",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "host_destruction_cancels_a_provider_waiting_for_removed_consumer_cleanup",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "inherited_own_provision_survives_a_composed_child_disposal",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "a_child_explicitly_injecting_its_parent_service_does_not_deadlock_parent_unload",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "cleanup_errors_release_dependencies_and_keep_final_provider_listeners_alive",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "equal_value_replacement_during_initialization_rolls_back_the_exact_old_snapshot",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "old_withdrawal_does_not_wait_for_a_replacement_load",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "lifecycle_disposal_joins_a_prior_journal_drain_then_cleans_later_effects_before_releasing_providers",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "ancestor_injection_is_retained_until_a_child_finishes_inherited_cleanup",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "pending_effect_acquisition_and_its_final_cleanup_keep_the_committed_injection",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "one_withdrawal_does_not_wait_for_another_publication_from_the_same_provider",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "withdrawal_waits_for_a_consumer_already_removed_from_the_registry",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "root_owned_resources_wait_for_consumers_and_root_remains_reusable",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "composed_publication_cleanup_retains_resources_on_manual_and_owner_disposal",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "replacement_intent_coalesces_during_unload_without_loading_the_middle_publication",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "transitive_cleanup_retains_providers_while_unrelated_owners_and_siblings_progress",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "snapshots_survive_in_flight_apply_and_partial_failure_rollback",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "provider_shutdown_waits_for_current_and_already_withdrawn_publications",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/service_dispose.rs",
+      "test": "provider_resources_survive_all_disposal_orders_and_restart",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/services.rs",
+      "test": "publication_requires_host_admission_and_values_do_not_keep_runtime_alive",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/services.rs",
+      "test": "failed_resident_fibers_release_dependency_values_after_rollback",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/services.rs",
+      "test": "injection_lists_are_per_fiber_but_plugin_identity_is_shared",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/services.rs",
+      "test": "restart_and_other_service_notifications_do_not_recheck_an_unaffected_readiness_check",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/services.rs",
+      "test": "failed_consumers_ignore_dependency_refresh_and_mismatches_fail_explicitly",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/services.rs",
+      "test": "loading_provider_blocks_consumers_and_pending_defers_validation",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/services.rs",
+      "test": "checked_access_distinguishes_undeclared_inactive_and_direct_paths",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/services.rs",
+      "test": "publication_ownership_type_contracts_and_set_are_not_replacement",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/services.rs",
+      "test": "root_invocation_does_not_grant_a_captured_plugin_context_root_authority",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/services.rs",
+      "test": "readiness_checks_block_and_report_without_running_under_store_borrows",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/services.rs",
+      "test": "repeated_republication_restores_baselines_and_disposed_handles_release_snapshot_values",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/updates.rs",
+      "test": "disposal_beats_queued_updates_and_dropped_waiters_do_not_cancel_cleanup",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/updates.rs",
+      "test": "an_obsolete_apply_failure_does_not_poison_the_new_config",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/updates.rs",
+      "test": "accepted_update_during_loading_keeps_the_current_apply_and_new_source",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/updates.rs",
+      "test": "invalid_loaded_update_cannot_commit_or_reach_resolved_middleware_and_no_save_only_skips_commit",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/updates.rs",
+      "test": "outdated_effect_stream_stops_after_its_in_flight_final_yield",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/updates.rs",
+      "test": "explicit_update_hook_removal_and_local_before_global_order_match_the_router",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/updates.rs",
+      "test": "validation_issues_retain_structured_paths_and_format_like_the_pinned_contract",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/updates.rs",
+      "test": "config_aba_and_explicit_restart_force_a_new_load_even_with_equal_final_source",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/updates.rs",
+      "test": "asynchronous_recovery_is_awaited_and_dropped_failed_recovery_is_still_diagnosed",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/updates.rs",
+      "test": "failed_loads_recover_only_on_update_and_latest_failure_reaches_every_waiter_once",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/updates.rs",
+      "test": "provider_update_and_consumer_update_converge_without_an_old_provider_new_config_load",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/updates.rs",
+      "test": "updates_during_unloading_never_interrupt_cleanup_or_load_the_middle_source",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/updates.rs",
+      "test": "source_transformation_hooks_run_before_validation_and_schema_contract_mismatches_are_errors",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/updates.rs",
+      "test": "queued_initial_sources_are_skipped_and_pending_loads_validate_only_the_latest_source",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/updates.rs",
+      "test": "local_update_hooks_do_not_accumulate_and_global_hooks_survive_child_reload",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "tests/updates.rs",
+      "test": "all_concurrent_waiters_follow_latest_config_with_and_without_dependencies",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/debounce.rs",
+      "test": "debounce_coalesces_to_trailing_edge",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/debounce.rs",
+      "test": "debounce_manual_dispose_prevents_fire",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/debounce.rs",
+      "test": "debounce_owner_dispose_prevents_fire",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/interval_callback.rs",
+      "test": "interval_fires_each_period_and_stops_on_dispose",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/interval_stream.rs",
+      "test": "stream_yields_ticks_then_ends_on_stop",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/interval_stream.rs",
+      "test": "stream_fail_delivers_terminal_error",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/interval_stream.rs",
+      "test": "stream_ends_with_disposed_on_owner_dispose",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/sleep.rs",
+      "test": "sleep_resolves_once_at_deadline",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/sleep.rs",
+      "test": "sleep_rejects_on_owner_dispose",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/throttle.rs",
+      "test": "throttle_manual_dispose_prevents_all",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/throttle.rs",
+      "test": "throttle_no_trailing_suppresses_trailing_call",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/throttle.rs",
+      "test": "throttle_leading_and_trailing",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/throttle.rs",
+      "test": "throttle_owner_dispose_stops",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/timeout.rs",
+      "test": "timeout_fires_once_at_deadline",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-timer",
+      "suite": "tests/timeout.rs",
+      "test": "timeout_manual_dispose_prevents_fire",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "test": "crates/re-cordis-core/src/context.rs - context::Context (line 37) - compile fail",
+      "outcome": "ok",
+      "compile_fail": true
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "test": "crates/re-cordis-core/src/events.rs - events::AsyncNext (line 263) - compile fail",
+      "outcome": "ok",
+      "compile_fail": true
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "test": "crates/re-cordis-core/src/plugin.rs - plugin::Plugin (line 78) - compile fail",
+      "outcome": "ok",
+      "compile_fail": true
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "test": "crates/re-cordis-core/src/events.rs - events::Event (line 55) - compile fail",
+      "outcome": "ok",
+      "compile_fail": true
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "test": "crates/re-cordis-core/src/events.rs - events::Next (line 250) - compile fail",
+      "outcome": "ok",
+      "compile_fail": true
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "test": "crates/re-cordis-core/src/events.rs - events::Listener (line 171) - compile fail",
+      "outcome": "ok",
+      "compile_fail": true
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "test": "crates/re-cordis-core/src/events.rs - events::Listener (line 162) - compile fail",
+      "outcome": "ok",
+      "compile_fail": true
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "test": "crates/re-cordis-core/src/plugin.rs - plugin::FiberHandle<C>::update (line 810) - compile fail",
+      "outcome": "ok",
+      "compile_fail": true
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "test": "crates/re-cordis-core/src/plugin.rs - plugin::Plugin (line 85) - compile fail",
+      "outcome": "ok",
+      "compile_fail": true
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "test": "crates/re-cordis-core/src/plugin.rs - plugin::Plugin<C,R>::validated (line 143) - compile fail",
+      "outcome": "ok",
+      "compile_fail": true
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "test": "crates/re-cordis-core/src/service.rs - service::ServiceKey (line 21) - compile fail",
+      "outcome": "ok",
+      "compile_fail": true
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "test": "crates/re-cordis-core/src/reflect.rs - reflect::AccessorKey (line 14) - compile fail",
+      "outcome": "ok",
+      "compile_fail": true
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "test": "crates/re-cordis-core/src/service.rs - service::ServiceInvoke (line 966) - compile fail",
+      "outcome": "ok",
+      "compile_fail": true
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "test": "crates/re-cordis-core/src/lib.rs - (line 10)",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "test": "crates/re-cordis-core/src/plugin.rs - plugin::Plugin (line 52)",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "test": "crates/re-cordis-core/src/events.rs - events::Event (line 62)",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-workspace-test",
+      "crate": "re-cordis-core",
+      "suite": "rustdoc",
+      "test": "crates/re-cordis-core/src/service.rs - service::ServiceKey (line 27)",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/access.rs",
+      "test": "typed_extension_and_explicit_accessor_keep_inherited_metadata",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/access.rs",
+      "test": "named_type_contracts_shared_labels_and_plugin_identity_are_distinct",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/access.rs",
+      "test": "nearest_inject_own_provisions_and_same_label_boundaries",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/access.rs",
+      "test": "nested_calls_keep_definition_authority_and_use_site_intercepts_and_effects",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/config.rs",
+      "test": "invalid_loaded_update_cannot_reach_middleware_or_mutate_source",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/config.rs",
+      "test": "pending_defers_validation_and_loads_only_latest_source",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/events.rs",
+      "test": "emit_is_immediate_snapshot_based_filtered_and_once_reentrant",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/events.rs",
+      "test": "synchronous_error_stops_emit_and_named_contracts_are_checked",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/events.rs",
+      "test": "parallel_waits_for_all_failures_and_serial_bails_on_zero",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/events.rs",
+      "test": "waterfall_is_around_middleware_can_veto_and_supports_nested_async_calls",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/events.rs",
+      "test": "split_async_emit_starts_prefix_now_and_reports_detached_failure",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/lifecycle.rs",
+      "test": "executor_shutdown_is_not_a_cleanup_completion_guarantee",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/lifecycle.rs",
+      "test": "withdrawal_returns_consumer_to_pending_then_rebinds",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/lifecycle.rs",
+      "test": "parent_cascades_root_reuses_and_dropped_waiter_does_not_cancel",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/lifecycle.rs",
+      "test": "composed_cleanup_sequences_async_children_in_reverse_order",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/lifecycle.rs",
+      "test": "transitive_provider_chain_drains_from_leaf_to_provider",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/lifecycle.rs",
+      "test": "individual_withdrawal_does_not_wait_for_another_binding",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/lifecycle.rs",
+      "test": "same_fiber_cleanup_request_is_refused_before_admission",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/lifecycle.rs",
+      "test": "pending_consumer_keeps_exact_binding_through_removed_consumer_cleanup",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "tests/lifecycle.rs",
+      "test": "top_level_cleanup_is_concurrent_attempt_all_and_exactly_once",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "1.85.0-m0-test",
+      "crate": "re-cordis-m0-spike",
+      "suite": "rustdoc",
+      "test": "src/lib.rs - Next (line 11) - compile fail",
+      "outcome": "ok",
+      "compile_fail": true
+    },
+    {
+      "command_id": "parity",
+      "crate": "re-cordis-core",
+      "suite": "tests/lifecycle_parity.rs",
+      "test": "latest_failure_reaches_waiters_after_rollback_despite_abandoned_update",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "parity",
+      "crate": "re-cordis-core",
+      "suite": "tests/lifecycle_parity.rs",
+      "test": "combined_provider_and_consumer_update",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "parity",
+      "crate": "re-cordis-core",
+      "suite": "tests/lifecycle_parity.rs",
+      "test": "failed_consumer_ignores_provider_refresh_and_update_awaits_recovery",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "parity",
+      "crate": "re-cordis-core",
+      "suite": "tests/lifecycle_parity.rs",
+      "test": "registry_removed_consumer_retains_provider_and_cannot_reload",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "parity",
+      "crate": "re-cordis-core",
+      "suite": "tests/lifecycle_parity.rs",
+      "test": "superseded_failure_rolls_back_without_poisoning_latest_target",
+      "outcome": "ok",
+      "compile_fail": false
+    },
+    {
+      "command_id": "parity",
+      "crate": "re-cordis-core",
+      "suite": "tests/lifecycle_parity.rs",
+      "test": "latest_target_during_gated_cleanup",
+      "outcome": "ok",
+      "compile_fail": false
+    }
+  ],
+  "paired_comparisons": {
+    "combined": 11,
+    "coalesced": 14,
+    "removed": 12,
+    "superseded-failure": 10,
+    "latest-failure": 13,
+    "explicit-recovery": 13
+  },
+  "input_hash_count": 71
+}

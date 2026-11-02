@@ -1,0 +1,1037 @@
+[
+  {
+    "id": "environment-rustup",
+    "argv": [
+      "rustup",
+      "show"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin"
+    },
+    "start_utc": "2026-11-02T08:34:01.233427+00:00",
+    "end_utc": "2026-11-02T08:34:01.296068+00:00",
+    "exit_code": 0,
+    "log": "logs/environment-rustup.log"
+  },
+  {
+    "id": "environment-python",
+    "argv": [
+      "python3",
+      "--version"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin"
+    },
+    "start_utc": "2026-11-02T08:34:01.297393+00:00",
+    "end_utc": "2026-11-02T08:34:01.310138+00:00",
+    "exit_code": 0,
+    "log": "logs/environment-python.log"
+  },
+  {
+    "id": "environment-node",
+    "argv": [
+      "node",
+      "--version"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin"
+    },
+    "start_utc": "2026-11-02T08:34:01.315454+00:00",
+    "end_utc": "2026-11-02T08:34:01.331451+00:00",
+    "exit_code": 0,
+    "log": "logs/environment-node.log"
+  },
+  {
+    "id": "environment-corepack",
+    "argv": [
+      "corepack",
+      "--version"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin"
+    },
+    "start_utc": "2026-11-02T08:34:01.336636+00:00",
+    "end_utc": "2026-11-02T08:34:01.380969+00:00",
+    "exit_code": 0,
+    "log": "logs/environment-corepack.log"
+  },
+  {
+    "id": "environment-yarn",
+    "argv": [
+      "corepack",
+      "yarn",
+      "--version"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust/local/cordis",
+    "environment": {
+      "PATH": "/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin"
+    },
+    "start_utc": "2026-11-02T08:34:01.386610+00:00",
+    "end_utc": "2026-11-02T08:34:02.777801+00:00",
+    "exit_code": 0,
+    "log": "logs/environment-yarn.log"
+  },
+  {
+    "id": "environment-js-packages",
+    "argv": [
+      "corepack",
+      "yarn",
+      "node",
+      "-e",
+      "const fs=require('fs'),path=require('path');for(const p of ['typescript','eslint','vitest','cosmokit','tsx','yakumo']){try{let d=path.dirname(require.resolve(p));while(d!==path.dirname(d)){const f=path.join(d,'package.json');if(fs.existsSync(f)){const j=JSON.parse(fs.readFileSync(f,'utf8'));if(j.name===p){console.log(p+' '+j.version+' '+f);break}}d=path.dirname(d)}}catch(e){console.log(p+' MISSING '+e.message);process.exitCode=1}}"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust/local/cordis",
+    "environment": {
+      "PATH": "/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin"
+    },
+    "start_utc": "2026-11-02T08:34:02.779216+00:00",
+    "end_utc": "2026-11-02T08:34:03.758571+00:00",
+    "exit_code": 0,
+    "log": "logs/environment-js-packages.log"
+  },
+  {
+    "id": "stable-locate-rustc",
+    "argv": [
+      "rustup",
+      "which",
+      "--toolchain",
+      "stable",
+      "rustc"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin"
+    },
+    "start_utc": "2026-11-02T08:34:03.760069+00:00",
+    "end_utc": "2026-11-02T08:34:03.772745+00:00",
+    "exit_code": 0,
+    "log": "logs/stable-locate-rustc.log"
+  },
+  {
+    "id": "stable-locate-cargo",
+    "argv": [
+      "rustup",
+      "which",
+      "--toolchain",
+      "stable",
+      "cargo"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin"
+    },
+    "start_utc": "2026-11-02T08:34:03.789535+00:00",
+    "end_utc": "2026-11-02T08:34:03.802579+00:00",
+    "exit_code": 0,
+    "log": "logs/stable-locate-cargo.log"
+  },
+  {
+    "id": "stable-locate-rustdoc",
+    "argv": [
+      "rustup",
+      "which",
+      "--toolchain",
+      "stable",
+      "rustdoc"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin"
+    },
+    "start_utc": "2026-11-02T08:34:03.818586+00:00",
+    "end_utc": "2026-11-02T08:34:03.830646+00:00",
+    "exit_code": 0,
+    "log": "logs/stable-locate-rustdoc.log"
+  },
+  {
+    "id": "stable-locate-cargo-clippy",
+    "argv": [
+      "rustup",
+      "which",
+      "--toolchain",
+      "stable",
+      "cargo-clippy"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin"
+    },
+    "start_utc": "2026-11-02T08:34:03.847092+00:00",
+    "end_utc": "2026-11-02T08:34:03.863597+00:00",
+    "exit_code": 0,
+    "log": "logs/stable-locate-cargo-clippy.log"
+  },
+  {
+    "id": "stable-locate-clippy-driver",
+    "argv": [
+      "rustup",
+      "which",
+      "--toolchain",
+      "stable",
+      "clippy-driver"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin"
+    },
+    "start_utc": "2026-11-02T08:34:03.880200+00:00",
+    "end_utc": "2026-11-02T08:34:03.892561+00:00",
+    "exit_code": 0,
+    "log": "logs/stable-locate-clippy-driver.log"
+  },
+  {
+    "id": "stable-version-rustc",
+    "argv": [
+      "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustc",
+      "--version"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin",
+      "RUSTC": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustc",
+      "RUSTDOC": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustdoc",
+      "CARGO_TARGET_DIR": "/Users/I756434/Projects/private/cordis-rust/target/acceptance-stable",
+      "RUSTDOCFLAGS": "-D warnings"
+    },
+    "start_utc": "2026-11-02T08:34:03.909483+00:00",
+    "end_utc": "2026-11-02T08:34:04.038466+00:00",
+    "exit_code": 0,
+    "log": "logs/stable-version-rustc.log"
+  },
+  {
+    "id": "stable-version-cargo",
+    "argv": [
+      "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo",
+      "--version"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin",
+      "RUSTC": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustc",
+      "RUSTDOC": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustdoc",
+      "CARGO_TARGET_DIR": "/Users/I756434/Projects/private/cordis-rust/target/acceptance-stable",
+      "RUSTDOCFLAGS": "-D warnings"
+    },
+    "start_utc": "2026-11-02T08:34:04.044215+00:00",
+    "end_utc": "2026-11-02T08:34:04.094219+00:00",
+    "exit_code": 0,
+    "log": "logs/stable-version-cargo.log"
+  },
+  {
+    "id": "stable-version-rustdoc",
+    "argv": [
+      "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustdoc",
+      "--version"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin",
+      "RUSTC": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustc",
+      "RUSTDOC": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustdoc",
+      "CARGO_TARGET_DIR": "/Users/I756434/Projects/private/cordis-rust/target/acceptance-stable",
+      "RUSTDOCFLAGS": "-D warnings"
+    },
+    "start_utc": "2026-11-02T08:34:04.099836+00:00",
+    "end_utc": "2026-11-02T08:34:04.136760+00:00",
+    "exit_code": 0,
+    "log": "logs/stable-version-rustdoc.log"
+  },
+  {
+    "id": "stable-version-cargo-clippy",
+    "argv": [
+      "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo-clippy",
+      "--version"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin",
+      "RUSTC": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustc",
+      "RUSTDOC": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustdoc",
+      "CARGO_TARGET_DIR": "/Users/I756434/Projects/private/cordis-rust/target/acceptance-stable",
+      "RUSTDOCFLAGS": "-D warnings"
+    },
+    "start_utc": "2026-11-02T08:34:04.142502+00:00",
+    "end_utc": "2026-11-02T08:34:04.166061+00:00",
+    "exit_code": 0,
+    "log": "logs/stable-version-cargo-clippy.log"
+  },
+  {
+    "id": "stable-version-clippy-driver",
+    "argv": [
+      "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/clippy-driver",
+      "--version"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin",
+      "RUSTC": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustc",
+      "RUSTDOC": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustdoc",
+      "CARGO_TARGET_DIR": "/Users/I756434/Projects/private/cordis-rust/target/acceptance-stable",
+      "RUSTDOCFLAGS": "-D warnings"
+    },
+    "start_utc": "2026-11-02T08:34:04.171251+00:00",
+    "end_utc": "2026-11-02T08:34:04.208120+00:00",
+    "exit_code": 0,
+    "log": "logs/stable-version-clippy-driver.log"
+  },
+  {
+    "id": "stable-workspace-check",
+    "argv": [
+      "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo",
+      "check",
+      "--workspace",
+      "--all-targets",
+      "--locked"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin",
+      "RUSTC": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustc",
+      "RUSTDOC": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustdoc",
+      "CARGO_TARGET_DIR": "/Users/I756434/Projects/private/cordis-rust/target/acceptance-stable",
+      "RUSTDOCFLAGS": "-D warnings"
+    },
+    "start_utc": "2026-11-02T08:34:04.213820+00:00",
+    "end_utc": "2026-11-02T08:34:15.433415+00:00",
+    "exit_code": 0,
+    "log": "logs/stable-workspace-check.log"
+  },
+  {
+    "id": "stable-workspace-test",
+    "argv": [
+      "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo",
+      "test",
+      "--workspace",
+      "--locked"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin",
+      "RUSTC": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustc",
+      "RUSTDOC": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustdoc",
+      "CARGO_TARGET_DIR": "/Users/I756434/Projects/private/cordis-rust/target/acceptance-stable",
+      "RUSTDOCFLAGS": "-D warnings"
+    },
+    "start_utc": "2026-11-02T08:34:15.435061+00:00",
+    "end_utc": "2026-11-02T08:34:46.142985+00:00",
+    "exit_code": 0,
+    "log": "logs/stable-workspace-test.log"
+  },
+  {
+    "id": "stable-workspace-clippy",
+    "argv": [
+      "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo",
+      "clippy",
+      "--workspace",
+      "--all-targets",
+      "--locked",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin",
+      "RUSTC": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustc",
+      "RUSTDOC": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustdoc",
+      "CARGO_TARGET_DIR": "/Users/I756434/Projects/private/cordis-rust/target/acceptance-stable",
+      "RUSTDOCFLAGS": "-D warnings"
+    },
+    "start_utc": "2026-11-02T08:34:46.144674+00:00",
+    "end_utc": "2026-11-02T08:34:47.913301+00:00",
+    "exit_code": 0,
+    "log": "logs/stable-workspace-clippy.log"
+  },
+  {
+    "id": "stable-workspace-doc",
+    "argv": [
+      "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo",
+      "doc",
+      "--workspace",
+      "--no-deps",
+      "--locked"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin",
+      "RUSTC": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustc",
+      "RUSTDOC": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustdoc",
+      "CARGO_TARGET_DIR": "/Users/I756434/Projects/private/cordis-rust/target/acceptance-stable",
+      "RUSTDOCFLAGS": "-D warnings"
+    },
+    "start_utc": "2026-11-02T08:34:47.914796+00:00",
+    "end_utc": "2026-11-02T08:34:49.529628+00:00",
+    "exit_code": 0,
+    "log": "logs/stable-workspace-doc.log"
+  },
+  {
+    "id": "stable-m0-test",
+    "argv": [
+      "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo",
+      "test",
+      "--manifest-path",
+      "spikes/m0/Cargo.toml",
+      "--locked"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin",
+      "RUSTC": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustc",
+      "RUSTDOC": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustdoc",
+      "CARGO_TARGET_DIR": "/Users/I756434/Projects/private/cordis-rust/target/acceptance-stable",
+      "RUSTDOCFLAGS": "-D warnings"
+    },
+    "start_utc": "2026-11-02T08:34:49.533667+00:00",
+    "end_utc": "2026-11-02T08:34:55.165016+00:00",
+    "exit_code": 0,
+    "log": "logs/stable-m0-test.log"
+  },
+  {
+    "id": "stable-m0-clippy",
+    "argv": [
+      "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo",
+      "clippy",
+      "--manifest-path",
+      "spikes/m0/Cargo.toml",
+      "--all-targets",
+      "--locked",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin",
+      "RUSTC": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustc",
+      "RUSTDOC": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustdoc",
+      "CARGO_TARGET_DIR": "/Users/I756434/Projects/private/cordis-rust/target/acceptance-stable",
+      "RUSTDOCFLAGS": "-D warnings"
+    },
+    "start_utc": "2026-11-02T08:34:55.166913+00:00",
+    "end_utc": "2026-11-02T08:34:56.547407+00:00",
+    "exit_code": 0,
+    "log": "logs/stable-m0-clippy.log"
+  },
+  {
+    "id": "stable-locate-cargo-fmt",
+    "argv": [
+      "rustup",
+      "which",
+      "--toolchain",
+      "stable",
+      "cargo-fmt"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin"
+    },
+    "start_utc": "2026-11-02T08:34:56.549285+00:00",
+    "end_utc": "2026-11-02T08:34:56.564242+00:00",
+    "exit_code": 0,
+    "log": "logs/stable-locate-cargo-fmt.log"
+  },
+  {
+    "id": "stable-locate-rustfmt",
+    "argv": [
+      "rustup",
+      "which",
+      "--toolchain",
+      "stable",
+      "rustfmt"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin"
+    },
+    "start_utc": "2026-11-02T08:34:56.582957+00:00",
+    "end_utc": "2026-11-02T08:34:56.596803+00:00",
+    "exit_code": 0,
+    "log": "logs/stable-locate-rustfmt.log"
+  },
+  {
+    "id": "stable-version-rustfmt",
+    "argv": [
+      "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustfmt",
+      "--version"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin",
+      "RUSTC": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustc",
+      "RUSTDOC": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustdoc",
+      "CARGO_TARGET_DIR": "/Users/I756434/Projects/private/cordis-rust/target/acceptance-stable",
+      "RUSTDOCFLAGS": "-D warnings"
+    },
+    "start_utc": "2026-11-02T08:34:56.616184+00:00",
+    "end_utc": "2026-11-02T08:34:56.649922+00:00",
+    "exit_code": 0,
+    "log": "logs/stable-version-rustfmt.log"
+  },
+  {
+    "id": "stable-workspace-fmt",
+    "argv": [
+      "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo",
+      "fmt",
+      "--all",
+      "--check"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin",
+      "RUSTC": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustc",
+      "RUSTDOC": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustdoc",
+      "CARGO_TARGET_DIR": "/Users/I756434/Projects/private/cordis-rust/target/acceptance-stable",
+      "RUSTDOCFLAGS": "-D warnings"
+    },
+    "start_utc": "2026-11-02T08:34:56.656668+00:00",
+    "end_utc": "2026-11-02T08:34:56.893177+00:00",
+    "exit_code": 0,
+    "log": "logs/stable-workspace-fmt.log"
+  },
+  {
+    "id": "stable-m0-fmt",
+    "argv": [
+      "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo",
+      "fmt",
+      "--manifest-path",
+      "spikes/m0/Cargo.toml",
+      "--check"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin",
+      "RUSTC": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustc",
+      "RUSTDOC": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustdoc",
+      "CARGO_TARGET_DIR": "/Users/I756434/Projects/private/cordis-rust/target/acceptance-stable",
+      "RUSTDOCFLAGS": "-D warnings"
+    },
+    "start_utc": "2026-11-02T08:34:56.899535+00:00",
+    "end_utc": "2026-11-02T08:34:56.949434+00:00",
+    "exit_code": 0,
+    "log": "logs/stable-m0-fmt.log"
+  },
+  {
+    "id": "stable-example-lifecycle",
+    "argv": [
+      "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo",
+      "run",
+      "-p",
+      "re-cordis-core",
+      "--example",
+      "lifecycle",
+      "--locked"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin",
+      "RUSTC": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustc",
+      "RUSTDOC": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustdoc",
+      "CARGO_TARGET_DIR": "/Users/I756434/Projects/private/cordis-rust/target/acceptance-stable",
+      "RUSTDOCFLAGS": "-D warnings"
+    },
+    "start_utc": "2026-11-02T08:34:56.956391+00:00",
+    "end_utc": "2026-11-02T08:34:57.794156+00:00",
+    "exit_code": 0,
+    "log": "logs/stable-example-lifecycle.log"
+  },
+  {
+    "id": "stable-example-timer_lifecycle",
+    "argv": [
+      "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo",
+      "run",
+      "-p",
+      "re-cordis-timer",
+      "--example",
+      "timer_lifecycle",
+      "--locked"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin",
+      "RUSTC": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustc",
+      "RUSTDOC": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustdoc",
+      "CARGO_TARGET_DIR": "/Users/I756434/Projects/private/cordis-rust/target/acceptance-stable",
+      "RUSTDOCFLAGS": "-D warnings"
+    },
+    "start_utc": "2026-11-02T08:34:57.801316+00:00",
+    "end_utc": "2026-11-02T08:35:01.353412+00:00",
+    "exit_code": 0,
+    "log": "logs/stable-example-timer_lifecycle.log"
+  },
+  {
+    "id": "1.85.0-locate-rustc",
+    "argv": [
+      "rustup",
+      "which",
+      "--toolchain",
+      "1.85.0",
+      "rustc"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin"
+    },
+    "start_utc": "2026-11-02T08:35:01.358842+00:00",
+    "end_utc": "2026-11-02T08:35:01.377482+00:00",
+    "exit_code": 0,
+    "log": "logs/1.85.0-locate-rustc.log"
+  },
+  {
+    "id": "1.85.0-locate-cargo",
+    "argv": [
+      "rustup",
+      "which",
+      "--toolchain",
+      "1.85.0",
+      "cargo"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin"
+    },
+    "start_utc": "2026-11-02T08:35:01.395786+00:00",
+    "end_utc": "2026-11-02T08:35:01.409741+00:00",
+    "exit_code": 0,
+    "log": "logs/1.85.0-locate-cargo.log"
+  },
+  {
+    "id": "1.85.0-locate-rustdoc",
+    "argv": [
+      "rustup",
+      "which",
+      "--toolchain",
+      "1.85.0",
+      "rustdoc"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin"
+    },
+    "start_utc": "2026-11-02T08:35:01.427709+00:00",
+    "end_utc": "2026-11-02T08:35:01.440132+00:00",
+    "exit_code": 0,
+    "log": "logs/1.85.0-locate-rustdoc.log"
+  },
+  {
+    "id": "1.85.0-locate-cargo-clippy",
+    "argv": [
+      "rustup",
+      "which",
+      "--toolchain",
+      "1.85.0",
+      "cargo-clippy"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin"
+    },
+    "start_utc": "2026-11-02T08:35:01.457577+00:00",
+    "end_utc": "2026-11-02T08:35:01.470054+00:00",
+    "exit_code": 0,
+    "log": "logs/1.85.0-locate-cargo-clippy.log"
+  },
+  {
+    "id": "1.85.0-locate-clippy-driver",
+    "argv": [
+      "rustup",
+      "which",
+      "--toolchain",
+      "1.85.0",
+      "clippy-driver"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin"
+    },
+    "start_utc": "2026-11-02T08:35:01.487182+00:00",
+    "end_utc": "2026-11-02T08:35:01.499644+00:00",
+    "exit_code": 0,
+    "log": "logs/1.85.0-locate-clippy-driver.log"
+  },
+  {
+    "id": "1.85.0-version-rustc",
+    "argv": [
+      "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/rustc",
+      "--version"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin",
+      "RUSTC": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/rustc",
+      "RUSTDOC": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/rustdoc",
+      "CARGO_TARGET_DIR": "/Users/I756434/Projects/private/cordis-rust/target/acceptance-1.85.0",
+      "RUSTDOCFLAGS": "-D warnings"
+    },
+    "start_utc": "2026-11-02T08:35:01.517884+00:00",
+    "end_utc": "2026-11-02T08:35:01.632370+00:00",
+    "exit_code": 0,
+    "log": "logs/1.85.0-version-rustc.log"
+  },
+  {
+    "id": "1.85.0-version-cargo",
+    "argv": [
+      "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/cargo",
+      "--version"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin",
+      "RUSTC": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/rustc",
+      "RUSTDOC": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/rustdoc",
+      "CARGO_TARGET_DIR": "/Users/I756434/Projects/private/cordis-rust/target/acceptance-1.85.0",
+      "RUSTDOCFLAGS": "-D warnings"
+    },
+    "start_utc": "2026-11-02T08:35:01.639327+00:00",
+    "end_utc": "2026-11-02T08:35:01.685716+00:00",
+    "exit_code": 0,
+    "log": "logs/1.85.0-version-cargo.log"
+  },
+  {
+    "id": "1.85.0-version-rustdoc",
+    "argv": [
+      "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/rustdoc",
+      "--version"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin",
+      "RUSTC": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/rustc",
+      "RUSTDOC": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/rustdoc",
+      "CARGO_TARGET_DIR": "/Users/I756434/Projects/private/cordis-rust/target/acceptance-1.85.0",
+      "RUSTDOCFLAGS": "-D warnings"
+    },
+    "start_utc": "2026-11-02T08:35:01.692014+00:00",
+    "end_utc": "2026-11-02T08:35:01.722178+00:00",
+    "exit_code": 0,
+    "log": "logs/1.85.0-version-rustdoc.log"
+  },
+  {
+    "id": "1.85.0-version-cargo-clippy",
+    "argv": [
+      "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/cargo-clippy",
+      "--version"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin",
+      "RUSTC": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/rustc",
+      "RUSTDOC": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/rustdoc",
+      "CARGO_TARGET_DIR": "/Users/I756434/Projects/private/cordis-rust/target/acceptance-1.85.0",
+      "RUSTDOCFLAGS": "-D warnings"
+    },
+    "start_utc": "2026-11-02T08:35:01.728771+00:00",
+    "end_utc": "2026-11-02T08:35:01.746417+00:00",
+    "exit_code": 0,
+    "log": "logs/1.85.0-version-cargo-clippy.log"
+  },
+  {
+    "id": "1.85.0-version-clippy-driver",
+    "argv": [
+      "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/clippy-driver",
+      "--version"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin",
+      "RUSTC": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/rustc",
+      "RUSTDOC": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/rustdoc",
+      "CARGO_TARGET_DIR": "/Users/I756434/Projects/private/cordis-rust/target/acceptance-1.85.0",
+      "RUSTDOCFLAGS": "-D warnings"
+    },
+    "start_utc": "2026-11-02T08:35:01.752951+00:00",
+    "end_utc": "2026-11-02T08:35:01.781118+00:00",
+    "exit_code": 0,
+    "log": "logs/1.85.0-version-clippy-driver.log"
+  },
+  {
+    "id": "1.85.0-workspace-check",
+    "argv": [
+      "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/cargo",
+      "check",
+      "--workspace",
+      "--all-targets",
+      "--locked"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin",
+      "RUSTC": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/rustc",
+      "RUSTDOC": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/rustdoc",
+      "CARGO_TARGET_DIR": "/Users/I756434/Projects/private/cordis-rust/target/acceptance-1.85.0",
+      "RUSTDOCFLAGS": "-D warnings"
+    },
+    "start_utc": "2026-11-02T08:35:01.787451+00:00",
+    "end_utc": "2026-11-02T08:35:10.435617+00:00",
+    "exit_code": 0,
+    "log": "logs/1.85.0-workspace-check.log"
+  },
+  {
+    "id": "1.85.0-workspace-test",
+    "argv": [
+      "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/cargo",
+      "test",
+      "--workspace",
+      "--locked"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin",
+      "RUSTC": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/rustc",
+      "RUSTDOC": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/rustdoc",
+      "CARGO_TARGET_DIR": "/Users/I756434/Projects/private/cordis-rust/target/acceptance-1.85.0",
+      "RUSTDOCFLAGS": "-D warnings"
+    },
+    "start_utc": "2026-11-02T08:35:10.438054+00:00",
+    "end_utc": "2026-11-02T08:35:41.809050+00:00",
+    "exit_code": 0,
+    "log": "logs/1.85.0-workspace-test.log"
+  },
+  {
+    "id": "1.85.0-workspace-clippy",
+    "argv": [
+      "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/cargo",
+      "clippy",
+      "--workspace",
+      "--all-targets",
+      "--locked",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin",
+      "RUSTC": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/rustc",
+      "RUSTDOC": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/rustdoc",
+      "CARGO_TARGET_DIR": "/Users/I756434/Projects/private/cordis-rust/target/acceptance-1.85.0",
+      "RUSTDOCFLAGS": "-D warnings"
+    },
+    "start_utc": "2026-11-02T08:35:41.813166+00:00",
+    "end_utc": "2026-11-02T08:35:43.732263+00:00",
+    "exit_code": 0,
+    "log": "logs/1.85.0-workspace-clippy.log"
+  },
+  {
+    "id": "1.85.0-workspace-doc",
+    "argv": [
+      "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/cargo",
+      "doc",
+      "--workspace",
+      "--no-deps",
+      "--locked"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin",
+      "RUSTC": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/rustc",
+      "RUSTDOC": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/rustdoc",
+      "CARGO_TARGET_DIR": "/Users/I756434/Projects/private/cordis-rust/target/acceptance-1.85.0",
+      "RUSTDOCFLAGS": "-D warnings"
+    },
+    "start_utc": "2026-11-02T08:35:43.734618+00:00",
+    "end_utc": "2026-11-02T08:35:45.182715+00:00",
+    "exit_code": 0,
+    "log": "logs/1.85.0-workspace-doc.log"
+  },
+  {
+    "id": "1.85.0-m0-test",
+    "argv": [
+      "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/cargo",
+      "test",
+      "--manifest-path",
+      "spikes/m0/Cargo.toml",
+      "--locked"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin",
+      "RUSTC": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/rustc",
+      "RUSTDOC": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/rustdoc",
+      "CARGO_TARGET_DIR": "/Users/I756434/Projects/private/cordis-rust/target/acceptance-1.85.0",
+      "RUSTDOCFLAGS": "-D warnings"
+    },
+    "start_utc": "2026-11-02T08:35:45.185715+00:00",
+    "end_utc": "2026-11-02T08:35:50.453174+00:00",
+    "exit_code": 0,
+    "log": "logs/1.85.0-m0-test.log"
+  },
+  {
+    "id": "1.85.0-m0-clippy",
+    "argv": [
+      "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/cargo",
+      "clippy",
+      "--manifest-path",
+      "spikes/m0/Cargo.toml",
+      "--all-targets",
+      "--locked",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin",
+      "RUSTC": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/rustc",
+      "RUSTDOC": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/rustdoc",
+      "CARGO_TARGET_DIR": "/Users/I756434/Projects/private/cordis-rust/target/acceptance-1.85.0",
+      "RUSTDOCFLAGS": "-D warnings"
+    },
+    "start_utc": "2026-11-02T08:35:50.456025+00:00",
+    "end_utc": "2026-11-02T08:35:51.796528+00:00",
+    "exit_code": 0,
+    "log": "logs/1.85.0-m0-clippy.log"
+  },
+  {
+    "id": "1.85.0-example-lifecycle",
+    "argv": [
+      "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/cargo",
+      "run",
+      "-p",
+      "re-cordis-core",
+      "--example",
+      "lifecycle",
+      "--locked"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin",
+      "RUSTC": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/rustc",
+      "RUSTDOC": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/rustdoc",
+      "CARGO_TARGET_DIR": "/Users/I756434/Projects/private/cordis-rust/target/acceptance-1.85.0",
+      "RUSTDOCFLAGS": "-D warnings"
+    },
+    "start_utc": "2026-11-02T08:35:51.799098+00:00",
+    "end_utc": "2026-11-02T08:35:52.521661+00:00",
+    "exit_code": 0,
+    "log": "logs/1.85.0-example-lifecycle.log"
+  },
+  {
+    "id": "1.85.0-example-timer_lifecycle",
+    "argv": [
+      "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/cargo",
+      "run",
+      "-p",
+      "re-cordis-timer",
+      "--example",
+      "timer_lifecycle",
+      "--locked"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin",
+      "RUSTC": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/rustc",
+      "RUSTDOC": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/rustdoc",
+      "CARGO_TARGET_DIR": "/Users/I756434/Projects/private/cordis-rust/target/acceptance-1.85.0",
+      "RUSTDOCFLAGS": "-D warnings"
+    },
+    "start_utc": "2026-11-02T08:35:52.545049+00:00",
+    "end_utc": "2026-11-02T08:35:55.967365+00:00",
+    "exit_code": 0,
+    "log": "logs/1.85.0-example-timer_lifecycle.log"
+  },
+  {
+    "id": "docs-regressions",
+    "argv": [
+      "python3",
+      "-B",
+      "tests/docs/test_check.py"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin"
+    },
+    "start_utc": "2026-11-02T08:35:55.975213+00:00",
+    "end_utc": "2026-11-02T08:35:56.581783+00:00",
+    "exit_code": 0,
+    "log": "logs/docs-regressions.log"
+  },
+  {
+    "id": "docs-stable",
+    "argv": [
+      "python3",
+      "-B",
+      "tests/docs/check.py",
+      "--toolchain",
+      "stable"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin"
+    },
+    "start_utc": "2026-11-02T08:35:56.601054+00:00",
+    "end_utc": "2026-11-02T08:36:05.356818+00:00",
+    "exit_code": 0,
+    "log": "logs/docs-stable.log"
+  },
+  {
+    "id": "docs-1.85.0",
+    "argv": [
+      "python3",
+      "-B",
+      "tests/docs/check.py",
+      "--toolchain",
+      "1.85.0"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin"
+    },
+    "start_utc": "2026-11-02T08:36:05.360945+00:00",
+    "end_utc": "2026-11-02T08:36:13.188020+00:00",
+    "exit_code": 0,
+    "log": "logs/docs-1.85.0.log"
+  },
+  {
+    "id": "parity",
+    "argv": [
+      "python3",
+      "tests/parity/run.py"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin"
+    },
+    "start_utc": "2026-11-02T08:36:13.193471+00:00",
+    "end_utc": "2026-11-02T08:36:27.939101+00:00",
+    "exit_code": 0,
+    "log": "logs/parity.log"
+  },
+  {
+    "id": "environment-tsx-package",
+    "argv": [
+      "corepack",
+      "yarn",
+      "node",
+      "-e",
+      "const fs=require('fs');const f='node_modules/tsx/package.json';const j=JSON.parse(fs.readFileSync(f,'utf8'));console.log('tsx alias resolves to '+j.name+' '+j.version+' '+fs.realpathSync(f));"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust/local/cordis",
+    "environment": {
+      "PATH": "/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin"
+    },
+    "start_utc": "2026-11-02T08:36:43.150030+00:00",
+    "end_utc": "2026-11-02T08:36:43.545448+00:00",
+    "exit_code": 0,
+    "log": "logs/environment-tsx-package.log"
+  },
+  {
+    "id": "evidence-diff-check",
+    "argv": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "cwd": "/Users/I756434/Projects/private/cordis-rust",
+    "environment": {
+      "PATH": "/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin"
+    },
+    "start_utc": "2026-11-02T08:36:43.548231+00:00",
+    "end_utc": "2026-11-02T08:36:43.572523+00:00",
+    "exit_code": 0,
+    "log": "logs/evidence-diff-check.log"
+  }
+]
