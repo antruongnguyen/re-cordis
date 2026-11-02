@@ -1,85 +1,165 @@
-# Services: B0 family reconciliation
+# Services: B0 SR-1–SR-5 evidence corrections
 
-This bounded fragment completes the eight declarations in `service.spec.ts` and
-the seventeen declarations in `service-dispose.spec.ts`: **25 declarations,
-35 registered variants, and 81 meaningful assertion obligations**. The
-merge inputs are [service.json](service.json) and
-[service-dispose.json](service-dispose.json); declaration identity, source spans,
-suite/checklist provenance, exact parameters, and applicable original obligation
-IDs/assertion lines come from [cases.json](../ledger/cases.json). Source line 125
-of the five-way disposal case is guarded by `action === 'restart'`, so that
-obligation remains only on the restart variant rather than being duplicated
-onto four unreachable branches.
+The two merge inputs, [service.json](service.json) and
+[service-dispose.json](service-dispose.json), retain **25 declarations
+(8 service / 17 service-dispose), 35 registered variants (8 / 27), and 81
+original-ID behavioral obligation records**. The original 85 inventory records
+reconcile as these 81 obligations plus four guarded non-obligations. No
+original declaration, variant or applicable assertion ID/line was removed.
 
 | Evidence class | Obligations |
 |---|---:|
-| source-mapped-test | 61 |
-| rust-representation | 15 |
+| source-mapped-test | 55 |
+| rust-representation | 11 |
+| missing-evidence | 15 |
 | executed-comparison | 0 |
 | unsupported | 0 |
-| missing-evidence | 5 |
 
-The pinned TypeScript revision is
-`35fdc969e4b6c48c48ed44717c7a018324e4dd88`; the ledger inventory revision is
-`9a7633c0b3b98e5f37e9f2211f3ffa67fdac5edc`; and the matrix's unchanged
-implementation revision is `808c9f573dd96c56fa2ec43e0b1bfb9ed39b2f3f`.
-This mapping was prepared from worktree HEAD
-`55f0fef7de9f7d742af02ddbe03d712a9837ab27`. Accepted matrix execution is reused
-from its committed logs; no Cargo, TypeScript, documentation, or parity command
-was rerun.
+This corrects the service inputs/report at `d07d3eec2df3979d5413a0ed7477feebe70efe4c`
+(integrated at `7fd7cde471a22dd20e0f015094de2b12b684b032`) in response to the
+[initial review](../services-review.md). Correction worktree:
+`/Users/I756434/.codex/worktrees/b0-services-corrections/cordis-rust`, based on
+`c462dfdf732bf2ed056eefb7832654efd9629e3a`. The fixed TypeScript specification is
+`35fdc969e4b6c48c48ed44717c7a018324e4dd88` in the integration checkout's
+`local/cordis`; the inventory retains its recorded Rust revision
+`9a7633c0b3b98e5f37e9f2211f3ffa67fdac5edc`. Executable inputs remain unchanged
+from `808c9f573dd96c56fa2ec43e0b1bfb9ed39b2f3f`.
 
-## Findings
+The [reuse rule](../../../README.md#prior-decisions-and-evidence-reuse),
+[historical decisions](../../../../../decision.md),
+[limitations](../../../../../limitation.md), and
+[completed plan](../../../../../implementation-plan.md) carry forward M4
+publication/committed-load retention, M5 explicit bound views and M6 initialized
+factories. The accepted matrix/report, FR-1, first-two events and integrated
+validation remain unchanged. No Cargo, TS, documentation-example or parity
+suite was rerun; the six paired scenarios/73 observations receive no new claim.
 
-Service initialization and traceability use the approved explicit Rust
-representations: `Plugin::initialized`, typed dependency lists, `ServiceKey<T>`,
-and `BoundService` callbacks carrying the traced Context. Exact availability,
-three-call counter sequence, no-diagnostic outcome, repeated initialized-service
-baselines, multi-key activation, and shared isolation behavior are linked to
-[M6 initialization](../../../../../m6.md#initialization-and-method-injection),
-[M5 bound calls](../../../../../m5.md#scope-and-bound-calls), and their named
-current assertions. These are representation mappings, not transparent
-Service/Proxy/class compatibility.
+## SR-1: Counter helper, getter sites and root effect lifetime
 
-Service disposal has direct source-mapped evidence for removed Registry
-consumers, independent publications, all five cleanup/restart actions,
-transitive/in-flight/failed cleanup, provider listeners, unrelated concurrency,
-composed effects, inherited and explicit child dependencies, both realm
-shutdown variants, replacement races, both current/withdrawn release orders,
-and equal/same-Rc publication replacement. Gates and exact traces establish the
-partial orders; test-name similarity was not used as evidence. The cleanup-error
-identity obligation combines the service-specific cleanup regression with the
-generic current-core assertion that downcasts the retained original error source.
+At the pin, `service.spec.ts:48–49,86–87` delegates to `utils.ts:62–66`:
+Counter acquisition increments its value and registers cleanup to decrement it.
+Every increase in these two scenarios is called through `root.foo`, including
+inside the consumer callback. The middle getter differs: source line 66 reads
+`ctx.foo.value` through the consumer; line 101 reads `root.foo.value`.
 
-The accepted six paired lifecycle scenarios are not claimed for this fragment.
-Their nearby removed/coalesced behaviors do not execute these upstream
-declarations assertion-by-assertion, so all `paired_evidence` arrays remain empty.
+[acceptance.rs](../../../../../../crates/re-cordis-core/tests/acceptance.rs):622–667
+uses direct Cell mutation at 654–655, performs three root-bound calls, disposes
+the consumer at 664 and asserts root count 3/no failures at 666–667. It supplies
+the final-count and approved checked-access/no-failure substitute, not the
+reversible Counter helper or intermediate getters. The joined
+[scoping.rs](../../../../../../crates/re-cordis-core/tests/scoping.rs):188–200
+registers a bound cleanup that survives definition-relay disposal and runs on
+root drain. That separately establishes root-use-site effect ownership.
 
-## Concrete gap
+The final-count records `:36/a72` and `:76/a106` retain this bounded Rust
+representation join. The warning records retain the approved whole-sequence
+no-failure substitute. Four precise getter/effect gaps retain original IDs:
+`:36/a61,a66` and `:76/a97,a101`. Their partial evidence is kept, but their
+complete source obligations have `execution_status: not-executed`. Each action
+names reversible Counter acquisition/cleanup, both injection declarations,
+the actual getter site, consumer disposal and final root count.
 
-Five fine-grained obligations remain `missing-evidence`. Source line 33 has no
-consumer-apply counter joining the asynchronous initialization gate to exactly
-one activation. Source lines 161-163 have no current three-plugin initialized
-dependency-DAG regression counting Foo, Bar, and Qux once each. Source line 214
-has no apply counter proving restart changes the consumer count from one to two.
-Each JSON gap names the exact regression addition. Passing results close these
-evidence gaps without production change; conditional B2 still requires a failing
+## SR-2: Composed-provider shutdown variants
+
+`service-dispose.spec.ts:261` selects provider disposal for `ownerShutdown=false`
+and non-root outer-owner disposal for `true`; both siblings are created under
+that owner at 245–260. In
+[service_dispose.rs](../../../../../../crates/re-cordis-core/tests/service_dispose.rs):750–820,
+Rust `owner_shutdown=true` selects provider disposal at 798 and maps to TS
+**false**, with gated open/read-before-close assertions at 808–812. Rust false
+manually disposes the composed effect at 803 and remains additional evidence.
+The Rust siblings are root children; it has no equivalent non-root outer owner.
+
+TS `:238/false/a266,a267` retain source mappings to the Rust true branch.
+`:238/true/a266,a267` retain the useful provider/manual-effect assertions as
+partial evidence and name the missing composed-sibling outer-owner shutdown
+regression. General root-drain and inherited-child tests do not close this gap.
+
+## SR-3: Replacement values and read paths
+
+The old-withdrawal test at Rust 476–536 distinguishes versions 1 and 2 through
+consumer setup/cleanup reads (505–506,516), and asserts `[1,1,2]` at 532 while
+withdrawal has settled before replacement setup is released (529–534).
+`:355/a380,a382` remain supported. It does not read the provider/root current
+slot as TS 376/381 does; `:355/a381` keeps its partial evidence and a precise
+provider-current read gap before replacement setup release.
+
+The initialization test at Rust 545–610 uses the **same Rc(3)** twice. Distinct
+publication IDs at 595 and the load-ordinal timeline `[1,-1,2,-2]` at 600 prove
+two loads and rollback ordering. Awaiting old withdrawal before final consumer
+disposal (597–599) supports `:418/a439`; root lookup remaining Some (601–604)
+proves withdrawal did not erase the current slot. Its reads of 3 at 578/585
+cannot distinguish old versus new publications, and there is no consumer read
+after convergence. `:418/a440,a441` retain those identity/order assertions with
+separate gaps for the actual post-convergence consumer value and the actual
+setup/rollback/cleanup value timeline. Their actions use distinguishable values
+1/2 and gate the initial setup during replacement. The different-value
+old-withdrawal scenario begins with an Active old load and is not substituted
+for this in-flight initialization scenario.
+
+## SR-4: Service cleanup error identity
+
+`:184/a195` keeps two distinct partial witnesses. Rust service cleanup at
+451–467 proves provider read-before-close, final listener delivery and one
+failure; it never inspects its source or diagnostic allocation.
+[foundations.rs](../../../../../../crates/re-cordis-core/tests/foundations.rs):251–258
+separately downcasts a root-drain UserError source and recovers field 7. That
+is typed-source/value preservation, not allocation identity. The original-ID
+gap names a service-dependent cleanup returning an Rc source adapter and exact
+pointer checks on the single failure and single diagnostic, alongside the
+retention trace. Explicit ErrorValue pointer tests and apply-failure parity
+helpers do not execute this composition and are not assigned new paired claims.
+
+## Retained obligations, gaps and non-obligations
+
+Outside SR-1–SR-4, the initial review's accepted service mappings and evidence
+limits are carried forward. The five original gaps remain unchanged:
+`service.spec.ts:7/a33`, `:128/a161,a162,a163`, and `:203/a214` (initialization
+activation count, three initialized DAG callbacks, exact second restart apply).
+The ten new gaps above produce 15 total. Partial Rust witnesses within a gap
+are permitted by the existing class schema and still join to passing matrix
+results; they do not make the full source obligation passed. Every gap names
+an owner, regression action and dependency triage. Passing regression evidence
+can close a gap without production changes. Conditional B2 requires a failing
 public-API reproducer and an actual dependent gate.
 
-## Matrix joins, commands, and limits
+The following four original inventory IDs stay omitted only because the guard
+at source line 123 is false for their exact registered parameters; source line
+125 lies inside guarded span 123–126. The initial review confirms this provenance.
+The later shared-ledger owner retains their final `not-applicable` metadata,
+source file/declaration/assertion lines, exact parameters, TS/inventory revisions
+and guard reason. They have no behavioral class, gap, Rust pass or paired claim.
 
-The fragment cites **19 distinct current Rust tests**. Every cited test
-has an `outcome: ok` row in [matrix results](../matrix/results.json) for both
-`stable-workspace-test` and `1.85.0-workspace-test`, and both original logs
-contain its exact `test ... ok` line: [stable](../matrix/logs/stable-workspace-test.log)
-and [Rust 1.85.0](../matrix/logs/1.85.0-workspace-test.log).
+| Original ID | Exact parameters |
+|---|---|
+| `core/service-dispose.spec.ts:95/provider/a125` | `{"action":"provider"}` |
+| `core/service-dispose.spec.ts:95/root/a125` | `{"action":"root"}` |
+| `core/service-dispose.spec.ts:95/provider first/a125` | `{"action":"provider first"}` |
+| `core/service-dispose.spec.ts:95/consumer first/a125` | `{"action":"consumer first"}` |
 
-The final standard-library validation command checks exact declaration counts,
-variant parameters, applicable obligation provenance, derived classes, source
-and Rust line bounds/symbols, restriction anchors, clean TS pin, both result/log
-joins, resolved Markdown links, absence of pending/paired overclaims, and owned
-file scope. It is recorded and run from the worktree as:
+`restart/a125` stays behavioral. Its existing restart-ready/provider-available
+witness remains unchanged. Validator/control and shared ledger files are not
+edited by this correction.
+
+## SR-5: Actual scoped validation and recorded results
+
+The previous report command did not execute all the parameter, original-ID
+provenance and restriction-anchor checks it claimed. The initial review records
+that discrepancy; the command/output below replace those unsupported claims.
+This command checks the complete owned inputs, including their partial Rust
+witnesses, against the untouched inventory and existing class schema. It joins
+**20 distinct Rust test identities to 40 exact passing matrix rows and original
+log lines**, and checks all three used restriction anchors. These are recorded
+Rust execution joins, not new test execution or proof of semantic equivalence.
+
+Run from the correction worktree (also valid after its commit). The schema call
+uses the existing `validate_obligation` function without running the full-ledger
+validator, its self-tests, or another matrix audit. Markdown checks call only
+the existing link/anchor helpers. Owned-file and executable-delta checks compare
+the correction against its fixed base and implementation revision.
 
 ~~~sh
+set -e
 python3 -B - <<'PY'
 import importlib.util, json, re, subprocess
 from collections import Counter
@@ -87,107 +167,142 @@ from pathlib import Path
 
 root = Path.cwd()
 integration = Path('/Users/I756434/Projects/private/cordis-rust')
+base_revision = 'c462dfdf732bf2ed056eefb7832654efd9629e3a'
+ts_pin = '35fdc969e4b6c48c48ed44717c7a018324e4dd88'
+inventory_revision = '9a7633c0b3b98e5f37e9f2211f3ffa67fdac5edc'
+implementation = '808c9f573dd96c56fa2ec43e0b1bfb9ed39b2f3f'
 base = root / 'docs/plans/2026-11-02-cordis-completion/evidence/B0'
-inputs = [json.loads((base / f'ledger-inputs/{name}').read_text())
-          for name in ['service.json', 'service-dispose.json']]
-inventory = json.loads((base / 'ledger/cases.json').read_text())
-original = {item['id']: item for item in inventory['declarations']}
-declarations = [item for data in inputs for item in data['declarations']]
-obligations = [item for declaration in declarations
-               for variant in declaration['variants']
-               for item in variant['obligations']]
-assert len(declarations) == len({item['id'] for item in declarations}) == 25
-assert sum(len(item['variants']) for item in declarations) == 35
-assert len(obligations) == len({item['id'] for item in obligations}) == 81
-assert Counter(item['class'] for item in obligations) == {
-    'source-mapped-test': 61, 'rust-representation': 15, 'missing-evidence': 5}
-identity = ('id', 'source_file', 'source_line', 'source_end_line',
-            'title', 'suite', 'historical_checklist')
-for declaration in declarations:
-    assert all(declaration[key] == original[declaration['id']][key]
-               for key in identity)
-    derived = sorted({item['class'] for variant in declaration['variants']
-                      for item in variant['obligations']})
-    assert declaration['classes'] == derived
-for item in obligations:
-    assert item['behavior'] and not item['behavior'].startswith('expect(')
-    assert item['paired_evidence'] == []
-    if item['class'] == 'missing-evidence':
-        assert not item['rust_evidence'] and item['gap']
-        assert item['execution_status'] == 'not-executed'
-    else:
-        assert item['rust_evidence'] and item['gap'] is None
-        assert item['execution_status'] == 'passed'
-        if item['class'] == 'rust-representation':
-            assert item['restriction']
+files = ['service.json', 'service-dispose.json']
+load = lambda p: json.loads(p.read_text())
+git = lambda *args: subprocess.check_output(['git', *args], text=True)
+original = {c['id']: c for c in load(base / 'ledger/cases.json')['declarations']}
+data = [load(base / 'ledger-inputs' / name) for name in files]
+cases = [c for d in data for c in d['declarations']]
+obs = [o for c in cases for v in c['variants'] for o in v['obligations']]
+assert len(cases) == len({c['id'] for c in cases}) == 25
+assert sum(len(c['variants']) for c in cases) == 35
+assert len(obs) == len({o['id'] for o in obs}) == 81
+counts = Counter(o['class'] for o in obs)
+assert counts == {'source-mapped-test': 55, 'rust-representation': 11, 'missing-evidence': 15}
+assert Counter(c['source_file'].split('/')[-1] for c in cases) == {
+    'service.spec.ts': 8, 'service-dispose.spec.ts': 17}
+assert (base / 'ledger/cases.json').read_text() == git(
+    'show', base_revision + ':docs/plans/2026-11-02-cordis-completion/evidence/B0/ledger/cases.json')
 
-ts_head = subprocess.check_output([
-    'git', '-C', str(integration / 'local/cordis'), 'rev-parse', 'HEAD'
-], text=True).strip()
-assert ts_head == '35fdc969e4b6c48c48ed44717c7a018324e4dd88'
-assert not subprocess.check_output([
-    'git', '-C', str(integration / 'local/cordis'), 'status',
-    '--porcelain', '--untracked-files=no'
-], text=True).strip()
-symbols = set()
-for declaration in declarations:
-    source = (integration / declaration['source_file']).read_text().splitlines()
-    for variant in declaration['variants']:
-        for item in variant['obligations']:
-            assert all(declaration['source_line'] <= line <= declaration['source_end_line']
-                       for line in item['source_assertion_lines'])
-            for evidence in item['rust_evidence']:
-                rust = (root / evidence['file']).read_text().splitlines()
-                assert all(1 <= line <= len(rust) for line in evidence['lines'])
-                assert sum(bool(re.search(
-                    rf'fn\s+{re.escape(evidence["symbol"])}\s*\(', line))
-                    for line in rust) == 1
-                symbols.add((evidence['file'], evidence['symbol']))
-
-results = json.loads((base / 'matrix/results.json').read_text())
-commands = {'stable-workspace-test', '1.85.0-workspace-test'}
-for file, symbol in symbols:
-    suite = file.removeprefix('crates/re-cordis-core/')
-    rows = [item for item in results['tests']
-            if item['test'] == symbol and item['command_id'] in commands]
-    assert {(item['command_id'], item['test']) for item in rows} == {
-        (command, symbol) for command in commands}
-    assert all(item['suite'] == suite and item['outcome'] == 'ok'
-               and not item['compile_fail'] for item in rows)
-    for command in commands:
-        log = (base / f'matrix/logs/{command}.log').read_text()
-        assert f'test {symbol} ... ok' in log
-
-spec = importlib.util.spec_from_file_location('docs_check', root / 'tests/docs/check.py')
-module = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(module)
-module.links(base / 'ledger-inputs/report-services.md')
-owned = {
-    'docs/plans/2026-11-02-cordis-completion/evidence/B0/ledger-inputs/service.json',
-    'docs/plans/2026-11-02-cordis-completion/evidence/B0/ledger-inputs/service-dispose.json',
-    'docs/plans/2026-11-02-cordis-completion/evidence/B0/ledger-inputs/report-services.md',
-}
-assert set(subprocess.check_output(
-    ['git', 'diff', '--name-only', 'HEAD^'], text=True).splitlines()) == owned
-print('PASS: 25 declarations, 35 variants, 81 obligations; classes=' +
-      str(dict(Counter(item['class'] for item in obligations))))
-print('PASS: TS pin clean at ' + ts_head[:12] +
-      '; exact source/Rust bounds, restriction anchors and report links resolve')
-print(f'PASS: {len(symbols)} exact Rust tests join to {len(symbols) * 2} ok matrix rows and both original workspace logs; paired claims=0, gaps=5')
-print('PASS: commit-to-parent paths are exactly the 3 owned service outputs')
+spec = importlib.util.spec_from_file_location('b0_validator', base / 'ledger/validate.py')
+mod = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(mod)
+doc_spec = importlib.util.spec_from_file_location('docs_check', root / 'tests/docs/check.py')
+docs = importlib.util.module_from_spec(doc_spec)
+doc_spec.loader.exec_module(docs)
+results = load(base / 'matrix/results.json')
+commands = {c['id']: c for c in load(base / 'matrix/commands.json')}
+command_ids = {'stable-workspace-test', '1.85.0-workspace-test'}
+logs = {}
+for command in command_ids:
+    assert commands[command]['exit_code'] == 0
+    logs[command] = (base / 'matrix' / commands[command]['log']).read_text()
+context = {'results': results, 'commands': commands, 'logs': logs}
+errors, omitted, refs, restrictions = [], set(), set(), set()
+obligation_ids, gap_ids, rust_ids, paired = set(), set(), set(), set()
+identity = ('id', 'source_file', 'source_line', 'source_end_line', 'title', 'suite', 'historical_checklist')
+for d in data:
+    mod.check_keys(d, ('schema_version', 'rust_revision', 'typescript_revision',
+                      'implementation_revision', 'status', 'declarations'), 'input', errors)
+    assert d['schema_version'] == 1 and d['rust_revision'] == inventory_revision
+    assert d['typescript_revision'] == ts_pin and d['implementation_revision'] == implementation
+    assert mod.final_text(d['status'])
+for c in cases:
+    mod.check_keys(c, (*identity, 'variants', 'classes'), c['id'], errors)
+    old = original[c['id']]
+    assert all(json.dumps(c[k], sort_keys=True) == json.dumps(old[k], sort_keys=True) for k in identity)
+    assert json.dumps([v['parameters'] for v in c['variants']], sort_keys=True) == json.dumps([v['parameters'] for v in old['variants']], sort_keys=True)
+    assert c['classes'] == sorted({o['class'] for v in c['variants'] for o in v['obligations']})
+    source = (integration / c['source_file']).read_text().splitlines()
+    assert 'it' in source[c['source_line'] - 1]
+    assert c['title'] in '\n'.join(source[c['source_line'] - 1:c['source_line'] + 2])
+    for v, ov in zip(c['variants'], old['variants']):
+        mod.check_keys(v, ('parameters', 'obligations'), c['id'] + ' variant', errors)
+        old_obs = {o['id']: o for o in ov['obligations']}
+        new_obs = {o['id']: o for o in v['obligations']}
+        assert not new_obs.keys() - old_obs.keys()
+        omitted.update(old_obs.keys() - new_obs.keys())
+        assert v['obligations']
+        for o in v['obligations']:
+            assert o['source_assertion_lines'] == old_obs[o['id']]['source_assertion_lines']
+            assert all(c['source_line'] <= n <= c['source_end_line'] <= len(source)
+                       for n in o['source_assertion_lines'])
+            mod.validate_obligation(o, o['id'], errors, context, root, integration,
+                                    (c['source_line'], c['source_end_line']),
+                                    obligation_ids, gap_ids, rust_ids, paired)
+            assert o['paired_evidence'] == []
+            if o['class'] == 'missing-evidence':
+                assert o['execution_status'] == 'not-executed' and o['gap']
+                assert all(o['gap'][k] for k in ('id', 'kind', 'next_action', 'owner', 'work_package'))
+                assert 'failing public-API reproducer' in o['gap']['work_package']
+            else:
+                assert o['execution_status'] == 'passed' and o['rust_evidence'] and o['gap'] is None
+            if o['restriction']:
+                r = o['restriction']
+                assert r['reason'] and r['anchor'] in docs.anchors((root / r['document']).read_text())
+                restrictions.add((r['document'], r['anchor']))
+            for e in o['rust_evidence']:
+                lines = (root / e['file']).read_text().splitlines()
+                assert all(1 <= n <= len(lines) for n in e['lines'])
+                assert len(re.findall(r'\bfn\s+' + re.escape(e['symbol']) + r'\s*\(', '\n'.join(lines))) == 1
+                assert set(e['command_ids']) == command_ids
+                refs.add((e['file'], e['symbol']))
+assert not errors, '\n'.join(errors)
+expected_omitted = {f'core/service-dispose.spec.ts:95/{a}/a125'
+                    for a in ['provider', 'root', 'provider first', 'consumer first']}
+assert omitted == expected_omitted
+source = (integration / 'local/cordis/packages/core/tests/service-dispose.spec.ts').read_text().splitlines()
+assert source[122].strip() == "if (action === 'restart') {"
+assert source[124].strip() == 'expect(consumer.ctx.foo).toBeDefined()'
+assert source[125].strip() == '}'
+for original_id in omitted:
+    variant = next(v for v in original['core/service-dispose.spec.ts:95']['variants']
+                   if any(o['id'] == original_id for o in v['obligations']))
+    assert variant['parameters']['action'] != 'restart'
+    assert next(o for o in variant['obligations'] if o['id'] == original_id)['source_assertion_lines'] == [125]
+assert len(gap_ids) == 15 and not paired
+assert len(refs) == len(rust_ids) == 20
+for file, symbol in refs:
+    for command in command_ids:
+        rows = [r for r in results['tests'] if r['command_id'] == command and r['test'] == symbol]
+        assert len(rows) == 1 and rows[0]['suite'] == file.removeprefix('crates/re-cordis-core/')
+        assert rows[0]['outcome'] == 'ok' and not rows[0]['compile_fail']
+        assert re.search(r'^test ' + re.escape(symbol) + r' \.\.\. ok$', logs[command], re.M)
+assert git('-C', str(integration / 'local/cordis'), 'rev-parse', 'HEAD').strip() == ts_pin
+assert not git('-C', str(integration / 'local/cordis'), 'status', '--porcelain', '--untracked-files=no').strip()
+assert not (integration / 'local/cordis/packages/core/tests/re-cordis-lifecycle-parity.spec.ts').exists()
+docs.links(base / 'ledger-inputs/report-services.md')
+assert all(line == line.rstrip() for line in (base / 'ledger-inputs/report-services.md').read_text().splitlines())
+owned = {'docs/plans/2026-11-02-cordis-completion/evidence/B0/ledger-inputs/' + name
+         for name in files + ['report-services.md']}
+assert set(git('diff', '--name-only', base_revision).splitlines()) == owned
+assert not git('ls-files', '--others', '--exclude-standard').strip()
+assert not git('diff', implementation, '--', 'crates', 'tests', 'spikes', 'Cargo.toml',
+               'Cargo.lock', '.cargo', 'rust-toolchain.toml')
+print('PASS: 25 declarations / 35 variants / 81 original-ID obligations; 55 mapped + 11 representation + 15 gaps')
+print('PASS: exact inventory identity/parameters/assertion provenance; only 4 confirmed guarded a125 omissions')
+print('PASS: class/schema checks; 15 owned gap actions; partial evidence does not give gaps passing obligation status')
+print(f'PASS: 20 Rust identities / 40 exact ok result+log joins; {len(restrictions)} restriction anchors; zero paired claims')
+print('PASS: clean pinned TS source; fixture absent; report links/whitespace; exactly 3 owned changed files; executable delta empty')
 PY
-git diff HEAD^ --check
+git diff c462dfdf732bf2ed056eefb7832654efd9629e3a --check
 ~~~
 
-Result: the Python command and `git diff HEAD^ --check` both exited 0.
+The recorded Python command and whitespace check both exited 0:
 
 ~~~text
-PASS: 25 declarations, 35 variants, 81 obligations; classes={'rust-representation': 15, 'missing-evidence': 5, 'source-mapped-test': 61}
-PASS: TS pin clean at 35fdc969e4b6; exact source/Rust bounds, 3 restriction anchors and report links resolve
-PASS: 19 exact Rust tests join to 38 ok matrix rows and both original workspace logs; paired claims=0, gaps=5
-PASS: commit-to-parent paths are exactly the 3 owned service outputs
+PASS: 25 declarations / 35 variants / 81 original-ID obligations; 55 mapped + 11 representation + 15 gaps
+PASS: exact inventory identity/parameters/assertion provenance; only 4 confirmed guarded a125 omissions
+PASS: class/schema checks; 15 owned gap actions; partial evidence does not give gaps passing obligation status
+PASS: 20 Rust identities / 40 exact ok result+log joins; 3 restriction anchors; zero paired claims
+PASS: clean pinned TS source; fixture absent; report links/whitespace; exactly 3 owned changed files; executable delta empty
 ~~~
 
-`git diff HEAD^ --check` had no output. Structural/reference validation establishes the recorded joins; it
-does not execute TypeScript or prove transparent mechanism parity. Independent
-review and final ledger integration remain with the integration owner.
+The whitespace check produced no output. These scoped corrections are ready for
+independent re-review; final shared-ledger assembly and B0 acceptance remain
+separate integration gates.

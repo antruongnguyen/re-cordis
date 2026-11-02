@@ -3,7 +3,7 @@
   "rust_revision": "9a7633c0b3b98e5f37e9f2211f3ffa67fdac5edc",
   "typescript_revision": "35fdc969e4b6c48c48ed44717c7a018324e4dd88",
   "implementation_revision": "808c9f573dd96c56fa2ec43e0b1bfb9ed39b2f3f",
-  "status": "service-dispose.spec.ts family reconciliation complete; exact source variants/assertions reviewed and current two-toolchain Rust results joined; independent review pending",
+  "status": "service-dispose SR-1–SR-5 evidence corrections recorded; exact inventory provenance and current two-toolchain joins retained; scoped independent re-review pending",
   "declarations": [
     {
       "id": "core/service-dispose.spec.ts:31",
@@ -1347,11 +1347,11 @@
             },
             {
               "id": "core/service-dispose.spec.ts:184/default/a195",
-              "behavior": "The cleanup error is reported with its original error identity/source.",
+              "behavior": "A cleanup error from a service consumer is diagnosed with the original error allocation/source after the retained provider read.",
               "source_assertion_lines": [
                 195
               ],
-              "class": "source-mapped-test",
+              "class": "missing-evidence",
               "rust_evidence": [
                 {
                   "file": "crates/re-cordis-core/tests/service_dispose.rs",
@@ -1370,7 +1370,7 @@
                     466,
                     467
                   ],
-                  "assertion": "The failing consumer cleanup still reads while open, dispatches its final event, releases the dependency, closes the provider, and yields one diagnostic.",
+                  "assertion": "The service-dependent cleanup reads the retained provider at 451, delivers one final provider event at 452/465, closes after that read (466), and records exactly one failure (467). Its source or diagnostic allocation is not inspected.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -1398,7 +1398,7 @@
                     258,
                     260
                   ],
-                  "assertion": "The generic cleanup regression retains and downcasts the exact returned UserError source while the service-disposal regression supplies the service-specific failing cleanup and one diagnostic.",
+                  "assertion": "A separate root-drain report contains a non-panic UserError source; downcast at 251–258 recovers field 7. This is typed-source/value preservation, not pointer identity or the service consumer diagnostic.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -1407,14 +1407,21 @@
               ],
               "paired_evidence": [],
               "restriction": null,
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+              "gap": {
+                "id": "G-B0-service-dispose.spec.ts:184/default/a195",
+                "kind": "missing-evidence",
+                "next_action": "Add a service-dependent cleanup regression returning a test-only source adapter that retains an Rc error; after provider-retaining drain, assert the single runtime failure and single diagnostic record preserve that exact source allocation with std::ptr::eq, alongside the read-before-close trace.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage; a passing regression closes the evidence gap without production change. Conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "SR-4: service_dispose.rs:451–467 establishes retained-provider cleanup, final listener delivery, and one recorded failure. foundations.rs:251–258 independently establishes a typed UserError source with field 7 on a root-drain report. Neither asserts identity of the service-cleanup error in its diagnostic. Explicit ErrorValue pointer tests and apply-failure parity helpers do not execute this composition; no new paired claim is made."
             }
           ]
         }
       ],
       "classes": [
+        "missing-evidence",
         "source-mapped-test"
       ]
     },
@@ -1567,7 +1574,7 @@
           "obligations": [
             {
               "id": "core/service-dispose.spec.ts:238/false/a266",
-              "behavior": "The composed provider resource remains open during dependent cleanup.",
+              "behavior": "After provider disposal begins, the composed provider remains open during dependent cleanup.",
               "source_assertion_lines": [
                 266
               ],
@@ -1579,23 +1586,29 @@
                   "lines": [
                     750,
                     751,
-                    757,
-                    758,
+                    761,
                     772,
                     773,
+                    776,
                     780,
                     781,
+                    782,
+                    783,
                     794,
                     795,
+                    796,
                     797,
+                    798,
+                    800,
                     803,
+                    805,
                     808,
                     809,
                     810,
                     811,
                     812
                   ],
-                  "assertion": "Manual composed-effect and owner-shutdown variants both retain the resource through exact publication withdrawal and record read before close.",
+                  "assertion": "Rust owner_shutdown=true disposes the provider at 798; while dependent cleanup is gated, Probe is open at 809, and after release/disposal the trace is [read, closed] at 812. Rust false manually disposes the composed effect at 803 and establishes the same assertions as additional evidence. Both children are registered under root, without a non-root outer owner.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -1606,11 +1619,11 @@
               "restriction": null,
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+              "rationale": "SR-2: TS ownerShutdown=false selects provider.dispose at source line 261, matching Rust owner_shutdown=true at 798. The gate/open assertion (808–810) and read-before-close trace (811–812) supply this variant. The Rust false/manual-effect branch is supplementary evidence, not the TS false entry point. The untested non-root outer-owner sibling shutdown is tracked in the TS true original-ID gaps."
             },
             {
               "id": "core/service-dispose.spec.ts:238/false/a267",
-              "behavior": "For this manual/owner-shutdown variant the dependent reads before the composed provider closes.",
+              "behavior": "During provider disposal, dependent cleanup reads the composed provider before its resource closes.",
               "source_assertion_lines": [
                 267
               ],
@@ -1622,23 +1635,29 @@
                   "lines": [
                     750,
                     751,
-                    757,
-                    758,
+                    761,
                     772,
                     773,
+                    776,
                     780,
                     781,
+                    782,
+                    783,
                     794,
                     795,
+                    796,
                     797,
+                    798,
+                    800,
                     803,
+                    805,
                     808,
                     809,
                     810,
                     811,
                     812
                   ],
-                  "assertion": "Manual composed-effect and owner-shutdown variants both retain the resource through exact publication withdrawal and record read before close.",
+                  "assertion": "Rust owner_shutdown=true disposes the provider at 798; while dependent cleanup is gated, Probe is open at 809, and after release/disposal the trace is [read, closed] at 812. Rust false manually disposes the composed effect at 803 and establishes the same assertions as additional evidence. Both children are registered under root, without a non-root outer owner.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -1649,7 +1668,7 @@
               "restriction": null,
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+              "rationale": "SR-2: TS ownerShutdown=false selects provider.dispose at source line 261, matching Rust owner_shutdown=true at 798. The gate/open assertion (808–810) and read-before-close trace (811–812) supply this variant. The Rust false/manual-effect branch is supplementary evidence, not the TS false entry point. The untested non-root outer-owner sibling shutdown is tracked in the TS true original-ID gaps."
             }
           ]
         },
@@ -1660,11 +1679,11 @@
           "obligations": [
             {
               "id": "core/service-dispose.spec.ts:238/true/a266",
-              "behavior": "The composed provider resource remains open during dependent cleanup.",
+              "behavior": "After outer-owner disposal begins, the composed provider remains open during dependent cleanup.",
               "source_assertion_lines": [
                 266
               ],
-              "class": "source-mapped-test",
+              "class": "missing-evidence",
               "rust_evidence": [
                 {
                   "file": "crates/re-cordis-core/tests/service_dispose.rs",
@@ -1672,23 +1691,29 @@
                   "lines": [
                     750,
                     751,
-                    757,
-                    758,
+                    761,
                     772,
                     773,
+                    776,
                     780,
                     781,
+                    782,
+                    783,
                     794,
                     795,
+                    796,
                     797,
+                    798,
+                    800,
                     803,
+                    805,
                     808,
                     809,
                     810,
                     811,
                     812
                   ],
-                  "assertion": "Manual composed-effect and owner-shutdown variants both retain the resource through exact publication withdrawal and record read before close.",
+                  "assertion": "Rust owner_shutdown=true disposes the provider at 798; while dependent cleanup is gated, Probe is open at 809, and after release/disposal the trace is [read, closed] at 812. Rust false manually disposes the composed effect at 803 and establishes the same assertions as additional evidence. Both children are registered under root, without a non-root outer owner.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -1697,17 +1722,23 @@
               ],
               "paired_evidence": [],
               "restriction": null,
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+              "gap": {
+                "id": "G-B0-service-dispose.spec.ts:238/true/a266",
+                "kind": "missing-evidence",
+                "next_action": "Add a non-root outer-owner public-API regression that creates a composed publication/resource provider and gated consumer as siblings under that owner; dispose the outer owner, assert the resource stays open while consumer cleanup is gated, then release it and assert read precedes resource close and both children settle Disposed.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage; a passing regression closes the evidence gap without production change. Conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "SR-2: the retained Rust true/provider-disposal and false/manual-effect assertions prove composed-publication retention for those entry points. Neither disposes a non-root outer owner containing this composed sibling arrangement, as TS true does at 245–261; generic root-drain/inherited-child regressions do not close that boundary."
             },
             {
               "id": "core/service-dispose.spec.ts:238/true/a267",
-              "behavior": "For this manual/owner-shutdown variant the dependent reads before the composed provider closes.",
+              "behavior": "During outer-owner disposal, dependent cleanup reads the composed provider before its resource closes.",
               "source_assertion_lines": [
                 267
               ],
-              "class": "source-mapped-test",
+              "class": "missing-evidence",
               "rust_evidence": [
                 {
                   "file": "crates/re-cordis-core/tests/service_dispose.rs",
@@ -1715,23 +1746,29 @@
                   "lines": [
                     750,
                     751,
-                    757,
-                    758,
+                    761,
                     772,
                     773,
+                    776,
                     780,
                     781,
+                    782,
+                    783,
                     794,
                     795,
+                    796,
                     797,
+                    798,
+                    800,
                     803,
+                    805,
                     808,
                     809,
                     810,
                     811,
                     812
                   ],
-                  "assertion": "Manual composed-effect and owner-shutdown variants both retain the resource through exact publication withdrawal and record read before close.",
+                  "assertion": "Rust owner_shutdown=true disposes the provider at 798; while dependent cleanup is gated, Probe is open at 809, and after release/disposal the trace is [read, closed] at 812. Rust false manually disposes the composed effect at 803 and establishes the same assertions as additional evidence. Both children are registered under root, without a non-root outer owner.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -1740,14 +1777,21 @@
               ],
               "paired_evidence": [],
               "restriction": null,
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+              "gap": {
+                "id": "G-B0-service-dispose.spec.ts:238/true/a267",
+                "kind": "missing-evidence",
+                "next_action": "Add a non-root outer-owner public-API regression that creates a composed publication/resource provider and gated consumer as siblings under that owner; dispose the outer owner, assert the resource stays open while consumer cleanup is gated, then release it and assert read precedes resource close and both children settle Disposed.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage; a passing regression closes the evidence gap without production change. Conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "SR-2: the retained Rust true/provider-disposal and false/manual-effect assertions prove composed-publication retention for those entry points. Neither disposes a non-root outer owner containing this composed sibling arrangement, as TS true does at 245–261; generic root-drain/inherited-child regressions do not close that boundary."
             }
           ]
         }
       ],
       "classes": [
+        "missing-evidence",
         "source-mapped-test"
       ]
     },
@@ -2478,7 +2522,7 @@
                     534,
                     536
                   ],
-                  "assertion": "Old withdrawal completes before gated replacement setup; the replacement is current and the observed lifecycle is old load, old cleanup, new load.",
+                  "assertion": "With versions 1 and 2, old cleanup reads its captured injected Context at 516; replacement setup reads its own Context at 505–506. Old withdrawal settles at 530 while replacement is Loading (531), and [1,1,2] is asserted at 532. No provider/root current-slot value is read.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -2497,7 +2541,7 @@
               "source_assertion_lines": [
                 381
               ],
-              "class": "source-mapped-test",
+              "class": "missing-evidence",
               "rust_evidence": [
                 {
                   "file": "crates/re-cordis-core/tests/service_dispose.rs",
@@ -2524,7 +2568,7 @@
                     534,
                     536
                   ],
-                  "assertion": "Old withdrawal completes before gated replacement setup; the replacement is current and the observed lifecycle is old load, old cleanup, new load.",
+                  "assertion": "With versions 1 and 2, old cleanup reads its captured injected Context at 516; replacement setup reads its own Context at 505–506. Old withdrawal settles at 530 while replacement is Loading (531), and [1,1,2] is asserted at 532. No provider/root current-slot value is read.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -2533,9 +2577,15 @@
               ],
               "paired_evidence": [],
               "restriction": null,
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+              "gap": {
+                "id": "G-B0-service-dispose.spec.ts:355/default/a381",
+                "kind": "missing-evidence",
+                "next_action": "Extend the gated old-withdrawal regression with a distinguishable replacement value and read the providing Context current slot via get_direct (or own-provider get) after old withdrawal settles and before releasing replacement setup; assert value 2 independently of consumer setup reads.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage; a passing regression closes the evidence gap without production change. Conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "SR-3: service_dispose.rs:505–506,532 proves replacement value 2 through consumer setup; its gates prove old withdrawal settlement. Those observations do not execute the provider current-slot read at TS 376/381, so that exact direct/own-provider path remains an evidence gap."
             },
             {
               "id": "core/service-dispose.spec.ts:355/default/a382",
@@ -2570,7 +2620,7 @@
                     534,
                     536
                   ],
-                  "assertion": "Old withdrawal completes before gated replacement setup; the replacement is current and the observed lifecycle is old load, old cleanup, new load.",
+                  "assertion": "With versions 1 and 2, old cleanup reads its captured injected Context at 516; replacement setup reads its own Context at 505–506. Old withdrawal settles at 530 while replacement is Loading (531), and [1,1,2] is asserted at 532. No provider/root current-slot value is read.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -2587,6 +2637,7 @@
         }
       ],
       "classes": [
+        "missing-evidence",
         "source-mapped-test"
       ]
     },
@@ -2921,17 +2972,20 @@
                   "symbol": "equal_value_replacement_during_initialization_rolls_back_the_exact_old_snapshot",
                   "lines": [
                     545,
-                    551,
                     552,
                     553,
                     554,
                     555,
                     561,
+                    567,
+                    568,
                     573,
                     577,
                     578,
                     579,
                     582,
+                    583,
+                    584,
                     585,
                     592,
                     593,
@@ -2944,9 +2998,10 @@
                     600,
                     601,
                     602,
-                    603
+                    603,
+                    604
                   ],
-                  "assertion": "Even equal/same-Rc values receive distinct publication identities; the old in-flight setup rolls back against its exact snapshot, the replacement loads, and old withdrawal cannot erase it.",
+                  "assertion": "Both publications use the same Rc(3) (552–554,594), but their publication IDs differ (595). Setup/cleanup reads assert value 3 (578,585); [1,-1,2,-2] at 600 uses the local load ordinal (567–579), proving two loads and rollback order. Withdrawal is awaited before final consumer disposal (597–599), and root direct lookup remains Some (601–604). There is no distinguishing old/new value read or post-convergence consumer read.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -2957,32 +3012,35 @@
               "restriction": null,
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+              "rationale": "SR-3: the gate released at 596, consumer readiness at 597, old withdrawal at 598, and final disposal at 599 establish the withdrawal-before-final-disposal boundary. Distinct publication IDs and load-ordinal ordering remain valid additional evidence. The exact old/new read-value oracle is tracked separately at a440/a441; no distinguishing-value claim is made here."
             },
             {
               "id": "core/service-dispose.spec.ts:418/default/a440",
-              "behavior": "The consumer context resolves the replacement binding after initialization convergence.",
+              "behavior": "After initialization-time replacement of version 1 by version 2 converges, the consumer Context reads version 2.",
               "source_assertion_lines": [
                 440
               ],
-              "class": "source-mapped-test",
+              "class": "missing-evidence",
               "rust_evidence": [
                 {
                   "file": "crates/re-cordis-core/tests/service_dispose.rs",
                   "symbol": "equal_value_replacement_during_initialization_rolls_back_the_exact_old_snapshot",
                   "lines": [
                     545,
-                    551,
                     552,
                     553,
                     554,
                     555,
                     561,
+                    567,
+                    568,
                     573,
                     577,
                     578,
                     579,
                     582,
+                    583,
+                    584,
                     585,
                     592,
                     593,
@@ -2995,9 +3053,10 @@
                     600,
                     601,
                     602,
-                    603
+                    603,
+                    604
                   ],
-                  "assertion": "Even equal/same-Rc values receive distinct publication identities; the old in-flight setup rolls back against its exact snapshot, the replacement loads, and old withdrawal cannot erase it.",
+                  "assertion": "Both publications use the same Rc(3) (552–554,594), but their publication IDs differ (595). Setup/cleanup reads assert value 3 (578,585); [1,-1,2,-2] at 600 uses the local load ordinal (567–579), proving two loads and rollback order. Withdrawal is awaited before final consumer disposal (597–599), and root direct lookup remains Some (601–604). There is no distinguishing old/new value read or post-convergence consumer read.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -3006,34 +3065,43 @@
               ],
               "paired_evidence": [],
               "restriction": null,
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+              "gap": {
+                "id": "G-B0-service-dispose.spec.ts:418/default/a440",
+                "kind": "missing-evidence",
+                "next_action": "Add a public-API initialization-time replacement regression using distinguishable values 1 and 2; gate the first setup after it reads 1, replace its publication with 2 while Loading, release setup, read the captured old Context during rollback, and assert consumer.context().get resolves 2 after readiness before final disposal.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage; a passing regression closes the evidence gap without production change. Conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "SR-3: the equal/same-Rc regression retains distinct occurrence IDs, two-load/rollback ordering, and withdrawal completion, but value 3 cannot distinguish which publication a Context resolves. The different-value old-withdrawal regression at 476–536 starts replacement after an Active old load and covers old cleanup before new load, not this in-flight initial setup. No exact distinguishing post-convergence consumer read is joined."
             },
             {
               "id": "core/service-dispose.spec.ts:418/default/a441",
-              "behavior": "Lifecycle order is old load, exact old rollback, replacement load, replacement cleanup.",
+              "behavior": "Initialization-time replacement records actual Context-read values [1,-1,2,-2] across old setup, old rollback, new setup and final cleanup.",
               "source_assertion_lines": [
                 441
               ],
-              "class": "source-mapped-test",
+              "class": "missing-evidence",
               "rust_evidence": [
                 {
                   "file": "crates/re-cordis-core/tests/service_dispose.rs",
                   "symbol": "equal_value_replacement_during_initialization_rolls_back_the_exact_old_snapshot",
                   "lines": [
                     545,
-                    551,
                     552,
                     553,
                     554,
                     555,
                     561,
+                    567,
+                    568,
                     573,
                     577,
                     578,
                     579,
                     582,
+                    583,
+                    584,
                     585,
                     592,
                     593,
@@ -3046,9 +3114,10 @@
                     600,
                     601,
                     602,
-                    603
+                    603,
+                    604
                   ],
-                  "assertion": "Even equal/same-Rc values receive distinct publication identities; the old in-flight setup rolls back against its exact snapshot, the replacement loads, and old withdrawal cannot erase it.",
+                  "assertion": "Both publications use the same Rc(3) (552–554,594), but their publication IDs differ (595). Setup/cleanup reads assert value 3 (578,585); [1,-1,2,-2] at 600 uses the local load ordinal (567–579), proving two loads and rollback order. Withdrawal is awaited before final consumer disposal (597–599), and root direct lookup remains Some (601–604). There is no distinguishing old/new value read or post-convergence consumer read.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -3057,14 +3126,21 @@
               ],
               "paired_evidence": [],
               "restriction": null,
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+              "gap": {
+                "id": "G-B0-service-dispose.spec.ts:418/default/a441",
+                "kind": "missing-evidence",
+                "next_action": "Add a public-API initialization-time replacement regression using distinguishable values 1 and 2; gate the first setup after it reads 1, replace its publication with 2 while Loading, release setup, read the captured old Context during rollback, and assert the actual setup/cleanup Context-read timeline is [1,-1,2,-2], independently of any local load ordinal.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage; a passing regression closes the evidence gap without production change. Conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "SR-3: the equal/same-Rc regression retains distinct occurrence IDs, two-load/rollback ordering, and withdrawal completion, but value 3 cannot distinguish which publication a Context resolves. The different-value old-withdrawal regression at 476–536 starts replacement after an Active old load and covers old cleanup before new load, not this in-flight initial setup. No exact distinguishing initial-setup/rollback value timeline is joined."
             }
           ]
         }
       ],
       "classes": [
+        "missing-evidence",
         "source-mapped-test"
       ]
     }

@@ -3,7 +3,7 @@
   "rust_revision": "9a7633c0b3b98e5f37e9f2211f3ffa67fdac5edc",
   "typescript_revision": "35fdc969e4b6c48c48ed44717c7a018324e4dd88",
   "implementation_revision": "808c9f573dd96c56fa2ec43e0b1bfb9ed39b2f3f",
-  "status": "service.spec.ts family reconciliation complete; exact source variants/assertions reviewed and current two-toolchain Rust results joined; independent review pending",
+  "status": "service SR-1–SR-5 evidence corrections recorded; exact inventory provenance and current two-toolchain joins retained; scoped independent re-review pending",
   "declarations": [
     {
       "id": "core/service.spec.ts:7",
@@ -161,11 +161,11 @@
           "obligations": [
             {
               "id": "core/service.spec.ts:36/default/a61",
-              "behavior": "The injected service method increments the root counter once and the traced getter returns 1.",
+              "behavior": "The root-bound foo getter after the first root-owned Counter.increase effect observes 1.",
               "source_assertion_lines": [
                 61
               ],
-              "class": "rust-representation",
+              "class": "missing-evidence",
               "rust_evidence": [
                 {
                   "file": "crates/re-cordis-core/tests/acceptance.rs",
@@ -177,13 +177,15 @@
                     630,
                     631,
                     641,
-                    646,
+                    642,
+                    644,
                     652,
                     653,
                     654,
                     655,
                     658,
                     659,
+                    660,
                     662,
                     663,
                     664,
@@ -191,7 +193,36 @@
                     666,
                     667
                   ],
-                  "assertion": "The injected=true loop binds foo through an explicit traced Context, performs three increments across consumer lifetime, and records no failures.",
+                  "assertion": "The injected=true branch performs three root-bound calls that mutate a Cell directly (654–655), disposes the consumer between the second and third (664), asserts root counter value 3 (666), and records no failures (667). It registers no increment cleanup and observes neither intermediate getter.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                },
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "bound_nested_calls_keep_definition_authority_but_use_caller_realm_metadata_and_effects",
+                  "lines": [
+                    106,
+                    115,
+                    127,
+                    128,
+                    129,
+                    134,
+                    140,
+                    141,
+                    145,
+                    188,
+                    189,
+                    191,
+                    192,
+                    195,
+                    197,
+                    198,
+                    199,
+                    200
+                  ],
+                  "assertion": "A cleanup registered through a root-use-site bound relay survives disposal of its definition relay Fiber (197–198), then runs on root drain (199–200). This asserts root effect ownership, not a reversible Counter increment or either intermediate getter sequence.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -204,9 +235,15 @@
                 "anchor": "scope-and-bound-calls",
                 "reason": "BoundService passes an explicit traced Context; native Rc values do not transparently rebind arbitrary Rust methods or accessors."
               },
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "The cited current Rust regression exercises this exact lifecycle boundary; both workspace-test matrix commands contain the named test as passed. No TypeScript execution comparison is claimed."
+              "gap": {
+                "id": "G-B0-service.spec.ts:36/default/a61",
+                "kind": "missing-evidence",
+                "next_action": "Add a public BoundService Foo-to-Counter regression with Counter acquisition increment and owned cleanup decrement as in utils.ts:62–66; cover both Foo injection declarations, assert root-bound foo getter after the first root-owned Counter.increase effect equals 1, dispose the consumer without decrementing either root-owned effect, and assert the third root call yields 3 before root cleanup.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage; a passing regression closes the evidence gap without production change. Conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "SR-1: service.spec.ts:36 delegates Foo.increase to utils.ts:62–66, a reversible effect. acceptance.rs:654–655 only mutates Cell; its final count 3 and no failures are retained as partial evidence. scoping.rs:188–200 separately proves root-use-site bound-effect lifetime. Neither observes this exact root-bound foo getter after the first root-owned Counter.increase effect; the full source getter/effect obligation remains unexecuted."
             },
             {
               "id": "core/service.spec.ts:36/default/a62",
@@ -226,13 +263,15 @@
                     630,
                     631,
                     641,
-                    646,
+                    642,
+                    644,
                     652,
                     653,
                     654,
                     655,
                     658,
                     659,
+                    660,
                     662,
                     663,
                     664,
@@ -240,7 +279,7 @@
                     666,
                     667
                   ],
-                  "assertion": "The injected=true loop binds foo through an explicit traced Context, performs three increments across consumer lifetime, and records no failures.",
+                  "assertion": "The injected=true branch performs three root-bound calls that mutate a Cell directly (654–655), disposes the consumer between the second and third (664), asserts root counter value 3 (666), and records no failures (667). It registers no increment cleanup and observes neither intermediate getter.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -255,15 +294,15 @@
               },
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The cited current Rust regression exercises this exact lifecycle boundary; both workspace-test matrix commands contain the named test as passed. No TypeScript execution comparison is claimed."
+              "rationale": "SR-1: the approved checked-access/no-failure substitute is retained: all three explicit root-bound calls unwrap access successfully and the final failure collection is empty. This is a whole-sequence no-failure assertion, not direct execution of JS warning interception or the reversible Counter effect."
             },
             {
               "id": "core/service.spec.ts:36/default/a66",
-              "behavior": "A foo-injecting consumer can call the bound service and observe counter value 2.",
+              "behavior": "The consumer ctx.foo.value after the second root-owned Counter.increase effect observes 2.",
               "source_assertion_lines": [
                 66
               ],
-              "class": "rust-representation",
+              "class": "missing-evidence",
               "rust_evidence": [
                 {
                   "file": "crates/re-cordis-core/tests/acceptance.rs",
@@ -275,13 +314,15 @@
                     630,
                     631,
                     641,
-                    646,
+                    642,
+                    644,
                     652,
                     653,
                     654,
                     655,
                     658,
                     659,
+                    660,
                     662,
                     663,
                     664,
@@ -289,7 +330,36 @@
                     666,
                     667
                   ],
-                  "assertion": "The injected=true loop binds foo through an explicit traced Context, performs three increments across consumer lifetime, and records no failures.",
+                  "assertion": "The injected=true branch performs three root-bound calls that mutate a Cell directly (654–655), disposes the consumer between the second and third (664), asserts root counter value 3 (666), and records no failures (667). It registers no increment cleanup and observes neither intermediate getter.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                },
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "bound_nested_calls_keep_definition_authority_but_use_caller_realm_metadata_and_effects",
+                  "lines": [
+                    106,
+                    115,
+                    127,
+                    128,
+                    129,
+                    134,
+                    140,
+                    141,
+                    145,
+                    188,
+                    189,
+                    191,
+                    192,
+                    195,
+                    197,
+                    198,
+                    199,
+                    200
+                  ],
+                  "assertion": "A cleanup registered through a root-use-site bound relay survives disposal of its definition relay Fiber (197–198), then runs on root drain (199–200). This asserts root effect ownership, not a reversible Counter increment or either intermediate getter sequence.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -302,9 +372,15 @@
                 "anchor": "scope-and-bound-calls",
                 "reason": "BoundService passes an explicit traced Context; native Rc values do not transparently rebind arbitrary Rust methods or accessors."
               },
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "The cited current Rust regression exercises this exact lifecycle boundary; both workspace-test matrix commands contain the named test as passed. No TypeScript execution comparison is claimed."
+              "gap": {
+                "id": "G-B0-service.spec.ts:36/default/a66",
+                "kind": "missing-evidence",
+                "next_action": "Add a public BoundService Foo-to-Counter regression with Counter acquisition increment and owned cleanup decrement as in utils.ts:62–66; cover both Foo injection declarations, assert consumer ctx.foo.value after the second root-owned Counter.increase effect equals 2, dispose the consumer without decrementing either root-owned effect, and assert the third root call yields 3 before root cleanup.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage; a passing regression closes the evidence gap without production change. Conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "SR-1: service.spec.ts:36 delegates Foo.increase to utils.ts:62–66, a reversible effect. acceptance.rs:654–655 only mutates Cell; its final count 3 and no failures are retained as partial evidence. scoping.rs:188–200 separately proves root-use-site bound-effect lifetime. Neither observes this exact consumer ctx.foo.value after the second root-owned Counter.increase effect; the full source getter/effect obligation remains unexecuted."
             },
             {
               "id": "core/service.spec.ts:36/default/a67",
@@ -324,13 +400,15 @@
                     630,
                     631,
                     641,
-                    646,
+                    642,
+                    644,
                     652,
                     653,
                     654,
                     655,
                     658,
                     659,
+                    660,
                     662,
                     663,
                     664,
@@ -338,7 +416,7 @@
                     666,
                     667
                   ],
-                  "assertion": "The injected=true loop binds foo through an explicit traced Context, performs three increments across consumer lifetime, and records no failures.",
+                  "assertion": "The injected=true branch performs three root-bound calls that mutate a Cell directly (654–655), disposes the consumer between the second and third (664), asserts root counter value 3 (666), and records no failures (667). It registers no increment cleanup and observes neither intermediate getter.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -353,11 +431,11 @@
               },
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The cited current Rust regression exercises this exact lifecycle boundary; both workspace-test matrix commands contain the named test as passed. No TypeScript execution comparison is claimed."
+              "rationale": "SR-1: the approved checked-access/no-failure substitute is retained: all three explicit root-bound calls unwrap access successfully and the final failure collection is empty. This is a whole-sequence no-failure assertion, not direct execution of JS warning interception or the reversible Counter effect."
             },
             {
               "id": "core/service.spec.ts:36/default/a72",
-              "behavior": "After the consumer is disposed, a root call still reaches the provider and advances the counter to 3.",
+              "behavior": "After consumer disposal, a third root-bound service call observes counter value 3; the earlier root-use-site effects survive consumer disposal.",
               "source_assertion_lines": [
                 72
               ],
@@ -373,13 +451,15 @@
                     630,
                     631,
                     641,
-                    646,
+                    642,
+                    644,
                     652,
                     653,
                     654,
                     655,
                     658,
                     659,
+                    660,
                     662,
                     663,
                     664,
@@ -387,7 +467,36 @@
                     666,
                     667
                   ],
-                  "assertion": "The injected=true loop binds foo through an explicit traced Context, performs three increments across consumer lifetime, and records no failures.",
+                  "assertion": "The injected=true branch performs three root-bound calls that mutate a Cell directly (654–655), disposes the consumer between the second and third (664), asserts root counter value 3 (666), and records no failures (667). It registers no increment cleanup and observes neither intermediate getter.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                },
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "bound_nested_calls_keep_definition_authority_but_use_caller_realm_metadata_and_effects",
+                  "lines": [
+                    106,
+                    115,
+                    127,
+                    128,
+                    129,
+                    134,
+                    140,
+                    141,
+                    145,
+                    188,
+                    189,
+                    191,
+                    192,
+                    195,
+                    197,
+                    198,
+                    199,
+                    200
+                  ],
+                  "assertion": "A cleanup registered through a root-use-site bound relay survives disposal of its definition relay Fiber (197–198), then runs on root drain (199–200). This asserts root effect ownership, not a reversible Counter increment or either intermediate getter sequence.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -402,7 +511,7 @@
               },
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The cited current Rust regression exercises this exact lifecycle boundary; both workspace-test matrix commands contain the named test as passed. No TypeScript execution comparison is claimed."
+              "rationale": "SR-1: the final root count 3 and consumer-disposal boundary are asserted at acceptance.rs:664–666 in injected=true. The separate scoping.rs:188–200 assertion establishes root-use-site bound-effect ownership. This explicit Rust join retains the final-count/lifetime evidence; it does not claim the Cell mutation executes Counter.increase cleanup or either intermediate getter, which retain separate original-ID gaps."
             },
             {
               "id": "core/service.spec.ts:36/default/a73",
@@ -422,13 +531,15 @@
                     630,
                     631,
                     641,
-                    646,
+                    642,
+                    644,
                     652,
                     653,
                     654,
                     655,
                     658,
                     659,
+                    660,
                     662,
                     663,
                     664,
@@ -436,7 +547,7 @@
                     666,
                     667
                   ],
-                  "assertion": "The injected=true loop binds foo through an explicit traced Context, performs three increments across consumer lifetime, and records no failures.",
+                  "assertion": "The injected=true branch performs three root-bound calls that mutate a Cell directly (654–655), disposes the consumer between the second and third (664), asserts root counter value 3 (666), and records no failures (667). It registers no increment cleanup and observes neither intermediate getter.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -451,12 +562,13 @@
               },
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The cited current Rust regression exercises this exact lifecycle boundary; both workspace-test matrix commands contain the named test as passed. No TypeScript execution comparison is claimed."
+              "rationale": "SR-1: the approved checked-access/no-failure substitute is retained: all three explicit root-bound calls unwrap access successfully and the final failure collection is empty. This is a whole-sequence no-failure assertion, not direct execution of JS warning interception or the reversible Counter effect."
             }
           ]
         }
       ],
       "classes": [
+        "missing-evidence",
         "rust-representation"
       ]
     },
@@ -479,11 +591,11 @@
           "obligations": [
             {
               "id": "core/service.spec.ts:76/default/a97",
-              "behavior": "Without declaring counter on Foo, root-owned counter authority still lets the bound service reach value 1.",
+              "behavior": "The root-bound foo getter after the first root-owned Counter.increase effect observes 1.",
               "source_assertion_lines": [
                 97
               ],
-              "class": "rust-representation",
+              "class": "missing-evidence",
               "rust_evidence": [
                 {
                   "file": "crates/re-cordis-core/tests/acceptance.rs",
@@ -495,14 +607,15 @@
                     630,
                     631,
                     641,
+                    642,
                     644,
-                    646,
                     652,
                     653,
                     654,
                     655,
                     658,
                     659,
+                    660,
                     662,
                     663,
                     664,
@@ -510,7 +623,36 @@
                     666,
                     667
                   ],
-                  "assertion": "The injected=false loop inherits the root provision through the explicit bound definition Context, performs three increments, and records no failures.",
+                  "assertion": "The injected=false branch performs three root-bound calls that mutate a Cell directly (654–655), disposes the consumer between the second and third (664), asserts root counter value 3 (666), and records no failures (667). It registers no increment cleanup and observes neither intermediate getter.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                },
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "bound_nested_calls_keep_definition_authority_but_use_caller_realm_metadata_and_effects",
+                  "lines": [
+                    106,
+                    115,
+                    127,
+                    128,
+                    129,
+                    134,
+                    140,
+                    141,
+                    145,
+                    188,
+                    189,
+                    191,
+                    192,
+                    195,
+                    197,
+                    198,
+                    199,
+                    200
+                  ],
+                  "assertion": "A cleanup registered through a root-use-site bound relay survives disposal of its definition relay Fiber (197–198), then runs on root drain (199–200). This asserts root effect ownership, not a reversible Counter increment or either intermediate getter sequence.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -523,17 +665,23 @@
                 "anchor": "scope-and-bound-calls",
                 "reason": "BoundService passes an explicit traced Context; native Rc values do not transparently rebind arbitrary Rust methods or accessors."
               },
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "The cited current Rust regression exercises this exact lifecycle boundary; both workspace-test matrix commands contain the named test as passed. No TypeScript execution comparison is claimed."
+              "gap": {
+                "id": "G-B0-service.spec.ts:76/default/a97",
+                "kind": "missing-evidence",
+                "next_action": "Add a public BoundService Foo-to-Counter regression with Counter acquisition increment and owned cleanup decrement as in utils.ts:62–66; cover both Foo injection declarations, assert root-bound foo getter after the first root-owned Counter.increase effect equals 1, dispose the consumer without decrementing either root-owned effect, and assert the third root call yields 3 before root cleanup.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage; a passing regression closes the evidence gap without production change. Conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "SR-1: service.spec.ts:76 delegates Foo.increase to utils.ts:62–66, a reversible effect. acceptance.rs:654–655 only mutates Cell; its final count 3 and no failures are retained as partial evidence. scoping.rs:188–200 separately proves root-use-site bound-effect lifetime. Neither observes this exact root-bound foo getter after the first root-owned Counter.increase effect; the full source getter/effect obligation remains unexecuted."
             },
             {
               "id": "core/service.spec.ts:76/default/a101",
-              "behavior": "A foo-injecting consumer call retains inherited root provision authority and reaches value 2.",
+              "behavior": "The root.foo.value inside the foo-injecting consumer callback after the second root-owned Counter.increase effect observes 2.",
               "source_assertion_lines": [
                 101
               ],
-              "class": "rust-representation",
+              "class": "missing-evidence",
               "rust_evidence": [
                 {
                   "file": "crates/re-cordis-core/tests/acceptance.rs",
@@ -545,14 +693,15 @@
                     630,
                     631,
                     641,
+                    642,
                     644,
-                    646,
                     652,
                     653,
                     654,
                     655,
                     658,
                     659,
+                    660,
                     662,
                     663,
                     664,
@@ -560,7 +709,36 @@
                     666,
                     667
                   ],
-                  "assertion": "The injected=false loop inherits the root provision through the explicit bound definition Context, performs three increments, and records no failures.",
+                  "assertion": "The injected=false branch performs three root-bound calls that mutate a Cell directly (654–655), disposes the consumer between the second and third (664), asserts root counter value 3 (666), and records no failures (667). It registers no increment cleanup and observes neither intermediate getter.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                },
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "bound_nested_calls_keep_definition_authority_but_use_caller_realm_metadata_and_effects",
+                  "lines": [
+                    106,
+                    115,
+                    127,
+                    128,
+                    129,
+                    134,
+                    140,
+                    141,
+                    145,
+                    188,
+                    189,
+                    191,
+                    192,
+                    195,
+                    197,
+                    198,
+                    199,
+                    200
+                  ],
+                  "assertion": "A cleanup registered through a root-use-site bound relay survives disposal of its definition relay Fiber (197–198), then runs on root drain (199–200). This asserts root effect ownership, not a reversible Counter increment or either intermediate getter sequence.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -573,13 +751,19 @@
                 "anchor": "scope-and-bound-calls",
                 "reason": "BoundService passes an explicit traced Context; native Rc values do not transparently rebind arbitrary Rust methods or accessors."
               },
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "The cited current Rust regression exercises this exact lifecycle boundary; both workspace-test matrix commands contain the named test as passed. No TypeScript execution comparison is claimed."
+              "gap": {
+                "id": "G-B0-service.spec.ts:76/default/a101",
+                "kind": "missing-evidence",
+                "next_action": "Add a public BoundService Foo-to-Counter regression with Counter acquisition increment and owned cleanup decrement as in utils.ts:62–66; cover both Foo injection declarations, assert root.foo.value inside the foo-injecting consumer callback after the second root-owned Counter.increase effect equals 2, dispose the consumer without decrementing either root-owned effect, and assert the third root call yields 3 before root cleanup.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage; a passing regression closes the evidence gap without production change. Conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "SR-1: service.spec.ts:76 delegates Foo.increase to utils.ts:62–66, a reversible effect. acceptance.rs:654–655 only mutates Cell; its final count 3 and no failures are retained as partial evidence. scoping.rs:188–200 separately proves root-use-site bound-effect lifetime. Neither observes this exact root.foo.value inside the foo-injecting consumer callback after the second root-owned Counter.increase effect; the full source getter/effect obligation remains unexecuted."
             },
             {
               "id": "core/service.spec.ts:76/default/a106",
-              "behavior": "After consumer disposal, the root call remains usable and reaches value 3.",
+              "behavior": "After consumer disposal, a third root-bound service call observes counter value 3; the earlier root-use-site effects survive consumer disposal.",
               "source_assertion_lines": [
                 106
               ],
@@ -595,14 +779,15 @@
                     630,
                     631,
                     641,
+                    642,
                     644,
-                    646,
                     652,
                     653,
                     654,
                     655,
                     658,
                     659,
+                    660,
                     662,
                     663,
                     664,
@@ -610,7 +795,36 @@
                     666,
                     667
                   ],
-                  "assertion": "The injected=false loop inherits the root provision through the explicit bound definition Context, performs three increments, and records no failures.",
+                  "assertion": "The injected=false branch performs three root-bound calls that mutate a Cell directly (654–655), disposes the consumer between the second and third (664), asserts root counter value 3 (666), and records no failures (667). It registers no increment cleanup and observes neither intermediate getter.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                },
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "bound_nested_calls_keep_definition_authority_but_use_caller_realm_metadata_and_effects",
+                  "lines": [
+                    106,
+                    115,
+                    127,
+                    128,
+                    129,
+                    134,
+                    140,
+                    141,
+                    145,
+                    188,
+                    189,
+                    191,
+                    192,
+                    195,
+                    197,
+                    198,
+                    199,
+                    200
+                  ],
+                  "assertion": "A cleanup registered through a root-use-site bound relay survives disposal of its definition relay Fiber (197–198), then runs on root drain (199–200). This asserts root effect ownership, not a reversible Counter increment or either intermediate getter sequence.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -625,12 +839,13 @@
               },
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The cited current Rust regression exercises this exact lifecycle boundary; both workspace-test matrix commands contain the named test as passed. No TypeScript execution comparison is claimed."
+              "rationale": "SR-1: the final root count 3 and consumer-disposal boundary are asserted at acceptance.rs:664–666 in injected=false. The separate scoping.rs:188–200 assertion establishes root-use-site bound-effect ownership. This explicit Rust join retains the final-count/lifetime evidence; it does not claim the Cell mutation executes Counter.increase cleanup or either intermediate getter, which retain separate original-ID gaps."
             }
           ]
         }
       ],
       "classes": [
+        "missing-evidence",
         "rust-representation"
       ]
     },
