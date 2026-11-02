@@ -18,7 +18,7 @@ review, integration, documentation and current verification.
 
 | ID | Status | Dependencies | Owner / role / model | Worktree / branch | Implementation commit | Review result | Evidence location |
 |---|---|---|---|---|---|---|---|
-| B0 | blocked | None | orchestrator checkpoint; no active worker; resume execution sol/high and review astra/high | integration | c3fbcb0, 7d1552a, ac72512, 25dcde8 (partial evidence) | matrix accepted; report re-review pending; fragment FR-1 open; full ledger incomplete | evidence/B0/ |
+| B0 | in_progress | None | resumed orchestrator; b0_fragment_repair sol/high; b0_report_review astra/high | integration; fresh managed worker worktrees assigned on dispatch | c3fbcb0, 7d1552a, ac72512, 25dcde8 (partial evidence) | matrix accepted; scoped report re-review and FR-1 correction next; full ledger incomplete | evidence/B0/ |
 | B1 | planned | B0 | unassigned | integration | — | not started | evidence/B1/ |
 | T0 | planned | B0 | unassigned | integration | — | not started | evidence/T0/ |
 | T1 | planned | T0 | unassigned | integration | — | not started | evidence/T1/ |
@@ -98,6 +98,15 @@ Do not replace pending inventory with blanket exclusions or claim missing mappin
 
 ## Resume next
 
+### Current resumed session
+
+Resumed from clean `25329ad` on 2026-11-02. The previous chat is idle; no old
+workers or worktrees are active. Previous infrastructure failures are historical
+until a fresh bounded attempt is observed. Dispatch FR-1 repair and scoped matrix
+report re-review independently using exact requested models and isolated managed
+worktrees; preserve their results before expanding the ledger audit. The numbered
+instructions below remain the outstanding B0 sequence.
+
 1. Read this file, evidence.md, evidence/B0/infrastructure.md, plan.md, matrix-review.md, matrix/report.md and fragment-review.md. Read the master/schedule/acceptance documents again after context loss.
 2. Inspect Git status/history and worktrees. The only worktree is /Users/I756434/Projects/private/cordis-rust on feat/cordis-completion; no worker remains active and no production inputs changed. All saved partial evidence is committed. Confirm this against actual files before dispatch.
 3. Restore usable worker/hand-off execution with the exact requested models. Do not resume corrupted b0_ledger, b0_matrix or b0_events contexts. Do not interpret the five-record fresh-worker success as proof the API problem is gone. Use the durable handoff files with fresh contexts once readable dispatch works.
@@ -128,4 +137,5 @@ Do not replace pending inventory with blanket exclusions or claim missing mappin
 - 2026-11-02 CP018: Independent fragment reviewer confirmed 23 dispositions and real test joins, but found seven gap assignments bypass B2 entry gate. Accepted D006 and dispatched a bounded correction via handoffs/fragment-fix.md to b0_ledger_extra_retry (same sol/high). Do not start associate/invoke or dependent production work.
 - 2026-11-02 CP019: Matrix report and all validation attempts committed at 25dcde8. New summary validation passed; initial report check failed on its not-yet-created log link, retry passed. Preserve all logs and metadata. Dispatch scoped independent re-review for B0-MATRIX-01/02; source fragment correction remains separate.
 - 2026-11-02 CP020: The fragment correction follow-up arrived at its worker as opaque ciphertext; worker stopped without editing. Matrix re-review handoff was prepared but never dispatched. Independent fragment review FR-1 is saved, report/validation artifacts are committed, and all workers have completed/failed. No package is marked done: B0 blocked, 34 planned. Final checkpoint preserves exact resume steps; no background continuation.
+- 2026-11-02 CP021: New resume reconciled clean `25329ad`, one integration checkout, no attached worktrees, previous chat idle, unchanged production/test/manifest/CI inputs since `808c9f5`, and clean pinned TS `35fdc969e4b6c48c48ed44717c7a018324e4dd88`. No completed task is restarted. Fresh bounded FR-1 correction (sol/high) and matrix-report re-review (astra/high) are dispatched with separate owned outputs; B0 returns to in_progress while testing current worker transport. All 34 dependent packages remain planned.
 
