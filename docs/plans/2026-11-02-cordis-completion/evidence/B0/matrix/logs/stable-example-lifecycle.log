@@ -1,0 +1,9 @@
+COMMAND: /Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo run -p re-cordis-core --example lifecycle --locked
+CWD: /Users/I756434/Projects/private/cordis-rust
+START_UTC: 2026-11-02T08:34:56.956391+00:00
+
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.16s
+     Running `target/acceptance-stable/debug/examples/lifecycle`
+
+END_UTC: 2026-11-02T08:34:57.794156+00:00
+EXIT_CODE: 0

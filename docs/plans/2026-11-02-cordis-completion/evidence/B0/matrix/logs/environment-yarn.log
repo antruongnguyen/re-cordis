@@ -1,0 +1,8 @@
+COMMAND: corepack yarn --version
+CWD: /Users/I756434/Projects/private/cordis-rust/local/cordis
+START_UTC: 2026-11-02T08:34:01.386610+00:00
+
+4.14.1
+
+END_UTC: 2026-11-02T08:34:02.777801+00:00
+EXIT_CODE: 0

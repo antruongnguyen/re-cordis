@@ -1,0 +1,8 @@
+COMMAND: python3 --version
+CWD: /Users/I756434/Projects/private/cordis-rust
+START_UTC: 2026-11-02T08:34:01.297393+00:00
+
+Python 3.14.7
+
+END_UTC: 2026-11-02T08:34:01.310138+00:00
+EXIT_CODE: 0

@@ -1,0 +1,8 @@
+COMMAND: node --version
+CWD: /Users/I756434/Projects/private/cordis-rust
+START_UTC: 2026-11-02T08:34:01.315454+00:00
+
+v22.23.3
+
+END_UTC: 2026-11-02T08:34:01.331451+00:00
+EXIT_CODE: 0

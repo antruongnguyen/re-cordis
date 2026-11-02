@@ -1,0 +1,8 @@
+COMMAND: /Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustfmt --version
+CWD: /Users/I756434/Projects/private/cordis-rust
+START_UTC: 2026-11-02T08:34:56.616184+00:00
+
+rustfmt 1.9.0-stable (8bab26f4f6 2026-07-14)
+
+END_UTC: 2026-11-02T08:34:56.649922+00:00
+EXIT_CODE: 0

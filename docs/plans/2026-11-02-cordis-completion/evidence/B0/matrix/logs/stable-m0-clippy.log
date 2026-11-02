@@ -1,0 +1,15 @@
+COMMAND: /Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo clippy --manifest-path spikes/m0/Cargo.toml --all-targets --locked -- -D warnings
+CWD: /Users/I756434/Projects/private/cordis-rust
+START_UTC: 2026-11-02T08:34:55.166913+00:00
+
+    Checking futures-sink v0.3.34
+    Checking futures-io v0.3.34
+    Checking re-cordis-m0-spike v0.0.0 (/Users/I756434/Projects/private/cordis-rust/spikes/m0)
+    Checking futures-channel v0.3.34
+    Checking futures-util v0.3.34
+    Checking futures-executor v0.3.34
+    Checking futures v0.3.34
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.34s
+
+END_UTC: 2026-11-02T08:34:56.547407+00:00
+EXIT_CODE: 0

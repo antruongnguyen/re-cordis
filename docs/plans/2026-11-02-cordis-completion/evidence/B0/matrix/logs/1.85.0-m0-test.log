@@ -1,0 +1,75 @@
+COMMAND: /Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/cargo test --manifest-path spikes/m0/Cargo.toml --locked
+CWD: /Users/I756434/Projects/private/cordis-rust
+START_UTC: 2026-11-02T08:35:45.185715+00:00
+
+   Compiling futures-sink v0.3.34
+   Compiling futures-core v0.3.34
+   Compiling futures-io v0.3.34
+   Compiling re-cordis-m0-spike v0.0.0 (/Users/I756434/Projects/private/cordis-rust/spikes/m0)
+   Compiling futures-macro v0.3.34
+   Compiling tokio v1.54.1
+   Compiling futures-channel v0.3.34
+   Compiling futures-util v0.3.34
+   Compiling futures-executor v0.3.34
+   Compiling futures v0.3.34
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.63s
+     Running unittests src/lib.rs (target/acceptance-1.85.0/debug/deps/re_cordis_m0_spike-51dfcc58e345b1ab)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/access.rs (target/acceptance-1.85.0/debug/deps/access-b765dafd3bf5377b)
+
+running 4 tests
+test typed_extension_and_explicit_accessor_keep_inherited_metadata ... ok
+test named_type_contracts_shared_labels_and_plugin_identity_are_distinct ... ok
+test nearest_inject_own_provisions_and_same_label_boundaries ... ok
+test nested_calls_keep_definition_authority_and_use_site_intercepts_and_effects ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/config.rs (target/acceptance-1.85.0/debug/deps/config-a27c1300c31dc266)
+
+running 2 tests
+test invalid_loaded_update_cannot_reach_middleware_or_mutate_source ... ok
+test pending_defers_validation_and_loads_only_latest_source ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/events.rs (target/acceptance-1.85.0/debug/deps/events-c02430872f5c8ec5)
+
+running 5 tests
+test emit_is_immediate_snapshot_based_filtered_and_once_reentrant ... ok
+test synchronous_error_stops_emit_and_named_contracts_are_checked ... ok
+test parallel_waits_for_all_failures_and_serial_bails_on_zero ... ok
+test waterfall_is_around_middleware_can_veto_and_supports_nested_async_calls ... ok
+test split_async_emit_starts_prefix_now_and_reports_detached_failure ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/lifecycle.rs (target/acceptance-1.85.0/debug/deps/lifecycle-a024b0007f43037f)
+
+running 9 tests
+test executor_shutdown_is_not_a_cleanup_completion_guarantee ... ok
+test withdrawal_returns_consumer_to_pending_then_rebinds ... ok
+test parent_cascades_root_reuses_and_dropped_waiter_does_not_cancel ... ok
+test composed_cleanup_sequences_async_children_in_reverse_order ... ok
+test transitive_provider_chain_drains_from_leaf_to_provider ... ok
+test individual_withdrawal_does_not_wait_for_another_binding ... ok
+test same_fiber_cleanup_request_is_refused_before_admission ... ok
+test pending_consumer_keeps_exact_binding_through_removed_consumer_cleanup ... ok
+test top_level_cleanup_is_concurrent_attempt_all_and_exactly_once ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests re_cordis_m0_spike
+
+running 1 test
+test src/lib.rs - Next (line 11) - compile fail ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+
+END_UTC: 2026-11-02T08:35:50.453174+00:00
+EXIT_CODE: 0

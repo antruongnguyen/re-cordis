@@ -1,0 +1,23 @@
+COMMAND: rustup show
+CWD: /Users/I756434/Projects/private/cordis-rust
+START_UTC: 2026-11-02T08:34:01.233427+00:00
+
+Default host: aarch64-apple-darwin
+rustup home:  /Users/I756434/.rustup
+
+installed toolchains
+--------------------
+stable-aarch64-apple-darwin (active, default)
+1.85-aarch64-apple-darwin
+1.85.0-aarch64-apple-darwin
+1.88-aarch64-apple-darwin
+
+active toolchain
+----------------
+name: stable-aarch64-apple-darwin
+active because: it's the default toolchain
+installed targets:
+  aarch64-apple-darwin
+
+END_UTC: 2026-11-02T08:34:01.296068+00:00
+EXIT_CODE: 0

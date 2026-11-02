@@ -1,0 +1,8 @@
+COMMAND: corepack --version
+CWD: /Users/I756434/Projects/private/cordis-rust
+START_UTC: 2026-11-02T08:34:01.336636+00:00
+
+0.36.0
+
+END_UTC: 2026-11-02T08:34:01.380969+00:00
+EXIT_CODE: 0
