@@ -41,6 +41,84 @@ SCENARIOS = {
 }
 
 
+# Independently confirmed by LR1 and the services guard review. This control
+# names exact IDs/reasons/reviews; original provenance comes only from Git.
+NON_OBLIGATION_CONTROL = [
+    (
+        "core/plugin.spec.ts:77/default/a84", [84],
+        "Parser false positive; closing token, no executable observation.",
+        "lifecycle-update-review.md",
+        "lr1--separate-three-non-obligations-from-behavioral-gaps-p2",
+    ),
+    (
+        "core/fiber.spec.ts:71/default/a86", [86],
+        "Commented expectation; no asserted count at this location.",
+        "lifecycle-update-review.md",
+        "lr1--separate-three-non-obligations-from-behavioral-gaps-p2",
+    ),
+    (
+        "core/update.spec.ts:7/false/a21", [21],
+        "Guard if (inject) is false for this registered variant; inject=true remains behavioral.",
+        "lifecycle-update-review.md",
+        "lr1--separate-three-non-obligations-from-behavioral-gaps-p2",
+    ),
+    (
+        "core/service-dispose.spec.ts:95/provider/a125", [123, 124, 125, 126],
+        "Guard action === 'restart' is false for this registered variant; restart remains behavioral.",
+        "services-review.md",
+        "confirmed-non-obligation-provenance-for-the-integration-owner",
+    ),
+    (
+        "core/service-dispose.spec.ts:95/root/a125", [123, 124, 125, 126],
+        "Guard action === 'restart' is false for this registered variant; restart remains behavioral.",
+        "services-review.md",
+        "confirmed-non-obligation-provenance-for-the-integration-owner",
+    ),
+    (
+        "core/service-dispose.spec.ts:95/provider first/a125", [123, 124, 125, 126],
+        "Guard action === 'restart' is false for this registered variant; restart remains behavioral.",
+        "services-review.md",
+        "confirmed-non-obligation-provenance-for-the-integration-owner",
+    ),
+    (
+        "core/service-dispose.spec.ts:95/consumer first/a125", [123, 124, 125, 126],
+        "Guard action === 'restart' is false for this registered variant; restart remains behavioral.",
+        "services-review.md",
+        "confirmed-non-obligation-provenance-for-the-integration-owner",
+    ),
+]
+
+
+def expected_non_obligations(baseline):
+    original = {
+        obligation["id"]: (declaration, variant, obligation)
+        for declaration in baseline["declarations"]
+        for variant in declaration["variants"]
+        for obligation in variant["obligations"]
+    }
+    expected = {}
+    for obligation_id, context_lines, reason, review, anchor in NON_OBLIGATION_CONTROL:
+        declaration, variant, obligation = original[obligation_id]
+        expected[obligation_id] = {
+            "id": obligation_id,
+            "inventory_commit": BASELINE_COMMIT,
+            "inventory_file": BASELINE_LEDGER,
+            "rust_revision": baseline["rust_revision"],
+            "declaration_id": declaration["id"],
+            "source_file": declaration["source_file"],
+            "source_line": declaration["source_line"],
+            "source_end_line": declaration["source_end_line"],
+            "source_assertion_lines": obligation["source_assertion_lines"],
+            "parameters": variant["parameters"],
+            "source_text": obligation["behavior"],
+            "source_context_lines": context_lines,
+            "reason": reason,
+            "review": {"document": str(Path(BASELINE_LEDGER).parents[1] / review), "anchor": anchor},
+            "execution_status": "not-applicable",
+        }
+    return expected
+
+
 def load_json(path):
     return json.loads(path.read_text(encoding="utf-8"))
 
@@ -382,11 +460,12 @@ def validate_documents(ledger, event_types, *, repo_root, source_repo, baseline)
     errors, context = evidence_context(str(repo_root.resolve()), str(source_repo.resolve()))
     errors = list(errors)
     obligation_ids, gap_ids, rust_identities, paired_scenarios = set(), set(), set(), set()
-    class_counts = Counter()
+    class_counts, execution_counts, type_classes = Counter(), Counter(), Counter()
 
     check_keys(
         ledger, ("schema_version", "rust_revision", "typescript_revision",
-                 "implementation_revision", "status", "declarations"),
+                 "implementation_revision", "status", "declarations",
+                 "inventory_non_obligations", "summary"),
         "ledger", errors,
     )
     if ledger.get("schema_version") != 1:
@@ -398,6 +477,29 @@ def validate_documents(ledger, event_types, *, repo_root, source_repo, baseline)
         errors.append(f"ledger typescript_revision must be {TS_PIN}")
     if not final_text(ledger.get("status")):
         errors.append("ledger does not have a non-placeholder final status")
+
+    expected_non = expected_non_obligations(baseline)
+    non_obligations = ledger.get("inventory_non_obligations")
+    if not isinstance(non_obligations, list):
+        errors.append("inventory non-obligations must be a list")
+        non_obligations = []
+    actual_non = {item.get("id"): item for item in non_obligations if isinstance(item, dict)}
+    if set(actual_non) != set(expected_non) or len(actual_non) != len(non_obligations):
+        errors.append("inventory non-obligation IDs must be exactly the seven reviewed unique IDs")
+    for obligation_id in expected_non.keys() & actual_non.keys():
+        record = actual_non[obligation_id]
+        if variant_key(record) != variant_key(expected_non[obligation_id]):
+            errors.append(f"inventory non-obligation {obligation_id}: provenance/status/reason/review differs from independent control")
+        check_reference(
+            record.get("source_file"), record.get("source_context_lines"),
+            f"inventory non-obligation {obligation_id}", errors, repo_root, source_repo,
+        )
+        review = record.get("review")
+        if isinstance(review, dict):
+            validate_restriction(
+                dict(review, reason=record.get("reason")), f"inventory non-obligation {obligation_id}",
+                errors, repo_root,
+            )
 
     declarations = ledger.get("declarations")
     if not isinstance(declarations, list):
@@ -448,10 +550,12 @@ def validate_documents(ledger, event_types, *, repo_root, source_repo, baseline)
             original = {item["id"]: item["source_assertion_lines"] for item in expected_variant["obligations"]}
             retained = {item.get("id"): item.get("source_assertion_lines") for item in obligations if isinstance(item, dict)}
             for original_id, original_lines in original.items():
-                if retained.get(original_id) != original_lines:
+                if original_id not in expected_non and retained.get(original_id) != original_lines:
                     errors.append(f"{variant_label}: original obligation/lines not retained: {original_id}")
             for index, obligation in enumerate(obligations):
                 obligation_label = f"{variant_label}.obligations[{index}]"
+                if isinstance(obligation, dict) and obligation.get("id") in expected_non:
+                    errors.append(f"{obligation_label}: inventory non-obligation cannot be behavioral")
                 validate_obligation(
                     obligation, obligation_label, errors, context, repo_root, source_repo,
                     (actual.get("source_line", 0), actual.get("source_end_line", 0)),
@@ -460,9 +564,11 @@ def validate_documents(ledger, event_types, *, repo_root, source_repo, baseline)
                 if isinstance(obligation, dict) and obligation.get("class") in CLASSES:
                     derived_classes.add(obligation["class"])
                     class_counts[obligation["class"]] += 1
+                    execution_counts[obligation.get("execution_status")] += 1
         if actual.get("classes") != sorted(derived_classes):
             errors.append(f"{label}: parent classes do not equal derived obligation classes")
 
+    runtime_classes = dict(sorted(class_counts.items()))
     expected_type_ids = {f"core/events.types.ts:{line}" for line in TYPE_LINES}
     if not isinstance(event_types, dict):
         errors.append("event-types ledger is missing")
@@ -509,7 +615,12 @@ def validate_documents(ledger, event_types, *, repo_root, source_repo, baseline)
             errors.append(f"{label}: separate events.types.ts was not run as an executed comparison")
         if isinstance(obligation, dict) and obligation.get("class") in CLASSES:
             class_counts[obligation["class"]] += 1
+            type_classes[obligation["class"]] += 1
 
+    original_ids = {
+        o["id"] for d in baseline["declarations"] for v in d["variants"] for o in v["obligations"]
+    }
+    runtime_ids = obligation_ids - actual_type_ids
     counts = {
         "declarations": len(declarations),
         "variants": sum(len(item.get("variants", [])) for item in declarations if isinstance(item, dict)),
@@ -518,6 +629,13 @@ def validate_documents(ledger, event_types, *, repo_root, source_repo, baseline)
             for item in declarations if isinstance(item, dict)
             for variant in item.get("variants", []) if isinstance(variant, dict)
         ),
+        "inventory_non_obligations": len(non_obligations),
+        "original_runtime_inventory": len(original_ids),
+        "retained_runtime_inventory": len(runtime_ids & original_ids),
+        "added_runtime_obligations": len(runtime_ids - original_ids),
+        "runtime_classes": runtime_classes,
+        "type_classes": dict(sorted(type_classes.items())),
+        "runtime_execution_statuses": dict(sorted(execution_counts.items())),
         "type_obligations": len(type_obligations),
         "rust_test_identities": len(rust_identities),
         "paired_scenarios": len(paired_scenarios),
@@ -529,76 +647,9 @@ def validate_documents(ledger, event_types, *, repo_root, source_repo, baseline)
         errors.append(f"derived variant count is {counts['variants']}, expected 156")
     if counts["type_obligations"] != 6:
         errors.append(f"derived event-type obligation count is {counts['type_obligations']}, expected 6")
+    if ledger.get("summary") != counts:
+        errors.append("ledger summary totals do not equal independently derived counts")
     return errors, counts
-
-
-def complete_fixture(baseline):
-    fixture = deepcopy(baseline)
-    fixture["status"] = "complete evidence reconciliation"
-    for declaration in fixture["declarations"]:
-        classes = set()
-        for variant in declaration["variants"]:
-            for obligation in variant["obligations"]:
-                obligation.update({
-                    "class": "missing-evidence",
-                    "rust_evidence": [],
-                    "paired_evidence": [],
-                    "restriction": None,
-                    "gap": {
-                        "id": "G-SELF-" + obligation["id"],
-                        "kind": "missing-evidence",
-                        "next_action": "Add and run a targeted public core regression for this exact assertion boundary.",
-                        "owner": "core evidence maintainer",
-                        "work_package": (
-                            "Core evidence follow-up; a dependent gate and failing public-API "
-                            "reproducer are required before conditional B2 entry."
-                        ),
-                    },
-                    "execution_status": "not-executed",
-                    "rationale": (
-                        "No exact current Rust assertion is available; the boundary remains "
-                        "explicitly tracked for a targeted evidence regression."
-                    ),
-                })
-                classes.add(obligation["class"])
-        declaration["classes"] = sorted(classes)
-    return fixture
-
-
-def complete_type_fixture(baseline):
-    return {
-        "schema_version": 1,
-        "rust_revision": baseline["rust_revision"],
-        "typescript_revision": baseline["typescript_revision"],
-        "status": "complete event-type evidence reconciliation",
-        "obligations": [
-            {
-                "id": f"core/events.types.ts:{line}",
-                "source_file": TYPE_SOURCE,
-                "source_line": line,
-                "source_signature_line": 9,
-                "source_assertion_lines": [line],
-                "behavior": f"Typed event expression at line {line} remains explicitly accounted for.",
-                "class": "missing-evidence",
-                "rust_evidence": [],
-                "paired_evidence": [],
-                "restriction": None,
-                "gap": {
-                    "id": f"G-SELF-events.types.ts:{line}",
-                    "kind": "missing-evidence",
-                    "next_action": "Add and run a targeted Rustdoc check for this exact type expression.",
-                    "owner": "core evidence maintainer",
-                    "work_package": (
-                        "Core evidence follow-up; a dependent gate and failing public-API "
-                        "reproducer are required before conditional B2 entry."
-                    ),
-                },
-                "execution_status": "not-executed",
-                "rationale": "The type expression is retained as an explicit, owned evidence gap.",
-            }
-            for line in TYPE_LINES
-        ],
-    }
 
 
 def assert_error(errors, text):
@@ -607,32 +658,14 @@ def assert_error(errors, text):
 
 
 def self_test(repo_root, source_repo, baseline):
-    ledger = complete_fixture(baseline)
+    ledger = load_json(B0 / "ledger/cases.json")
+    event_types = load_json(B0 / "ledger/event-types.json")
     accepted = load_json(B0 / "ledger-inputs/decorator-reflect.json")
-    accepted_by_id = {item["id"]: item for item in accepted["declarations"]}
-    ledger["declarations"] = [
-        deepcopy(accepted_by_id.get(item["id"], item)) for item in ledger["declarations"]
-    ]
-    event_types = complete_type_fixture(baseline)
-    event_types["obligations"][0].update({
-        "class": "source-mapped-test",
-        "rust_evidence": [{
-            "file": "crates/re-cordis-core/src/events.rs",
-            "symbol": "events::Event",
-            "lines": [62],
-            "compile_fail": False,
-            "assertion": "Runnable typed Event Rustdoc item passed.",
-            "command_ids": ["stable-workspace-test", "1.85.0-workspace-test"],
-        }],
-        "gap": None,
-        "execution_status": "passed",
-        "rationale": "Synthetic positive check for the real runnable Rustdoc matrix/log join.",
-    })
     errors, positive_counts = validate_documents(
         ledger, event_types, repo_root=repo_root, source_repo=source_repo, baseline=baseline
     )
     if errors:
-        raise AssertionError(f"complete synthetic fixture rejected: {errors}")
+        raise AssertionError(f"real complete ledger rejected: {errors}")
 
     errors, _ = validate_documents(
         baseline, None, repo_root=repo_root, source_repo=source_repo, baseline=baseline
@@ -722,9 +755,106 @@ def self_test(repo_root, source_repo, baseline):
     )
     assert_error(errors, "event-type obligation IDs")
 
+    negative_checks = 9
+
+    def reject(changed, message):
+        nonlocal negative_checks
+        errors, _ = validate_documents(
+            changed, event_types, repo_root=repo_root, source_repo=source_repo, baseline=baseline
+        )
+        assert_error(errors, message)
+        negative_checks += 1
+
+    changed = deepcopy(ledger)
+    changed["declarations"][0]["variants"][0]["obligations"].pop()
+    reject(changed, "original obligation/lines not retained")
+
+    changed = deepcopy(ledger)
+    changed["declarations"][0]["variants"][0]["obligations"].append(
+        deepcopy(changed["declarations"][0]["variants"][0]["obligations"][0])
+    )
+    reject(changed, "duplicate obligation ID")
+
+    changed = deepcopy(ledger)
+    changed["inventory_non_obligations"].pop()
+    reject(changed, "non-obligation IDs")
+
+    changed = deepcopy(ledger)
+    changed["inventory_non_obligations"].append(deepcopy(changed["inventory_non_obligations"][0]))
+    reject(changed, "non-obligation IDs")
+
+    for field, value in (
+        ("id", "core/unknown.spec.ts:1/default/a1"),
+        ("source_assertion_lines", [85]),
+        ("source_line", 78),
+        ("source_end_line", 86),
+        ("inventory_commit", "a54d045"),
+        ("source_file", "local/cordis/packages/core/tests/fiber.spec.ts"),
+        ("source_context_lines", [83]),
+        ("source_text", "expect(true).toBe(true)"),
+        ("parameters", {"inject": True}),
+        ("reason", "Arbitrary exemption"),
+        ("review", {"document": "docs/m6.md", "anchor": "m6-acceptance"}),
+        ("execution_status", "passed"),
+        ("gap", {"id": "G-EXEMPT"}),
+        ("class", "missing-evidence"),
+    ):
+        changed = deepcopy(ledger)
+        changed["inventory_non_obligations"][0][field] = value
+        reject(changed, "non-obligation")
+
+    changed = deepcopy(ledger)
+    inactive = next(r for r in changed["inventory_non_obligations"]
+                    if r["id"] == "core/update.spec.ts:7/false/a21")
+    inactive["parameters"] = {"inject": 0}
+    reject(changed, "non-obligation")
+
+    for active_id in (
+        "core/update.spec.ts:7/true/a21",
+        "core/service-dispose.spec.ts:95/restart/a125",
+    ):
+        changed = deepcopy(ledger)
+        record = deepcopy(changed["inventory_non_obligations"][0])
+        record["id"] = active_id
+        changed["inventory_non_obligations"].append(record)
+        reject(changed, "non-obligation IDs")
+
+    changed = deepcopy(ledger)
+    record = changed["inventory_non_obligations"][0]
+    declaration = next(d for d in changed["declarations"] if d["id"] == record["declaration_id"])
+    original = next(
+        o for d in baseline["declarations"] for v in d["variants"] for o in v["obligations"]
+        if o["id"] == record["id"]
+    )
+    declaration["variants"][0]["obligations"].append(deepcopy(original))
+    reject(changed, "non-obligation cannot be behavioral")
+
+    for field in ("obligations", "inventory_non_obligations"):
+        changed = deepcopy(ledger)
+        changed["summary"][field] += 1
+        reject(changed, "summary totals")
+
+    changed = deepcopy(ledger)
+    changed["summary"]["runtime_classes"]["missing-evidence"] += 7
+    reject(changed, "summary totals")
+
+    changed = deepcopy(ledger)
+    changed["summary"]["runtime_execution_statuses"]["passed"] += 7
+    reject(changed, "summary totals")
+
+    changed_types = deepcopy(event_types)
+    wrong_doc = next(e for o in changed_types["obligations"] for e in o["rust_evidence"]
+                     if "compile_fail" in e)
+    wrong_doc["compile_fail"] = not wrong_doc["compile_fail"]
+    errors, _ = validate_documents(
+        ledger, changed_types, repo_root=repo_root, source_repo=source_repo, baseline=baseline
+    )
+    assert_error(errors, "matching passing result")
+
     print(
-        "Self-test passed: accepted real joins, synthetic completion, and nine "
-        f"expected negative checks; counts={json.dumps(positive_counts, sort_keys=True)}"
+        "Self-test passed: real complete-data positive, exact reviewed non-obligation control, "
+        f"and {negative_checks + 1} expected negative checks; counts="
+        + json.dumps(positive_counts, sort_keys=True)
     )
 
 
