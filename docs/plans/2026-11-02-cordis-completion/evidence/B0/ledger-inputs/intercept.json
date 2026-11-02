@@ -1,0 +1,457 @@
+{
+  "schema_version": 1,
+  "rust_revision": "9a7633c0b3b98e5f37e9f2211f3ffa67fdac5edc",
+  "typescript_revision": "35fdc969e4b6c48c48ed44717c7a018324e4dd88",
+  "implementation_revision": "808c9f573dd96c56fa2ec43e0b1bfb9ed39b2f3f",
+  "status": "intercept family reconciliation complete; exact source assertions and accepted stable/MSRV logs joined; independent integration review pending",
+  "declarations": [
+    {
+      "id": "core/intercept.spec.ts:34",
+      "source_file": "local/cordis/packages/core/tests/intercept.spec.ts",
+      "source_line": 34,
+      "source_end_line": 41,
+      "title": "merge context intercepts from outer to inner",
+      "suite": [
+        "Intercept"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/intercept.spec.ts:34/default/a37",
+              "behavior": "expect(root.foo.config()).to.deep.equal({})",
+              "source_assertion_lines": [
+                37
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-intercept-34-a37",
+                "kind": "missing-evidence",
+                "next_action": "Add the zero-layer baseline assertion to intercepts_merge_nearest_injection_then_outer_to_inner_and_own_provisions_do_not_borrow_it for core/intercept.spec.ts:34 line 37: expect(root.foo.config()).to.deep.equal({}).",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            },
+            {
+              "id": "core/intercept.spec.ts:34/default/a39",
+              "behavior": "expect(ctx.foo.config()).to.deep.equal({ a: 1, b: 2 })",
+              "source_assertion_lines": [
+                39
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "intercepts_merge_nearest_injection_then_outer_to_inner_and_own_provisions_do_not_borrow_it",
+                  "lines": [
+                    270,
+                    271,
+                    272,
+                    273,
+                    274
+                  ],
+                  "assertion": "Without injected config, the explicit direct binding resolves outer then inner intercept layers in order.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Without injected config, the explicit direct binding resolves outer then inner intercept layers in order. Both accepted workspace-test command logs list this test as ok."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/intercept.spec.ts:42",
+      "source_file": "local/cordis/packages/core/tests/intercept.spec.ts",
+      "source_line": 42,
+      "source_end_line": 51,
+      "title": "merge injected config under context intercepts",
+      "suite": [
+        "Intercept"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/intercept.spec.ts:42/default/a49",
+              "behavior": "expect(config).to.deep.equal({ a: 1, b: 2, c: 3 })",
+              "source_assertion_lines": [
+                49
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "intercepts_merge_nearest_injection_then_outer_to_inner_and_own_provisions_do_not_borrow_it",
+                  "lines": [
+                    215,
+                    216,
+                    217,
+                    218,
+                    219,
+                    220,
+                    225,
+                    226,
+                    233,
+                    234,
+                    235,
+                    236
+                  ],
+                  "assertion": "The resolved list is injection, outer Context layer, then inner Context layer.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The resolved list is injection, outer Context layer, then inner Context layer. Both accepted workspace-test command logs list this test as ok."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/intercept.spec.ts:52",
+      "source_file": "local/cordis/packages/core/tests/intercept.spec.ts",
+      "source_line": 52,
+      "source_end_line": 68,
+      "title": "take injected config from the declaring fiber",
+      "suite": [
+        "Intercept"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/intercept.spec.ts:52/default/a66",
+              "behavior": "expect(configs).to.deep.equal([{ a: 1 }, { b: 2 }])",
+              "source_assertion_lines": [
+                66
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "intercepts_merge_nearest_injection_then_outer_to_inner_and_own_provisions_do_not_borrow_it",
+                  "lines": [
+                    237,
+                    238,
+                    239,
+                    240,
+                    241,
+                    242,
+                    243,
+                    244,
+                    245,
+                    246,
+                    248,
+                    249,
+                    253,
+                    254,
+                    255,
+                    256,
+                    257,
+                    258,
+                    259,
+                    260,
+                    261,
+                    262
+                  ],
+                  "assertion": "An undeclared child inherits the admitting config, while a nearer declaration replaces it.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "An undeclared child inherits the admitting config, while a nearer declaration replaces it. Both accepted workspace-test command logs list this test as ok."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/intercept.spec.ts:69",
+      "source_file": "local/cordis/packages/core/tests/intercept.spec.ts",
+      "source_line": 69,
+      "source_end_line": 82,
+      "title": "stop looking for injected config at an isolation boundary",
+      "suite": [
+        "Intercept"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/intercept.spec.ts:69/default/a80",
+              "behavior": "expect(config).to.deep.equal({})",
+              "source_assertion_lines": [
+                80
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "intercepts_merge_nearest_injection_then_outer_to_inner_and_own_provisions_do_not_borrow_it",
+                  "lines": [
+                    263,
+                    264,
+                    265,
+                    266,
+                    267,
+                    270,
+                    271,
+                    272,
+                    273,
+                    274
+                  ],
+                  "assertion": "Own/direct isolated publications omit the outer fiber's injected config while retaining Context intercept layers.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Own/direct isolated publications omit the outer fiber's injected config while retaining Context intercept layers. Both accepted workspace-test command logs list this test as ok."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/intercept.spec.ts:83",
+      "source_file": "local/cordis/packages/core/tests/intercept.spec.ts",
+      "source_line": 83,
+      "source_end_line": 95,
+      "title": "take no injected config for own provisions",
+      "suite": [
+        "Intercept"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/intercept.spec.ts:83/default/a93",
+              "behavior": "expect(configs).to.deep.equal([{ a: 1 }, {}, { b: 2 }])",
+              "source_assertion_lines": [
+                93
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "intercepts_merge_nearest_injection_then_outer_to_inner_and_own_provisions_do_not_borrow_it",
+                  "lines": [
+                    263,
+                    264,
+                    265,
+                    266,
+                    267
+                  ],
+                  "assertion": "An own provision does not borrow injected config; only outer and inner Context intercepts remain.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "An own provision does not borrow injected config; only outer and inner Context intercepts remain. Both accepted workspace-test command logs list this test as ok."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/intercept.spec.ts:96",
+      "source_file": "local/cordis/packages/core/tests/intercept.spec.ts",
+      "source_line": 96,
+      "source_end_line": 102,
+      "title": "take injected config from the def site",
+      "suite": [
+        "Intercept"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/intercept.spec.ts:96/default/a100",
+              "behavior": "expect(root.intercept('foo', { b: 1 }).bar.config()).to.deep.equal({ a: 2, b: 1 })",
+              "source_assertion_lines": [
+                100
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "bound_nested_calls_keep_definition_authority_but_use_caller_realm_metadata_and_effects",
+                  "lines": [
+                    145,
+                    148,
+                    151,
+                    152,
+                    153,
+                    154,
+                    155,
+                    156,
+                    157,
+                    158,
+                    159,
+                    160,
+                    161
+                  ],
+                  "assertion": "The nested bound service takes definition injection config before the use-site intercept.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The nested bound service takes definition injection config before the use-site intercept. Both accepted workspace-test command logs list this test as ok."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/intercept.spec.ts:103",
+      "source_file": "local/cordis/packages/core/tests/intercept.spec.ts",
+      "source_line": 103,
+      "source_end_line": 118,
+      "title": "custom merge",
+      "suite": [
+        "Intercept"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/intercept.spec.ts:103/default/a116",
+              "behavior": "expect(config).to.deep.equal({ tags: ['inject', 'outer', 'inner'] })",
+              "source_assertion_lines": [
+                116
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "intercepts_merge_nearest_injection_then_outer_to_inner_and_own_provisions_do_not_borrow_it",
+                  "lines": [
+                    227,
+                    228,
+                    229,
+                    230,
+                    231,
+                    232,
+                    233,
+                    234,
+                    235,
+                    236
+                  ],
+                  "assertion": "The service-specific merge closure concatenates injection, outer and inner tags in exact order.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The service-specific merge closure concatenates injection, outer and inner tags in exact order. Both accepted workspace-test command logs list this test as ok."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    }
+  ]
+}

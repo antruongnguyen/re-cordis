@@ -1,0 +1,390 @@
+{
+  "schema_version": 1,
+  "rust_revision": "9a7633c0b3b98e5f37e9f2211f3ffa67fdac5edc",
+  "typescript_revision": "35fdc969e4b6c48c48ed44717c7a018324e4dd88",
+  "implementation_revision": "808c9f573dd96c56fa2ec43e0b1bfb9ed39b2f3f",
+  "status": "invoke family reconciliation complete; exact source assertions and accepted stable/MSRV logs joined; independent integration review pending",
+  "declarations": [
+    {
+      "id": "core/invoke.spec.ts:5",
+      "source_file": "local/cordis/packages/core/tests/invoke.spec.ts",
+      "source_line": 5,
+      "source_end_line": 61,
+      "title": "functional service",
+      "suite": [
+        "Functional Service"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/invoke.spec.ts:5/default/a18",
+              "behavior": "expect(this.ctx).to.be.instanceof(Context)",
+              "source_assertion_lines": [
+                18
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "explicit_accessors_mixins_associations_and_callable_extensions_preserve_authority",
+                  "lines": [
+                    328,
+                    329,
+                    330,
+                    331,
+                    332,
+                    333
+                  ],
+                  "assertion": "ServiceInvoke receives a typed Context and uses it for dependency access.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "ServiceInvoke and BoundService::map/rebind are explicit typed callable/extension adapters; Rust does not expose a callable service object or implicit return-value tracing."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "ServiceInvoke receives a typed Context and uses it for dependency access. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/invoke.spec.ts:5/default/a44",
+              "behavior": "expect(root.foo()).to.deep.equal({ a: 1 })",
+              "source_assertion_lines": [
+                44
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "explicit_accessors_mixins_associations_and_callable_extensions_preserve_authority",
+                  "lines": [
+                    361,
+                    362
+                  ],
+                  "assertion": "Direct typed invocation returns the dependency plus the supplied argument.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "ServiceInvoke and BoundService::map/rebind are explicit typed callable/extension adapters; Rust does not expose a callable service object or implicit return-value tracing."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Direct typed invocation returns the dependency plus the supplied argument. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/invoke.spec.ts:5/default/a46",
+              "behavior": "expect(ctx1.foo()).to.deep.equal({ a: 1, b: 2 })",
+              "source_assertion_lines": [
+                46
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "ServiceInvoke and BoundService::map/rebind are explicit typed callable/extension adapters; Rust does not expose a callable service object or implicit return-value tracing."
+              },
+              "gap": {
+                "id": "G-B0-invoke-5-a46",
+                "kind": "missing-evidence",
+                "next_action": "Extend explicit_accessors_mixins_associations_and_callable_extensions_preserve_authority with one callable assertion that composes the captured use-site intercept and mapped extension state for core/invoke.spec.ts:5 line 46: expect(ctx1.foo()).to.deep.equal({ a: 1, b: 2 }).",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            },
+            {
+              "id": "core/invoke.spec.ts:5/default/a48",
+              "behavior": "expect(foo1).to.be.instanceof(Foo)",
+              "source_assertion_lines": [
+                48
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "explicit_accessors_mixins_associations_and_callable_extensions_preserve_authority",
+                  "lines": [
+                    361,
+                    362
+                  ],
+                  "assertion": "The callable is obtained as a typed BoundService<Callable> and invokes successfully.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "ServiceInvoke and BoundService::map/rebind are explicit typed callable/extension adapters; Rust does not expose a callable service object or implicit return-value tracing."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The callable is obtained as a typed BoundService<Callable> and invokes successfully. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/invoke.spec.ts:5/default/a52",
+              "behavior": "expect(foo2).to.be.instanceof(Foo)",
+              "source_assertion_lines": [
+                52
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "explicit_accessors_mixins_associations_and_callable_extensions_preserve_authority",
+                  "lines": [
+                    361,
+                    363
+                  ],
+                  "assertion": "BoundService::map creates a typed callable extension that remains invokable.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "ServiceInvoke and BoundService::map/rebind are explicit typed callable/extension adapters; Rust does not expose a callable service object or implicit return-value tracing."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "BoundService::map creates a typed callable extension that remains invokable. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/invoke.spec.ts:5/default/a53",
+              "behavior": "expect(foo2()).to.deep.equal({ a: 1, c: 3 })",
+              "source_assertion_lines": [
+                53
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "explicit_accessors_mixins_associations_and_callable_extensions_preserve_authority",
+                  "lines": [
+                    361,
+                    363
+                  ],
+                  "assertion": "The mapped callable preserves its definition Context and returns 7 + 2 = 9.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "ServiceInvoke and BoundService::map/rebind are explicit typed callable/extension adapters; Rust does not expose a callable service object or implicit return-value tracing."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The mapped callable preserves its definition Context and returns 7 + 2 = 9. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/invoke.spec.ts:5/default/a55",
+              "behavior": "expect(foo3).to.be.instanceof(Foo)",
+              "source_assertion_lines": [
+                55
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "explicit_accessors_mixins_associations_and_callable_extensions_preserve_authority",
+                  "lines": [
+                    361,
+                    363
+                  ],
+                  "assertion": "BoundService::map creates a typed callable extension that remains invokable.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "ServiceInvoke and BoundService::map/rebind are explicit typed callable/extension adapters; Rust does not expose a callable service object or implicit return-value tracing."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "BoundService::map creates a typed callable extension that remains invokable. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/invoke.spec.ts:5/default/a56",
+              "behavior": "expect(foo3.invoke()).to.deep.equal({ a: 1, b: 2, d: 4 })",
+              "source_assertion_lines": [
+                56
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "ServiceInvoke and BoundService::map/rebind are explicit typed callable/extension adapters; Rust does not expose a callable service object or implicit return-value tracing."
+              },
+              "gap": {
+                "id": "G-B0-invoke-5-a56",
+                "kind": "missing-evidence",
+                "next_action": "Extend explicit_accessors_mixins_associations_and_callable_extensions_preserve_authority with one callable assertion that composes the captured use-site intercept and mapped extension state for core/invoke.spec.ts:5 line 56: expect(foo3.invoke()).to.deep.equal({ a: 1, b: 2, d: 4 }).",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            },
+            {
+              "id": "core/invoke.spec.ts:5/default/a59",
+              "behavior": "expect(foo1.invoke()).to.deep.equal({ a: 1, b: 2 })",
+              "source_assertion_lines": [
+                59
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "ServiceInvoke and BoundService::map/rebind are explicit typed callable/extension adapters; Rust does not expose a callable service object or implicit return-value tracing."
+              },
+              "gap": {
+                "id": "G-B0-invoke-5-a59",
+                "kind": "missing-evidence",
+                "next_action": "Extend explicit_accessors_mixins_associations_and_callable_extensions_preserve_authority with one callable assertion that composes the captured use-site intercept and mapped extension state for core/invoke.spec.ts:5 line 59: expect(foo1.invoke()).to.deep.equal({ a: 1, b: 2 }).",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/invoke.spec.ts:62",
+      "source_file": "local/cordis/packages/core/tests/invoke.spec.ts",
+      "source_line": 62,
+      "source_end_line": 116,
+      "title": "uses the service shadow for callable extensions",
+      "suite": [
+        "Functional Service"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/invoke.spec.ts:62/default/a113",
+              "behavior": "expect(result[0]).toBeInstanceOf(Dependency)",
+              "source_assertion_lines": [
+                113
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "explicit_accessors_mixins_associations_and_callable_extensions_preserve_authority",
+                  "lines": [
+                    361,
+                    362
+                  ],
+                  "assertion": "The base callable resolves its dependency and returns 8.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "ServiceInvoke and BoundService::map/rebind are explicit typed callable/extension adapters; Rust does not expose a callable service object or implicit return-value tracing."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The base callable resolves its dependency and returns 8. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/invoke.spec.ts:62/default/a114",
+              "behavior": "expect(result[1]).toBeInstanceOf(Dependency)",
+              "source_assertion_lines": [
+                114
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "explicit_accessors_mixins_associations_and_callable_extensions_preserve_authority",
+                  "lines": [
+                    361,
+                    363
+                  ],
+                  "assertion": "The callable extension preserves the same dependency authority and returns 9.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "ServiceInvoke and BoundService::map/rebind are explicit typed callable/extension adapters; Rust does not expose a callable service object or implicit return-value tracing."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The callable extension preserves the same dependency authority and returns 9. Both accepted workspace-test command logs list this test as ok."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    }
+  ]
+}

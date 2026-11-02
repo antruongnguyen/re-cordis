@@ -1,0 +1,1531 @@
+{
+  "schema_version": 1,
+  "rust_revision": "9a7633c0b3b98e5f37e9f2211f3ffa67fdac5edc",
+  "typescript_revision": "35fdc969e4b6c48c48ed44717c7a018324e4dd88",
+  "implementation_revision": "808c9f573dd96c56fa2ec43e0b1bfb9ed39b2f3f",
+  "status": "isolate family reconciliation complete; exact source assertions and accepted stable/MSRV logs joined; independent integration review pending",
+  "declarations": [
+    {
+      "id": "core/isolate.spec.ts:7",
+      "source_file": "local/cordis/packages/core/tests/isolate.spec.ts",
+      "source_line": 7,
+      "source_end_line": 23,
+      "title": "does not expose own provisions across isolation boundaries",
+      "suite": [
+        "Isolation"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/isolate.spec.ts:7/default/a12",
+              "behavior": "expect(isolated.foo).to.be.ok",
+              "source_assertion_lines": [
+                12
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback",
+                  "lines": [
+                    53,
+                    54,
+                    55,
+                    56,
+                    57
+                  ],
+                  "assertion": "A fresh isolated slot has no parent fallback, then exposes only its own publication.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "A fresh isolated slot has no parent fallback, then exposes only its own publication. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:7/default/a13",
+              "behavior": "expect(() => ctx.foo).to.throw('cannot get property \"foo\" without inject')",
+              "source_assertion_lines": [
+                13
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-7-a13",
+                "kind": "missing-evidence",
+                "next_action": "Extend tests/scoping.rs with the corresponding multi-realm consumer/callback/disposer trace and assert the exact intermediate boundary from core/isolate.spec.ts:7 source assertion line 13: expect(() => ctx.foo).to.throw('cannot get property \"foo\" without inject'). Reuse channel/state joins; do not infer this edge from final Fiber state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            },
+            {
+              "id": "core/isolate.spec.ts:7/default/a15",
+              "behavior": "expect(ctx.foo).to.be.ok",
+              "source_assertion_lines": [
+                15
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-7-a15",
+                "kind": "missing-evidence",
+                "next_action": "Extend tests/scoping.rs with the corresponding multi-realm consumer/callback/disposer trace and assert the exact intermediate boundary from core/isolate.spec.ts:7 source assertion line 15: expect(ctx.foo).to.be.ok. Reuse channel/state joins; do not infer this edge from final Fiber state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            },
+            {
+              "id": "core/isolate.spec.ts:7/default/a18",
+              "behavior": "expect(() => ctx.foo).to.throw('cannot get property \"foo\" without inject')",
+              "source_assertion_lines": [
+                18
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-7-a18",
+                "kind": "missing-evidence",
+                "next_action": "Extend tests/scoping.rs with the corresponding multi-realm consumer/callback/disposer trace and assert the exact intermediate boundary from core/isolate.spec.ts:7 source assertion line 18: expect(() => ctx.foo).to.throw('cannot get property \"foo\" without inject'). Reuse channel/state joins; do not infer this edge from final Fiber state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/isolate.spec.ts:24",
+      "source_file": "local/cordis/packages/core/tests/isolate.spec.ts",
+      "source_line": 24,
+      "source_end_line": 54,
+      "title": "does not inherit the injected view across isolation boundaries",
+      "suite": [
+        "Isolation"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/isolate.spec.ts:24/default/a47",
+              "behavior": "expect(results).to.deep.equal([\n'outer',\n'cannot get property \"foo\" without inject',\n'cannot get property \"foo\" without inject',\n])",
+              "source_assertion_lines": [
+                47,
+                48,
+                49,
+                50,
+                51
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback",
+                  "lines": [
+                    37,
+                    38,
+                    39,
+                    40,
+                    41,
+                    42,
+                    43,
+                    44,
+                    45,
+                    46,
+                    47,
+                    48,
+                    49,
+                    50,
+                    51
+                  ],
+                  "assertion": "The ordinary child inherits authority; both fresh and same-label derived boundaries reject it as Undeclared.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The ordinary child inherits authority; both fresh and same-label derived boundaries reject it as Undeclared. Both accepted workspace-test command logs list this test as ok."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/isolate.spec.ts:55",
+      "source_file": "local/cordis/packages/core/tests/isolate.spec.ts",
+      "source_line": 55,
+      "source_end_line": 105,
+      "title": "isolated context",
+      "suite": [
+        "Isolation"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/isolate.spec.ts:55/default/a74",
+              "behavior": "expect(root.foo).to.have.property('bar', 100)",
+              "source_assertion_lines": [
+                74
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback",
+                  "lines": [
+                    53,
+                    55,
+                    56
+                  ],
+                  "assertion": "The root slot retains its own value while the isolated slot is independently populated.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The root slot retains its own value while the isolated slot is independently populated. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a75",
+              "behavior": "expect(ctx1.foo).to.be.undefined",
+              "source_assertion_lines": [
+                75
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback",
+                  "lines": [
+                    53,
+                    54
+                  ],
+                  "assertion": "A fresh isolated slot does not fall back to the root publication before it is populated.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "A fresh isolated slot does not fall back to the root publication before it is populated. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a76",
+              "behavior": "expect(ctx2.foo).to.be.undefined",
+              "source_assertion_lines": [
+                76
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback",
+                  "lines": [
+                    53,
+                    54
+                  ],
+                  "assertion": "A fresh isolated slot does not fall back to the root publication before it is populated.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "A fresh isolated slot does not fall back to the root publication before it is populated. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a78",
+              "behavior": "expect(callback.mock.calls).to.have.length(1)",
+              "source_assertion_lines": [
+                78
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-55-a78",
+                "kind": "missing-evidence",
+                "next_action": "Extend tests/scoping.rs with the corresponding multi-realm consumer/callback/disposer trace and assert the exact intermediate boundary from core/isolate.spec.ts:55 source assertion line 78: expect(callback.mock.calls).to.have.length(1). Reuse channel/state joins; do not infer this edge from final Fiber state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a79",
+              "behavior": "expect(dispose.mock.calls).to.have.length(0)",
+              "source_assertion_lines": [
+                79
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-55-a79",
+                "kind": "missing-evidence",
+                "next_action": "Extend tests/scoping.rs with the corresponding multi-realm consumer/callback/disposer trace and assert the exact intermediate boundary from core/isolate.spec.ts:55 source assertion line 79: expect(dispose.mock.calls).to.have.length(0). Reuse channel/state joins; do not infer this edge from final Fiber state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a82",
+              "behavior": "expect(root.foo).to.have.property('bar', 100)",
+              "source_assertion_lines": [
+                82
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback",
+                  "lines": [
+                    53,
+                    55,
+                    56
+                  ],
+                  "assertion": "The root slot retains its own value while the isolated slot is independently populated.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The root slot retains its own value while the isolated slot is independently populated. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a83",
+              "behavior": "expect(ctx1.foo).to.have.property('bar', 200)",
+              "source_assertion_lines": [
+                83
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback",
+                  "lines": [
+                    55,
+                    56,
+                    57
+                  ],
+                  "assertion": "The isolated slot returns its own value while root keeps the root value.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The isolated slot returns its own value while root keeps the root value. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a84",
+              "behavior": "expect(ctx2.foo).to.be.undefined",
+              "source_assertion_lines": [
+                84
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback",
+                  "lines": [
+                    53,
+                    54
+                  ],
+                  "assertion": "A fresh isolated slot does not fall back to the root publication before it is populated.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "A fresh isolated slot does not fall back to the root publication before it is populated. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a86",
+              "behavior": "expect(callback.mock.calls).to.have.length(2)",
+              "source_assertion_lines": [
+                86
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-55-a86",
+                "kind": "missing-evidence",
+                "next_action": "Extend tests/scoping.rs with the corresponding multi-realm consumer/callback/disposer trace and assert the exact intermediate boundary from core/isolate.spec.ts:55 source assertion line 86: expect(callback.mock.calls).to.have.length(2). Reuse channel/state joins; do not infer this edge from final Fiber state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a87",
+              "behavior": "expect(dispose.mock.calls).to.have.length(0)",
+              "source_assertion_lines": [
+                87
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-55-a87",
+                "kind": "missing-evidence",
+                "next_action": "Extend tests/scoping.rs with the corresponding multi-realm consumer/callback/disposer trace and assert the exact intermediate boundary from core/isolate.spec.ts:55 source assertion line 87: expect(dispose.mock.calls).to.have.length(0). Reuse channel/state joins; do not infer this edge from final Fiber state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a90",
+              "behavior": "expect(root.foo).to.be.undefined",
+              "source_assertion_lines": [
+                90
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type",
+                  "lines": [
+                    75,
+                    76,
+                    77,
+                    80,
+                    81,
+                    82,
+                    83,
+                    92,
+                    93,
+                    94,
+                    95,
+                    96
+                  ],
+                  "assertion": "Withdrawal removes the shared isolated publication and its consumer settles Pending without parent fallback.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Withdrawal removes the shared isolated publication and its consumer settles Pending without parent fallback. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a91",
+              "behavior": "expect(ctx1.foo).to.have.property('bar', 200)",
+              "source_assertion_lines": [
+                91
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-55-a91",
+                "kind": "missing-evidence",
+                "next_action": "Extend tests/scoping.rs with the corresponding multi-realm consumer/callback/disposer trace and assert the exact intermediate boundary from core/isolate.spec.ts:55 source assertion line 91: expect(ctx1.foo).to.have.property('bar', 200). Reuse channel/state joins; do not infer this edge from final Fiber state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a92",
+              "behavior": "expect(ctx2.foo).to.be.undefined",
+              "source_assertion_lines": [
+                92
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback",
+                  "lines": [
+                    53,
+                    54
+                  ],
+                  "assertion": "A fresh isolated slot does not fall back to the root publication before it is populated.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "A fresh isolated slot does not fall back to the root publication before it is populated. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a94",
+              "behavior": "expect(callback.mock.calls).to.have.length(2)",
+              "source_assertion_lines": [
+                94
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-55-a94",
+                "kind": "missing-evidence",
+                "next_action": "Extend tests/scoping.rs with the corresponding multi-realm consumer/callback/disposer trace and assert the exact intermediate boundary from core/isolate.spec.ts:55 source assertion line 94: expect(callback.mock.calls).to.have.length(2). Reuse channel/state joins; do not infer this edge from final Fiber state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a95",
+              "behavior": "expect(dispose.mock.calls).to.have.length(1)",
+              "source_assertion_lines": [
+                95
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-55-a95",
+                "kind": "missing-evidence",
+                "next_action": "Extend tests/scoping.rs with the corresponding multi-realm consumer/callback/disposer trace and assert the exact intermediate boundary from core/isolate.spec.ts:55 source assertion line 95: expect(dispose.mock.calls).to.have.length(1). Reuse channel/state joins; do not infer this edge from final Fiber state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a98",
+              "behavior": "expect(root.foo).to.be.undefined",
+              "source_assertion_lines": [
+                98
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-55-a98",
+                "kind": "missing-evidence",
+                "next_action": "Extend tests/scoping.rs with the corresponding multi-realm consumer/callback/disposer trace and assert the exact intermediate boundary from core/isolate.spec.ts:55 source assertion line 98: expect(root.foo).to.be.undefined. Reuse channel/state joins; do not infer this edge from final Fiber state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a99",
+              "behavior": "expect(ctx1.foo).to.have.property('bar', 200)",
+              "source_assertion_lines": [
+                99
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-55-a99",
+                "kind": "missing-evidence",
+                "next_action": "Extend tests/scoping.rs with the corresponding multi-realm consumer/callback/disposer trace and assert the exact intermediate boundary from core/isolate.spec.ts:55 source assertion line 99: expect(ctx1.foo).to.have.property('bar', 200). Reuse channel/state joins; do not infer this edge from final Fiber state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a100",
+              "behavior": "expect(ctx2.foo).to.have.property('bar', 300)",
+              "source_assertion_lines": [
+                100
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-55-a100",
+                "kind": "missing-evidence",
+                "next_action": "Extend tests/scoping.rs with the corresponding multi-realm consumer/callback/disposer trace and assert the exact intermediate boundary from core/isolate.spec.ts:55 source assertion line 100: expect(ctx2.foo).to.have.property('bar', 300). Reuse channel/state joins; do not infer this edge from final Fiber state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a102",
+              "behavior": "expect(callback.mock.calls).to.have.length(3)",
+              "source_assertion_lines": [
+                102
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-55-a102",
+                "kind": "missing-evidence",
+                "next_action": "Extend tests/scoping.rs with the corresponding multi-realm consumer/callback/disposer trace and assert the exact intermediate boundary from core/isolate.spec.ts:55 source assertion line 102: expect(callback.mock.calls).to.have.length(3). Reuse channel/state joins; do not infer this edge from final Fiber state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a103",
+              "behavior": "expect(dispose.mock.calls).to.have.length(1)",
+              "source_assertion_lines": [
+                103
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-55-a103",
+                "kind": "missing-evidence",
+                "next_action": "Extend tests/scoping.rs with the corresponding multi-realm consumer/callback/disposer trace and assert the exact intermediate boundary from core/isolate.spec.ts:55 source assertion line 103: expect(dispose.mock.calls).to.have.length(1). Reuse channel/state joins; do not infer this edge from final Fiber state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/isolate.spec.ts:106",
+      "source_file": "local/cordis/packages/core/tests/isolate.spec.ts",
+      "source_line": 106,
+      "source_end_line": 151,
+      "title": "shared label",
+      "suite": [
+        "Isolation"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/isolate.spec.ts:106/default/a125",
+              "behavior": "expect(callback.mock.calls).to.have.length(0)",
+              "source_assertion_lines": [
+                125
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-106-a125",
+                "kind": "missing-evidence",
+                "next_action": "Extend tests/scoping.rs with the corresponding multi-realm consumer/callback/disposer trace and assert the exact intermediate boundary from core/isolate.spec.ts:106 source assertion line 125: expect(callback.mock.calls).to.have.length(0). Reuse channel/state joins; do not infer this edge from final Fiber state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            },
+            {
+              "id": "core/isolate.spec.ts:106/default/a128",
+              "behavior": "expect(root.foo).to.have.property('bar', 100)",
+              "source_assertion_lines": [
+                128
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback",
+                  "lines": [
+                    53,
+                    55,
+                    56
+                  ],
+                  "assertion": "The root slot retains its own value while the isolated slot is independently populated.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The root slot retains its own value while the isolated slot is independently populated. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:106/default/a129",
+              "behavior": "expect(ctx1.foo).to.be.undefined",
+              "source_assertion_lines": [
+                129
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback",
+                  "lines": [
+                    53,
+                    54
+                  ],
+                  "assertion": "A fresh isolated slot does not fall back to the root publication before it is populated.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "A fresh isolated slot does not fall back to the root publication before it is populated. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:106/default/a130",
+              "behavior": "expect(ctx2.foo).to.be.undefined",
+              "source_assertion_lines": [
+                130
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback",
+                  "lines": [
+                    53,
+                    54
+                  ],
+                  "assertion": "A fresh isolated slot does not fall back to the root publication before it is populated.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "A fresh isolated slot does not fall back to the root publication before it is populated. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:106/default/a132",
+              "behavior": "expect(callback.mock.calls).to.have.length(1)",
+              "source_assertion_lines": [
+                132
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-106-a132",
+                "kind": "missing-evidence",
+                "next_action": "Extend tests/scoping.rs with the corresponding multi-realm consumer/callback/disposer trace and assert the exact intermediate boundary from core/isolate.spec.ts:106 source assertion line 132: expect(callback.mock.calls).to.have.length(1). Reuse channel/state joins; do not infer this edge from final Fiber state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            },
+            {
+              "id": "core/isolate.spec.ts:106/default/a133",
+              "behavior": "expect(dispose.mock.calls).to.have.length(0)",
+              "source_assertion_lines": [
+                133
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-106-a133",
+                "kind": "missing-evidence",
+                "next_action": "Extend tests/scoping.rs with the corresponding multi-realm consumer/callback/disposer trace and assert the exact intermediate boundary from core/isolate.spec.ts:106 source assertion line 133: expect(dispose.mock.calls).to.have.length(0). Reuse channel/state joins; do not infer this edge from final Fiber state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            },
+            {
+              "id": "core/isolate.spec.ts:106/default/a136",
+              "behavior": "expect(root.foo).to.have.property('bar', 100)",
+              "source_assertion_lines": [
+                136
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback",
+                  "lines": [
+                    53,
+                    55,
+                    56
+                  ],
+                  "assertion": "The root slot retains its own value while the isolated slot is independently populated.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The root slot retains its own value while the isolated slot is independently populated. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:106/default/a137",
+              "behavior": "expect(ctx1.foo).to.have.property('bar', 200)",
+              "source_assertion_lines": [
+                137
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type",
+                  "lines": [
+                    74,
+                    75,
+                    76,
+                    80,
+                    81,
+                    82,
+                    83
+                  ],
+                  "assertion": "Two differently named Context views selecting one IsolationId read the same publication.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Two differently named Context views selecting one IsolationId read the same publication. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:106/default/a138",
+              "behavior": "expect(ctx2.foo).to.have.property('bar', 200)",
+              "source_assertion_lines": [
+                138
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type",
+                  "lines": [
+                    74,
+                    75,
+                    76,
+                    80,
+                    81,
+                    82,
+                    83
+                  ],
+                  "assertion": "Two differently named Context views selecting one IsolationId read the same publication.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Two differently named Context views selecting one IsolationId read the same publication. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:106/default/a140",
+              "behavior": "expect(callback.mock.calls).to.have.length(3)",
+              "source_assertion_lines": [
+                140
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-106-a140",
+                "kind": "missing-evidence",
+                "next_action": "Extend tests/scoping.rs with the corresponding multi-realm consumer/callback/disposer trace and assert the exact intermediate boundary from core/isolate.spec.ts:106 source assertion line 140: expect(callback.mock.calls).to.have.length(3). Reuse channel/state joins; do not infer this edge from final Fiber state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            },
+            {
+              "id": "core/isolate.spec.ts:106/default/a141",
+              "behavior": "expect(dispose.mock.calls).to.have.length(0)",
+              "source_assertion_lines": [
+                141
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-106-a141",
+                "kind": "missing-evidence",
+                "next_action": "Extend tests/scoping.rs with the corresponding multi-realm consumer/callback/disposer trace and assert the exact intermediate boundary from core/isolate.spec.ts:106 source assertion line 141: expect(dispose.mock.calls).to.have.length(0). Reuse channel/state joins; do not infer this edge from final Fiber state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            },
+            {
+              "id": "core/isolate.spec.ts:106/default/a144",
+              "behavior": "expect(root.foo).to.have.property('bar', 100)",
+              "source_assertion_lines": [
+                144
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback",
+                  "lines": [
+                    53,
+                    55,
+                    56
+                  ],
+                  "assertion": "The root slot retains its own value while the isolated slot is independently populated.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The root slot retains its own value while the isolated slot is independently populated. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:106/default/a145",
+              "behavior": "expect(ctx1.foo).to.be.undefined",
+              "source_assertion_lines": [
+                145
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type",
+                  "lines": [
+                    75,
+                    76,
+                    77,
+                    80,
+                    81,
+                    82,
+                    83,
+                    92,
+                    93,
+                    94,
+                    95,
+                    96
+                  ],
+                  "assertion": "Withdrawal removes the shared isolated publication and its consumer settles Pending without parent fallback.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Withdrawal removes the shared isolated publication and its consumer settles Pending without parent fallback. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:106/default/a146",
+              "behavior": "expect(ctx2.foo).to.be.undefined",
+              "source_assertion_lines": [
+                146
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type",
+                  "lines": [
+                    75,
+                    76,
+                    77,
+                    80,
+                    81,
+                    82,
+                    83,
+                    92,
+                    93,
+                    94,
+                    95,
+                    96
+                  ],
+                  "assertion": "Withdrawal removes the shared isolated publication and its consumer settles Pending without parent fallback.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Withdrawal removes the shared isolated publication and its consumer settles Pending without parent fallback. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:106/default/a148",
+              "behavior": "expect(callback.mock.calls).to.have.length(3)",
+              "source_assertion_lines": [
+                148
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-106-a148",
+                "kind": "missing-evidence",
+                "next_action": "Extend tests/scoping.rs with the corresponding multi-realm consumer/callback/disposer trace and assert the exact intermediate boundary from core/isolate.spec.ts:106 source assertion line 148: expect(callback.mock.calls).to.have.length(3). Reuse channel/state joins; do not infer this edge from final Fiber state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            },
+            {
+              "id": "core/isolate.spec.ts:106/default/a149",
+              "behavior": "expect(dispose.mock.calls).to.have.length(2)",
+              "source_assertion_lines": [
+                149
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-106-a149",
+                "kind": "missing-evidence",
+                "next_action": "Extend tests/scoping.rs with the corresponding multi-realm consumer/callback/disposer trace and assert the exact intermediate boundary from core/isolate.spec.ts:106 source assertion line 149: expect(dispose.mock.calls).to.have.length(2). Reuse channel/state joins; do not infer this edge from final Fiber state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/isolate.spec.ts:152",
+      "source_file": "local/cordis/packages/core/tests/isolate.spec.ts",
+      "source_line": 152,
+      "source_end_line": 171,
+      "title": "isolated event",
+      "suite": [
+        "Isolation"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/isolate.spec.ts:152/default/a168",
+              "behavior": "expect(outer.mock.calls).to.have.length(0)",
+              "source_assertion_lines": [
+                168
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "realm_filtered_events_still_admit_global_listeners",
+                  "lines": [
+                    288,
+                    289,
+                    290,
+                    291,
+                    292,
+                    293,
+                    294,
+                    295,
+                    311,
+                    312,
+                    313,
+                    314,
+                    315,
+                    316
+                  ],
+                  "assertion": "Realm-filtered dispatch excludes the outer local listener and invokes the isolated listener once (plus the explicit global listener).",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Realm-filtered dispatch excludes the outer local listener and invokes the isolated listener once (plus the explicit global listener). Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:152/default/a169",
+              "behavior": "expect(inner.mock.calls).to.have.length(1)",
+              "source_assertion_lines": [
+                169
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "realm_filtered_events_still_admit_global_listeners",
+                  "lines": [
+                    288,
+                    289,
+                    290,
+                    291,
+                    292,
+                    293,
+                    294,
+                    295,
+                    311,
+                    312,
+                    313,
+                    314,
+                    315,
+                    316
+                  ],
+                  "assertion": "Realm-filtered dispatch excludes the outer local listener and invokes the isolated listener once (plus the explicit global listener).",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Realm-filtered dispatch excludes the outer local listener and invokes the isolated listener once (plus the explicit global listener). Both accepted workspace-test command logs list this test as ok."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/isolate.spec.ts:172",
+      "source_file": "local/cordis/packages/core/tests/isolate.spec.ts",
+      "source_line": 172,
+      "source_end_line": 203,
+      "title": "keeps own provisions separate from the injected view",
+      "suite": [
+        "Isolation"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/isolate.spec.ts:172/default/a181",
+              "behavior": "expect(ctx.foo.value).to.equal('outer')",
+              "source_assertion_lines": [
+                181
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback",
+                  "lines": [
+                    53,
+                    55,
+                    56
+                  ],
+                  "assertion": "The root slot retains its own value while the isolated slot is independently populated.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The root slot retains its own value while the isolated slot is independently populated. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:172/default/a182",
+              "behavior": "expect(first.foo.value).to.equal('first')",
+              "source_assertion_lines": [
+                182
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback",
+                  "lines": [
+                    55,
+                    56,
+                    57
+                  ],
+                  "assertion": "The isolated slot returns its own value while root keeps the root value.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The isolated slot returns its own value while root keeps the root value. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:172/default/a183",
+              "behavior": "expect(second.foo.value).to.equal('second')",
+              "source_assertion_lines": [
+                183
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-172-a183",
+                "kind": "missing-evidence",
+                "next_action": "Extend tests/scoping.rs with the corresponding multi-realm consumer/callback/disposer trace and assert the exact intermediate boundary from core/isolate.spec.ts:172 source assertion line 183: expect(second.foo.value).to.equal('second'). Reuse channel/state joins; do not infer this edge from final Fiber state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            },
+            {
+              "id": "core/isolate.spec.ts:172/default/a185",
+              "behavior": "expect(ctx.foo.value).to.equal('first')",
+              "source_assertion_lines": [
+                185
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "same_name_publications_in_two_realms_keep_resources_until_the_exact_consumer_finishes",
+                  "lines": [
+                    491,
+                    492,
+                    495,
+                    496,
+                    497,
+                    498,
+                    519,
+                    520,
+                    527,
+                    528,
+                    529,
+                    530,
+                    531,
+                    532
+                  ],
+                  "assertion": "The consumer bound to the first realm reads that realm's value during final cleanup.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The consumer bound to the first realm reads that realm's value during final cleanup. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:172/default/a188",
+              "behavior": "expect(ctx.foo.value).to.equal('second')",
+              "source_assertion_lines": [
+                188
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-172-a188",
+                "kind": "missing-evidence",
+                "next_action": "Extend tests/scoping.rs with the corresponding multi-realm consumer/callback/disposer trace and assert the exact intermediate boundary from core/isolate.spec.ts:172 source assertion line 188: expect(ctx.foo.value).to.equal('second'). Reuse channel/state joins; do not infer this edge from final Fiber state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            },
+            {
+              "id": "core/isolate.spec.ts:172/default/a192",
+              "behavior": "expect(ctx.foo.value).to.equal('outer')",
+              "source_assertion_lines": [
+                192
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-172-a192",
+                "kind": "missing-evidence",
+                "next_action": "Extend tests/scoping.rs with the corresponding multi-realm consumer/callback/disposer trace and assert the exact intermediate boundary from core/isolate.spec.ts:172 source assertion line 192: expect(ctx.foo.value).to.equal('outer'). Reuse channel/state joins; do not infer this edge from final Fiber state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            },
+            {
+              "id": "core/isolate.spec.ts:172/default/a193",
+              "behavior": "expect(() => first.foo).to.throw('cannot get property \"foo\" without inject')",
+              "source_assertion_lines": [
+                193
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type",
+                  "lines": [
+                    75,
+                    76,
+                    77,
+                    80,
+                    81,
+                    82,
+                    83,
+                    92,
+                    93,
+                    94,
+                    95,
+                    96
+                  ],
+                  "assertion": "Withdrawal removes the shared isolated publication and its consumer settles Pending without parent fallback.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Withdrawal removes the shared isolated publication and its consumer settles Pending without parent fallback. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:172/default/a194",
+              "behavior": "expect(second.foo.value).to.equal('second')",
+              "source_assertion_lines": [
+                194
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-172-a194",
+                "kind": "missing-evidence",
+                "next_action": "Extend tests/scoping.rs with the corresponding multi-realm consumer/callback/disposer trace and assert the exact intermediate boundary from core/isolate.spec.ts:172 source assertion line 194: expect(second.foo.value).to.equal('second'). Reuse channel/state joins; do not infer this edge from final Fiber state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            },
+            {
+              "id": "core/isolate.spec.ts:172/default/a196",
+              "behavior": "expect(ctx.foo.value).to.equal('outer')",
+              "source_assertion_lines": [
+                196
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-172-a196",
+                "kind": "missing-evidence",
+                "next_action": "Extend tests/scoping.rs with the corresponding multi-realm consumer/callback/disposer trace and assert the exact intermediate boundary from core/isolate.spec.ts:172 source assertion line 196: expect(ctx.foo.value).to.equal('outer'). Reuse channel/state joins; do not infer this edge from final Fiber state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            },
+            {
+              "id": "core/isolate.spec.ts:172/default/a200",
+              "behavior": "expect(root.logger.buffer.filter(message => message.type === 'error')).to.have.length(0)",
+              "source_assertion_lines": [
+                200
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-172-a200",
+                "kind": "missing-evidence",
+                "next_action": "Extend tests/scoping.rs with the corresponding multi-realm consumer/callback/disposer trace and assert the exact intermediate boundary from core/isolate.spec.ts:172 source assertion line 200: expect(root.logger.buffer.filter(message => message.type === 'error')).to.have.length(0). Reuse channel/state joins; do not infer this edge from final Fiber state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "source-mapped-test"
+      ]
+    }
+  ]
+}

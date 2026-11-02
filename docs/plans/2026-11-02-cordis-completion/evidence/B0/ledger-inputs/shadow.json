@@ -1,0 +1,953 @@
+{
+  "schema_version": 1,
+  "rust_revision": "9a7633c0b3b98e5f37e9f2211f3ffa67fdac5edc",
+  "typescript_revision": "35fdc969e4b6c48c48ed44717c7a018324e4dd88",
+  "implementation_revision": "808c9f573dd96c56fa2ec43e0b1bfb9ed39b2f3f",
+  "status": "shadow family reconciliation complete; exact source assertions and accepted stable/MSRV logs joined; independent integration review pending",
+  "declarations": [
+    {
+      "id": "core/shadow.spec.ts:5",
+      "source_file": "local/cordis/packages/core/tests/shadow.spec.ts",
+      "source_line": 5,
+      "source_end_line": 59,
+      "title": "keeps caller metadata separate from the service shadow",
+      "suite": [
+        "Traceable caller"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/shadow.spec.ts:5/default/a49",
+              "behavior": "expect(result.caller).toBe(outerOrigin!)",
+              "source_assertion_lines": [
+                49
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "bound_nested_calls_keep_definition_authority_but_use_caller_realm_metadata_and_effects",
+                  "lines": [
+                    145,
+                    146,
+                    147,
+                    148,
+                    151,
+                    152,
+                    153
+                  ],
+                  "assertion": "The nested bound call exposes the outer definition Fiber as caller.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "Definition, use and caller views are explicit BoundService contexts. Native Proxy shadow/caller properties and automatic tracing of arbitrary returned objects are not provided."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The nested bound call exposes the outer definition Fiber as caller. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/shadow.spec.ts:5/default/a50",
+              "behavior": "expect(result.shadow).toBe(innerOrigin!)",
+              "source_assertion_lines": [
+                50
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "bound_nested_calls_keep_definition_authority_but_use_caller_realm_metadata_and_effects",
+                  "lines": [
+                    151,
+                    152,
+                    153,
+                    164,
+                    166,
+                    167,
+                    168,
+                    169,
+                    170
+                  ],
+                  "assertion": "The inner bound call keeps its own definition Context while using the caller's realm.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "Definition, use and caller views are explicit BoundService contexts. Native Proxy shadow/caller properties and automatic tracing of arbitrary returned objects are not provided."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The inner bound call keeps its own definition Context while using the caller's realm. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/shadow.spec.ts:5/default/a51",
+              "behavior": "expect(result.outerShadow).toBe(outerOrigin!)",
+              "source_assertion_lines": [
+                51
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "bound_nested_calls_keep_definition_authority_but_use_caller_realm_metadata_and_effects",
+                  "lines": [
+                    145,
+                    146,
+                    147,
+                    175,
+                    176,
+                    177,
+                    178,
+                    179,
+                    180
+                  ],
+                  "assertion": "The outer bound definition remains stable across nested/rebound use sites.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "Definition, use and caller views are explicit BoundService contexts. Native Proxy shadow/caller properties and automatic tracing of arbitrary returned objects are not provided."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The outer bound definition remains stable across nested/rebound use sites. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/shadow.spec.ts:5/default/a55",
+              "behavior": "expect(direct.caller).toBe(outerOrigin!)",
+              "source_assertion_lines": [
+                55
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "callable_adapters_expose_the_accessing_definition_not_the_outermost_consumer",
+                  "lines": [
+                    116,
+                    117,
+                    118,
+                    119,
+                    120,
+                    121,
+                    122,
+                    123,
+                    124,
+                    125,
+                    126,
+                    127
+                  ],
+                  "assertion": "Root and injecting-consumer access both expose the outer provider definition as caller, not the outermost consumer.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "Definition, use and caller views are explicit BoundService contexts. Native Proxy shadow/caller properties and automatic tracing of arbitrary returned objects are not provided."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Root and injecting-consumer access both expose the outer provider definition as caller, not the outermost consumer. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/shadow.spec.ts:5/default/a56",
+              "behavior": "expect(direct.shadow).toBe(innerOrigin!)",
+              "source_assertion_lines": [
+                56
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "bound_nested_calls_keep_definition_authority_but_use_caller_realm_metadata_and_effects",
+                  "lines": [
+                    151,
+                    152,
+                    153,
+                    164,
+                    166,
+                    167,
+                    168,
+                    169,
+                    170
+                  ],
+                  "assertion": "The inner bound call keeps its own definition Context while using the caller's realm.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "Definition, use and caller views are explicit BoundService contexts. Native Proxy shadow/caller properties and automatic tracing of arbitrary returned objects are not provided."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The inner bound call keeps its own definition Context while using the caller's realm. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/shadow.spec.ts:5/default/a57",
+              "behavior": "expect(direct.outerShadow).toBe(outerOrigin!)",
+              "source_assertion_lines": [
+                57
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "bound_nested_calls_keep_definition_authority_but_use_caller_realm_metadata_and_effects",
+                  "lines": [
+                    145,
+                    146,
+                    147,
+                    175,
+                    176,
+                    177,
+                    178,
+                    179,
+                    180
+                  ],
+                  "assertion": "The outer bound definition remains stable across nested/rebound use sites.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "Definition, use and caller views are explicit BoundService contexts. Native Proxy shadow/caller properties and automatic tracing of arbitrary returned objects are not provided."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The outer bound definition remains stable across nested/rebound use sites. Both accepted workspace-test command logs list this test as ok."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/shadow.spec.ts:60",
+      "source_file": "local/cordis/packages/core/tests/shadow.spec.ts",
+      "source_line": 60,
+      "source_end_line": 92,
+      "title": "applies the service inject when entered from root",
+      "suite": [
+        "Traceable caller"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/shadow.spec.ts:60/default/a87",
+              "behavior": "expect(() => root['outer'].probe()).toThrow(message)",
+              "source_assertion_lines": [
+                87
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/services.rs",
+                  "symbol": "root_invocation_does_not_grant_a_captured_plugin_context_root_authority",
+                  "lines": [
+                    503,
+                    509,
+                    515,
+                    516,
+                    517,
+                    518,
+                    519,
+                    520,
+                    521,
+                    522,
+                    523,
+                    524,
+                    525,
+                    526,
+                    527,
+                    528,
+                    529
+                  ],
+                  "assertion": "Invocation from root does not grant a captured plugin Context authority; only the definition that declared foo can read it.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "Definition, use and caller views are explicit BoundService contexts. Native Proxy shadow/caller properties and automatic tracing of arbitrary returned objects are not provided."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Invocation from root does not grant a captured plugin Context authority; only the definition that declared foo can read it. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/shadow.spec.ts:60/default/a89",
+              "behavior": "expect(() => ctx['outer'].probe()).toThrow(message)",
+              "source_assertion_lines": [
+                89
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/services.rs",
+                  "symbol": "root_invocation_does_not_grant_a_captured_plugin_context_root_authority",
+                  "lines": [
+                    503,
+                    509,
+                    515,
+                    516,
+                    517,
+                    518,
+                    519,
+                    520,
+                    521,
+                    522,
+                    523,
+                    524,
+                    525,
+                    526,
+                    527,
+                    528,
+                    529
+                  ],
+                  "assertion": "Invocation from root does not grant a captured plugin Context authority; only the definition that declared foo can read it.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "Definition, use and caller views are explicit BoundService contexts. Native Proxy shadow/caller properties and automatic tracing of arbitrary returned objects are not provided."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Invocation from root does not grant a captured plugin Context authority; only the definition that declared foo can read it. Both accepted workspace-test command logs list this test as ok."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/shadow.spec.ts:93",
+      "source_file": "local/cordis/packages/core/tests/shadow.spec.ts",
+      "source_line": 93,
+      "source_end_line": 156,
+      "title": "resolves dependencies through a captured shadow",
+      "suite": [
+        "Traceable caller"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/shadow.spec.ts:93/default/a149",
+              "behavior": "expect((root['outer'] as Outer).create().probe()).toEqual(['outer', 'hello'])",
+              "source_assertion_lines": [
+                149
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "bound_nested_calls_keep_definition_authority_but_use_caller_realm_metadata_and_effects",
+                  "lines": [
+                    145,
+                    148,
+                    151,
+                    152,
+                    153,
+                    166,
+                    167,
+                    168,
+                    169,
+                    170,
+                    171,
+                    172,
+                    173,
+                    174
+                  ],
+                  "assertion": "The captured holder/bound view resolves the definition's dependency while the caller selects the use-site realm.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "Definition, use and caller views are explicit BoundService contexts. Native Proxy shadow/caller properties and automatic tracing of arbitrary returned objects are not provided."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The captured holder/bound view resolves the definition's dependency while the caller selects the use-site realm. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/shadow.spec.ts:93/default/a150",
+              "behavior": "expect((root['outer'] as Outer).create().depth()).toBe(1)",
+              "source_assertion_lines": [
+                150
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "bound_nested_calls_keep_definition_authority_but_use_caller_realm_metadata_and_effects",
+                  "lines": [
+                    175,
+                    176,
+                    177,
+                    178,
+                    179,
+                    180
+                  ],
+                  "assertion": "Rebinding a captured holder preserves one definition view while replacing the use metadata instead of nesting shadows.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "Definition, use and caller views are explicit BoundService contexts. Native Proxy shadow/caller properties and automatic tracing of arbitrary returned objects are not provided."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Rebinding a captured holder preserves one definition view while replacing the use metadata instead of nesting shadows. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/shadow.spec.ts:93/default/a152",
+              "behavior": "expect((ctx['outer'] as Outer).create().probe()).toEqual(['outer', 'hello'])",
+              "source_assertion_lines": [
+                152
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "bound_nested_calls_keep_definition_authority_but_use_caller_realm_metadata_and_effects",
+                  "lines": [
+                    145,
+                    148,
+                    151,
+                    152,
+                    153,
+                    166,
+                    167,
+                    168,
+                    169,
+                    170,
+                    171,
+                    172,
+                    173,
+                    174
+                  ],
+                  "assertion": "The captured holder/bound view resolves the definition's dependency while the caller selects the use-site realm.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "Definition, use and caller views are explicit BoundService contexts. Native Proxy shadow/caller properties and automatic tracing of arbitrary returned objects are not provided."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The captured holder/bound view resolves the definition's dependency while the caller selects the use-site realm. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/shadow.spec.ts:93/default/a153",
+              "behavior": "expect((ctx['outer'] as Outer).create().depth()).toBe(1)",
+              "source_assertion_lines": [
+                153
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "bound_nested_calls_keep_definition_authority_but_use_caller_realm_metadata_and_effects",
+                  "lines": [
+                    175,
+                    176,
+                    177,
+                    178,
+                    179,
+                    180
+                  ],
+                  "assertion": "Rebinding a captured holder preserves one definition view while replacing the use metadata instead of nesting shadows.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "Definition, use and caller views are explicit BoundService contexts. Native Proxy shadow/caller properties and automatic tracing of arbitrary returned objects are not provided."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Rebinding a captured holder preserves one definition view while replacing the use metadata instead of nesting shadows. Both accepted workspace-test command logs list this test as ok."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/shadow.spec.ts:157",
+      "source_file": "local/cordis/packages/core/tests/shadow.spec.ts",
+      "source_line": 157,
+      "source_end_line": 194,
+      "title": "resolves same-name own provisions at their definition sites",
+      "suite": [
+        "Traceable caller"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/shadow.spec.ts:157/default/a190",
+              "behavior": "expect((root.isolate('foo', second)['relay'] as Relay).inspect()).toEqual(['first', second])",
+              "source_assertion_lines": [
+                190
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "bound_nested_calls_keep_definition_authority_but_use_caller_realm_metadata_and_effects",
+                  "lines": [
+                    113,
+                    114,
+                    119,
+                    120,
+                    123,
+                    124,
+                    125,
+                    128,
+                    129,
+                    145,
+                    166,
+                    167,
+                    168,
+                    169,
+                    170,
+                    173,
+                    174
+                  ],
+                  "assertion": "The relay keeps the first realm as its definition authority while the call uses the second realm.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "Definition, use and caller views are explicit BoundService contexts. Native Proxy shadow/caller properties and automatic tracing of arbitrary returned objects are not provided."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The relay keeps the first realm as its definition authority while the call uses the second realm. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/shadow.spec.ts:157/default/a191",
+              "behavior": "expect(root.isolate('foo', second).foo.inspect()).toEqual(['second', second])",
+              "source_assertion_lines": [
+                191
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "Definition, use and caller views are explicit BoundService contexts. Native Proxy shadow/caller properties and automatic tracing of arbitrary returned objects are not provided."
+              },
+              "gap": {
+                "id": "G-B0-shadow-157-a191",
+                "kind": "missing-evidence",
+                "next_action": "Extend bound_nested_calls_keep_definition_authority_but_use_caller_realm_metadata_and_effects with the exact child-plugin/no-diagnostic or direct-realm assertion for core/shadow.spec.ts:157 line 191: expect(root.isolate('foo', second).foo.inspect()).toEqual(['second', second]).",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/shadow.spec.ts:195",
+      "source_file": "local/cordis/packages/core/tests/shadow.spec.ts",
+      "source_line": 195,
+      "source_end_line": 225,
+      "title": "keeps unchecked access for services provided on the root ctx",
+      "suite": [
+        "Traceable caller"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/shadow.spec.ts:195/default/a223",
+              "behavior": "expect((root['rooted'] as Rooted).probe()).toBe('hello')",
+              "source_assertion_lines": [
+                223
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "typed_rooted_values_dynamic_events_and_context_type_guards_need_no_proxy_reflection",
+                  "lines": [
+                    681,
+                    682,
+                    698,
+                    699,
+                    700,
+                    701,
+                    702
+                  ],
+                  "assertion": "A root-provided Context remains an explicitly unchecked rooted value and can access the inner service.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "Definition, use and caller views are explicit BoundService contexts. Native Proxy shadow/caller properties and automatic tracing of arbitrary returned objects are not provided."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "A root-provided Context remains an explicitly unchecked rooted value and can access the inner service. Both accepted workspace-test command logs list this test as ok."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/shadow.spec.ts:226",
+      "source_file": "local/cordis/packages/core/tests/shadow.spec.ts",
+      "source_line": 226,
+      "source_end_line": 270,
+      "title": "exposes the caller without preserving shadow for noShadow services",
+      "suite": [
+        "Traceable caller"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/shadow.spec.ts:226/default/a267",
+              "behavior": "expect(result.caller).toBe(outerOrigin!)",
+              "source_assertion_lines": [
+                267
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "bound_nested_calls_keep_definition_authority_but_use_caller_realm_metadata_and_effects",
+                  "lines": [
+                    162,
+                    163,
+                    164,
+                    165
+                  ],
+                  "assertion": "call_unshadowed exposes the caller Fiber while passing the unshadowed definition Context.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "Definition, use and caller views are explicit BoundService contexts. Native Proxy shadow/caller properties and automatic tracing of arbitrary returned objects are not provided."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "call_unshadowed exposes the caller Fiber while passing the unshadowed definition Context. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/shadow.spec.ts:226/default/a268",
+              "behavior": "expect(result.shadow).toBeUndefined()",
+              "source_assertion_lines": [
+                268
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "bound_nested_calls_keep_definition_authority_but_use_caller_realm_metadata_and_effects",
+                  "lines": [
+                    162,
+                    163,
+                    164,
+                    165
+                  ],
+                  "assertion": "call_unshadowed exposes the caller Fiber while passing the unshadowed definition Context.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "Definition, use and caller views are explicit BoundService contexts. Native Proxy shadow/caller properties and automatic tracing of arbitrary returned objects are not provided."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "call_unshadowed exposes the caller Fiber while passing the unshadowed definition Context. Both accepted workspace-test command logs list this test as ok."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/shadow.spec.ts:271",
+      "source_file": "local/cordis/packages/core/tests/shadow.spec.ts",
+      "source_line": 271,
+      "source_end_line": 312,
+      "title": "exposes the caller to callable services",
+      "suite": [
+        "Traceable caller"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/shadow.spec.ts:271/default/a310",
+              "behavior": "expect(caller).toBe(outerOrigin!)",
+              "source_assertion_lines": [
+                310
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "callable_adapters_expose_the_accessing_definition_not_the_outermost_consumer",
+                  "lines": [
+                    120,
+                    121,
+                    122,
+                    123,
+                    124,
+                    125,
+                    126,
+                    127
+                  ],
+                  "assertion": "A typed callable receives and returns the accessing definition Fiber as its caller.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "Definition, use and caller views are explicit BoundService contexts. Native Proxy shadow/caller properties and automatic tracing of arbitrary returned objects are not provided."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "A typed callable receives and returns the accessing definition Fiber as its caller. Both accepted workspace-test command logs list this test as ok."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/shadow.spec.ts:313",
+      "source_file": "local/cordis/packages/core/tests/shadow.spec.ts",
+      "source_line": 313,
+      "source_end_line": 348,
+      "title": "strips service shadow before creating plugins",
+      "suite": [
+        "Traceable caller"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/shadow.spec.ts:313/default/a345",
+              "behavior": "expect(injected).toBe(true)",
+              "source_assertion_lines": [
+                345
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "Definition, use and caller views are explicit BoundService contexts. Native Proxy shadow/caller properties and automatic tracing of arbitrary returned objects are not provided."
+              },
+              "gap": {
+                "id": "G-B0-shadow-313-a345",
+                "kind": "missing-evidence",
+                "next_action": "Extend bound_nested_calls_keep_definition_authority_but_use_caller_realm_metadata_and_effects with the exact child-plugin/no-diagnostic or direct-realm assertion for core/shadow.spec.ts:313 line 345: expect(injected).toBe(true).",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            },
+            {
+              "id": "core/shadow.spec.ts:313/default/a346",
+              "behavior": "expect(root.logger.buffer.filter(message => message.type === 'error')).toHaveLength(0)",
+              "source_assertion_lines": [
+                346
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "Definition, use and caller views are explicit BoundService contexts. Native Proxy shadow/caller properties and automatic tracing of arbitrary returned objects are not provided."
+              },
+              "gap": {
+                "id": "G-B0-shadow-313-a346",
+                "kind": "missing-evidence",
+                "next_action": "Extend bound_nested_calls_keep_definition_authority_but_use_caller_realm_metadata_and_effects with the exact child-plugin/no-diagnostic or direct-realm assertion for core/shadow.spec.ts:313 line 346: expect(root.logger.buffer.filter(message => message.type === 'error')).toHaveLength(0).",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence"
+      ]
+    }
+  ]
+}
