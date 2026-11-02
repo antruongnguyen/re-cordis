@@ -9,10 +9,11 @@ for all 35 package states, ownership, decisions, blockers and exact resume steps
 - [Accepted execution plan](evidence/B0/plan.md).
 - [Independent matrix review](evidence/B0/matrix-review.md): command portion accepted at 7d1552a. Executed inputs at 578c066 through e23dbac have identical hashes and no executable delta from implementation baseline 808c9f5.
 - [Command index](evidence/B0/matrix/commands.tsv), [actual results](evidence/B0/matrix/results.json), and full committed logs under evidence/B0/matrix/logs/.
+- [Matrix report](evidence/B0/matrix/report.md) at 25dcde8 records all results, failed evidence-assembly attempts, successful validation and known metadata limits. Its scoped re-review handoff is prepared.
 - Stable 1.97.1 and 1.85.0 each passed 164 core integration tests (including 12 Unix application tests), 15 timer tests, 17 core Rustdoc checks, 20 M0 tests and one M0 Rustdoc check. Both examples and guide checks (8 snippets plus external quick start per toolchain) passed; five Python regressions passed.
 - The fixed TypeScript specification is 35fdc969e4b6c48c48ed44717c7a018324e4dd88. Exactly six paired scenarios and 73 observations passed. These counts do not establish full upstream parity or non-macOS platform acceptance.
 - [Core inventory](evidence/B0/ledger/cases.json): 144 declarations / 156 expanded cases; mapping incomplete. It is not an accepted case ledger.
-- [Decorator/reflection fragment](evidence/B0/ledger-inputs/report-decorator-reflect.md): 5 declarations / 23 obligations mapped to source tests, deliberate Rust representations, existing exclusions or named evidence gaps. Independent review is a separate gate.
+- [Decorator/reflection fragment](evidence/B0/ledger-inputs/report-decorator-reflect.md): 5 declarations / 23 obligations mapped to source tests, deliberate Rust representations, existing exclusions or named evidence gaps. [Independent review](evidence/B0/fragment-review.md) accepted the semantic dispositions but requires FR-1: route seven evidence gaps through dependency triage/reproduction before conditional B2. The correction could not run through unreadable worker follow-up transport.
 - [Interrupted events inventory](evidence/B0/ledger-inputs/events.json): 19 declarations / 61 initial obligations; audit did not finish. Initial missing-evidence fields are unreviewed placeholders, not accepted dispositions.
 - [Worker infrastructure failures](evidence/B0/infrastructure.md) prevent continued reliable execution with the requested worker settings. No model substitution was made.
 

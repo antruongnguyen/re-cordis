@@ -16,6 +16,8 @@ reasoning_effort high, fork_turns none. Planning/review used gpt-6-astra/high.
 | b0_matrix | all required commands ran; response disconnected during report assembly | Same-context report-only resume failed HTTP 400 at 2026-11-02T08:40:41Z; full command artifacts preserved |
 | b0_ledger_extra_retry | fresh bounded decorator/reflect assignment completed | Its five-record fragment is saved; success did not establish general recovery |
 | b0_events | fresh bounded events-family assignment failed HTTP 400 at 2026-11-02T08:49:25Z | Saved nineteen-record initial inventory; no repeated equivalent retry scheduled |
+| b0_matrix_report | bounded fresh report task completed; summary/report consistency checks recorded | Report saved at 25dcde8; no full-matrix rerun |
+| b0_ledger_extra_retry follow-up | received the correction request as opaque gAAAAA-prefixed ciphertext, requested readable scope and ended without changes | Durable handoffs/fragment-fix.md retained; FR-1 remains open |
 
 The three HTTP 400 failures had errorCode UPSTREAM_LLM_ERROR, provider openai,
 and error code invalid_encrypted_content: an encrypted reasoning item could
@@ -41,9 +43,12 @@ has meaningful mappings but must pass its independent review before integration.
 
 The attempted remedies were same-agent resume, smaller incremental outputs,
 a fresh same-model context, and short file-based handoffs. Fresh-context HTTP
-400 shows these remedies did not reliably remove the blocker. B0 is blocked;
-its hard-dependent packages cannot be started as though its audit were complete.
-Independent matrix-report housekeeping and saved-fragment review may finish.
+400 and unreadable correction transport show these remedies did not reliably
+remove the blocker. B0 is blocked; its hard-dependent packages cannot be
+started as though its audit were complete. Independent report housekeeping
+and fragment review finished. The matrix report is saved with complete new
+validation metadata and preserved old attempts; fragment review requires only
+the FR-1 scheduling correction, which could not be executed. All workers ended.
 
 ## Safe recovery
 

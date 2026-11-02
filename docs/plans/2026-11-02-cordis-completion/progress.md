@@ -18,7 +18,7 @@ review, integration, documentation and current verification.
 
 | ID | Status | Dependencies | Owner / role / model | Worktree / branch | Implementation commit | Review result | Evidence location |
 |---|---|---|---|---|---|---|---|
-| B0 | blocked | None | orchestrator; b0_matrix_report / evidence housekeeping / gpt-6.1-sol high; b0_fragment_review / review / gpt-6-astra high | integration | c3fbcb0, 7d1552a, ac72512 (partial evidence) | matrix accepted; ledger incomplete; repeated worker API failure | evidence/B0/ |
+| B0 | blocked | None | orchestrator checkpoint; no active worker; resume execution sol/high and review astra/high | integration | c3fbcb0, 7d1552a, ac72512, 25dcde8 (partial evidence) | matrix accepted; report re-review pending; fragment FR-1 open; full ledger incomplete | evidence/B0/ |
 | B1 | planned | B0 | unassigned | integration | — | not started | evidence/B1/ |
 | T0 | planned | B0 | unassigned | integration | — | not started | evidence/T0/ |
 | T1 | planned | T0 | unassigned | integration | — | not started | evidence/T1/ |
@@ -62,9 +62,9 @@ The original b0_ledger and b0_matrix contexts cannot be resumed (HTTP 400). Thei
 
 | B0 subtask | Owner/state | Durable output |
 |---|---|---|
-| Full command matrix | executed, independent review active | matrix/ at c3fbcb0 and logs at 7d1552a |
-| Matrix review | accepted by b0_matrix_review / astra high | matrix-review.md; two evidence housekeeping findings |
-| Decorator + reflect (5 declarations) | mapping/join complete, review pending | ledger-inputs/decorator-reflect.json and report-decorator-reflect.md |
+| Full command matrix | executed and independently accepted | matrix/ at c3fbcb0 and logs at 7d1552a |
+| Matrix review | accepted by b0_matrix_review / astra high; report added, scoped re-review not yet dispatched | matrix-review.md; matrix/report.md at 25dcde8; handoffs/matrix-rereview.md |
+| Decorator + reflect (5 declarations) | semantic mappings/joins accepted; scheduling correction FR-1 remains open | ledger-inputs/decorator-reflect.json, report-decorator-reflect.md, fragment-review.md, handoffs/fragment-fix.md |
 | Events (19 declarations) | fresh b0_events failed HTTP 400; inventory only, no completed mappings/report | ledger-inputs/events.json (19 declarations/61 initial obligations); handoffs/events.md |
 | Associate (6) + invoke (2) | handoff prepared, not dispatched after fresh-worker failure | handoffs/associate-invoke.md |
 | Intercept (7), isolate (6), logger (11), shadow (8) | unassigned after extra-worker failure | no accepted fragments yet |
@@ -84,23 +84,27 @@ Do not replace pending inventory with blanket exclusions or claim missing mappin
 ## Active blockers, failures and retries
 
 - Initialization attempt failed with a Python quoting SyntaxError before any file was written. Recreated tracking using a structured patch; no source changes affected.
-- Baseline checks not run. No pre-existing uncommitted changes or extra worktrees found.
+- Startup had no pre-existing uncommitted changes or extra worktrees. Baseline command checks are now accepted; this does not complete the B0 ledger gate.
 - B0 ledger attempt 1: agent response stream disconnected before completion. Inspect ledger/ and resume the same sol/high agent; do not infer completion or discard any saved files. Matrix executor unaffected.
 - B0 extra-ledger attempt 1: response stream disconnected before completion. Resume the same sol/high agent and save each completed spec-family mapping incrementally. This is transport failure, not evidence of unavailable requested models or code/test failure.
 - B0 extra-ledger attempt 2: same stream disconnect after resuming. Remedy: fresh sol/high context with one small family assignment per turn, retaining the same exclusive ledger-inputs/ ownership. No model substitution.
-- B0 matrix: 53 recorded commands exited 0, including both guide toolchains and paired runner (six scenarios/73 observations). Final report/source-hash audit and independent review are pending; B0 remains in progress.
+- B0 matrix: 53 indexed commands exited 0, including both guide toolchains and paired runner (six scenarios/73 observations). Independent review accepted the matrix; report is saved at 25dcde8. Scoped report re-review remains pending. B0 is blocked on the ledger/infrastructure.
 - B0 matrix report turn also disconnected after producing complete command results and sending counts. Recover existing artifacts; request only the short report and final handoff without rerunning unchanged checks.
 - B0 resume infrastructure failure: b0_ledger at 2026-11-02T08:40:28Z and b0_matrix at 08:40:41Z returned HTTP 400 UPSTREAM_LLM_ERROR / invalid_encrypted_content (encrypted reasoning item could not be decrypted or parsed). Original attempts disconnected; same-agent resume is unusable. Preserve artifacts and use fresh exact-model contexts on bounded tasks. If fresh contexts also fail repeatedly, checkpoint B0 as blocked rather than claiming baseline acceptance.
 - Fresh b0_events also failed at 2026-11-02T08:49:25Z with HTTP 400 UPSTREAM_LLM_ERROR / invalid_encrypted_content. Fresh-context remedy is not reliable. B0 is blocked by worker execution infrastructure after original, resumed and fresh-context failures; no requested model is substituted. Finish independent evidence housekeeping/review, then stop with precise resume instructions.
-- Fragment review finding B0-FRAGMENT-01: seven evidence gaps incorrectly imply unconditional B2 scheduling. Source mappings and matrix joins otherwise check out. A bounded metadata correction is assigned to the original healthy sol/high fragment executor; no production fix or extra tests requested.
+- Fragment review finding FR-1 / P2: seven evidence gaps incorrectly imply unconditional B2 scheduling. Source mappings and matrix joins otherwise check out. Correction was dispatched to the healthy sol/high fragment executor, but it received unreadable ciphertext and made no changes. handoffs/fragment-fix.md preserves the exact correction; no extra tests or production fix is requested.
+- Evidence assembly failures are preserved honestly: original summary attempt 1 has a HEAD-equality traceback; original attempt 2 has successful output but unknown exit metadata. New summary validation exited 0. Initial report validation exited 1 because its referenced log was not yet present; retry exited 0. See matrix/report.md and the new JSON/log pairs.
+- Current stop condition: repeated stream/HTTP-400 failures, including a fresh worker, plus unreadable follow-up transport. Same-agent resume, fresh contexts, smaller tasks, incremental files and short durable handoffs were tried. No model substitution. All workers have ended; no background work or uncommitted work remains after the final checkpoint.
 
 ## Resume next
 
-1. Read this file, relevant evidence, README.md, schedule.md and acceptance.md in this directory.
-2. Inspect git status/history/worktrees; reconcile worker commits before duplicate dispatch. Interrupted in_progress is not proof of active work or absence of implementation.
-3. B0 plan is accepted at evidence/B0/plan.md. Inspect matrix-review.md and any findings; matrix commands passed but evidence assembly needs review. Do not resume the corrupted b0_ledger/b0_matrix contexts.
-4. Reconcile the five-record decorator/reflect and 19-record events fragments from fresh workers. Use the B0 recovery ownership table to dispatch remaining spec families to fresh sol/high contexts with bounded file-based handoffs. Merge and validate all 144 declarations/156 cases and six type obligations, join real matrix results, then obtain independent astra/high ledger review.
-5. After B0 acceptance, start T0. B1 and C0/L0 source planning may overlap only when prerequisites and ownership permit.
+1. Read this file, evidence.md, evidence/B0/infrastructure.md, plan.md, matrix-review.md, matrix/report.md and fragment-review.md. Read the master/schedule/acceptance documents again after context loss.
+2. Inspect Git status/history and worktrees. The only worktree is /Users/I756434/Projects/private/cordis-rust on feat/cordis-completion; no worker remains active and no production inputs changed. All saved partial evidence is committed. Confirm this against actual files before dispatch.
+3. Restore usable worker/hand-off execution with the exact requested models. Do not resume corrupted b0_ledger, b0_matrix or b0_events contexts. Do not interpret the five-record fresh-worker success as proof the API problem is gone. Use the durable handoff files with fresh contexts once readable dispatch works.
+4. Apply FR-1 via evidence/B0/handoffs/fragment-fix.md to the two decorator/reflect fragment files; preserve the seven gap IDs and concrete regressions, make B2 conditional, validate, commit, and get independent astra/high re-review. The existing fragment is semantically accepted but not ready for ledger integration until this correction is reviewed.
+5. Run the scoped report re-review specified in evidence/B0/handoffs/matrix-rereview.md against 25dcde8; it was prepared but not dispatched. Do not rerun the full matrix for prose-only changes; rerun if executable inputs change or recorded hashes cannot establish applicability.
+6. Continue the remaining source audit using the recovery ownership table. Associate/invoke handoff is prepared but unexecuted. events.json is only an interrupted inventory with 61 initial obligations, not completed dispositions. Other unmapped families and all six event-type expressions remain. Save each family, then merge/validate all 144 declarations/156 variants and six type obligations with actual matrix joins and independent ledger review.
+7. Accept and commit B0 only when those gates pass; then start T0 from timer.md. B1 and C0/L0 planning may overlap only when prerequisites and ownership permit. Keep the full 35-package scope; R1/release-readiness.md has not been reached and no publication is authorized.
 
 ## Checkpoint log (append only)
 
@@ -123,4 +127,5 @@ Do not replace pending inventory with blanket exclusions or claim missing mappin
 - 2026-11-02 CP017: Report worker ran a new summary-only validation at 3463486 with recorded command/environment/UTC/exit 0 and unchanged prior artifact hashes; original attempts remain untouched. Orchestrator Git reconciliation confirms no changes in crates/tests/manifests/locks/spikes/CI since c5019cc and clean tracked TS checkout. Reports/review still pending before final checkpoint.
 - 2026-11-02 CP018: Independent fragment reviewer confirmed 23 dispositions and real test joins, but found seven gap assignments bypass B2 entry gate. Accepted D006 and dispatched a bounded correction via handoffs/fragment-fix.md to b0_ledger_extra_retry (same sol/high). Do not start associate/invoke or dependent production work.
 - 2026-11-02 CP019: Matrix report and all validation attempts committed at 25dcde8. New summary validation passed; initial report check failed on its not-yet-created log link, retry passed. Preserve all logs and metadata. Dispatch scoped independent re-review for B0-MATRIX-01/02; source fragment correction remains separate.
+- 2026-11-02 CP020: The fragment correction follow-up arrived at its worker as opaque ciphertext; worker stopped without editing. Matrix re-review handoff was prepared but never dispatched. Independent fragment review FR-1 is saved, report/validation artifacts are committed, and all workers have completed/failed. No package is marked done: B0 blocked, 34 planned. Final checkpoint preserves exact resume steps; no background continuation.
 
