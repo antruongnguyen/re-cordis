@@ -3,7 +3,7 @@
   "rust_revision": "9a7633c0b3b98e5f37e9f2211f3ffa67fdac5edc",
   "implementation_revision": "808c9f573dd96c56fa2ec43e0b1bfb9ed39b2f3f",
   "typescript_revision": "35fdc969e4b6c48c48ed44717c7a018324e4dd88",
-  "status": "fiber family complete; exact source assertions reviewed and existing stable/MSRV and bounded paired results joined; independent integration review pending",
+  "status": "fiber family LR2-LR5 evidence corrections complete; exact stable/MSRV result/log joins retained; scoped independent re-review required; LR1 accounting reserved for integration",
   "declarations": [
     {
       "id": "core/fiber.spec.ts:7",
@@ -1802,40 +1802,19 @@
               "source_assertion_lines": [
                 152
               ],
-              "class": "source-mapped-test",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/tests/updates.rs",
-                  "symbol": "asynchronous_recovery_is_awaited_and_dropped_failed_recovery_is_still_diagnosed",
-                  "lines": [
-                    849,
-                    858,
-                    871,
-                    872,
-                    878,
-                    881,
-                    882,
-                    883,
-                    887,
-                    888,
-                    889,
-                    890,
-                    891,
-                    892,
-                    893
-                  ],
-                  "assertion": "A later negative recovery update is awaited and asserted Err.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ]
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
               "restriction": null,
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "The asynchronous recovery regression returns the original initial/retry failures through their respective waiters."
+              "gap": {
+                "id": "G-B0-core/fiber.spec.ts:144/default/a152",
+                "kind": "missing-evidence",
+                "next_action": "In asynchronous_recovery_is_awaited_and_dropped_failed_recovery_is_still_diagnosed, establish Failed after the -2 reload (or initial failure), then retain the subsequent failing recovery update task from that Failed state; assert its own callback error and the resulting Failed state. Preserve the separately tested dropped-recovery waiter. Run the relevant regression on stable and Rust 1.85.0 after the evidence follow-up.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "updates.rs:888 is Active before the awaited -2 reload at 889. The failing recovery -3 starts from Failed at 891 but its update waiter is dropped, and 892 joins ready(). No retained Failed-to-Failed update waiter observes its own retry failure."
             },
             {
               "id": "core/fiber.spec.ts:144/default/a153",
@@ -1850,12 +1829,12 @@
               "gap": {
                 "id": "G-B0-core/fiber.spec.ts:144/default/a153",
                 "kind": "missing-evidence",
-                "next_action": "Add assert_eq!(fiber.state(), FiberState::Failed) immediately after the awaited failed recovery update in asynchronous_recovery_is_awaited_and_dropped_failed_recovery_is_still_diagnosed, then run both workspace toolchains.",
+                "next_action": "In asynchronous_recovery_is_awaited_and_dropped_failed_recovery_is_still_diagnosed, establish Failed after the -2 reload (or initial failure), then retain the subsequent failing recovery update task from that Failed state; assert its own callback error and the resulting Failed state. Preserve the separately tested dropped-recovery waiter. Run the relevant regression on stable and Rust 1.85.0 after the evidence follow-up.",
                 "owner": "core evidence maintainer",
                 "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
               },
               "execution_status": "not-executed",
-              "rationale": "The update error is asserted, but the exact post-recovery Failed state boundary is not currently asserted."
+              "rationale": "An Active-to-Failed reload error and a dropped Failed-recovery waiter are distinct tested paths. The source requires Failed after a retained failing recovery update from an already-Failed Fiber; a state assertion after -2 alone does not cover it."
             }
           ]
         }
@@ -2136,42 +2115,19 @@
               "source_assertion_lines": [
                 197
               ],
-              "class": "source-mapped-test",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/tests/plugins.rs",
-                  "symbol": "cleanup_failures_are_attempted_and_reported_without_blocking_disposal",
-                  "lines": [
-                    917,
-                    921,
-                    926,
-                    927,
-                    930,
-                    931,
-                    938,
-                    939,
-                    940,
-                    941,
-                    942,
-                    943,
-                    944,
-                    945,
-                    946,
-                    947,
-                    948
-                  ],
-                  "assertion": "Cleanup side effects remain zero until dispose is joined.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ]
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
               "restriction": null,
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "The cleanup-failure regression strengthens the source by attempting independent cleanup and preserving diagnostic identity while disposal still completes."
+              "gap": {
+                "id": "G-B0-core/fiber.spec.ts:185/default/a197",
+                "kind": "missing-evidence",
+                "next_action": "In cleanup_failures_are_attempted_and_reported_without_blocking_disposal, give the throwing cleanup its own invocation counter and assert zero after readiness and before disposal; retain the separate successful-sibling counter. Run the relevant regression on stable and Rust 1.85.0 after the evidence follow-up.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "plugins.rs:917-953 reads cleaned only after disposal at 942, with no pre-disposal zero assertion."
             },
             {
               "id": "core/fiber.spec.ts:185/default/a198",
@@ -2222,42 +2178,19 @@
               "source_assertion_lines": [
                 200
               ],
-              "class": "source-mapped-test",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/tests/plugins.rs",
-                  "symbol": "cleanup_failures_are_attempted_and_reported_without_blocking_disposal",
-                  "lines": [
-                    917,
-                    921,
-                    926,
-                    927,
-                    930,
-                    931,
-                    938,
-                    939,
-                    940,
-                    941,
-                    942,
-                    943,
-                    944,
-                    945,
-                    946,
-                    947,
-                    948
-                  ],
-                  "assertion": "The independent cleanup counter becomes exactly one and repeated disposal is inert.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ]
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
               "restriction": null,
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "The cleanup-failure regression strengthens the source by attempting independent cleanup and preserving diagnostic identity while disposal still completes."
+              "gap": {
+                "id": "G-B0-core/fiber.spec.ts:185/default/a200",
+                "kind": "missing-evidence",
+                "next_action": "In cleanup_failures_are_attempted_and_reported_without_blocking_disposal, count entries into the throwing cleanup itself and assert exactly one after disposal and unchanged after repeated disposal; retain the successful-sibling and error/panic diagnostic assertions. Run the relevant regression on stable and Rust 1.85.0 after the evidence follow-up.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The counter at plugins.rs:942 belongs to the successful sibling cleanup registered at 926-929; the throwing disposer at 930 has no counter. The two failures and panic flags at 943-946 observe diagnostics, not an exact throwing-callback count."
             },
             {
               "id": "core/fiber.spec.ts:185/default/a201",
@@ -2306,6 +2239,7 @@
         }
       ],
       "classes": [
+        "missing-evidence",
         "source-mapped-test"
       ]
     },
@@ -3357,17 +3291,21 @@
               "rust_evidence": [
                 {
                   "file": "crates/re-cordis-core/tests/plugins.rs",
-                  "symbol": "cloned_declarations_group_distinct_instances_and_empty_groups_are_pruned",
+                  "symbol": "typed_object_method_adapter_keeps_config_and_cleanup_with_its_instance",
                   "lines": [
-                    31,
-                    33,
-                    36,
-                    43,
-                    53,
-                    56,
-                    58
+                    1143,
+                    1144,
+                    1161,
+                    1162,
+                    1166,
+                    1167,
+                    1168,
+                    1169,
+                    1170,
+                    1171,
+                    1172
                   ],
-                  "assertion": "Joined plugin instances record one callback invocation per initial load.",
+                  "assertion": "Plugin::new forwards each String input directly to Behavior::apply; its sorted complete recorded input vector is exactly [first, second] after both instances become ready, proving one invocation with each distinct admitted input.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -3378,7 +3316,7 @@
               "restriction": null,
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The typed declaration/handle test covers initial callback and source retention."
+              "rationale": "The typed Plugin::new callback forwards its input unchanged to the explicit object method adapter. The complete sorted callback-input vector contains each distinct admission input exactly once; the original cloned-declaration witness only asserted handle configs and an aggregate length."
             },
             {
               "id": "core/fiber.spec.ts:292/default/a299",
@@ -3390,17 +3328,21 @@
               "rust_evidence": [
                 {
                   "file": "crates/re-cordis-core/tests/plugins.rs",
-                  "symbol": "cloned_declarations_group_distinct_instances_and_empty_groups_are_pruned",
+                  "symbol": "typed_object_method_adapter_keeps_config_and_cleanup_with_its_instance",
                   "lines": [
-                    31,
-                    33,
-                    36,
-                    43,
-                    53,
-                    56,
-                    58
+                    1143,
+                    1144,
+                    1161,
+                    1162,
+                    1166,
+                    1167,
+                    1168,
+                    1169,
+                    1170,
+                    1171,
+                    1172
                   ],
-                  "assertion": "The callback records and the handle retains each exact typed source config.",
+                  "assertion": "Plugin::new forwards each String input directly to Behavior::apply; its sorted complete recorded input vector is exactly [first, second] after both instances become ready, proving one invocation with each distinct admitted input.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -3411,7 +3353,7 @@
               "restriction": null,
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The typed declaration/handle test covers initial callback and source retention."
+              "rationale": "The typed Plugin::new callback forwards its input unchanged to the explicit object method adapter. The complete sorted callback-input vector contains each distinct admission input exactly once; the original cloned-declaration witness only asserted handle configs and an aggregate length."
             },
             {
               "id": "core/fiber.spec.ts:292/default/a303",
@@ -3419,35 +3361,19 @@
               "source_assertion_lines": [
                 303
               ],
-              "class": "source-mapped-test",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/tests/acceptance.rs",
-                  "symbol": "optional_publication_presence_and_shared_updated_handles_are_explicit_typed_contracts",
-                  "lines": [
-                    163,
-                    164,
-                    165,
-                    168,
-                    169,
-                    170,
-                    171,
-                    172,
-                    173,
-                    174
-                  ],
-                  "assertion": "An alias update is joined and both handles observe the same updated Fiber identity/config.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ]
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
               "restriction": null,
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "Shared FiberHandle clones are the explicit Rust representation of the wrapped Fiber and observe the joined update."
+              "gap": {
+                "id": "G-B0-core/fiber.spec.ts:292/default/a303",
+                "kind": "missing-evidence",
+                "next_action": "Extend optional_publication_presence_and_shared_updated_handles_are_explicit_typed_contracts with a callback-input journal: assert the initial input once, then the complete two-input vector/count after the first sequential update and the complete three-input vector/count after the second; keep the shared-handle identity/getter assertions. Run the relevant regression on stable and Rust 1.85.0 after the evidence follow-up.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The shared-handle callback ignores its u32 input at acceptance.rs:165. Config getters at 172-173/189 and shared identity at 174 do not observe callback inputs or sequential invocation counts."
             },
             {
               "id": "core/fiber.spec.ts:292/default/a304",
@@ -3455,35 +3381,19 @@
               "source_assertion_lines": [
                 304
               ],
-              "class": "source-mapped-test",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/tests/acceptance.rs",
-                  "symbol": "optional_publication_presence_and_shared_updated_handles_are_explicit_typed_contracts",
-                  "lines": [
-                    163,
-                    164,
-                    165,
-                    168,
-                    169,
-                    170,
-                    171,
-                    172,
-                    173,
-                    174
-                  ],
-                  "assertion": "The exact typed update source 5 is asserted through both handles.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ]
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
               "restriction": null,
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "Shared FiberHandle clones are the explicit Rust representation of the wrapped Fiber and observe the joined update."
+              "gap": {
+                "id": "G-B0-core/fiber.spec.ts:292/default/a304",
+                "kind": "missing-evidence",
+                "next_action": "Extend optional_publication_presence_and_shared_updated_handles_are_explicit_typed_contracts with a callback-input journal: assert the initial input once, then the complete two-input vector/count after the first sequential update and the complete three-input vector/count after the second; keep the shared-handle identity/getter assertions. Run the relevant regression on stable and Rust 1.85.0 after the evidence follow-up.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The shared-handle callback ignores its u32 input at acceptance.rs:165. Config getters at 172-173/189 and shared identity at 174 do not observe callback inputs or sequential invocation counts."
             },
             {
               "id": "core/fiber.spec.ts:292/default/a308",
@@ -3498,12 +3408,12 @@
               "gap": {
                 "id": "G-B0-core/fiber.spec.ts:292/default/a308",
                 "kind": "missing-evidence",
-                "next_action": "Add a simple three-step sequential FiberHandle update regression that records apply inputs and asserts exactly three total invocations after the second update; run both workspace toolchains.",
+                "next_action": "Extend optional_publication_presence_and_shared_updated_handles_are_explicit_typed_contracts with a callback-input journal: assert the initial input once, then the complete two-input vector/count after the first sequential update and the complete three-input vector/count after the second; keep the shared-handle identity/getter assertions. Run the relevant regression on stable and Rust 1.85.0 after the evidence follow-up.",
                 "owner": "core evidence maintainer",
                 "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
               },
               "execution_status": "not-executed",
-              "rationale": "Current tests prove shared-handle updates and latest config, but do not assert the exact third sequential apply-count boundary."
+              "rationale": "The shared-handle witness observes config/identity, but its callback records neither input nor count. The initial, first-update and second-update callback boundaries need a single sequential input journal."
             },
             {
               "id": "core/fiber.spec.ts:292/default/a309",
@@ -3511,32 +3421,19 @@
               "source_assertion_lines": [
                 309
               ],
-              "class": "source-mapped-test",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/tests/acceptance.rs",
-                  "symbol": "optional_publication_presence_and_shared_updated_handles_are_explicit_typed_contracts",
-                  "lines": [
-                    169,
-                    171,
-                    172,
-                    173,
-                    174,
-                    188,
-                    189
-                  ],
-                  "assertion": "A second alias update is joined and the original handle reports latest source 7.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ]
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
               "restriction": null,
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "The shared typed handle retains and exposes the latest source across repeated updates."
+              "gap": {
+                "id": "G-B0-core/fiber.spec.ts:292/default/a309",
+                "kind": "missing-evidence",
+                "next_action": "Extend optional_publication_presence_and_shared_updated_handles_are_explicit_typed_contracts with a callback-input journal: assert the initial input once, then the complete two-input vector/count after the first sequential update and the complete three-input vector/count after the second; keep the shared-handle identity/getter assertions. Run the relevant regression on stable and Rust 1.85.0 after the evidence follow-up.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The shared-handle callback ignores its u32 input at acceptance.rs:165. Config getters at 172-173/189 and shared identity at 174 do not observe callback inputs or sequential invocation counts."
             }
           ]
         }
@@ -3925,40 +3822,45 @@
               "source_assertion_lines": [
                 364
               ],
-              "class": "rust-representation",
+              "class": "executed-comparison",
               "rust_evidence": [
                 {
-                  "file": "crates/re-cordis-core/tests/acceptance.rs",
-                  "symbol": "optional_publication_presence_and_shared_updated_handles_are_explicit_typed_contracts",
+                  "file": "crates/re-cordis-core/tests/lifecycle_parity.rs",
+                  "symbol": "combined_provider_and_consumer_update",
                   "lines": [
-                    163,
-                    168,
-                    169,
-                    170,
-                    171,
-                    172,
-                    173,
-                    174,
-                    185,
-                    188,
-                    189
+                    233,
+                    236,
+                    238,
+                    239,
+                    251,
+                    260,
+                    269,
+                    270,
+                    271,
+                    272,
+                    281,
+                    282,
+                    292,
+                    293
                   ],
-                  "assertion": "After an update error or successful alias update, state is explicitly asserted Active.",
+                  "assertion": "The combined mode joins provider update tasks and consumer readiness, compares both provider.state() and consumer.state() to Active, then emits the exact settled provider=Active consumer=Active observation.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
                   ]
                 }
               ],
-              "paired_evidence": [],
-              "restriction": {
-                "document": "docs/m3.md",
-                "anchor": "public-surface",
-                "reason": "Rust exposes a typed FiberHandle with methods and stable opaque identity rather than a JavaScript callable wrapper delegating own/prototype properties such as state, config, inertia, and uid."
-              },
+              "paired_evidence": [
+                {
+                  "scenario": "combined",
+                  "observation": "settled provider=Active consumer=Active",
+                  "scope": "The combined TS fixture at lifecycle.spec.ts:132-137 and Rust combined helper at lifecycle_parity.rs:260-273 observe both provider and consumer Active after readiness; this is distinct from the earlier consumer Pending update-waiter settlement."
+                }
+              ],
+              "restriction": null,
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The supported Rust API has one typed shared handle allocation rather than a JavaScript wrapper prototype, and the test checks shared identity/config/state."
+              "rationale": "The accepted combined comparison supplies the exact concurrent provider/consumer final Active checkpoint in both languages. acceptance.rs:185 instead checks a middleware-error path on a different plugin and is removed from this obligation."
             },
             {
               "id": "core/fiber.spec.ts:326/default/a365",
@@ -4339,40 +4241,19 @@
               "source_assertion_lines": [
                 409
               ],
-              "class": "source-mapped-test",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/tests/updates.rs",
-                  "symbol": "invalid_loaded_update_cannot_commit_or_reach_resolved_middleware_and_no_save_only_skips_commit",
-                  "lines": [
-                    199,
-                    219,
-                    221,
-                    225,
-                    229,
-                    239,
-                    240,
-                    241,
-                    242,
-                    243,
-                    244,
-                    245,
-                    246,
-                    247,
-                    248
-                  ],
-                  "assertion": "The running Fiber remains Active after rejected update.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ]
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
               "restriction": null,
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "The loaded-update regression directly checks validation precedes source commit, middleware, and reload."
+              "gap": {
+                "id": "G-B0-core/fiber.spec.ts:396/default/a409",
+                "kind": "missing-evidence",
+                "next_action": "In invalid_loaded_update_cannot_commit_or_reach_resolved_middleware_and_no_save_only_skips_commit, assert fiber.state()==FiberState::Active immediately after the rejected invalid loaded update and before any later valid update. Run the relevant regression on stable and Rust 1.85.0 after the evidence follow-up.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "updates.rs:239-259 checks synchronous invalid-update rejection, unchanged source and apply/middleware observations, but contains no Active-state assertion at the rejected loaded-update checkpoint."
             },
             {
               "id": "core/fiber.spec.ts:396/default/a410",
@@ -4419,6 +4300,7 @@
         }
       ],
       "classes": [
+        "missing-evidence",
         "source-mapped-test"
       ]
     },

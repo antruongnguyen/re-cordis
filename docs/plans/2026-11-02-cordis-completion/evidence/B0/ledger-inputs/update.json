@@ -3,7 +3,7 @@
   "rust_revision": "9a7633c0b3b98e5f37e9f2211f3ffa67fdac5edc",
   "implementation_revision": "808c9f573dd96c56fa2ec43e0b1bfb9ed39b2f3f",
   "typescript_revision": "35fdc969e4b6c48c48ed44717c7a018324e4dd88",
-  "status": "update family complete; all 12 registered variants reviewed and existing stable/MSRV and bounded paired results joined; independent integration review pending",
+  "status": "update family LR2-LR5 evidence corrections complete; exact stable/MSRV result/log joins retained; scoped independent re-review required; LR1 accounting reserved for integration",
   "declarations": [
     {
       "id": "core/update.spec.ts:7",
@@ -989,39 +989,25 @@
               "source_assertion_lines": [
                 65
               ],
-              "class": "source-mapped-test",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/tests/updates.rs",
-                  "symbol": "queued_initial_sources_are_skipped_and_pending_loads_validate_only_the_latest_source",
-                  "lines": [
-                    147,
-                    155,
-                    164,
-                    172,
-                    173,
-                    174,
-                    175,
-                    176,
-                    177
-                  ],
-                  "assertion": "Both update tasks join successfully after the sole latest load.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ]
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
               "restriction": null,
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "The Rust test directly queues sources before the initial pass and asserts only the latest is applied."
+              "gap": {
+                "id": "G-B0-core/update.spec.ts:54/default/a65",
+                "kind": "missing-evidence",
+                "next_action": "In queued_initial_sources_are_skipped_and_pending_loads_validate_only_the_latest_source, assert first.state()==FiberState::Active immediately after the two queued initial tasks join and applied=[3]. Run the relevant regression on stable and Rust 1.85.0 after the evidence follow-up.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "updates.rs:172-177 joins both queued initial update tasks and checks applied=[3], but compares neither returned state nor first.state()."
             }
           ]
         }
       ],
       "classes": [
+        "missing-evidence",
         "source-mapped-test"
       ]
     },
@@ -2290,59 +2276,25 @@
               "source_assertion_lines": [
                 208
               ],
-              "class": "rust-representation",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/tests/updates.rs",
-                  "symbol": "outdated_effect_stream_stops_after_its_in_flight_final_yield",
-                  "lines": [
-                    698,
-                    708,
-                    710,
-                    712,
-                    716,
-                    718,
-                    719,
-                    721,
-                    723,
-                    724,
-                    725,
-                    726,
-                    727,
-                    729,
-                    730,
-                    731,
-                    733,
-                    742,
-                    743,
-                    752,
-                    753,
-                    754,
-                    755,
-                    756,
-                    757
-                  ],
-                  "assertion": "The update task joins successfully, no failures remain, and the latest load is current.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ]
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
-              "restriction": {
-                "document": "docs/m5.md",
-                "anchor": "updates-and-hooks",
-                "reason": "Rust represents an async generator acquisition with an explicit owned effect_stream: invalidation stops further advancement while retaining and cleaning the already in-flight final disposer."
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/update.spec.ts:188/default/a208",
+                "kind": "missing-evidence",
+                "next_action": "In outdated_effect_stream_stops_after_its_in_flight_final_yield, assert fiber.state()==FiberState::Active after task settlement and the exact trace, before root drain. Run the relevant regression on stable and Rust 1.85.0 after the evidence follow-up.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
               },
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "The explicit owned effect_stream is the documented Rust substitute for async-generator acquisition and proves the same stop/final-yield/latest-load behavior."
+              "execution_status": "not-executed",
+              "rationale": "updates.rs:752-757 joins the stream update and asserts [1,10,2] plus no failures, but never compares FiberState::Active. The effect_stream representation does not supply this state checkpoint."
             }
           ]
         }
       ],
       "classes": [
+        "missing-evidence",
         "rust-representation"
       ]
     },

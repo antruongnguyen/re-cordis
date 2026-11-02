@@ -3,7 +3,7 @@
   "rust_revision": "9a7633c0b3b98e5f37e9f2211f3ffa67fdac5edc",
   "implementation_revision": "808c9f573dd96c56fa2ec43e0b1bfb9ed39b2f3f",
   "typescript_revision": "35fdc969e4b6c48c48ed44717c7a018324e4dd88",
-  "status": "plugin family complete; exact source assertions reviewed and existing stable/MSRV matrix results joined; independent integration review pending",
+  "status": "plugin family LR2-LR5 evidence corrections complete; exact stable/MSRV result/log joins retained; scoped independent re-review required; LR1 accounting reserved for integration",
   "declarations": [
     {
       "id": "core/plugin.spec.ts:8",
@@ -32,20 +32,21 @@
               "rust_evidence": [
                 {
                   "file": "crates/re-cordis-core/tests/plugins.rs",
-                  "symbol": "cloned_declarations_group_distinct_instances_and_empty_groups_are_pruned",
+                  "symbol": "typed_object_method_adapter_keeps_config_and_cleanup_with_its_instance",
                   "lines": [
-                    31,
-                    33,
-                    36,
-                    43,
-                    44,
-                    53,
-                    54,
-                    56,
-                    57,
-                    58
+                    1143,
+                    1144,
+                    1161,
+                    1162,
+                    1166,
+                    1167,
+                    1168,
+                    1169,
+                    1170,
+                    1171,
+                    1172
                   ],
-                  "assertion": "Two typed instances are admitted and joined; applied.len()==2 proves one callback per instance.",
+                  "assertion": "Plugin::new forwards each String input directly to Behavior::apply; its sorted complete recorded input vector is exactly [first, second] after both instances become ready, proving one invocation with each distinct admitted input.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -60,7 +61,7 @@
               },
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The explicit Plugin::new declaration is the supported Rust substitute for passing a raw JavaScript function; the passing test checks the corresponding invocation/config boundary."
+              "rationale": "The typed Plugin::new callback forwards its input unchanged to the explicit object method adapter. The complete sorted callback-input vector contains each distinct admission input exactly once; the original cloned-declaration witness only asserted handle configs and an aggregate length."
             },
             {
               "id": "core/plugin.spec.ts:8/default/a15",
@@ -72,20 +73,21 @@
               "rust_evidence": [
                 {
                   "file": "crates/re-cordis-core/tests/plugins.rs",
-                  "symbol": "cloned_declarations_group_distinct_instances_and_empty_groups_are_pruned",
+                  "symbol": "typed_object_method_adapter_keeps_config_and_cleanup_with_its_instance",
                   "lines": [
-                    31,
-                    33,
-                    36,
-                    43,
-                    44,
-                    53,
-                    54,
-                    56,
-                    57,
-                    58
+                    1143,
+                    1144,
+                    1161,
+                    1162,
+                    1166,
+                    1167,
+                    1168,
+                    1169,
+                    1170,
+                    1171,
+                    1172
                   ],
-                  "assertion": "The callback records each typed config and the test asserts first.config()==1, second.config()==2 and recorded inputs for both instances.",
+                  "assertion": "Plugin::new forwards each String input directly to Behavior::apply; its sorted complete recorded input vector is exactly [first, second] after both instances become ready, proving one invocation with each distinct admitted input.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -100,7 +102,7 @@
               },
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The explicit Plugin::new declaration is the supported Rust substitute for passing a raw JavaScript function; the passing test checks the corresponding invocation/config boundary."
+              "rationale": "The typed Plugin::new callback forwards its input unchanged to the explicit object method adapter. The complete sorted callback-input vector contains each distinct admission input exactly once; the original cloned-declaration witness only asserted handle configs and an aggregate length."
             }
           ]
         }
@@ -478,40 +480,25 @@
               "source_assertion_lines": [
                 47
               ],
-              "class": "source-mapped-test",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/tests/plugins.rs",
-                  "symbol": "disposing_child_rejects_new_work_but_final_cleanup_can_dispatch",
-                  "lines": [
-                    418,
-                    419,
-                    420,
-                    421,
-                    460,
-                    462,
-                    463,
-                    464,
-                    465,
-                    466
-                  ],
-                  "assertion": "The late child admission is asserted to fail and the test finishes with no runtime failures, so its apply callback never runs.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ]
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
               "restriction": null,
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "The current Rust test performs the same terminal-owner admission attempts inside final cleanup and checks their explicit inactive errors."
+              "gap": {
+                "id": "G-B0-core/plugin.spec.ts:36/default/a47",
+                "kind": "missing-evidence",
+                "next_action": "Replace the late-child empty callback in disposing_child_rejects_new_work_but_final_cleanup_can_dispatch with an invocation counter and assert zero after the terminal-owner rejection/disposal; retain the existing admission error assertion. Run the relevant regression on stable and Rust 1.85.0 after the evidence follow-up.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The rejected late child uses the empty callback at plugins.rs:419. Admission rejection is observed, but an empty failure list at 466 cannot establish zero callback invocations."
             }
           ]
         }
       ],
       "classes": [
+        "missing-evidence",
         "source-mapped-test"
       ]
     },
@@ -954,48 +941,19 @@
               "source_assertion_lines": [
                 103
               ],
-              "class": "source-mapped-test",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/tests/plugins.rs",
-                  "symbol": "parent_cleanup_cascades_to_nested_plugins_and_preserves_root_listeners",
-                  "lines": [
-                    282,
-                    287,
-                    310,
-                    332,
-                    359,
-                    371,
-                    372,
-                    373,
-                    376,
-                    377,
-                    378,
-                    379,
-                    380,
-                    381,
-                    382,
-                    383,
-                    384,
-                    385,
-                    386,
-                    387,
-                    388,
-                    389,
-                    390
-                  ],
-                  "assertion": "No listener is dispatched before the explicit emit.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ]
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
               "restriction": null,
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "The nested Rust fixture directly checks parent-owned child/grandchild residency, four-listener dispatch, recursive cleanup, root-listener survival, and idempotent repeated disposal."
+              "gap": {
+                "id": "G-B0-core/plugin.spec.ts:86/default/a103",
+                "kind": "missing-evidence",
+                "next_action": "In parent_cleanup_cascades_to_nested_plugins_and_preserves_root_listeners, assert calls is zero after parent readiness and before the first emit. Run the relevant regression on stable and Rust 1.85.0 after the evidence follow-up.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The nested fixture initializes calls at plugins.rs:286 but does not read it after all listeners load and before dispatch. Its first counter assertion is four at 380."
             },
             {
               "id": "core/plugin.spec.ts:86/default/a104",
@@ -1044,7 +1002,7 @@
               "restriction": null,
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The nested Rust fixture directly checks parent-owned child/grandchild residency, four-listener dispatch, recursive cleanup, root-listener survival, and idempotent repeated disposal."
+              "rationale": "The nested Rust fixture directly asserts three resident groups, four-listener dispatch, recursive cleanup and root-listener survival after the first disposal. The later repeated-disposal checkpoints are separately retained as evidence gaps."
             },
             {
               "id": "core/plugin.spec.ts:86/default/a106",
@@ -1093,7 +1051,7 @@
               "restriction": null,
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The nested Rust fixture directly checks parent-owned child/grandchild residency, four-listener dispatch, recursive cleanup, root-listener survival, and idempotent repeated disposal."
+              "rationale": "The nested Rust fixture directly asserts three resident groups, four-listener dispatch, recursive cleanup and root-listener survival after the first disposal. The later repeated-disposal checkpoints are separately retained as evidence gaps."
             },
             {
               "id": "core/plugin.spec.ts:86/default/a111",
@@ -1142,7 +1100,7 @@
               "restriction": null,
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The nested Rust fixture directly checks parent-owned child/grandchild residency, four-listener dispatch, recursive cleanup, root-listener survival, and idempotent repeated disposal."
+              "rationale": "The nested Rust fixture directly asserts three resident groups, four-listener dispatch, recursive cleanup and root-listener survival after the first disposal. The later repeated-disposal checkpoints are separately retained as evidence gaps."
             },
             {
               "id": "core/plugin.spec.ts:86/default/a113",
@@ -1191,7 +1149,7 @@
               "restriction": null,
               "gap": null,
               "execution_status": "passed",
-              "rationale": "The nested Rust fixture directly checks parent-owned child/grandchild residency, four-listener dispatch, recursive cleanup, root-listener survival, and idempotent repeated disposal."
+              "rationale": "The nested Rust fixture directly asserts three resident groups, four-listener dispatch, recursive cleanup and root-listener survival after the first disposal. The later repeated-disposal checkpoints are separately retained as evidence gaps."
             },
             {
               "id": "core/plugin.spec.ts:86/default/a118",
@@ -1199,48 +1157,19 @@
               "source_assertion_lines": [
                 118
               ],
-              "class": "source-mapped-test",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/tests/plugins.rs",
-                  "symbol": "parent_cleanup_cascades_to_nested_plugins_and_preserves_root_listeners",
-                  "lines": [
-                    282,
-                    287,
-                    310,
-                    332,
-                    359,
-                    371,
-                    372,
-                    373,
-                    376,
-                    377,
-                    378,
-                    379,
-                    380,
-                    381,
-                    382,
-                    383,
-                    384,
-                    385,
-                    386,
-                    387,
-                    388,
-                    389,
-                    390
-                  ],
-                  "assertion": "A second dispose is joined and Registry remains empty.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ]
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
               "restriction": null,
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "The nested Rust fixture directly checks parent-owned child/grandchild residency, four-listener dispatch, recursive cleanup, root-listener survival, and idempotent repeated disposal."
+              "gap": {
+                "id": "G-B0-core/plugin.spec.ts:86/default/a118",
+                "kind": "missing-evidence",
+                "next_action": "In parent_cleanup_cascades_to_nested_plugins_and_preserves_root_listeners, after the second completed fiber.dispose at 390 and before root.drain, assert the Registry is empty, emit again, and assert exactly one root-listener increment. Run the relevant regression on stable and Rust 1.85.0 after the evidence follow-up.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "Registry-empty and root-only dispatch are asserted after the first disposal at plugins.rs:383/389. The second disposal is at 390 and immediately followed by root.drain; neither repeated-disposal checkpoint is observed."
             },
             {
               "id": "core/plugin.spec.ts:86/default/a120",
@@ -1248,53 +1177,25 @@
               "source_assertion_lines": [
                 120
               ],
-              "class": "source-mapped-test",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/tests/plugins.rs",
-                  "symbol": "parent_cleanup_cascades_to_nested_plugins_and_preserves_root_listeners",
-                  "lines": [
-                    282,
-                    287,
-                    310,
-                    332,
-                    359,
-                    371,
-                    372,
-                    373,
-                    376,
-                    377,
-                    378,
-                    379,
-                    380,
-                    381,
-                    382,
-                    383,
-                    384,
-                    385,
-                    386,
-                    387,
-                    388,
-                    389,
-                    390
-                  ],
-                  "assertion": "After repeated disposal, the root-only emit increments by exactly one.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ]
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
               "restriction": null,
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "The nested Rust fixture directly checks parent-owned child/grandchild residency, four-listener dispatch, recursive cleanup, root-listener survival, and idempotent repeated disposal."
+              "gap": {
+                "id": "G-B0-core/plugin.spec.ts:86/default/a120",
+                "kind": "missing-evidence",
+                "next_action": "In parent_cleanup_cascades_to_nested_plugins_and_preserves_root_listeners, after the second completed fiber.dispose at 390 and before root.drain, assert the Registry is empty, emit again, and assert exactly one root-listener increment. Run the relevant regression on stable and Rust 1.85.0 after the evidence follow-up.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "Registry-empty and root-only dispatch are asserted after the first disposal at plugins.rs:383/389. The second disposal is at 390 and immediately followed by root.drain; neither repeated-disposal checkpoint is observed."
             }
           ]
         }
       ],
       "classes": [
+        "missing-evidence",
         "source-mapped-test"
       ]
     },
@@ -1481,26 +1382,15 @@
               "rust_evidence": [
                 {
                   "file": "crates/re-cordis-core/tests/plugins.rs",
-                  "symbol": "root_drain_waits_for_children_and_remains_usable_after_an_abandoned_waiter",
+                  "symbol": "cloned_declarations_group_distinct_instances_and_empty_groups_are_pruned",
                   "lines": [
-                    812,
-                    816,
-                    833,
-                    834,
-                    835,
-                    836,
-                    837,
-                    838,
-                    839,
-                    840,
-                    841,
-                    842,
-                    843,
-                    844,
-                    845,
-                    846
+                    43,
+                    44,
+                    49,
+                    50,
+                    53
                   ],
-                  "assertion": "The child is admitted as a distinct Fiber and reaches readiness before root drain.",
+                  "assertion": "The admitted child FiberId is explicitly compared unequal to both its sibling and root FiberId, then reaches Active readiness.",
                   "command_ids": [
                     "stable-workspace-test",
                     "1.85.0-workspace-test"
@@ -1515,7 +1405,7 @@
               },
               "gap": null,
               "execution_status": "passed",
-              "rationale": "Opaque IDs and a reusable root journal replace uid 0/null and direct _disposables inspection; the gated regression checks the same lifecycle outcomes without exposing mutable internals."
+              "rationale": "Opaque FiberId replaces JavaScript uid ordinals. plugins.rs:49-50 directly checks distinct child/root identity; the root-drain witness does not compare them."
             },
             {
               "id": "core/plugin.spec.ts:145/default/a151",
@@ -1565,49 +1455,23 @@
             },
             {
               "id": "core/plugin.spec.ts:145/default/a152",
-              "behavior": "The root journal contains the child-disposal registration before drain.",
+              "behavior": "The root journal contains exactly one child-disposal registration before drain.",
               "source_assertion_lines": [
                 152
               ],
-              "class": "rust-representation",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/tests/plugins.rs",
-                  "symbol": "root_drain_waits_for_children_and_remains_usable_after_an_abandoned_waiter",
-                  "lines": [
-                    812,
-                    816,
-                    833,
-                    834,
-                    835,
-                    836,
-                    837,
-                    838,
-                    839,
-                    840,
-                    841,
-                    842,
-                    843,
-                    844,
-                    845,
-                    846
-                  ],
-                  "assertion": "The admitted child is present as a root-owned plugin effect before drain (covered by readiness and the drain entering child cleanup).",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ]
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
-              "restriction": {
-                "document": "docs/m3.md",
-                "anchor": "parent-ownership-registry-residency-and-weak-ancestry",
-                "reason": "Rust uses opaque FiberId values, a typed Registry snapshot/control API, and a reusable root cleanup journal rather than JavaScript numeric/null uid fields or mutable _disposables arrays."
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/plugin.spec.ts:145/default/a152",
+                "kind": "missing-evidence",
+                "next_action": "In root_drain_waits_for_children_and_remains_usable_after_an_abandoned_waiter, assert the root effect snapshot contains exactly one ctx.plugin() entry after child readiness and before the first root drain; retain the existing overlapping-drain gate and add post-completed-drain snapshots for the related gaps. Run the relevant regression on stable and Rust 1.85.0 after the evidence follow-up.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
               },
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "Opaque IDs and a reusable root journal replace uid 0/null and direct _disposables inspection; the gated regression checks the same lifecycle outcomes without exposing mutable internals."
+              "execution_status": "not-executed",
+              "rationale": "plugins.rs:103 directly observes the child-disposal label in the root journal, but does not compare journal length. The pinned assertion requires exactly one entry; the root-drain candidate never reads its journal. Presence alone does not establish this cardinality checkpoint."
             },
             {
               "id": "core/plugin.spec.ts:145/default/a154",
@@ -1753,45 +1617,19 @@
               "source_assertion_lines": [
                 157
               ],
-              "class": "rust-representation",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/tests/plugins.rs",
-                  "symbol": "root_drain_waits_for_children_and_remains_usable_after_an_abandoned_waiter",
-                  "lines": [
-                    812,
-                    816,
-                    833,
-                    834,
-                    835,
-                    836,
-                    837,
-                    838,
-                    839,
-                    840,
-                    841,
-                    842,
-                    843,
-                    844,
-                    845,
-                    846
-                  ],
-                  "assertion": "The joined drain disposes the child, after which a fresh child can be admitted and a later drain completes, proving the reusable journal has no stale child claim.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ]
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
-              "restriction": {
-                "document": "docs/m3.md",
-                "anchor": "parent-ownership-registry-residency-and-weak-ancestry",
-                "reason": "Rust uses opaque FiberId values, a typed Registry snapshot/control API, and a reusable root cleanup journal rather than JavaScript numeric/null uid fields or mutable _disposables arrays."
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/plugin.spec.ts:145/default/a157",
+                "kind": "missing-evidence",
+                "next_action": "Extend root_drain_waits_for_children_and_remains_usable_after_an_abandoned_waiter with a root effect snapshot before drain, an empty snapshot after the first drain completes, then a second drain started after completion (before admitting the fresh child); assert unchanged root identity, Disposed child state, exactly one child disposer invocation and an empty root snapshot after that second drain. Run the relevant regression on stable and Rust 1.85.0 after the evidence follow-up.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
               },
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "Opaque IDs and a reusable root journal replace uid 0/null and direct _disposables inspection; the gated regression checks the same lifecycle outcomes without exposing mutable internals."
+              "execution_status": "not-executed",
+              "rationale": "The root-drain witness never reads get_effects. plugins.rs:113 and 1019-1020 observe empty journals after Registry removal or explicit child disposal, not this completed root-drain checkpoint."
             },
             {
               "id": "core/plugin.spec.ts:145/default/a159",
@@ -1799,45 +1637,19 @@
               "source_assertion_lines": [
                 159
               ],
-              "class": "rust-representation",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/tests/plugins.rs",
-                  "symbol": "root_drain_waits_for_children_and_remains_usable_after_an_abandoned_waiter",
-                  "lines": [
-                    812,
-                    816,
-                    833,
-                    834,
-                    835,
-                    836,
-                    837,
-                    838,
-                    839,
-                    840,
-                    841,
-                    842,
-                    843,
-                    844,
-                    845,
-                    846
-                  ],
-                  "assertion": "The root FiberId is captured before drain and asserted unchanged after the joined drain; a fresh child then loads successfully.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ]
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
-              "restriction": {
-                "document": "docs/m3.md",
-                "anchor": "parent-ownership-registry-residency-and-weak-ancestry",
-                "reason": "Rust uses opaque FiberId values, a typed Registry snapshot/control API, and a reusable root cleanup journal rather than JavaScript numeric/null uid fields or mutable _disposables arrays."
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/plugin.spec.ts:145/default/a159",
+                "kind": "missing-evidence",
+                "next_action": "Extend root_drain_waits_for_children_and_remains_usable_after_an_abandoned_waiter with a root effect snapshot before drain, an empty snapshot after the first drain completes, then a second drain started after completion (before admitting the fresh child); assert unchanged root identity, Disposed child state, exactly one child disposer invocation and an empty root snapshot after that second drain. Run the relevant regression on stable and Rust 1.85.0 after the evidence follow-up.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
               },
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "Opaque IDs and a reusable root journal replace uid 0/null and direct _disposables inspection; the gated regression checks the same lifecycle outcomes without exposing mutable internals."
+              "execution_status": "not-executed",
+              "rationale": "plugins.rs:835-841 exercises overlapping drains; identity/state are read at 842-843 before the later drain at 846, and no disposer counter is read. That valid overlapping-drain evidence does not observe the repeated-completed-disposal phase of this source assertion."
             },
             {
               "id": "core/plugin.spec.ts:145/default/a160",
@@ -1845,45 +1657,19 @@
               "source_assertion_lines": [
                 160
               ],
-              "class": "rust-representation",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/tests/plugins.rs",
-                  "symbol": "root_drain_waits_for_children_and_remains_usable_after_an_abandoned_waiter",
-                  "lines": [
-                    812,
-                    816,
-                    833,
-                    834,
-                    835,
-                    836,
-                    837,
-                    838,
-                    839,
-                    840,
-                    841,
-                    842,
-                    843,
-                    844,
-                    845,
-                    846
-                  ],
-                  "assertion": "After root drain, the child state is asserted Disposed and remains terminal.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ]
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
-              "restriction": {
-                "document": "docs/m3.md",
-                "anchor": "parent-ownership-registry-residency-and-weak-ancestry",
-                "reason": "Rust uses opaque FiberId values, a typed Registry snapshot/control API, and a reusable root cleanup journal rather than JavaScript numeric/null uid fields or mutable _disposables arrays."
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/plugin.spec.ts:145/default/a160",
+                "kind": "missing-evidence",
+                "next_action": "Extend root_drain_waits_for_children_and_remains_usable_after_an_abandoned_waiter with a root effect snapshot before drain, an empty snapshot after the first drain completes, then a second drain started after completion (before admitting the fresh child); assert unchanged root identity, Disposed child state, exactly one child disposer invocation and an empty root snapshot after that second drain. Run the relevant regression on stable and Rust 1.85.0 after the evidence follow-up.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
               },
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "Opaque IDs and a reusable root journal replace uid 0/null and direct _disposables inspection; the gated regression checks the same lifecycle outcomes without exposing mutable internals."
+              "execution_status": "not-executed",
+              "rationale": "plugins.rs:835-841 exercises overlapping drains; identity/state are read at 842-843 before the later drain at 846, and no disposer counter is read. That valid overlapping-drain evidence does not observe the repeated-completed-disposal phase of this source assertion."
             },
             {
               "id": "core/plugin.spec.ts:145/default/a161",
@@ -1891,45 +1677,19 @@
               "source_assertion_lines": [
                 161
               ],
-              "class": "rust-representation",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/tests/plugins.rs",
-                  "symbol": "root_drain_waits_for_children_and_remains_usable_after_an_abandoned_waiter",
-                  "lines": [
-                    812,
-                    816,
-                    833,
-                    834,
-                    835,
-                    836,
-                    837,
-                    838,
-                    839,
-                    840,
-                    841,
-                    842,
-                    843,
-                    844,
-                    845,
-                    846
-                  ],
-                  "assertion": "The single gated cleanup is entered once; the second drain reuses/completes the same snapshot rather than rerunning it.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ]
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
-              "restriction": {
-                "document": "docs/m3.md",
-                "anchor": "parent-ownership-registry-residency-and-weak-ancestry",
-                "reason": "Rust uses opaque FiberId values, a typed Registry snapshot/control API, and a reusable root cleanup journal rather than JavaScript numeric/null uid fields or mutable _disposables arrays."
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/plugin.spec.ts:145/default/a161",
+                "kind": "missing-evidence",
+                "next_action": "Extend root_drain_waits_for_children_and_remains_usable_after_an_abandoned_waiter with a root effect snapshot before drain, an empty snapshot after the first drain completes, then a second drain started after completion (before admitting the fresh child); assert unchanged root identity, Disposed child state, exactly one child disposer invocation and an empty root snapshot after that second drain. Run the relevant regression on stable and Rust 1.85.0 after the evidence follow-up.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
               },
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "Opaque IDs and a reusable root journal replace uid 0/null and direct _disposables inspection; the gated regression checks the same lifecycle outcomes without exposing mutable internals."
+              "execution_status": "not-executed",
+              "rationale": "plugins.rs:835-841 exercises overlapping drains; identity/state are read at 842-843 before the later drain at 846, and no disposer counter is read. That valid overlapping-drain evidence does not observe the repeated-completed-disposal phase of this source assertion."
             },
             {
               "id": "core/plugin.spec.ts:145/default/a162",
@@ -1937,50 +1697,25 @@
               "source_assertion_lines": [
                 162
               ],
-              "class": "rust-representation",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/tests/plugins.rs",
-                  "symbol": "root_drain_waits_for_children_and_remains_usable_after_an_abandoned_waiter",
-                  "lines": [
-                    812,
-                    816,
-                    833,
-                    834,
-                    835,
-                    836,
-                    837,
-                    838,
-                    839,
-                    840,
-                    841,
-                    842,
-                    843,
-                    844,
-                    845,
-                    846
-                  ],
-                  "assertion": "The joined drain disposes the child, after which a fresh child can be admitted and a later drain completes, proving the reusable journal has no stale child claim.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ]
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
-              "restriction": {
-                "document": "docs/m3.md",
-                "anchor": "parent-ownership-registry-residency-and-weak-ancestry",
-                "reason": "Rust uses opaque FiberId values, a typed Registry snapshot/control API, and a reusable root cleanup journal rather than JavaScript numeric/null uid fields or mutable _disposables arrays."
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/plugin.spec.ts:145/default/a162",
+                "kind": "missing-evidence",
+                "next_action": "Extend root_drain_waits_for_children_and_remains_usable_after_an_abandoned_waiter with a root effect snapshot before drain, an empty snapshot after the first drain completes, then a second drain started after completion (before admitting the fresh child); assert unchanged root identity, Disposed child state, exactly one child disposer invocation and an empty root snapshot after that second drain. Run the relevant regression on stable and Rust 1.85.0 after the evidence follow-up.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
               },
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "Opaque IDs and a reusable root journal replace uid 0/null and direct _disposables inspection; the gated regression checks the same lifecycle outcomes without exposing mutable internals."
+              "execution_status": "not-executed",
+              "rationale": "The root-drain witness never reads get_effects. plugins.rs:113 and 1019-1020 observe empty journals after Registry removal or explicit child disposal, not this completed root-drain checkpoint."
             }
           ]
         }
       ],
       "classes": [
+        "missing-evidence",
         "rust-representation"
       ]
     },
@@ -2018,12 +1753,12 @@
               "gap": {
                 "id": "G-B0-core/plugin.spec.ts:165/default/a178",
                 "kind": "missing-evidence",
-                "next_action": "Extend explicit_initialization_is_an_availability_barrier_and_failure_is_diagnosed_once with a counter/assertion for this exact Service.init start-or-pre-disposal boundary, then run the existing stable and Rust 1.85.0 workspace matrices.",
+                "next_action": "Extend explicit_initialization_is_an_availability_barrier_and_failure_is_diagnosed_once: count initializer invocations and the disposer actually returned by Plugin::initialized, assert the returned disposer count is zero before disposal and one afterward, and assert disposal leaves the initializer count unchanged. Run the relevant regression on stable and Rust 1.85.0 after the evidence follow-up.",
                 "owner": "core evidence maintainer",
                 "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
               },
               "execution_status": "not-executed",
-              "rationale": "The current initialized-plugin tests prove initialization gating and final cleanup, but do not assert an exact initializer invocation counter or the pre-disposal cleanup count at this source boundary."
+              "rationale": "The initialization barrier is tested, but the returned disposer is a no-op at acceptance.rs:335-337; closed at 359 observes the separately registered on_dispose_sync at 319-325. The exact initializer/returned-disposer count checkpoint is unasserted."
             },
             {
               "id": "core/plugin.spec.ts:165/default/a179",
@@ -2042,12 +1777,12 @@
               "gap": {
                 "id": "G-B0-core/plugin.spec.ts:165/default/a179",
                 "kind": "missing-evidence",
-                "next_action": "Extend explicit_initialization_is_an_availability_barrier_and_failure_is_diagnosed_once with a counter/assertion for this exact Service.init start-or-pre-disposal boundary, then run the existing stable and Rust 1.85.0 workspace matrices.",
+                "next_action": "Extend explicit_initialization_is_an_availability_barrier_and_failure_is_diagnosed_once: count initializer invocations and the disposer actually returned by Plugin::initialized, assert the returned disposer count is zero before disposal and one afterward, and assert disposal leaves the initializer count unchanged. Run the relevant regression on stable and Rust 1.85.0 after the evidence follow-up.",
                 "owner": "core evidence maintainer",
                 "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
               },
               "execution_status": "not-executed",
-              "rationale": "The current initialized-plugin tests prove initialization gating and final cleanup, but do not assert an exact initializer invocation counter or the pre-disposal cleanup count at this source boundary."
+              "rationale": "The initialization barrier is tested, but the returned disposer is a no-op at acceptance.rs:335-337; closed at 359 observes the separately registered on_dispose_sync at 319-325. The exact initializer/returned-disposer count checkpoint is unasserted."
             },
             {
               "id": "core/plugin.spec.ts:165/default/a181",
@@ -2066,12 +1801,12 @@
               "gap": {
                 "id": "G-B0-core/plugin.spec.ts:165/default/a181",
                 "kind": "missing-evidence",
-                "next_action": "Extend explicit_initialization_is_an_availability_barrier_and_failure_is_diagnosed_once with a counter/assertion for this exact Service.init start-or-pre-disposal boundary, then run the existing stable and Rust 1.85.0 workspace matrices.",
+                "next_action": "Extend explicit_initialization_is_an_availability_barrier_and_failure_is_diagnosed_once: count initializer invocations and the disposer actually returned by Plugin::initialized, assert the returned disposer count is zero before disposal and one afterward, and assert disposal leaves the initializer count unchanged. Run the relevant regression on stable and Rust 1.85.0 after the evidence follow-up.",
                 "owner": "core evidence maintainer",
                 "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
               },
               "execution_status": "not-executed",
-              "rationale": "The current initialized-plugin tests prove initialization gating and final cleanup, but do not assert an exact initializer invocation counter or the pre-disposal cleanup count at this source boundary."
+              "rationale": "The initialization barrier is tested, but the returned disposer is a no-op at acceptance.rs:335-337; closed at 359 observes the separately registered on_dispose_sync at 319-325. The exact initializer/returned-disposer count checkpoint is unasserted."
             },
             {
               "id": "core/plugin.spec.ts:165/default/a182",
@@ -2079,58 +1814,25 @@
               "source_assertion_lines": [
                 182
               ],
-              "class": "rust-representation",
-              "rust_evidence": [
-                {
-                  "file": "crates/re-cordis-core/tests/acceptance.rs",
-                  "symbol": "explicit_initialization_is_an_availability_barrier_and_failure_is_diagnosed_once",
-                  "lines": [
-                    293,
-                    294,
-                    308,
-                    309,
-                    310,
-                    313,
-                    317,
-                    318,
-                    319,
-                    320,
-                    321,
-                    322,
-                    323,
-                    327,
-                    328,
-                    348,
-                    354,
-                    355,
-                    356,
-                    357,
-                    358,
-                    359
-                  ],
-                  "assertion": "The successful initialized provider is joined, then provider.dispose is joined and closed is asserted true, proving the factory-owned cleanup ran.",
-                  "command_ids": [
-                    "stable-workspace-test",
-                    "1.85.0-workspace-test"
-                  ]
-                }
-              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
               "paired_evidence": [],
-              "restriction": {
-                "document": "docs/m6.md",
-                "anchor": "initialization-and-method-injection",
-                "reason": "Plugin::initialized is the explicit Rust Service.init substitute. It awaits a typed factory/disposer and does not perform constructor or symbol-method discovery."
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/plugin.spec.ts:165/default/a182",
+                "kind": "missing-evidence",
+                "next_action": "Extend explicit_initialization_is_an_availability_barrier_and_failure_is_diagnosed_once: count initializer invocations and the disposer actually returned by Plugin::initialized, assert the returned disposer count is zero before disposal and one afterward, and assert disposal leaves the initializer count unchanged. Run the relevant regression on stable and Rust 1.85.0 after the evidence follow-up.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
               },
-              "gap": null,
-              "execution_status": "passed",
-              "rationale": "Plugin::initialized explicitly returns an owned disposer; the successful branch joins disposal and asserts the cleanup side effect."
+              "execution_status": "not-executed",
+              "rationale": "The closed flag at acceptance.rs:359 observes a separately registered on_dispose_sync, while the initializer returns a no-op disposer at 335-337. The repeated-initialization candidate also returns a no-op at 771; neither measures the returned disposer invocation."
             }
           ]
         }
       ],
       "classes": [
-        "missing-evidence",
-        "rust-representation"
+        "missing-evidence"
       ]
     }
   ]
