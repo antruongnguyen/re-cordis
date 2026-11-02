@@ -125,7 +125,7 @@
               "paired_evidence": [],
               "restriction": null,
               "gap": {
-                "id": "G-B0-core/service.spec.ts:7/default/a33",
+                "id": "G-B0-service.spec.ts:7/default/a33",
                 "kind": "missing-evidence",
                 "next_action": "Add an activation counter to explicit_initialization_is_an_availability_barrier_and_failure_is_diagnosed_once and assert it changes from 0 to exactly 1 after the initializer gate is released.",
                 "owner": "core evidence maintainer",
@@ -782,7 +782,7 @@
               "paired_evidence": [],
               "restriction": null,
               "gap": {
-                "id": "G-B0-core/service.spec.ts:128/default/a161",
+                "id": "G-B0-service.spec.ts:128/default/a161",
                 "kind": "missing-evidence",
                 "next_action": "Add a three-plugin initialized dependency-DAG regression and assert the qux-dependent Foo apply counter is exactly 1 after convergence.",
                 "owner": "core evidence maintainer",
@@ -802,7 +802,7 @@
               "paired_evidence": [],
               "restriction": null,
               "gap": {
-                "id": "G-B0-core/service.spec.ts:128/default/a162",
+                "id": "G-B0-service.spec.ts:128/default/a162",
                 "kind": "missing-evidence",
                 "next_action": "Add a three-plugin initialized dependency-DAG regression and assert the foo+qux-dependent Bar apply counter is exactly 1 after convergence.",
                 "owner": "core evidence maintainer",
@@ -822,7 +822,7 @@
               "paired_evidence": [],
               "restriction": null,
               "gap": {
-                "id": "G-B0-core/service.spec.ts:128/default/a163",
+                "id": "G-B0-service.spec.ts:128/default/a163",
                 "kind": "missing-evidence",
                 "next_action": "Add a three-plugin initialized dependency-DAG regression and assert the Qux initialized apply counter is exactly 1 while it unlocks Foo and Bar.",
                 "owner": "core evidence maintainer",
@@ -1016,7 +1016,7 @@
               "paired_evidence": [],
               "restriction": null,
               "gap": {
-                "id": "G-B0-core/service.spec.ts:203/default/a214",
+                "id": "G-B0-service.spec.ts:203/default/a214",
                 "kind": "missing-evidence",
                 "next_action": "Add an explicit consumer apply counter to provider_resources_survive_all_disposal_orders_and_restart and assert it equals 2 after the restart branch settles.",
                 "owner": "core evidence maintainer",
