@@ -77,7 +77,7 @@ addressed. This bounded success did not establish source-audit recovery.
 | b0_associate_invoke, sol/high | Same HTTP 400 at 2026-11-02T09:31:21.653593287Z; item rs_07db0930dcd32580016ae8576e6a308196b541ff61670d3118 | Clean worktree at b87c1b9; no new mapping output |
 | b0_events_pair, sol/high | stream disconnected before completion: stream closed before response.completed; no exact failure timestamp returned | Clean worktree at 2581963; no new mapping output |
 | FR-1 re-review initial dispatch, astra/high | Task arrived as opaque gAAAA-prefixed text | Minimal file-path retry reached reviewer; bounded review resumed |
-| FR-1 integrated-verification follow-up, sol/high | Task arrived as opaque gAAAA-prefixed text | Minimal file-path retry attempted; result remains in progress.md |
+| FR-1 integrated-verification follow-up, sol/high | Task first arrived as opaque gAAAA-prefixed text; after minimal file-path retry, HTTP 400 UPSTREAM_LLM_ERROR / invalid_encrypted_content at 2026-11-02T09:38:51.651095337Z; item rs_0f7d785dafd0371b016ae856814f3c8194aee39f6fef78eae1 | No resume-validation.md saved; integrated recovery validation remains pending |
 
 The events_pair remedy reduced nineteen declarations to exactly two and used
 a durable file-based handoff. The independent associate/invoke audit failed
@@ -92,4 +92,11 @@ review/correction calls still work. This is not evidence of a Rust failure or
 a universal model outage. B0's incomplete ledger remains a hard prerequisite
 for all other program packages. Preserve artifacts and resume only after the
 worker runtime can complete readable exact-model tasks reliably.
+
+FR-1 independent re-review completed and was integrated at `b28a608`. Its
+spec and quality verdicts accept the correction, with all seven gaps still
+open. The failed integrated verification is an additional pending check, not
+grounds to erase either the correction or its review. All workers ended, and
+their clean worktrees are archived recoverably. No new mappings, production
+code or full-program acceptance claim resulted from the failed tasks.
 
