@@ -72,3 +72,10 @@ thành `antruongnguyen/re-cordis`) và snapshot có dữ liệu từ
 Đó là bằng chứng ứng dụng tại một thời điểm, không phải fixture được commit,
 toàn bộ inventory repository, bằng chứng parity core mới hay delivery webhook
 thật. Tài liệu không phụ thuộc artifact riêng của phiên làm việc.
+
+## Đầu ra console
+
+[console.rs](../../../crates/re-cordis-logger/examples/console.rs) minh họa stdout
+thuộc plugin, định dạng rõ ràng, disposal chủ sở hữu, gỡ thủ công và drain root.
+Chạy `cargo run -p re-cordis-logger --example console --locked`.
+Xem [ghi log ra console](console-logging.md) để đọc cùng chương trình hoàn chỉnh.

@@ -28,3 +28,4 @@ Giữ nguyên định danh API trong cả hai ngôn ngữ.
 | Exporter | bộ xuất log | Callback có phạm vi nhận bản ghi log đã chọn |
 | Cancellation | hủy thực thi | Dừng công việc còn lại, không phải dọn dẹp async thành công |
 | Lease | quyền giữ tài nguyên còn sống | Bảo đảm vòng đời mà việc đọc `Rc<T>` đơn thuần không cung cấp |
+| Console exporter | bộ xuất log ra console | Writer native theo phạm vi chủ sở hữu, render các bản ghi core được chọn |

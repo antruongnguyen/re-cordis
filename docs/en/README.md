@@ -7,14 +7,13 @@ and resources change over time. `re-cordis` expresses the TypeScript Cordis
 core's semantics through explicit, typed Rust APIs.
 
 The current deliverable is **unpublished `re-cordis-core`**, version `0.0.0`, Rust
-2024, requiring Rust 1.85 or newer, plus the first satellite crate
-**`re-cordis-timer`**. The API is unstable. The console-logger and loader
-satellites are not implemented. This is not transparent JavaScript Proxy or
-decorator compatibility.
+2024, requiring Rust 1.85 or newer, plus **`re-cordis-timer`** and the
+**`re-cordis-logger`** console satellite. The API is unstable. Loader is not
+implemented. This is not transparent JavaScript Proxy or decorator compatibility.
 The [next-target roadmap](../todo.md#next-implementation-targets-satellites)
-delivered timer first and next orders the console logger, then loader, with
-per-slice source/API/dependency review and matching documentation. Planned
-crates are not usable APIs yet.
+records timer repair and console final review/acceptance as open, with loader
+and other satellites remaining future targets. Each slice includes source/API
+review and matching documentation; planned crates are not usable APIs yet.
 
 ## Choose a reading path
 
@@ -26,7 +25,7 @@ crates are not usable APIs yet.
 | Own resources and shut down | [Effects and cleanup](guides/effects-and-cleanup.md) |
 | Schedule owner-scoped timers | [Timers](guides/timers.md) |
 | Dispatch notifications and middleware | [Events](guides/events.md) |
-| Export application diagnostics | [Logging](guides/logging.md) |
+| Export application diagnostics | [Logging](guides/logging.md), [console output](guides/console-logging.md) |
 | Debug a Pending or Failed plugin | [Testing and troubleshooting](guides/testing-and-troubleshooting.md) |
 | Study complete applications | [Examples](guides/examples.md) |
 | Look up a type or operation | [API reference](api/README.md) |

@@ -1,0 +1,19 @@
+[package]
+name = "re-cordis-logger"
+description = "Scoped console exporters for re-cordis"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+publish = false
+
+[dependencies]
+re-cordis-core = { path = "../re-cordis-core" }
+time = { version = "=0.3.36", default-features = false, features = ["std", "formatting"] }
+
+[dev-dependencies]
+tokio = { workspace = true, features = ["rt", "macros"] }
+
+[lints]
+workspace = true

@@ -4,7 +4,7 @@
 
 Current package: re-cordis-core 0.0.0, publish=false, Rust edition 2024, MSRV 1.85.
 The API is unstable. Use a path dependency on a local checkout, not a presumed crates.io/docs.rs release.
-re-cordis-core and the re-cordis-timer satellite are implemented. Next roadmap targets: re-cordis-logger (console adapter), then re-cordis-loader; other satellites remain candidates.
+re-cordis-core, re-cordis-timer and re-cordis-logger are implemented. Console review/final acceptance is tracked in its work package. Loader and other satellites remain future targets.
 Timer contract repair remains open; see the completion plan before relying on its full acceptance claims.
 Targets are not available APIs: review each bounded source/API/dependency scope before implementation.
 The semantic baseline is TypeScript Cordis at 35fdc969e4b6c48c48ed44717c7a018324e4dd88, not latest upstream.
@@ -46,6 +46,7 @@ Essential application constraints:
 - [Timers](en/guides/timers.md): Owner-scoped timeout, sleep, interval/stream, throttle, debounce.
 - [Events](en/guides/events.md): Typed dispatch, responder versus around callbacks, snapshots, async timing.
 - [Logging](en/guides/logging.md): Scoped exporters, routing, error trees, weak metadata.
+- [Console output](en/guides/console-logging.md): Owned writers, stdout, color/UTC defaults, I/O failures and removal.
 - [Testing and troubleshooting](en/guides/testing-and-troubleshooting.md): Common errors and deterministic lifecycle checks.
 - [Examples](en/guides/examples.md): Complete lifecycle and bounded GitHub consumers; distinguish offline from live operations.
 - [Glossary](en/glossary.md): Shared English/Vietnamese terminology.
@@ -62,6 +63,7 @@ Essential application constraints:
 - [Logging](en/api/logging.md): Logger, records, ErrorValue, exporter options, formatting.
 - [Errors and hooks](en/api/errors-hooks.md): Error families, structured validation, typed internal hook protocols.
 - [Timer satellite](en/api/timer.md): Sealed TimerExt, Sleep, IntervalStream, Scheduled, TimerError.
+- [Console satellite](en/api/console-logger.md): register/register_stdout/render, ConsoleOptions, color and writer contracts.
 
 ## Vietnamese guides
 
@@ -71,6 +73,7 @@ Essential application constraints:
 - [Bộ đếm thời gian](vi/guides/timers.md): Timeout, sleep, interval/stream, throttle, debounce theo phạm vi chủ sở hữu.
 - [Sự kiện](vi/guides/events.md): Dispatch có kiểu và middleware bao quanh.
 - [Ghi log](vi/guides/logging.md): Exporter, bản ghi và chẩn đoán.
+- [Console](vi/guides/console-logging.md): Writer, stdout, màu/UTC, lỗi I/O và gỡ exporter.
 - [Kiểm thử và xử lý sự cố](vi/guides/testing-and-troubleshooting.md): Mốc vòng đời và lỗi thường gặp.
 - [Ví dụ](vi/guides/examples.md): Ví dụ thực thi và giới hạn bằng chứng.
 - [Bảng thuật ngữ](vi/glossary.md): Thuật ngữ nhất quán giữa hai ngôn ngữ.

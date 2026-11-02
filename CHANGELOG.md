@@ -8,6 +8,15 @@ This project does not yet follow semantic versioning — the API is unstable.
 ## [Unreleased]
 
 ### Added
+- Unpublished `re-cordis-logger` console satellite over existing core exporters:
+  owned local writers, deterministic rendering, stdout routing, explicit/Auto
+  color policy, fixed record-time UTC and committed elapsed timing, visible
+  write/flush and recursive-export errors, exact removal and owner teardown.
+  21 deterministic tests include failure/capture release and 100 lifecycle
+  cycles; runnable console example and paired English/Vietnamese guide/API.
+  Logger-only `time = 0.3.36` formats calendars; core/timer behavior and accepted
+  B0 evidence are unchanged. Final review/acceptance is tracked in the logger
+  work package; no publication or stable API is promised.
 - Source-backed completion planning for core evidence/targeted fixes and all seven
   upstream satellites under `docs/plans/2026-11-02-cordis-completion/`: timer
   repair findings, per-satellite work packages, API/dependency decision gates,

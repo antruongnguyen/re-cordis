@@ -39,9 +39,11 @@ are not demonstrated core defects or implemented follow-ups.
 [Final acceptance](plans/2026-11-02-cordis-completion/evidence/B0/review.md)
 confirms normal validation, 36 negative checks, exact reviewed assembly and
 preserved matrix/report, FR-1, first-two-events and recovered-validation evidence.
-The six paired scenarios / 73 observations remain unchanged. T0 and all other
-34 packages remain planned. This B0-focused continuation is finished; no next
-package or background continuation has started. See
+The six paired scenarios / 73 observations remain unchanged. The subsequent
+logger C0–C3 delivery is complete with independent approval and stable/1.85.0
+acceptance; see [logger evidence](plans/2026-11-02-cordis-completion/evidence/logger-acceptance.md).
+All remaining 30 packages, including timer repair, stay planned. No background
+continuation is scheduled. See
 [detailed progress](plans/2026-11-02-cordis-completion/progress.md#resume-next)
 and [B0 evidence](plans/2026-11-02-cordis-completion/evidence.md).
 
@@ -96,12 +98,11 @@ and behavioral tests, not just public type declarations.
 
 ## Next implementation targets: satellites
 
-Selected roadmap order on **2026-10-27**: **`re-cordis-timer` → `re-cordis-logger` →
-`re-cordis-loader`**, then evaluate other satellites. **`re-cordis-timer` is now
-implemented** (see below), with repair acceptance open; `re-cordis-logger` is
-the next new satellite after timer hardening. These remaining
-entries are implementation targets, not delivered crates or frozen
-API/dependency decisions.
+The **2026-10-27** roadmap selected timer → console logger → loader.
+The user's **2026-11-03** execution direction selected console before timer
+repair. **`re-cordis-timer` and `re-cordis-logger` are implemented** (see below);
+console C0–C3 is independently accepted; timer repair remains open. Loader and other
+remaining entries are future targets, not available APIs.
 
 The TypeScript specification remains pinned to
 `35fdc969e4b6c48c48ed44717c7a018324e4dd88` in `local/cordis`.
@@ -154,22 +155,29 @@ deviations are in [decision.md](decision.md#timer-satellite) and
 - [ ] Complete timer compile-time API checks and renew shared acceptance after
   the open timer repair tasks above.
 
-### 2. re-cordis-logger — console adapter over existing core logging
+### 2. re-cordis-logger — implemented and independently accepted
 
-- [ ] Review TS `packages/logger-console/src/{index,shared,browser}.ts` and
+The [C0–C3 work package](plans/2026-11-02-cordis-completion/logger.md) records
+owned writer/renderer delivery, 21 targeted tests, the three-line runnable
+example and completed independent/integrated acceptance. Console was selected
+before timer repair under the 2026-11-03 useful-Rust direction.
+
+- [x] Review TS `packages/logger-console/src/{index,shared,browser}.ts` and
   `packages/logger-console/tests/index.spec.ts`. Record why the Rust crate is
   named `re-cordis-logger` while the upstream satellite is `logger-console`.
-- [ ] Agree on writer ownership, formatting/level routing, color and timestamp
+- [x] Agree on writer ownership, formatting/level routing, color and timestamp
   policy, terminal detection, synchronous I/O/backpressure behavior, write-error
   visibility and scoped removal before selecting dependencies.
-- [ ] Implement only the agreed adapter using `Logger`, `LogRecord`,
+- [x] Implement only the agreed adapter using `Logger`, `LogRecord`,
   `ExporterOptions` and existing formatting/color helpers. Do not duplicate the
   default buffer, error tree, service tracing or lifecycle core.
-- [ ] Verify deterministic captured output, Unicode/line limits, plain/color
+- [x] Verify deterministic captured output, Unicode/line limits, plain/color
   modes, independent exporters, failed writes, and no output after exact removal
   or owner cleanup. Document Node/browser-specific behavior not reproduced.
-- [ ] Add a console example and paired language guide/API pages; preserve core
-  logging acceptance and complete the shared checklist.
+- [x] Add a console example and paired language guide/API pages; preserve core
+  logging contracts and extend executable documentation/export checks.
+- [x] Complete independent review, explicit stable/MSRV/shared acceptance and
+  commit the console slice.
 
 ### 3. re-cordis-loader — explicit Rust loading, not native hot reload
 
@@ -223,7 +231,7 @@ integrations remain separate scope decisions.
 - [ ] Update matching `docs/en/` and `docs/vi/` guides/API indexes, examples,
   glossary terms as needed, and `docs/llms.txt` in the same slice. Extend
   `tests/docs/check.py` for each delivered crate's exports/snippet dependencies;
-  its current automated export coverage includes core and timer.
+  its current automated export coverage includes core, timer and logger.
 - [ ] Keep `README.md` status/layout/star matrices, `CHANGELOG.md`,
   `docs/todo.md`, `docs/decision.md`, `docs/limitation.md` and `AGENTS.md` accurate.
   Preserve old milestone evidence as historical, not claims of new delivery.
@@ -291,7 +299,7 @@ These consumers are not a generic harness or a new satellite/M7 commitment.
   and explicit limits; no unmeasured performance or universal-winner claim.
 
 See [the documentation map](README.md). These pages document the existing
-unpublished core and timer; the remaining satellite roadmap is future work,
+unpublished core, timer and logger; the remaining satellite roadmap is future work,
 not an API-stability promise.
 Maintain both languages and the agent index when public contracts change.
 

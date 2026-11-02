@@ -82,3 +82,6 @@ diagnostic exporter.
 log buffer. An application must inspect/handle them as appropriate.
 
 Reference: [logging API](../api/logging.md).
+
+For ready-to-use native output, see [console logging](console-logging.md): the
+`re-cordis-logger` satellite registers an owned writer over these core contracts.

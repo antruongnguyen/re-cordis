@@ -28,3 +28,4 @@ API identifiers remain unchanged in both languages.
 | Exporter | bộ xuất log | Scoped callback receiving selected log records |
 | Cancellation | hủy thực thi | Stopping outstanding work, not successful async cleanup |
 | Lease | quyền giữ tài nguyên còn sống | A lifetime guarantee that plain `Rc<T>` reads do not provide |
+| Console exporter | bộ xuất log ra console | An owner-scoped native writer rendering selected core records |

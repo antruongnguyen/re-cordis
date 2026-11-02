@@ -209,9 +209,10 @@ integrated framework or resolve every behavioral gap.
   and failed writes may require manual partial-line repair.
   Public ingress, live webhook delivery, mutations, and durable/exactly-once
   delivery are excluded. See the consumer document for exact resource/time limits.
-- `re-cordis-core` and the `re-cordis-timer` satellite are implemented. The
-  console logger and loader are the selected next roadmap targets, not available
-  APIs; other satellites remain candidate work. Each slice needs its own
+- `re-cordis-core`, `re-cordis-timer` and `re-cordis-logger` are implemented.
+  Console C0–C3 is independently accepted within its declared scope; timer repair
+  acceptance remains open. Loader is a future target; other satellites remain
+  candidate work. Each slice needs its own
   source/API/dependency review and acceptance, including bilingual
   documentation. See [the roadmap](todo.md).
 - No stability guarantees — the API will change freely until the core is proven.
@@ -255,3 +256,45 @@ failure results. Existing passing tests do not close this acceptance work.
   owning context to be live. They are cancelled by owner disposal; dropping a
   handle is not itself asynchronous cleanup of in-flight work beyond the
   task-abort the disposal registration performs.
+
+## Console logger satellite
+
+`re-cordis-logger` is implemented as an unpublished synchronous native writer
+adapter. See [the paired console API](en/api/console-logger.md) and
+[decisions](decision.md#console-logger-satellite) for its full supported contract.
+
+- **Language/API representation:** owned `Write + 'static`, free registration
+  functions and the existing core removal token replace a JS exporter class.
+  Rust Display/Debug/format! supplies formatting; JS object inspection,
+  exporter custom placeholders and browser-console original arguments cannot
+  be recovered from a core `LogRecord`. Use explicit `ErrorValue` trees for
+  aggregate/cause errors; the adapter does not rewrite JS stack strings.
+- **Deliberate output adaptation:** UTC record-time milliseconds replaces
+  local render-time templates; custom timezone/template support is deferred.
+  Integer millisecond deltas replace humanized upstream durations. The first
+  and backward deltas are zero, and only successful write+flush commits the
+  baseline. UTC years outside 0–9999/layout overflow fail explicitly.
+- **Terminal capability boundary:** Auto uses captured stdout/Unicode
+  FORCE_COLOR/NO_COLOR/TERM facts, not the full supports-color heuristic or
+  browser/Windows console machinery. Explicit colors override those facts.
+  Truecolor requests cap at ANSI256; ANSI16 timestamps use SGR90 gray.
+  Auto is plain for custom writers and pure render, unless callers resolve
+  their own facts into an explicit policy. Plain adds no escapes but preserves
+  user text, including existing ANSI. Unicode label padding counts UTF-16,
+  not terminal display cells or grapheme clusters.
+- **Runtime/ownership contract:** synchronous slow I/O blocks the local log
+  call. There is no asynchronous sink, stderr split, buffer or retry queue.
+  Standard short/interrupted writes are handled; write/flush failures remain
+  visible and partial output cannot be rolled back or guaranteed atomic
+  across independent stdout writers. Flush is not filesystem durability.
+- **Reentry/snapshot contract:** recursive calls into an exporting writer get
+  an I/O error; core still attempts other exporters. The adapter creates no
+  automatic recursive error log. Removal affects future records; an already
+  selected callback may finish before its writer capture is released.
+  A writer panic follows existing core callback panic handling; hostile/panicking
+  destructors retain the core's documented limits.
+- **Evidence boundary:** deterministic Rust tests cover the five source test
+  areas with explicitly classified representations; they do not establish a
+  new executed cross-language console trace or unrestricted upstream parity.
+  Final review and the explicit stable/MSRV acceptance are recorded separately
+  from implementation in the [console work package](plans/2026-11-02-cordis-completion/logger.md).

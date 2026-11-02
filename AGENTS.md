@@ -15,19 +15,23 @@ evidence boundaries.
 The approved first-consumer scope is implemented: snapshot digest, bounded `gh`
 collector and signed loopback webhook journal (12 additional application tests
 on Unix). See `docs/github-activity.md`. Application dependencies are dev-only.
-The selected next-target order is timer, console logger, then loader, followed
-by assessment of other satellites. The **`re-cordis-timer`** satellite is
+Timer and console logger are implemented; loader remains a future target,
+followed by assessment of other satellites. The **`re-cordis-timer`** satellite is
 delivered (unpublished `crates/re-cordis-timer`: owner-scoped timeout, sleep,
 interval/stream, throttle and debounce over core effects, via a sealed
 `TimerExt` trait; the `tokio` `time`/`macros` features live in the timer crate,
-not the core; 15 deterministic tests over a paused clock). The console logger
-and loader are not implemented yet. Timer contract repair remains open; see
+not the core; 15 deterministic tests over a paused clock). The unpublished
+**`re-cordis-logger`** console adapter is implemented (owned scoped writers,
+plain/ANSI/Auto policy, UTC record rendering, visible I/O errors; 21 tests).
+Console final review/acceptance is tracked in its logger work package; loader
+is not implemented. Timer contract repair remains open; see
 `docs/plans/2026-11-02-cordis-completion/README.md` for the proposed core/all-satellite
 work packages and scheduling gates. See `docs/todo.md` for source review,
 per-slice design gates and documentation acceptance, and
 `docs/superpowers/specs`/`docs/superpowers/plans` for the timer design and plan.
-The root Rust 2024 workspace contains the unpublished `crates/re-cordis-core`
-and `crates/re-cordis-timer` (Rust 1.85 minimum). Use `cargo test --workspace`.
+The root Rust 2024 workspace contains the unpublished `crates/re-cordis-core`,
+`crates/re-cordis-timer` and `crates/re-cordis-logger` (Rust 1.85 minimum).
+Use `cargo test --workspace`.
 Acceptance, logging, examples and compatibility restrictions are in `docs/m6.md`.
 Isolation/bound-call/update contracts are in `docs/m5.md`;
 publication/access/dependency-retention contracts are in `docs/m4.md`;
@@ -92,7 +96,7 @@ in the same change:
 
 Run `python3 -B tests/docs/test_check.py` and the documentation checker for
 explicit stable/1.85.0 toolchains after guide/API changes; see `docs/README.md`.
-Its current export/snippet checks cover core and timer; extend them for each
+Its current export/snippet checks cover core, timer and logger; extend them for each
 new delivered satellite.
 
 ## Tooling conventions

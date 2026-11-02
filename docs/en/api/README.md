@@ -3,7 +3,7 @@
 [Tiếng Việt](../../vi/api/README.md) | [English home](../README.md)
 
 This reference covers the public exports of `re-cordis-core` and the
-`re-cordis-timer` satellite, not their private storage or example-private
+`re-cordis-timer` and `re-cordis-logger` satellites, not their private storage or example-private
 handles. It describes usage and behavioral contracts; generated Rustdoc is
 authoritative for exact signatures, generic bounds, trait implementations, and
 public fields.
@@ -24,7 +24,8 @@ An unpublished `0.0.0` package is not a supported crates.io installation target.
 
 Every root export from [lib.rs](../../../crates/re-cordis-core/src/lib.rs) belongs
 to one of these chapters, and the `re-cordis-timer` satellite's exports are
-covered by the [timer chapter](timer.md). Context extension methods are
+covered by the [timer chapter](timer.md); console exports belong to
+[console logger](console-logger.md). Context extension methods are
 documented by concern.
 
 | Chapter | Public types / module |
@@ -37,6 +38,7 @@ documented by concern.
 | [Logging](logging.md) | `Logger`, `LoggerConfig`, `Level`, `LogRecord`, `WeakFiber`, `ErrorValue`, `ColorDepth`, `ExporterOptions`, `ExporterRegistration`, `LogError` |
 | [Errors and hooks](errors-hooks.md) | `HostError`, `AdmissionError`, `CompletionError`, `ValidationError`, `ValidationIssue`, `PathSegment`, public `hooks` module |
 | [Timer satellite](timer.md) | `TimerExt`, `Sleep`, `IntervalStream`, `IntervalControl`, `Scheduled`, `TimerError` |
+| [Console satellite](console-logger.md) | `ColorMode`, `Alignment`, `LabelStyle`, `Timestamp`, `ConsoleOptions`, `render`, `register`, `register_stdout` |
 
 ## Read method results in two stages
 

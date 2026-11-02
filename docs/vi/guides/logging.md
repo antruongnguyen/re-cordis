@@ -79,3 +79,6 @@ báo stderr và giữ lỗi mà không đưa đệ quy trở lại exporter ch�
 phải bộ đệm log. Ứng dụng cần kiểm tra/xử lý chúng phù hợp.
 
 Tra cứu: [API ghi log](../api/logging.md).
+
+Để xuất log native ngay, xem [ghi log ra console](console-logging.md): vệ tinh
+`re-cordis-logger` đăng ký writer được sở hữu dựa trên các hợp đồng core này.

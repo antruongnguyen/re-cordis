@@ -614,3 +614,58 @@ adjustments. Pausing the clock makes the tests fast and reproducible. One
 consequence recorded during delivery: a timer task must be polled once (a
 `yield_now().await`) after it is created or called so its `sleep` registers on
 the paused driver before the test advances the clock.
+
+## Console logger satellite
+
+C0–C3 implement `re-cordis-logger` on 2026-11-03, corresponding to pinned
+TypeScript `packages/logger-console` at
+`35fdc969e4b6c48c48ed44717c7a018324e4dd88`. The shorter Rust crate name follows
+the planned satellite layout; the existing core Logger remains the logging system.
+The [console contract](plans/2026-11-02-cordis-completion/logger.md) records the
+selected scope, targeted results and final review/acceptance status.
+
+- Free `register`/`register_stdout` functions take existing `ExporterOptions`
+  and return the existing `ExporterRegistration`. An owned `Write + 'static`
+  has no Send bound. Reuse core host/owner admission, removal, filtering,
+  buffering, error trees and snapshot lifetime; add no service or global logger.
+- All severities use stdout by default, following the Node exporter. Each
+  record uses `write_all` then one `flush`; I/O is synchronous backpressure,
+  with no queue or hidden task. Partial bytes cannot be rolled back. Writer
+  failures propagate through core's attempt-all `LogError::Exporters`.
+  Recursive export uses `try_borrow_mut` and returns an I/O error; destructor
+  release stays in core's established callback snapshot/removal path.
+- Default Auto samples stdout once. Explicit Plain/ANSI16/ANSI256 wins;
+  Auto precedence is FORCE_COLOR (0/1/2/3; other present values mean ANSI16),
+  nonempty NO_COLOR, terminal/TERM=dumb refusal, TERM containing 256color,
+  then terminal ANSI16. Depth 3 caps at ANSI256. Non-Unicode facts are ignored.
+  Custom writers and pure render use plain Auto; caller-supplied facts can be
+  resolved explicitly. Plain adds no escapes and does not sanitize message text.
+- Fixed record-time UTC RFC3339 milliseconds replaces local render-time
+  templates. `time = 0.3.36` is pinned, with std/formatting only, to use a
+  maintained calendar formatter compatible with Rust 1.85; core dependencies
+  stay unchanged. Timestamp can be disabled. Invalid UTC year/layout returns
+  an I/O InvalidInput error. No timezone/template API is introduced.
+- Elapsed output is integer milliseconds. First and backward deltas are zero,
+  with no registration-time clock read. Only successful write+flush advances
+  the baseline; a successful backward record becomes the next baseline.
+  This deliberately differs from constructor/render-time state and humanized
+  upstream durations, making record output reproducible and failures visible.
+- Core `LogRecord::format/color` supplies UTF-16 line limits and channel
+  palettes. Default max length 10240, width 0, margin 1 and left alignment
+  follow upstream. Preserve the asymmetric continuation indentation and longer
+  labels. Label width counts UTF-16 units, not terminal cells; no surrogate
+  splitting. ANSI256 alone adds upstream bold decoration. ANSI16 timestamp
+  gray uses SGR90 rather than upstream's 256-color gray escape.
+- Rust Display/Debug/format! replaces JS `util.inspect`, custom printf
+  placeholders and browser argument rendering: core records no longer contain
+  original JS arguments. These are deliberate language/API representations,
+  not output equivalence. The browser console's error/warn method dispatch is
+  unavailable in this native writer adapter.
+
+The five pinned source declarations are covered proportionally: aggregate
+error output and exact identity through `tests/exporter.rs`; object/custom
+formatter purpose through explicit Display/Debug in `tests/render.rs`;
+levels through independent core exporter filtering; label style through the
+exact two-line right-aligned oracle (17 continuation spaces).
+The 8 existing core logger tests remain carried evidence for buffer capacity,
+source identities, normalization and core palettes. They are not reopened.

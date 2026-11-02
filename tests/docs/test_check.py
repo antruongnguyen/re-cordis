@@ -9,6 +9,19 @@ import check
 
 
 class DocumentationChecks(unittest.TestCase):
+    def test_satellite_exports_include_generic_functions_and_exclude_private_items(self):
+        source = ("pub enum ColorMode {}\n"
+                  "pub struct ConsoleOptions {}\n"
+                  "pub trait TimerExt {}\n"
+                  "pub fn render() {}\n"
+                  "pub fn register<W: Write>() {}\n"
+                  "pub fn register_stdout() {}\n"
+                  "pub(crate) fn internal() {}\n"
+                  "fn hidden() {}\n")
+        self.assertEqual(check.direct_exports(source),
+                         {"ColorMode", "ConsoleOptions", "TimerExt", "render",
+                          "register", "register_stdout"})
+
     def test_complete_fences(self):
         self.assertEqual(
             check.blocks("```rust\nfn main() {}\n```\n\n```toml\nx = 1\n```\n"),

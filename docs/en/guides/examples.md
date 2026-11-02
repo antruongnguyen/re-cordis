@@ -72,3 +72,10 @@ renamed to `antruongnguyen/re-cordis`) and a nonempty snapshot from
 Those observations are point-in-time application evidence, not committed
 fixtures, complete repository inventory, new core parity evidence, or live
 webhook delivery. Private session artifacts are not documentation dependencies.
+
+## Console output
+
+[console.rs](../../../crates/re-cordis-logger/examples/console.rs) demonstrates
+plugin-owned stdout, explicit formatting, owner disposal, manual removal and
+root drain. Run `cargo run -p re-cordis-logger --example console --locked`.
+See [console logging](console-logging.md) for the same complete program.
