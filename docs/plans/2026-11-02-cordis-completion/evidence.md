@@ -12,31 +12,31 @@ for all 35 package states, ownership, decisions, blockers and exact resume steps
 - [Matrix report](evidence/B0/matrix/report.md) at 25dcde8 records all results, failed evidence-assembly attempts, successful validation and known metadata limits. [Scoped re-review](evidence/B0/matrix-rereview.md), integrated at b87c1b9, closed B0-MATRIX-01/02 and verified original artifact preservation.
 - Stable 1.97.1 and 1.85.0 each passed 164 core integration tests (including 12 Unix application tests), 15 timer tests, 17 core Rustdoc checks, 20 M0 tests and one M0 Rustdoc check. Both examples and guide checks (8 snippets plus external quick start per toolchain) passed; five Python regressions passed.
 - The fixed TypeScript specification is 35fdc969e4b6c48c48ed44717c7a018324e4dd88. Exactly six paired scenarios and 73 observations passed. These counts do not establish full upstream parity or non-macOS platform acceptance.
-- [Core inventory](evidence/B0/ledger/cases.json): the original 144-declaration / 156-variant inventory remains unmerged. Completed family drafts now cover all declarations and six type obligations, but this is not an accepted final case ledger.
+- [Core inventory](evidence/B0/ledger/cases.json): the original 144-declaration / 156-variant inventory remains in integration while the exclusive ledger worker assembles all independently reviewed fragments and six types. A final complete-data pass and independent B0 acceptance are still required.
 - [Decorator/reflection fragment](evidence/B0/ledger-inputs/report-decorator-reflect.md): 5 declarations / 23 obligations mapped to source tests, deliberate Rust representations, existing exclusions or named evidence gaps. FR-1 was corrected in 59be2db and [independently accepted](evidence/B0/fragment-rereview.md) in b28a608. All seven evidence gaps remain open; their regressions and dependency triage precede conditional B2. No other semantic classification changed.
 - [Interrupted events inventory](evidence/B0/ledger-inputs/events.json): 19 declarations / 61 initial obligations; audit did not finish. Initial missing-evidence fields are unreviewed placeholders, not accepted dispositions.
 - [First two events](evidence/B0/ledger-inputs/report-events-first-two.md) now have five tested Rust-representation obligations and zero gaps or paired claims. [Independent review](evidence/B0/events-first-two-review.md) accepted the fragment; implementation/review integrated at `0c934ed` / `11d84b1`. Together with decorator/reflect, seven declarations / 28 obligations have accepted dispositions.
-- [Worker infrastructure failures](evidence/B0/infrastructure.md) recurred in native and CLI gpt-6.1-sol attempts. The user subsequently authorized gpt-5.6-sol/high, which completed the remaining source drafts. This is an authorized fallback, not proof that the original model transport is repaired.
+- [Worker infrastructure history](evidence/B0/infrastructure.md) records native and CLI gpt-6.1-sol failures followed by authorized gpt-5.6-sol/high draft completion. On this resume the user explicitly selected fresh gpt-6.1-sol/high subagents; all four correction workers completed. The failed CLI path and failed contexts were not resumed.
 - The earlier integrated recovery validation failed HTTP 400 before saving a report. A fresh executor at `f2ff4c3` has now saved [integrated validation](evidence/B0/resume-validation.md), including passing bounded checks and an actual raw-byte failure caused only by commands.tsv working-copy line endings; all 65 committed original artifacts are unchanged. That worker then disconnected before its final handoff. The completed [scoped independent review](evidence/B0/resume-validation-review.md), at review HEAD `fb0c194`, accepts the integrated-check gate with this preservation boundary. The original failing result remains recorded; no rerun or artifact normalization is required. This does not establish reliable source-audit transport or supersede accepted matrix/FR-1 reviews.
 
 - [Scoped/logging corrections](evidence/B0/ledger-inputs/report-scoped-logging.md): SL-1–SL-6 fixes integrated c462dfd, preserving 40 declarations / 136 obligations with 59 representations / 27 mappings / 50 gaps. [Scoped re-review](evidence/B0/scoped-logging-rereview.md), integrated b515447, accepts all six corrections with tracked gaps.
-- [Lifecycle/update drafts](evidence/B0/ledger-inputs/report-lifecycle-update.md): 42 declarations / 44 variants / 188 raw records, integrated through 4ca5d39. [Independent review](evidence/B0/lifecycle-update-review.md), integrated at 64b7c54, requires LR1-LR5 corrections, including explicit non-obligation metadata for three inventory artifacts.
-- [Events/effects/types drafts](evidence/B0/report-events-effects-types.md): 30 declarations / 30 variants, 99 runtime records and six type records, integrated through bdc73a4. [Initial independent review](evidence/B0/events-effects-types-review.md), integrated ff414b5, accepts the six type representations and requests EET-1–EET-9 runtime corrections. These corrections are active.
-- [Services drafts](evidence/B0/ledger-inputs/report-services.md): 25 declarations / 35 variants / 81 records, integrated at 7edb4f9. [Initial independent review](evidence/B0/services-review.md), integrated 1c38165, requests SR-1–SR-5 corrections and confirms the four guarded-variant omissions for separate non-obligation metadata.
+- [Lifecycle/update corrections](evidence/B0/ledger-inputs/report-lifecycle-update.md): 42 declarations / 44 variants / 185 meaningful obligations plus three LR1 inventory artifacts. [Scoped re-review](evidence/B0/lifecycle-update-rereview.md), integrated 6945d90, accepts LR2–LR5 with 37 tracked gaps, conditional only on the separately owned LR1 metadata integration.
+- [Events/effects/types corrections](evidence/B0/report-events-effects-types.md): 30 declarations / 30 variants, 110 runtime records and six unchanged type records. [Scoped re-review](evidence/B0/events-effects-types-rereview.md), integrated a54d045, accepts EET-1–EET-9 with 38 tracked gaps and preserves the accepted six type representations.
+- [Services corrections](evidence/B0/ledger-inputs/report-services.md): 25 declarations / 35 variants / 81 obligations. [Scoped re-review](evidence/B0/services-rereview.md), integrated 1083dfa, accepts SR-1–SR-5 with 15 tracked gaps. The initial review's four guarded non-obligations remain separately accounted for by the final ledger owner.
 
 The user resumed B0 after the committed pause checkpoint at 7fd7cde. Fresh
 gpt-6.1-sol/high correction workers and gpt-6-astra/high independent reviewers
-are authorized; the failed CLI path remains prohibited. All draft
-fragments are preserved: 144 declarations / 156 variants, 532 raw runtime
-records and six types. Transfer checks confirmed exact worker-commit bytes;
-all 538 records pass partial schema/reference/log checks. This does not resolve
-semantic review findings, the non-obligation accounting or the complete-ledger
-gate. Only the prior seven declarations / 28 obligations are independently
-accepted.
+are authorized; the failed CLI path remains prohibited. The pause checkpoint's
+144-declaration / 156-variant drafts and their historical checks are preserved
+in Git. All four correction cycles now have independent acceptance with
+tracked gaps, and integrated corrected files match their reviewed worker bytes.
+The current ledger worker must reconcile seven confirmed non-obligations and
+the reviewed additional assertion splits before complete-data validation and
+final B0 acceptance. Accepted fragment reviews do not complete those gates.
 
-Continue [review corrections](evidence/B0/handoffs/review-corrections.md) and
-the findings from both completed initial reviews, then coordinated inventory/control repair,
-ledger assembly/validation and final independent review. No final-ledger
+Continue [coordinated ledger integration](evidence/B0/handoffs/final-ledger-integration.md)
+and [final independent acceptance](evidence/B0/handoffs/final-acceptance.md).
+Do not repeat the accepted correction or initial reviews. No final-ledger
 passing result or B0-wide acceptance exists yet.
 No production code, runtime dependencies, public APIs, source pins or existing
 compatibility contracts changed. T0 and all later packages remain unstarted;
