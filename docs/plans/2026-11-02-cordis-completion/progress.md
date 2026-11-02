@@ -18,7 +18,7 @@ review, integration, documentation and current verification.
 
 | ID | Status | Dependencies | Owner / role / model | Worktree / branch | Implementation commit | Review result | Evidence location |
 |---|---|---|---|---|---|---|---|
-| B0 | in_progress | None | b0_matrix / verification / gpt-6.1-sol high; b0_ledger / evidence / gpt-6.1-sol high | integration | — | B0 plan accepted; independent result review pending | evidence/B0/ |
+| B0 | in_progress | None | b0_matrix, b0_ledger, b0_ledger_extra / execution / gpt-6.1-sol high | integration | — | B0 plan accepted; independent result review pending | evidence/B0/ |
 | B1 | planned | B0 | unassigned | integration | — | not started | evidence/B1/ |
 | T0 | planned | B0 | unassigned | integration | — | not started | evidence/T0/ |
 | T1 | planned | T0 | unassigned | integration | — | not started | evidence/T1/ |
@@ -60,6 +60,7 @@ review, integration, documentation and current verification.
 - D002: One canonical integration checkout; isolated worktrees for concurrent implementations. Planning/read-only reviews may overlap; manifest/lockfile/status-doc integration is serialized by orchestrator.
 - D003: B0 first. Astra planner defines commands, ledger reconciliation and acceptance; sol executor runs them; independent astra reviewer assesses evidence. No production edits in B0.
 - D004: B0 matrix execution and case-ledger audit may run independently with disjoint evidence files. Keep Cargo/docs/parity commands in one executor: docs/parity share target/stable and parity creates an exclusive upstream fixture. Eight parameterized declarations expand 144 declarations to 156 registered cases; that is an inventory count, not executed parity.
+- D005: Split B0 Task 2 source mapping by file family to use the third worker slot. b0_ledger_extra owns only ledger-inputs/ for associate, decorator, intercept, invoke, isolate, logger, reflect and shadow (45 declarations). b0_ledger retains ledger/ integration, all other families and type expressions. No shared-file writes.
 
 ## Active blockers, failures and retries
 
@@ -81,4 +82,5 @@ review, integration, documentation and current verification.
 - 2026-11-02 CP003: Accepted the independent B0 command-matrix task: exact acceptance.md commands with explicit tools, isolated artifacts, complete exit/version logs, then docs and parity sequentially. Dispatch b0_matrix (sol/high) while b0_plan finishes ledger instructions. This is read-only baseline execution, with no production design dependency.
 - 2026-11-02 CP004: Accepted evidence/B0/plan.md from b0_plan: exact commands, 144 declaration/156 registered-case controls, six type expressions, concrete evidence classes. Dispatch b0_ledger (sol/high) with exclusive ledger/ ownership; matrix/ remains exclusive to b0_matrix. Missing evidence may be tracked, never counted as parity; required failures prevent a green baseline.
 - 2026-11-02 CP005: b0_ledger response stream failed before completion. No ledger evidence files were present at reconciliation; resume the same gpt-6.1-sol/high agent from the accepted plan. No model substitution or acceptance claim.
+- 2026-11-02 CP006: b0_ledger resumed with prior source audit intact. Split eight independent spec-file families into b0_ledger_extra (sol/high), writing ledger-inputs/ only. Matrix executor owns all build/doc/parity execution; ledger integration remains single-owner.
 
