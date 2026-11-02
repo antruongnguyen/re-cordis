@@ -65,6 +65,7 @@ review, integration, documentation and current verification.
 
 - Initialization attempt failed with a Python quoting SyntaxError before any file was written. Recreated tracking using a structured patch; no source changes affected.
 - Baseline checks not run. No pre-existing uncommitted changes or extra worktrees found.
+- B0 ledger attempt 1: agent response stream disconnected before completion. Inspect ledger/ and resume the same sol/high agent; do not infer completion or discard any saved files. Matrix executor unaffected.
 
 ## Resume next
 
@@ -79,4 +80,5 @@ review, integration, documentation and current verification.
 - 2026-11-02 CP002: b0_plan (gpt-6-astra/high) confirmed startup pins and documentation-only changes since 808c9f5. Planning identified independent matrix/ledger work and eight parameterized declarations. Waiting for concrete B0 plan before execution dispatch.
 - 2026-11-02 CP003: Accepted the independent B0 command-matrix task: exact acceptance.md commands with explicit tools, isolated artifacts, complete exit/version logs, then docs and parity sequentially. Dispatch b0_matrix (sol/high) while b0_plan finishes ledger instructions. This is read-only baseline execution, with no production design dependency.
 - 2026-11-02 CP004: Accepted evidence/B0/plan.md from b0_plan: exact commands, 144 declaration/156 registered-case controls, six type expressions, concrete evidence classes. Dispatch b0_ledger (sol/high) with exclusive ledger/ ownership; matrix/ remains exclusive to b0_matrix. Missing evidence may be tracked, never counted as parity; required failures prevent a green baseline.
+- 2026-11-02 CP005: b0_ledger response stream failed before completion. No ledger evidence files were present at reconciliation; resume the same gpt-6.1-sol/high agent from the accepted plan. No model substitution or acceptance claim.
 
