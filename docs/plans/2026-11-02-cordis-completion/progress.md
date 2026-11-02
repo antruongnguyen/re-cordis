@@ -59,6 +59,7 @@ review, integration, documentation and current verification.
 - D001: Recommended vertical sequence and fixed TS pin. User authorization supersedes historical proposed/approval wording for routine Rust representations; exclusions never count as parity.
 - D002: One canonical integration checkout; isolated worktrees for concurrent implementations. Planning/read-only reviews may overlap; manifest/lockfile/status-doc integration is serialized by orchestrator.
 - D003: B0 first. Astra planner defines commands, ledger reconciliation and acceptance; sol executor runs them; independent astra reviewer assesses evidence. No production edits in B0.
+- D004: B0 matrix execution and case-ledger audit may run independently with disjoint evidence files. Keep Cargo/docs/parity commands in one executor: docs/parity share target/stable and parity creates an exclusive upstream fixture. Eight parameterized declarations expand 144 declarations to 156 registered cases; that is an inventory count, not executed parity.
 
 ## Active blockers, failures and retries
 
@@ -75,4 +76,5 @@ review, integration, documentation and current verification.
 ## Checkpoint log (append only)
 
 - 2026-11-02 CP001: Read master/schedule/acceptance/core/timer; clean main c5019cc, one worktree, fixed clean TS pin. Created local feat/cordis-completion. Initialized all 35 rows before dispatch. No verification claims.
+- 2026-11-02 CP002: b0_plan (gpt-6-astra/high) confirmed startup pins and documentation-only changes since 808c9f5. Planning identified independent matrix/ledger work and eight parameterized declarations. Waiting for concrete B0 plan before execution dispatch.
 
