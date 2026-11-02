@@ -6,20 +6,19 @@ Cordis là framework dành cho ứng dụng có plugin, dịch vụ, cấu hình
 thay đổi theo thời gian. `re-cordis` biểu diễn ngữ nghĩa của lõi Cordis
 TypeScript bằng API Rust tường minh, có kiểu.
 
-Sản phẩm hiện tại là **`re-cordis-core` chưa phát hành**, phiên bản `0.0.0`, dùng
-Rust 2024 và yêu cầu Rust 1.85 trở lên, cùng **`re-cordis-timer`** và vệ tinh
-console **`re-cordis-logger`**. API chưa ổn định. Loader chưa được triển khai. Đây không phải lớp tương thích
-trong suốt với Proxy hay decorator của JavaScript.
-[Lộ trình mục tiêu tiếp theo](../todo.md#next-implementation-targets-satellites)
-ghi nhận timer còn cần sửa hợp đồng, console còn cần review/nghiệm thu cuối,
-và loader cùng các vệ tinh khác là mục tiêu tương lai. Mỗi phần cần rà soát
-mã nguồn/API và tài liệu tương ứng; crate dự kiến chưa phải API sử dụng được.
+Sản phẩm hiện tại gồm `re-cordis-core`, `re-cordis-timer`, `re-cordis-logger`
+và `re-cordis-loader` chưa phát hành, phiên bản 0.0.0, Rust 2024/MSRV 1.85.
+API chưa ổn định. Loader sở hữu nguồn entry có kiểu và group cấu trúc;
+include, HMR và create vẫn là mục tiêu tương lai. Review và nghiệm thu toolchain
+tường minh được ghi trong [lộ trình](../todo.md#next-implementation-targets-satellites).
+Đây là API Rust tường minh, không phải lớp tương thích JavaScript trong suốt.
 
 ## Chọn lộ trình đọc
 
 | Mục tiêu | Bắt đầu tại |
 |---|---|
 | Xây dựng ứng dụng đầu tiên | [Bắt đầu sử dụng](getting-started.md), sau đó đọc [khái niệm](concepts.md) |
+| Nạp và cấu hình lại entry theo tên | [Loader](guides/loader.md), [group](guides/groups.md) |
 | Tạo thành phần có thể nạp lại | [Plugin và cập nhật](guides/plugins-and-updates.md) |
 | Kết nối các thành phần an toàn | [Dịch vụ và phạm vi](guides/services-and-scoping.md) |
 | Sở hữu tài nguyên và dừng ứng dụng | [Effect và dọn dẹp](guides/effects-and-cleanup.md) |

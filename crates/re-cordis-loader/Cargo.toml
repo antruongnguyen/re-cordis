@@ -1,0 +1,21 @@
+[package]
+name = "re-cordis-loader"
+description = "Typed source-aware plugin trees for re-cordis"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+publish = false
+
+[dependencies]
+re-cordis-core = { path = "../re-cordis-core" }
+futures-util.workspace = true
+tokio.workspace = true
+serde_json = "1"
+
+[dev-dependencies]
+tokio = { workspace = true, features = ["rt", "time", "macros"] }
+
+[lints]
+workspace = true

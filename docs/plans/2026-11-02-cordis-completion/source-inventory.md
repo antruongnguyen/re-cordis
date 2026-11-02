@@ -103,7 +103,7 @@ Plan: [C0–C3](logger.md). Status: inventoried; execution/disposition is tracke
 
 ## loader
 
-Plan: [L0–L5 / G0–G1](loader.md). Status: inventoried; execution/disposition is tracked by that plan.
+Plan: [L0–L5 / G0–G1](loader.md). Status: implemented in Rust; semantic representations and JS exclusions are tracked by that plan. Final acceptance is separate.
 
 ### commit.spec.ts
 
@@ -324,9 +324,9 @@ Plan: [L0–L5 / G0–G1](loader.md). Status: inventoried; execution/disposition
 
 ## group
 
-Plan: [G0–G1](group.md). Status: inventoried; execution/disposition is tracked by that plan.
+Plan: [G0–G1](group.md). Status: implemented within re-cordis-loader; final acceptance is separate.
 
-No standalone spec files. Review loader Group behavior before deciding a Rust facade.
+No standalone spec files. Rust Group behavior lives in re-cordis-loader; no separate facade crate is added.
 
 ## include
 

@@ -6,20 +6,19 @@ Cordis is a framework for applications whose plugins, services, configuration,
 and resources change over time. `re-cordis` expresses the TypeScript Cordis
 core's semantics through explicit, typed Rust APIs.
 
-The current deliverable is **unpublished `re-cordis-core`**, version `0.0.0`, Rust
-2024, requiring Rust 1.85 or newer, plus **`re-cordis-timer`** and the
-**`re-cordis-logger`** console satellite. The API is unstable. Loader is not
-implemented. This is not transparent JavaScript Proxy or decorator compatibility.
-The [next-target roadmap](../todo.md#next-implementation-targets-satellites)
-records timer repair and console final review/acceptance as open, with loader
-and other satellites remaining future targets. Each slice includes source/API
-review and matching documentation; planned crates are not usable APIs yet.
+The current deliverable is unpublished `re-cordis-core`, `re-cordis-timer`,
+`re-cordis-logger` and `re-cordis-loader`, version 0.0.0, Rust 2024/MSRV 1.85.
+The API is unstable. Loader owns typed source entries and structural groups;
+include, HMR and create remain future targets. Review and explicit toolchain
+acceptance are tracked in the [roadmap](../todo.md#next-implementation-targets-satellites).
+This is an explicit Rust API, not transparent JavaScript compatibility.
 
 ## Choose a reading path
 
 | Your goal | Start here |
 |---|---|
 | Build your first application | [Getting started](getting-started.md), then [concepts](concepts.md) |
+| Load and reconfigure named entries | [Loader](guides/loader.md), [groups](guides/groups.md) |
 | Create reloadable components | [Plugins and updates](guides/plugins-and-updates.md) |
 | Connect components safely | [Services and scoping](guides/services-and-scoping.md) |
 | Own resources and shut down | [Effects and cleanup](guides/effects-and-cleanup.md) |

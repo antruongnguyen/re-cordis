@@ -675,3 +675,77 @@ levels through independent core exporter filtering; label style through the
 exact two-line right-aligned oracle (17 continuation spaces).
 The 8 existing core logger tests remain carried evidence for buffer capacity,
 source identities, normalization and core palettes. They are not reopened.
+
+## Loader and structural groups
+
+L0–L5/G0–G1 deliver `re-cordis-loader` as an unpublished Rust 2024/MSRV 1.85
+crate. The semantic reference is pinned TypeScript
+`35fdc969e4b6c48c48ed44717c7a018324e4dd88`, not the prior Rust port.
+A private checked adapter retains each original `Plugin<C,R>` and its core
+allocation identity. Native C needs Clone for replay, not Serialize/Send.
+Core `hooks::Value` is reused as Config; decoder contract checks stay separate
+from the plugin validator's dependency-ready timing.
+
+One dedicated loader owner Fiber owns current entries and hosted convergence
+workers. Entry-level injection uses a reusable outer Plugin; the original
+catalog Plugin is its inner child and keeps its own requirements. Conditions
+and evaluated intercepts use entry authority; config mapping uses the exact
+stored inner Context after plugin requirements commit. User callbacks,
+clones and resource destruction run outside mutable loader borrows and reuse
+core admission/panic containment.
+
+Same-factory loaded config reaches `update_with(no_save:true)` before the
+loader source commit. A single bounded rebuild worker follows the latest
+accepted revision while joining old cleanup; remove/disable wins. Every
+manually detached lifecycle barrier is retained independently of driver tasks,
+and removed-but-retiring entries count against 1024 admission capacity.
+Only the first completed retirement-task error is retained, bounding that
+failure memory; all barriers are still joined. Ordinary callback cleanup
+errors follow core Runtime::take_failures diagnostics, not a new loader
+cleanup report or a changed core disposal result.
+Parent disposal joins those barriers even after Loader/waiter Drop. Entry/Fiber
+source cycles are broken during retirement/owner cleanup.
+
+Groups are structural loader nodes, including when their verdict disables
+descendants; no facade crate or duplicate registry is added. Global EntryId
+survives adoption, while mutable group addresses aid navigation. Crossing
+groups/scopes rebuilds core Fibers after joined cleanup; same-group reorder is
+inert. This deliberately replaces JS mutable-prototype reparenting.
+Upstream ':' denotes nested source trees, not ordinary group ownership;
+Rust globally unique IDs across source documents are a namespace adaptation.
+
+Programmatic mutations preflight complete entry-option structure before commit.
+This is not a transaction over arbitrary plugin validators: operational child
+failures are reported independently and healthy siblings proceed. A loaded
+validation rejection retains that child's accepted source; an apply failure
+after acceptance retains the new source and Failed state. Retaining the rejected
+child snapshot is a Rust adaptation of TS's earlier entry.options mutation.
+Read-only source reconciliation preserves valid siblings independently,
+including nested JSON children, and emits no write-back. A per-loader core
+event reports accepted runtime CommitRecord values with old/new/target/origin;
+there is no unbounded history. SourceId/SourceDocument, optional span locators
+and typed replacement provide useful in-memory include/HMR integration seams,
+without file I/O/watchers or JS module execution.
+
+JSON uses serde_json with explicit limits: 1 MiB, depth 32,
+65536 nodes/string bytes, group depth 32, 1024 resident/retiring entries,
+128-byte nonempty IDs without ':', 256-byte nonempty factory names.
+Absent/null config reaches an explicit decoder unchanged. Unknown fields,
+factories and service contracts reject explicitly. Disabled expressions are rejected;
+config/inject/intercept values belong to explicit typed decoders and are never
+executed as JavaScript. A permissive decoder may accept expression-shaped data.
+Typed service registrations map serialized inject/isolate/intercept to core
+keys/configs. FieldPatch Keep/Set/Clear distinguishes retention and removal.
+
+Snapshots separate retained native source/options, optional original JSON
+transport and last evaluated C. Initial resolved R is not exposed by core's
+original Plugin; it stays plugin-owned rather than being fabricated.
+Typed condition/intercept failures are Failed and require explicit update,
+instead of JavaScript truthiness/evaluation failure becoming a disabled verdict.
+All entries use an outer owner, including empty injection; this simplifies
+consistent teardown at the cost of an extra core Fiber. Entry injection values
+are typed static Dependency configs; no dynamic JS inject-value evaluator is
+provided. Explicit settle replaces the implicit loader service's await intercept.
+Self/ancestor lifecycle requests keep core's reentrant refusal. See the
+[loader API](en/api/loader.md), [group API](en/api/groups.md) and
+[work package](plans/2026-11-02-cordis-completion/loader.md).

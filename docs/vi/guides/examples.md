@@ -79,3 +79,10 @@ thật. Tài liệu không phụ thuộc artifact riêng của phiên làm việ
 thuộc plugin, định dạng rõ ràng, disposal chủ sở hữu, gỡ thủ công và drain root.
 Chạy `cargo run -p re-cordis-logger --example console --locked`.
 Xem [ghi log ra console](console-logging.md) để đọc cùng chương trình hoàn chỉnh.
+
+## Khởi động và cấu hình lại loader
+
+Chạy `cargo run -p re-cordis-loader --example boot_reconfigure --locked`.
+[Ví dụ](../../../crates/re-cordis-loader/examples/boot_reconfigure.rs) khởi động
+group cấu trúc, chờ Pending, nhận provider, cập nhật nguồn, thất bại/phục hồi
+tường minh và join shutdown. Không dùng file hay mạng.

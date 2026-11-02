@@ -28,4 +28,7 @@ Giữ nguyên định danh API trong cả hai ngôn ngữ.
 | Exporter | bộ xuất log | Callback có phạm vi nhận bản ghi log đã chọn |
 | Cancellation | hủy thực thi | Dừng công việc còn lại, không phải dọn dẹp async thành công |
 | Lease | quyền giữ tài nguyên còn sống | Bảo đảm vòng đời mà việc đọc `Rc<T>` đơn thuần không cung cấp |
+| Loader entry | entry của loader | Identity logic ổn định và options nguồn, khác Fiber có thể thay thế |
+| Structural group | nhóm cấu trúc | Cha có danh sách con có thứ tự, vẫn tồn tại khi con bị vô hiệu hóa |
+| Source reconciliation | đồng bộ nguồn cấu hình | Áp dụng snapshot nguồn của bên gọi mà không phát commit ghi ngược |
 | Console exporter | bộ xuất log ra console | Writer native theo phạm vi chủ sở hữu, render các bản ghi core được chọn |

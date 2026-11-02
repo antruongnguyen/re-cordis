@@ -185,32 +185,31 @@ before timer repair under the 2026-11-03 useful-Rust direction.
 - [x] Complete independent review, explicit stable/MSRV/shared acceptance and
   commit the console slice.
 
-### 3. re-cordis-loader — explicit Rust loading, not native hot reload
+### 3. re-cordis-loader — delivered typed loading and structural groups
 
-- [ ] Review TS `packages/loader/src/` and `packages/loader/tests/`, especially
-  resolve/import, entry/tree/group, validation/commit, evaluation and isolation.
-  Separate core loading contracts from include/HMR/file-persistence features.
-- [ ] Choose a bounded first slice: explicitly registered Rust plugin factories
-  and typed configuration/resolution contracts. Agree on input format and
-  serialization dependencies before adding them to a new loader crate.
-- [ ] Define missing/duplicate/unknown entries, validation timing, admission
-  versus readiness, load ordering, exact dependency retention, partial-load
-  rollback, explicit updates and parent-owned teardown. Missing requirements
-  remain Pending; Failed recovery remains an explicit update.
-- [ ] Map JS module imports, runtime expressions, schema discovery and mutable
-  entry/group behavior to supported Rust equivalents or clear exclusions.
-  Do not imply arbitrary JavaScript execution, native shared-library reload,
-  filesystem watching or transparent JS compatibility.
-- [ ] Test fixtures and controlled failure paths through the public core APIs,
-  including loading/unloading gates and repeated baseline restoration.
-  Any demonstrated core gap needs a separately justified, targeted fix.
-- [ ] Add runnable boot/reconfigure/shutdown examples and paired language
-  guide/API pages; complete the shared checklist.
+- [x] Typed reusable factory catalog and checked native/JSON config decoding;
+  plugin validators remain deferred to the core dependency-readiness boundary.
+- [x] Source-aware stable entries, independent failure/recovery, latest-intent
+  updates/rebuilds, typed scopes and exact-inner config/disposal attribution.
+- [x] Structural ordered groups, disabled inheritance, stable moves/adoption,
+  old committed provider retention and parent-joined detached retirement.
+- [x] Bounded JSON, typed conditions/intercepts/config mapping, structured
+  source paths, explicit patch semantics and immutable source/evaluated views.
+- [x] Runtime commit events, read-only in-memory source reconciliation and
+  typed factory replacement seams; no include persistence or HMR engine.
+- [x] Runnable boot/reconfigure/failure/recovery/shutdown example and matching
+  English/Vietnamese loader/groups guides, API references and export checks.
+
+Implementation evidence and final review/toolchain acceptance are tracked in
+[L0–L5](plans/2026-11-02-cordis-completion/loader.md) and
+[G0–G1](plans/2026-11-02-cordis-completion/group.md).
+JavaScript imports/eval, mutable prototype reparenting, native shared-library
+reload, filesystem persistence and watching are explicitly excluded/deferred.
 
 ### Other satellites — planned after the first three targets
 
-- [ ] `group`: implement structural group behavior with loader; decide whether
-  a thin facade crate is useful. Upstream group re-exports loader Group. See
+- [x] `group`: delivered in `re-cordis-loader` with one structural implementation;
+  no facade crate. Upstream group re-exports loader Group. See
   [G0–G1](plans/2026-11-02-cordis-completion/group.md).
 - [ ] `include`: evaluate configuration includes, patches, provenance and
   failure-safe persistence after loader format/ownership contracts exist.
@@ -237,7 +236,7 @@ integrations remain separate scope decisions.
 - [ ] Update matching `docs/en/` and `docs/vi/` guides/API indexes, examples,
   glossary terms as needed, and `docs/llms.txt` in the same slice. Extend
   `tests/docs/check.py` for each delivered crate's exports/snippet dependencies;
-  its current automated export coverage includes core, timer and logger.
+  its current automated export coverage includes core, timer, logger and loader.
 - [ ] Keep `README.md` status/layout/star matrices, `CHANGELOG.md`,
   `docs/todo.md`, `docs/decision.md`, `docs/limitation.md` and `AGENTS.md` accurate.
   Preserve old milestone evidence as historical, not claims of new delivery.
@@ -305,7 +304,7 @@ These consumers are not a generic harness or a new satellite/M7 commitment.
   and explicit limits; no unmeasured performance or universal-winner claim.
 
 See [the documentation map](README.md). These pages document the existing
-unpublished core, timer and logger; the remaining satellite roadmap is future work,
+unpublished core, timer, logger and loader; the remaining satellite roadmap is future work,
 not an API-stability promise.
 Maintain both languages and the agent index when public contracts change.
 

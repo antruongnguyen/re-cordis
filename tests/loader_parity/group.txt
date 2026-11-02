@@ -1,0 +1,5 @@
+created group=Active child=Disabled entries=2 applies=0 releases=0
+enabled group=Active child=Active entries=2 applies=1 releases=0
+disabled group=Active child=Disabled entries=2 applies=1 releases=1
+reenabled group=Active child=Active entries=2 applies=2 releases=1
+disposed applies=2 releases=2

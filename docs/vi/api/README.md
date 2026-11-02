@@ -3,7 +3,7 @@
 [English](../../en/api/README.md) | [Trang tiếng Việt](../README.md)
 
 Tài liệu bao phủ export công khai của `re-cordis-core` và vệ tinh
-`re-cordis-timer`, `re-cordis-logger`, không phải bộ lưu trữ nội bộ hay handle riêng của ví dụ. Nội dung mô tả cách dùng và hợp đồng hành vi;
+`re-cordis-timer`, `re-cordis-logger`, `re-cordis-loader`, không phải bộ lưu trữ nội bộ hay handle riêng của ví dụ. Nội dung mô tả cách dùng và hợp đồng hành vi;
 Rustdoc được sinh từ mã nguồn là tham chiếu chính xác cho chữ ký, ràng buộc
 generic, trait implementation và trường công khai.
 
@@ -37,6 +37,8 @@ chương bên dưới, và export của vệ tinh `re-cordis-timer` được bao
 | [Lỗi và hook](errors-hooks.md) | `HostError`, `AdmissionError`, `CompletionError`, `ValidationError`, `ValidationIssue`, `PathSegment`, module công khai `hooks` |
 | [Vệ tinh Timer](timer.md) | `TimerExt`, `Sleep`, `IntervalStream`, `IntervalControl`, `Scheduled`, `TimerError` |
 | [Vệ tinh Console](console-logger.md) | `ColorMode`, `Alignment`, `LabelStyle`, `Timestamp`, `ConsoleOptions`, `render`, `register`, `register_stdout` |
+| [Loader](loader.md) | `Catalog`, `Config`, `EntrySpec`, `EntryKind`, `EntryId`, `FactoryId`, `Loader`, `LoaderTask`, `LoaderError`, `EntrySnapshot`, `EntryState`, `EntryFailure`, `Settlement`, `Scope`, `Origin`, `CommitRecord`, `SourceId`, `SourceDocument`, `SourceLocation`, `SourceSpan`, `FieldPatch`, `EntryPatch`, `MAX_ENTRIES`, `MAX_JSON_BYTES`, `MAX_JSON_DEPTH`, `MAX_JSON_NODES`, `MAX_STRING_BYTES` |
+| [Groups](groups.md) | `Group` |
 
 ## Đọc kết quả phương thức theo hai giai đoạn
 

@@ -79,3 +79,10 @@ webhook delivery. Private session artifacts are not documentation dependencies.
 plugin-owned stdout, explicit formatting, owner disposal, manual removal and
 root drain. Run `cargo run -p re-cordis-logger --example console --locked`.
 See [console logging](console-logging.md) for the same complete program.
+
+## Loader boot and reconfiguration
+
+Run `cargo run -p re-cordis-loader --example boot_reconfigure --locked`.
+The [example](../../../crates/re-cordis-loader/examples/boot_reconfigure.rs)
+boots a structural group, waits Pending, admits a provider, updates source,
+fails/recover explicitly and joins shutdown. No files or network are used.

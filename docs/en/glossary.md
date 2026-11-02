@@ -28,4 +28,7 @@ API identifiers remain unchanged in both languages.
 | Exporter | bộ xuất log | Scoped callback receiving selected log records |
 | Cancellation | hủy thực thi | Stopping outstanding work, not successful async cleanup |
 | Lease | quyền giữ tài nguyên còn sống | A lifetime guarantee that plain `Rc<T>` reads do not provide |
+| Loader entry | entry của loader | Stable logical identity and source options, distinct from a replaceable Fiber |
+| Structural group | nhóm cấu trúc | Ordered entry parent retained while descendants are disabled |
+| Source reconciliation | đồng bộ nguồn cấu hình | Apply a caller-owned source snapshot without write-back commits |
 | Console exporter | bộ xuất log ra console | An owner-scoped native writer rendering selected core records |

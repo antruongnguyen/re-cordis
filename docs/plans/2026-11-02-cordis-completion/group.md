@@ -56,3 +56,28 @@ A facade Cargo.toml/src/lib.rs is conditional on G0's packaging decision.
 **Completion:** source behavior is covered regardless of whether there is a
 separate Cargo package. This work cannot be replaced by merely showing that
 core parent-owned child cleanup already works.
+
+## Delivered G0/G1 contract and evidence boundary
+
+Import `re_cordis_loader::Group`. Behavior lives in the loader's lib.rs; there
+is no empty group crate, second registry or independent lifecycle engine.
+Group owners remain structural while disabled verdicts suppress descendants.
+Ordered children follow current logical ownership; old groups do not remove
+adopted entries. Stable EntryId survives cross-group/source adoption; crossing
+groups/scopes joins old cleanup and rebuilds core Fiber allocations.
+Same-group reordering does not restart.
+
+The thirteen group.spec.ts declarations are represented by:
+initialization and normal groups; parent/child disabled combinations and nested
+structural presence; child source replacement/removal; adoption/reorder;
+parent/loader cleanup and readiness that may settle Pending. Executable fixtures
+live in groups.rs, regressions.rs (100 cycles and source child failures) and
+sources_moves.rs. Isolation/old committed views are in lifecycle.rs. This is
+native Rust behavior, not JS mutable prototype or source-namespace emulation.
+
+See [group API](../../en/api/groups.md) and
+[loader dispositions](loader.md#source-case-dispositions).
+Targeted tests and strict loader Clippy pass during implementation; independent
+review and the final explicit stable/1.85.0 acceptance/commit are recorded by
+the parent. The source inventory's lack of standalone group tests remains true:
+upstream group simply exports loader Group.

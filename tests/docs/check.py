@@ -68,6 +68,15 @@ def direct_exports(source):
     return set(re.findall(r"^pub (?:trait|struct|enum|fn) (\w+)", source, re.M))
 
 
+def exported_names(source):
+    """Discover direct types/functions and explicit root reexports."""
+    names = direct_exports(source)
+    for group, single, alias in re.findall(
+            r"^pub use [\w:]+::(?:\{([^}]+)\}|(\w+)(?: as (\w+))?);", source, re.M | re.S):
+        names.update(re.findall(r"\b\w+\b", group) if group else [alias or single])
+    return names
+
+
 def check_structure():
     english = {path.relative_to(DOCS / "en") for path in (DOCS / "en").rglob("*.md")}
     vietnamese = {path.relative_to(DOCS / "vi") for path in (DOCS / "vi").rglob("*.md")}
@@ -109,6 +118,9 @@ def check_structure():
     logger_source = (ROOT / "crates/re-cordis-logger/src/lib.rs").read_text(encoding="utf-8")
     logger_exports = direct_exports(logger_source)
     require(logger_exports, "No public logger exports discovered")
+    loader_source = (ROOT / "crates/re-cordis-loader/src/lib.rs").read_text(encoding="utf-8")
+    loader_exports = exported_names(loader_source)
+    require(loader_exports, "No public loader exports discovered")
     hooks = (ROOT / "crates/re-cordis-core/src/hooks.rs").read_text(encoding="utf-8")
     payloads = re.findall(r"^pub struct (\w+)", hooks, re.M)
     functions = re.findall(r"^pub fn (\w+)", hooks, re.M)
@@ -117,7 +129,7 @@ def check_structure():
         chapters = "\n".join(path.read_text(encoding="utf-8")
                              for path in (DOCS / language / "api").glob("*.md")
                              if path.name != "README.md")
-        for name in exports | timer_exports | logger_exports:
+        for name in exports | timer_exports | logger_exports | loader_exports:
             require(f"`{name}`" in index, f"{language}: export not indexed: {name}")
             require(re.search(rf"\b{re.escape(name)}\b", chapters),
                     f"{language}: export not covered in a chapter: {name}")
@@ -137,6 +149,7 @@ def check_structure():
                     for line in section.splitlines()), "llms.txt H2 sections must be file lists")
     print(f"Checked {len(english)} page pairs, {len(exports)} root exports, "
           f"{len(timer_exports)} timer exports, {len(logger_exports)} logger exports, "
+          f"{len(loader_exports)} loader exports, "
           f"{len(payloads)} hook payloads, {len(functions)} hooks, local links and llms.txt.")
     require(snippets, "No runnable Rust documentation examples found")
     return snippets
@@ -162,10 +175,11 @@ def run_examples(toolchain, snippets):
         print(run([tools[name], "--version"], env, 30).strip())
     # Build delivered satellites and collect their explicit snippet libraries.
     # Cargo supplies their transitive dependencies through the dependency path.
-    wanted = {"re_cordis_core", "re_cordis_timer", "re_cordis_logger",
+    wanted = {"re_cordis_core", "re_cordis_timer", "re_cordis_logger", "re_cordis_loader",
               "tokio", "futures_util"}
     output = run([tools["cargo"], "build", "-p", "re-cordis-timer",
-                  "-p", "re-cordis-logger", "--lib", "--offline", "--locked",
+                  "-p", "re-cordis-logger", "-p", "re-cordis-loader",
+                  "--lib", "--offline", "--locked",
                   "--message-format=json"], env)
     libraries = {}
     for line in output.splitlines():

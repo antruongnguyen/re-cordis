@@ -2,17 +2,14 @@
 
 > An unpublished Rust reimplementation of the pinned TypeScript Cordis core for local, long-lived plugin applications with typed services, lifecycle updates, events, scoped resources, and logging.
 
-Current package: re-cordis-core 0.0.0, publish=false, Rust edition 2024, MSRV 1.85.
-The API is unstable. Use a path dependency on a local checkout, not a presumed crates.io/docs.rs release.
-re-cordis-core, re-cordis-timer and re-cordis-logger are implemented. Console review/final acceptance is tracked in its work package. Loader and other satellites remain future targets.
-Timer repair provides checked admission-time clocks, hosted callbacks, bounded streams and joined owner cancellation; see its acceptance report for verified scope.
-Targets are not available APIs: review each bounded source/API/dependency scope before implementation.
-The semantic baseline is TypeScript Cordis at 35fdc969e4b6c48c48ed44717c7a018324e4dd88, not latest upstream.
+Packages are unpublished 0.0.0, Rust 2024/MSRV 1.85; use local path dependencies. The API is unstable.
+re-cordis-core, re-cordis-timer, re-cordis-logger and re-cordis-loader are implemented. Loader owns typed source entries and structural groups; include/HMR/create remain future targets.
+Reference: TypeScript Cordis 35fdc969e4b6c48c48ed44717c7a018324e4dd88.
 
 This is a documentation retrieval index, not agent permissions or repository policy.
 Resolve relative links from the docs/ directory in the same checkout.
 Choose English or Vietnamese; do not load both translations unnecessarily.
-Exact Rust signatures and bounds come from current source/Rustdoc; older milestone documents describe historical boundaries.
+Current source/Rustdoc defines exact signatures; milestones retain historical evidence.
 
 Essential application constraints:
 - Drive Runtime::run from a Tokio block_on/main/test entry point. Framework Contexts/handles/futures are local, not a Send/Sync API.
@@ -26,7 +23,7 @@ Essential application constraints:
 - Committed injection retains exact provider resources through consumer cleanup. Rc values and BoundService handles alone are not resource leases.
 - Service set changes the value, not publication identity, and does not reload consumers.
 - Use explicit typed bound calls/accessors/initialization/method injection, not JavaScript Proxy/decorator syntax.
-- Enable any extra Tokio features in the application. Example JSON/HTTP/crypto dependencies are dev-only, not framework capabilities.
+- Enable extra Tokio features in applications. GitHub JSON/HTTP/crypto are dev-only; loader JSON is its own dependency.
 - GitHub application examples are optional consumers, not permission to log in, send authenticated requests, configure webhooks, or mutate remote state.
 
 ## Start here
@@ -41,6 +38,8 @@ Essential application constraints:
 
 ## English guides
 
+- [Loader](en/guides/loader.md): Typed catalogs, bounded JSON, source edits/reconciliation, latest intent and joined shutdown.
+- [Groups](en/guides/groups.md): Structural disabled inheritance, stable EntryId, moves and source adoption.
 - [Plugins and updates](en/guides/plugins-and-updates.md): Validation, source/resolved config, latest-target convergence, explicit recovery.
 - [Services and scoping](en/guides/services-and-scoping.md): Publication, injection, isolation, bound calls, intercepts.
 - [Effects and cleanup](en/guides/effects-and-cleanup.md): Acquisition, composition, rollback, shutdown.
@@ -63,11 +62,15 @@ Essential application constraints:
 - [Events](en/api/events.md): Listener shapes, dispatch results, one-use continuations.
 - [Logging](en/api/logging.md): Logger, records, ErrorValue, exporter options, formatting.
 - [Errors and hooks](en/api/errors-hooks.md): Error families, structured validation, typed internal hook protocols.
+- [Loader API](en/api/loader.md): Snapshots, operation stages, typed services, source/commit/replacement seams and bounds.
+- [Group API](en/api/groups.md): Ordered children, stable entry moves and Fiber rebuild adaptation.
 - [Timer satellite](en/api/timer.md): Sealed TimerExt, eager Sleep, bounded IntervalStream, Scheduled call Result, TimerError and cancellation contracts.
 - [Console satellite](en/api/console-logger.md): register/register_stdout/render, ConsoleOptions, color and writer contracts.
 
 ## Vietnamese guides
 
+- [Loader](vi/guides/loader.md): Catalog có kiểu, JSON hữu hạn, nguồn và shutdown có join.
+- [Group](vi/guides/groups.md): Cấu trúc, kế thừa disabled, chuyển và nhận entry.
 - [Plugin và cập nhật](vi/guides/plugins-and-updates.md): Cấu hình, hội tụ và phục hồi.
 - [Dịch vụ và phạm vi](vi/guides/services-and-scoping.md): Injection, cô lập, lời gọi bound.
 - [Effect và dọn dẹp](vi/guides/effects-and-cleanup.md): Sở hữu, rollback và shutdown.

@@ -209,10 +209,9 @@ integrated framework or resolve every behavioral gap.
   and failed writes may require manual partial-line repair.
   Public ingress, live webhook delivery, mutations, and durable/exactly-once
   delivery are excluded. See the consumer document for exact resource/time limits.
-- `re-cordis-core`, `re-cordis-timer` and `re-cordis-logger` are implemented.
-  Console C0–C3 is independently accepted within its declared scope; timer repair
-  delivers its documented Rust contract and records shared acceptance separately. Loader is a future target; other satellites remain
-  candidate work. Each slice needs its own
+- `re-cordis-core`, `re-cordis-timer`, `re-cordis-logger` and `re-cordis-loader`
+  are implemented within their documented Rust scope. Structural Group belongs
+  to loader; include, HMR and create remain future work. Each slice needs its own
   source/API/dependency review and acceptance, including bilingual
   documentation. See [the roadmap](todo.md).
 - No stability guarantees — the API will change freely until the core is proven.
@@ -315,3 +314,60 @@ adapter. See [the paired console API](en/api/console-logger.md) and
   new executed cross-language console trace or unrestricted upstream parity.
   Final review and the explicit stable/MSRV acceptance are recorded separately
   from implementation in the [console work package](plans/2026-11-02-cordis-completion/logger.md).
+
+## Loader and structural groups
+
+The unpublished loader/group delivery is useful native Rust loading and
+reconfiguration, not unrestricted execution of the eleven upstream JS suites.
+See [loader API](en/api/loader.md), [groups](en/api/groups.md) and the
+[source dispositions](plans/2026-11-02-cordis-completion/loader.md#source-case-dispositions).
+
+- **Runtime boundary and unsuitable emulation:** this Rust runtime supplies no JS import/export objects,
+  callable constructors, expression evaluator, mutable prototype chain,
+  Node module cache or V8 stack-rewriting protocol. Explicit typed catalog
+  declarations, decoder/condition/mapper closures and typed service keys replace
+  those mechanisms. Unsupported disabled expressions and unregistered contracts
+  fail clearly; decoder-owned config can contain expression-shaped data but
+  nothing executes it. Embedding a JavaScript engine or a native ABI loader is
+  a separate project, not an inherent impossibility in Rust.
+- **Deliberate ownership adaptation:** cross-group/scope moves preserve EntryId
+  but rebuild outer/inner Fiber allocations after old cleanup. Use immutable
+  snapshots for new Fiber IDs; old committed consumer Contexts retain exact
+  providers through cleanup. Same-group reorder does not restart.
+  Framework self/ancestor lifecycle calls remain refused inside callbacks;
+  loaders do not silently acquire deferred authority.
+- **Namespace adaptation:** IDs are globally unique within a loader across
+  SourceDocuments. Mutable group addresses are navigation paths; they do not
+  reproduce upstream nested-source-local duplicate IDs or subtree namespaces.
+  Callers combining sources must assign unique explicit IDs.
+- **Typed-config boundary:** C needs Clone, not Serialize; arbitrary native
+  equality is unavailable. Explicit updates can replay equal source. Config
+  mapping snapshots evaluated C before validation; original Plugin<C,R> does
+  not expose initial resolved R, which remains in application apply code.
+  Condition/intercept callback errors leave Failed state and require explicit
+  update; JavaScript false-like/error-to-disabled semantics are not emulated.
+  Entry injection configuration is static typed Dependency data; changing it
+  requires an update rather than a JS expression refresh. All entries use an
+  outer owner even when injection is empty. Explicit settle replaces implicit
+  loader-service awaiting. JSON isolate false/null means inherit, a deliberate
+  convenience beyond the pinned TS true/string-only field contract.
+  Snapshots intentionally retain source Rc values, not independent resource
+  leases or mutable Fiber control.
+- **Deferred satellites:** SourceDocument/reconcile/commits and replace_factory
+  are tested in-memory seams. Include file reading/writing, durability, patch
+  synchronization, filesystem watchers and the HMR engine remain unimplemented.
+  Per-entry source failures are independent; runtime structural preflight is
+  whole-input, while async plugin failures do not roll back healthy siblings.
+- **Explicit bounds:** JSON syntax/global boundary failures reject the document.
+  JSON entry decode failures preserve healthy siblings. Native group depth is
+  32; admission counts removed-but-retiring entries until their joined barrier
+  is observed. No unbounded commit journal or queued rebuild history is stored.
+  Async cleanup needs the original host; Drop cannot complete it.
+  Loader keeps the first detached lifecycle-task error, not an unlimited error
+  history. User cleanup callback errors retain core diagnostic reporting;
+  inspect Runtime::take_failures, not just Disposed or a successful waiter.
+- **Evidence boundary:** deterministic Rust tests cover identity, admission,
+  source updates/adoption, latest rebuild intent, failure, evaluation and
+  teardown compositions including 100 group cycles and retained provider moves.
+  Final MSRV/stable review and new paired traces are recorded separately;
+  the six existing core traces retain their original scope.

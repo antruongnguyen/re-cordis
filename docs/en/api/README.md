@@ -3,7 +3,7 @@
 [Tiếng Việt](../../vi/api/README.md) | [English home](../README.md)
 
 This reference covers the public exports of `re-cordis-core` and the
-`re-cordis-timer` and `re-cordis-logger` satellites, not their private storage or example-private
+`re-cordis-timer`, `re-cordis-logger` and `re-cordis-loader` satellites, not their private storage or example-private
 handles. It describes usage and behavioral contracts; generated Rustdoc is
 authoritative for exact signatures, generic bounds, trait implementations, and
 public fields.
@@ -39,6 +39,8 @@ documented by concern.
 | [Errors and hooks](errors-hooks.md) | `HostError`, `AdmissionError`, `CompletionError`, `ValidationError`, `ValidationIssue`, `PathSegment`, public `hooks` module |
 | [Timer satellite](timer.md) | `TimerExt`, `Sleep`, `IntervalStream`, `IntervalControl`, `Scheduled`, `TimerError` |
 | [Console satellite](console-logger.md) | `ColorMode`, `Alignment`, `LabelStyle`, `Timestamp`, `ConsoleOptions`, `render`, `register`, `register_stdout` |
+| [Loader](loader.md) | `Catalog`, `Config`, `EntrySpec`, `EntryKind`, `EntryId`, `FactoryId`, `Loader`, `LoaderTask`, `LoaderError`, `EntrySnapshot`, `EntryState`, `EntryFailure`, `Settlement`, `Scope`, `Origin`, `CommitRecord`, `SourceId`, `SourceDocument`, `SourceLocation`, `SourceSpan`, `FieldPatch`, `EntryPatch`, `MAX_ENTRIES`, `MAX_JSON_BYTES`, `MAX_JSON_DEPTH`, `MAX_JSON_NODES`, `MAX_STRING_BYTES` |
+| [Groups](groups.md) | `Group` |
 
 ## Read method results in two stages
 

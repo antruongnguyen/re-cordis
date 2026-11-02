@@ -8,6 +8,8 @@ This project does not yet follow semantic versioning — the API is unstable.
 ## [Unreleased]
 
 ### Added
+
+- Added unpublished `re-cordis-loader`: reusable typed factory catalog, parent-owned source entries, latest-intent rebuilds, structural groups/moves, typed isolation/evaluation, bounded JSON and source-location errors, immutable snapshots, runtime commit events, read-only in-memory reconciliation and typed factory replacement seams. Includes deterministic cleanup/failure fixtures, a runnable boot/reconfigure/recover/shutdown example and matching English/Vietnamese loader/group guides and API references.
 - Unpublished `re-cordis-logger` console satellite over existing core exporters:
   owned local writers, deterministic rendering, stdout routing, explicit/Auto
   color policy, fixed record-time UTC and committed elapsed timing, visible

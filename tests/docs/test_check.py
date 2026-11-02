@@ -22,6 +22,16 @@ class DocumentationChecks(unittest.TestCase):
                          {"ColorMode", "ConsoleOptions", "TimerExt", "render",
                           "register", "register_stdout"})
 
+    def test_loader_exports_include_reexports_and_alias_without_private_names(self):
+        source = ("pub struct Loader {}\n"
+                  "pub use crate::scope::Scope;\n"
+                  "pub use source::{EntryPatch, MAX_ENTRIES};\n"
+                  "pub use re_cordis_core::hooks::Value as Config;\n"
+                  "use source::SourceInput;\n"
+                  "pub(crate) struct Entry {}\n")
+        self.assertEqual(check.exported_names(source),
+                         {"Loader", "Scope", "EntryPatch", "MAX_ENTRIES", "Config"})
+
     def test_complete_fences(self):
         self.assertEqual(
             check.blocks("```rust\nfn main() {}\n```\n\n```toml\nx = 1\n```\n"),

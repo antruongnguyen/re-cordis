@@ -9,6 +9,11 @@ entry tree with predictable update, failure, isolation and teardown behavior.
 It delegates lifecycle and service retention to core; include owns file persistence.
 **Tech stack:** Rust 2024, re-cordis-core, standard collections; serde/serde_json
 only after L0 selects a serialized boundary.
+**Implementation:** Delivered L0–L5/G0–G1 in the current working tree; final
+independent review, explicit stable/1.85.0 matrix and commit are tracked by
+the parent acceptance record. Checkboxes below record implementation, not
+unrestricted execution of all 140 upstream declarations.
+
 **Spec:** [Master design](README.md), pinned packages/loader/src/ and its eleven
 spec files listed in [the inventory](source-inventory.md).
 
@@ -71,7 +76,7 @@ dependency decision and exact limits. Generate the short coding plan for L1.
 ## L1 — Registered factories and in-memory entries
 
 **Files to create:** crates/re-cordis-loader/Cargo.toml, src/lib.rs,
-src/catalog.rs, src/entry.rs, tests/catalog.rs, tests/entries.rs.
+src/lib.rs, src/scope.rs, src/source.rs, tests/catalog.rs, tests/entries.rs.
 
 - [ ] Add failing tests for known/unknown/duplicate factory names, stable
   identity across two entries, duplicate explicit IDs, generated IDs and
@@ -87,7 +92,7 @@ src/catalog.rs, src/entry.rs, tests/catalog.rs, tests/entries.rs.
 
 ## L2 — Updates, readiness, failure and rebuilds
 
-**Files:** src/entry.rs; create src/tree.rs, tests/updates.rs, tests/rebuild.rs,
+**Files:** src/lib.rs, tests/updates.rs, tests/rebuild.rs,
 tests/failures.rs. Reuse core update/completion APIs.
 
 - [ ] Port source-backed cases for Pending activation, explicit Failed recovery,
@@ -107,7 +112,7 @@ tests/failures.rs. Reuse core update/completion APIs.
 ## L3 — Structural groups, moves and isolation
 
 **Depends on:** L2 and G0's agreed group contract.
-**Files:** src/tree.rs; create src/group.rs, src/scope.rs, tests/groups.rs,
+**Files:** src/lib.rs, src/scope.rs, tests/groups.rs,
 tests/moves.rs, tests/isolation.rs. See [group plan](group.md).
 
 - [ ] Implement nested groups, composite IDs, ordered children and create/
@@ -126,7 +131,7 @@ tests/moves.rs, tests/isolation.rs. See [group plan](group.md).
 
 ## L4 — Bounded configuration and typed evaluation
 
-**Files:** create src/config.rs, src/source.rs, tests/config.rs,
+**Files:** src/lib.rs, src/source.rs, tests/config.rs,
 tests/evaluation.rs, tests/fixtures/; update Cargo.toml/lock for accepted serde
 dependencies. File reading/writing belongs to include.
 
@@ -167,3 +172,77 @@ and api/loader.md, indexes, tests/docs/, status/evidence documents.
 loader/group scope. Arbitrary JS imports, eval, mutable prototypes, V8 stack
 rewriting and native hot loading require explicit unsupported entries or a
 separate approved project; they are never marked complete by Rust API resemblance.
+
+## Delivered Rust contract and targeted checks
+
+The public API is `Catalog`, `Config`, `EntrySpec/EntryKind`,
+`EntryId/FactoryId`, `Group`, `Scope`, `Loader`, immutable
+`EntrySnapshot`, `Settlement/EntryFailure`, `LoaderTask`,
+`Origin/CommitRecord`, `SourceId/SourceDocument/SourceLocation/SourceSpan`
+and `EntryPatch/FieldPatch`. Exact signatures live in Rustdoc and
+[the paired API](../../en/api/loader.md).
+
+- Catalog retains original typed Plugin identity; decoding is separate from
+  dependency-ready validation. Native Clone sources need no Serialize/Send.
+- Stable global EntryId differs from catalog FactoryId and rebuilt core FiberId.
+  Explicit IDs are nonempty, at most 128 bytes and exclude ':'; factory names
+  are nonempty and at most 256 bytes; generated IDs use checked entry-N counters.
+- Programmatic whole-group input rejects before mutation. Source reconciliation
+  isolates entry failures and preserves healthy siblings, including nested
+  children. Runtime events carry old/new/group/origin; source reads do not write back.
+- Outer entry injection and inner plugin injection have separate authority.
+  Conditions/intercepts evaluate after outer commitment; mapping evaluates
+  in the exact inner Context before its plugin validator. Resolved R is
+  plugin-owned; snapshots expose source, original transport and evaluated C.
+- One coalesced rebuild intent joins old generations; every manual retirement
+  is retained independently of task cancellation. Removed-but-retiring records
+  count toward 1024 admission capacity. Owner disposal breaks Entry/Fiber
+  cycles and joins detached cleanup after Loader/waiter Drop.
+- Structural groups retain ordered logical children when disabled.
+  Cross-group/scope moves rebuild core allocation identity after cleanup;
+  same-group reorder is inert. Group addresses adapt navigation, while source
+  IDs are globally unique instead of upstream nested-source-local namespaces.
+- JSON is 1 MiB, 32 levels, 65536 nodes/string bytes; group depth is 32.
+  Decoders see absent/null distinctly. FieldPatch explicitly keeps/sets/clears.
+  Registered typed service adapters support JSON injection, fresh/shared
+  isolation and intercept configs. Unsupported expression markers fail.
+- SourceDocument/reconcile/commits and replace_factory are tested in-memory
+  integration seams; include persistence and HMR remain deferred.
+
+Targeted command: `cargo test -p re-cordis-loader --locked`.
+Fixtures are catalog.rs, entries.rs, updates.rs, groups.rs, source.rs,
+regressions.rs, admission.rs, lifecycle.rs, reentrant.rs and sources_moves.rs.
+They include gated rename/removal, source adoption/order, deferred validator
+timing, loaded rejection, explicit failure recovery, exact child/self-disposal,
+100 group cycles, source sibling failures, UTF-8/input bounds and parent-joined
+retirement after all Loader handles drop. The runnable
+[boot_reconfigure example](../../../crates/re-cordis-loader/examples/boot_reconfigure.rs)
+covers Pending provider arrival, update, apply failure, recovery and shutdown.
+Strict loader all-target Clippy and targeted tests have passed during development;
+final stable/MSRV, docs and paired scope results belong to final acceptance.
+
+## Source-case dispositions
+
+All eleven pinned suites are reviewed under their declaration groups below.
+The inventory retains every original line/name. These are semantic dispositions,
+not an assertion that a Rust fixture executed each original JavaScript test.
+
+| Pinned suite / declarations | Rust representation and executable fixture | Mechanism/evidence boundary |
+|---|---|---|
+| commit.spec.ts / 10 | CommitRecord old/new/target/origin, read-only reads, adoption, exact inner hooks: source.rs, lifecycle.rs, sources_moves.rs | Core events replace JS tree override callbacks; original transport is retained separately. |
+| evaluate.spec.ts / 37 | Typed conditions/intercepts/config mapping and separate entry/plugin injection: groups.rs, regressions.rs, reentrant.rs | JS expression parsing, interpolation trace offsets and JS truthiness are explicitly unsupported; typed callbacks express useful intent. |
+| group.spec.ts / 13 | Structural disabled inheritance, ordered updates, adoption/removal and repeated cleanup: groups.rs, regressions.rs, sources_moves.rs | Loader-owned Group export; no separate facade/registry. Native source IDs are loader-wide. |
+| import.spec.ts / 2 | Explicit Catalog names and typed declarations: catalog.rs, entries.rs | JS import/export wrapping and arbitrary module execution are unsupported. |
+| index.spec.ts / 19 | Create/update/remove, Pending, failure/recovery and joined teardown: entries.rs, updates.rs, admission.rs, reentrant.rs | Explicit Loader handle replaces implicit JS loader service/property integration; invalid schema values keep core validation timing. |
+| internal.spec.ts / 1 | Typed replacement seam exercised by source.rs | Node ModuleJob/cache monkey-patching is unsupported, not implemented by the replacement API. |
+| isolate-provide.spec.ts / 7 | Typed Scope and committed-provider retention: groups.rs, lifecycle.rs | Public core isolation/publication ownership reused; JS prototype reflection is not reproduced. |
+| isolate.spec.ts / 21 | Fresh/shared typed realms, scope moves and old exact consumer views: groups.rs, lifecycle.rs, regressions.rs | Move preserves EntryId while rebuilding Fiber IDs; nested source namespaces are deliberately adapted. |
+| rebuild.spec.ts / 12 | One latest revision during gated cleanup, removal wins, factory replacement: updates.rs, source.rs | Synchronous registered catalog replaces JS asynchronous import windows; lifecycle cleanup/load windows remain tested. |
+| resolve.spec.ts / 12 | Known/unknown/duplicate registered names: catalog.rs, entries.rs | Node project helper/package exports/self references/drive paths/rename retries are unsupported; use explicit native registration. |
+| validate.spec.ts / 6 | Typed payload checks, bounded JSON, whole runtime groups, independent source failures: source.rs, admission.rs, regressions.rs | No JS StandardSchema discovery or expression schema; original Rust decoder/core error objects retained. |
+
+Node-specific import/resolve/internal declarations are exclusions of unsuitable
+JS machinery, not missing native loading features. File durability/watchers are
+deferred satellite scope, not a loader promise. No unrestricted 140-test parity
+percentage is reported. See [decision](../../decision.md#loader-and-structural-groups)
+and [limitations](../../limitation.md#loader-and-structural-groups).
