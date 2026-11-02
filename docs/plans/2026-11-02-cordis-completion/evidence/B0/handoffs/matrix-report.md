@@ -1,0 +1,8 @@
+# B0 matrix evidence housekeeping
+
+Repository /Users/I756434/Projects/private/cordis-rust; branch feat/cordis-completion. Executor gpt-6.1-sol/high. Read AGENTS.md, B0 plan.md and matrix-review.md at docs/plans/2026-11-02-cordis-completion/evidence/B0/. This is a bounded evidence-only repair before infrastructure checkpoint. Do not spawn agents, commit, edit progress.md or production/source tests, or rerun the full matrix.
+
+Independent reviewer accepted matrix at 7d1552a: 22 required commands, 53 indexed exit-0 logs, 440 Rust test outcomes, exact six/73 paired, 71 unchanged executable inputs. Findings: matrix/report.md missing, summarize-attempt-1 and -2 logs lack command/timestamp/exit metadata (first traceback is a failed HEAD equality assertion on tracking-only commits; second printed successful data but no recorded exit). Read actual artifacts and preserve these unknowns honestly.
+
+Own only matrix/report.md and any new summary-validation log/metadata files within matrix/. Write a concise report with actual tested revisions, fixed TS pin, actual tool versions, commands/log index, per-toolchain actual results and scope/platform limits, unchanged input evidence, first summary failure cause, unknown original attempt metadata, and B0 ledger still incomplete. Do not claim all commands ever attempted passed or invent absent metadata. If needed rerun only the existing summary/consistency check with real start/end/command/exit metadata into a NEW log, keeping old attempts intact. Existing Python scripts may be used but do not alter them without a demonstrated need. Save report promptly. Return owned paths and the real command results briefly. No further tasks after this one.
+

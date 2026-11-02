@@ -10,7 +10,7 @@ review, integration, documentation and current verification.
 - Baseline implementation: 808c9f5; starting checkout/plans: c5019cc.
 - Fixed TypeScript spec: 35fdc969e4b6c48c48ed44717c7a018324e4dd88 in local/cordis; tracked tree clean at startup. local/cordis-rs is reference only.
 - Integration branch: feat/cordis-completion. Worktree: /Users/I756434/Projects/private/cordis-rust (table shorthand: integration).
-- Last verified integration commit: **none in this execution**; B0 pending.
+- Last verified integration commit: **7d1552a** for the baseline command matrix (independent matrix review accepted). B0 as a whole is still incomplete; subsequent changes are evidence/tracking only.
 - Planning/architecture/review: gpt-6-astra high. Implementation/tests/verification/docs/fixes: gpt-6.1-sol high. Explicit model/effort and fork_turns=none on every spawn. Three worker slots plus orchestrator.
 - Preserve Rust 2024/resolver 3/MSRV 1.85.0, local non-Send hosting, provider retention, Pending/readiness/Failed recovery, Effect/Fiber Drop, six paired scenarios/73 observations, bilingual shipped APIs.
 
@@ -18,7 +18,7 @@ review, integration, documentation and current verification.
 
 | ID | Status | Dependencies | Owner / role / model | Worktree / branch | Implementation commit | Review result | Evidence location |
 |---|---|---|---|---|---|---|---|
-| B0 | in_progress | None | b0_ledger_extra_retry and b0_events / execution / gpt-6.1-sol high; b0_matrix_review / review / gpt-6-astra high | integration | c3fbcb0, 7d1552a (partial evidence) | matrix review active; full ledger review pending | evidence/B0/ |
+| B0 | blocked | None | orchestrator; b0_matrix_report / evidence housekeeping / gpt-6.1-sol high; b0_fragment_review / review / gpt-6-astra high | integration | c3fbcb0, 7d1552a, ac72512 (partial evidence) | matrix accepted; ledger incomplete; repeated worker API failure | evidence/B0/ |
 | B1 | planned | B0 | unassigned | integration | — | not started | evidence/B1/ |
 | T0 | planned | B0 | unassigned | integration | — | not started | evidence/T0/ |
 | T1 | planned | T0 | unassigned | integration | — | not started | evidence/T1/ |
@@ -63,10 +63,10 @@ The original b0_ledger and b0_matrix contexts cannot be resumed (HTTP 400). Thei
 | B0 subtask | Owner/state | Durable output |
 |---|---|---|
 | Full command matrix | executed, independent review active | matrix/ at c3fbcb0 and logs at 7d1552a |
-| Matrix review | b0_matrix_review / astra high | matrix-review.md; read review-handoff.md |
+| Matrix review | accepted by b0_matrix_review / astra high | matrix-review.md; two evidence housekeeping findings |
 | Decorator + reflect (5 declarations) | mapping/join complete, review pending | ledger-inputs/decorator-reflect.json and report-decorator-reflect.md |
-| Events (19 declarations) | b0_events / sol high, active | ledger-inputs/events.json and report-events.md; handoffs/events.md |
-| Associate (6) + invoke (2) | b0_ledger_extra_retry / sol high, next bounded assignment | ledger-inputs/associate-invoke.json and report-associate-invoke.md; handoffs/associate-invoke.md |
+| Events (19 declarations) | fresh b0_events failed HTTP 400; incomplete, inspect saved files | ledger-inputs/events.json and report-events.md if present; handoffs/events.md |
+| Associate (6) + invoke (2) | handoff prepared, not dispatched after fresh-worker failure | handoffs/associate-invoke.md |
 | Intercept (7), isolate (6), logger (11), shadow (8) | unassigned after extra-worker failure | no accepted fragments yet |
 | Dispose (13), fiber (22), plugin (10), service-dispose (17 sites/27 cases), service (8), update (10 sites/12 cases) | unassigned after main-worker failure | inventory-only ledger/cases.json |
 | Event types (6 expression obligations) | unassigned | event-types.json not produced |
@@ -90,6 +90,7 @@ Do not replace pending inventory with blanket exclusions or claim missing mappin
 - B0 matrix: 53 recorded commands exited 0, including both guide toolchains and paired runner (six scenarios/73 observations). Final report/source-hash audit and independent review are pending; B0 remains in progress.
 - B0 matrix report turn also disconnected after producing complete command results and sending counts. Recover existing artifacts; request only the short report and final handoff without rerunning unchanged checks.
 - B0 resume infrastructure failure: b0_ledger at 2026-11-02T08:40:28Z and b0_matrix at 08:40:41Z returned HTTP 400 UPSTREAM_LLM_ERROR / invalid_encrypted_content (encrypted reasoning item could not be decrypted or parsed). Original attempts disconnected; same-agent resume is unusable. Preserve artifacts and use fresh exact-model contexts on bounded tasks. If fresh contexts also fail repeatedly, checkpoint B0 as blocked rather than claiming baseline acceptance.
+- Fresh b0_events also failed at 2026-11-02T08:49:25Z with HTTP 400 UPSTREAM_LLM_ERROR / invalid_encrypted_content. Fresh-context remedy is not reliable. B0 is blocked by worker execution infrastructure after original, resumed and fresh-context failures; no requested model is substituted. Finish independent evidence housekeeping/review, then stop with precise resume instructions.
 
 ## Resume next
 
@@ -115,4 +116,5 @@ Do not replace pending inventory with blanket exclusions or claim missing mappin
 - 2026-11-02 CP012: Committed partial evidence/inventory at c3fbcb0 and force-added owned command logs (repository ignores *.log) in the next evidence commit. Dispatch b0_matrix_review (astra/high) against these stable artifacts; it must not count the incomplete ledger as accepted.
 - 2026-11-02 CP013: Fresh source worker saved five decorator/reflect records; matrix reviewer is making progress. Use durable short file-based handoffs to recover from corrupted contexts. Dispatch b0_events (sol/high) for 19 events declarations only, owned ledger-inputs/events.json and report-events.md. Reviewer observed evidence-summary metadata omissions; findings are pending, no production defect established.
 - 2026-11-02 CP014: Fresh sol/high recovery succeeded: decorator/reflect fragment has 5 declarations/23 obligations (9 mapped, 4 representations, 3 existing exclusions, 7 concrete evidence gaps, zero paired comparisons), with both matrix-log joins validated. Commit as unreviewed evidence and continue the healthy worker with associate/invoke (8 declarations).
+- 2026-11-02 CP015: Matrix review accepted 7d1552a; report and summary-attempt metadata findings remain. Fresh b0_events failed invalid_encrypted_content HTTP 400 at 08:49:25Z, so mark B0 blocked instead of cycling through equivalent recovery attempts. Associate/invoke handoff was saved but never dispatched. Finish bounded matrix-report repair and independent five-record fragment review, then save the final recovery checkpoint.
 
