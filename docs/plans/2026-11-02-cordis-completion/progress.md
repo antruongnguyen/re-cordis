@@ -67,6 +67,8 @@ review, integration, documentation and current verification.
 - Initialization attempt failed with a Python quoting SyntaxError before any file was written. Recreated tracking using a structured patch; no source changes affected.
 - Baseline checks not run. No pre-existing uncommitted changes or extra worktrees found.
 - B0 ledger attempt 1: agent response stream disconnected before completion. Inspect ledger/ and resume the same sol/high agent; do not infer completion or discard any saved files. Matrix executor unaffected.
+- B0 extra-ledger attempt 1: response stream disconnected before completion. Resume the same sol/high agent and save each completed spec-family mapping incrementally. This is transport failure, not evidence of unavailable requested models or code/test failure.
+- B0 matrix: 53 recorded commands exited 0, including both guide toolchains and paired runner (six scenarios/73 observations). Final report/source-hash audit and independent review are pending; B0 remains in progress.
 
 ## Resume next
 
@@ -83,4 +85,5 @@ review, integration, documentation and current verification.
 - 2026-11-02 CP004: Accepted evidence/B0/plan.md from b0_plan: exact commands, 144 declaration/156 registered-case controls, six type expressions, concrete evidence classes. Dispatch b0_ledger (sol/high) with exclusive ledger/ ownership; matrix/ remains exclusive to b0_matrix. Missing evidence may be tracked, never counted as parity; required failures prevent a green baseline.
 - 2026-11-02 CP005: b0_ledger response stream failed before completion. No ledger evidence files were present at reconciliation; resume the same gpt-6.1-sol/high agent from the accepted plan. No model substitution or acceptance claim.
 - 2026-11-02 CP006: b0_ledger resumed with prior source audit intact. Split eight independent spec-file families into b0_ledger_extra (sol/high), writing ledger-inputs/ only. Matrix executor owns all build/doc/parity execution; ledger integration remains single-owner.
+- 2026-11-02 CP007: Inspected matrix commands and paired output: all 53 recorded commands passed, exact six/73 retained. Extra-ledger agent stream disconnected; reconcile files and resume it without replacing the requested model. Require incremental durable family outputs.
 
