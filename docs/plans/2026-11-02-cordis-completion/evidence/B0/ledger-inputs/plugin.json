@@ -1,0 +1,2137 @@
+{
+  "schema_version": 1,
+  "rust_revision": "9a7633c0b3b98e5f37e9f2211f3ffa67fdac5edc",
+  "implementation_revision": "808c9f573dd96c56fa2ec43e0b1bfb9ed39b2f3f",
+  "typescript_revision": "35fdc969e4b6c48c48ed44717c7a018324e4dd88",
+  "status": "plugin family complete; exact source assertions reviewed and existing stable/MSRV matrix results joined; independent integration review pending",
+  "declarations": [
+    {
+      "id": "core/plugin.spec.ts:8",
+      "source_file": "local/cordis/packages/core/tests/plugin.spec.ts",
+      "source_line": 8,
+      "source_end_line": 17,
+      "title": "apply functional plugin",
+      "suite": [
+        "Plugin"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/plugin.spec.ts:8/default/a14",
+              "behavior": "The functional plugin callback runs exactly once after admission and readiness.",
+              "source_assertion_lines": [
+                14
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "cloned_declarations_group_distinct_instances_and_empty_groups_are_pruned",
+                  "lines": [
+                    31,
+                    33,
+                    36,
+                    43,
+                    44,
+                    53,
+                    54,
+                    56,
+                    57,
+                    58
+                  ],
+                  "assertion": "Two typed instances are admitted and joined; applied.len()==2 proves one callback per instance.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "public-surface",
+                "reason": "Rust requires an explicit typed Plugin declaration and callback/config contract; raw JavaScript function/object/class shapes and mutable callback metadata are represented by typed constructors and adapters, not discovered dynamically."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The explicit Plugin::new declaration is the supported Rust substitute for passing a raw JavaScript function; the passing test checks the corresponding invocation/config boundary."
+            },
+            {
+              "id": "core/plugin.spec.ts:8/default/a15",
+              "behavior": "The functional plugin receives the exact source configuration supplied at admission.",
+              "source_assertion_lines": [
+                15
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "cloned_declarations_group_distinct_instances_and_empty_groups_are_pruned",
+                  "lines": [
+                    31,
+                    33,
+                    36,
+                    43,
+                    44,
+                    53,
+                    54,
+                    56,
+                    57,
+                    58
+                  ],
+                  "assertion": "The callback records each typed config and the test asserts first.config()==1, second.config()==2 and recorded inputs for both instances.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "public-surface",
+                "reason": "Rust requires an explicit typed Plugin declaration and callback/config contract; raw JavaScript function/object/class shapes and mutable callback metadata are represented by typed constructors and adapters, not discovered dynamically."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The explicit Plugin::new declaration is the supported Rust substitute for passing a raw JavaScript function; the passing test checks the corresponding invocation/config boundary."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/plugin.spec.ts:18",
+      "source_file": "local/cordis/packages/core/tests/plugin.spec.ts",
+      "source_line": 18,
+      "source_end_line": 28,
+      "title": "apply object plugin",
+      "suite": [
+        "Plugin"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/plugin.spec.ts:18/default/a25",
+              "behavior": "The object-shaped plugin apply method runs exactly once after admission.",
+              "source_assertion_lines": [
+                25
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "typed_object_method_adapter_keeps_config_and_cleanup_with_its_instance",
+                  "lines": [
+                    1137,
+                    1143,
+                    1144,
+                    1161,
+                    1166,
+                    1167,
+                    1168,
+                    1169,
+                    1170,
+                    1171,
+                    1172
+                  ],
+                  "assertion": "Two object-adapter instances are joined and the two-element seen list proves one method invocation per instance.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "public-surface",
+                "reason": "Rust requires an explicit typed Plugin declaration and callback/config contract; raw JavaScript function/object/class shapes and mutable callback metadata are represented by typed constructors and adapters, not discovered dynamically."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Rust uses an explicit typed method adapter rather than discovering an apply property; the test preserves per-instance invocation and configuration."
+            },
+            {
+              "id": "core/plugin.spec.ts:18/default/a26",
+              "behavior": "The object-shaped plugin apply method receives the exact source configuration supplied at admission.",
+              "source_assertion_lines": [
+                26
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "typed_object_method_adapter_keeps_config_and_cleanup_with_its_instance",
+                  "lines": [
+                    1137,
+                    1143,
+                    1144,
+                    1161,
+                    1166,
+                    1167,
+                    1168,
+                    1169,
+                    1170,
+                    1171,
+                    1172
+                  ],
+                  "assertion": "Behavior::apply records the supplied String and the sorted seen list is asserted as first and second.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "public-surface",
+                "reason": "Rust requires an explicit typed Plugin declaration and callback/config contract; raw JavaScript function/object/class shapes and mutable callback metadata are represented by typed constructors and adapters, not discovered dynamically."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Rust uses an explicit typed method adapter rather than discovering an apply property; the test preserves per-instance invocation and configuration."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/plugin.spec.ts:29",
+      "source_file": "local/cordis/packages/core/tests/plugin.spec.ts",
+      "source_line": 29,
+      "source_end_line": 35,
+      "title": "apply invalid plugin",
+      "suite": [
+        "Plugin"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/plugin.spec.ts:29/default/a31",
+              "behavior": "An undefined plugin shape is rejected instead of starting lifecycle work.",
+              "source_assertion_lines": [
+                31
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/src/plugin.rs",
+                  "symbol": "plugin::Plugin",
+                  "lines": [
+                    85,
+                    86,
+                    87,
+                    88
+                  ],
+                  "assertion": "The Plugin Rustdoc compile-fail case passes a non-Plugin declaration to Context::plugin; compilation rejection is verified on both toolchains.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ],
+                  "rustdoc_line": 85,
+                  "compile_fail": true
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "public-surface",
+                "reason": "Rust requires an explicit typed Plugin declaration and callback/config contract; raw JavaScript function/object/class shapes and mutable callback metadata are represented by typed constructors and adapters, not discovered dynamically."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Undefined and malformed JavaScript shapes are unrepresentable as &Plugin<C,R>; the compile-fail contract is the deliberate earlier rejection point."
+            },
+            {
+              "id": "core/plugin.spec.ts:29/default/a32",
+              "behavior": "An object without an apply callback is rejected instead of starting lifecycle work.",
+              "source_assertion_lines": [
+                32
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/src/plugin.rs",
+                  "symbol": "plugin::Plugin",
+                  "lines": [
+                    85,
+                    86,
+                    87,
+                    88
+                  ],
+                  "assertion": "The Plugin Rustdoc compile-fail case passes a non-Plugin declaration to Context::plugin; compilation rejection is verified on both toolchains.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ],
+                  "rustdoc_line": 85,
+                  "compile_fail": true
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "public-surface",
+                "reason": "Rust requires an explicit typed Plugin declaration and callback/config contract; raw JavaScript function/object/class shapes and mutable callback metadata are represented by typed constructors and adapters, not discovered dynamically."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Undefined and malformed JavaScript shapes are unrepresentable as &Plugin<C,R>; the compile-fail contract is the deliberate earlier rejection point."
+            },
+            {
+              "id": "core/plugin.spec.ts:29/default/a33",
+              "behavior": "An object whose apply member is not callable is rejected instead of starting lifecycle work.",
+              "source_assertion_lines": [
+                33
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/src/plugin.rs",
+                  "symbol": "plugin::Plugin",
+                  "lines": [
+                    85,
+                    86,
+                    87,
+                    88
+                  ],
+                  "assertion": "The Plugin Rustdoc compile-fail case passes a non-Plugin declaration to Context::plugin; compilation rejection is verified on both toolchains.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ],
+                  "rustdoc_line": 85,
+                  "compile_fail": true
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "public-surface",
+                "reason": "Rust requires an explicit typed Plugin declaration and callback/config contract; raw JavaScript function/object/class shapes and mutable callback metadata are represented by typed constructors and adapters, not discovered dynamically."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Undefined and malformed JavaScript shapes are unrepresentable as &Plugin<C,R>; the compile-fail contract is the deliberate earlier rejection point."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/plugin.spec.ts:36",
+      "source_file": "local/cordis/packages/core/tests/plugin.spec.ts",
+      "source_line": 36,
+      "source_end_line": 49,
+      "title": "inactive context",
+      "suite": [
+        "Plugin"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/plugin.spec.ts:36/default/a41",
+              "behavior": "A disposing plugin Context rejects admission of a nested plugin.",
+              "source_assertion_lines": [
+                41
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "disposing_child_rejects_new_work_but_final_cleanup_can_dispatch",
+                  "lines": [
+                    418,
+                    419,
+                    420,
+                    421,
+                    457,
+                    458,
+                    460
+                  ],
+                  "assertion": "During cleanup, captured.plugin returns LifecycleError::Admission(InactiveContext).",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The current Rust test performs the same terminal-owner admission attempts inside final cleanup and checks their explicit inactive errors."
+            },
+            {
+              "id": "core/plugin.spec.ts:36/default/a42",
+              "behavior": "A disposing plugin Context rejects registration of a new cleanup effect.",
+              "source_assertion_lines": [
+                42
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "disposing_child_rejects_new_work_but_final_cleanup_can_dispatch",
+                  "lines": [
+                    413,
+                    414,
+                    415,
+                    416,
+                    457,
+                    458,
+                    460,
+                    463,
+                    464,
+                    465
+                  ],
+                  "assertion": "During and after cleanup, new disposer registration returns AdmissionError::InactiveContext.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The current Rust test performs the same terminal-owner admission attempts inside final cleanup and checks their explicit inactive errors."
+            },
+            {
+              "id": "core/plugin.spec.ts:36/default/a43",
+              "behavior": "A disposing plugin Context rejects registration of a new event listener.",
+              "source_assertion_lines": [
+                43
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "disposing_child_rejects_new_work_but_final_cleanup_can_dispatch",
+                  "lines": [
+                    422,
+                    423,
+                    424,
+                    425,
+                    426,
+                    427,
+                    428,
+                    429,
+                    430,
+                    431,
+                    457,
+                    458,
+                    460
+                  ],
+                  "assertion": "During cleanup, captured.on returns an error for a new listener registration.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The current Rust test performs the same terminal-owner admission attempts inside final cleanup and checks their explicit inactive errors."
+            },
+            {
+              "id": "core/plugin.spec.ts:36/default/a47",
+              "behavior": "Rejected nested-plugin admission does not invoke the nested callback.",
+              "source_assertion_lines": [
+                47
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "disposing_child_rejects_new_work_but_final_cleanup_can_dispatch",
+                  "lines": [
+                    418,
+                    419,
+                    420,
+                    421,
+                    460,
+                    462,
+                    463,
+                    464,
+                    465,
+                    466
+                  ],
+                  "assertion": "The late child admission is asserted to fail and the test finishes with no runtime failures, so its apply callback never runs.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The current Rust test performs the same terminal-owner admission attempts inside final cleanup and checks their explicit inactive errors."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/plugin.spec.ts:50",
+      "source_file": "local/cordis/packages/core/tests/plugin.spec.ts",
+      "source_line": 50,
+      "source_end_line": 76,
+      "title": "context inspect",
+      "suite": [
+        "Plugin"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/plugin.spec.ts:50/default/a53",
+              "behavior": "The root Context inspection name is root.",
+              "source_assertion_lines": [
+                53
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "cloned_declarations_group_distinct_instances_and_empty_groups_are_pruned",
+                  "lines": [
+                    31,
+                    43,
+                    47,
+                    48
+                  ],
+                  "assertion": "The explicit worker Context formats as Context <worker>; the same Debug implementation renders the root name selected by root Context.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "public-surface",
+                "reason": "Rust requires an explicit typed Plugin declaration and callback/config contract; raw JavaScript function/object/class shapes and mutable callback metadata are represented by typed constructors and adapters, not discovered dynamically."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Debug renders the selected typed Context name; the worker assertion exercises the formatter while root attribution is separately established by the unnamed-root case."
+            },
+            {
+              "id": "core/plugin.spec.ts:50/default/a56",
+              "behavior": "An unnamed plugin Context inherits the root diagnostic name.",
+              "source_assertion_lines": [
+                56
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "idle_disposed_handles_do_not_retain_cleanup_captures_or_parent_journal_entries",
+                  "lines": [
+                    993,
+                    996,
+                    1005,
+                    1006,
+                    1007
+                  ],
+                  "assertion": "An unnamed Plugin declaration inherits root and fiber.name() is asserted as root.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "public-surface",
+                "reason": "Rust requires an explicit typed Plugin declaration and callback/config contract; raw JavaScript function/object/class shapes and mutable callback metadata are represented by typed constructors and adapters, not discovered dynamically."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Automatic JavaScript callback/class name discovery is replaced by an explicit Plugin name (or inherited root name), and the typed Context exposes that name consistently."
+            },
+            {
+              "id": "core/plugin.spec.ts:50/default/a60",
+              "behavior": "A named functional plugin Context reports the plugin name foo.",
+              "source_assertion_lines": [
+                60
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "cloned_declarations_group_distinct_instances_and_empty_groups_are_pruned",
+                  "lines": [
+                    31,
+                    43,
+                    47,
+                    48
+                  ],
+                  "assertion": "An explicitly named Plugin declaration preserves its diagnostic name and Debug renders that selected name.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "public-surface",
+                "reason": "Rust requires an explicit typed Plugin declaration and callback/config contract; raw JavaScript function/object/class shapes and mutable callback metadata are represented by typed constructors and adapters, not discovered dynamically."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Automatic JavaScript callback/class name discovery is replaced by an explicit Plugin name (or inherited root name), and the typed Context exposes that name consistently."
+            },
+            {
+              "id": "core/plugin.spec.ts:50/default/a66",
+              "behavior": "An object plugin Context reports its declared name bar.",
+              "source_assertion_lines": [
+                66
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "cloned_declarations_group_distinct_instances_and_empty_groups_are_pruned",
+                  "lines": [
+                    31,
+                    43,
+                    47,
+                    48
+                  ],
+                  "assertion": "An explicitly named Plugin declaration preserves its diagnostic name and Debug renders that selected name.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "public-surface",
+                "reason": "Rust requires an explicit typed Plugin declaration and callback/config contract; raw JavaScript function/object/class shapes and mutable callback metadata are represented by typed constructors and adapters, not discovered dynamically."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Automatic JavaScript callback/class name discovery is replaced by an explicit Plugin name (or inherited root name), and the typed Context exposes that name consistently."
+            },
+            {
+              "id": "core/plugin.spec.ts:50/default/a72",
+              "behavior": "A class plugin Context reports the class-derived name Qux.",
+              "source_assertion_lines": [
+                72
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "cloned_declarations_group_distinct_instances_and_empty_groups_are_pruned",
+                  "lines": [
+                    31,
+                    43,
+                    47,
+                    48
+                  ],
+                  "assertion": "An explicitly named Plugin declaration preserves its diagnostic name and Debug renders that selected name.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "public-surface",
+                "reason": "Rust requires an explicit typed Plugin declaration and callback/config contract; raw JavaScript function/object/class shapes and mutable callback metadata are represented by typed constructors and adapters, not discovered dynamically."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Automatic JavaScript callback/class name discovery is replaced by an explicit Plugin name (or inherited root name), and the typed Context exposes that name consistently."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/plugin.spec.ts:77",
+      "source_file": "local/cordis/packages/core/tests/plugin.spec.ts",
+      "source_line": 77,
+      "source_end_line": 85,
+      "title": "ctx.registry",
+      "suite": [
+        "Plugin"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/plugin.spec.ts:77/default/a80",
+              "behavior": "Registry key enumeration is available as a read-only coverage operation.",
+              "source_assertion_lines": [
+                80
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "cloned_declarations_group_distinct_instances_and_empty_groups_are_pruned",
+                  "lines": [
+                    43,
+                    44,
+                    45,
+                    51,
+                    52,
+                    63,
+                    64,
+                    65,
+                    66,
+                    67,
+                    68,
+                    69,
+                    70,
+                    71
+                  ],
+                  "assertion": "Typed Registry grouping exposes declaration membership through contains/instances instead of arbitrary JS Map keys.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "parent-ownership-registry-residency-and-weak-ancestry",
+                "reason": "Rust uses opaque FiberId values, a typed Registry snapshot/control API, and a reusable root cleanup journal rather than JavaScript numeric/null uid fields or mutable _disposables arrays."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The source calls JavaScript Map methods only for coverage. Rust deliberately exposes typed len/contains/instances snapshots, and the passing test exercises those read paths."
+            },
+            {
+              "id": "core/plugin.spec.ts:77/default/a81",
+              "behavior": "Registry value enumeration is available as a read-only coverage operation.",
+              "source_assertion_lines": [
+                81
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "cloned_declarations_group_distinct_instances_and_empty_groups_are_pruned",
+                  "lines": [
+                    43,
+                    44,
+                    45,
+                    51,
+                    52,
+                    63,
+                    64,
+                    65,
+                    66,
+                    67,
+                    68,
+                    69,
+                    70,
+                    71
+                  ],
+                  "assertion": "Registry::instances returns the current FiberId values for a typed declaration group.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "parent-ownership-registry-residency-and-weak-ancestry",
+                "reason": "Rust uses opaque FiberId values, a typed Registry snapshot/control API, and a reusable root cleanup journal rather than JavaScript numeric/null uid fields or mutable _disposables arrays."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The source calls JavaScript Map methods only for coverage. Rust deliberately exposes typed len/contains/instances snapshots, and the passing test exercises those read paths."
+            },
+            {
+              "id": "core/plugin.spec.ts:77/default/a82",
+              "behavior": "Registry entry enumeration is available as a read-only coverage operation.",
+              "source_assertion_lines": [
+                82
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "cloned_declarations_group_distinct_instances_and_empty_groups_are_pruned",
+                  "lines": [
+                    43,
+                    44,
+                    45,
+                    51,
+                    52,
+                    63,
+                    64,
+                    65,
+                    66,
+                    67,
+                    68,
+                    69,
+                    70,
+                    71
+                  ],
+                  "assertion": "The test combines declaration identity and instance snapshots, the typed equivalent of entry enumeration.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "parent-ownership-registry-residency-and-weak-ancestry",
+                "reason": "Rust uses opaque FiberId values, a typed Registry snapshot/control API, and a reusable root cleanup journal rather than JavaScript numeric/null uid fields or mutable _disposables arrays."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The source calls JavaScript Map methods only for coverage. Rust deliberately exposes typed len/contains/instances snapshots, and the passing test exercises those read paths."
+            },
+            {
+              "id": "core/plugin.spec.ts:77/default/a83",
+              "behavior": "Registry forEach traversal accepts a callback over the current entries.",
+              "source_assertion_lines": [
+                83
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "cloned_declarations_group_distinct_instances_and_empty_groups_are_pruned",
+                  "lines": [
+                    43,
+                    44,
+                    45,
+                    51,
+                    52,
+                    63,
+                    64,
+                    65,
+                    66,
+                    67,
+                    68,
+                    69,
+                    70,
+                    71
+                  ],
+                  "assertion": "The returned instance snapshot is consumed and compared without exposing mutable Registry records.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "parent-ownership-registry-residency-and-weak-ancestry",
+                "reason": "Rust uses opaque FiberId values, a typed Registry snapshot/control API, and a reusable root cleanup journal rather than JavaScript numeric/null uid fields or mutable _disposables arrays."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The source calls JavaScript Map methods only for coverage. Rust deliberately exposes typed len/contains/instances snapshots, and the passing test exercises those read paths."
+            },
+            {
+              "id": "core/plugin.spec.ts:77/default/a84",
+              "behavior": "Line 84 closes the test body and contains no executable registry assertion; the inventory recorded a syntactic false positive.",
+              "source_assertion_lines": [
+                84
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/plugin.spec.ts:77/default/a84",
+                "kind": "observed-source-gap",
+                "next_action": "During final ledger integration, record line 84 as a retained inventory-parser false positive and correct the declaration extractor/control only after preserving this original obligation provenance; no production regression is warranted for a closing brace.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence inventory follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The pinned source has only the closing token at line 84. Attaching a passing Rust test would fabricate a source behavior, so the original ID remains as an explicit inventory gap."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/plugin.spec.ts:86",
+      "source_file": "local/cordis/packages/core/tests/plugin.spec.ts",
+      "source_line": 86,
+      "source_end_line": 122,
+      "title": "nested plugins",
+      "suite": [
+        "Plugin"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/plugin.spec.ts:86/default/a103",
+              "behavior": "Before dispatch, none of the four root/parent/child/leaf listeners has run.",
+              "source_assertion_lines": [
+                103
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "parent_cleanup_cascades_to_nested_plugins_and_preserves_root_listeners",
+                  "lines": [
+                    282,
+                    287,
+                    310,
+                    332,
+                    359,
+                    371,
+                    372,
+                    373,
+                    376,
+                    377,
+                    378,
+                    379,
+                    380,
+                    381,
+                    382,
+                    383,
+                    384,
+                    385,
+                    386,
+                    387,
+                    388,
+                    389,
+                    390
+                  ],
+                  "assertion": "No listener is dispatched before the explicit emit.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The nested Rust fixture directly checks parent-owned child/grandchild residency, four-listener dispatch, recursive cleanup, root-listener survival, and idempotent repeated disposal."
+            },
+            {
+              "id": "core/plugin.spec.ts:86/default/a104",
+              "behavior": "The nested parent, child, and leaf plugins produce three resident Registry instances.",
+              "source_assertion_lines": [
+                104
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "parent_cleanup_cascades_to_nested_plugins_and_preserves_root_listeners",
+                  "lines": [
+                    282,
+                    287,
+                    310,
+                    332,
+                    359,
+                    371,
+                    372,
+                    373,
+                    376,
+                    377,
+                    378,
+                    379,
+                    380,
+                    381,
+                    382,
+                    383,
+                    384,
+                    385,
+                    386,
+                    387,
+                    388,
+                    389,
+                    390
+                  ],
+                  "assertion": "After parent readiness, registry.len()==3 for parent, child, and leaf.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The nested Rust fixture directly checks parent-owned child/grandchild residency, four-listener dispatch, recursive cleanup, root-listener survival, and idempotent repeated disposal."
+            },
+            {
+              "id": "core/plugin.spec.ts:86/default/a106",
+              "behavior": "One dispatch reaches the root plus all three nested plugin listeners.",
+              "source_assertion_lines": [
+                106
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "parent_cleanup_cascades_to_nested_plugins_and_preserves_root_listeners",
+                  "lines": [
+                    282,
+                    287,
+                    310,
+                    332,
+                    359,
+                    371,
+                    372,
+                    373,
+                    376,
+                    377,
+                    378,
+                    379,
+                    380,
+                    381,
+                    382,
+                    383,
+                    384,
+                    385,
+                    386,
+                    387,
+                    388,
+                    389,
+                    390
+                  ],
+                  "assertion": "The first emit makes the shared counter exactly four.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The nested Rust fixture directly checks parent-owned child/grandchild residency, four-listener dispatch, recursive cleanup, root-listener survival, and idempotent repeated disposal."
+            },
+            {
+              "id": "core/plugin.spec.ts:86/default/a111",
+              "behavior": "Disposing the parent recursively removes all three plugin instances from the Registry.",
+              "source_assertion_lines": [
+                111
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "parent_cleanup_cascades_to_nested_plugins_and_preserves_root_listeners",
+                  "lines": [
+                    282,
+                    287,
+                    310,
+                    332,
+                    359,
+                    371,
+                    372,
+                    373,
+                    376,
+                    377,
+                    378,
+                    379,
+                    380,
+                    381,
+                    382,
+                    383,
+                    384,
+                    385,
+                    386,
+                    387,
+                    388,
+                    389,
+                    390
+                  ],
+                  "assertion": "Parent disposal leaves the Registry empty and the child handle Disposed.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The nested Rust fixture directly checks parent-owned child/grandchild residency, four-listener dispatch, recursive cleanup, root-listener survival, and idempotent repeated disposal."
+            },
+            {
+              "id": "core/plugin.spec.ts:86/default/a113",
+              "behavior": "After parent disposal, only the root listener receives the event.",
+              "source_assertion_lines": [
+                113
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "parent_cleanup_cascades_to_nested_plugins_and_preserves_root_listeners",
+                  "lines": [
+                    282,
+                    287,
+                    310,
+                    332,
+                    359,
+                    371,
+                    372,
+                    373,
+                    376,
+                    377,
+                    378,
+                    379,
+                    380,
+                    381,
+                    382,
+                    383,
+                    384,
+                    385,
+                    386,
+                    387,
+                    388,
+                    389,
+                    390
+                  ],
+                  "assertion": "The post-disposal emit increments the counter by only one root listener.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The nested Rust fixture directly checks parent-owned child/grandchild residency, four-listener dispatch, recursive cleanup, root-listener survival, and idempotent repeated disposal."
+            },
+            {
+              "id": "core/plugin.spec.ts:86/default/a118",
+              "behavior": "Repeated parent disposal is idempotent and leaves the Registry empty.",
+              "source_assertion_lines": [
+                118
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "parent_cleanup_cascades_to_nested_plugins_and_preserves_root_listeners",
+                  "lines": [
+                    282,
+                    287,
+                    310,
+                    332,
+                    359,
+                    371,
+                    372,
+                    373,
+                    376,
+                    377,
+                    378,
+                    379,
+                    380,
+                    381,
+                    382,
+                    383,
+                    384,
+                    385,
+                    386,
+                    387,
+                    388,
+                    389,
+                    390
+                  ],
+                  "assertion": "A second dispose is joined and Registry remains empty.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The nested Rust fixture directly checks parent-owned child/grandchild residency, four-listener dispatch, recursive cleanup, root-listener survival, and idempotent repeated disposal."
+            },
+            {
+              "id": "core/plugin.spec.ts:86/default/a120",
+              "behavior": "After repeated disposal, only the root listener still receives the event.",
+              "source_assertion_lines": [
+                120
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "parent_cleanup_cascades_to_nested_plugins_and_preserves_root_listeners",
+                  "lines": [
+                    282,
+                    287,
+                    310,
+                    332,
+                    359,
+                    371,
+                    372,
+                    373,
+                    376,
+                    377,
+                    378,
+                    379,
+                    380,
+                    381,
+                    382,
+                    383,
+                    384,
+                    385,
+                    386,
+                    387,
+                    388,
+                    389,
+                    390
+                  ],
+                  "assertion": "After repeated disposal, the root-only emit increments by exactly one.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The nested Rust fixture directly checks parent-owned child/grandchild residency, four-listener dispatch, recursive cleanup, root-listener survival, and idempotent repeated disposal."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/plugin.spec.ts:123",
+      "source_file": "local/cordis/packages/core/tests/plugin.spec.ts",
+      "source_line": 123,
+      "source_end_line": 144,
+      "title": "compare snapshot",
+      "suite": [
+        "Plugin"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/plugin.spec.ts:123/default/a140",
+              "behavior": "Removing the plugin tree restores the exact pre-load hook/effect snapshot.",
+              "source_assertion_lines": [
+                140
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "repeated_registry_removal_and_recreation_restore_listener_and_effect_baselines",
+                  "lines": [
+                    1185,
+                    1216,
+                    1217,
+                    1218,
+                    1219,
+                    1220,
+                    1221,
+                    1222,
+                    1223,
+                    1224,
+                    1225,
+                    1232,
+                    1233,
+                    1234,
+                    1235,
+                    1236,
+                    1237
+                  ],
+                  "assertion": "Each Registry removal is joined and root.get_effects() returns the exact captured pre-load baseline.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The repeated-cycle regression strengthens both source snapshot equalities over four load/remove/recreate cycles."
+            },
+            {
+              "id": "core/plugin.spec.ts:123/default/a142",
+              "behavior": "Recreating the plugin tree restores the exact prior loaded hook/effect snapshot.",
+              "source_assertion_lines": [
+                142
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "repeated_registry_removal_and_recreation_restore_listener_and_effect_baselines",
+                  "lines": [
+                    1185,
+                    1216,
+                    1217,
+                    1218,
+                    1219,
+                    1220,
+                    1221,
+                    1222,
+                    1223,
+                    1224,
+                    1225,
+                    1232,
+                    1233,
+                    1234,
+                    1235,
+                    1236,
+                    1237
+                  ],
+                  "assertion": "Each recreated loaded plugin snapshot is asserted equal to the first loaded snapshot across later cycles.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The repeated-cycle regression strengthens both source snapshot equalities over four load/remove/recreate cycles."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/plugin.spec.ts:145",
+      "source_file": "local/cordis/packages/core/tests/plugin.spec.ts",
+      "source_line": 145,
+      "source_end_line": 164,
+      "title": "root dispose",
+      "suite": [
+        "Plugin"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/plugin.spec.ts:145/default/a149",
+              "behavior": "The root lifecycle identity remains the permanent root identity before drain.",
+              "source_assertion_lines": [
+                149
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "root_drain_waits_for_children_and_remains_usable_after_an_abandoned_waiter",
+                  "lines": [
+                    812,
+                    816,
+                    833,
+                    834,
+                    835,
+                    836,
+                    837,
+                    838,
+                    839,
+                    840,
+                    841,
+                    842,
+                    843,
+                    844,
+                    845,
+                    846
+                  ],
+                  "assertion": "The root FiberId is captured before drain and asserted unchanged after the joined drain; a fresh child then loads successfully.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "parent-ownership-registry-residency-and-weak-ancestry",
+                "reason": "Rust uses opaque FiberId values, a typed Registry snapshot/control API, and a reusable root cleanup journal rather than JavaScript numeric/null uid fields or mutable _disposables arrays."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Opaque IDs and a reusable root journal replace uid 0/null and direct _disposables inspection; the gated regression checks the same lifecycle outcomes without exposing mutable internals."
+            },
+            {
+              "id": "core/plugin.spec.ts:145/default/a150",
+              "behavior": "A newly admitted child has a distinct live lifecycle identity.",
+              "source_assertion_lines": [
+                150
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "root_drain_waits_for_children_and_remains_usable_after_an_abandoned_waiter",
+                  "lines": [
+                    812,
+                    816,
+                    833,
+                    834,
+                    835,
+                    836,
+                    837,
+                    838,
+                    839,
+                    840,
+                    841,
+                    842,
+                    843,
+                    844,
+                    845,
+                    846
+                  ],
+                  "assertion": "The child is admitted as a distinct Fiber and reaches readiness before root drain.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "parent-ownership-registry-residency-and-weak-ancestry",
+                "reason": "Rust uses opaque FiberId values, a typed Registry snapshot/control API, and a reusable root cleanup journal rather than JavaScript numeric/null uid fields or mutable _disposables arrays."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Opaque IDs and a reusable root journal replace uid 0/null and direct _disposables inspection; the gated regression checks the same lifecycle outcomes without exposing mutable internals."
+            },
+            {
+              "id": "core/plugin.spec.ts:145/default/a151",
+              "behavior": "The child disposer has not run before root disposal.",
+              "source_assertion_lines": [
+                151
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "root_drain_waits_for_children_and_remains_usable_after_an_abandoned_waiter",
+                  "lines": [
+                    812,
+                    816,
+                    833,
+                    834,
+                    835,
+                    836,
+                    837,
+                    838,
+                    839,
+                    840,
+                    841,
+                    842,
+                    843,
+                    844,
+                    845,
+                    846
+                  ],
+                  "assertion": "Cleanup is gated and root drain must enter it before completion, establishing it had not run before drain.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "parent-ownership-registry-residency-and-weak-ancestry",
+                "reason": "Rust uses opaque FiberId values, a typed Registry snapshot/control API, and a reusable root cleanup journal rather than JavaScript numeric/null uid fields or mutable _disposables arrays."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Opaque IDs and a reusable root journal replace uid 0/null and direct _disposables inspection; the gated regression checks the same lifecycle outcomes without exposing mutable internals."
+            },
+            {
+              "id": "core/plugin.spec.ts:145/default/a152",
+              "behavior": "The root journal contains the child-disposal registration before drain.",
+              "source_assertion_lines": [
+                152
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "root_drain_waits_for_children_and_remains_usable_after_an_abandoned_waiter",
+                  "lines": [
+                    812,
+                    816,
+                    833,
+                    834,
+                    835,
+                    836,
+                    837,
+                    838,
+                    839,
+                    840,
+                    841,
+                    842,
+                    843,
+                    844,
+                    845,
+                    846
+                  ],
+                  "assertion": "The admitted child is present as a root-owned plugin effect before drain (covered by readiness and the drain entering child cleanup).",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "parent-ownership-registry-residency-and-weak-ancestry",
+                "reason": "Rust uses opaque FiberId values, a typed Registry snapshot/control API, and a reusable root cleanup journal rather than JavaScript numeric/null uid fields or mutable _disposables arrays."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Opaque IDs and a reusable root journal replace uid 0/null and direct _disposables inspection; the gated regression checks the same lifecycle outcomes without exposing mutable internals."
+            },
+            {
+              "id": "core/plugin.spec.ts:145/default/a154",
+              "behavior": "Root disposal keeps the root lifecycle identity reusable.",
+              "source_assertion_lines": [
+                154
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "root_drain_waits_for_children_and_remains_usable_after_an_abandoned_waiter",
+                  "lines": [
+                    812,
+                    816,
+                    833,
+                    834,
+                    835,
+                    836,
+                    837,
+                    838,
+                    839,
+                    840,
+                    841,
+                    842,
+                    843,
+                    844,
+                    845,
+                    846
+                  ],
+                  "assertion": "The root FiberId is captured before drain and asserted unchanged after the joined drain; a fresh child then loads successfully.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "parent-ownership-registry-residency-and-weak-ancestry",
+                "reason": "Rust uses opaque FiberId values, a typed Registry snapshot/control API, and a reusable root cleanup journal rather than JavaScript numeric/null uid fields or mutable _disposables arrays."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Opaque IDs and a reusable root journal replace uid 0/null and direct _disposables inspection; the gated regression checks the same lifecycle outcomes without exposing mutable internals."
+            },
+            {
+              "id": "core/plugin.spec.ts:145/default/a155",
+              "behavior": "Root disposal makes the child terminal/disposed.",
+              "source_assertion_lines": [
+                155
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "root_drain_waits_for_children_and_remains_usable_after_an_abandoned_waiter",
+                  "lines": [
+                    812,
+                    816,
+                    833,
+                    834,
+                    835,
+                    836,
+                    837,
+                    838,
+                    839,
+                    840,
+                    841,
+                    842,
+                    843,
+                    844,
+                    845,
+                    846
+                  ],
+                  "assertion": "After root drain, the child state is asserted Disposed and remains terminal.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "parent-ownership-registry-residency-and-weak-ancestry",
+                "reason": "Rust uses opaque FiberId values, a typed Registry snapshot/control API, and a reusable root cleanup journal rather than JavaScript numeric/null uid fields or mutable _disposables arrays."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Opaque IDs and a reusable root journal replace uid 0/null and direct _disposables inspection; the gated regression checks the same lifecycle outcomes without exposing mutable internals."
+            },
+            {
+              "id": "core/plugin.spec.ts:145/default/a156",
+              "behavior": "Root disposal runs the child disposer exactly once.",
+              "source_assertion_lines": [
+                156
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "root_drain_waits_for_children_and_remains_usable_after_an_abandoned_waiter",
+                  "lines": [
+                    812,
+                    816,
+                    833,
+                    834,
+                    835,
+                    836,
+                    837,
+                    838,
+                    839,
+                    840,
+                    841,
+                    842,
+                    843,
+                    844,
+                    845,
+                    846
+                  ],
+                  "assertion": "The single gated cleanup is entered once; the second drain reuses/completes the same snapshot rather than rerunning it.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "parent-ownership-registry-residency-and-weak-ancestry",
+                "reason": "Rust uses opaque FiberId values, a typed Registry snapshot/control API, and a reusable root cleanup journal rather than JavaScript numeric/null uid fields or mutable _disposables arrays."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Opaque IDs and a reusable root journal replace uid 0/null and direct _disposables inspection; the gated regression checks the same lifecycle outcomes without exposing mutable internals."
+            },
+            {
+              "id": "core/plugin.spec.ts:145/default/a157",
+              "behavior": "The completed root drain removes the claimed child registration.",
+              "source_assertion_lines": [
+                157
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "root_drain_waits_for_children_and_remains_usable_after_an_abandoned_waiter",
+                  "lines": [
+                    812,
+                    816,
+                    833,
+                    834,
+                    835,
+                    836,
+                    837,
+                    838,
+                    839,
+                    840,
+                    841,
+                    842,
+                    843,
+                    844,
+                    845,
+                    846
+                  ],
+                  "assertion": "The joined drain disposes the child, after which a fresh child can be admitted and a later drain completes, proving the reusable journal has no stale child claim.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "parent-ownership-registry-residency-and-weak-ancestry",
+                "reason": "Rust uses opaque FiberId values, a typed Registry snapshot/control API, and a reusable root cleanup journal rather than JavaScript numeric/null uid fields or mutable _disposables arrays."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Opaque IDs and a reusable root journal replace uid 0/null and direct _disposables inspection; the gated regression checks the same lifecycle outcomes without exposing mutable internals."
+            },
+            {
+              "id": "core/plugin.spec.ts:145/default/a159",
+              "behavior": "A repeated root disposal keeps the root lifecycle identity reusable.",
+              "source_assertion_lines": [
+                159
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "root_drain_waits_for_children_and_remains_usable_after_an_abandoned_waiter",
+                  "lines": [
+                    812,
+                    816,
+                    833,
+                    834,
+                    835,
+                    836,
+                    837,
+                    838,
+                    839,
+                    840,
+                    841,
+                    842,
+                    843,
+                    844,
+                    845,
+                    846
+                  ],
+                  "assertion": "The root FiberId is captured before drain and asserted unchanged after the joined drain; a fresh child then loads successfully.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "parent-ownership-registry-residency-and-weak-ancestry",
+                "reason": "Rust uses opaque FiberId values, a typed Registry snapshot/control API, and a reusable root cleanup journal rather than JavaScript numeric/null uid fields or mutable _disposables arrays."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Opaque IDs and a reusable root journal replace uid 0/null and direct _disposables inspection; the gated regression checks the same lifecycle outcomes without exposing mutable internals."
+            },
+            {
+              "id": "core/plugin.spec.ts:145/default/a160",
+              "behavior": "The child remains terminal after repeated root disposal.",
+              "source_assertion_lines": [
+                160
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "root_drain_waits_for_children_and_remains_usable_after_an_abandoned_waiter",
+                  "lines": [
+                    812,
+                    816,
+                    833,
+                    834,
+                    835,
+                    836,
+                    837,
+                    838,
+                    839,
+                    840,
+                    841,
+                    842,
+                    843,
+                    844,
+                    845,
+                    846
+                  ],
+                  "assertion": "After root drain, the child state is asserted Disposed and remains terminal.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "parent-ownership-registry-residency-and-weak-ancestry",
+                "reason": "Rust uses opaque FiberId values, a typed Registry snapshot/control API, and a reusable root cleanup journal rather than JavaScript numeric/null uid fields or mutable _disposables arrays."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Opaque IDs and a reusable root journal replace uid 0/null and direct _disposables inspection; the gated regression checks the same lifecycle outcomes without exposing mutable internals."
+            },
+            {
+              "id": "core/plugin.spec.ts:145/default/a161",
+              "behavior": "Repeated root disposal does not rerun the child disposer.",
+              "source_assertion_lines": [
+                161
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "root_drain_waits_for_children_and_remains_usable_after_an_abandoned_waiter",
+                  "lines": [
+                    812,
+                    816,
+                    833,
+                    834,
+                    835,
+                    836,
+                    837,
+                    838,
+                    839,
+                    840,
+                    841,
+                    842,
+                    843,
+                    844,
+                    845,
+                    846
+                  ],
+                  "assertion": "The single gated cleanup is entered once; the second drain reuses/completes the same snapshot rather than rerunning it.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "parent-ownership-registry-residency-and-weak-ancestry",
+                "reason": "Rust uses opaque FiberId values, a typed Registry snapshot/control API, and a reusable root cleanup journal rather than JavaScript numeric/null uid fields or mutable _disposables arrays."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Opaque IDs and a reusable root journal replace uid 0/null and direct _disposables inspection; the gated regression checks the same lifecycle outcomes without exposing mutable internals."
+            },
+            {
+              "id": "core/plugin.spec.ts:145/default/a162",
+              "behavior": "Repeated root disposal leaves the root journal empty.",
+              "source_assertion_lines": [
+                162
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "root_drain_waits_for_children_and_remains_usable_after_an_abandoned_waiter",
+                  "lines": [
+                    812,
+                    816,
+                    833,
+                    834,
+                    835,
+                    836,
+                    837,
+                    838,
+                    839,
+                    840,
+                    841,
+                    842,
+                    843,
+                    844,
+                    845,
+                    846
+                  ],
+                  "assertion": "The joined drain disposes the child, after which a fresh child can be admitted and a later drain completes, proving the reusable journal has no stale child claim.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "parent-ownership-registry-residency-and-weak-ancestry",
+                "reason": "Rust uses opaque FiberId values, a typed Registry snapshot/control API, and a reusable root cleanup journal rather than JavaScript numeric/null uid fields or mutable _disposables arrays."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Opaque IDs and a reusable root journal replace uid 0/null and direct _disposables inspection; the gated regression checks the same lifecycle outcomes without exposing mutable internals."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/plugin.spec.ts:165",
+      "source_file": "local/cordis/packages/core/tests/plugin.spec.ts",
+      "source_line": 165,
+      "source_end_line": 184,
+      "title": "Service.init",
+      "suite": [
+        "Plugin"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/plugin.spec.ts:165/default/a178",
+              "behavior": "Service.init starts exactly once during plugin initialization.",
+              "source_assertion_lines": [
+                178
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "initialization-and-method-injection",
+                "reason": "Plugin::initialized is the explicit Rust Service.init substitute. It awaits a typed factory/disposer and does not perform constructor or symbol-method discovery."
+              },
+              "gap": {
+                "id": "G-B0-core/plugin.spec.ts:165/default/a178",
+                "kind": "missing-evidence",
+                "next_action": "Extend explicit_initialization_is_an_availability_barrier_and_failure_is_diagnosed_once with a counter/assertion for this exact Service.init start-or-pre-disposal boundary, then run the existing stable and Rust 1.85.0 workspace matrices.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The current initialized-plugin tests prove initialization gating and final cleanup, but do not assert an exact initializer invocation counter or the pre-disposal cleanup count at this source boundary."
+            },
+            {
+              "id": "core/plugin.spec.ts:165/default/a179",
+              "behavior": "The Service.init disposer has not run before plugin disposal.",
+              "source_assertion_lines": [
+                179
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "initialization-and-method-injection",
+                "reason": "Plugin::initialized is the explicit Rust Service.init substitute. It awaits a typed factory/disposer and does not perform constructor or symbol-method discovery."
+              },
+              "gap": {
+                "id": "G-B0-core/plugin.spec.ts:165/default/a179",
+                "kind": "missing-evidence",
+                "next_action": "Extend explicit_initialization_is_an_availability_barrier_and_failure_is_diagnosed_once with a counter/assertion for this exact Service.init start-or-pre-disposal boundary, then run the existing stable and Rust 1.85.0 workspace matrices.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The current initialized-plugin tests prove initialization gating and final cleanup, but do not assert an exact initializer invocation counter or the pre-disposal cleanup count at this source boundary."
+            },
+            {
+              "id": "core/plugin.spec.ts:165/default/a181",
+              "behavior": "Plugin disposal does not rerun Service.init.",
+              "source_assertion_lines": [
+                181
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "initialization-and-method-injection",
+                "reason": "Plugin::initialized is the explicit Rust Service.init substitute. It awaits a typed factory/disposer and does not perform constructor or symbol-method discovery."
+              },
+              "gap": {
+                "id": "G-B0-core/plugin.spec.ts:165/default/a181",
+                "kind": "missing-evidence",
+                "next_action": "Extend explicit_initialization_is_an_availability_barrier_and_failure_is_diagnosed_once with a counter/assertion for this exact Service.init start-or-pre-disposal boundary, then run the existing stable and Rust 1.85.0 workspace matrices.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The current initialized-plugin tests prove initialization gating and final cleanup, but do not assert an exact initializer invocation counter or the pre-disposal cleanup count at this source boundary."
+            },
+            {
+              "id": "core/plugin.spec.ts:165/default/a182",
+              "behavior": "Plugin disposal runs the Service.init disposer exactly once.",
+              "source_assertion_lines": [
+                182
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "explicit_initialization_is_an_availability_barrier_and_failure_is_diagnosed_once",
+                  "lines": [
+                    293,
+                    294,
+                    308,
+                    309,
+                    310,
+                    313,
+                    317,
+                    318,
+                    319,
+                    320,
+                    321,
+                    322,
+                    323,
+                    327,
+                    328,
+                    348,
+                    354,
+                    355,
+                    356,
+                    357,
+                    358,
+                    359
+                  ],
+                  "assertion": "The successful initialized provider is joined, then provider.dispose is joined and closed is asserted true, proving the factory-owned cleanup ran.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "initialization-and-method-injection",
+                "reason": "Plugin::initialized is the explicit Rust Service.init substitute. It awaits a typed factory/disposer and does not perform constructor or symbol-method discovery."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Plugin::initialized explicitly returns an owned disposer; the successful branch joins disposal and asserts the cleanup side effect."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "rust-representation"
+      ]
+    }
+  ]
+}
