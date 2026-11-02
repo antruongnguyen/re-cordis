@@ -1,0 +1,4329 @@
+{
+  "schema_version": 1,
+  "rust_revision": "9a7633c0b3b98e5f37e9f2211f3ffa67fdac5edc",
+  "typescript_revision": "35fdc969e4b6c48c48ed44717c7a018324e4dd88",
+  "status": "17 events declarations complete; independent review pending",
+  "declarations": [
+    {
+      "id": "core/events.spec.ts:46",
+      "source_file": "local/cordis/packages/core/tests/events.spec.ts",
+      "source_line": 46,
+      "source_end_line": 64,
+      "title": "treats prototype property names as ordinary events",
+      "suite": [
+        "Events"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/events.spec.ts:46/default/a50",
+              "behavior": "In 'treats prototype property names as ordinary events', the pinned source checks: expect(() => root.emit('toString')).to.not.throw()",
+              "source_assertion_lines": [
+                50
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "symbols_named_contracts_prototype_names_and_empty_bucket_removal",
+                  "lines": [
+                    32,
+                    33,
+                    34,
+                    35,
+                    36,
+                    37,
+                    38,
+                    39,
+                    40,
+                    41,
+                    42,
+                    43,
+                    44,
+                    45,
+                    46,
+                    47,
+                    48,
+                    49,
+                    50,
+                    51,
+                    52,
+                    53,
+                    54,
+                    55,
+                    56,
+                    57,
+                    58,
+                    59,
+                    60,
+                    61,
+                    62,
+                    63,
+                    64,
+                    65,
+                    66,
+                    67,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    74,
+                    75,
+                    76,
+                    77,
+                    78,
+                    79,
+                    80,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85,
+                    86,
+                    87,
+                    88,
+                    89,
+                    90,
+                    91,
+                    92,
+                    93
+                  ],
+                  "assertion": "Unregistered prototype-like names dispatch safely; registered names receive one call, exact removal prevents a second call, and final removal releases the checked contract bucket.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:46/default/a57",
+              "behavior": "In 'treats prototype property names as ordinary events', the pinned source checks: expect(callback.mock.calls, name).to.have.length(1)",
+              "source_assertion_lines": [
+                57
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "symbols_named_contracts_prototype_names_and_empty_bucket_removal",
+                  "lines": [
+                    32,
+                    33,
+                    34,
+                    35,
+                    36,
+                    37,
+                    38,
+                    39,
+                    40,
+                    41,
+                    42,
+                    43,
+                    44,
+                    45,
+                    46,
+                    47,
+                    48,
+                    49,
+                    50,
+                    51,
+                    52,
+                    53,
+                    54,
+                    55,
+                    56,
+                    57,
+                    58,
+                    59,
+                    60,
+                    61,
+                    62,
+                    63,
+                    64,
+                    65,
+                    66,
+                    67,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    74,
+                    75,
+                    76,
+                    77,
+                    78,
+                    79,
+                    80,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85,
+                    86,
+                    87,
+                    88,
+                    89,
+                    90,
+                    91,
+                    92,
+                    93
+                  ],
+                  "assertion": "Unregistered prototype-like names dispatch safely; registered names receive one call, exact removal prevents a second call, and final removal releases the checked contract bucket.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:46/default/a60",
+              "behavior": "In 'treats prototype property names as ordinary events', the pinned source checks: expect(callback.mock.calls, name).to.have.length(1)",
+              "source_assertion_lines": [
+                60
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "symbols_named_contracts_prototype_names_and_empty_bucket_removal",
+                  "lines": [
+                    32,
+                    33,
+                    34,
+                    35,
+                    36,
+                    37,
+                    38,
+                    39,
+                    40,
+                    41,
+                    42,
+                    43,
+                    44,
+                    45,
+                    46,
+                    47,
+                    48,
+                    49,
+                    50,
+                    51,
+                    52,
+                    53,
+                    54,
+                    55,
+                    56,
+                    57,
+                    58,
+                    59,
+                    60,
+                    61,
+                    62,
+                    63,
+                    64,
+                    65,
+                    66,
+                    67,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    74,
+                    75,
+                    76,
+                    77,
+                    78,
+                    79,
+                    80,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85,
+                    86,
+                    87,
+                    88,
+                    89,
+                    90,
+                    91,
+                    92,
+                    93
+                  ],
+                  "assertion": "Unregistered prototype-like names dispatch safely; registered names receive one call, exact removal prevents a second call, and final removal releases the checked contract bucket.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:46/default/a61",
+              "behavior": "In 'treats prototype property names as ordinary events', the pinned source checks: expect(Reflect.has(root.events._hooks, name), name).to.be.false",
+              "source_assertion_lines": [
+                61
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "symbols_named_contracts_prototype_names_and_empty_bucket_removal",
+                  "lines": [
+                    32,
+                    33,
+                    34,
+                    35,
+                    36,
+                    37,
+                    38,
+                    39,
+                    40,
+                    41,
+                    42,
+                    43,
+                    44,
+                    45,
+                    46,
+                    47,
+                    48,
+                    49,
+                    50,
+                    51,
+                    52,
+                    53,
+                    54,
+                    55,
+                    56,
+                    57,
+                    58,
+                    59,
+                    60,
+                    61,
+                    62,
+                    63,
+                    64,
+                    65,
+                    66,
+                    67,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    74,
+                    75,
+                    76,
+                    77,
+                    78,
+                    79,
+                    80,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85,
+                    86,
+                    87,
+                    88,
+                    89,
+                    90,
+                    91,
+                    92,
+                    93
+                  ],
+                  "assertion": "Unregistered prototype-like names dispatch safely; registered names receive one call, exact removal prevents a second call, and final removal releases the checked contract bucket.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/events.spec.ts:65",
+      "source_file": "local/cordis/packages/core/tests/events.spec.ts",
+      "source_line": 65,
+      "source_end_line": 76,
+      "title": "removes empty event buckets after disposal",
+      "suite": [
+        "Events"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/events.spec.ts:65/default/a72",
+              "behavior": "In 'removes empty event buckets after disposal', the pinned source checks: expect(Reflect.has(root.events._hooks, event)).to.be.true",
+              "source_assertion_lines": [
+                72
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "symbols_named_contracts_prototype_names_and_empty_bucket_removal",
+                  "lines": [
+                    71,
+                    72,
+                    73,
+                    74,
+                    75,
+                    76,
+                    77,
+                    78,
+                    84,
+                    85,
+                    86,
+                    87,
+                    88,
+                    89,
+                    90,
+                    91,
+                    92,
+                    93
+                  ],
+                  "assertion": "The live bucket retains its contract until final removal; afterward the same name accepts a different checked contract.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:65/default/a74",
+              "behavior": "In 'removes empty event buckets after disposal', the pinned source checks: expect(Reflect.has(root.events._hooks, event)).to.be.false",
+              "source_assertion_lines": [
+                74
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "symbols_named_contracts_prototype_names_and_empty_bucket_removal",
+                  "lines": [
+                    71,
+                    72,
+                    73,
+                    74,
+                    75,
+                    76,
+                    77,
+                    78,
+                    84,
+                    85,
+                    86,
+                    87,
+                    88,
+                    89,
+                    90,
+                    91,
+                    92,
+                    93
+                  ],
+                  "assertion": "The live bucket retains its contract until final removal; afterward the same name accepts a different checked contract.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/events.spec.ts:77",
+      "source_file": "local/cordis/packages/core/tests/events.spec.ts",
+      "source_line": 77,
+      "source_end_line": 89,
+      "title": "ctx.on()",
+      "suite": [
+        "Events"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/events.spec.ts:77/default/a82",
+              "behavior": "In 'ctx.on()', the pinned source checks: expect(callback.mock.calls).to.have.length(1)",
+              "source_assertion_lines": [
+                82
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "symbols_named_contracts_prototype_names_and_empty_bucket_removal",
+                  "lines": [
+                    39,
+                    40,
+                    41,
+                    44,
+                    45,
+                    49,
+                    50,
+                    51,
+                    55,
+                    70,
+                    78,
+                    79,
+                    83
+                  ],
+                  "assertion": "The listener receives dispatch, exact removal succeeds, and later dispatch leaves its call history unchanged.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:77/default/a84",
+              "behavior": "In 'ctx.on()', the pinned source checks: expect(callback.mock.calls).to.have.length(2)",
+              "source_assertion_lines": [
+                84
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "symbols_named_contracts_prototype_names_and_empty_bucket_removal",
+                  "lines": [
+                    39,
+                    40,
+                    41,
+                    44,
+                    45,
+                    49,
+                    50,
+                    51,
+                    55,
+                    70,
+                    78,
+                    79,
+                    83
+                  ],
+                  "assertion": "The listener receives dispatch, exact removal succeeds, and later dispatch leaves its call history unchanged.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:77/default/a87",
+              "behavior": "In 'ctx.on()', the pinned source checks: expect(callback.mock.calls).to.have.length(2)",
+              "source_assertion_lines": [
+                87
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "symbols_named_contracts_prototype_names_and_empty_bucket_removal",
+                  "lines": [
+                    39,
+                    40,
+                    41,
+                    44,
+                    45,
+                    49,
+                    50,
+                    51,
+                    55,
+                    70,
+                    78,
+                    79,
+                    83
+                  ],
+                  "assertion": "The listener receives dispatch, exact removal succeeds, and later dispatch leaves its call history unchanged.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/events.spec.ts:90",
+      "source_file": "local/cordis/packages/core/tests/events.spec.ts",
+      "source_line": 90,
+      "source_end_line": 102,
+      "title": "ctx.once()",
+      "suite": [
+        "Events"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/events.spec.ts:90/default/a95",
+              "behavior": "In 'ctx.once()', the pinned source checks: expect(callback.mock.calls).to.have.length(1)",
+              "source_assertion_lines": [
+                95
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "once_is_removed_before_recursive_invocation_and_manual_remove_is_exact",
+                  "lines": [
+                    147,
+                    148,
+                    149,
+                    150,
+                    151,
+                    152,
+                    153,
+                    154,
+                    155,
+                    156,
+                    157,
+                    158,
+                    159,
+                    160,
+                    161,
+                    162,
+                    163,
+                    164,
+                    165,
+                    166,
+                    167,
+                    168,
+                    169,
+                    170,
+                    171,
+                    172,
+                    173,
+                    174,
+                    175,
+                    176,
+                    177,
+                    178
+                  ],
+                  "assertion": "Once removes before recursive invocation; later dispatches do not call it and no owner cleanup remains.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:90/default/a97",
+              "behavior": "In 'ctx.once()', the pinned source checks: expect(callback.mock.calls).to.have.length(1)",
+              "source_assertion_lines": [
+                97
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "once_is_removed_before_recursive_invocation_and_manual_remove_is_exact",
+                  "lines": [
+                    147,
+                    148,
+                    149,
+                    150,
+                    151,
+                    152,
+                    153,
+                    154,
+                    155,
+                    156,
+                    157,
+                    158,
+                    159,
+                    160,
+                    161,
+                    162,
+                    163,
+                    164,
+                    165,
+                    166,
+                    167,
+                    168,
+                    169,
+                    170,
+                    171,
+                    172,
+                    173,
+                    174,
+                    175,
+                    176,
+                    177,
+                    178
+                  ],
+                  "assertion": "Once removes before recursive invocation; later dispatches do not call it and no owner cleanup remains.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:90/default/a100",
+              "behavior": "In 'ctx.once()', the pinned source checks: expect(callback.mock.calls).to.have.length(1)",
+              "source_assertion_lines": [
+                100
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "once_is_removed_before_recursive_invocation_and_manual_remove_is_exact",
+                  "lines": [
+                    147,
+                    148,
+                    149,
+                    150,
+                    151,
+                    152,
+                    153,
+                    154,
+                    155,
+                    156,
+                    157,
+                    158,
+                    159,
+                    160,
+                    161,
+                    162,
+                    163,
+                    164,
+                    165,
+                    166,
+                    167,
+                    168,
+                    169,
+                    170,
+                    171,
+                    172,
+                    173,
+                    174,
+                    175,
+                    176,
+                    177,
+                    178
+                  ],
+                  "assertion": "Once removes before recursive invocation; later dispatches do not call it and no owner cleanup remains.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/events.spec.ts:103",
+      "source_file": "local/cordis/packages/core/tests/events.spec.ts",
+      "source_line": 103,
+      "source_end_line": 133,
+      "title": "ctx.parallel()",
+      "suite": [
+        "Events"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/events.spec.ts:103/default/empty-105",
+              "behavior": "Parallel dispatch with no registered listener resolves successfully without a callback.",
+              "source_assertion_lines": [
+                105
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": {
+                "id": "G-B0-events.spec.ts:103-empty-105",
+                "kind": "missing-evidence",
+                "next_action": "Add a no-listener parallel regression and assert the EventTask resolves Continue/success on both toolchains.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: a passing regression closes evidence without production change; conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The source performs this dispatch before listener registration. The existing inventory omitted it because there is no expect() call, but it is a meaningful empty-path obligation."
+            },
+            {
+              "id": "core/events.spec.ts:103/default/a110",
+              "behavior": "In 'ctx.parallel()', the pinned source checks: expect(callback.mock.calls).to.have.length(1)",
+              "source_assertion_lines": [
+                110
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "prepend_and_global_filters_apply_to_each_dispatch_shape",
+                  "lines": [
+                    187,
+                    188,
+                    189,
+                    190,
+                    191,
+                    192,
+                    193,
+                    194,
+                    195,
+                    196,
+                    197,
+                    198,
+                    199,
+                    200,
+                    201,
+                    202,
+                    203,
+                    204,
+                    205,
+                    206,
+                    207,
+                    208,
+                    209,
+                    210,
+                    211,
+                    212,
+                    213,
+                    214,
+                    215,
+                    216,
+                    217,
+                    218,
+                    219,
+                    220,
+                    221,
+                    222,
+                    223,
+                    224,
+                    225,
+                    226,
+                    227,
+                    228,
+                    229,
+                    230,
+                    231,
+                    232,
+                    233,
+                    234,
+                    235,
+                    236,
+                    237,
+                    238,
+                    239,
+                    240,
+                    241,
+                    242,
+                    243,
+                    244,
+                    245,
+                    246,
+                    247,
+                    248,
+                    249,
+                    250,
+                    251,
+                    252,
+                    253,
+                    254,
+                    255
+                  ],
+                  "assertion": "For emit/parallel/serial/bail, filtered dispatch invokes global then visible and excludes hidden; unfiltered dispatch invokes all.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:103/default/a112",
+              "behavior": "In 'ctx.parallel()', the pinned source checks: expect(callback.mock.calls).to.have.length(1)",
+              "source_assertion_lines": [
+                112
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "prepend_and_global_filters_apply_to_each_dispatch_shape",
+                  "lines": [
+                    187,
+                    188,
+                    189,
+                    190,
+                    191,
+                    192,
+                    193,
+                    194,
+                    195,
+                    196,
+                    197,
+                    198,
+                    199,
+                    200,
+                    201,
+                    202,
+                    203,
+                    204,
+                    205,
+                    206,
+                    207,
+                    208,
+                    209,
+                    210,
+                    211,
+                    212,
+                    213,
+                    214,
+                    215,
+                    216,
+                    217,
+                    218,
+                    219,
+                    220,
+                    221,
+                    222,
+                    223,
+                    224,
+                    225,
+                    226,
+                    227,
+                    228,
+                    229,
+                    230,
+                    231,
+                    232,
+                    233,
+                    234,
+                    235,
+                    236,
+                    237,
+                    238,
+                    239,
+                    240,
+                    241,
+                    242,
+                    243,
+                    244,
+                    245,
+                    246,
+                    247,
+                    248,
+                    249,
+                    250,
+                    251,
+                    252,
+                    253,
+                    254,
+                    255
+                  ],
+                  "assertion": "For emit/parallel/serial/bail, filtered dispatch invokes global then visible and excludes hidden; unfiltered dispatch invokes all.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:103/default/a114",
+              "behavior": "In 'ctx.parallel()', the pinned source checks: expect(callback.mock.calls).to.have.length(2)",
+              "source_assertion_lines": [
+                114
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "prepend_and_global_filters_apply_to_each_dispatch_shape",
+                  "lines": [
+                    187,
+                    188,
+                    189,
+                    190,
+                    191,
+                    192,
+                    193,
+                    194,
+                    195,
+                    196,
+                    197,
+                    198,
+                    199,
+                    200,
+                    201,
+                    202,
+                    203,
+                    204,
+                    205,
+                    206,
+                    207,
+                    208,
+                    209,
+                    210,
+                    211,
+                    212,
+                    213,
+                    214,
+                    215,
+                    216,
+                    217,
+                    218,
+                    219,
+                    220,
+                    221,
+                    222,
+                    223,
+                    224,
+                    225,
+                    226,
+                    227,
+                    228,
+                    229,
+                    230,
+                    231,
+                    232,
+                    233,
+                    234,
+                    235,
+                    236,
+                    237,
+                    238,
+                    239,
+                    240,
+                    241,
+                    242,
+                    243,
+                    244,
+                    245,
+                    246,
+                    247,
+                    248,
+                    249,
+                    250,
+                    251,
+                    252,
+                    253,
+                    254,
+                    255
+                  ],
+                  "assertion": "For emit/parallel/serial/bail, filtered dispatch invokes global then visible and excludes hidden; unfiltered dispatch invokes all.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:103/default/a127",
+              "behavior": "In 'ctx.parallel()', the pinned source checks: expect(error).to.be.instanceof(AggregateError)",
+              "source_assertion_lines": [
+                127
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "parallel_invokes_prefixes_immediately_and_aggregates_all_failures",
+                  "lines": [
+                    348,
+                    349,
+                    350,
+                    351,
+                    352,
+                    353,
+                    354,
+                    355,
+                    356,
+                    357,
+                    358,
+                    359,
+                    360,
+                    361,
+                    362,
+                    363,
+                    364,
+                    365,
+                    366,
+                    367,
+                    368,
+                    369,
+                    370,
+                    371,
+                    372,
+                    373,
+                    374,
+                    375,
+                    376,
+                    377,
+                    378,
+                    379,
+                    380,
+                    381,
+                    382,
+                    383,
+                    384,
+                    385,
+                    386,
+                    387,
+                    388,
+                    389,
+                    390,
+                    391,
+                    392,
+                    393,
+                    394,
+                    395,
+                    396,
+                    397,
+                    398,
+                    399,
+                    400,
+                    401,
+                    402,
+                    403,
+                    404,
+                    405,
+                    406
+                  ],
+                  "assertion": "Parallel starts every responder, awaits the gated async responder, labels the event, and retains all failures in snapshot order.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:103/default/a128",
+              "behavior": "In 'ctx.parallel()', the pinned source checks: expect(error.message).to.equal('one or more listeners of event \"custom-event\" failed')",
+              "source_assertion_lines": [
+                128
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "parallel_invokes_prefixes_immediately_and_aggregates_all_failures",
+                  "lines": [
+                    348,
+                    349,
+                    350,
+                    351,
+                    352,
+                    353,
+                    354,
+                    355,
+                    356,
+                    357,
+                    358,
+                    359,
+                    360,
+                    361,
+                    362,
+                    363,
+                    364,
+                    365,
+                    366,
+                    367,
+                    368,
+                    369,
+                    370,
+                    371,
+                    372,
+                    373,
+                    374,
+                    375,
+                    376,
+                    377,
+                    378,
+                    379,
+                    380,
+                    381,
+                    382,
+                    383,
+                    384,
+                    385,
+                    386,
+                    387,
+                    388,
+                    389,
+                    390,
+                    391,
+                    392,
+                    393,
+                    394,
+                    395,
+                    396,
+                    397,
+                    398,
+                    399,
+                    400,
+                    401,
+                    402,
+                    403,
+                    404,
+                    405,
+                    406
+                  ],
+                  "assertion": "Parallel starts every responder, awaits the gated async responder, labels the event, and retains all failures in snapshot order.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:103/default/a129",
+              "behavior": "In 'ctx.parallel()', the pinned source checks: expect(error.errors.map((e: Error) => e.message)).to.have.members(['test', 'async'])",
+              "source_assertion_lines": [
+                129
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "parallel_invokes_prefixes_immediately_and_aggregates_all_failures",
+                  "lines": [
+                    348,
+                    349,
+                    350,
+                    351,
+                    352,
+                    353,
+                    354,
+                    355,
+                    356,
+                    357,
+                    358,
+                    359,
+                    360,
+                    361,
+                    362,
+                    363,
+                    364,
+                    365,
+                    366,
+                    367,
+                    368,
+                    369,
+                    370,
+                    371,
+                    372,
+                    373,
+                    374,
+                    375,
+                    376,
+                    377,
+                    378,
+                    379,
+                    380,
+                    381,
+                    382,
+                    383,
+                    384,
+                    385,
+                    386,
+                    387,
+                    388,
+                    389,
+                    390,
+                    391,
+                    392,
+                    393,
+                    394,
+                    395,
+                    396,
+                    397,
+                    398,
+                    399,
+                    400,
+                    401,
+                    402,
+                    403,
+                    404,
+                    405,
+                    406
+                  ],
+                  "assertion": "Parallel starts every responder, awaits the gated async responder, labels the event, and retains all failures in snapshot order.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:103/default/a130",
+              "behavior": "In 'ctx.parallel()', the pinned source checks: expect(settled).to.be.true",
+              "source_assertion_lines": [
+                130
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "parallel_invokes_prefixes_immediately_and_aggregates_all_failures",
+                  "lines": [
+                    348,
+                    349,
+                    350,
+                    351,
+                    352,
+                    353,
+                    354,
+                    355,
+                    356,
+                    357,
+                    358,
+                    359,
+                    360,
+                    361,
+                    362,
+                    363,
+                    364,
+                    365,
+                    366,
+                    367,
+                    368,
+                    369,
+                    370,
+                    371,
+                    372,
+                    373,
+                    374,
+                    375,
+                    376,
+                    377,
+                    378,
+                    379,
+                    380,
+                    381,
+                    382,
+                    383,
+                    384,
+                    385,
+                    386,
+                    387,
+                    388,
+                    389,
+                    390,
+                    391,
+                    392,
+                    393,
+                    394,
+                    395,
+                    396,
+                    397,
+                    398,
+                    399,
+                    400,
+                    401,
+                    402,
+                    403,
+                    404,
+                    405,
+                    406
+                  ],
+                  "assertion": "Parallel starts every responder, awaits the gated async responder, labels the event, and retains all failures in snapshot order.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/events.spec.ts:134",
+      "source_file": "local/cordis/packages/core/tests/events.spec.ts",
+      "source_line": 134,
+      "source_end_line": 144,
+      "title": "ctx.parallel() labels symbol events",
+      "suite": [
+        "Events"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/events.spec.ts:134/default/a141",
+              "behavior": "In 'ctx.parallel() labels symbol events', the pinned source checks: expect(error).to.be.instanceof(AggregateError)",
+              "source_assertion_lines": [
+                141
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "parallel_invokes_prefixes_immediately_and_aggregates_all_failures",
+                  "lines": [
+                    348,
+                    354,
+                    359,
+                    367,
+                    380,
+                    388,
+                    389,
+                    396,
+                    397,
+                    400,
+                    401,
+                    402
+                  ],
+                  "assertion": "The failing opaque symbol returns EventError::Callbacks labeled Symbol(parallel).",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:134/default/a142",
+              "behavior": "In 'ctx.parallel() labels symbol events', the pinned source checks: expect(error.message).to.equal('one or more listeners of event Symbol(parallel) failed')",
+              "source_assertion_lines": [
+                142
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "parallel_invokes_prefixes_immediately_and_aggregates_all_failures",
+                  "lines": [
+                    348,
+                    354,
+                    359,
+                    367,
+                    380,
+                    388,
+                    389,
+                    396,
+                    397,
+                    400,
+                    401,
+                    402
+                  ],
+                  "assertion": "The failing opaque symbol returns EventError::Callbacks labeled Symbol(parallel).",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/events.spec.ts:145",
+      "source_file": "local/cordis/packages/core/tests/events.spec.ts",
+      "source_line": 145,
+      "source_end_line": 163,
+      "title": "ctx.emit()",
+      "suite": [
+        "Events"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/events.spec.ts:145/default/empty-147",
+              "behavior": "Emit with no registered listener completes successfully without a callback.",
+              "source_assertion_lines": [
+                147
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "symbols_named_contracts_prototype_names_and_empty_bucket_removal",
+                  "lines": [
+                    32,
+                    33,
+                    34,
+                    35,
+                    36,
+                    37
+                  ],
+                  "assertion": "Before registration, emit on each prototype-like named event completes successfully with an empty bucket.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The source performs this dispatch before listener registration. The Rust fixture executes the same empty named-bucket path and both workspace-test logs record it as passed."
+            },
+            {
+              "id": "core/events.spec.ts:145/default/a152",
+              "behavior": "In 'ctx.emit()', the pinned source checks: expect(callback.mock.calls).to.have.length(1)",
+              "source_assertion_lines": [
+                152
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "synchronous_emit_failure_stops_later_callbacks",
+                  "lines": [
+                    521,
+                    522,
+                    523,
+                    524,
+                    525,
+                    526,
+                    527,
+                    528,
+                    529,
+                    530,
+                    531,
+                    532,
+                    533,
+                    534,
+                    535,
+                    536,
+                    537,
+                    538,
+                    539,
+                    540,
+                    541,
+                    542,
+                    543,
+                    544,
+                    545
+                  ],
+                  "assertion": "A synchronous emit failure returns EventError::Callbacks immediately and prevents the later callback.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:145/default/a154",
+              "behavior": "In 'ctx.emit()', the pinned source checks: expect(callback.mock.calls).to.have.length(1)",
+              "source_assertion_lines": [
+                154
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "synchronous_emit_failure_stops_later_callbacks",
+                  "lines": [
+                    521,
+                    522,
+                    523,
+                    524,
+                    525,
+                    526,
+                    527,
+                    528,
+                    529,
+                    530,
+                    531,
+                    532,
+                    533,
+                    534,
+                    535,
+                    536,
+                    537,
+                    538,
+                    539,
+                    540,
+                    541,
+                    542,
+                    543,
+                    544,
+                    545
+                  ],
+                  "assertion": "A synchronous emit failure returns EventError::Callbacks immediately and prevents the later callback.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:145/default/a156",
+              "behavior": "In 'ctx.emit()', the pinned source checks: expect(callback.mock.calls).to.have.length(2)",
+              "source_assertion_lines": [
+                156
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "synchronous_emit_failure_stops_later_callbacks",
+                  "lines": [
+                    521,
+                    522,
+                    523,
+                    524,
+                    525,
+                    526,
+                    527,
+                    528,
+                    529,
+                    530,
+                    531,
+                    532,
+                    533,
+                    534,
+                    535,
+                    536,
+                    537,
+                    538,
+                    539,
+                    540,
+                    541,
+                    542,
+                    543,
+                    544,
+                    545
+                  ],
+                  "assertion": "A synchronous emit failure returns EventError::Callbacks immediately and prevents the later callback.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:145/default/a161",
+              "behavior": "In 'ctx.emit()', the pinned source checks: expect(() => root.emit(event)).to.throw('test')",
+              "source_assertion_lines": [
+                161
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "synchronous_emit_failure_stops_later_callbacks",
+                  "lines": [
+                    521,
+                    522,
+                    523,
+                    524,
+                    525,
+                    526,
+                    527,
+                    528,
+                    529,
+                    530,
+                    531,
+                    532,
+                    533,
+                    534,
+                    535,
+                    536,
+                    537,
+                    538,
+                    539,
+                    540,
+                    541,
+                    542,
+                    543,
+                    544,
+                    545
+                  ],
+                  "assertion": "A synchronous emit failure returns EventError::Callbacks immediately and prevents the later callback.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/events.spec.ts:164",
+      "source_file": "local/cordis/packages/core/tests/events.spec.ts",
+      "source_line": 164,
+      "source_end_line": 182,
+      "title": "ctx.serial()",
+      "suite": [
+        "Events"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/events.spec.ts:164/default/empty-166",
+              "behavior": "Serial dispatch with no registered listener completes successfully without a callback.",
+              "source_assertion_lines": [
+                166
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": {
+                "id": "G-B0-events.spec.ts:164-empty-166",
+                "kind": "missing-evidence",
+                "next_action": "Add a no-listener serial regression and assert the EventTask resolves ControlFlow::Continue on both toolchains.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: a passing regression closes evidence without production change; conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The source performs this dispatch before listener registration. The existing inventory omitted it because there is no expect() call, but it is a meaningful empty-path obligation."
+            },
+            {
+              "id": "core/events.spec.ts:164/default/a171",
+              "behavior": "In 'ctx.serial()', the pinned source checks: expect(callback.mock.calls).to.have.length(1)",
+              "source_assertion_lines": [
+                171
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "prepend_and_global_filters_apply_to_each_dispatch_shape",
+                  "lines": [
+                    187,
+                    188,
+                    189,
+                    190,
+                    191,
+                    192,
+                    193,
+                    194,
+                    195,
+                    196,
+                    197,
+                    198,
+                    199,
+                    200,
+                    201,
+                    202,
+                    203,
+                    204,
+                    205,
+                    206,
+                    207,
+                    208,
+                    209,
+                    210,
+                    211,
+                    212,
+                    213,
+                    214,
+                    215,
+                    216,
+                    217,
+                    218,
+                    219,
+                    220,
+                    221,
+                    222,
+                    223,
+                    224,
+                    225,
+                    226,
+                    227,
+                    228,
+                    229,
+                    230,
+                    231,
+                    232,
+                    233,
+                    234,
+                    235,
+                    236,
+                    237,
+                    238,
+                    239,
+                    240,
+                    241,
+                    242,
+                    243,
+                    244,
+                    245,
+                    246,
+                    247,
+                    248,
+                    249,
+                    250,
+                    251,
+                    252,
+                    253,
+                    254,
+                    255
+                  ],
+                  "assertion": "Serial selects global plus visible under a filter, excludes hidden, and selects all listeners without a filter.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:164/default/a173",
+              "behavior": "In 'ctx.serial()', the pinned source checks: expect(callback.mock.calls).to.have.length(1)",
+              "source_assertion_lines": [
+                173
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "prepend_and_global_filters_apply_to_each_dispatch_shape",
+                  "lines": [
+                    187,
+                    188,
+                    189,
+                    190,
+                    191,
+                    192,
+                    193,
+                    194,
+                    195,
+                    196,
+                    197,
+                    198,
+                    199,
+                    200,
+                    201,
+                    202,
+                    203,
+                    204,
+                    205,
+                    206,
+                    207,
+                    208,
+                    209,
+                    210,
+                    211,
+                    212,
+                    213,
+                    214,
+                    215,
+                    216,
+                    217,
+                    218,
+                    219,
+                    220,
+                    221,
+                    222,
+                    223,
+                    224,
+                    225,
+                    226,
+                    227,
+                    228,
+                    229,
+                    230,
+                    231,
+                    232,
+                    233,
+                    234,
+                    235,
+                    236,
+                    237,
+                    238,
+                    239,
+                    240,
+                    241,
+                    242,
+                    243,
+                    244,
+                    245,
+                    246,
+                    247,
+                    248,
+                    249,
+                    250,
+                    251,
+                    252,
+                    253,
+                    254,
+                    255
+                  ],
+                  "assertion": "Serial selects global plus visible under a filter, excludes hidden, and selects all listeners without a filter.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:164/default/a175",
+              "behavior": "In 'ctx.serial()', the pinned source checks: expect(callback.mock.calls).to.have.length(2)",
+              "source_assertion_lines": [
+                175
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "prepend_and_global_filters_apply_to_each_dispatch_shape",
+                  "lines": [
+                    187,
+                    188,
+                    189,
+                    190,
+                    191,
+                    192,
+                    193,
+                    194,
+                    195,
+                    196,
+                    197,
+                    198,
+                    199,
+                    200,
+                    201,
+                    202,
+                    203,
+                    204,
+                    205,
+                    206,
+                    207,
+                    208,
+                    209,
+                    210,
+                    211,
+                    212,
+                    213,
+                    214,
+                    215,
+                    216,
+                    217,
+                    218,
+                    219,
+                    220,
+                    221,
+                    222,
+                    223,
+                    224,
+                    225,
+                    226,
+                    227,
+                    228,
+                    229,
+                    230,
+                    231,
+                    232,
+                    233,
+                    234,
+                    235,
+                    236,
+                    237,
+                    238,
+                    239,
+                    240,
+                    241,
+                    242,
+                    243,
+                    244,
+                    245,
+                    246,
+                    247,
+                    248,
+                    249,
+                    250,
+                    251,
+                    252,
+                    253,
+                    254,
+                    255
+                  ],
+                  "assertion": "Serial selects global plus visible under a filter, excludes hidden, and selects all listeners without a filter.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:164/default/a180",
+              "behavior": "In 'ctx.serial()', the pinned source checks: await expect(root.serial(event)).rejects.toThrow('message')",
+              "source_assertion_lines": [
+                180
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": {
+                "id": "G-B0-events.spec.ts:164-a180",
+                "kind": "missing-evidence",
+                "next_action": "Add a serial responder returning std::io::Error and assert EventError::Callbacks plus its source.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: a passing regression closes evidence without production change; conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "No serial callback-error assertion preserves the original source."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/events.spec.ts:183",
+      "source_file": "local/cordis/packages/core/tests/events.spec.ts",
+      "source_line": 183,
+      "source_end_line": 201,
+      "title": "ctx.bail()",
+      "suite": [
+        "Events"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/events.spec.ts:183/default/empty-185",
+              "behavior": "Bail dispatch with no registered listener returns the continue/no-answer result without a callback.",
+              "source_assertion_lines": [
+                185
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": {
+                "id": "G-B0-events.spec.ts:183-empty-185",
+                "kind": "missing-evidence",
+                "next_action": "Add a no-listener bail regression and assert ControlFlow::Continue on both toolchains.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: a passing regression closes evidence without production change; conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The source performs this dispatch before listener registration. The existing inventory omitted it because there is no expect() call, but it is a meaningful empty-path obligation."
+            },
+            {
+              "id": "core/events.spec.ts:183/default/a190",
+              "behavior": "In 'ctx.bail()', the pinned source checks: expect(callback.mock.calls).to.have.length(1)",
+              "source_assertion_lines": [
+                190
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "prepend_and_global_filters_apply_to_each_dispatch_shape",
+                  "lines": [
+                    187,
+                    188,
+                    189,
+                    190,
+                    191,
+                    192,
+                    193,
+                    194,
+                    195,
+                    196,
+                    197,
+                    198,
+                    199,
+                    200,
+                    201,
+                    202,
+                    203,
+                    204,
+                    205,
+                    206,
+                    207,
+                    208,
+                    209,
+                    210,
+                    211,
+                    212,
+                    213,
+                    214,
+                    215,
+                    216,
+                    217,
+                    218,
+                    219,
+                    220,
+                    221,
+                    222,
+                    223,
+                    224,
+                    225,
+                    226,
+                    227,
+                    228,
+                    229,
+                    230,
+                    231,
+                    232,
+                    233,
+                    234,
+                    235,
+                    236,
+                    237,
+                    238,
+                    239,
+                    240,
+                    241,
+                    242,
+                    243,
+                    244,
+                    245,
+                    246,
+                    247,
+                    248,
+                    249,
+                    250,
+                    251,
+                    252,
+                    253,
+                    254,
+                    255
+                  ],
+                  "assertion": "Bail selects global plus visible under a filter, excludes hidden, and selects all listeners without a filter.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:183/default/a192",
+              "behavior": "In 'ctx.bail()', the pinned source checks: expect(callback.mock.calls).to.have.length(1)",
+              "source_assertion_lines": [
+                192
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "prepend_and_global_filters_apply_to_each_dispatch_shape",
+                  "lines": [
+                    187,
+                    188,
+                    189,
+                    190,
+                    191,
+                    192,
+                    193,
+                    194,
+                    195,
+                    196,
+                    197,
+                    198,
+                    199,
+                    200,
+                    201,
+                    202,
+                    203,
+                    204,
+                    205,
+                    206,
+                    207,
+                    208,
+                    209,
+                    210,
+                    211,
+                    212,
+                    213,
+                    214,
+                    215,
+                    216,
+                    217,
+                    218,
+                    219,
+                    220,
+                    221,
+                    222,
+                    223,
+                    224,
+                    225,
+                    226,
+                    227,
+                    228,
+                    229,
+                    230,
+                    231,
+                    232,
+                    233,
+                    234,
+                    235,
+                    236,
+                    237,
+                    238,
+                    239,
+                    240,
+                    241,
+                    242,
+                    243,
+                    244,
+                    245,
+                    246,
+                    247,
+                    248,
+                    249,
+                    250,
+                    251,
+                    252,
+                    253,
+                    254,
+                    255
+                  ],
+                  "assertion": "Bail selects global plus visible under a filter, excludes hidden, and selects all listeners without a filter.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:183/default/a194",
+              "behavior": "In 'ctx.bail()', the pinned source checks: expect(callback.mock.calls).to.have.length(2)",
+              "source_assertion_lines": [
+                194
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "prepend_and_global_filters_apply_to_each_dispatch_shape",
+                  "lines": [
+                    187,
+                    188,
+                    189,
+                    190,
+                    191,
+                    192,
+                    193,
+                    194,
+                    195,
+                    196,
+                    197,
+                    198,
+                    199,
+                    200,
+                    201,
+                    202,
+                    203,
+                    204,
+                    205,
+                    206,
+                    207,
+                    208,
+                    209,
+                    210,
+                    211,
+                    212,
+                    213,
+                    214,
+                    215,
+                    216,
+                    217,
+                    218,
+                    219,
+                    220,
+                    221,
+                    222,
+                    223,
+                    224,
+                    225,
+                    226,
+                    227,
+                    228,
+                    229,
+                    230,
+                    231,
+                    232,
+                    233,
+                    234,
+                    235,
+                    236,
+                    237,
+                    238,
+                    239,
+                    240,
+                    241,
+                    242,
+                    243,
+                    244,
+                    245,
+                    246,
+                    247,
+                    248,
+                    249,
+                    250,
+                    251,
+                    252,
+                    253,
+                    254,
+                    255
+                  ],
+                  "assertion": "Bail selects global plus visible under a filter, excludes hidden, and selects all listeners without a filter.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:183/default/a199",
+              "behavior": "In 'ctx.bail()', the pinned source checks: expect(() => root.bail(event)).to.throw('message')",
+              "source_assertion_lines": [
+                199
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": {
+                "id": "G-B0-events.spec.ts:183-a199",
+                "kind": "missing-evidence",
+                "next_action": "Add a bail responder returning std::io::Error and assert EventError::Callbacks plus its source.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: a passing regression closes evidence without production change; conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "No bail callback-error assertion preserves the original source."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/events.spec.ts:202",
+      "source_file": "local/cordis/packages/core/tests/events.spec.ts",
+      "source_line": 202,
+      "source_end_line": 229,
+      "title": "ctx.waterfall()",
+      "suite": [
+        "Events"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/events.spec.ts:202/default/a209",
+              "behavior": "In 'ctx.waterfall()', the pinned source checks: expect(root.waterfall('test/waterfall', 1, () => 2)).to.equal(4)",
+              "source_assertion_lines": [
+                209
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "waterfall_is_around_middleware_with_veto_and_nested_async_calls",
+                  "lines": [
+                    552,
+                    553,
+                    554,
+                    555,
+                    556,
+                    557,
+                    558,
+                    559,
+                    560,
+                    561,
+                    562,
+                    563,
+                    564,
+                    565,
+                    566,
+                    567,
+                    568,
+                    569,
+                    570,
+                    571,
+                    572,
+                    573,
+                    574,
+                    575,
+                    576,
+                    577,
+                    578,
+                    579,
+                    580,
+                    581,
+                    582,
+                    583,
+                    584,
+                    585,
+                    586,
+                    587,
+                    588,
+                    589,
+                    590,
+                    591,
+                    592,
+                    593,
+                    594,
+                    595,
+                    596,
+                    597,
+                    598
+                  ],
+                  "assertion": "Two around frames and the terminal return 4; an inner veto omits next and the outer frame resumes around it.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:202/default/a210",
+              "behavior": "In 'ctx.waterfall()', the pinned source checks: expect(cb1.mock.calls).to.have.length(1)",
+              "source_assertion_lines": [
+                210
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "waterfall_is_around_middleware_with_veto_and_nested_async_calls",
+                  "lines": [
+                    552,
+                    553,
+                    554,
+                    555,
+                    556,
+                    557,
+                    558,
+                    559,
+                    560,
+                    561,
+                    562,
+                    563,
+                    564,
+                    565,
+                    566,
+                    567,
+                    568,
+                    569,
+                    570,
+                    571,
+                    572,
+                    573,
+                    574,
+                    575,
+                    576,
+                    577,
+                    578,
+                    579,
+                    580,
+                    581,
+                    582,
+                    583,
+                    584,
+                    585,
+                    586,
+                    587,
+                    588,
+                    589,
+                    590,
+                    591,
+                    592,
+                    593,
+                    594,
+                    595,
+                    596,
+                    597,
+                    598
+                  ],
+                  "assertion": "Two around frames and the terminal return 4; an inner veto omits next and the outer frame resumes around it.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:202/default/a211",
+              "behavior": "In 'ctx.waterfall()', the pinned source checks: expect(cb2.mock.calls).to.have.length(1)",
+              "source_assertion_lines": [
+                211
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "waterfall_is_around_middleware_with_veto_and_nested_async_calls",
+                  "lines": [
+                    552,
+                    553,
+                    554,
+                    555,
+                    556,
+                    557,
+                    558,
+                    559,
+                    560,
+                    561,
+                    562,
+                    563,
+                    564,
+                    565,
+                    566,
+                    567,
+                    568,
+                    569,
+                    570,
+                    571,
+                    572,
+                    573,
+                    574,
+                    575,
+                    576,
+                    577,
+                    578,
+                    579,
+                    580,
+                    581,
+                    582,
+                    583,
+                    584,
+                    585,
+                    586,
+                    587,
+                    588,
+                    589,
+                    590,
+                    591,
+                    592,
+                    593,
+                    594,
+                    595,
+                    596,
+                    597,
+                    598
+                  ],
+                  "assertion": "Two around frames and the terminal return 4; an inner veto omits next and the outer frame resumes around it.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:202/default/a219",
+              "behavior": "In 'ctx.waterfall()', the pinned source checks: expect(root.waterfall('test/waterfall', 1, () => 2)).to.equal(3)",
+              "source_assertion_lines": [
+                219
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "waterfall_is_around_middleware_with_veto_and_nested_async_calls",
+                  "lines": [
+                    552,
+                    553,
+                    554,
+                    555,
+                    556,
+                    557,
+                    558,
+                    559,
+                    560,
+                    561,
+                    562,
+                    563,
+                    564,
+                    565,
+                    566,
+                    567,
+                    568,
+                    569,
+                    570,
+                    571,
+                    572,
+                    573,
+                    574,
+                    575,
+                    576,
+                    577,
+                    578,
+                    579,
+                    580,
+                    581,
+                    582,
+                    583,
+                    584,
+                    585,
+                    586,
+                    587,
+                    588,
+                    589,
+                    590,
+                    591,
+                    592,
+                    593,
+                    594,
+                    595,
+                    596,
+                    597,
+                    598
+                  ],
+                  "assertion": "Two around frames and the terminal return 4; an inner veto omits next and the outer frame resumes around it.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:202/default/a220",
+              "behavior": "In 'ctx.waterfall()', the pinned source checks: expect(cb1.mock.calls).to.have.length(1)",
+              "source_assertion_lines": [
+                220
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "waterfall_is_around_middleware_with_veto_and_nested_async_calls",
+                  "lines": [
+                    552,
+                    553,
+                    554,
+                    555,
+                    556,
+                    557,
+                    558,
+                    559,
+                    560,
+                    561,
+                    562,
+                    563,
+                    564,
+                    565,
+                    566,
+                    567,
+                    568,
+                    569,
+                    570,
+                    571,
+                    572,
+                    573,
+                    574,
+                    575,
+                    576,
+                    577,
+                    578,
+                    579,
+                    580,
+                    581,
+                    582,
+                    583,
+                    584,
+                    585,
+                    586,
+                    587,
+                    588,
+                    589,
+                    590,
+                    591,
+                    592,
+                    593,
+                    594,
+                    595,
+                    596,
+                    597,
+                    598
+                  ],
+                  "assertion": "Two around frames and the terminal return 4; an inner veto omits next and the outer frame resumes around it.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:202/default/a221",
+              "behavior": "In 'ctx.waterfall()', the pinned source checks: expect(cb2.mock.calls).to.have.length(1)",
+              "source_assertion_lines": [
+                221
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "waterfall_is_around_middleware_with_veto_and_nested_async_calls",
+                  "lines": [
+                    552,
+                    553,
+                    554,
+                    555,
+                    556,
+                    557,
+                    558,
+                    559,
+                    560,
+                    561,
+                    562,
+                    563,
+                    564,
+                    565,
+                    566,
+                    567,
+                    568,
+                    569,
+                    570,
+                    571,
+                    572,
+                    573,
+                    574,
+                    575,
+                    576,
+                    577,
+                    578,
+                    579,
+                    580,
+                    581,
+                    582,
+                    583,
+                    584,
+                    585,
+                    586,
+                    587,
+                    588,
+                    589,
+                    590,
+                    591,
+                    592,
+                    593,
+                    594,
+                    595,
+                    596,
+                    597,
+                    598
+                  ],
+                  "assertion": "Two around frames and the terminal return 4; an inner veto omits next and the outer frame resumes around it.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:202/default/a222",
+              "behavior": "In 'ctx.waterfall()', the pinned source checks: expect(cb3.mock.calls).to.have.length(1)",
+              "source_assertion_lines": [
+                222
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "waterfall_is_around_middleware_with_veto_and_nested_async_calls",
+                  "lines": [
+                    552,
+                    553,
+                    554,
+                    555,
+                    556,
+                    557,
+                    558,
+                    559,
+                    560,
+                    561,
+                    562,
+                    563,
+                    564,
+                    565,
+                    566,
+                    567,
+                    568,
+                    569,
+                    570,
+                    571,
+                    572,
+                    573,
+                    574,
+                    575,
+                    576,
+                    577,
+                    578,
+                    579,
+                    580,
+                    581,
+                    582,
+                    583,
+                    584,
+                    585,
+                    586,
+                    587,
+                    588,
+                    589,
+                    590,
+                    591,
+                    592,
+                    593,
+                    594,
+                    595,
+                    596,
+                    597,
+                    598
+                  ],
+                  "assertion": "Two around frames and the terminal return 4; an inner veto omits next and the outer frame resumes around it.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:202/default/a223",
+              "behavior": "In 'ctx.waterfall()', the pinned source checks: expect(cb4.mock.calls).to.have.length(0)",
+              "source_assertion_lines": [
+                223
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "waterfall_is_around_middleware_with_veto_and_nested_async_calls",
+                  "lines": [
+                    552,
+                    553,
+                    554,
+                    555,
+                    556,
+                    557,
+                    558,
+                    559,
+                    560,
+                    561,
+                    562,
+                    563,
+                    564,
+                    565,
+                    566,
+                    567,
+                    568,
+                    569,
+                    570,
+                    571,
+                    572,
+                    573,
+                    574,
+                    575,
+                    576,
+                    577,
+                    578,
+                    579,
+                    580,
+                    581,
+                    582,
+                    583,
+                    584,
+                    585,
+                    586,
+                    587,
+                    588,
+                    589,
+                    590,
+                    591,
+                    592,
+                    593,
+                    594,
+                    595,
+                    596,
+                    597,
+                    598
+                  ],
+                  "assertion": "Two around frames and the terminal return 4; an inner veto omits next and the outer frame resumes around it.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/events.spec.ts:230",
+      "source_file": "local/cordis/packages/core/tests/events.spec.ts",
+      "source_line": 230,
+      "source_end_line": 243,
+      "title": "ctx.waterfall() rejects duplicate next()",
+      "suite": [
+        "Events"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/events.spec.ts:230/default/a239",
+              "behavior": "In 'ctx.waterfall() rejects duplicate next()', the pinned source checks: expect(() => root.waterfall('test/waterfall', 1, terminal)).to.throw('next() called multiple times')",
+              "source_assertion_lines": [
+                239
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/src/events.rs",
+                  "symbol": "Next rustdoc compile-fail example",
+                  "lines": [
+                    249,
+                    250,
+                    251,
+                    252,
+                    253,
+                    254,
+                    255,
+                    256,
+                    257,
+                    258,
+                    259
+                  ],
+                  "assertion": "Next::call consumes the continuation, so a second call is rejected at compile time.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:230/default/a240",
+              "behavior": "In 'ctx.waterfall() rejects duplicate next()', the pinned source checks: expect(callback.mock.calls).to.have.length(1)",
+              "source_assertion_lines": [
+                240
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/src/events.rs",
+                  "symbol": "Next rustdoc compile-fail example",
+                  "lines": [
+                    249,
+                    250,
+                    251,
+                    252,
+                    253,
+                    254,
+                    255,
+                    256,
+                    257,
+                    258,
+                    259
+                  ],
+                  "assertion": "Next::call consumes the continuation, so a second call is rejected at compile time.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:230/default/a241",
+              "behavior": "In 'ctx.waterfall() rejects duplicate next()', the pinned source checks: expect(terminal.mock.calls).to.have.length(1)",
+              "source_assertion_lines": [
+                241
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/src/events.rs",
+                  "symbol": "Next rustdoc compile-fail example",
+                  "lines": [
+                    249,
+                    250,
+                    251,
+                    252,
+                    253,
+                    254,
+                    255,
+                    256,
+                    257,
+                    258,
+                    259
+                  ],
+                  "assertion": "Next::call consumes the continuation, so a second call is rejected at compile time.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/events.spec.ts:244",
+      "source_file": "local/cordis/packages/core/tests/events.spec.ts",
+      "source_line": 244,
+      "source_end_line": 264,
+      "title": "ctx.waterfall() rejects continuations from outer frames",
+      "suite": [
+        "Events"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/events.spec.ts:244/default/a258",
+              "behavior": "In 'ctx.waterfall() rejects continuations from outer frames', the pinned source checks: expect(() => root.waterfall('test/waterfall', 1, () => {\ncalls.push('terminal')\nreturn outerNext()\n})).to.throw('next() called multiple times')",
+              "source_assertion_lines": [
+                258,
+                259,
+                260,
+                261
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": {
+                "id": "G-B0-events.spec.ts:244-a258",
+                "kind": "missing-evidence",
+                "next_action": "Add a compile-fail Rustdoc case that attempts to retain/move an outer Next into a terminal or later frame.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: a passing regression closes evidence without production change; conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "Owned Next blocks reuse, but the compile-fail item does not cover capture into an outer/terminal frame."
+            },
+            {
+              "id": "core/events.spec.ts:244/default/a262",
+              "behavior": "In 'ctx.waterfall() rejects continuations from outer frames', the pinned source checks: expect(calls).to.deep.equal(['first', 'second', 'terminal'])",
+              "source_assertion_lines": [
+                262
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": {
+                "id": "G-B0-events.spec.ts:244-a262",
+                "kind": "missing-evidence",
+                "next_action": "Add the outer-frame compile-fail case plus a runnable around-order example for first/second/terminal without Next reuse.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: a passing regression closes evidence without production change; conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The ownership-rejected program has no executed Rust trace matching first, second, terminal."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence"
+      ]
+    },
+    {
+      "id": "core/events.spec.ts:265",
+      "source_file": "local/cordis/packages/core/tests/events.spec.ts",
+      "source_line": 265,
+      "source_end_line": 277,
+      "title": "ctx.waterfall() rejects duplicate next() after awaiting",
+      "suite": [
+        "Events"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/events.spec.ts:265/default/a270",
+              "behavior": "In 'ctx.waterfall() rejects duplicate next() after awaiting', the pinned source checks: expect(() => next()).to.throw('next() called multiple times')",
+              "source_assertion_lines": [
+                270
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/src/events.rs",
+                  "symbol": "AsyncNext rustdoc compile-fail example",
+                  "lines": [
+                    261,
+                    262,
+                    263,
+                    264,
+                    265,
+                    266,
+                    267,
+                    268,
+                    269,
+                    270,
+                    271,
+                    272
+                  ],
+                  "assertion": "AsyncNext::call consumes the continuation, so a second post-await call is rejected at compile time.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:265/default/a274",
+              "behavior": "In 'ctx.waterfall() rejects duplicate next() after awaiting', the pinned source checks: expect(await root.waterfall('test/async-waterfall', 1, terminal)).to.equal(3)",
+              "source_assertion_lines": [
+                274
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/src/events.rs",
+                  "symbol": "AsyncNext rustdoc compile-fail example",
+                  "lines": [
+                    261,
+                    262,
+                    263,
+                    264,
+                    265,
+                    266,
+                    267,
+                    268,
+                    269,
+                    270,
+                    271,
+                    272
+                  ],
+                  "assertion": "AsyncNext::call consumes the continuation, so a second post-await call is rejected at compile time.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:265/default/a275",
+              "behavior": "In 'ctx.waterfall() rejects duplicate next() after awaiting', the pinned source checks: expect(terminal.mock.calls).to.have.length(1)",
+              "source_assertion_lines": [
+                275
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/src/events.rs",
+                  "symbol": "AsyncNext rustdoc compile-fail example",
+                  "lines": [
+                    261,
+                    262,
+                    263,
+                    264,
+                    265,
+                    266,
+                    267,
+                    268,
+                    269,
+                    270,
+                    271,
+                    272
+                  ],
+                  "assertion": "AsyncNext::call consumes the continuation, so a second post-await call is rejected at compile time.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/events.spec.ts:278",
+      "source_file": "local/cordis/packages/core/tests/events.spec.ts",
+      "source_line": 278,
+      "source_end_line": 295,
+      "title": "ctx.waterfall() supports nested async calls",
+      "suite": [
+        "Events"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/events.spec.ts:278/default/a290",
+              "behavior": "In 'ctx.waterfall() supports nested async calls', the pinned source checks: expect(await root.waterfall('test/async-waterfall', 1, terminal)).to.equal(4)",
+              "source_assertion_lines": [
+                290
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "waterfall_is_around_middleware_with_veto_and_nested_async_calls",
+                  "lines": [
+                    599,
+                    600,
+                    601,
+                    602,
+                    603,
+                    604,
+                    605,
+                    606,
+                    607,
+                    608,
+                    609,
+                    610,
+                    611,
+                    612,
+                    613,
+                    614,
+                    615,
+                    616,
+                    617,
+                    618,
+                    619,
+                    620,
+                    621,
+                    622,
+                    623,
+                    624,
+                    625,
+                    626,
+                    627,
+                    628,
+                    629,
+                    630,
+                    631,
+                    632,
+                    633,
+                    634,
+                    635,
+                    636,
+                    637,
+                    638
+                  ],
+                  "assertion": "The async listener recursively dispatches the same event for value 2 and combines both terminal results to 4.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:278/default/a291",
+              "behavior": "In 'ctx.waterfall() supports nested async calls', the pinned source checks: expect(callback.mock.calls).to.have.length(2)",
+              "source_assertion_lines": [
+                291
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "waterfall_is_around_middleware_with_veto_and_nested_async_calls",
+                  "lines": [
+                    599,
+                    600,
+                    601,
+                    602,
+                    603,
+                    604,
+                    605,
+                    606,
+                    607,
+                    608,
+                    609,
+                    610,
+                    611,
+                    612,
+                    613,
+                    614,
+                    615,
+                    616,
+                    617,
+                    618,
+                    619,
+                    620,
+                    621,
+                    622,
+                    623,
+                    624,
+                    625,
+                    626,
+                    627,
+                    628,
+                    629,
+                    630,
+                    631,
+                    632,
+                    633,
+                    634,
+                    635,
+                    636,
+                    637,
+                    638
+                  ],
+                  "assertion": "The async listener recursively dispatches the same event for value 2 and combines both terminal results to 4.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:278/default/a292",
+              "behavior": "In 'ctx.waterfall() supports nested async calls', the pinned source checks: expect(terminal.mock.calls).to.have.length(2)",
+              "source_assertion_lines": [
+                292
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "waterfall_is_around_middleware_with_veto_and_nested_async_calls",
+                  "lines": [
+                    599,
+                    600,
+                    601,
+                    602,
+                    603,
+                    604,
+                    605,
+                    606,
+                    607,
+                    608,
+                    609,
+                    610,
+                    611,
+                    612,
+                    613,
+                    614,
+                    615,
+                    616,
+                    617,
+                    618,
+                    619,
+                    620,
+                    621,
+                    622,
+                    623,
+                    624,
+                    625,
+                    626,
+                    627,
+                    628,
+                    629,
+                    630,
+                    631,
+                    632,
+                    633,
+                    634,
+                    635,
+                    636,
+                    637,
+                    638
+                  ],
+                  "assertion": "The async listener recursively dispatches the same event for value 2 and combines both terminal results to 4.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/events.spec.ts:296",
+      "source_file": "local/cordis/packages/core/tests/events.spec.ts",
+      "source_line": 296,
+      "source_end_line": 312,
+      "title": "does not accumulate across reloads",
+      "suite": [
+        "Events",
+        "internal/update"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/events.spec.ts:296/default/a310",
+              "behavior": "In 'does not accumulate across reloads', the pinned source checks: expect(calls).to.deep.equal([1, 2, 3])",
+              "source_assertion_lines": [
+                310
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "local_update_hooks_do_not_accumulate_and_global_hooks_survive_child_reload",
+                  "lines": [
+                    424,
+                    425,
+                    426,
+                    427,
+                    428,
+                    429,
+                    430,
+                    431,
+                    432,
+                    433,
+                    434,
+                    435,
+                    436,
+                    437,
+                    438,
+                    439,
+                    440,
+                    441,
+                    442,
+                    443,
+                    444,
+                    445,
+                    446,
+                    447,
+                    448,
+                    449,
+                    450,
+                    451,
+                    452,
+                    453,
+                    454,
+                    455,
+                    456,
+                    457,
+                    458,
+                    459,
+                    460,
+                    461,
+                    462,
+                    463,
+                    464,
+                    465,
+                    466,
+                    467,
+                    468,
+                    469,
+                    470,
+                    471
+                  ],
+                  "assertion": "Five updates invoke the local hook exactly five times, proving retired hooks do not accumulate.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/events.spec.ts:313",
+      "source_file": "local/cordis/packages/core/tests/events.spec.ts",
+      "source_line": 313,
+      "source_end_line": 329,
+      "title": "can be disposed explicitly",
+      "suite": [
+        "Events",
+        "internal/update"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/events.spec.ts:313/default/a327",
+              "behavior": "In 'can be disposed explicitly', the pinned source checks: expect(calls).to.deep.equal([])",
+              "source_assertion_lines": [
+                327
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "explicit_update_hook_removal_and_local_before_global_order_match_the_router",
+                  "lines": [
+                    787,
+                    788,
+                    789,
+                    790,
+                    791,
+                    792,
+                    793,
+                    794,
+                    795,
+                    796,
+                    797,
+                    798,
+                    799,
+                    800,
+                    801,
+                    802,
+                    803,
+                    804,
+                    805,
+                    806,
+                    807,
+                    808,
+                    809,
+                    810,
+                    811,
+                    812,
+                    813,
+                    814,
+                    815,
+                    816,
+                    817,
+                    818,
+                    819,
+                    820,
+                    821,
+                    822,
+                    823,
+                    824,
+                    825,
+                    826,
+                    827,
+                    828,
+                    829,
+                    830,
+                    831,
+                    832,
+                    833,
+                    834,
+                    835,
+                    836,
+                    837,
+                    838,
+                    839,
+                    840,
+                    841
+                  ],
+                  "assertion": "The local hook is invoked once, its exact token is removed, and the next update reaches only the global hook.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/events.spec.ts:330",
+      "source_file": "local/cordis/packages/core/tests/events.spec.ts",
+      "source_line": 330,
+      "source_end_line": 353,
+      "title": "global listeners are not tied to a child fiber reload",
+      "suite": [
+        "Events",
+        "internal/update"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/events.spec.ts:330/default/a349",
+              "behavior": "In 'global listeners are not tied to a child fiber reload', the pinned source checks: expect(globalCalls).to.deep.equal([1, 2])",
+              "source_assertion_lines": [
+                349
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "local_update_hooks_do_not_accumulate_and_global_hooks_survive_child_reload",
+                  "lines": [
+                    424,
+                    425,
+                    426,
+                    427,
+                    428,
+                    429,
+                    430,
+                    431,
+                    432,
+                    433,
+                    434,
+                    435,
+                    436,
+                    437,
+                    438,
+                    439,
+                    440,
+                    441,
+                    442,
+                    443,
+                    444,
+                    445,
+                    446,
+                    447,
+                    448,
+                    449,
+                    450,
+                    451,
+                    452,
+                    453,
+                    454,
+                    455,
+                    456,
+                    457,
+                    458,
+                    459,
+                    460,
+                    461,
+                    462,
+                    463,
+                    464,
+                    465,
+                    466,
+                    467,
+                    468,
+                    469,
+                    470,
+                    471
+                  ],
+                  "assertion": "Root-global and Fiber-local update hooks each observe every child update across reloads.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:330/default/a350",
+              "behavior": "In 'global listeners are not tied to a child fiber reload', the pinned source checks: expect(localCalls).to.deep.equal([1, 2])",
+              "source_assertion_lines": [
+                350
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "local_update_hooks_do_not_accumulate_and_global_hooks_survive_child_reload",
+                  "lines": [
+                    424,
+                    425,
+                    426,
+                    427,
+                    428,
+                    429,
+                    430,
+                    431,
+                    432,
+                    433,
+                    434,
+                    435,
+                    436,
+                    437,
+                    438,
+                    439,
+                    440,
+                    441,
+                    442,
+                    443,
+                    444,
+                    445,
+                    446,
+                    447,
+                    448,
+                    449,
+                    450,
+                    451,
+                    452,
+                    453,
+                    454,
+                    455,
+                    456,
+                    457,
+                    458,
+                    459,
+                    460,
+                    461,
+                    462,
+                    463,
+                    464,
+                    465,
+                    466,
+                    467,
+                    468,
+                    469,
+                    470,
+                    471
+                  ],
+                  "assertion": "Root-global and Fiber-local update hooks each observe every child update across reloads.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    }
+  ]
+}

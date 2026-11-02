@@ -1,0 +1,2741 @@
+{
+  "schema_version": 1,
+  "rust_revision": "9a7633c0b3b98e5f37e9f2211f3ffa67fdac5edc",
+  "typescript_revision": "35fdc969e4b6c48c48ed44717c7a018324e4dd88",
+  "status": "13 disposal declarations complete; independent review pending",
+  "declarations": [
+    {
+      "id": "core/dispose.spec.ts:7",
+      "source_file": "local/cordis/packages/core/tests/dispose.spec.ts",
+      "source_line": 7,
+      "source_end_line": 22,
+      "title": "dispose by plugin",
+      "suite": [
+        "Effects"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/dispose.spec.ts:7/default/a13",
+              "behavior": "In 'dispose by plugin', the pinned source checks: expect(fiber.getEffects()).to.deep.equal([\n{ label: 'test', children: [] },\n])",
+              "source_assertion_lines": [
+                13,
+                14,
+                15
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": {
+                "id": "G-B0-dispose.spec.ts:7-a13",
+                "kind": "missing-evidence",
+                "next_action": "Add an exact named child EffectMeta assertion to the child-ownership regression.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: a passing regression closes evidence without production change; conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The child test asserts journal lengths but not the exact named EffectMeta value."
+            },
+            {
+              "id": "core/dispose.spec.ts:7/default/a16",
+              "behavior": "In 'dispose by plugin', the pinned source checks: expect(dispose.mock.calls).to.have.length(0)",
+              "source_assertion_lines": [
+                16
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "child_effect_streams_and_exporters_follow_child_ownership_not_the_root",
+                  "lines": [
+                    855,
+                    856,
+                    857,
+                    858,
+                    859,
+                    860,
+                    861,
+                    862,
+                    863,
+                    864,
+                    865,
+                    866,
+                    867,
+                    868,
+                    869,
+                    870,
+                    871,
+                    872,
+                    873,
+                    874,
+                    875,
+                    876,
+                    877,
+                    878,
+                    879,
+                    880,
+                    881,
+                    882,
+                    883,
+                    884,
+                    885,
+                    886,
+                    887,
+                    888,
+                    889,
+                    890,
+                    891,
+                    892,
+                    893,
+                    894,
+                    895,
+                    896,
+                    897,
+                    898,
+                    899,
+                    900,
+                    901,
+                    902,
+                    903,
+                    904,
+                    905,
+                    906,
+                    907,
+                    908
+                  ],
+                  "assertion": "A child Fiber owns its journal; cleanup is false at disposal start, true after joined release, and its journal is empty afterward.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/dispose.spec.ts:7/default/a18",
+              "behavior": "In 'dispose by plugin', the pinned source checks: expect(dispose.mock.calls).to.have.length(1)",
+              "source_assertion_lines": [
+                18
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "child_effect_streams_and_exporters_follow_child_ownership_not_the_root",
+                  "lines": [
+                    855,
+                    856,
+                    857,
+                    858,
+                    859,
+                    860,
+                    861,
+                    862,
+                    863,
+                    864,
+                    865,
+                    866,
+                    867,
+                    868,
+                    869,
+                    870,
+                    871,
+                    872,
+                    873,
+                    874,
+                    875,
+                    876,
+                    877,
+                    878,
+                    879,
+                    880,
+                    881,
+                    882,
+                    883,
+                    884,
+                    885,
+                    886,
+                    887,
+                    888,
+                    889,
+                    890,
+                    891,
+                    892,
+                    893,
+                    894,
+                    895,
+                    896,
+                    897,
+                    898,
+                    899,
+                    900,
+                    901,
+                    902,
+                    903,
+                    904,
+                    905,
+                    906,
+                    907,
+                    908
+                  ],
+                  "assertion": "A child Fiber owns its journal; cleanup is false at disposal start, true after joined release, and its journal is empty afterward.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/dispose.spec.ts:7/default/a20",
+              "behavior": "In 'dispose by plugin', the pinned source checks: expect(dispose.mock.calls).to.have.length(1)",
+              "source_assertion_lines": [
+                20
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": {
+                "id": "G-B0-dispose.spec.ts:7-a20",
+                "kind": "missing-evidence",
+                "next_action": "Add a second dispose request and assert cleanup remains exactly once.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: a passing regression closes evidence without production change; conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The child test proves one cleanup but does not issue a second Fiber::dispose and reassert the count."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/dispose.spec.ts:23",
+      "source_file": "local/cordis/packages/core/tests/dispose.spec.ts",
+      "source_line": 23,
+      "source_end_line": 36,
+      "title": "dispose manually",
+      "suite": [
+        "Effects"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/dispose.spec.ts:23/default/a27",
+              "behavior": "In 'dispose manually', the pinned source checks: expect(root.fiber.getEffects()).to.deep.equal([\n{ label: 'anonymous', children: [] },\n])",
+              "source_assertion_lines": [
+                27,
+                28,
+                29
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/effect_metadata.rs",
+                  "symbol": "synchronous_manual_disposal_and_value_only_snapshots_do_not_retain_resources",
+                  "lines": [
+                    32,
+                    33,
+                    34,
+                    35,
+                    36,
+                    37,
+                    38,
+                    39,
+                    40,
+                    41,
+                    42,
+                    43,
+                    44,
+                    45,
+                    46,
+                    47,
+                    48,
+                    49,
+                    50,
+                    51,
+                    52,
+                    53,
+                    54,
+                    55,
+                    56,
+                    57,
+                    58,
+                    59,
+                    60,
+                    61,
+                    62,
+                    63,
+                    64,
+                    65,
+                    66,
+                    67,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    74,
+                    75,
+                    76,
+                    77,
+                    78,
+                    79
+                  ],
+                  "assertion": "The root journal exposes one child; manual sync disposal runs before awaiting, releases the resource, and removes the journal entry.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/dispose.spec.ts:23/default/a30",
+              "behavior": "In 'dispose manually', the pinned source checks: expect(dispose1.mock.calls).to.have.length(0)",
+              "source_assertion_lines": [
+                30
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/effect_metadata.rs",
+                  "symbol": "synchronous_manual_disposal_and_value_only_snapshots_do_not_retain_resources",
+                  "lines": [
+                    32,
+                    33,
+                    34,
+                    35,
+                    36,
+                    37,
+                    38,
+                    39,
+                    40,
+                    41,
+                    42,
+                    43,
+                    44,
+                    45,
+                    46,
+                    47,
+                    48,
+                    49,
+                    50,
+                    51,
+                    52,
+                    53,
+                    54,
+                    55,
+                    56,
+                    57,
+                    58,
+                    59,
+                    60,
+                    61,
+                    62,
+                    63,
+                    64,
+                    65,
+                    66,
+                    67,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    74,
+                    75,
+                    76,
+                    77,
+                    78,
+                    79
+                  ],
+                  "assertion": "The root journal exposes one child; manual sync disposal runs before awaiting, releases the resource, and removes the journal entry.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/dispose.spec.ts:23/default/a32",
+              "behavior": "In 'dispose manually', the pinned source checks: expect(dispose1.mock.calls).to.have.length(1)",
+              "source_assertion_lines": [
+                32
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/effect_metadata.rs",
+                  "symbol": "synchronous_manual_disposal_and_value_only_snapshots_do_not_retain_resources",
+                  "lines": [
+                    32,
+                    33,
+                    34,
+                    35,
+                    36,
+                    37,
+                    38,
+                    39,
+                    40,
+                    41,
+                    42,
+                    43,
+                    44,
+                    45,
+                    46,
+                    47,
+                    48,
+                    49,
+                    50,
+                    51,
+                    52,
+                    53,
+                    54,
+                    55,
+                    56,
+                    57,
+                    58,
+                    59,
+                    60,
+                    61,
+                    62,
+                    63,
+                    64,
+                    65,
+                    66,
+                    67,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    74,
+                    75,
+                    76,
+                    77,
+                    78,
+                    79
+                  ],
+                  "assertion": "The root journal exposes one child; manual sync disposal runs before awaiting, releases the resource, and removes the journal entry.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/dispose.spec.ts:23/default/a34",
+              "behavior": "In 'dispose manually', the pinned source checks: expect(dispose1.mock.calls).to.have.length(1)",
+              "source_assertion_lines": [
+                34
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": {
+                "id": "G-B0-dispose.spec.ts:23-a34",
+                "kind": "missing-evidence",
+                "next_action": "Add an Effect::dispose compile-fail Rustdoc example for a reused consumed handle.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: a passing regression closes evidence without production change; conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "Effect::dispose consumes the handle; no compile-fail item proves a second claim is ownership-invalid."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/dispose.spec.ts:37",
+      "source_file": "local/cordis/packages/core/tests/dispose.spec.ts",
+      "source_line": 37,
+      "source_end_line": 75,
+      "title": "yield dispose",
+      "suite": [
+        "Effects"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/dispose.spec.ts:37/default/a53",
+              "behavior": "In 'yield dispose', the pinned source checks: expect(root.fiber.getEffects()).to.deep.equal([\n{\nlabel: 'anonymous',\nchildren: [\n// only root level anonymous effects are included\n{ label: 'ctx.on(\"custom-event\")', children: [] },\n{\nlabel: 'anonymous',\nchildren: [\n{ label: 'ctx.on(\"custom-event\")', children: [] },\n],\n},\n],\n},\n{ label: 'ctx.on(\"custom-event\")', children: [] },\n])",
+              "source_assertion_lines": [
+                53,
+                54,
+                55,
+                56,
+                57,
+                58,
+                59,
+                60,
+                61,
+                62,
+                63,
+                64,
+                65,
+                66,
+                67,
+                68
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/effect_metadata.rs",
+                  "symbol": "nested_labels_track_only_yielded_effects_and_sync_children_run_before_return",
+                  "lines": [
+                    84,
+                    85,
+                    86,
+                    87,
+                    88,
+                    89,
+                    90,
+                    91,
+                    92,
+                    93,
+                    94,
+                    95,
+                    96,
+                    97,
+                    98,
+                    99,
+                    100,
+                    101,
+                    102,
+                    103,
+                    104,
+                    105,
+                    106,
+                    107,
+                    108,
+                    109,
+                    110,
+                    111,
+                    112,
+                    113,
+                    114,
+                    115,
+                    116,
+                    117,
+                    118,
+                    119,
+                    120,
+                    121,
+                    122,
+                    123,
+                    124,
+                    125,
+                    126,
+                    127,
+                    128,
+                    129,
+                    130,
+                    131,
+                    132,
+                    133,
+                    134,
+                    135,
+                    136,
+                    137,
+                    138,
+                    139,
+                    140,
+                    141,
+                    142,
+                    143,
+                    144,
+                    145,
+                    146,
+                    147,
+                    148,
+                    149,
+                    150,
+                    151,
+                    152,
+                    153,
+                    154,
+                    155,
+                    156,
+                    157,
+                    158,
+                    159,
+                    160,
+                    161,
+                    162,
+                    163,
+                    164,
+                    165,
+                    166,
+                    167,
+                    168
+                  ],
+                  "assertion": "The effect tree contains transferred listener/nested children; disposal removes listeners and runs disposers in reverse [3,2,1].",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/dispose.spec.ts:37/default/a69",
+              "behavior": "In 'yield dispose', the pinned source checks: expect(seq).to.deep.equal([])",
+              "source_assertion_lines": [
+                69
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/effect_metadata.rs",
+                  "symbol": "nested_labels_track_only_yielded_effects_and_sync_children_run_before_return",
+                  "lines": [
+                    84,
+                    85,
+                    86,
+                    87,
+                    88,
+                    89,
+                    90,
+                    91,
+                    92,
+                    93,
+                    94,
+                    95,
+                    96,
+                    97,
+                    98,
+                    99,
+                    100,
+                    101,
+                    102,
+                    103,
+                    104,
+                    105,
+                    106,
+                    107,
+                    108,
+                    109,
+                    110,
+                    111,
+                    112,
+                    113,
+                    114,
+                    115,
+                    116,
+                    117,
+                    118,
+                    119,
+                    120,
+                    121,
+                    122,
+                    123,
+                    124,
+                    125,
+                    126,
+                    127,
+                    128,
+                    129,
+                    130,
+                    131,
+                    132,
+                    133,
+                    134,
+                    135,
+                    136,
+                    137,
+                    138,
+                    139,
+                    140,
+                    141,
+                    142,
+                    143,
+                    144,
+                    145,
+                    146,
+                    147,
+                    148,
+                    149,
+                    150,
+                    151,
+                    152,
+                    153,
+                    154,
+                    155,
+                    156,
+                    157,
+                    158,
+                    159,
+                    160,
+                    161,
+                    162,
+                    163,
+                    164,
+                    165,
+                    166,
+                    167,
+                    168
+                  ],
+                  "assertion": "The effect tree contains transferred listener/nested children; disposal removes listeners and runs disposers in reverse [3,2,1].",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/dispose.spec.ts:37/default/a71",
+              "behavior": "In 'yield dispose', the pinned source checks: expect(seq).to.deep.equal([3, 2, 1])",
+              "source_assertion_lines": [
+                71
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/effect_metadata.rs",
+                  "symbol": "nested_labels_track_only_yielded_effects_and_sync_children_run_before_return",
+                  "lines": [
+                    84,
+                    85,
+                    86,
+                    87,
+                    88,
+                    89,
+                    90,
+                    91,
+                    92,
+                    93,
+                    94,
+                    95,
+                    96,
+                    97,
+                    98,
+                    99,
+                    100,
+                    101,
+                    102,
+                    103,
+                    104,
+                    105,
+                    106,
+                    107,
+                    108,
+                    109,
+                    110,
+                    111,
+                    112,
+                    113,
+                    114,
+                    115,
+                    116,
+                    117,
+                    118,
+                    119,
+                    120,
+                    121,
+                    122,
+                    123,
+                    124,
+                    125,
+                    126,
+                    127,
+                    128,
+                    129,
+                    130,
+                    131,
+                    132,
+                    133,
+                    134,
+                    135,
+                    136,
+                    137,
+                    138,
+                    139,
+                    140,
+                    141,
+                    142,
+                    143,
+                    144,
+                    145,
+                    146,
+                    147,
+                    148,
+                    149,
+                    150,
+                    151,
+                    152,
+                    153,
+                    154,
+                    155,
+                    156,
+                    157,
+                    158,
+                    159,
+                    160,
+                    161,
+                    162,
+                    163,
+                    164,
+                    165,
+                    166,
+                    167,
+                    168
+                  ],
+                  "assertion": "The effect tree contains transferred listener/nested children; disposal removes listeners and runs disposers in reverse [3,2,1].",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/dispose.spec.ts:37/default/a73",
+              "behavior": "In 'yield dispose', the pinned source checks: expect(seq).to.deep.equal([3, 2, 1])",
+              "source_assertion_lines": [
+                73
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": {
+                "id": "G-B0-dispose.spec.ts:37-a73",
+                "kind": "missing-evidence",
+                "next_action": "Add an Effect::dispose compile-fail Rustdoc example for a composed effect.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: a passing regression closes evidence without production change; conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The composed Effect is consumed by dispose; no compile-fail item covers a second claim."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/dispose.spec.ts:76",
+      "source_file": "local/cordis/packages/core/tests/dispose.spec.ts",
+      "source_line": 76,
+      "source_end_line": 89,
+      "title": "async return 1",
+      "suite": [
+        "Effects"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/dispose.spec.ts:76/default/a83",
+              "behavior": "In 'async return 1', the pinned source checks: expect(seq).to.deep.equal([])",
+              "source_assertion_lines": [
+                83
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/effects.rs",
+                  "symbol": "effect_readiness_does_not_dispose_successful_acquisitions",
+                  "lines": [
+                    304,
+                    305,
+                    306,
+                    307,
+                    308,
+                    309,
+                    310,
+                    311,
+                    312,
+                    313,
+                    314,
+                    315,
+                    316,
+                    317,
+                    318,
+                    319,
+                    320,
+                    321,
+                    322,
+                    323,
+                    324,
+                    325,
+                    326,
+                    327,
+                    328,
+                    329,
+                    330,
+                    331,
+                    332,
+                    333
+                  ],
+                  "assertion": "Async readiness records acquisition [1] without cleanup; disposal records [1,2].",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/dispose.spec.ts:76/default/a85",
+              "behavior": "In 'async return 1', the pinned source checks: expect(seq).to.deep.equal([1])",
+              "source_assertion_lines": [
+                85
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/effects.rs",
+                  "symbol": "effect_readiness_does_not_dispose_successful_acquisitions",
+                  "lines": [
+                    304,
+                    305,
+                    306,
+                    307,
+                    308,
+                    309,
+                    310,
+                    311,
+                    312,
+                    313,
+                    314,
+                    315,
+                    316,
+                    317,
+                    318,
+                    319,
+                    320,
+                    321,
+                    322,
+                    323,
+                    324,
+                    325,
+                    326,
+                    327,
+                    328,
+                    329,
+                    330,
+                    331,
+                    332,
+                    333
+                  ],
+                  "assertion": "Async readiness records acquisition [1] without cleanup; disposal records [1,2].",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/dispose.spec.ts:76/default/a87",
+              "behavior": "In 'async return 1', the pinned source checks: expect(seq).to.deep.equal([1, 2])",
+              "source_assertion_lines": [
+                87
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/effects.rs",
+                  "symbol": "effect_readiness_does_not_dispose_successful_acquisitions",
+                  "lines": [
+                    304,
+                    305,
+                    306,
+                    307,
+                    308,
+                    309,
+                    310,
+                    311,
+                    312,
+                    313,
+                    314,
+                    315,
+                    316,
+                    317,
+                    318,
+                    319,
+                    320,
+                    321,
+                    322,
+                    323,
+                    324,
+                    325,
+                    326,
+                    327,
+                    328,
+                    329,
+                    330,
+                    331,
+                    332,
+                    333
+                  ],
+                  "assertion": "Async readiness records acquisition [1] without cleanup; disposal records [1,2].",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/dispose.spec.ts:90",
+      "source_file": "local/cordis/packages/core/tests/dispose.spec.ts",
+      "source_line": 90,
+      "source_end_line": 102,
+      "title": "async return 2",
+      "suite": [
+        "Effects"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/dispose.spec.ts:90/default/a98",
+              "behavior": "In 'async return 2', the pinned source checks: expect(seq).to.deep.equal([])",
+              "source_assertion_lines": [
+                98
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/effects.rs",
+                  "symbol": "async_return_is_not_cancelled_by_immediate_disposal_and_dropped_waiter",
+                  "lines": [
+                    85,
+                    86,
+                    87,
+                    88,
+                    89,
+                    90,
+                    91,
+                    92,
+                    93,
+                    94,
+                    95,
+                    96,
+                    97,
+                    98,
+                    99,
+                    100,
+                    101,
+                    102,
+                    103,
+                    104,
+                    105,
+                    106,
+                    107,
+                    108,
+                    109,
+                    110,
+                    111,
+                    112,
+                    113,
+                    114,
+                    115,
+                    116,
+                    117,
+                    118,
+                    119,
+                    120
+                  ],
+                  "assertion": "Immediate disposal and a dropped waiter do not cancel setup; release yields and cleans the final disposer as [1,2].",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/dispose.spec.ts:90/default/a100",
+              "behavior": "In 'async return 2', the pinned source checks: expect(seq).to.deep.equal([1, 2])",
+              "source_assertion_lines": [
+                100
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/effects.rs",
+                  "symbol": "async_return_is_not_cancelled_by_immediate_disposal_and_dropped_waiter",
+                  "lines": [
+                    85,
+                    86,
+                    87,
+                    88,
+                    89,
+                    90,
+                    91,
+                    92,
+                    93,
+                    94,
+                    95,
+                    96,
+                    97,
+                    98,
+                    99,
+                    100,
+                    101,
+                    102,
+                    103,
+                    104,
+                    105,
+                    106,
+                    107,
+                    108,
+                    109,
+                    110,
+                    111,
+                    112,
+                    113,
+                    114,
+                    115,
+                    116,
+                    117,
+                    118,
+                    119,
+                    120
+                  ],
+                  "assertion": "Immediate disposal and a dropped waiter do not cancel setup; release yields and cleans the final disposer as [1,2].",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/dispose.spec.ts:103",
+      "source_file": "local/cordis/packages/core/tests/dispose.spec.ts",
+      "source_line": 103,
+      "source_end_line": 122,
+      "title": "async yield 1",
+      "suite": [
+        "Effects"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/dispose.spec.ts:103/default/a116",
+              "behavior": "In 'async yield 1', the pinned source checks: expect(seq).to.deep.equal([])",
+              "source_assertion_lines": [
+                116
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/effects.rs",
+                  "symbol": "finite_stream_readiness_preserves_all_resources_and_async_failure_is_explicit",
+                  "lines": [
+                    340,
+                    341,
+                    342,
+                    343,
+                    344,
+                    345,
+                    346,
+                    347,
+                    348,
+                    349,
+                    350,
+                    351,
+                    352,
+                    353,
+                    354,
+                    355,
+                    356,
+                    357,
+                    358,
+                    359,
+                    360,
+                    361
+                  ],
+                  "assertion": "A finite stream retains three resources without cleanup through readiness, then disposes them in reverse [3,2,1].",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/dispose.spec.ts:103/default/a118",
+              "behavior": "In 'async yield 1', the pinned source checks: expect(seq).to.deep.equal([1, 3, 5])",
+              "source_assertion_lines": [
+                118
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/effects.rs",
+                  "symbol": "finite_stream_readiness_preserves_all_resources_and_async_failure_is_explicit",
+                  "lines": [
+                    340,
+                    341,
+                    342,
+                    343,
+                    344,
+                    345,
+                    346,
+                    347,
+                    348,
+                    349,
+                    350,
+                    351,
+                    352,
+                    353,
+                    354,
+                    355,
+                    356,
+                    357,
+                    358,
+                    359,
+                    360,
+                    361
+                  ],
+                  "assertion": "A finite stream retains three resources without cleanup through readiness, then disposes them in reverse [3,2,1].",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/dispose.spec.ts:103/default/a120",
+              "behavior": "In 'async yield 1', the pinned source checks: expect(seq).to.deep.equal([1, 3, 5, 6, 4, 2])",
+              "source_assertion_lines": [
+                120
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/effects.rs",
+                  "symbol": "finite_stream_readiness_preserves_all_resources_and_async_failure_is_explicit",
+                  "lines": [
+                    340,
+                    341,
+                    342,
+                    343,
+                    344,
+                    345,
+                    346,
+                    347,
+                    348,
+                    349,
+                    350,
+                    351,
+                    352,
+                    353,
+                    354,
+                    355,
+                    356,
+                    357,
+                    358,
+                    359,
+                    360,
+                    361
+                  ],
+                  "assertion": "A finite stream retains three resources without cleanup through readiness, then disposes them in reverse [3,2,1].",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/dispose.spec.ts:123",
+      "source_file": "local/cordis/packages/core/tests/dispose.spec.ts",
+      "source_line": 123,
+      "source_end_line": 142,
+      "title": "async yield 2 (aborted)",
+      "suite": [
+        "Effects"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/dispose.spec.ts:123/default/a138",
+              "behavior": "In 'async yield 2 (aborted)', the pinned source checks: expect(seq).to.deep.equal([])",
+              "source_assertion_lines": [
+                138
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": {
+                "id": "G-B0-dispose.spec.ts:123-a138",
+                "kind": "missing-evidence",
+                "next_action": "Add a gated stream test that disposes before the first yield, asserts empty immediately, then releases the in-flight acquisition.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: a passing regression closes evidence without production change; conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The abort test disposes after one yield, not before the first yield with an immediately empty trace."
+            },
+            {
+              "id": "core/dispose.spec.ts:123/default/a140",
+              "behavior": "In 'async yield 2 (aborted)', the pinned source checks: expect(seq).to.deep.equal([1, 2])",
+              "source_assertion_lines": [
+                140
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/effects.rs",
+                  "symbol": "async_stream_stops_before_next_step_but_collects_in_flight_final_yield",
+                  "lines": [
+                    129,
+                    130,
+                    131,
+                    132,
+                    133,
+                    134,
+                    135,
+                    136,
+                    137,
+                    138,
+                    139,
+                    140,
+                    141,
+                    142,
+                    143,
+                    144,
+                    145,
+                    146,
+                    147,
+                    148,
+                    149,
+                    150,
+                    151,
+                    152,
+                    153,
+                    154,
+                    155,
+                    156,
+                    157,
+                    158,
+                    159,
+                    160,
+                    161,
+                    162,
+                    163,
+                    164,
+                    165,
+                    166,
+                    167,
+                    168,
+                    169,
+                    170,
+                    171,
+                    172,
+                    173,
+                    174,
+                    175
+                  ],
+                  "assertion": "Disposal stops before another stream step, retains the already in-flight acquisition, and cleans in reverse.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/dispose.spec.ts:143",
+      "source_file": "local/cordis/packages/core/tests/dispose.spec.ts",
+      "source_line": 143,
+      "source_end_line": 164,
+      "title": "async yield 3 (aborted)",
+      "suite": [
+        "Effects"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/dispose.spec.ts:143/default/a156",
+              "behavior": "In 'async yield 3 (aborted)', the pinned source checks: expect(seq).to.deep.equal([])",
+              "source_assertion_lines": [
+                156
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/effects.rs",
+                  "symbol": "async_stream_stops_before_next_step_but_collects_in_flight_final_yield",
+                  "lines": [
+                    129,
+                    130,
+                    131,
+                    132,
+                    133,
+                    134,
+                    135,
+                    136,
+                    137,
+                    138,
+                    139,
+                    140,
+                    141,
+                    142,
+                    143,
+                    144,
+                    145,
+                    146,
+                    147,
+                    148,
+                    149,
+                    150,
+                    151,
+                    152,
+                    153,
+                    154,
+                    155,
+                    156,
+                    157,
+                    158,
+                    159,
+                    160,
+                    161,
+                    162,
+                    163,
+                    164,
+                    165,
+                    166,
+                    167,
+                    168,
+                    169,
+                    170,
+                    171,
+                    172,
+                    173,
+                    174,
+                    175
+                  ],
+                  "assertion": "Disposal during the second in-flight yield produces exact trace [1,3,4,2] without advancing another step.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/dispose.spec.ts:143/default/a158",
+              "behavior": "In 'async yield 3 (aborted)', the pinned source checks: expect(seq).to.deep.equal([1])",
+              "source_assertion_lines": [
+                158
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/effects.rs",
+                  "symbol": "async_stream_stops_before_next_step_but_collects_in_flight_final_yield",
+                  "lines": [
+                    129,
+                    130,
+                    131,
+                    132,
+                    133,
+                    134,
+                    135,
+                    136,
+                    137,
+                    138,
+                    139,
+                    140,
+                    141,
+                    142,
+                    143,
+                    144,
+                    145,
+                    146,
+                    147,
+                    148,
+                    149,
+                    150,
+                    151,
+                    152,
+                    153,
+                    154,
+                    155,
+                    156,
+                    157,
+                    158,
+                    159,
+                    160,
+                    161,
+                    162,
+                    163,
+                    164,
+                    165,
+                    166,
+                    167,
+                    168,
+                    169,
+                    170,
+                    171,
+                    172,
+                    173,
+                    174,
+                    175
+                  ],
+                  "assertion": "Disposal during the second in-flight yield produces exact trace [1,3,4,2] without advancing another step.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/dispose.spec.ts:143/default/a160",
+              "behavior": "In 'async yield 3 (aborted)', the pinned source checks: expect(seq).to.deep.equal([1])",
+              "source_assertion_lines": [
+                160
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/effects.rs",
+                  "symbol": "async_stream_stops_before_next_step_but_collects_in_flight_final_yield",
+                  "lines": [
+                    129,
+                    130,
+                    131,
+                    132,
+                    133,
+                    134,
+                    135,
+                    136,
+                    137,
+                    138,
+                    139,
+                    140,
+                    141,
+                    142,
+                    143,
+                    144,
+                    145,
+                    146,
+                    147,
+                    148,
+                    149,
+                    150,
+                    151,
+                    152,
+                    153,
+                    154,
+                    155,
+                    156,
+                    157,
+                    158,
+                    159,
+                    160,
+                    161,
+                    162,
+                    163,
+                    164,
+                    165,
+                    166,
+                    167,
+                    168,
+                    169,
+                    170,
+                    171,
+                    172,
+                    173,
+                    174,
+                    175
+                  ],
+                  "assertion": "Disposal during the second in-flight yield produces exact trace [1,3,4,2] without advancing another step.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/dispose.spec.ts:143/default/a162",
+              "behavior": "In 'async yield 3 (aborted)', the pinned source checks: expect(seq).to.deep.equal([1, 3, 4, 2])",
+              "source_assertion_lines": [
+                162
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/effects.rs",
+                  "symbol": "async_stream_stops_before_next_step_but_collects_in_flight_final_yield",
+                  "lines": [
+                    129,
+                    130,
+                    131,
+                    132,
+                    133,
+                    134,
+                    135,
+                    136,
+                    137,
+                    138,
+                    139,
+                    140,
+                    141,
+                    142,
+                    143,
+                    144,
+                    145,
+                    146,
+                    147,
+                    148,
+                    149,
+                    150,
+                    151,
+                    152,
+                    153,
+                    154,
+                    155,
+                    156,
+                    157,
+                    158,
+                    159,
+                    160,
+                    161,
+                    162,
+                    163,
+                    164,
+                    165,
+                    166,
+                    167,
+                    168,
+                    169,
+                    170,
+                    171,
+                    172,
+                    173,
+                    174,
+                    175
+                  ],
+                  "assertion": "Disposal during the second in-flight yield produces exact trace [1,3,4,2] without advancing another step.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/dispose.spec.ts:165",
+      "source_file": "local/cordis/packages/core/tests/dispose.spec.ts",
+      "source_line": 165,
+      "source_end_line": 184,
+      "title": "async yield 4 (await dispose)",
+      "suite": [
+        "Effects"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/dispose.spec.ts:165/default/a178",
+              "behavior": "In 'async yield 4 (await dispose)', the pinned source checks: expect(seq).to.deep.equal([])",
+              "source_assertion_lines": [
+                178
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/effects.rs",
+                  "symbol": "finite_stream_readiness_preserves_all_resources_and_async_failure_is_explicit",
+                  "lines": [
+                    340,
+                    341,
+                    342,
+                    343,
+                    344,
+                    345,
+                    346,
+                    347,
+                    348,
+                    349,
+                    350,
+                    351,
+                    352,
+                    353,
+                    354,
+                    355,
+                    356,
+                    357,
+                    358,
+                    359,
+                    360,
+                    361
+                  ],
+                  "assertion": "Waiting for finite readiness preserves every resource; disposal then cleans in reverse acquisition order.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/dispose.spec.ts:165/default/a180",
+              "behavior": "In 'async yield 4 (await dispose)', the pinned source checks: expect(seq).to.deep.equal([1, 3, 5])",
+              "source_assertion_lines": [
+                180
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/effects.rs",
+                  "symbol": "finite_stream_readiness_preserves_all_resources_and_async_failure_is_explicit",
+                  "lines": [
+                    340,
+                    341,
+                    342,
+                    343,
+                    344,
+                    345,
+                    346,
+                    347,
+                    348,
+                    349,
+                    350,
+                    351,
+                    352,
+                    353,
+                    354,
+                    355,
+                    356,
+                    357,
+                    358,
+                    359,
+                    360,
+                    361
+                  ],
+                  "assertion": "Waiting for finite readiness preserves every resource; disposal then cleans in reverse acquisition order.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/dispose.spec.ts:165/default/a182",
+              "behavior": "In 'async yield 4 (await dispose)', the pinned source checks: expect(seq).to.deep.equal([1, 3, 5, 6, 4, 2])",
+              "source_assertion_lines": [
+                182
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/effects.rs",
+                  "symbol": "finite_stream_readiness_preserves_all_resources_and_async_failure_is_explicit",
+                  "lines": [
+                    340,
+                    341,
+                    342,
+                    343,
+                    344,
+                    345,
+                    346,
+                    347,
+                    348,
+                    349,
+                    350,
+                    351,
+                    352,
+                    353,
+                    354,
+                    355,
+                    356,
+                    357,
+                    358,
+                    359,
+                    360,
+                    361
+                  ],
+                  "assertion": "Waiting for finite readiness preserves every resource; disposal then cleans in reverse acquisition order.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/dispose.spec.ts:185",
+      "source_file": "local/cordis/packages/core/tests/dispose.spec.ts",
+      "source_line": 185,
+      "source_end_line": 196,
+      "title": "return with error",
+      "suite": [
+        "Effects"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/dispose.spec.ts:185/default/a188",
+              "behavior": "In 'return with error', the pinned source checks: expect(() => {\nroot.effect(() => {\nthrow new Error('test')\nreturn () => seq.push(1)\n})\n}).to.throw('test')",
+              "source_assertion_lines": [
+                188,
+                189,
+                190,
+                191,
+                192,
+                193
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/effects.rs",
+                  "symbol": "synchronous_iterator_failure_starts_partial_rollback_and_setup_panics_are_explicit",
+                  "lines": [
+                    225,
+                    226,
+                    227,
+                    228,
+                    229,
+                    230,
+                    243,
+                    244,
+                    245,
+                    246,
+                    247
+                  ],
+                  "assertion": "A synchronous factory panic returns SetupError::Callback with no acquired disposer and one retained failure.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/dispose.spec.ts:185/default/a194",
+              "behavior": "In 'return with error', the pinned source checks: expect(seq).to.deep.equal([])",
+              "source_assertion_lines": [
+                194
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/effects.rs",
+                  "symbol": "synchronous_iterator_failure_starts_partial_rollback_and_setup_panics_are_explicit",
+                  "lines": [
+                    225,
+                    226,
+                    227,
+                    228,
+                    229,
+                    230,
+                    243,
+                    244,
+                    245,
+                    246,
+                    247
+                  ],
+                  "assertion": "A synchronous factory panic returns SetupError::Callback with no acquired disposer and one retained failure.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/dispose.spec.ts:197",
+      "source_file": "local/cordis/packages/core/tests/dispose.spec.ts",
+      "source_line": 197,
+      "source_end_line": 209,
+      "title": "yield with error",
+      "suite": [
+        "Effects"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/dispose.spec.ts:197/default/a200",
+              "behavior": "In 'yield with error', the pinned source checks: expect(() => {\nroot.effect(function* () {\nyield () => seq.push(1)\nthrow new Error('test')\nyield () => seq.push(2)\n})\n}).to.throw('test')",
+              "source_assertion_lines": [
+                200,
+                201,
+                202,
+                203,
+                204,
+                205,
+                206
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/effect_metadata.rs",
+                  "symbol": "synchronous_iterator_error_and_panic_finish_partial_rollback_before_return",
+                  "lines": [
+                    175,
+                    176,
+                    177,
+                    178,
+                    179,
+                    180,
+                    181,
+                    182,
+                    183,
+                    184,
+                    185,
+                    186,
+                    187,
+                    188,
+                    189,
+                    190,
+                    191,
+                    192,
+                    193,
+                    194,
+                    195,
+                    196,
+                    197,
+                    198,
+                    199,
+                    200,
+                    201,
+                    202,
+                    203,
+                    204,
+                    205,
+                    206,
+                    207
+                  ],
+                  "assertion": "A sync iterator error rolls back its acquired resource before returning, leaving trace [1] and no journal entry.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/dispose.spec.ts:197/default/a207",
+              "behavior": "In 'yield with error', the pinned source checks: expect(seq).to.deep.equal([1])",
+              "source_assertion_lines": [
+                207
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/effect_metadata.rs",
+                  "symbol": "synchronous_iterator_error_and_panic_finish_partial_rollback_before_return",
+                  "lines": [
+                    175,
+                    176,
+                    177,
+                    178,
+                    179,
+                    180,
+                    181,
+                    182,
+                    183,
+                    184,
+                    185,
+                    186,
+                    187,
+                    188,
+                    189,
+                    190,
+                    191,
+                    192,
+                    193,
+                    194,
+                    195,
+                    196,
+                    197,
+                    198,
+                    199,
+                    200,
+                    201,
+                    202,
+                    203,
+                    204,
+                    205,
+                    206,
+                    207
+                  ],
+                  "assertion": "A sync iterator error rolls back its acquired resource before returning, leaving trace [1] and no journal entry.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/dispose.spec.ts:210",
+      "source_file": "local/cordis/packages/core/tests/dispose.spec.ts",
+      "source_line": 210,
+      "source_end_line": 221,
+      "title": "async return with error",
+      "suite": [
+        "Effects"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/dispose.spec.ts:210/default/a217",
+              "behavior": "In 'async return with error', the pinned source checks: expect(seq).to.deep.equal([])",
+              "source_assertion_lines": [
+                217
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/effects.rs",
+                  "symbol": "finite_stream_readiness_preserves_all_resources_and_async_failure_is_explicit",
+                  "lines": [
+                    362,
+                    363,
+                    364,
+                    365,
+                    366,
+                    367,
+                    368
+                  ],
+                  "assertion": "Async-return setup error rejects ready, runs no disposer, records one failure, and leaves zero disposal attempts.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/dispose.spec.ts:210/default/a218",
+              "behavior": "In 'async return with error', the pinned source checks: await expect(dispose).rejects.toThrow()",
+              "source_assertion_lines": [
+                218
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/effects.rs",
+                  "symbol": "finite_stream_readiness_preserves_all_resources_and_async_failure_is_explicit",
+                  "lines": [
+                    362,
+                    363,
+                    364,
+                    365,
+                    366,
+                    367,
+                    368
+                  ],
+                  "assertion": "Async-return setup error rejects ready, runs no disposer, records one failure, and leaves zero disposal attempts.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/dispose.spec.ts:210/default/a219",
+              "behavior": "In 'async return with error', the pinned source checks: expect(seq).to.deep.equal([])",
+              "source_assertion_lines": [
+                219
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/effects.rs",
+                  "symbol": "finite_stream_readiness_preserves_all_resources_and_async_failure_is_explicit",
+                  "lines": [
+                    362,
+                    363,
+                    364,
+                    365,
+                    366,
+                    367,
+                    368
+                  ],
+                  "assertion": "Async-return setup error rejects ready, runs no disposer, records one failure, and leaves zero disposal attempts.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/dispose.spec.ts:222",
+      "source_file": "local/cordis/packages/core/tests/dispose.spec.ts",
+      "source_line": 222,
+      "source_end_line": 240,
+      "title": "async yield with error",
+      "suite": [
+        "Effects"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/dispose.spec.ts:222/default/a230",
+              "behavior": "In 'async yield with error', the pinned source checks: expect(seq).to.deep.equal([])",
+              "source_assertion_lines": [
+                230
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/effects.rs",
+                  "symbol": "stream_failure_rolls_back_before_ready_rejects_and_preserves_source",
+                  "lines": [
+                    185,
+                    186,
+                    187,
+                    188,
+                    189,
+                    190,
+                    191,
+                    192,
+                    193,
+                    194,
+                    195,
+                    196,
+                    197,
+                    198,
+                    199,
+                    200,
+                    201,
+                    202,
+                    203,
+                    204,
+                    205,
+                    206,
+                    207,
+                    208,
+                    209,
+                    210,
+                    211,
+                    212,
+                    213,
+                    214,
+                    215,
+                    216,
+                    217,
+                    218
+                  ],
+                  "assertion": "A stream yields one disposer then errors; ready rejects after rollback, trace is [1], and later disposal attempts nothing.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/dispose.spec.ts:222/default/a237",
+              "behavior": "In 'async yield with error', the pinned source checks: expect(caught).to.be.instanceOf(Error)",
+              "source_assertion_lines": [
+                237
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/effects.rs",
+                  "symbol": "stream_failure_rolls_back_before_ready_rejects_and_preserves_source",
+                  "lines": [
+                    185,
+                    186,
+                    187,
+                    188,
+                    189,
+                    190,
+                    191,
+                    192,
+                    193,
+                    194,
+                    195,
+                    196,
+                    197,
+                    198,
+                    199,
+                    200,
+                    201,
+                    202,
+                    203,
+                    204,
+                    205,
+                    206,
+                    207,
+                    208,
+                    209,
+                    210,
+                    211,
+                    212,
+                    213,
+                    214,
+                    215,
+                    216,
+                    217,
+                    218
+                  ],
+                  "assertion": "A stream yields one disposer then errors; ready rejects after rollback, trace is [1], and later disposal attempts nothing.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            },
+            {
+              "id": "core/dispose.spec.ts:222/default/a238",
+              "behavior": "In 'async yield with error', the pinned source checks: expect(seq).to.deep.equal([1])",
+              "source_assertion_lines": [
+                238
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/effects.rs",
+                  "symbol": "stream_failure_rolls_back_before_ready_rejects_and_preserves_source",
+                  "lines": [
+                    185,
+                    186,
+                    187,
+                    188,
+                    189,
+                    190,
+                    191,
+                    192,
+                    193,
+                    194,
+                    195,
+                    196,
+                    197,
+                    198,
+                    199,
+                    200,
+                    201,
+                    202,
+                    203,
+                    204,
+                    205,
+                    206,
+                    207,
+                    208,
+                    209,
+                    210,
+                    211,
+                    212,
+                    213,
+                    214,
+                    215,
+                    216,
+                    217,
+                    218
+                  ],
+                  "assertion": "A stream yields one disposer then errors; ready rejects after rollback, trace is [1], and later disposal attempts nothing.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "effects-and-resource-acquisition",
+                "reason": "Rust separates effect, effect_iter, effect_async, and effect_stream and returns owned Effect/Disposer handles; cleanup completion is explicit and Drop is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The exact source branch and cited Rust body were reviewed. Both recorded workspace-test commands list this test or Rustdoc item as passed; no B0 TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    }
+  ]
+}

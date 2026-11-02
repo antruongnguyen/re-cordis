@@ -1,0 +1,323 @@
+{
+  "schema_version": 1,
+  "rust_revision": "9a7633c0b3b98e5f37e9f2211f3ffa67fdac5edc",
+  "typescript_revision": "35fdc969e4b6c48c48ed44717c7a018324e4dd88",
+  "status": "six event-type obligations complete; independent review pending",
+  "obligations": [
+    {
+      "id": "core/events.types.ts:13",
+      "source_file": "local/cordis/packages/core/tests/events.types.ts",
+      "source_line": 13,
+      "source_signature_line": 9,
+      "source_assertion_lines": [
+        13
+      ],
+      "behavior": "Registered unique-symbol bail accepts number and returns string.",
+      "class": "rust-representation",
+      "rust_evidence": [
+        {
+          "file": "crates/re-cordis-core/src/events.rs",
+          "symbol": "Event runnable Rustdoc example",
+          "lines": [
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68,
+            69,
+            70,
+            71,
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            78,
+            79,
+            80,
+            81,
+            82,
+            83,
+            84
+          ],
+          "assertion": "Event<u32,String> receives u32, returns Break(String), bail accepts u32, and the result supports to_uppercase.",
+          "command_ids": [
+            "stable-workspace-test",
+            "1.85.0-workspace-test"
+          ]
+        }
+      ],
+      "paired_evidence": [],
+      "restriction": {
+        "document": "docs/m2.md",
+        "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+        "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+      },
+      "gap": null,
+      "execution_status": "passed",
+      "rationale": "The TypeScript expression is inventory only. The cited Rust item appears as passed in both workspace-test results and full logs."
+    },
+    {
+      "id": "core/events.types.ts:14",
+      "source_file": "local/cordis/packages/core/tests/events.types.ts",
+      "source_line": 14,
+      "source_signature_line": 9,
+      "source_assertion_lines": [
+        14
+      ],
+      "behavior": "Registered unique-symbol listener infers a numeric parameter.",
+      "class": "rust-representation",
+      "rust_evidence": [
+        {
+          "file": "crates/re-cordis-core/src/events.rs",
+          "symbol": "Event runnable Rustdoc example",
+          "lines": [
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68,
+            69,
+            70,
+            71,
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            78,
+            79,
+            80,
+            81,
+            82,
+            83,
+            84
+          ],
+          "assertion": "Event<u32,String> receives u32, returns Break(String), bail accepts u32, and the result supports to_uppercase.",
+          "command_ids": [
+            "stable-workspace-test",
+            "1.85.0-workspace-test"
+          ]
+        }
+      ],
+      "paired_evidence": [],
+      "restriction": {
+        "document": "docs/m2.md",
+        "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+        "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+      },
+      "gap": null,
+      "execution_status": "passed",
+      "rationale": "The TypeScript expression is inventory only. The cited Rust item appears as passed in both workspace-test results and full logs."
+    },
+    {
+      "id": "core/events.types.ts:17",
+      "source_file": "local/cordis/packages/core/tests/events.types.ts",
+      "source_line": 17,
+      "source_signature_line": 9,
+      "source_assertion_lines": [
+        17
+      ],
+      "behavior": "Wrong string dispatch argument is rejected.",
+      "class": "rust-representation",
+      "rust_evidence": [
+        {
+          "file": "crates/re-cordis-core/src/events.rs",
+          "symbol": "Event compile-fail Rustdoc example",
+          "lines": [
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60
+          ],
+          "assertion": "bail on Event<u32,String> with &str is rejected.",
+          "command_ids": [
+            "stable-workspace-test",
+            "1.85.0-workspace-test"
+          ]
+        }
+      ],
+      "paired_evidence": [],
+      "restriction": {
+        "document": "docs/m2.md",
+        "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+        "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+      },
+      "gap": null,
+      "execution_status": "passed",
+      "rationale": "The TypeScript expression is inventory only. The cited Rust item appears as passed in both workspace-test results and full logs."
+    },
+    {
+      "id": "core/events.types.ts:19",
+      "source_file": "local/cordis/packages/core/tests/events.types.ts",
+      "source_line": 19,
+      "source_signature_line": 9,
+      "source_assertion_lines": [
+        19
+      ],
+      "behavior": "Wrong string listener parameter is rejected.",
+      "class": "rust-representation",
+      "rust_evidence": [
+        {
+          "file": "crates/re-cordis-core/src/events.rs",
+          "symbol": "Listener argument compile-fail Rustdoc example",
+          "lines": [
+            159,
+            160,
+            161,
+            162,
+            163,
+            164,
+            165,
+            166,
+            167,
+            168,
+            169
+          ],
+          "assertion": "Listener<String> for Event<u32,String> is rejected.",
+          "command_ids": [
+            "stable-workspace-test",
+            "1.85.0-workspace-test"
+          ]
+        }
+      ],
+      "paired_evidence": [],
+      "restriction": {
+        "document": "docs/m2.md",
+        "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+        "reason": "Rust uses typed Event identities, explicit ControlFlow answers, separate sync/async callback shapes, and owned one-use continuations instead of JavaScript symbols, raw returns, promise coercion, and reusable next closures."
+      },
+      "gap": null,
+      "execution_status": "passed",
+      "rationale": "The TypeScript expression is inventory only. The cited Rust item appears as passed in both workspace-test results and full logs."
+    },
+    {
+      "id": "core/events.types.ts:21",
+      "source_file": "local/cordis/packages/core/tests/events.types.ts",
+      "source_line": 21,
+      "source_signature_line": 9,
+      "source_assertion_lines": [
+        21
+      ],
+      "behavior": "Dynamic symbol emit accepts heterogeneous values.",
+      "class": "rust-representation",
+      "rust_evidence": [
+        {
+          "file": "crates/re-cordis-core/tests/acceptance.rs",
+          "symbol": "typed_rooted_values_dynamic_events_and_context_type_guards_need_no_proxy_reflection",
+          "lines": [
+            712,
+            713,
+            714,
+            715,
+            716,
+            717,
+            718,
+            719,
+            720,
+            721,
+            722,
+            723,
+            724,
+            725,
+            726,
+            727,
+            728,
+            729,
+            730,
+            731,
+            732,
+            733,
+            734,
+            735,
+            736,
+            737
+          ],
+          "assertion": "Event<Vec<Value>> emits String/u32; listener downcasts both and final count is one.",
+          "command_ids": [
+            "stable-workspace-test",
+            "1.85.0-workspace-test"
+          ]
+        }
+      ],
+      "paired_evidence": [],
+      "restriction": {
+        "document": "docs/m6.md",
+        "anchor": "executable-example-and-type-checks",
+        "reason": "Dynamic heterogeneous event arguments use an explicit Vec<hooks::Value> with checked downcasts, not an unchecked JavaScript argument list."
+      },
+      "gap": null,
+      "execution_status": "passed",
+      "rationale": "The TypeScript expression is inventory only. The cited Rust item appears as passed in both workspace-test results and full logs."
+    },
+    {
+      "id": "core/events.types.ts:22",
+      "source_file": "local/cordis/packages/core/tests/events.types.ts",
+      "source_line": 22,
+      "source_signature_line": 9,
+      "source_assertion_lines": [
+        22
+      ],
+      "behavior": "Dynamic symbol listener receives and reads heterogeneous values.",
+      "class": "rust-representation",
+      "rust_evidence": [
+        {
+          "file": "crates/re-cordis-core/tests/acceptance.rs",
+          "symbol": "typed_rooted_values_dynamic_events_and_context_type_guards_need_no_proxy_reflection",
+          "lines": [
+            712,
+            713,
+            714,
+            715,
+            716,
+            717,
+            718,
+            719,
+            720,
+            721,
+            722,
+            723,
+            724,
+            725,
+            726,
+            727,
+            728,
+            729,
+            730,
+            731,
+            732,
+            733,
+            734,
+            735,
+            736,
+            737
+          ],
+          "assertion": "Event<Vec<Value>> emits String/u32; listener downcasts both and final count is one.",
+          "command_ids": [
+            "stable-workspace-test",
+            "1.85.0-workspace-test"
+          ]
+        }
+      ],
+      "paired_evidence": [],
+      "restriction": {
+        "document": "docs/m6.md",
+        "anchor": "executable-example-and-type-checks",
+        "reason": "Dynamic heterogeneous event arguments use an explicit Vec<hooks::Value> with checked downcasts, not an unchecked JavaScript argument list."
+      },
+      "gap": null,
+      "execution_status": "passed",
+      "rationale": "The TypeScript expression is inventory only. The cited Rust item appears as passed in both workspace-test results and full logs."
+    }
+  ]
+}
