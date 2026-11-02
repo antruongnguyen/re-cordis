@@ -18,7 +18,7 @@ review, integration, documentation and current verification.
 
 | ID | Status | Dependencies | Owner / role / model | Worktree / branch | Implementation commit | Review result | Evidence location |
 |---|---|---|---|---|---|---|---|
-| B0 | in_progress | None | b0_matrix, b0_ledger, b0_ledger_extra / execution / gpt-6.1-sol high | integration | — | B0 plan accepted; independent result review pending | evidence/B0/ |
+| B0 | in_progress | None | b0_matrix, b0_ledger, b0_ledger_extra_retry / execution / gpt-6.1-sol high | integration | — | B0 plan accepted; independent result review pending | evidence/B0/ |
 | B1 | planned | B0 | unassigned | integration | — | not started | evidence/B1/ |
 | T0 | planned | B0 | unassigned | integration | — | not started | evidence/T0/ |
 | T1 | planned | T0 | unassigned | integration | — | not started | evidence/T1/ |
@@ -68,6 +68,7 @@ review, integration, documentation and current verification.
 - Baseline checks not run. No pre-existing uncommitted changes or extra worktrees found.
 - B0 ledger attempt 1: agent response stream disconnected before completion. Inspect ledger/ and resume the same sol/high agent; do not infer completion or discard any saved files. Matrix executor unaffected.
 - B0 extra-ledger attempt 1: response stream disconnected before completion. Resume the same sol/high agent and save each completed spec-family mapping incrementally. This is transport failure, not evidence of unavailable requested models or code/test failure.
+- B0 extra-ledger attempt 2: same stream disconnect after resuming. Remedy: fresh sol/high context with one small family assignment per turn, retaining the same exclusive ledger-inputs/ ownership. No model substitution.
 - B0 matrix: 53 recorded commands exited 0, including both guide toolchains and paired runner (six scenarios/73 observations). Final report/source-hash audit and independent review are pending; B0 remains in progress.
 
 ## Resume next
@@ -86,4 +87,6 @@ review, integration, documentation and current verification.
 - 2026-11-02 CP005: b0_ledger response stream failed before completion. No ledger evidence files were present at reconciliation; resume the same gpt-6.1-sol/high agent from the accepted plan. No model substitution or acceptance claim.
 - 2026-11-02 CP006: b0_ledger resumed with prior source audit intact. Split eight independent spec-file families into b0_ledger_extra (sol/high), writing ledger-inputs/ only. Matrix executor owns all build/doc/parity execution; ledger integration remains single-owner.
 - 2026-11-02 CP007: Inspected matrix commands and paired output: all 53 recorded commands passed, exact six/73 retained. Extra-ledger agent stream disconnected; reconcile files and resume it without replacing the requested model. Require incremental durable family outputs.
+- 2026-11-02 CP008: b0_ledger saved ledger/cases.json and report.md inventory checkpoint: 144 declarations, 156 variants, 532 initial assertion obligations. These are inventory counts, not accepted mappings or parity. Extra worker consumes that exact schema for its 45 declarations. Review and execution join remain open.
+- 2026-11-02 CP009: Matrix executor reports all required checks passed at 578c066 with identical 71 executable-input hashes through e23dbac. Each toolchain ran 164 core + 15 timer integration tests, 17 core Rustdoc checks, M0 20 + 1 Rustdoc; guides 8 + quick start; six/73 paired preserved. Report assembly/review pending. Extra ledger failed a second time; dispatch a fresh same-model context on decorator/reflect (5 declarations) first, preserving remaining ownership.
 
