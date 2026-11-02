@@ -38,8 +38,10 @@ package remains research evidence; run it with its own `--manifest-path`.
 
 ## Source of truth
 
-The **TypeScript `cordis`** project is the specification. When behavior is
-ambiguous or two references disagree, the TS implementation wins.
+The **TypeScript `cordis`** project is the reference for Cordis concepts and
+intended behavior. When interpreting upstream behavior, its implementation
+wins over the prior Rust port. Rust API and execution choices follow the
+documented Rust contracts and deliberate adaptations in `docs/decision.md`.
 
 Two reference checkouts live under `local/` (git-ignored, cloned locally):
 
@@ -55,10 +57,30 @@ on JavaScript-only features (Proxy-based reflection, prototype-chain
 inheritance, callable objects) that have no direct Rust equivalent. See
 `docs/limitation.md`.
 
+## Implementation priorities
+
+The user's 2026-11-03 direction is to deliver a useful, idiomatic Rust Cordis.
+Prioritize working features, application usability and language suitability.
+Do not translate TypeScript byte-for-byte or recreate JS machinery for syntax
+parity. Use ownership/borrowing, typed keys, enums, Result, traits/generics and
+compile-time constraints where they simplify the feature. Use RAII for
+synchronous release; asynchronous teardown still needs explicit completion.
+Preserve current hosting contracts unless a concrete feature requires change.
+
+For each selected feature, briefly establish its Rust contract, implement it
+with meaningful tests and a usable example, then review the working result.
+Keep review effort proportional to risk; do not make exhaustive upstream
+assertion accounting a prerequisite for every feature. Reuse accepted B0
+evidence and investigate gaps only when relevant to the feature being built.
+Record deliberate adaptations, unavailable capabilities and their user impact
+in both `docs/decision.md` and `docs/limitation.md`. Distinguish language/runtime
+constraints, unsuitable emulation, deferred work and missing evidence.
+
 ## Keep the docs current
 
-This repository front-loads documentation. Whenever you make a meaningful
-change, update the relevant doc in the same change:
+Document the decisions needed to implement a feature, and keep documentation
+with delivery. Whenever you make a meaningful change, update the relevant doc
+in the same change:
 
 - `README.md` — project front door: intent, concept map, planned layout.
 - `CHANGELOG.md` — notable changes (Keep a Changelog style).

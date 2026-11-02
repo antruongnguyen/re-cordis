@@ -4,6 +4,43 @@ A lightweight log of decisions made for this project and the reasoning behind
 them. Newest first. This is intentionally not a heavy ADR process; it records
 *what we chose and why* so the choices aren't re-litigated silently.
 
+## 2026-11-03 — Deliver Cordis features through idiomatic Rust contracts
+
+The user reaffirmed that this project implements Cordis in Rust, prioritizing
+features, usability and feasibility in the target language. TypeScript remains
+the reference for upstream intent and behavior; its syntax, object model and
+every incidental runtime observation are not mandatory Rust designs. Choose
+equivalent useful capabilities and document deliberate differences explicitly.
+
+Use Rust's ownership and borrowing, typed keys, traits/generics, enums, Result
+and compile-time constraints where they make the implementation simpler and
+safer. A one-use continuation rejected at compile time is a valid Rust contract;
+it need not reproduce a JavaScript runtime exception. Standard Rust interfaces
+such as Write, Iterator and Stream are candidates when they fit the feature.
+RAII can release synchronous resources; it does not replace joined async cleanup.
+This direction does not itself promise Send/Sync hosting or measured performance.
+
+Implement one usable feature or satellite slice with its necessary tests and
+example, then review the working result for behavior, ergonomics, resource
+safety and integration. Upfront design should settle the contracts needed for
+that implementation, rather than expand into another exhaustive evidence audit.
+Judge delivery against the documented Rust feature contract, with targeted TS
+comparisons where they resolve meaningful uncertainty. Preserve relevant
+regression and toolchain checks. B0 stays accepted; its 147 evidence gaps are
+not an automatic implementation queue or a blanket satellite prerequisite.
+
+For an adaptation or unavailable capability, record the upstream purpose,
+chosen Rust approach, user-visible difference, reason and supported alternative
+in this file and [limitations](limitation.md#how-to-classify-rust-differences).
+Distinguish an inherent constraint from costly/unsuitable emulation, deferred
+implementation and missing evidence. A lost feature must remain visible;
+calling an API idiomatic does not prove equivalent behavior.
+
+**Why:** Progress means useful Cordis capabilities delivered with clear Rust
+contracts. This direction governs future execution of the existing plans and
+supersedes interpretations requiring mechanical translation or B0-style
+accounting before each feature. Accepted historical evidence remains intact.
+
 ## 2026-11-02 — Plan complete coverage before scheduling implementation
 
 The user requested careful planning for remaining core fixes and all upstream

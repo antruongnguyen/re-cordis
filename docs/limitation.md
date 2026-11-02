@@ -4,7 +4,28 @@ Known gaps, unresolved questions, and places where a faithful port is hard.
 This is where we are honest about what does *not* translate cleanly from the
 TypeScript original to Rust.
 
-## JavaScript-only mechanisms with no Rust equivalent
+## How to classify Rust differences
+
+Under the [2026-11-03 implementation direction](decision.md#2026-11-03--deliver-cordis-features-through-idiomatic-rust-contracts),
+a different Rust API is not automatically a missing feature. Describe the
+upstream purpose, supported Rust contract and any capability the user loses.
+Record the reason and alternative in decision.md as well. Use distinct labels:
+
+- **Rust adaptation:** a supported feature expressed through Rust types,
+  ownership, traits or explicit operations; test that documented contract.
+- **Language/runtime constraint or unsuitable emulation:** no suitable native
+  equivalent, or compatibility would require disproportionate machinery;
+  explain the actual constraint and the supported alternative.
+- **Deferred feature:** feasible work that is not implemented yet.
+- **Missing evidence:** behavior not sufficiently tested; neither a proven
+  defect nor proof that Rust cannot support it.
+
+Do not label a capability impossible merely because Rust lacks the same syntax
+or built-in mechanism. Conversely, an adapter with reduced behavior must state
+that reduction. Existing guarantees and explicit async-cleanup boundaries
+continue to apply; this policy adds no new API or performance guarantee.
+
+## JavaScript mechanisms requiring explicit Rust designs
 
 The original Cordis core derives much of its ergonomics from features Rust does
 not have. These require real design, not translation:

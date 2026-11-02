@@ -6,6 +6,7 @@ review, integration, documentation and current verification.
 
 ## Execution scope and revision
 
+- Current engineering direction (2026-11-03): prioritize usable Cordis features and idiomatic Rust contracts; see [the decision](../../decision.md#2026-11-03--deliver-cordis-features-through-idiomatic-rust-contracts). Keep initial design bounded, implement with tests/examples, then assess the working feature. Record deliberate differences and actual limitations; do not turn all B0 gaps into a prerequisite or mechanically reproduce TS mechanisms.
 - Authorized 2026-11-02: local recommended scope in all 35 packages, including routine design gates resolved by independent planning/review. R1 ends in a proposal. No push, publication, deployment, credentials, or live integrations.
 - **B0 completed and independently accepted with tracked gaps on 2026-11-03 (Asia/Ho_Chi_Minh).** The authorized continuation ended at B0. T0 and all other packages remain unstarted; no background continuation is scheduled.
 - Baseline implementation: 808c9f5; starting checkout/plans: c5019cc.

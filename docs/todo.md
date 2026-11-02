@@ -9,6 +9,11 @@ milestone prerequisites, and exit criteria live in the
 
 ## Completion planning (2026-11-02)
 
+Execution follows the [2026-11-03 Rust implementation direction](decision.md#2026-11-03--deliver-cordis-features-through-idiomatic-rust-contracts):
+deliver usable feature slices with idiomatic Rust contracts, tests and examples,
+then review the implementation. Track adaptations and limitations explicitly;
+B0's evidence gaps are not a blanket prerequisite for satellite delivery.
+
 - [x] Save a [source-backed completion plan](plans/2026-11-02-cordis-completion/README.md)
   for core evidence, timer repair and all seven pinned upstream satellites.
   Separate observed source gaps, investigation, Rust representations and

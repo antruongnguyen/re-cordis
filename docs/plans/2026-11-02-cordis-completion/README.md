@@ -7,12 +7,20 @@ as approved or implemented. Calendar dates and execution owners are unassigned.
 
 ## Objective and meaning of completion
 
-Finish the evidenced defects in the delivered Rust framework, then deliver
-useful Rust equivalents for all seven satellites in the pinned upstream.
-For each upstream behavior, record one of: implemented and tested; explicit
-Rust equivalent and tested; deliberately unsupported with a reviewed reason;
-or a named remaining work package. A small initial slice is not full satellite
-completion. Unsupported behavior is never counted as tested parity.
+Deliver useful Cordis features across all seven upstream satellites through
+idiomatic Rust contracts, repairing concrete defects needed for those features. The user's
+[2026-11-03 direction](../../decision.md#2026-11-03--deliver-cordis-features-through-idiomatic-rust-contracts)
+governs execution of this plan: prioritize usability, language suitability and
+working implementations. Settle the necessary contract briefly, implement with
+tests and an example, then review behavior, ergonomics and integration.
+
+Upstream features define the functional reference, not a byte-for-byte port.
+Record Rust adaptations and unavailable capabilities with their user impact
+in decision.md and limitation.md. Acceptance is against the declared Rust
+feature scope; a small initial slice is not full satellite delivery, and
+unsupported behavior is not parity. Exhaustive per-assertion reconciliation
+is not a prerequisite for each new feature. B0 is accepted; use its gaps only
+when the feature depends on the behavior. Preserve relevant regression checks.
 
 The scope is the repository at Rust revision `808c9f5` and TypeScript revision
 `35fdc969e4b6c48c48ed44717c7a018324e4dd88`. The latter was verified locally
