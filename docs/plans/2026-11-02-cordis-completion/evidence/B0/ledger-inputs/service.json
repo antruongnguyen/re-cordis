@@ -1,0 +1,1161 @@
+{
+  "schema_version": 1,
+  "rust_revision": "9a7633c0b3b98e5f37e9f2211f3ffa67fdac5edc",
+  "typescript_revision": "35fdc969e4b6c48c48ed44717c7a018324e4dd88",
+  "implementation_revision": "808c9f573dd96c56fa2ec43e0b1bfb9ed39b2f3f",
+  "status": "service.spec.ts family reconciliation complete; exact source variants/assertions reviewed and current two-toolchain Rust results joined; independent review pending",
+  "declarations": [
+    {
+      "id": "core/service.spec.ts:7",
+      "source_file": "local/cordis/packages/core/tests/service.spec.ts",
+      "source_line": 7,
+      "source_end_line": 35,
+      "title": "pending inject",
+      "suite": [
+        "Service"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/service.spec.ts:7/default/a24",
+              "behavior": "The injecting consumer callback has not run before any foo provider exists.",
+              "source_assertion_lines": [
+                24
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "explicit_initialization_is_an_availability_barrier_and_failure_is_diagnosed_once",
+                  "lines": [
+                    293,
+                    305,
+                    306,
+                    308,
+                    310,
+                    318,
+                    327,
+                    328,
+                    344,
+                    345,
+                    346,
+                    347,
+                    348,
+                    355,
+                    356,
+                    357
+                  ],
+                  "assertion": "The consumer is Pending and direct access unavailable while the initialized provider is held; after release the provider and consumer settle Active.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "initialization-and-method-injection",
+                "reason": "Plugin::initialized and explicit typed injection replace Service.init/constructor discovery while preserving the availability and owned-cleanup lifecycle."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited current Rust regression exercises this exact lifecycle boundary; both workspace-test matrix commands contain the named test as passed. No TypeScript execution comparison is claimed."
+            },
+            {
+              "id": "core/service.spec.ts:7/default/a29",
+              "behavior": "Publishing foo during asynchronous initialization does not activate the consumer before initialization settles.",
+              "source_assertion_lines": [
+                29
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "explicit_initialization_is_an_availability_barrier_and_failure_is_diagnosed_once",
+                  "lines": [
+                    293,
+                    305,
+                    306,
+                    308,
+                    310,
+                    318,
+                    327,
+                    328,
+                    344,
+                    345,
+                    346,
+                    347,
+                    348,
+                    355,
+                    356,
+                    357
+                  ],
+                  "assertion": "The consumer is Pending and direct access unavailable while the initialized provider is held; after release the provider and consumer settle Active.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "initialization-and-method-injection",
+                "reason": "Plugin::initialized and explicit typed injection replace Service.init/constructor discovery while preserving the availability and owned-cleanup lifecycle."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited current Rust regression exercises this exact lifecycle boundary; both workspace-test matrix commands contain the named test as passed. No TypeScript execution comparison is claimed."
+            },
+            {
+              "id": "core/service.spec.ts:7/default/a33",
+              "behavior": "After initialization is released, foo becomes available and the consumer callback runs exactly once.",
+              "source_assertion_lines": [
+                33
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/service.spec.ts:7/default/a33",
+                "kind": "missing-evidence",
+                "next_action": "Add an activation counter to explicit_initialization_is_an_availability_barrier_and_failure_is_diagnosed_once and assert it changes from 0 to exactly 1 after the initializer gate is released.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage; a passing regression closes the evidence gap without production change. Conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The current regression proves Pending before release and Active afterward, but has no consumer-apply counter proving the exact one invocation required by source line 33."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/service.spec.ts:36",
+      "source_file": "local/cordis/packages/core/tests/service.spec.ts",
+      "source_line": 36,
+      "source_end_line": 75,
+      "title": "traceable effect (with inject)",
+      "suite": [
+        "Service"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/service.spec.ts:36/default/a61",
+              "behavior": "The injected service method increments the root counter once and the traced getter returns 1.",
+              "source_assertion_lines": [
+                61
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "explicit_bound_effects_keep_root_provisions_accessible_with_and_without_injection",
+                  "lines": [
+                    622,
+                    623,
+                    628,
+                    630,
+                    631,
+                    641,
+                    646,
+                    652,
+                    653,
+                    654,
+                    655,
+                    658,
+                    659,
+                    662,
+                    663,
+                    664,
+                    665,
+                    666,
+                    667
+                  ],
+                  "assertion": "The injected=true loop binds foo through an explicit traced Context, performs three increments across consumer lifetime, and records no failures.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "scope-and-bound-calls",
+                "reason": "BoundService passes an explicit traced Context; native Rc values do not transparently rebind arbitrary Rust methods or accessors."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited current Rust regression exercises this exact lifecycle boundary; both workspace-test matrix commands contain the named test as passed. No TypeScript execution comparison is claimed."
+            },
+            {
+              "id": "core/service.spec.ts:36/default/a62",
+              "behavior": "The first bound call with an explicit counter injection emits no undeclared-access warning.",
+              "source_assertion_lines": [
+                62
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "explicit_bound_effects_keep_root_provisions_accessible_with_and_without_injection",
+                  "lines": [
+                    622,
+                    623,
+                    628,
+                    630,
+                    631,
+                    641,
+                    646,
+                    652,
+                    653,
+                    654,
+                    655,
+                    658,
+                    659,
+                    662,
+                    663,
+                    664,
+                    665,
+                    666,
+                    667
+                  ],
+                  "assertion": "The injected=true loop binds foo through an explicit traced Context, performs three increments across consumer lifetime, and records no failures.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "scope-and-bound-calls",
+                "reason": "BoundService passes an explicit traced Context; native Rc values do not transparently rebind arbitrary Rust methods or accessors."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited current Rust regression exercises this exact lifecycle boundary; both workspace-test matrix commands contain the named test as passed. No TypeScript execution comparison is claimed."
+            },
+            {
+              "id": "core/service.spec.ts:36/default/a66",
+              "behavior": "A foo-injecting consumer can call the bound service and observe counter value 2.",
+              "source_assertion_lines": [
+                66
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "explicit_bound_effects_keep_root_provisions_accessible_with_and_without_injection",
+                  "lines": [
+                    622,
+                    623,
+                    628,
+                    630,
+                    631,
+                    641,
+                    646,
+                    652,
+                    653,
+                    654,
+                    655,
+                    658,
+                    659,
+                    662,
+                    663,
+                    664,
+                    665,
+                    666,
+                    667
+                  ],
+                  "assertion": "The injected=true loop binds foo through an explicit traced Context, performs three increments across consumer lifetime, and records no failures.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "scope-and-bound-calls",
+                "reason": "BoundService passes an explicit traced Context; native Rc values do not transparently rebind arbitrary Rust methods or accessors."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited current Rust regression exercises this exact lifecycle boundary; both workspace-test matrix commands contain the named test as passed. No TypeScript execution comparison is claimed."
+            },
+            {
+              "id": "core/service.spec.ts:36/default/a67",
+              "behavior": "The nested consumer call with explicit injection emits no undeclared-access warning.",
+              "source_assertion_lines": [
+                67
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "explicit_bound_effects_keep_root_provisions_accessible_with_and_without_injection",
+                  "lines": [
+                    622,
+                    623,
+                    628,
+                    630,
+                    631,
+                    641,
+                    646,
+                    652,
+                    653,
+                    654,
+                    655,
+                    658,
+                    659,
+                    662,
+                    663,
+                    664,
+                    665,
+                    666,
+                    667
+                  ],
+                  "assertion": "The injected=true loop binds foo through an explicit traced Context, performs three increments across consumer lifetime, and records no failures.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "scope-and-bound-calls",
+                "reason": "BoundService passes an explicit traced Context; native Rc values do not transparently rebind arbitrary Rust methods or accessors."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited current Rust regression exercises this exact lifecycle boundary; both workspace-test matrix commands contain the named test as passed. No TypeScript execution comparison is claimed."
+            },
+            {
+              "id": "core/service.spec.ts:36/default/a72",
+              "behavior": "After the consumer is disposed, a root call still reaches the provider and advances the counter to 3.",
+              "source_assertion_lines": [
+                72
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "explicit_bound_effects_keep_root_provisions_accessible_with_and_without_injection",
+                  "lines": [
+                    622,
+                    623,
+                    628,
+                    630,
+                    631,
+                    641,
+                    646,
+                    652,
+                    653,
+                    654,
+                    655,
+                    658,
+                    659,
+                    662,
+                    663,
+                    664,
+                    665,
+                    666,
+                    667
+                  ],
+                  "assertion": "The injected=true loop binds foo through an explicit traced Context, performs three increments across consumer lifetime, and records no failures.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "scope-and-bound-calls",
+                "reason": "BoundService passes an explicit traced Context; native Rc values do not transparently rebind arbitrary Rust methods or accessors."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited current Rust regression exercises this exact lifecycle boundary; both workspace-test matrix commands contain the named test as passed. No TypeScript execution comparison is claimed."
+            },
+            {
+              "id": "core/service.spec.ts:36/default/a73",
+              "behavior": "The final root call emits no undeclared-access warning.",
+              "source_assertion_lines": [
+                73
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "explicit_bound_effects_keep_root_provisions_accessible_with_and_without_injection",
+                  "lines": [
+                    622,
+                    623,
+                    628,
+                    630,
+                    631,
+                    641,
+                    646,
+                    652,
+                    653,
+                    654,
+                    655,
+                    658,
+                    659,
+                    662,
+                    663,
+                    664,
+                    665,
+                    666,
+                    667
+                  ],
+                  "assertion": "The injected=true loop binds foo through an explicit traced Context, performs three increments across consumer lifetime, and records no failures.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "scope-and-bound-calls",
+                "reason": "BoundService passes an explicit traced Context; native Rc values do not transparently rebind arbitrary Rust methods or accessors."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited current Rust regression exercises this exact lifecycle boundary; both workspace-test matrix commands contain the named test as passed. No TypeScript execution comparison is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/service.spec.ts:76",
+      "source_file": "local/cordis/packages/core/tests/service.spec.ts",
+      "source_line": 76,
+      "source_end_line": 108,
+      "title": "traceable effect (without inject)",
+      "suite": [
+        "Service"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/service.spec.ts:76/default/a97",
+              "behavior": "Without declaring counter on Foo, root-owned counter authority still lets the bound service reach value 1.",
+              "source_assertion_lines": [
+                97
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "explicit_bound_effects_keep_root_provisions_accessible_with_and_without_injection",
+                  "lines": [
+                    622,
+                    623,
+                    628,
+                    630,
+                    631,
+                    641,
+                    644,
+                    646,
+                    652,
+                    653,
+                    654,
+                    655,
+                    658,
+                    659,
+                    662,
+                    663,
+                    664,
+                    665,
+                    666,
+                    667
+                  ],
+                  "assertion": "The injected=false loop inherits the root provision through the explicit bound definition Context, performs three increments, and records no failures.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "scope-and-bound-calls",
+                "reason": "BoundService passes an explicit traced Context; native Rc values do not transparently rebind arbitrary Rust methods or accessors."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited current Rust regression exercises this exact lifecycle boundary; both workspace-test matrix commands contain the named test as passed. No TypeScript execution comparison is claimed."
+            },
+            {
+              "id": "core/service.spec.ts:76/default/a101",
+              "behavior": "A foo-injecting consumer call retains inherited root provision authority and reaches value 2.",
+              "source_assertion_lines": [
+                101
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "explicit_bound_effects_keep_root_provisions_accessible_with_and_without_injection",
+                  "lines": [
+                    622,
+                    623,
+                    628,
+                    630,
+                    631,
+                    641,
+                    644,
+                    646,
+                    652,
+                    653,
+                    654,
+                    655,
+                    658,
+                    659,
+                    662,
+                    663,
+                    664,
+                    665,
+                    666,
+                    667
+                  ],
+                  "assertion": "The injected=false loop inherits the root provision through the explicit bound definition Context, performs three increments, and records no failures.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "scope-and-bound-calls",
+                "reason": "BoundService passes an explicit traced Context; native Rc values do not transparently rebind arbitrary Rust methods or accessors."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited current Rust regression exercises this exact lifecycle boundary; both workspace-test matrix commands contain the named test as passed. No TypeScript execution comparison is claimed."
+            },
+            {
+              "id": "core/service.spec.ts:76/default/a106",
+              "behavior": "After consumer disposal, the root call remains usable and reaches value 3.",
+              "source_assertion_lines": [
+                106
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "explicit_bound_effects_keep_root_provisions_accessible_with_and_without_injection",
+                  "lines": [
+                    622,
+                    623,
+                    628,
+                    630,
+                    631,
+                    641,
+                    644,
+                    646,
+                    652,
+                    653,
+                    654,
+                    655,
+                    658,
+                    659,
+                    662,
+                    663,
+                    664,
+                    665,
+                    666,
+                    667
+                  ],
+                  "assertion": "The injected=false loop inherits the root provision through the explicit bound definition Context, performs three increments, and records no failures.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "scope-and-bound-calls",
+                "reason": "BoundService passes an explicit traced Context; native Rc values do not transparently rebind arbitrary Rust methods or accessors."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited current Rust regression exercises this exact lifecycle boundary; both workspace-test matrix commands contain the named test as passed. No TypeScript execution comparison is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/service.spec.ts:109",
+      "source_file": "local/cordis/packages/core/tests/service.spec.ts",
+      "source_line": 109,
+      "source_end_line": 127,
+      "title": "compare snapshot",
+      "suite": [
+        "Service"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/service.spec.ts:109/default/a123",
+              "behavior": "Removing the initialized service restores the pre-load hook/resource snapshot.",
+              "source_assertion_lines": [
+                123
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "repeated_initialized_services_restore_registry_effect_and_listener_baselines",
+                  "lines": [
+                    745,
+                    750,
+                    751,
+                    753,
+                    762,
+                    763,
+                    770,
+                    775,
+                    776,
+                    777,
+                    782,
+                    783,
+                    789,
+                    790,
+                    791,
+                    792,
+                    793,
+                    797
+                  ],
+                  "assertion": "Ten initialized-service cycles reproduce the loaded behavior and restore registry/effect/publication/listener baselines after removal.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "remaining-restrictions-and-safety-deviations",
+                "reason": "Rust exposes typed keys, explicit initialized factories and observable registry/effect/listener state instead of JavaScript hook snapshot objects and class reflection."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited current Rust regression exercises this exact lifecycle boundary; both workspace-test matrix commands contain the named test as passed. No TypeScript execution comparison is claimed."
+            },
+            {
+              "id": "core/service.spec.ts:109/default/a125",
+              "behavior": "Loading the initialized service again reproduces the same loaded hook/resource snapshot.",
+              "source_assertion_lines": [
+                125
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "repeated_initialized_services_restore_registry_effect_and_listener_baselines",
+                  "lines": [
+                    745,
+                    750,
+                    751,
+                    753,
+                    762,
+                    763,
+                    770,
+                    775,
+                    776,
+                    777,
+                    782,
+                    783,
+                    789,
+                    790,
+                    791,
+                    792,
+                    793,
+                    797
+                  ],
+                  "assertion": "Ten initialized-service cycles reproduce the loaded behavior and restore registry/effect/publication/listener baselines after removal.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "remaining-restrictions-and-safety-deviations",
+                "reason": "Rust exposes typed keys, explicit initialized factories and observable registry/effect/listener state instead of JavaScript hook snapshot objects and class reflection."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited current Rust regression exercises this exact lifecycle boundary; both workspace-test matrix commands contain the named test as passed. No TypeScript execution comparison is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/service.spec.ts:128",
+      "source_file": "local/cordis/packages/core/tests/service.spec.ts",
+      "source_line": 128,
+      "source_end_line": 190,
+      "title": "multiple injects",
+      "suite": [
+        "Service"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/service.spec.ts:128/default/a161",
+              "behavior": "Foo initializes exactly once after its qux dependency becomes available.",
+              "source_assertion_lines": [
+                161
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/service.spec.ts:128/default/a161",
+                "kind": "missing-evidence",
+                "next_action": "Add a three-plugin initialized dependency-DAG regression and assert the qux-dependent Foo apply counter is exactly 1 after convergence.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage; a passing regression closes the evidence gap without production change. Conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The current two-dependency regression proves one validator/load gate after both publications, but does not count the separate Foo initialized callback in the source DAG."
+            },
+            {
+              "id": "core/service.spec.ts:128/default/a162",
+              "behavior": "Bar initializes exactly once after both foo and qux dependencies become available.",
+              "source_assertion_lines": [
+                162
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/service.spec.ts:128/default/a162",
+                "kind": "missing-evidence",
+                "next_action": "Add a three-plugin initialized dependency-DAG regression and assert the foo+qux-dependent Bar apply counter is exactly 1 after convergence.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage; a passing regression closes the evidence gap without production change. Conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The current two-dependency regression proves one validator/load gate after both publications, but does not count the separate Bar initialized callback in the source DAG."
+            },
+            {
+              "id": "core/service.spec.ts:128/default/a163",
+              "behavior": "Qux initializes exactly once and unlocks the dependent initialized services.",
+              "source_assertion_lines": [
+                163
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/service.spec.ts:128/default/a163",
+                "kind": "missing-evidence",
+                "next_action": "Add a three-plugin initialized dependency-DAG regression and assert the Qux initialized apply counter is exactly 1 while it unlocks Foo and Bar.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage; a passing regression closes the evidence gap without production change. Conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "Current initialized-provider tests prove availability barriers and repeated-cycle cleanup, but do not count this three-node DAG provider callback exactly once."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence"
+      ]
+    },
+    {
+      "id": "core/service.spec.ts:191",
+      "source_file": "local/cordis/packages/core/tests/service.spec.ts",
+      "source_line": 191,
+      "source_end_line": 202,
+      "title": "dispose dependents before provider",
+      "suite": [
+        "Service"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/service.spec.ts:191/default/a200",
+              "behavior": "Parent disposal runs dependent cleanup while foo is open, then closes foo: dependent precedes provider.",
+              "source_assertion_lines": [
+                200
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "provider_resources_survive_all_disposal_orders_and_restart",
+                  "lines": [
+                    204,
+                    205,
+                    217,
+                    219,
+                    220,
+                    221,
+                    251,
+                    258,
+                    259,
+                    260,
+                    261,
+                    262,
+                    263,
+                    264
+                  ],
+                  "assertion": "The provider disposal variant blocks on the dependent cleanup, keeps the provider open, then records dependent read before close.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited current Rust regression exercises this exact lifecycle boundary; both workspace-test matrix commands contain the named test as passed. No TypeScript execution comparison is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/service.spec.ts:203",
+      "source_file": "local/cordis/packages/core/tests/service.spec.ts",
+      "source_line": 203,
+      "source_end_line": 216,
+      "title": "dispose dependents before provider restarts",
+      "suite": [
+        "Service"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/service.spec.ts:203/default/a210",
+              "behavior": "The consumer callback has run exactly once before provider restart begins.",
+              "source_assertion_lines": [
+                210
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "provider_resources_survive_all_disposal_orders_and_restart",
+                  "lines": [
+                    204,
+                    205,
+                    210,
+                    217,
+                    219,
+                    220,
+                    221,
+                    229,
+                    230,
+                    258,
+                    259,
+                    262,
+                    263,
+                    264,
+                    265,
+                    266,
+                    267
+                  ],
+                  "assertion": "The restart variant retains the provider through dependent cleanup, closes in order, and settles the consumer Active against the restarted provider.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited current Rust regression exercises this exact lifecycle boundary; both workspace-test matrix commands contain the named test as passed. No TypeScript execution comparison is claimed."
+            },
+            {
+              "id": "core/service.spec.ts:203/default/a212",
+              "behavior": "Provider restart runs dependent cleanup before closing the old provider.",
+              "source_assertion_lines": [
+                212
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "provider_resources_survive_all_disposal_orders_and_restart",
+                  "lines": [
+                    204,
+                    205,
+                    210,
+                    217,
+                    219,
+                    220,
+                    221,
+                    229,
+                    230,
+                    258,
+                    259,
+                    262,
+                    263,
+                    264,
+                    265,
+                    266,
+                    267
+                  ],
+                  "assertion": "The restart variant retains the provider through dependent cleanup, closes in order, and settles the consumer Active against the restarted provider.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited current Rust regression exercises this exact lifecycle boundary; both workspace-test matrix commands contain the named test as passed. No TypeScript execution comparison is claimed."
+            },
+            {
+              "id": "core/service.spec.ts:203/default/a214",
+              "behavior": "After restart settles, the consumer callback has run a second time against the new provider load.",
+              "source_assertion_lines": [
+                214
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/service.spec.ts:203/default/a214",
+                "kind": "missing-evidence",
+                "next_action": "Add an explicit consumer apply counter to provider_resources_survive_all_disposal_orders_and_restart and assert it equals 2 after the restart branch settles.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage; a passing regression closes the evidence gap without production change. Conditional B2 requires a failing public-API reproducer plus an actual dependent gate."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The current restart branch proves ordered cleanup and final Active state, but it does not assert the exact second apply/callback count required by source line 214."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/service.spec.ts:217",
+      "source_file": "local/cordis/packages/core/tests/service.spec.ts",
+      "source_line": 217,
+      "source_end_line": 234,
+      "title": "dispose dependents before isolated provider",
+      "suite": [
+        "Service"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/service.spec.ts:217/default/a230",
+              "behavior": "The consumer selected by the shared isolation identity activates exactly once.",
+              "source_assertion_lines": [
+                230
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "same_name_publications_in_two_realms_keep_resources_until_the_exact_consumer_finishes",
+                  "lines": [
+                    483,
+                    484,
+                    490,
+                    491,
+                    492,
+                    495,
+                    502,
+                    519,
+                    520,
+                    528,
+                    531,
+                    532,
+                    540,
+                    541,
+                    547,
+                    552,
+                    553,
+                    554,
+                    555,
+                    556
+                  ],
+                  "assertion": "An explicit isolated consumer commits the exact first-realm publication; provider/root disposal enters its cleanup, retains the resource, then closes once after release.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "scope-and-bound-calls",
+                "reason": "IsolationId and explicit isolate/isolate_with Contexts represent JavaScript symbol-selected prototype realms without Proxy/prototype emulation."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited current Rust regression exercises this exact lifecycle boundary; both workspace-test matrix commands contain the named test as passed. No TypeScript execution comparison is claimed."
+            },
+            {
+              "id": "core/service.spec.ts:217/default/a232",
+              "behavior": "Disposing the isolated provider invokes the exact consumer cleanup once before release.",
+              "source_assertion_lines": [
+                232
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "same_name_publications_in_two_realms_keep_resources_until_the_exact_consumer_finishes",
+                  "lines": [
+                    483,
+                    484,
+                    490,
+                    491,
+                    492,
+                    495,
+                    502,
+                    519,
+                    520,
+                    528,
+                    531,
+                    532,
+                    540,
+                    541,
+                    547,
+                    552,
+                    553,
+                    554,
+                    555,
+                    556
+                  ],
+                  "assertion": "An explicit isolated consumer commits the exact first-realm publication; provider/root disposal enters its cleanup, retains the resource, then closes once after release.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "scope-and-bound-calls",
+                "reason": "IsolationId and explicit isolate/isolate_with Contexts represent JavaScript symbol-selected prototype realms without Proxy/prototype emulation."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited current Rust regression exercises this exact lifecycle boundary; both workspace-test matrix commands contain the named test as passed. No TypeScript execution comparison is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    }
+  ]
+}

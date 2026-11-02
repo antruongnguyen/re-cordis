@@ -1,0 +1,3072 @@
+{
+  "schema_version": 1,
+  "rust_revision": "9a7633c0b3b98e5f37e9f2211f3ffa67fdac5edc",
+  "typescript_revision": "35fdc969e4b6c48c48ed44717c7a018324e4dd88",
+  "implementation_revision": "808c9f573dd96c56fa2ec43e0b1bfb9ed39b2f3f",
+  "status": "service-dispose.spec.ts family reconciliation complete; exact source variants/assertions reviewed and current two-toolchain Rust results joined; independent review pending",
+  "declarations": [
+    {
+      "id": "core/service-dispose.spec.ts:31",
+      "source_file": "local/cordis/packages/core/tests/service-dispose.spec.ts",
+      "source_line": 31,
+      "source_end_line": 47,
+      "title": "releases an injected binding after providing the same name in another realm (%s)",
+      "suite": [
+        "Service disposal"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {
+            "action": "consumer"
+          },
+          "obligations": [
+            {
+              "id": "core/service-dispose.spec.ts:31/consumer/a43",
+              "behavior": "The selected consumer/provider/root disposal action completes promptly despite the consumer publishing the same service name in another realm.",
+              "source_assertion_lines": [
+                43
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "an_injected_publication_is_released_even_after_providing_the_same_name_in_another_realm",
+                  "lines": [
+                    437,
+                    438,
+                    444,
+                    447,
+                    448,
+                    454,
+                    460,
+                    461,
+                    463,
+                    464,
+                    466,
+                    467,
+                    469,
+                    470,
+                    473
+                  ],
+                  "assertion": "All consumer/provider/root variants complete after the injecting consumer publishes the same name in a fresh explicit realm.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            }
+          ]
+        },
+        {
+          "parameters": {
+            "action": "provider"
+          },
+          "obligations": [
+            {
+              "id": "core/service-dispose.spec.ts:31/provider/a43",
+              "behavior": "The selected consumer/provider/root disposal action completes promptly despite the consumer publishing the same service name in another realm.",
+              "source_assertion_lines": [
+                43
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "an_injected_publication_is_released_even_after_providing_the_same_name_in_another_realm",
+                  "lines": [
+                    437,
+                    438,
+                    444,
+                    447,
+                    448,
+                    454,
+                    460,
+                    461,
+                    463,
+                    464,
+                    466,
+                    467,
+                    469,
+                    470,
+                    473
+                  ],
+                  "assertion": "All consumer/provider/root variants complete after the injecting consumer publishes the same name in a fresh explicit realm.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            }
+          ]
+        },
+        {
+          "parameters": {
+            "action": "root"
+          },
+          "obligations": [
+            {
+              "id": "core/service-dispose.spec.ts:31/root/a43",
+              "behavior": "The selected consumer/provider/root disposal action completes promptly despite the consumer publishing the same service name in another realm.",
+              "source_assertion_lines": [
+                43
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "an_injected_publication_is_released_even_after_providing_the_same_name_in_another_realm",
+                  "lines": [
+                    437,
+                    438,
+                    444,
+                    447,
+                    448,
+                    454,
+                    460,
+                    461,
+                    463,
+                    464,
+                    466,
+                    467,
+                    469,
+                    470,
+                    473
+                  ],
+                  "assertion": "All consumer/provider/root variants complete after the injecting consumer publishes the same name in a fresh explicit realm.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/service-dispose.spec.ts:48",
+      "source_file": "local/cordis/packages/core/tests/service-dispose.spec.ts",
+      "source_line": 48,
+      "source_end_line": 72,
+      "title": "waits for a disposing consumer that has already left the registry",
+      "suite": [
+        "Service disposal"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/service-dispose.spec.ts:48/default/a68",
+              "behavior": "Publication withdrawal remains pending while the Registry-removed consumer cleanup is gated.",
+              "source_assertion_lines": [
+                68
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "withdrawal_waits_for_a_consumer_already_removed_from_the_registry",
+                  "lines": [
+                    145,
+                    154,
+                    155,
+                    156,
+                    157,
+                    158,
+                    159,
+                    160,
+                    161,
+                    162,
+                    163,
+                    164,
+                    165,
+                    166
+                  ],
+                  "assertion": "Withdrawal removes current visibility but remains pending while the Registry-removed consumer cleans up, then completes after its final read.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            },
+            {
+              "id": "core/service-dispose.spec.ts:48/default/a69",
+              "behavior": "The consumer finishes cleanup before withdrawal completes.",
+              "source_assertion_lines": [
+                69
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "withdrawal_waits_for_a_consumer_already_removed_from_the_registry",
+                  "lines": [
+                    145,
+                    154,
+                    155,
+                    156,
+                    157,
+                    158,
+                    159,
+                    160,
+                    161,
+                    162,
+                    163,
+                    164,
+                    165,
+                    166
+                  ],
+                  "assertion": "Withdrawal removes current visibility but remains pending while the Registry-removed consumer cleans up, then completes after its final read.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/service-dispose.spec.ts:73",
+      "source_file": "local/cordis/packages/core/tests/service-dispose.spec.ts",
+      "source_line": 73,
+      "source_end_line": 94,
+      "title": "withdraws one binding without waiting for another binding from the same provider",
+      "suite": [
+        "Service disposal"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/service-dispose.spec.ts:73/default/a90",
+              "behavior": "With another same-provider publication cleanup still gated, withdrawal of this exact publication completes.",
+              "source_assertion_lines": [
+                90
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "one_withdrawal_does_not_wait_for_another_publication_from_the_same_provider",
+                  "lines": [
+                    176,
+                    182,
+                    183,
+                    185,
+                    186,
+                    187,
+                    188,
+                    189,
+                    190,
+                    191,
+                    192,
+                    193,
+                    194
+                  ],
+                  "assertion": "With another publication cleanup gated, withdrawal of the independent exact publication completes immediately and the provider remains open.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/service-dispose.spec.ts:95",
+      "source_file": "local/cordis/packages/core/tests/service-dispose.spec.ts",
+      "source_line": 95,
+      "source_end_line": 130,
+      "title": "retains resources during consumer cleanup (%s)",
+      "suite": [
+        "Service disposal"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {
+            "action": "provider"
+          },
+          "obligations": [
+            {
+              "id": "core/service-dispose.spec.ts:95/provider/a121",
+              "behavior": "The provider resource remains open while dependent cleanup is gated.",
+              "source_assertion_lines": [
+                121
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "provider_resources_survive_all_disposal_orders_and_restart",
+                  "lines": [
+                    204,
+                    205,
+                    211,
+                    217,
+                    219,
+                    220,
+                    221,
+                    222,
+                    258,
+                    259,
+                    260,
+                    261,
+                    262,
+                    263,
+                    264,
+                    265,
+                    266,
+                    267
+                  ],
+                  "assertion": "Each of the five exact action variants keeps the provider open during cleanup, records read before close, and the restart variant reactivates the consumer.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            },
+            {
+              "id": "core/service-dispose.spec.ts:95/provider/a122",
+              "behavior": "Dependent cleanup reads the provider while open, and provider close occurs afterward.",
+              "source_assertion_lines": [
+                122
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "provider_resources_survive_all_disposal_orders_and_restart",
+                  "lines": [
+                    204,
+                    205,
+                    211,
+                    217,
+                    219,
+                    220,
+                    221,
+                    222,
+                    258,
+                    259,
+                    260,
+                    261,
+                    262,
+                    263,
+                    264,
+                    265,
+                    266,
+                    267
+                  ],
+                  "assertion": "Each of the five exact action variants keeps the provider open during cleanup, records read before close, and the restart variant reactivates the consumer.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            }
+          ]
+        },
+        {
+          "parameters": {
+            "action": "root"
+          },
+          "obligations": [
+            {
+              "id": "core/service-dispose.spec.ts:95/root/a121",
+              "behavior": "The provider resource remains open while dependent cleanup is gated.",
+              "source_assertion_lines": [
+                121
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "provider_resources_survive_all_disposal_orders_and_restart",
+                  "lines": [
+                    204,
+                    205,
+                    211,
+                    217,
+                    219,
+                    220,
+                    221,
+                    222,
+                    258,
+                    259,
+                    260,
+                    261,
+                    262,
+                    263,
+                    264,
+                    265,
+                    266,
+                    267
+                  ],
+                  "assertion": "Each of the five exact action variants keeps the provider open during cleanup, records read before close, and the restart variant reactivates the consumer.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            },
+            {
+              "id": "core/service-dispose.spec.ts:95/root/a122",
+              "behavior": "Dependent cleanup reads the provider while open, and provider close occurs afterward.",
+              "source_assertion_lines": [
+                122
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "provider_resources_survive_all_disposal_orders_and_restart",
+                  "lines": [
+                    204,
+                    205,
+                    211,
+                    217,
+                    219,
+                    220,
+                    221,
+                    222,
+                    258,
+                    259,
+                    260,
+                    261,
+                    262,
+                    263,
+                    264,
+                    265,
+                    266,
+                    267
+                  ],
+                  "assertion": "Each of the five exact action variants keeps the provider open during cleanup, records read before close, and the restart variant reactivates the consumer.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            }
+          ]
+        },
+        {
+          "parameters": {
+            "action": "provider first"
+          },
+          "obligations": [
+            {
+              "id": "core/service-dispose.spec.ts:95/provider first/a121",
+              "behavior": "The provider resource remains open while dependent cleanup is gated.",
+              "source_assertion_lines": [
+                121
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "provider_resources_survive_all_disposal_orders_and_restart",
+                  "lines": [
+                    204,
+                    205,
+                    211,
+                    217,
+                    219,
+                    220,
+                    221,
+                    222,
+                    258,
+                    259,
+                    260,
+                    261,
+                    262,
+                    263,
+                    264,
+                    265,
+                    266,
+                    267
+                  ],
+                  "assertion": "Each of the five exact action variants keeps the provider open during cleanup, records read before close, and the restart variant reactivates the consumer.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            },
+            {
+              "id": "core/service-dispose.spec.ts:95/provider first/a122",
+              "behavior": "Dependent cleanup reads the provider while open, and provider close occurs afterward.",
+              "source_assertion_lines": [
+                122
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "provider_resources_survive_all_disposal_orders_and_restart",
+                  "lines": [
+                    204,
+                    205,
+                    211,
+                    217,
+                    219,
+                    220,
+                    221,
+                    222,
+                    258,
+                    259,
+                    260,
+                    261,
+                    262,
+                    263,
+                    264,
+                    265,
+                    266,
+                    267
+                  ],
+                  "assertion": "Each of the five exact action variants keeps the provider open during cleanup, records read before close, and the restart variant reactivates the consumer.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            }
+          ]
+        },
+        {
+          "parameters": {
+            "action": "consumer first"
+          },
+          "obligations": [
+            {
+              "id": "core/service-dispose.spec.ts:95/consumer first/a121",
+              "behavior": "The provider resource remains open while dependent cleanup is gated.",
+              "source_assertion_lines": [
+                121
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "provider_resources_survive_all_disposal_orders_and_restart",
+                  "lines": [
+                    204,
+                    205,
+                    211,
+                    217,
+                    219,
+                    220,
+                    221,
+                    222,
+                    258,
+                    259,
+                    260,
+                    261,
+                    262,
+                    263,
+                    264,
+                    265,
+                    266,
+                    267
+                  ],
+                  "assertion": "Each of the five exact action variants keeps the provider open during cleanup, records read before close, and the restart variant reactivates the consumer.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            },
+            {
+              "id": "core/service-dispose.spec.ts:95/consumer first/a122",
+              "behavior": "Dependent cleanup reads the provider while open, and provider close occurs afterward.",
+              "source_assertion_lines": [
+                122
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "provider_resources_survive_all_disposal_orders_and_restart",
+                  "lines": [
+                    204,
+                    205,
+                    211,
+                    217,
+                    219,
+                    220,
+                    221,
+                    222,
+                    258,
+                    259,
+                    260,
+                    261,
+                    262,
+                    263,
+                    264,
+                    265,
+                    266,
+                    267
+                  ],
+                  "assertion": "Each of the five exact action variants keeps the provider open during cleanup, records read before close, and the restart variant reactivates the consumer.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            }
+          ]
+        },
+        {
+          "parameters": {
+            "action": "restart"
+          },
+          "obligations": [
+            {
+              "id": "core/service-dispose.spec.ts:95/restart/a121",
+              "behavior": "The provider resource remains open while dependent cleanup is gated.",
+              "source_assertion_lines": [
+                121
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "provider_resources_survive_all_disposal_orders_and_restart",
+                  "lines": [
+                    204,
+                    205,
+                    211,
+                    217,
+                    219,
+                    220,
+                    221,
+                    222,
+                    258,
+                    259,
+                    260,
+                    261,
+                    262,
+                    263,
+                    264,
+                    265,
+                    266,
+                    267
+                  ],
+                  "assertion": "Each of the five exact action variants keeps the provider open during cleanup, records read before close, and the restart variant reactivates the consumer.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            },
+            {
+              "id": "core/service-dispose.spec.ts:95/restart/a122",
+              "behavior": "Dependent cleanup reads the provider while open, and provider close occurs afterward.",
+              "source_assertion_lines": [
+                122
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "provider_resources_survive_all_disposal_orders_and_restart",
+                  "lines": [
+                    204,
+                    205,
+                    211,
+                    217,
+                    219,
+                    220,
+                    221,
+                    222,
+                    258,
+                    259,
+                    260,
+                    261,
+                    262,
+                    263,
+                    264,
+                    265,
+                    266,
+                    267
+                  ],
+                  "assertion": "Each of the five exact action variants keeps the provider open during cleanup, records read before close, and the restart variant reactivates the consumer.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            },
+            {
+              "id": "core/service-dispose.spec.ts:95/restart/a125",
+              "behavior": "After the restart-only branch settles, the consumer has an available foo binding.",
+              "source_assertion_lines": [
+                125
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "provider_resources_survive_all_disposal_orders_and_restart",
+                  "lines": [
+                    204,
+                    205,
+                    211,
+                    217,
+                    219,
+                    220,
+                    221,
+                    222,
+                    258,
+                    259,
+                    260,
+                    261,
+                    262,
+                    263,
+                    264,
+                    265,
+                    266,
+                    267
+                  ],
+                  "assertion": "Each of the five exact action variants keeps the provider open during cleanup, records read before close, and the restart variant reactivates the consumer.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/service-dispose.spec.ts:131",
+      "source_file": "local/cordis/packages/core/tests/service-dispose.spec.ts",
+      "source_line": 131,
+      "source_end_line": 155,
+      "title": "retains transitive dependencies while a consumer providing another service drains",
+      "suite": [
+        "Service disposal"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/service-dispose.spec.ts:131/default/a152",
+              "behavior": "The transitive foo provider remains open while the bar consumer is draining.",
+              "source_assertion_lines": [
+                152
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "transitive_cleanup_retains_providers_while_unrelated_owners_and_siblings_progress",
+                  "lines": [
+                    279,
+                    285,
+                    286,
+                    288,
+                    289,
+                    299,
+                    300,
+                    301,
+                    310,
+                    311,
+                    342,
+                    343,
+                    344,
+                    345,
+                    346,
+                    347,
+                    348,
+                    349,
+                    350
+                  ],
+                  "assertion": "The gated leaf drains before the middle cleanup reads its retained foo provider and before that provider closes.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            },
+            {
+              "id": "core/service-dispose.spec.ts:131/default/a153",
+              "behavior": "The leaf drain finishes, then the middle reads foo while open, then the provider closes.",
+              "source_assertion_lines": [
+                153
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "transitive_cleanup_retains_providers_while_unrelated_owners_and_siblings_progress",
+                  "lines": [
+                    279,
+                    285,
+                    286,
+                    288,
+                    289,
+                    299,
+                    300,
+                    301,
+                    310,
+                    311,
+                    342,
+                    343,
+                    344,
+                    345,
+                    346,
+                    347,
+                    348,
+                    349,
+                    350
+                  ],
+                  "assertion": "The gated leaf drains before the middle cleanup reads its retained foo provider and before that provider closes.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/service-dispose.spec.ts:156",
+      "source_file": "local/cordis/packages/core/tests/service-dispose.spec.ts",
+      "source_line": 156,
+      "source_end_line": 183,
+      "title": "retains dependencies through in-flight setup and rollback (failure: %s)",
+      "suite": [
+        "Service disposal"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {
+            "fail": false
+          },
+          "obligations": [
+            {
+              "id": "core/service-dispose.spec.ts:156/false/a178",
+              "behavior": "The provider remains open during in-flight setup for this success/failure variant.",
+              "source_assertion_lines": [
+                178
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "snapshots_survive_in_flight_apply_and_partial_failure_rollback",
+                  "lines": [
+                    359,
+                    360,
+                    366,
+                    368,
+                    372,
+                    381,
+                    382,
+                    385,
+                    386,
+                    387,
+                    388,
+                    398,
+                    399,
+                    400,
+                    401,
+                    402,
+                    403,
+                    407,
+                    408
+                  ],
+                  "assertion": "Both success/failure variants retain the committed dependency through in-flight setup and rollback; two reads precede close and diagnostics equal the failure flag.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            },
+            {
+              "id": "core/service-dispose.spec.ts:156/false/a179",
+              "behavior": "Setup and rollback each read the committed provider before it closes.",
+              "source_assertion_lines": [
+                179
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "snapshots_survive_in_flight_apply_and_partial_failure_rollback",
+                  "lines": [
+                    359,
+                    360,
+                    366,
+                    368,
+                    372,
+                    381,
+                    382,
+                    385,
+                    386,
+                    387,
+                    388,
+                    398,
+                    399,
+                    400,
+                    401,
+                    402,
+                    403,
+                    407,
+                    408
+                  ],
+                  "assertion": "Both success/failure variants retain the committed dependency through in-flight setup and rollback; two reads precede close and diagnostics equal the failure flag.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            },
+            {
+              "id": "core/service-dispose.spec.ts:156/false/a180",
+              "behavior": "Diagnostics occur exactly once for the failure variant and zero times for success.",
+              "source_assertion_lines": [
+                180
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "snapshots_survive_in_flight_apply_and_partial_failure_rollback",
+                  "lines": [
+                    359,
+                    360,
+                    366,
+                    368,
+                    372,
+                    381,
+                    382,
+                    385,
+                    386,
+                    387,
+                    388,
+                    398,
+                    399,
+                    400,
+                    401,
+                    402,
+                    403,
+                    407,
+                    408
+                  ],
+                  "assertion": "Both success/failure variants retain the committed dependency through in-flight setup and rollback; two reads precede close and diagnostics equal the failure flag.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            }
+          ]
+        },
+        {
+          "parameters": {
+            "fail": true
+          },
+          "obligations": [
+            {
+              "id": "core/service-dispose.spec.ts:156/true/a178",
+              "behavior": "The provider remains open during in-flight setup for this success/failure variant.",
+              "source_assertion_lines": [
+                178
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "snapshots_survive_in_flight_apply_and_partial_failure_rollback",
+                  "lines": [
+                    359,
+                    360,
+                    366,
+                    368,
+                    372,
+                    381,
+                    382,
+                    385,
+                    386,
+                    387,
+                    388,
+                    398,
+                    399,
+                    400,
+                    401,
+                    402,
+                    403,
+                    407,
+                    408
+                  ],
+                  "assertion": "Both success/failure variants retain the committed dependency through in-flight setup and rollback; two reads precede close and diagnostics equal the failure flag.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            },
+            {
+              "id": "core/service-dispose.spec.ts:156/true/a179",
+              "behavior": "Setup and rollback each read the committed provider before it closes.",
+              "source_assertion_lines": [
+                179
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "snapshots_survive_in_flight_apply_and_partial_failure_rollback",
+                  "lines": [
+                    359,
+                    360,
+                    366,
+                    368,
+                    372,
+                    381,
+                    382,
+                    385,
+                    386,
+                    387,
+                    388,
+                    398,
+                    399,
+                    400,
+                    401,
+                    402,
+                    403,
+                    407,
+                    408
+                  ],
+                  "assertion": "Both success/failure variants retain the committed dependency through in-flight setup and rollback; two reads precede close and diagnostics equal the failure flag.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            },
+            {
+              "id": "core/service-dispose.spec.ts:156/true/a180",
+              "behavior": "Diagnostics occur exactly once for the failure variant and zero times for success.",
+              "source_assertion_lines": [
+                180
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "snapshots_survive_in_flight_apply_and_partial_failure_rollback",
+                  "lines": [
+                    359,
+                    360,
+                    366,
+                    368,
+                    372,
+                    381,
+                    382,
+                    385,
+                    386,
+                    387,
+                    388,
+                    398,
+                    399,
+                    400,
+                    401,
+                    402,
+                    403,
+                    407,
+                    408
+                  ],
+                  "assertion": "Both success/failure variants retain the committed dependency through in-flight setup and rollback; two reads precede close and diagnostics equal the failure flag.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/service-dispose.spec.ts:184",
+      "source_file": "local/cordis/packages/core/tests/service-dispose.spec.ts",
+      "source_line": 184,
+      "source_end_line": 198,
+      "title": "releases dependencies after a cleanup error",
+      "suite": [
+        "Service disposal"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/service-dispose.spec.ts:184/default/a194",
+              "behavior": "A cleanup error does not prevent the consumer read or later provider close.",
+              "source_assertion_lines": [
+                194
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "cleanup_errors_release_dependencies_and_keep_final_provider_listeners_alive",
+                  "lines": [
+                    419,
+                    425,
+                    427,
+                    443,
+                    450,
+                    451,
+                    452,
+                    453,
+                    464,
+                    465,
+                    466,
+                    467
+                  ],
+                  "assertion": "The failing consumer cleanup still reads while open, dispatches its final event, releases the dependency, closes the provider, and yields one diagnostic.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            },
+            {
+              "id": "core/service-dispose.spec.ts:184/default/a195",
+              "behavior": "The cleanup error is reported with its original error identity/source.",
+              "source_assertion_lines": [
+                195
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "cleanup_errors_release_dependencies_and_keep_final_provider_listeners_alive",
+                  "lines": [
+                    419,
+                    425,
+                    427,
+                    443,
+                    450,
+                    451,
+                    452,
+                    453,
+                    464,
+                    465,
+                    466,
+                    467
+                  ],
+                  "assertion": "The failing consumer cleanup still reads while open, dispatches its final event, releases the dependency, closes the provider, and yields one diagnostic.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                },
+                {
+                  "file": "crates/re-cordis-core/tests/foundations.rs",
+                  "symbol": "user_failure_sources_survive_and_panics_do_not_skip_other_cleanup",
+                  "lines": [
+                    221,
+                    229,
+                    230,
+                    244,
+                    245,
+                    246,
+                    249,
+                    250,
+                    251,
+                    252,
+                    253,
+                    254,
+                    255,
+                    256,
+                    257,
+                    258,
+                    260
+                  ],
+                  "assertion": "The generic cleanup regression retains and downcasts the exact returned UserError source while the service-disposal regression supplies the service-specific failing cleanup and one diagnostic.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/service-dispose.spec.ts:199",
+      "source_file": "local/cordis/packages/core/tests/service-dispose.spec.ts",
+      "source_line": 199,
+      "source_end_line": 213,
+      "title": "keeps provider listeners alive through the final consumer event",
+      "suite": [
+        "Service disposal"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/service-dispose.spec.ts:199/default/a211",
+              "behavior": "The provider listener remains registered through the consumer final-cleanup event and receives it once.",
+              "source_assertion_lines": [
+                211
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "cleanup_errors_release_dependencies_and_keep_final_provider_listeners_alive",
+                  "lines": [
+                    419,
+                    427,
+                    428,
+                    429,
+                    430,
+                    432,
+                    443,
+                    450,
+                    451,
+                    452,
+                    464,
+                    465,
+                    466
+                  ],
+                  "assertion": "The provider-owned listener receives the final event emitted from dependent cleanup before provider listener/resource teardown.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/service-dispose.spec.ts:214",
+      "source_file": "local/cordis/packages/core/tests/service-dispose.spec.ts",
+      "source_line": 214,
+      "source_end_line": 237,
+      "title": "allows unrelated providers and sibling effects to clean up concurrently",
+      "suite": [
+        "Service disposal"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/service-dispose.spec.ts:214/default/a235",
+              "behavior": "Unrelated provider and sibling cleanup both progress while the retained provider remains open.",
+              "source_assertion_lines": [
+                235
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "transitive_cleanup_retains_providers_while_unrelated_owners_and_siblings_progress",
+                  "lines": [
+                    279,
+                    312,
+                    313,
+                    314,
+                    319,
+                    322,
+                    328,
+                    342,
+                    343,
+                    344,
+                    345,
+                    346,
+                    347,
+                    348,
+                    349
+                  ],
+                  "assertion": "Sibling and unrelated provider cleanup signals arrive while the gated dependent still retains the foo provider open.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/service-dispose.spec.ts:238",
+      "source_file": "local/cordis/packages/core/tests/service-dispose.spec.ts",
+      "source_line": 238,
+      "source_end_line": 270,
+      "title": "supports composed provider effects (owner shutdown: %s)",
+      "suite": [
+        "Service disposal"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {
+            "ownerShutdown": false
+          },
+          "obligations": [
+            {
+              "id": "core/service-dispose.spec.ts:238/false/a266",
+              "behavior": "The composed provider resource remains open during dependent cleanup.",
+              "source_assertion_lines": [
+                266
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "composed_publication_cleanup_retains_resources_on_manual_and_owner_disposal",
+                  "lines": [
+                    750,
+                    751,
+                    757,
+                    758,
+                    772,
+                    773,
+                    780,
+                    781,
+                    794,
+                    795,
+                    797,
+                    803,
+                    808,
+                    809,
+                    810,
+                    811,
+                    812
+                  ],
+                  "assertion": "Manual composed-effect and owner-shutdown variants both retain the resource through exact publication withdrawal and record read before close.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            },
+            {
+              "id": "core/service-dispose.spec.ts:238/false/a267",
+              "behavior": "For this manual/owner-shutdown variant the dependent reads before the composed provider closes.",
+              "source_assertion_lines": [
+                267
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "composed_publication_cleanup_retains_resources_on_manual_and_owner_disposal",
+                  "lines": [
+                    750,
+                    751,
+                    757,
+                    758,
+                    772,
+                    773,
+                    780,
+                    781,
+                    794,
+                    795,
+                    797,
+                    803,
+                    808,
+                    809,
+                    810,
+                    811,
+                    812
+                  ],
+                  "assertion": "Manual composed-effect and owner-shutdown variants both retain the resource through exact publication withdrawal and record read before close.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            }
+          ]
+        },
+        {
+          "parameters": {
+            "ownerShutdown": true
+          },
+          "obligations": [
+            {
+              "id": "core/service-dispose.spec.ts:238/true/a266",
+              "behavior": "The composed provider resource remains open during dependent cleanup.",
+              "source_assertion_lines": [
+                266
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "composed_publication_cleanup_retains_resources_on_manual_and_owner_disposal",
+                  "lines": [
+                    750,
+                    751,
+                    757,
+                    758,
+                    772,
+                    773,
+                    780,
+                    781,
+                    794,
+                    795,
+                    797,
+                    803,
+                    808,
+                    809,
+                    810,
+                    811,
+                    812
+                  ],
+                  "assertion": "Manual composed-effect and owner-shutdown variants both retain the resource through exact publication withdrawal and record read before close.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            },
+            {
+              "id": "core/service-dispose.spec.ts:238/true/a267",
+              "behavior": "For this manual/owner-shutdown variant the dependent reads before the composed provider closes.",
+              "source_assertion_lines": [
+                267
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "composed_publication_cleanup_retains_resources_on_manual_and_owner_disposal",
+                  "lines": [
+                    750,
+                    751,
+                    757,
+                    758,
+                    772,
+                    773,
+                    780,
+                    781,
+                    794,
+                    795,
+                    797,
+                    803,
+                    808,
+                    809,
+                    810,
+                    811,
+                    812
+                  ],
+                  "assertion": "Manual composed-effect and owner-shutdown variants both retain the resource through exact publication withdrawal and record read before close.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/service-dispose.spec.ts:271",
+      "source_file": "local/cordis/packages/core/tests/service-dispose.spec.ts",
+      "source_line": 271,
+      "source_end_line": 286,
+      "title": "keeps an inherited service accessible to a child in a composed effect",
+      "suite": [
+        "Service disposal"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/service-dispose.spec.ts:271/default/a284",
+              "behavior": "A composed child cleanup can access the inherited owner-provided service exactly once.",
+              "source_assertion_lines": [
+                284
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "inherited_own_provision_survives_a_composed_child_disposal",
+                  "lines": [
+                    823,
+                    829,
+                    832,
+                    843,
+                    844,
+                    849,
+                    850,
+                    851,
+                    859,
+                    860,
+                    867,
+                    878,
+                    879,
+                    880,
+                    881,
+                    882
+                  ],
+                  "assertion": "The child cleanup reads the inherited owner provision through the composed child-disposal effect exactly once.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/service-dispose.spec.ts:287",
+      "source_file": "local/cordis/packages/core/tests/service-dispose.spec.ts",
+      "source_line": 287,
+      "source_end_line": 306,
+      "title": "retains an ancestor injection until its child finishes cleanup",
+      "suite": [
+        "Service disposal"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/service-dispose.spec.ts:287/default/a303",
+              "behavior": "The ancestor-injected provider remains open while child cleanup is gated.",
+              "source_assertion_lines": [
+                303
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "ancestor_injection_is_retained_until_a_child_finishes_inherited_cleanup",
+                  "lines": [
+                    660,
+                    666,
+                    668,
+                    673,
+                    680,
+                    686,
+                    687,
+                    688,
+                    689,
+                    707,
+                    708,
+                    709,
+                    710,
+                    711,
+                    712,
+                    713,
+                    714
+                  ],
+                  "assertion": "Root drain retains the ancestor committed injection while its child cleanup is gated; the read precedes provider close.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            },
+            {
+              "id": "core/service-dispose.spec.ts:287/default/a304",
+              "behavior": "The child reads the inherited injection before provider close.",
+              "source_assertion_lines": [
+                304
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "ancestor_injection_is_retained_until_a_child_finishes_inherited_cleanup",
+                  "lines": [
+                    660,
+                    666,
+                    668,
+                    673,
+                    680,
+                    686,
+                    687,
+                    688,
+                    689,
+                    707,
+                    708,
+                    709,
+                    710,
+                    711,
+                    712,
+                    713,
+                    714
+                  ],
+                  "assertion": "Root drain retains the ancestor committed injection while its child cleanup is gated; the read precedes provider close.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/service-dispose.spec.ts:307",
+      "source_file": "local/cordis/packages/core/tests/service-dispose.spec.ts",
+      "source_line": 307,
+      "source_end_line": 322,
+      "title": "waits for a child that explicitly injects its parent service",
+      "suite": [
+        "Service disposal"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/service-dispose.spec.ts:307/default/a319",
+              "behavior": "The provider stays open while its explicitly injecting child drains.",
+              "source_assertion_lines": [
+                319
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "a_child_explicitly_injecting_its_parent_service_does_not_deadlock_parent_unload",
+                  "lines": [
+                    723,
+                    729,
+                    731,
+                    732,
+                    733,
+                    734,
+                    735,
+                    736,
+                    737,
+                    738,
+                    739,
+                    740
+                  ],
+                  "assertion": "Provider disposal waits for its explicitly injecting child, keeps the service open, then disposes the child and closes after its read.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            },
+            {
+              "id": "core/service-dispose.spec.ts:307/default/a320",
+              "behavior": "The explicit child reads before provider close without deadlock.",
+              "source_assertion_lines": [
+                320
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "a_child_explicitly_injecting_its_parent_service_does_not_deadlock_parent_unload",
+                  "lines": [
+                    723,
+                    729,
+                    731,
+                    732,
+                    733,
+                    734,
+                    735,
+                    736,
+                    737,
+                    738,
+                    739,
+                    740
+                  ],
+                  "assertion": "Provider disposal waits for its explicitly injecting child, keeps the service open, then disposes the child and closes after its read.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/service-dispose.spec.ts:323",
+      "source_file": "local/cordis/packages/core/tests/service-dispose.spec.ts",
+      "source_line": 323,
+      "source_end_line": 354,
+      "title": "tracks same-name services in separate isolation realms (root shutdown: %s)",
+      "suite": [
+        "Service disposal"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {
+            "rootShutdown": false
+          },
+          "obligations": [
+            {
+              "id": "core/service-dispose.spec.ts:323/false/a348",
+              "behavior": "The owner resource has not closed when exact-realm consumer cleanup starts.",
+              "source_assertion_lines": [
+                348
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "same_name_publications_in_two_realms_keep_resources_until_the_exact_consumer_finishes",
+                  "lines": [
+                    483,
+                    484,
+                    490,
+                    491,
+                    492,
+                    495,
+                    502,
+                    505,
+                    519,
+                    528,
+                    531,
+                    532,
+                    540,
+                    541,
+                    547,
+                    552,
+                    553,
+                    554,
+                    555,
+                    556
+                  ],
+                  "assertion": "Both owner- and root-shutdown variants notify the exact first-realm consumer, retain resources while it drains, read realm value 1 once, then close once.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            },
+            {
+              "id": "core/service-dispose.spec.ts:323/false/a349",
+              "behavior": "The consumer for the withdrawn first realm is notified and enters cleanup.",
+              "source_assertion_lines": [
+                349
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "same_name_publications_in_two_realms_keep_resources_until_the_exact_consumer_finishes",
+                  "lines": [
+                    483,
+                    484,
+                    490,
+                    491,
+                    492,
+                    495,
+                    502,
+                    505,
+                    519,
+                    528,
+                    531,
+                    532,
+                    540,
+                    541,
+                    547,
+                    552,
+                    553,
+                    554,
+                    555,
+                    556
+                  ],
+                  "assertion": "Both owner- and root-shutdown variants notify the exact first-realm consumer, retain resources while it drains, read realm value 1 once, then close once.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            },
+            {
+              "id": "core/service-dispose.spec.ts:323/false/a350",
+              "behavior": "The exact first-realm service is read once during cleanup.",
+              "source_assertion_lines": [
+                350
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "same_name_publications_in_two_realms_keep_resources_until_the_exact_consumer_finishes",
+                  "lines": [
+                    483,
+                    484,
+                    490,
+                    491,
+                    492,
+                    495,
+                    502,
+                    505,
+                    519,
+                    528,
+                    531,
+                    532,
+                    540,
+                    541,
+                    547,
+                    552,
+                    553,
+                    554,
+                    555,
+                    556
+                  ],
+                  "assertion": "Both owner- and root-shutdown variants notify the exact first-realm consumer, retain resources while it drains, read realm value 1 once, then close once.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            },
+            {
+              "id": "core/service-dispose.spec.ts:323/false/a351",
+              "behavior": "The provider resource closes exactly once after the exact consumer finishes.",
+              "source_assertion_lines": [
+                351
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "same_name_publications_in_two_realms_keep_resources_until_the_exact_consumer_finishes",
+                  "lines": [
+                    483,
+                    484,
+                    490,
+                    491,
+                    492,
+                    495,
+                    502,
+                    505,
+                    519,
+                    528,
+                    531,
+                    532,
+                    540,
+                    541,
+                    547,
+                    552,
+                    553,
+                    554,
+                    555,
+                    556
+                  ],
+                  "assertion": "Both owner- and root-shutdown variants notify the exact first-realm consumer, retain resources while it drains, read realm value 1 once, then close once.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            }
+          ]
+        },
+        {
+          "parameters": {
+            "rootShutdown": true
+          },
+          "obligations": [
+            {
+              "id": "core/service-dispose.spec.ts:323/true/a348",
+              "behavior": "The owner resource has not closed when exact-realm consumer cleanup starts.",
+              "source_assertion_lines": [
+                348
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "same_name_publications_in_two_realms_keep_resources_until_the_exact_consumer_finishes",
+                  "lines": [
+                    483,
+                    484,
+                    490,
+                    491,
+                    492,
+                    495,
+                    502,
+                    505,
+                    519,
+                    528,
+                    531,
+                    532,
+                    540,
+                    541,
+                    547,
+                    552,
+                    553,
+                    554,
+                    555,
+                    556
+                  ],
+                  "assertion": "Both owner- and root-shutdown variants notify the exact first-realm consumer, retain resources while it drains, read realm value 1 once, then close once.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            },
+            {
+              "id": "core/service-dispose.spec.ts:323/true/a349",
+              "behavior": "The consumer for the withdrawn first realm is notified and enters cleanup.",
+              "source_assertion_lines": [
+                349
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "same_name_publications_in_two_realms_keep_resources_until_the_exact_consumer_finishes",
+                  "lines": [
+                    483,
+                    484,
+                    490,
+                    491,
+                    492,
+                    495,
+                    502,
+                    505,
+                    519,
+                    528,
+                    531,
+                    532,
+                    540,
+                    541,
+                    547,
+                    552,
+                    553,
+                    554,
+                    555,
+                    556
+                  ],
+                  "assertion": "Both owner- and root-shutdown variants notify the exact first-realm consumer, retain resources while it drains, read realm value 1 once, then close once.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            },
+            {
+              "id": "core/service-dispose.spec.ts:323/true/a350",
+              "behavior": "The exact first-realm service is read once during cleanup.",
+              "source_assertion_lines": [
+                350
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "same_name_publications_in_two_realms_keep_resources_until_the_exact_consumer_finishes",
+                  "lines": [
+                    483,
+                    484,
+                    490,
+                    491,
+                    492,
+                    495,
+                    502,
+                    505,
+                    519,
+                    528,
+                    531,
+                    532,
+                    540,
+                    541,
+                    547,
+                    552,
+                    553,
+                    554,
+                    555,
+                    556
+                  ],
+                  "assertion": "Both owner- and root-shutdown variants notify the exact first-realm consumer, retain resources while it drains, read realm value 1 once, then close once.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            },
+            {
+              "id": "core/service-dispose.spec.ts:323/true/a351",
+              "behavior": "The provider resource closes exactly once after the exact consumer finishes.",
+              "source_assertion_lines": [
+                351
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "same_name_publications_in_two_realms_keep_resources_until_the_exact_consumer_finishes",
+                  "lines": [
+                    483,
+                    484,
+                    490,
+                    491,
+                    492,
+                    495,
+                    502,
+                    505,
+                    519,
+                    528,
+                    531,
+                    532,
+                    540,
+                    541,
+                    547,
+                    552,
+                    553,
+                    554,
+                    555,
+                    556
+                  ],
+                  "assertion": "Both owner- and root-shutdown variants notify the exact first-realm consumer, retain resources while it drains, read realm value 1 once, then close once.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/service-dispose.spec.ts:355",
+      "source_file": "local/cordis/packages/core/tests/service-dispose.spec.ts",
+      "source_line": 355,
+      "source_end_line": 385,
+      "title": "withdraws only the old binding without waiting for the next load",
+      "suite": [
+        "Service disposal"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/service-dispose.spec.ts:355/default/a380",
+              "behavior": "Old publication withdrawal completes before the replacement setup gate is released.",
+              "source_assertion_lines": [
+                380
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "old_withdrawal_does_not_wait_for_a_replacement_load",
+                  "lines": [
+                    476,
+                    482,
+                    483,
+                    491,
+                    505,
+                    506,
+                    511,
+                    516,
+                    524,
+                    525,
+                    526,
+                    527,
+                    528,
+                    529,
+                    530,
+                    531,
+                    532,
+                    533,
+                    534,
+                    536
+                  ],
+                  "assertion": "Old withdrawal completes before gated replacement setup; the replacement is current and the observed lifecycle is old load, old cleanup, new load.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            },
+            {
+              "id": "core/service-dispose.spec.ts:355/default/a381",
+              "behavior": "The provider direct/current binding is the replacement publication.",
+              "source_assertion_lines": [
+                381
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "old_withdrawal_does_not_wait_for_a_replacement_load",
+                  "lines": [
+                    476,
+                    482,
+                    483,
+                    491,
+                    505,
+                    506,
+                    511,
+                    516,
+                    524,
+                    525,
+                    526,
+                    527,
+                    528,
+                    529,
+                    530,
+                    531,
+                    532,
+                    533,
+                    534,
+                    536
+                  ],
+                  "assertion": "Old withdrawal completes before gated replacement setup; the replacement is current and the observed lifecycle is old load, old cleanup, new load.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            },
+            {
+              "id": "core/service-dispose.spec.ts:355/default/a382",
+              "behavior": "Observed order is old load, old cleanup using old binding, then replacement load.",
+              "source_assertion_lines": [
+                382
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "old_withdrawal_does_not_wait_for_a_replacement_load",
+                  "lines": [
+                    476,
+                    482,
+                    483,
+                    491,
+                    505,
+                    506,
+                    511,
+                    516,
+                    524,
+                    525,
+                    526,
+                    527,
+                    528,
+                    529,
+                    530,
+                    531,
+                    532,
+                    533,
+                    534,
+                    536
+                  ],
+                  "assertion": "Old withdrawal completes before gated replacement setup; the replacement is current and the observed lifecycle is old load, old cleanup, new load.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/service-dispose.spec.ts:386",
+      "source_file": "local/cordis/packages/core/tests/service-dispose.spec.ts",
+      "source_line": 386,
+      "source_end_line": 417,
+      "title": "waits for current and withdrawn bindings during provider disposal (withdrawn first: %s)",
+      "suite": [
+        "Service disposal"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {
+            "withdrawnFirst": false
+          },
+          "obligations": [
+            {
+              "id": "core/service-dispose.spec.ts:386/false/a410",
+              "behavior": "The provider remains open while both current and withdrawn dependents are pending.",
+              "source_assertion_lines": [
+                410
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "provider_shutdown_waits_for_current_and_already_withdrawn_publications",
+                  "lines": [
+                    614,
+                    615,
+                    621,
+                    625,
+                    626,
+                    627,
+                    630,
+                    631,
+                    632,
+                    633,
+                    634,
+                    635,
+                    636,
+                    639,
+                    641,
+                    644,
+                    648,
+                    649
+                  ],
+                  "assertion": "In both release orders provider shutdown waits for current and withdrawn publication dependents; the provider stays open after the first and closes only after both reads.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            },
+            {
+              "id": "core/service-dispose.spec.ts:386/false/a411",
+              "behavior": "Releasing either dependent first is insufficient to close the provider.",
+              "source_assertion_lines": [
+                411
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "provider_shutdown_waits_for_current_and_already_withdrawn_publications",
+                  "lines": [
+                    614,
+                    615,
+                    621,
+                    625,
+                    626,
+                    627,
+                    630,
+                    631,
+                    632,
+                    633,
+                    634,
+                    635,
+                    636,
+                    639,
+                    641,
+                    644,
+                    648,
+                    649
+                  ],
+                  "assertion": "In both release orders provider shutdown waits for current and withdrawn publication dependents; the provider stays open after the first and closes only after both reads.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            },
+            {
+              "id": "core/service-dispose.spec.ts:386/false/a412",
+              "behavior": "Cleanup ordering follows the selected release order, and provider close remains last.",
+              "source_assertion_lines": [
+                412,
+                413,
+                414
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "provider_shutdown_waits_for_current_and_already_withdrawn_publications",
+                  "lines": [
+                    614,
+                    615,
+                    621,
+                    625,
+                    626,
+                    627,
+                    630,
+                    631,
+                    632,
+                    633,
+                    634,
+                    635,
+                    636,
+                    639,
+                    641,
+                    644,
+                    648,
+                    649
+                  ],
+                  "assertion": "In both release orders provider shutdown waits for current and withdrawn publication dependents; the provider stays open after the first and closes only after both reads.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            }
+          ]
+        },
+        {
+          "parameters": {
+            "withdrawnFirst": true
+          },
+          "obligations": [
+            {
+              "id": "core/service-dispose.spec.ts:386/true/a410",
+              "behavior": "The provider remains open while both current and withdrawn dependents are pending.",
+              "source_assertion_lines": [
+                410
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "provider_shutdown_waits_for_current_and_already_withdrawn_publications",
+                  "lines": [
+                    614,
+                    615,
+                    621,
+                    625,
+                    626,
+                    627,
+                    630,
+                    631,
+                    632,
+                    633,
+                    634,
+                    635,
+                    636,
+                    639,
+                    641,
+                    644,
+                    648,
+                    649
+                  ],
+                  "assertion": "In both release orders provider shutdown waits for current and withdrawn publication dependents; the provider stays open after the first and closes only after both reads.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            },
+            {
+              "id": "core/service-dispose.spec.ts:386/true/a411",
+              "behavior": "Releasing either dependent first is insufficient to close the provider.",
+              "source_assertion_lines": [
+                411
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "provider_shutdown_waits_for_current_and_already_withdrawn_publications",
+                  "lines": [
+                    614,
+                    615,
+                    621,
+                    625,
+                    626,
+                    627,
+                    630,
+                    631,
+                    632,
+                    633,
+                    634,
+                    635,
+                    636,
+                    639,
+                    641,
+                    644,
+                    648,
+                    649
+                  ],
+                  "assertion": "In both release orders provider shutdown waits for current and withdrawn publication dependents; the provider stays open after the first and closes only after both reads.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            },
+            {
+              "id": "core/service-dispose.spec.ts:386/true/a412",
+              "behavior": "Cleanup ordering follows the selected release order, and provider close remains last.",
+              "source_assertion_lines": [
+                412,
+                413,
+                414
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "provider_shutdown_waits_for_current_and_already_withdrawn_publications",
+                  "lines": [
+                    614,
+                    615,
+                    621,
+                    625,
+                    626,
+                    627,
+                    630,
+                    631,
+                    632,
+                    633,
+                    634,
+                    635,
+                    636,
+                    639,
+                    641,
+                    644,
+                    648,
+                    649
+                  ],
+                  "assertion": "In both release orders provider shutdown waits for current and withdrawn publication dependents; the provider stays open after the first and closes only after both reads.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/service-dispose.spec.ts:418",
+      "source_file": "local/cordis/packages/core/tests/service-dispose.spec.ts",
+      "source_line": 418,
+      "source_end_line": 444,
+      "title": "replaces a binding from the same provider during consumer initialization",
+      "suite": [
+        "Service disposal"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/service-dispose.spec.ts:418/default/a439",
+              "behavior": "Old withdrawal completes after the old in-flight setup rolls back and before final teardown.",
+              "source_assertion_lines": [
+                439
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "equal_value_replacement_during_initialization_rolls_back_the_exact_old_snapshot",
+                  "lines": [
+                    545,
+                    551,
+                    552,
+                    553,
+                    554,
+                    555,
+                    561,
+                    573,
+                    577,
+                    578,
+                    579,
+                    582,
+                    585,
+                    592,
+                    593,
+                    594,
+                    595,
+                    596,
+                    597,
+                    598,
+                    599,
+                    600,
+                    601,
+                    602,
+                    603
+                  ],
+                  "assertion": "Even equal/same-Rc values receive distinct publication identities; the old in-flight setup rolls back against its exact snapshot, the replacement loads, and old withdrawal cannot erase it.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            },
+            {
+              "id": "core/service-dispose.spec.ts:418/default/a440",
+              "behavior": "The consumer context resolves the replacement binding after initialization convergence.",
+              "source_assertion_lines": [
+                440
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "equal_value_replacement_during_initialization_rolls_back_the_exact_old_snapshot",
+                  "lines": [
+                    545,
+                    551,
+                    552,
+                    553,
+                    554,
+                    555,
+                    561,
+                    573,
+                    577,
+                    578,
+                    579,
+                    582,
+                    585,
+                    592,
+                    593,
+                    594,
+                    595,
+                    596,
+                    597,
+                    598,
+                    599,
+                    600,
+                    601,
+                    602,
+                    603
+                  ],
+                  "assertion": "Even equal/same-Rc values receive distinct publication identities; the old in-flight setup rolls back against its exact snapshot, the replacement loads, and old withdrawal cannot erase it.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            },
+            {
+              "id": "core/service-dispose.spec.ts:418/default/a441",
+              "behavior": "Lifecycle order is old load, exact old rollback, replacement load, replacement cleanup.",
+              "source_assertion_lines": [
+                441
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/service_dispose.rs",
+                  "symbol": "equal_value_replacement_during_initialization_rolls_back_the_exact_old_snapshot",
+                  "lines": [
+                    545,
+                    551,
+                    552,
+                    553,
+                    554,
+                    555,
+                    561,
+                    573,
+                    577,
+                    578,
+                    579,
+                    582,
+                    585,
+                    592,
+                    593,
+                    594,
+                    595,
+                    596,
+                    597,
+                    598,
+                    599,
+                    600,
+                    601,
+                    602,
+                    603
+                  ],
+                  "assertion": "Even equal/same-Rc values receive distinct publication identities; the old in-flight setup rolls back against its exact snapshot, the replacement loads, and old withdrawal cannot erase it.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cited Rust assertion/gate sequence maps this exact source assertion and variant; both workspace-test matrix commands contain every cited test as passed. No paired TypeScript execution is claimed."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    }
+  ]
+}
