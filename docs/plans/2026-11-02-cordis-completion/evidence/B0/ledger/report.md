@@ -120,8 +120,9 @@ gap or execution evidence.
 | core/service-dispose.spec.ts:95/consumer first/a125 | Same guard, exact consumer-first variant |
 
 The inject=true/a21 and restart/a125 obligations remain behavioral. The
-validator's independently reviewed exact allowlist uses immutable Git
-provenance, including JSON type distinctions; arbitrary omitted IDs cannot
+seven dispositions have independent review. The validator's exact allowlist
+uses immutable Git provenance, including JSON type distinctions; its
+implementation awaits final independent review. Arbitrary omitted IDs cannot
 become metadata. This satisfies the sole LR1 integration condition without
 altering the accepted lifecycle correction.
 
@@ -139,14 +140,14 @@ accepted fragment. Family counts and representative concrete work are:
 | reflect | 4 | Typed metadata versus service access, warning reset/read checkpoints and child metadata propagation |
 | invoke | 4 | Callable intercept/extension composition and mapped-state results at :5/a46,a53,a56,a59 |
 | intercept | 1 | Zero-layer config baseline at :34/a37 |
-| isolate | 34 | Exact own-provider/no-inject child, realm-move, callback count and lifecycle boundaries |
-| logger | 4 | Exact returned error/diagnostic identity and warning/reset observations |
-| shadow | 5 | Exact intermediate value, callback input/count and bound-view checkpoints |
+| isolate | 34 | Own-provider/no-inject access, multi-realm publication/withdrawal counts and values, retained cleanup reads and no-error checkpoints |
+| logger | 4 | Exact first/second exporter removals and destination counts; retained empty-aggregate error identity |
+| shadow | 5 | Returned-holder probes from root and injected consumer, direct isolated-realm inspection, loader-bound child injection and no-error checkpoints |
 | plugin | 14 | Admission callback zero count, returned-disposer/initialization counts, repeated-drain Registry/journal checkpoints |
-| fiber | 10 | Exact retry-error update result from Failed, throwing-cleanup counter, update-input vectors and final states |
+| fiber | 10 | Healthy-sibling dispatch after failed rollback, retry update result from Failed, throwing-cleanup counter, update-input vectors and final Active state |
 | update | 13 | Active inject=true value, all pending waiters, explicit final Active and update/config boundary checks |
-| dispose | 14 | Effect metadata/default labels, second-disposal count, errors/messages and stream checkpoints |
-| events | 24 | Bucket survivors, empty settlement, named/callback errors, serial topology and complete payload journals |
+| dispose | 14 | Effect metadata/default labels, second-disposal count, consumed-handle rejection, callback messages and gated acquisition/stream traces |
+| events | 24 | Bucket survivors, empty settlement, named/callback errors, veto/Next-frame and terminal-count boundaries, complete payload journals |
 | service | 9 | Initialization/DAG counts, reversible root-owned Counter effects and intermediate getters |
 | service-dispose | 6 | Original cleanup error allocation, composed outer-owner shutdown, provider/current and in-flight value-selection observations |
 
