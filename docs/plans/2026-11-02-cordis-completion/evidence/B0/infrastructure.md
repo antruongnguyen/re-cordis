@@ -63,3 +63,33 @@ and only then start T0. Rerun the matrix when executable inputs change or the
 recorded hashes no longer establish applicability, not solely due to a new
 tracking commit. No background continuation is promised after the session ends.
 
+## Resumed-session observations
+
+The new session started at clean `25329ad` with no active worker worktrees.
+Fresh dispatch initially worked: isolated sol/high FR-1 correction committed
+`91948f1` (integrated as `59be2db`), and astra/high matrix report re-review
+committed `ea10c5c` (integrated as `b87c1b9`). Both B0-MATRIX findings are
+addressed. This bounded success did not establish source-audit recovery.
+
+| Fresh context | Observed failure | Preserved state |
+|---|---|---|
+| b0_events_resume, sol/high | HTTP 400 UPSTREAM_LLM_ERROR / invalid_encrypted_content at 2026-11-02T09:28:15.787083149Z; item rs_0b3c38b5802df639016ae856fdbe7c8194bb02560fff38d3e6 | Clean worktree at 25329ad; no new mapping output |
+| b0_associate_invoke, sol/high | Same HTTP 400 at 2026-11-02T09:31:21.653593287Z; item rs_07db0930dcd32580016ae8576e6a308196b541ff61670d3118 | Clean worktree at b87c1b9; no new mapping output |
+| b0_events_pair, sol/high | stream disconnected before completion: stream closed before response.completed; no exact failure timestamp returned | Clean worktree at 2581963; no new mapping output |
+| FR-1 re-review initial dispatch, astra/high | Task arrived as opaque gAAAA-prefixed text | Minimal file-path retry reached reviewer; bounded review resumed |
+| FR-1 integrated-verification follow-up, sol/high | Task arrived as opaque gAAAA-prefixed text | Minimal file-path retry attempted; result remains in progress.md |
+
+The events_pair remedy reduced nineteen declarations to exactly two and used
+a durable file-based handoff. The independent associate/invoke audit failed
+as well. No requested model was substituted, no corrupted context was resumed,
+and no failed source audit is counted as a disposition. The original nineteen
+events records remain inventory only. See [progress](../../progress.md) for
+the final review/verification results and exact next assignments.
+
+The concrete blocker is reliable execution of the required sol/high source
+audits, including smaller fresh tasks; orchestration, Git and some bounded
+review/correction calls still work. This is not evidence of a Rust failure or
+a universal model outage. B0's incomplete ledger remains a hard prerequisite
+for all other program packages. Preserve artifacts and resume only after the
+worker runtime can complete readable exact-model tasks reliably.
+

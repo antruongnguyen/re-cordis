@@ -18,7 +18,7 @@ review, integration, documentation and current verification.
 
 | ID | Status | Dependencies | Owner / role / model | Worktree / branch | Implementation commit | Review result | Evidence location |
 |---|---|---|---|---|---|---|---|
-| B0 | in_progress | None | resumed orchestrator; b0_fragment_repair sol/high; b0_report_review astra/high | integration; fresh managed worker worktrees assigned on dispatch | c3fbcb0, 7d1552a, ac72512, 25dcde8 (partial evidence) | matrix accepted; scoped report re-review and FR-1 correction next; full ledger incomplete | evidence/B0/ |
+| B0 | blocked | None | orchestrator checkpoint; b0_fragment_rereview astra/high and b0_fragment_repair sol/high finish bounded review/verification | integration; isolated reviewer | partial baseline plus matrix re-review b87c1b9 and FR-1 correction 59be2db | matrix/report accepted; FR-1 re-review and integrated validation pending; source audit blocked | evidence/B0/ |
 | B1 | planned | B0 | unassigned | integration | — | not started | evidence/B1/ |
 | T0 | planned | B0 | unassigned | integration | — | not started | evidence/T0/ |
 | T1 | planned | T0 | unassigned | integration | — | not started | evidence/T1/ |
@@ -64,9 +64,9 @@ The original b0_ledger and b0_matrix contexts cannot be resumed (HTTP 400). Thei
 |---|---|---|
 | Full command matrix | executed and independently accepted | matrix/ at c3fbcb0 and logs at 7d1552a |
 | Matrix review | matrix and report accepted; fresh b0_report_review astra/high closed B0-MATRIX-01/02 | matrix-review.md; matrix/report.md at 25dcde8; matrix-rereview.md integrated at b87c1b9 |
-| Decorator + reflect (5 declarations) | semantic mappings/joins accepted; scheduling correction FR-1 remains open | ledger-inputs/decorator-reflect.json, report-decorator-reflect.md, fragment-review.md, handoffs/fragment-fix.md |
-| Events (19 declarations) | b0_events_resume failed HTTP 400 with no changes; b0_events_pair sol/high tries only the first two declarations | ledger-inputs/events.json remains inventory; handoffs/events-first-two.md; events-first-two fragment pending |
-| Associate (6) + invoke (2) | b0_associate_invoke sol/high dispatched in an isolated managed worktree | handoffs/associate-invoke.md; ledger-inputs/associate-invoke.json and report-associate-invoke.md |
+| Decorator + reflect (5 declarations) | correction integrated at 59be2db; b0_fragment_rereview astra/high and b0_fragment_repair sol/high integrated verification assigned | ledger-inputs/decorator-reflect.json, report-decorator-reflect.md, fragment-review.md, handoffs/fragment-rereview.md, handoffs/resume-verification.md |
+| Events (19 declarations) | b0_events_resume failed HTTP 400; reduced b0_events_pair disconnected; both worktrees clean with no new output | ledger-inputs/events.json remains inventory; handoffs/events.md and events-first-two.md remain unfulfilled |
+| Associate (6) + invoke (2) | b0_associate_invoke failed HTTP 400; clean worktree, no new mappings | handoffs/associate-invoke.md remains unfulfilled |
 | Intercept (7), isolate (6), logger (11), shadow (8) | unassigned after extra-worker failure | no accepted fragments yet |
 | Dispose (13), fiber (22), plugin (10), service-dispose (17 sites/27 cases), service (8), update (10 sites/12 cases) | unassigned after main-worker failure | inventory-only ledger/cases.json |
 | Event types (6 expression obligations) | unassigned | event-types.json not produced |
@@ -83,7 +83,16 @@ Do not replace pending inventory with blanket exclusions or claim missing mappin
 
 ## Active blockers, failures and retries
 
+### Resumed session
+
+- The reduced b0_events_pair attempt also failed: `stream disconnected before completion: stream closed before response.completed`. Git inspection confirmed its worktree clean at `2581963`, no new files or commits. Fresh exact-model contexts, isolated worktrees, durable handoffs and reduction from nineteen declarations to two have not restored reliable source-audit execution. B0 is blocked; do not dispatch further equivalent audit retries in this session.
+- Both FR-1 re-review and integrated-verification handoffs initially arrived as opaque encrypted text. Retried with a minimal file-path message. The reviewer then created its worktree and resumed; integrated verification response is pending. These bounded follow-ups can finish independently of the blocked ledger.
+
+- Resumed-session independent failure: b0_associate_invoke returned HTTP 400 UPSTREAM_LLM_ERROR / invalid_encrypted_content at 2026-11-02T09:31:21.653593287Z, item `rs_07db0930dcd32580016ae8576e6a308196b541ff61670d3118`. Worktree is clean at `b87c1b9`; no audit output was saved. Do not resume this corrupted context. No further broad source-audit dispatch until the already-running two-declaration probe resolves.
+
 - Resumed-session failure: b0_events_resume returned HTTP 400 UPSTREAM_LLM_ERROR / invalid_encrypted_content at 2026-11-02T09:28:15.787083149Z, item `rs_0b3c38b5802df639016ae856fdbe7c8194bb02560fff38d3e6`. Its managed worktree remains clean at `25329ad`; no completed events mapping was lost. Do not resume that corrupted context. One narrower fresh attempt, b0_events_pair (sol/high), owns only two declarations via handoffs/events-first-two.md. Other active fragment/associate work continues independently.
+
+### Previous-session history (through CP020)
 
 - Initialization attempt failed with a Python quoting SyntaxError before any file was written. Recreated tracking using a structured patch; no source changes affected.
 - Startup had no pre-existing uncommitted changes or extra worktrees. Baseline command checks are now accepted; this does not complete the B0 ledger gate.
@@ -100,22 +109,13 @@ Do not replace pending inventory with blanket exclusions or claim missing mappin
 
 ## Resume next
 
-### Current resumed session
-
-Resumed from clean `25329ad` on 2026-11-02. The previous chat is idle; no old
-workers or worktrees are active. Previous infrastructure failures are historical
-until a fresh bounded attempt is observed. Dispatch FR-1 repair and scoped matrix
-report re-review independently using exact requested models and isolated managed
-worktrees; preserve their results before expanding the ledger audit. The numbered
-instructions below remain the outstanding B0 sequence.
-
-1. Read this file, evidence.md, evidence/B0/infrastructure.md, plan.md, matrix-review.md, matrix/report.md and fragment-review.md. Read the master/schedule/acceptance documents again after context loss.
-2. Inspect Git status/history and worktrees. The only worktree is /Users/I756434/Projects/private/cordis-rust on feat/cordis-completion; no worker remains active and no production inputs changed. All saved partial evidence is committed. Confirm this against actual files before dispatch.
-3. Restore usable worker/hand-off execution with the exact requested models. Do not resume corrupted b0_ledger, b0_matrix or b0_events contexts. Do not interpret the five-record fresh-worker success as proof the API problem is gone. Use the durable handoff files with fresh contexts once readable dispatch works.
-4. Apply FR-1 via evidence/B0/handoffs/fragment-fix.md to the two decorator/reflect fragment files; preserve the seven gap IDs and concrete regressions, make B2 conditional, validate, commit, and get independent astra/high re-review. The existing fragment is semantically accepted but not ready for ledger integration until this correction is reviewed.
-5. Run the scoped report re-review specified in evidence/B0/handoffs/matrix-rereview.md against 25dcde8; it was prepared but not dispatched. Do not rerun the full matrix for prose-only changes; rerun if executable inputs change or recorded hashes cannot establish applicability.
-6. Continue the remaining source audit using the recovery ownership table. Associate/invoke handoff is prepared but unexecuted. events.json is only an interrupted inventory with 61 initial obligations, not completed dispositions. Other unmapped families and all six event-type expressions remain. Save each family, then merge/validate all 144 declarations/156 variants and six type obligations with actual matrix joins and independent ledger review.
-7. Accept and commit B0 only when those gates pass; then start T0 from timer.md. B1 and C0/L0 planning may overlap only when prerequisites and ownership permit. Keep the full 35-package scope; R1/release-readiness.md has not been reached and no publication is authorized.
+1. Read this file, evidence.md, evidence/B0/infrastructure.md, plan.md, matrix-review.md, matrix-rereview.md and the latest fragment review/validation outputs. Read master/schedule/acceptance again after context loss.
+2. Reconcile Git status/history, attached worktrees and live workers before doing anything. Integration remains `/Users/I756434/Projects/private/cordis-rust` on `feat/cordis-completion`. Preserve any new changes; the source-audit attempts in this resumed session produced no new mappings. Consult the final checkpoint below for worktree cleanup and worker state.
+3. Resolve reliable worker execution with the exact models. Events and associate/invoke failed fresh HTTP 400 calls; the reduced two-declaration attempt disconnected. Do not resume known corrupted contexts or assume that a successful short metadata task fixes sustained source-audit execution. No model substitution is authorized.
+4. Preserve completed recovery work: matrix report findings are closed in `b87c1b9`; FR-1 correction is integrated at `59be2db`. Do not reapply either. If the final checkpoint still lists a pending FR-1 re-review or integrated verification, use handoffs/fragment-rereview.md or handoffs/resume-verification.md only for that outstanding step.
+5. Once the runtime is reliable, resume the 139 remaining declaration audits using the ownership table and existing events/associate-invoke handoffs. events.json is inventory only (19 declarations/61 initial obligations); no events-first-two or associate-invoke mapping was saved. Intercept/isolate/logger/shadow and the six lifecycle/service families remain unassigned. All six event-type expressions remain. Save completed families incrementally, preserving the five decorator/reflect records and their seven open evidence gaps.
+6. Merge/validate all 144 declarations/156 variants and six type obligations with real both-toolchain matrix joins and independent ledger review. Reuse the accepted matrix only while its hashes establish applicability; rerun on executable-input change. Missing evidence is not unconditional B2 work or tested parity.
+7. Accept and commit B0 only when its complete gate passes, then start T0. B1 and C0/L0 planning may overlap only when dependencies permit. Continue all 35 packages through R1's release-readiness proposal; push/publication/deployment remain unauthorized.
 
 ## Checkpoint log (append only)
 
@@ -143,4 +143,6 @@ instructions below remain the outstanding B0 sequence.
 - 2026-11-02 CP022: Both fresh workers received their scope and created isolated worktrees at `/Users/I756434/.codex/worktrees/cordis-b0-fragment-repair/cordis-rust` and `/Users/I756434/.codex/worktrees/cordis-b0-report-review/cordis-rust`, based on `25329ad`. This establishes readable dispatch, not completed execution. The independent events-family audit can use the third slot: b0_events_resume (sol/high), owning only its two ledger-inputs outputs and committing in its own managed worktree.
 - 2026-11-02 CP023: b0_report_review completed on astra/high: both matrix findings addressed, 65 original artifacts preserved and 71 input hashes unchanged. Integrated its scoped independent report from `ea10c5c` as `b87c1b9`; this is not whole-B0 acceptance. The newly available slot is assigned to the independent eight-declaration associate/invoke audit (sol/high), using its existing handoff and an isolated worktree.
 - 2026-11-02 CP024: The fresh events worker failed the same encrypted-content HTTP 400 as the previous session. Git inspection found no saved changes or new commits in its worktree. A single reduced two-declaration file-based recovery is assigned to fresh sol/high; no model substitution and no dependent package admission. The FR-1 worker has saved its two-file correction and is validating; associate/invoke is independent.
+- 2026-11-02 CP025: FR-1 correction `91948f1` passed its bounded seven-gap preservation check and integrated as `59be2db`. Dispatch independent astra/high scoped re-review and sol/high verification in the integration checkout. The associate/invoke executor independently failed with the same HTTP 400; its clean worktree has no partial mappings. The two-declaration events recovery remains active.
+- 2026-11-02 CP026: The reduced two-declaration events task disconnected; its worktree is clean at `2581963` with no saved output. B0 returns to blocked after fresh contexts and a smaller file-based task failed. Failed clean worktrees are being archived recoverably. FR-1 re-review and integrated verification initially received unreadable handoffs; minimal file-path retries are the final bounded recovery checks. No additional source audit or dependent production package is dispatched.
 
