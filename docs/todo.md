@@ -23,26 +23,19 @@ milestone prerequisites, and exit criteria live in the
 The older milestones below retain their historical delivery evidence. A
 checked historical box does not override an open repair in the completion plan.
 
-Current execution: **B0 has resumed for corrections and final acceptance**.
-Fresh gpt-6.1-sol/high subagents execute work; gpt-6-astra/high reviews it.
-The earlier authorized gpt-5.6-sol/high fallback produced draft fragments
-for all 144 declarations / 156 variants and six type obligations. The prior
-matrix/report, FR-1 and recovered validation remain accepted; the first two
-events records bring accepted dispositions to seven declarations / 28 obligations.
-The [scoped/logging review](plans/2026-11-02-cordis-completion/evidence/B0/scoped-logging-review.md)
-requests SL-1–SL-6 corrections, and the
-[lifecycle/update review](plans/2026-11-02-cordis-completion/evidence/B0/lifecycle-update-review.md)
-requests LR1-LR5. All four correction sets are integrated. The
-[scoped/logging re-review](plans/2026-11-02-cordis-completion/evidence/B0/scoped-logging-rereview.md)
-closes SL-1–SL-6 with tracked gaps; lifecycle, events/effects and services scoped
-re-reviews are active in isolated worktrees. The
-[services review](plans/2026-11-02-cordis-completion/evidence/B0/services-review.md)
-is complete, requesting SR-1–SR-5 corrections and confirming four guarded
-non-obligations for final accounting.
-The [events/effects/types review](plans/2026-11-02-cordis-completion/evidence/B0/events-effects-types-review.md)
-accepts all six type representations and requires EET-1–EET-9 runtime corrections.
-Next: finish the scoped correction re-reviews, reconcile
-inventory non-obligations, then merge/validate/review the complete ledger.
+Current execution: **B0 family corrections and independent scoped reviews are
+complete; final ledger assembly and acceptance are in progress**. Fresh
+gpt-6.1-sol/high subagents execute work; gpt-6-astra/high reviews it.
+The accepted matrix/report, FR-1, first-two events and recovered validation
+remain preserved. All corrected family fragments and six type representations
+have independent acceptance with tracked gaps:
+[scoped/logging](plans/2026-11-02-cordis-completion/evidence/B0/scoped-logging-rereview.md),
+[lifecycle/update](plans/2026-11-02-cordis-completion/evidence/B0/lifecycle-update-rereview.md),
+[services](plans/2026-11-02-cordis-completion/evidence/B0/services-rereview.md), and
+[events/effects/types](plans/2026-11-02-cordis-completion/evidence/B0/events-effects-types-rereview.md).
+One ledger owner now reconciles seven confirmed inventory non-obligations,
+assembles all 144 declarations / 156 variants and six types, and validates the
+complete data and controls before final independent B0 acceptance.
 These are evidence tasks, not missing implementations or demonstrated core
 defects. B0 is not accepted, and T0 has not started. Follow
 [detailed progress](plans/2026-11-02-cordis-completion/progress.md#resume-next)
