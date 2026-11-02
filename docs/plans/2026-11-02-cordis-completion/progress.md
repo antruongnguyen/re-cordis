@@ -56,6 +56,23 @@ review, integration, documentation and current verification.
 
 ## Accepted decisions
 
+### B0 recovery ownership
+
+The original b0_ledger and b0_matrix contexts cannot be resumed (HTTP 400). Their saved files are inputs, not completed task claims. Use fresh exact-model contexts and the accepted B0 plan.
+
+| B0 subtask | Owner/state | Durable output |
+|---|---|---|
+| Full command matrix | executed, independent review active | matrix/ at c3fbcb0 and logs at 7d1552a |
+| Matrix review | b0_matrix_review / astra high | matrix-review.md; read review-handoff.md |
+| Decorator + reflect (5 declarations) | b0_ledger_extra_retry / sol high, mapping/join active | ledger-inputs/decorator-reflect.json and report-decorator-reflect.md |
+| Events (19 declarations) | b0_events / sol high, active | ledger-inputs/events.json and report-events.md; handoffs/events.md |
+| Associate (6), intercept (7), invoke (2), isolate (6), logger (11), shadow (8) | unassigned after extra-worker failure | no accepted fragments yet |
+| Dispose (13), fiber (22), plugin (10), service-dispose (17 sites/27 cases), service (8), update (10 sites/12 cases) | unassigned after main-worker failure | inventory-only ledger/cases.json |
+| Event types (6 expression obligations) | unassigned | event-types.json not produced |
+| Merge, validator, complete report, independent ledger review | waits for all fragments | ledger/ and B0/review.md |
+
+Do not replace pending inventory with blanket exclusions or claim missing mappings as reviewed gaps. Save each completed family before moving on; no duplicate audit of accepted fragments.
+
 - D001: Recommended vertical sequence and fixed TS pin. User authorization supersedes historical proposed/approval wording for routine Rust representations; exclusions never count as parity.
 - D002: One canonical integration checkout; isolated worktrees for concurrent implementations. Planning/read-only reviews may overlap; manifest/lockfile/status-doc integration is serialized by orchestrator.
 - D003: B0 first. Astra planner defines commands, ledger reconciliation and acceptance; sol executor runs them; independent astra reviewer assesses evidence. No production edits in B0.
@@ -77,8 +94,9 @@ review, integration, documentation and current verification.
 
 1. Read this file, relevant evidence, README.md, schedule.md and acceptance.md in this directory.
 2. Inspect git status/history/worktrees; reconcile worker commits before duplicate dispatch. Interrupted in_progress is not proof of active work or absence of implementation.
-3. B0 plan is accepted at evidence/B0/plan.md. Reconcile matrix/ and ledger/ worker outputs, join actual test results into the ledger, then dispatch independent astra/high review. Preserve complete command/version/result evidence.
-4. After B0 acceptance, start T0. B1 and C0/L0 source planning may overlap only when prerequisites and ownership permit.
+3. B0 plan is accepted at evidence/B0/plan.md. Inspect matrix-review.md and any findings; matrix commands passed but evidence assembly needs review. Do not resume the corrupted b0_ledger/b0_matrix contexts.
+4. Reconcile the five-record decorator/reflect and 19-record events fragments from fresh workers. Use the B0 recovery ownership table to dispatch remaining spec families to fresh sol/high contexts with bounded file-based handoffs. Merge and validate all 144 declarations/156 cases and six type obligations, join real matrix results, then obtain independent astra/high ledger review.
+5. After B0 acceptance, start T0. B1 and C0/L0 source planning may overlap only when prerequisites and ownership permit.
 
 ## Checkpoint log (append only)
 
