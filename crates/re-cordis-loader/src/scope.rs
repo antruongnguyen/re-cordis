@@ -6,6 +6,7 @@ type Layer = dyn Fn(&Context) -> Result<Context, BoxError>;
 #[derive(Clone, Default)]
 pub struct Scope {
     layers: Vec<Rc<Layer>>,
+    realms: Vec<Rc<crate::NamedRealm>>,
 }
 impl fmt::Debug for Scope {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -60,6 +61,7 @@ impl Scope {
     }
     pub(crate) fn extend(&mut self, other: &Self) {
         self.layers.extend(other.layers.iter().cloned());
+        self.realms.extend(other.realms.iter().cloned());
     }
     pub(crate) fn apply(&self, context: &Context) -> Result<Context, BoxError> {
         let mut context = context.clone();
@@ -67,6 +69,9 @@ impl Scope {
             context = layer(&context)?;
         }
         Ok(context)
+    }
+    pub(crate) fn retain_realm(&mut self, realm: Rc<crate::NamedRealm>) {
+        self.realms.push(realm);
     }
     pub(crate) fn is_empty(&self) -> bool {
         self.layers.is_empty()

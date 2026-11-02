@@ -54,12 +54,15 @@ Trường JSON entry gồm `id`, `name`, `config`, `group`, `disabled`, `inject`
 `isolate`, `intercept`. `group: true` dùng config là mảng con.
 Trường không biết bị từ chối. Đăng ký hợp đồng dịch vụ cho tên
 inject/isolate/intercept; tên không biết bị từ chối. Realm có tên chia sẻ
-isolation ID cục bộ trong loader. Thiếu config khác JSON null ở biên decoder.
+isolation ID cục bộ trong loader khi các định nghĩa Scope còn sống. Sau khi
+Scope cuối cùng được thả, dùng lại nhãn có thể tạo ID mới; Context đã commit
+vẫn giữ góc nhìn dịch vụ cũ. Thiếu config khác JSON null ở biên decoder.
 Config do decoder quản lý có thể chứa dữ liệu bất kỳ; không trường nào chạy JavaScript.
 
 | Giới hạn | Giá trị |
 |---|---:|
 | `MAX_ENTRIES` (entry hiện hữu cộng đang teardown) | 1024 |
+| Realm có tên đồng thời sống (cùng giới hạn) | 1024 |
 | `MAX_JSON_BYTES` | 1048576 |
 | `MAX_JSON_DEPTH` | 32 |
 | `MAX_JSON_NODES` | 65536 |

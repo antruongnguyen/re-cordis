@@ -670,6 +670,9 @@ impl<T> Future for LoaderTask<T> {
     }
 }
 type Retirement = Shared<LocalBoxFuture<'static, Result<FiberState, LifecycleError>>>;
+pub(crate) struct NamedRealm {
+    id: re_cordis_core::IsolationId,
+}
 struct State {
     owner: FiberHandle<()>,
     catalog: RefCell<Catalog>,
@@ -684,7 +687,7 @@ struct State {
     order: RefCell<Vec<EntryId>>,
     commits: re_cordis_core::Event<CommitRecord>,
     sources: RefCell<BTreeMap<SourceId, Vec<EntryId>>>,
-    realms: RefCell<BTreeMap<String, re_cordis_core::IsolationId>>,
+    realms: RefCell<BTreeMap<String, std::rc::Weak<NamedRealm>>>,
 }
 /// Cloneable view of a dedicated parent-owned loader Fiber. Drop is inert.
 #[derive(Clone)]
@@ -878,6 +881,19 @@ impl Loader {
             })
             .collect();
         *self.0.retiring.borrow_mut() = retained;
+        self.0.sources.borrow_mut().retain(|source, ids| {
+            ids.retain(|id| {
+                self.entry(id).ok().is_some_and(|entry| {
+                    *entry.origin.borrow() == Origin::Source(source.clone())
+                        && entry.parent.borrow().is_none()
+                })
+            });
+            !ids.is_empty()
+        });
+        self.0
+            .realms
+            .borrow_mut()
+            .retain(|_, realm| realm.strong_count() > 0);
     }
     fn capacity(&self, spec: &EntrySpec, existing: bool) -> Result<(), LoaderError> {
         fn added(loader: &Loader, spec: &EntrySpec, existing: bool) -> usize {
@@ -1848,19 +1864,27 @@ impl Loader {
         }
         self.update(id, spec)
     }
-    fn realm(&self, label: &str) -> Result<re_cordis_core::IsolationId, LoaderError> {
+    fn realm(&self, label: &str) -> Result<Rc<NamedRealm>, LoaderError> {
         if label.is_empty() || label.len() > 128 {
             return Err(LoaderError::Invalid(
                 "isolation label must contain 1..=128 bytes".into(),
             ));
         }
-        Ok(self
-            .0
-            .realms
-            .borrow_mut()
-            .entry(label.into())
-            .or_default()
-            .clone())
+        let mut realms = self.0.realms.borrow_mut();
+        realms.retain(|_, realm| realm.strong_count() > 0);
+        if let Some(realm) = realms.get(label).and_then(std::rc::Weak::upgrade) {
+            return Ok(realm);
+        }
+        if realms.len() >= MAX_ENTRIES {
+            return Err(LoaderError::Invalid(
+                "live named realm limit 1024 exceeded".into(),
+            ));
+        }
+        let realm = Rc::new(NamedRealm {
+            id: re_cordis_core::IsolationId::new(),
+        });
+        realms.insert(label.into(), Rc::downgrade(&realm));
+        Ok(realm)
     }
     fn decode_source_node(
         &self,
@@ -1872,7 +1896,18 @@ impl Loader {
             let children = node
                 .get("config")
                 .and_then(|value| value.as_array())
-                .ok_or_else(|| LoaderError::Invalid("group config must be array".into()))?;
+                .ok_or_else(|| {
+                    let mut config_path = path.clone();
+                    config_path.push(re_cordis_core::PathSegment::Key("config".into()));
+                    locate_error(
+                        LoaderError::Invalid("group config must be array".into()),
+                        Some(SourceLocation {
+                            source: None,
+                            path: config_path,
+                            span: None,
+                        }),
+                    )
+                })?;
             let mut valid = Vec::new();
             for (index, child) in children.iter().enumerate() {
                 let mut child_path = path.clone();
@@ -2098,7 +2133,12 @@ impl Loader {
                 let slot = match value {
                     serde_json::Value::Bool(true) => Some(re_cordis_core::IsolationId::new()),
                     serde_json::Value::Bool(false) | serde_json::Value::Null => None,
-                    serde_json::Value::String(label) => Some(self.realm(label)?),
+                    serde_json::Value::String(label) => {
+                        let realm = self.realm(label)?;
+                        let slot = realm.id.clone();
+                        spec.scope.retain_realm(realm);
+                        Some(slot)
+                    }
                     _ => {
                         return Err(fail(
                             "isolate",
@@ -2180,16 +2220,27 @@ impl Loader {
         document: &SourceDocument,
         path: Vec<re_cordis_core::PathSegment>,
         failures: &mut Vec<EntryFailure>,
+        ids: &mut Vec<String>,
     ) -> Result<EntrySpec, LoaderError> {
         let path = spec
             .location
             .as_ref()
+            .filter(|location| location.source.is_none())
             .map(|location| location.path.clone())
             .unwrap_or(path);
         spec.location = Some(document.location(path.clone()));
-        if let EntryKind::Group(group) = &mut spec.kind {
+        let children = if let EntryKind::Group(group) = &mut spec.kind {
+            Some(std::mem::take(&mut group.entries))
+        } else {
+            None
+        };
+        let mut candidate_ids = ids.clone();
+        self.preflight(&spec, path.len() / 2, &mut candidate_ids)
+            .map_err(|error| locate_error(error, spec.location.clone()))?;
+        *ids = candidate_ids;
+        if let Some(children) = children {
             let mut valid = Vec::new();
-            for (index, child) in std::mem::take(&mut group.entries).into_iter().enumerate() {
+            for (index, child) in children.into_iter().enumerate() {
                 let id = child
                     .id
                     .clone()
@@ -2198,15 +2249,15 @@ impl Loader {
                 let mut child_path = path.clone();
                 child_path.push(re_cordis_core::PathSegment::Key("config".into()));
                 child_path.push(re_cordis_core::PathSegment::Index(index));
-                match self.prepare_source_spec(child, document, child_path, failures) {
+                match self.prepare_source_spec(child, document, child_path, failures, ids) {
                     Ok(child) => valid.push(child),
                     Err(error) => failures.push(EntryFailure { id, error }),
                 }
             }
-            group.entries = valid;
+            if let EntryKind::Group(group) = &mut spec.kind {
+                group.entries = valid;
+            }
         }
-        self.preflight(&spec, 0, &mut Vec::new())
-            .map_err(|error| locate_error(error, spec.location.clone()))?;
         Ok(spec)
     }
     /// Reconcile a read-only in-memory source; independent valid siblings survive errors.
@@ -2280,14 +2331,8 @@ impl Loader {
                         &document,
                         vec![re_cordis_core::PathSegment::Index(index)],
                         &mut failures,
+                        &mut source_ids,
                     )
-                })
-                .and_then(|spec| {
-                    let mut ids = source_ids.clone();
-                    self.preflight(&spec, 0, &mut ids)
-                        .map_err(|error| locate_error(error, spec.location.clone()))?;
-                    source_ids = ids;
-                    Ok(spec)
                 })
                 .map_err(|error| match error {
                     LoaderError::Located { location, source } => LoaderError::Located {
@@ -2324,7 +2369,15 @@ impl Loader {
                 .id
                 .as_ref()
                 .map(|id| EntryId(id.clone()))
-                .or_else(|| old.get(index).cloned())
+                .or_else(|| {
+                    old.get(index)
+                        .filter(|id| {
+                            self.entry(id).ok().is_some_and(|entry| {
+                                *entry.origin.borrow() == origin && entry.parent.borrow().is_none()
+                            })
+                        })
+                        .cloned()
+                })
                 .filter(|id| self.entry(id).is_ok());
             let nested = nested_ids(&spec);
             let retained = existing.clone();
@@ -2374,7 +2427,11 @@ impl Loader {
                 drop(self.remove_origin(&id, origin.clone())?);
             }
         }
-        let previous = self.0.sources.borrow_mut().insert(document.id, desired);
+        let previous = if desired.is_empty() {
+            self.0.sources.borrow_mut().remove(&document.id)
+        } else {
+            self.0.sources.borrow_mut().insert(document.id, desired)
+        };
         drop(previous);
         let settled = self.settle()?;
         Ok(LoaderTask(
@@ -2568,5 +2625,43 @@ mod retirement_tests {
             })
             .await
             .unwrap();
+    }
+
+    #[tokio::test(flavor = "current_thread")]
+    async fn empty_source_cycles_release_source_metadata() {
+        let runtime = re_cordis_core::Runtime::new();
+        tokio::time::timeout(
+            std::time::Duration::from_secs(5),
+            runtime.run(async {
+                let loader = Loader::new(&runtime.context(), Catalog::new()).unwrap();
+                for index in 0..2048 {
+                    loader
+                        .reconcile(SourceDocument::typed(
+                            SourceId::new(format!("empty-{index}")),
+                            vec![],
+                        ))
+                        .unwrap()
+                        .await
+                        .unwrap();
+                }
+                assert!(loader.0.sources.borrow().is_empty());
+                loader.dispose().unwrap().await.unwrap();
+            }),
+        )
+        .await
+        .unwrap()
+        .unwrap();
+    }
+    #[tokio::test(flavor = "current_thread")]
+    async fn rejected_json_cycles_release_named_realm_metadata() {
+        let runtime = re_cordis_core::Runtime::new();
+        tokio::time::timeout(std::time::Duration::from_secs(5),runtime.run(async{
+            let root=runtime.context();let key=re_cordis_core::ServiceKey::<u32>::new("value");let mut catalog=Catalog::new();catalog.register_service(&key).unwrap();
+            catalog.register_json("worker",Plugin::new("worker",|_,():()|async{Ok::<_,Infallible>(())}),|_|Ok::<_,Infallible>(())).unwrap();
+            let loader=Loader::new(&root,catalog).unwrap();
+            for index in 0..2048{assert!(loader.create_json(&format!(r#"{{"name":"worker","isolate":{{"value":"failed-{index}"}},"intercept":{{"unknown":1}}}}"#)).is_err());}
+            loader.admit().unwrap();assert!(loader.0.realms.borrow().is_empty());
+            loader.dispose().unwrap().await.unwrap();
+        })).await.unwrap().unwrap();
     }
 }

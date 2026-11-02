@@ -234,3 +234,38 @@ tests, 1 unit, 2 Rustdoc), Clippy --all-targets -D warnings, and crate fmt --che
 The four unresolved public regressions, shared helpers and complete original
 final-wave content are preserved in .superpowers/sdd/loader/final-wave-pending.rs;
 normal integration discovery now contains only the four fixed final-wave tests.
+
+
+## Final-review correction wave — verified checkpoint 2
+
+F3/F7/F8 and anonymous positional ownership now pass their targeted regressions.
+F4 is the only remaining open finding; both overlap/teardown regressions and
+their shared error helpers remain preserved in final-wave-pending.rs.
+
+- F3 prepares shallow source nodes and claims IDs incrementally across the full
+  source tree. Later duplicate children report their own original source path;
+  the first valid x and independent y remain, including typed and JSON sources
+  and a second reconciliation against the existing group.
+- F7 source records are pruned to currently owned root entries; empty desired
+  sources are removed instead of inserted. Named realms are weakly interned;
+  immutable Scope definitions and EntrySnapshots retain tokens. The same label
+  shares its identity while those tokens are live; after they release, the label
+  can allocate a fresh identity. Old Context views preserve the old selected
+  IsolationId. A maximum of MAX_ENTRIES (1024) simultaneously live named realms
+  is enforced before inserting a new label; released scopes restore capacity.
+  2048 empty-source and 2048 rejected-decode cycles both leave the corresponding
+  metadata map empty after admission/pruning.
+- F8 malformed nested group config errors are Located at the actual
+  [root,"config",child,"config"] path with the supplied SourceId and span.
+- Anonymous positional reuse requires current source ownership and root
+  membership. A's next anonymous snapshot allocates a new entry after B has
+  adopted A's prior identity; B's origin/config remain intact.
+
+Green gates: cargo test -p re-cordis-loader PASS (66 integration tests, 3 unit
+tests, 2 Rustdoc), Clippy --all-targets -D warnings PASS, crate fmt --check PASS.
+No core API or production dependency additions.
+
+SHA-256 at checkpoint 2:
+- src/lib.rs: a16347a12023c05996ed5c2e0d595e07cf985541949c7cb894a7e3401d7aee3e
+- src/scope.rs: 719989c379f002bfcf4d313a5388bfcac8369c3114fb8b7b6c4c226517aa0666
+- tests/final_wave.rs: 88684ac9a657faceecb5d307ab210f188c4152d041b1e5459d152ca6bbdb644d

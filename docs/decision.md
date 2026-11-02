@@ -739,6 +739,15 @@ config/inject/intercept values belong to explicit typed decoders and are never
 executed as JavaScript. A permissive decoder may accept expression-shaped data.
 Typed service registrations map serialized inject/isolate/intercept to core
 keys/configs. FieldPatch Keep/Set/Clear distinguishes retention and removal.
+Named JSON realms are shared while their defining Scope tokens live (including
+snapshots); the loader keeps weak entries, prunes dead labels and permits at
+most 1024 simultaneously live named realms. Rejected decodes release their
+tokens. Reusing a label after its last defining scope drops may create a fresh
+identity; old committed Contexts keep their exact old views. Empty/obsolete
+source records are pruned. Anonymous positional reuse requires current source
+ownership and root position, so it cannot reclaim an entry adopted elsewhere.
+Duplicate IDs within a source are reported per colliding definition; the first
+valid identity and healthy siblings survive across nested groups.
 
 Snapshots separate retained native source/options, optional original JSON
 transport and last evaluated C. Initial resolved R is not exposed by core's

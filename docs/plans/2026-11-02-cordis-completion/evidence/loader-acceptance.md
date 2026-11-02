@@ -62,3 +62,11 @@ Final independent review then reproduced eight untested defects; see
 [the checkpoint review](loader-review.md). L0–L5/G0–G1 are not accepted yet.
 The user requested a durable local checkpoint before the remaining fixes.
 Fresh final checks will follow that correction/re-review pass.
+
+## Correction checkpoint CP064
+
+F1/F2/F3/F5/F6/F7/F8 are implemented and await scoped independent re-review.
+The current loader suite passes 66 integration, three unit and two Rustdoc
+checks, with strict Clippy and formatting. F4 overlapping direct-update work
+remains open; its pending regressions are retained separately. This is a
+green checkpoint, not final acceptance. See [implementation history](loader-implementation.md).

@@ -364,6 +364,11 @@ See [loader API](en/api/loader.md), [groups](en/api/groups.md) and the
   JSON entry decode failures preserve healthy siblings. Native group depth is
   32; admission counts removed-but-retiring entries until their joined barrier
   is observed. No unbounded commit journal or queued rebuild history is stored.
+  Source metadata for empty/obsolete ownership is pruned. At most 1024 named
+  realms can have live defining Scope tokens; snapshots can retain those tokens.
+  A label used after all defining scopes drop can acquire a fresh isolation ID,
+  while old committed Contexts keep their old identity. Anonymous positional
+  source matching only reuses entries still owned at that source root.
   Async cleanup needs the original host; Drop cannot complete it.
   Loader keeps the first detached lifecycle-task error, not an unlimited error
   history. User cleanup callback errors retain core diagnostic reporting;

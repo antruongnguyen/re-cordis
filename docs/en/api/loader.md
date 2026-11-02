@@ -53,13 +53,16 @@ map_config uses the exact inner plugin injection Context before validation.
 JSON entry fields are `id`, `name`, `config`, `group`, `disabled`, `inject`,
 `isolate`, `intercept`. Structural `group: true` uses a child array as config.
 Unknown fields fail. Register service contracts for inject/isolate/intercept
-names; unknown contracts fail. Named realms share a loader-local isolation ID.
+names; unknown contracts fail. Named realms share a loader-local isolation ID while their Scope definitions
+remain live. After the last defining scope is released, reusing the label may
+allocate a fresh ID; committed old Contexts keep their old service views.
 Absent config differs from explicit null at the decoder boundary.
 Decoder-owned config may contain arbitrary data; no field runs JavaScript.
 
 | Bound | Value |
 |---|---:|
 | `MAX_ENTRIES` (resident plus retiring entries) | 1024 |
+| Simultaneously live named realms (same limit) | 1024 |
 | `MAX_JSON_BYTES` | 1048576 |
 | `MAX_JSON_DEPTH` | 32 |
 | `MAX_JSON_NODES` | 65536 |
