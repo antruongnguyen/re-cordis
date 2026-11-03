@@ -138,3 +138,14 @@ patch unset ownership. They also exercise retries, genuine file-parent removal,
 group conversions, skipped patches, cycle/duplicate-mount checks and later sets
 after an unset. The original six public failing probes and review report remain
 preserved; independent scoped re-review and final shared acceptance are pending.
+
+## Final I0–I4 acceptance
+
+Final code `0a2df1e` includes the two [residual corrections](include-residual-corrections.md).
+The [final independent re-check](include-final-rereview.md) accepts both and
+finds no Critical/Important regression in their delta. The parent verified 75
+include Rust tests plus two Rustdoc checks on each explicit toolchain as part
+of 412 workspace checks and all 38 shared matrix stages. See the final
+[acceptance record](include-acceptance.md) for revisions, commands, complete
+verification results and retained limitations. Earlier counts above describe
+their historical checkpoints.

@@ -42,3 +42,10 @@ public regressions for pending parents, subtree deletion, opaque application
 JSON, replacement-patch includes and effective patch-owned field removal.
 See [review corrections](include-corrections.md); final acceptance additionally
 requires the scoped re-review and its residual corrections.
+
+Final I0–I4 acceptance: [accepted code 0a2df1e](include-acceptance.md), with
+75 Rust tests plus two Rustdoc checks on both explicit toolchains. All seven
+suite dispositions above are closed within their selected Rust scope; the
+listed exclusions, deferred mechanisms and lack of paired include traces
+remain explicit. The [final scoped re-check](include-final-rereview.md) accepts
+the correction delta.

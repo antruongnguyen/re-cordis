@@ -15,9 +15,12 @@ evidence boundaries.
 The approved first-consumer scope is implemented: snapshot digest, bounded `gh`
 collector and signed loopback webhook journal (12 additional application tests
 on Unix). See `docs/github-activity.md`. Application dependencies are dev-only.
-Timer, console logger and loader/structural groups are implemented. Include
-I0–I3 bounded file sources, patches, provenance and persistence are implemented;
-I4 lifecycle/example/final acceptance is in progress. HMR and create remain future targets. The **`re-cordis-timer`** satellite is
+Timer, console logger, loader/structural groups and include I0–I4 are
+implemented and independently accepted. Include delivers bounded files, patches,
+provenance, persistence and joined flush/shutdown; 75 Rust tests and two Rustdoc
+checks pass on stable and 1.85.0. See
+`docs/plans/2026-11-02-cordis-completion/evidence/include-acceptance.md`.
+HMR and create remain future targets. The **`re-cordis-timer`** satellite is
 delivered (unpublished `crates/re-cordis-timer`: owner-scoped timeout, sleep,
 interval/stream, throttle and debounce over core effects, via a sealed
 `TimerExt` trait; the `tokio` `time`/`macros` features live in the timer crate,

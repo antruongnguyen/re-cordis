@@ -60,33 +60,33 @@ results, file-operation limits and platform claims.
 **Files to create:** crates/re-cordis-include/Cargo.toml, src/lib.rs,
 src/source.rs, tests/read.rs, tests/locations.rs, tests/fixtures/.
 
-- [ ] Test missing file with/without initial data, malformed existing file,
+- [x] Test missing file with/without initial data, malformed existing file,
   non-array input, invalid individual entries, nested groups, path bases and
   source-originated versus runtime-originated validation errors.
-- [ ] Read bounded input, parse the selected format and reconcile through
+- [x] Read bounded input, parse the selected format and reconcile through
   loader. Never overwrite an existing invalid file with initial configuration.
-- [ ] Preserve last valid running state for an unreadable/unparseable source;
+- [x] Preserve last valid running state for an unreadable/unparseable source;
   apply the reviewed per-entry invalidation policy for a structurally parsed source.
-- [ ] Implement explicit refresh and deduplicate identical content. Test
+- [x] Implement explicit refresh and deduplicate identical content. Test
   invalid→valid recovery, renamed entry factories and nested include cycles.
-- [ ] Add tested filename/path/span mapping, including UTF-8 versus upstream
+- [x] Add tested filename/path/span mapping, including UTF-8 versus upstream
   UTF-16 column conventions. Do not invent precise locations for runtime data.
-- [ ] Run `cargo test -p re-cordis-include --test read --test locations --locked`,
+- [x] Run `cargo test -p re-cordis-include --test read --test locations --locked`,
   update paired docs and commit.
 
 ## I2 — Ordered patches and provenance
 
 **Files:** create src/patch.rs, tests/patches.rs; extend tests/locations.rs.
 
-- [ ] Test overrides, disable, matching/mismatched names, missing IDs, insert
+- [x] Test overrides, disable, matching/mismatched names, missing IDs, insert
   at root/group, invalid non-group target and multiple ordered patches.
-- [ ] Preserve the case where a later patch addresses an entry inserted by an
+- [x] Preserve the case where a later patch addresses an entry inserted by an
   earlier patch. Replacing a group's config must remove stale child ownership.
-- [ ] Track the effective owner of each entry and key, including embedded
+- [x] Track the effective owner of each entry and key, including embedded
   group configs, nested includes and keys overridden by later patches.
-- [ ] Keep anonymous IDs stable without eagerly writing them; avoid collisions
+- [x] Keep anonymous IDs stable without eagerly writing them; avoid collisions
   with explicit source IDs and patch insert IDs at every nesting level.
-- [ ] Test removing a patch restores source values and skipped patches own
+- [x] Test removing a patch restores source values and skipped patches own
   nothing. Locate errors in the owning file/patch. Run tests and commit.
 
 ## I3 — Journal reconciliation and persistence
@@ -94,37 +94,37 @@ src/source.rs, tests/read.rs, tests/locations.rs, tests/fixtures/.
 **Files:** create src/journal.rs, src/persist.rs, tests/reconcile.rs, tests/write.rs.
 **Consumes:** loader commit records with origin and I2 ownership.
 
-- [ ] Test coalesced updates, create-then-remove, moves plus updates, separate
+- [x] Test coalesced updates, create-then-remove, moves plus updates, separate
   file/runtime edits, same-entry conflict, and both refresh/update orderings.
-- [ ] Implement the source-backed three-way merge of last snapshot, latest
+- [x] Implement the source-backed three-way merge of last snapshot, latest
   file and journal. Apply file precedence on the defined conflict and report it.
-- [ ] Route runtime changes to file-owned, overridden, inserted and embedded
+- [x] Route runtime changes to file-owned, overridden, inserted and embedded
   patch values; recompute ownership after moves/removals. File-originated
   reconciliation must not generate a write-back feedback loop.
-- [ ] Write through a sibling temporary file and accepted replacement policy.
+- [x] Write through a sibling temporary file and accepted replacement policy.
   Test short writes, permission errors, interrupted replacement, transient
   rename retries and an external edit during the retry window.
-- [ ] Never overwrite an unparseable current file. Preserve pending runtime
+- [x] Never overwrite an unparseable current file. Preserve pending runtime
   changes in memory after failure; retry on a later refresh/flush/disposal.
-- [ ] Test journal capacity limits and overflow behavior, so a persistent
+- [x] Test journal capacity limits and overflow behavior, so a persistent
   failure cannot create an unbounded backlog. Gate I/O with a test seam and
   use temporary directories; do not make chmod the sole failure oracle.
-- [ ] Run reconcile/write tests, document durability limits, and commit.
+- [x] Run reconcile/write tests, document durability limits, and commit.
 
 ## I4 — Joined disposal, YAML completion and acceptance
 
 **Files:** tests/lifecycle.rs, selected YAML capability tests,
 examples/config_file.rs, paired guides/include.md and api/include.md, indexes.
 
-- [ ] Stop admitting new mutations, drain/flush the journal, then stop the
+- [x] Stop admitting new mutations, drain/flush the journal, then stop the
   loader subtree in the chosen order; prove no write/callback outlives joined
   disposal. A failed final write must remain visible in the cleanup result.
-- [ ] Test source replacement during apply, repeated refresh/reconfigure,
+- [x] Test source replacement during apply, repeated refresh/reconfigure,
   slow child teardown, nested source removal and restoration of all baselines.
-- [ ] Finish approved YAML round-trip/location cases. If canonical rewriting
+- [x] Finish approved YAML round-trip/location cases. If canonical rewriting
   or read-only YAML was selected, list affected source cases as deviations
   and do not mark lossless YAML accepted.
-- [ ] Complete all seven suite dispositions, run shared acceptance, demonstrate
+- [x] Complete all seven suite dispositions, run shared acceptance, demonstrate
   offline read/change/flush/shutdown, and commit.
 
 Watch integration is H1/H3. Include remains usable through explicit refresh
@@ -132,3 +132,7 @@ even when no filesystem watcher is installed.
 
 I0 decisions and executed parser fixtures: [contract](evidence/include-contract.md).
 Current suite boundaries: [source map](evidence/include-source-map.md).
+
+I0–I4 is accepted at final code `0a2df1e`; see [acceptance](evidence/include-acceptance.md)
+and [final scoped re-check](evidence/include-final-rereview.md). HMR/create remain
+outside the selected include delivery.
