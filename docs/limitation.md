@@ -381,3 +381,25 @@ See [loader API](en/api/loader.md), [groups](en/api/groups.md) and the
   teardown compositions including 100 group cycles and retained provider moves.
   Final MSRV/stable review and new paired traces are recorded separately;
   the six existing core traces retain their original scope.
+
+## Include files and persistence
+
+The selected include I0–I4 scope uses explicit JSON-valued source changes and
+local hosted operations over accepted loader/core. See the
+[include contract](plans/2026-11-02-cordis-completion/evidence/include-contract.md)
+for exact limits and the capability gate; delivery evidence is recorded when
+verification completes.
+
+- **Format adaptation:** canonical value YAML does not retain comments, anchor
+  identities, quoting or style. Aliases/anchors, custom tags and executable
+  nodes are rejected; JavaScript execution and stack rewriting are unavailable.
+  A value parser does not establish lossless round-trip compatibility.
+- **Ownership adaptation:** globally unique loader EntryIds and explicit
+  serialized changes replace upstream proxy-mediated mutable options. Arbitrary
+  native Config values cannot be persisted without a caller-selected encoding.
+- **I/O boundary:** synchronous bounded file operations may block on slow
+  storage. Byte/count bounds do not guarantee a wall-clock deadline. Sibling
+  replacement does not provide a multi-file transaction, a complete protocol
+  against concurrent external writers or a power-loss guarantee.
+- **Deferred integrations:** explicit refresh requires no watcher. HMR, create,
+  JS evaluation and native binary hot loading are outside this delivery.

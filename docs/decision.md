@@ -769,3 +769,34 @@ provided. Explicit settle replaces the implicit loader service's await intercept
 Self/ancestor lifecycle requests keep core's reentrant refusal. See the
 [loader API](en/api/loader.md), [group API](en/api/groups.md) and
 [work package](plans/2026-11-02-cordis-completion/loader.md).
+
+## Include files and persistence
+
+The 2026-11-03 include I0–I4 delivery is selected over accepted loader
+101f37b. Include owns file snapshots, locations, ordered patches, a bounded
+journal and explicit refresh/flush; loader/core continue owning plugin
+lifecycle. A dedicated include owner serializes local operations. Standard
+synchronous file I/O keeps accepted writes bounded in count without detached
+background writers; it can block the local executor on slow storage.
+
+JSON is the first format. YAML is selected as a canonical value format,
+subject to the executed parser capability gate in the
+[include contract](plans/2026-11-02-cordis-completion/evidence/include-contract.md).
+Comment/style retention is not claimed. Unsupported aliases, anchors and custom
+or executable tags must fail with source diagnostics before expansion or
+execution. Structured locations distinguish persisted source from runtime data.
+
+File precedence applies only to conflicting runtime changes in a three-way
+comparison of the prior snapshot, current file and pending journal. Unrelated
+keys survive. Patch-owned keys and embedded entries write to their actual owner.
+Sibling temporary files and replacement isolate individual file writes;
+atomic visibility, power-loss durability, multi-file transactions and races
+with uncooperative external writers are separate guarantees. Every retry
+rereads and reconciles; an invalid current file is never overwritten.
+Pending work remains available after a write failure, and joined shutdown
+must expose the final write result as well as loader cleanup.
+
+Arbitrary typed loader Config values are not implicitly serializable. Include's
+persistable mutation boundary uses explicit JSON values rather than imposing
+Serialize on accepted native loader plugins. Exact signatures, limits and
+platform boundaries are recorded with the contract and acceptance evidence.

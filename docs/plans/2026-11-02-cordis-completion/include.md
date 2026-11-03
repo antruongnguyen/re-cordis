@@ -34,20 +34,20 @@ and flushes/retries pending work during disposal.
 **Entry:** L4/L5 source and commit contracts and G1 group behavior accepted.
 **Files:** this plan, docs/decision.md, docs/limitation.md.
 
-- [ ] Specify Include configuration, source snapshot, structured source path/
+- [x] Specify Include configuration, source snapshot, structured source path/
   location, patch, change journal, refresh/flush and disposal result signatures.
-- [ ] Choose JSON first; compare YAML parsers for YAML 1.2/core scalar behavior,
+- [x] Choose JSON first; compare YAML parsers for YAML 1.2/core scalar behavior,
   duplicate keys, aliases, tags, spans and comment/style retention. Do not
   claim lossless editing using a parser that only returns values.
-- [ ] Define support for YAML aliases/anchors and !js/expression nodes. Without
+- [x] Define support for YAML aliases/anchors and !js/expression nodes. Without
   a JS engine reject unsupported executable nodes explicitly; preserve source
   diagnostics. Value-only YAML support has a clearly labelled boundary.
-- [ ] Define base path/nested resolution, absolute and Windows paths, symlink
+- [x] Define base path/nested resolution, absolute and Windows paths, symlink
   identity, include cycle detection and limits on bytes/depth/entries/patches.
-- [ ] Specify file-vs-runtime conflict granularity using pinned journal.ts and
+- [x] Specify file-vs-runtime conflict granularity using pinned journal.ts and
   sync.spec.ts; decide atomic replacement and crash-durability promises
   separately. An atomic rename is not a complete concurrent-writer protocol.
-- [ ] Choose serialized writer ownership, reread/reconcile before each retry,
+- [x] Choose serialized writer ownership, reread/reconcile before each retry,
   bounded transient retry, permanent error reporting and disposal flush failure.
   Document residual races with uncooperative external writers; do not promise
   arbitrary concurrent-writer safety without an enforceable protocol.
@@ -129,3 +129,6 @@ examples/config_file.rs, paired guides/include.md and api/include.md, indexes.
 
 Watch integration is H1/H3. Include remains usable through explicit refresh
 even when no filesystem watcher is installed.
+
+I0 decisions and executed parser fixtures: [contract](evidence/include-contract.md).
+Current suite boundaries: [source map](evidence/include-source-map.md).
