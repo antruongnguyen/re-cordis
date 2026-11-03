@@ -106,8 +106,8 @@ The **2026-10-27** roadmap selected timer → console logger → loader.
 The user's **2026-11-03** execution direction selected console before timer
 repair. **`re-cordis-timer` and `re-cordis-logger` are implemented** (see below);
 console C0–C3 and timer repair T0–T5 are independently accepted. Loader/group
-APIs are implemented and undergoing final acceptance. Include, HMR and create
-remain future targets.
+L0–L5/G0–G1 are independently accepted with explicit stable/1.85.0 verification.
+Include, HMR and create remain future targets.
 
 The TypeScript specification remains pinned to
 `35fdc969e4b6c48c48ed44717c7a018324e4dd88` in `local/cordis`.
@@ -201,9 +201,10 @@ before timer repair under the 2026-11-03 useful-Rust direction.
 - [x] Runnable boot/reconfigure/failure/recovery/shutdown example and matching
   English/Vietnamese loader/groups guides, API references and export checks.
 
-Implementation evidence and final review/toolchain acceptance are tracked in
-[L0–L5](plans/2026-11-02-cordis-completion/loader.md) and
-[G0–G1](plans/2026-11-02-cordis-completion/group.md).
+Independent review and final toolchain verification are complete; see
+[loader/group acceptance](plans/2026-11-02-cordis-completion/evidence/loader-acceptance.md).
+The [L0–L5](plans/2026-11-02-cordis-completion/loader.md) and
+[G0–G1](plans/2026-11-02-cordis-completion/group.md) checklists are closed.
 JavaScript imports/eval, mutable prototype reparenting, native shared-library
 reload, filesystem persistence and watching are explicitly excluded/deferred.
 

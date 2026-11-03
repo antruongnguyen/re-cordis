@@ -29,7 +29,10 @@ plain/ANSI/Auto policy, UTC record rendering, visible I/O errors; 21 tests).
 Console C0–C3 is independently accepted; see its logger work package. The
 unpublished `re-cordis-loader` owns typed catalogs, structural groups, bounded
 JSON transport, source reconciliation and joined rebuilds; it performs no file
-persistence, JavaScript imports/eval or watching. Timer repair verification is recorded in
+persistence, JavaScript imports/eval or watching.
+Loader L0–L5 and structural groups G0–G1 are independently accepted; see
+`docs/plans/2026-11-02-cordis-completion/evidence/loader-acceptance.md`.
+Timer repair verification is recorded in
 `docs/plans/2026-11-02-cordis-completion/evidence/timer-acceptance.md`; see
 `docs/plans/2026-11-02-cordis-completion/README.md` for the proposed core/all-satellite
 work packages and scheduling gates. See `docs/todo.md` for source review,

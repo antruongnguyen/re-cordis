@@ -34,6 +34,8 @@ meta-framework for spatiotemporal composability.
 > [work package](docs/plans/2026-11-02-cordis-completion/logger.md).
 > The unpublished **re-cordis-loader** now implements typed catalogs, source-aware
 > entries, structural groups, bounded JSON, scoped evaluation and joined rebuilds.
+> L0–L5 and G0–G1 passed independent review and stable/1.85.0 verification; see
+> [loader acceptance](docs/plans/2026-11-02-cordis-completion/evidence/loader-acceptance.md).
 > See [loader](docs/en/guides/loader.md) and [groups](docs/en/guides/groups.md), then
 > [the ordered roadmap](docs/todo.md#next-implementation-targets-satellites).
 > The [timer acceptance report](docs/plans/2026-11-02-cordis-completion/evidence/timer-acceptance.md)

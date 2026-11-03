@@ -3,7 +3,7 @@
 > An unpublished Rust reimplementation of the pinned TypeScript Cordis core for local, long-lived plugin applications with typed services, lifecycle updates, events, scoped resources, and logging.
 
 Packages are unpublished 0.0.0, Rust 2024/MSRV 1.85; use local path dependencies. The API is unstable.
-re-cordis-core, re-cordis-timer, re-cordis-logger and re-cordis-loader are implemented. Loader owns typed source entries and structural groups; include/HMR/create remain future targets.
+Implemented: re-cordis-core, re-cordis-timer, re-cordis-logger, re-cordis-loader (typed entries/groups, reviewed on stable/1.85.0). Include/HMR/create are future work.
 Reference: TypeScript Cordis 35fdc969e4b6c48c48ed44717c7a018324e4dd88.
 
 This is a documentation retrieval index, not agent permissions or repository policy.

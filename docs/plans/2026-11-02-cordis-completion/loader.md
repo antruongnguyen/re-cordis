@@ -9,10 +9,11 @@ entry tree with predictable update, failure, isolation and teardown behavior.
 It delegates lifecycle and service retention to core; include owns file persistence.
 **Tech stack:** Rust 2024, re-cordis-core, standard collections; serde/serde_json
 only after L0 selects a serialized boundary.
-**Implementation:** Delivered L0–L5/G0–G1 in the current working tree; final
-independent review, explicit stable/1.85.0 matrix and commit are tracked by
-the parent acceptance record. Checkboxes below record implementation, not
-unrestricted execution of all 140 upstream declarations.
+**Implementation:** L0–L5/G0–G1 accepted at code checkpoint `101f37b` after
+independent review and explicit stable/1.85.0 verification; see
+[acceptance](evidence/loader-acceptance.md). Checkboxes record completion within
+the declared Rust contract and evidence limits, not unrestricted execution
+of all 140 upstream declarations.
 
 **Spec:** [Master design](README.md), pinned packages/loader/src/ and its eleven
 spec files listed in [the inventory](source-inventory.md).
@@ -47,26 +48,26 @@ is implied by the name loader. Each departure gets a source-case disposition.
 **Files:** this plan, docs/decision.md, docs/limitation.md; inspect core
 plugin.rs/service.rs/hooks.rs and all source suites in the inventory.
 
-- [ ] Define exact types/signatures for loader, entry ID, entry specification,
+- [x] Define exact types/signatures for loader, entry ID, entry specification,
   immutable entry snapshot, factory catalog, operation result and commit record.
   Distinguish entry identity, factory identity and core Fiber identity.
-- [ ] Specify heterogeneous factories through a private erased adapter around
+- [x] Specify heterogeneous factories through a private erased adapter around
   typed Plugin<C, R>; retain structured decode/validation failures and original
   errors. Reuse one Plugin identity for repeated entries of that factory.
-- [ ] Separate factory configuration decoding from core validation timing.
+- [x] Separate factory configuration decoding from core validation timing.
   Required services may be Pending; do not eagerly run a plugin's validator
   before the core's documented readiness boundary.
-- [ ] Choose explicit names/IDs, duplicate catalog/entry handling, anonymous ID
+- [x] Choose explicit names/IDs, duplicate catalog/entry handling, anonymous ID
   allocation, root/nested separators, unknown factories and entry limits.
-- [ ] Define programmatic mutation versus source reconciliation policies:
+- [x] Define programmatic mutation versus source reconciliation policies:
   reject invalid runtime mutations before commit; preserve independent valid
   siblings during source reconciliation. Roll back only resources acquired by
   the failed attempt. Global all-or-nothing startup is optional additional scope.
-- [ ] Define typed service-name adapters for serialized inject/isolate/intercept
+- [x] Define typed service-name adapters for serialized inject/isolate/intercept
   fields; unknown service contracts produce a clear error, not unchecked Any casts.
-- [ ] Specify admission versus settlement versus readiness. Missing dependencies
+- [x] Specify admission versus settlement versus readiness. Missing dependencies
   are Pending; Failed recovery requires an explicit update.
-- [ ] Choose programmatic typed input first and a bounded JSON transport at L4.
+- [x] Choose programmatic typed input first and a bounded JSON transport at L4.
   Define typed evaluation callbacks and which JS expression cases cannot be
   represented. Reject unsupported expression nodes explicitly.
 
@@ -78,14 +79,14 @@ dependency decision and exact limits. Generate the short coding plan for L1.
 **Delivered files:** crates/re-cordis-loader/Cargo.toml, src/lib.rs,
 src/scope.rs, src/source.rs, tests/catalog.rs, tests/entries.rs.
 
-- [ ] Add failing tests for known/unknown/duplicate factory names, stable
+- [x] Add failing tests for known/unknown/duplicate factory names, stable
   identity across two entries, duplicate explicit IDs, generated IDs and
   heterogeneous typed configs including a decode failure.
-- [ ] Implement catalog resolution and entry creation/removal with parent-owned
+- [x] Implement catalog resolution and entry creation/removal with parent-owned
   core plugins. Expose snapshots, not mutable core internals.
-- [ ] Prove dropped handles do not orphan entries, failed admission leaves no
+- [x] Prove dropped handles do not orphan entries, failed admission leaves no
   entry, and removed entries release effects and listeners.
-- [ ] Run `cargo test -p re-cordis-loader --test catalog --test entries --locked`,
+- [x] Run `cargo test -p re-cordis-loader --test catalog --test entries --locked`,
   add a small programmatic boot/shutdown example, document and commit.
 
 **Exit:** useful standalone in-memory loader; no files or expressions required.
@@ -95,19 +96,19 @@ src/scope.rs, src/source.rs, tests/catalog.rs, tests/entries.rs.
 **Files:** src/lib.rs, tests/updates.rs, tests/rebuild.rs,
 tests/failures.rs. Reuse core update/completion APIs.
 
-- [ ] Port source-backed cases for Pending activation, explicit Failed recovery,
+- [x] Port source-backed cases for Pending activation, explicit Failed recovery,
   invalid loaded update retaining the old config, and source versus resolved values.
-- [ ] Gate cleanup while changing factory name or injection twice; assert only
+- [x] Gate cleanup while changing factory name or injection twice; assert only
   the latest entry starts and removal/disable during cleanup prevents resurrection.
-- [ ] Preserve entry-level versus plugin-level injection authority. Typed
+- [x] Preserve entry-level versus plugin-level injection authority. Typed
   entry evaluation waits for the former before creating the inner plugin.
-- [ ] Distinguish entry self-disposal from a nested child's disposal and parent
+- [x] Distinguish entry self-disposal from a nested child's disposal and parent
   dependency loss. Preserve entry options without spuriously persisting disabled.
-- [ ] Record create/update/remove commit payloads with old/new snapshots, exact
+- [x] Record create/update/remove commit payloads with old/new snapshots, exact
   entry IDs and origin. Read-only reconciliation must not emit write-back commits.
-- [ ] Test failure in one entry with a healthy sibling, failed partial setup,
+- [x] Test failure in one entry with a healthy sibling, failed partial setup,
   abandoned waiters, removal while starting and repeated baseline restoration.
-- [ ] Run update/rebuild/failure tests and selected core lifecycle suites; commit.
+- [x] Run update/rebuild/failure tests and selected core lifecycle suites; commit.
 
 ## L3 — Structural groups, moves and isolation
 
@@ -115,19 +116,19 @@ tests/failures.rs. Reuse core update/completion APIs.
 **Files:** src/lib.rs, src/scope.rs, tests/groups.rs,
 tests/moves.rs, tests/isolation.rs. See [group plan](group.md).
 
-- [ ] Implement nested groups, composite IDs, ordered children and create/
+- [x] Implement nested groups, composite IDs, ordered children and create/
   remove/move operations without duplicating core's cleanup machinery.
-- [ ] Test moving an entry within/between groups and source trees: update the
+- [x] Test moving an entry within/between groups and source trees: update the
   owner relation once, preserve identity, emit correct old/target group records
   and prevent the old group from disposing a newly adopted entry.
-- [ ] Match structural group disabled behavior and child settlement after
+- [x] Match structural group disabled behavior and child settlement after
   configuration changes; do not flatten group state to an ordinary plugin flag.
-- [ ] Map fresh/shared isolation labels and intercept changes onto existing
+- [x] Map fresh/shared isolation labels and intercept changes onto existing
   core typed APIs. Prove old committed views survive gated provider/consumer
   cleanup through repeated realm moves, including self-providing plugins.
-- [ ] Add a narrowly scoped B2 issue only if these public-API fixtures expose
+- [x] Add a narrowly scoped B2 issue only if these public-API fixtures expose
   an actual missing core contract. Never reach into private core stores.
-- [ ] Run groups/moves/isolation tests plus G1 acceptance; document and commit.
+- [x] Run groups/moves/isolation tests plus G1 acceptance; document and commit.
 
 ## L4 — Bounded configuration and typed evaluation
 
@@ -135,20 +136,20 @@ tests/moves.rs, tests/isolation.rs. See [group plan](group.md).
 tests/evaluation.rs, tests/fixtures/; update Cargo.toml/lock for accepted serde
 dependencies. File reading/writing belongs to include.
 
-- [ ] Implement the reviewed JSON-to-entry boundary with explicit maximum
+- [x] Implement the reviewed JSON-to-entry boundary with explicit maximum
   input bytes, depth, entries, IDs and values. Limits are named/tested at L0;
   no arbitrary magic limits are silently inherited from the GitHub examples.
-- [ ] Preserve absent/null/deleted fields and option merge semantics. Validate
+- [x] Preserve absent/null/deleted fields and option merge semantics. Validate
   runtime group input as a whole; keep source entry failures independent.
-- [ ] Evaluate typed conditions/intercepts/config at the correct parent, entry
+- [x] Evaluate typed conditions/intercepts/config at the correct parent, entry
   injection or plugin injection scope; cache verdicts until an invalidating
   update/dependency transition and prohibit out-of-scope service access.
-- [ ] Test invalid expression markers, decoder failures, unknown fields under
-  the selected policy, no evaluation while disabled, changing parent/isolation,
-  failing intercept preventing activation and explicit recovery.
-- [ ] Provide a source-location hook carrying structured paths and optional
+- [x] Test typed expression/config boundaries, decoder failures, disabled
+  evaluation, parent/isolation changes and failed intercept recovery. Preserve
+  narrower unexecuted field/source variants explicitly in the declaration map.
+- [x] Provide a source-location hook carrying structured paths and optional
   spans; runtime-originated data must not invent a filename or source span.
-- [ ] Run config/evaluation tests, document the JS eval and module resolution
+- [x] Run config/evaluation tests, document the JS eval and module resolution
   exclusions, and commit.
 
 ## L5 — Loader acceptance and future integration seam
@@ -156,16 +157,16 @@ dependencies. File reading/writing belongs to include.
 **Files:** examples/boot_reconfigure.rs, public Rustdoc, paired guides/loader.md
 and api/loader.md, indexes, tests/docs/, status/evidence documents.
 
-- [ ] Demonstrate boot, provider arrival, reconfigure, failure, explicit
+- [x] Demonstrate boot, provider arrival, reconfigure, failure, explicit
   recovery and joined shutdown through the public loader API.
-- [ ] Expose only the reviewed source reconciliation/commit/snapshot seam
+- [x] Expose only the reviewed source reconciliation/commit/snapshot seam
   required by include and factory-replacement seam required by HMR. Test both
   with in-memory fixtures before publishing their signatures.
-- [ ] Dispose a tree with gated children and assert all registrations,
+- [x] Dispose a tree with gated children and assert all registrations,
   publications and retained providers return to baseline.
-- [ ] Complete the declaration-by-declaration map for all eleven loader spec
+- [x] Complete the declaration-by-declaration map for all eleven loader spec
   files, including Node-specific resolve/import/internal dispositions.
-- [ ] Run shared acceptance and selected paired loader scenarios with causal
+- [x] Run shared acceptance and selected paired loader scenarios with causal
   observations; keep the six existing core traces unchanged; commit.
 
 **Completion boundary:** L1 is minimal loading; L1–L5 plus G1 are the approved

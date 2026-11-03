@@ -24,12 +24,12 @@ but are not by themselves the complete configurable group contract.
 **Entry:** L0 entry/injection model is reviewed.
 **Files:** this plan, docs/decision.md, proposed loader group API.
 
-- [ ] Map the thirteen declarations in group.spec.ts and the structural-group
+- [x] Map the thirteen declarations in group.spec.ts and the structural-group
   evaluation cases to L3 fixtures. Include enabled/disabled parent/child
   combinations, initialization, updates and nested settlement.
-- [ ] Specify child ordering, ownership after moves, retained group identity,
+- [x] Specify child ordering, ownership after moves, retained group identity,
   structural presence while descendants are disabled, and source commit origin.
-- [ ] Recommend a loader Group export and documentation under the group name.
+- [x] Recommend a loader Group export and documentation under the group name.
   If a separate re-cordis-group is selected, restrict it to a documented facade
   over that export, without a second registry, service or lifecycle.
 
@@ -38,19 +38,19 @@ but are not by themselves the complete configurable group contract.
 ## G1 — Group behavior and public entry point acceptance
 
 **Entry:** L3 implementation is available.
-**Files:** crates/re-cordis-loader/src/group.rs, tests/groups.rs, tests/moves.rs;
+**Delivered files:** crates/re-cordis-loader/src/lib.rs, tests/groups.rs, tests/sources_moves.rs;
 paired docs/en/api/groups.md and docs/vi/api/groups.md and guides/groups.md.
 A facade Cargo.toml/src/lib.rs is conditional on G0's packaging decision.
 
-- [ ] Verify group updates settle included child work under the reviewed
+- [x] Verify group updates settle included child work under the reviewed
   Pending/readiness semantics; do not imply all children are Active.
-- [ ] Test child removal, disabled inheritance, nested groups, parent unload,
-  file-driven adoption, reordering and a moved child retained by its new group.
-- [ ] Assert repeated group reconfiguration/disposal restores Registry,
+- [x] Test child removal, disabled inheritance, nested groups, parent unload,
+  in-memory source adoption, reordering and a moved child retained by its new group.
+- [x] Assert repeated group reconfiguration/disposal restores Registry,
   effect, listener and publication baselines.
-- [ ] Demonstrate grouping through the supported public Rust import path.
+- [x] Demonstrate grouping through the supported public Rust import path.
   If a facade exists, compile its downstream import without duplicated types.
-- [ ] Run loader group/move tests and shared acceptance for the delivered
+- [x] Run loader group/move tests and shared acceptance for the delivered
   package(s); document the upstream package correspondence and commit.
 
 **Completion:** source behavior is covered regardless of whether there is a
@@ -77,7 +77,7 @@ native Rust behavior, not JS mutable prototype or source-namespace emulation.
 
 See [group API](../../en/api/groups.md) and
 [loader dispositions](loader.md#source-case-dispositions).
-Targeted tests and strict loader Clippy pass during implementation; independent
-review and the final explicit stable/1.85.0 acceptance/commit are recorded by
-the parent. The source inventory's lack of standalone group tests remains true:
+Independent review and explicit stable/1.85.0 verification are complete at
+code checkpoint `101f37b`; see [acceptance](evidence/loader-acceptance.md).
+The source inventory's lack of standalone group tests remains true:
 upstream group simply exports loader Group.
