@@ -86,3 +86,10 @@ Run `cargo run -p re-cordis-loader --example boot_reconfigure --locked`.
 The [example](../../../crates/re-cordis-loader/examples/boot_reconfigure.rs)
 boots a structural group, waits Pending, admits a provider, updates source,
 fails/recover explicitly and joins shutdown. No files or network are used.
+
+## Include read, change and persistence
+
+Run `cargo run -p re-cordis-include --example config_file --locked --offline`.
+The [example](../../../crates/re-cordis-include/examples/config_file.rs) reads
+a temporary file, changes a typed plugin config, flushes and joins shutdown.
+See [configuration files](include.md) for the identical executable program.

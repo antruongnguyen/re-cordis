@@ -84,6 +84,6 @@ Native Config payload sizes are application-owned. Bounds are admission limits,
 not a wall-clock timeout or a serializer size promise.
 
 `replace_factory` supports replacement by another linked typed declaration.
-`commits`, `reconcile` and snapshots are in-memory integration seams for future
-persistence/watch adapters. No filesystem, Node resolution, JS eval or native
+`commits`, `reconcile` and snapshots are in-memory integration seams used by the include persistence adapter;
+watching remains deferred. No filesystem, Node resolution, JS eval or native
 binary reload is provided. See [limitations](../../limitation.md#loader-and-structural-groups).

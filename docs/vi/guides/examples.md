@@ -86,3 +86,10 @@ Chạy `cargo run -p re-cordis-loader --example boot_reconfigure --locked`.
 [Ví dụ](../../../crates/re-cordis-loader/examples/boot_reconfigure.rs) khởi động
 group cấu trúc, chờ Pending, nhận provider, cập nhật nguồn, thất bại/phục hồi
 tường minh và join shutdown. Không dùng file hay mạng.
+
+## Include: đọc, sửa và lưu cấu hình
+
+Chạy `cargo run -p re-cordis-include --example config_file --locked --offline`.
+[Ví dụ](../../../crates/re-cordis-include/examples/config_file.rs) đọc tệp tạm,
+sửa cấu hình plugin có kiểu, flush và chờ shutdown.
+Xem [tệp cấu hình](include.md) để đọc cùng chương trình thực thi.

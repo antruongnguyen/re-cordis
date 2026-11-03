@@ -97,6 +97,42 @@ pub(crate) fn reconcile(
     flatten(base, None, &mut b);
     let mut t = BTreeMap::new();
     flatten(theirs, None, &mut t);
+    // A destination may be carried by pending creation rather than by the file.
+    let mut pending = BTreeMap::new();
+    for r in records
+        .iter()
+        .filter(|r| !r.remove && !b.contains_key(&r.id))
+    {
+        if let Some(value) = &r.snapshot {
+            flatten(
+                std::slice::from_ref(value),
+                r.original_parent.clone(),
+                &mut pending,
+            );
+        }
+    }
+    loop {
+        let invalid: Vec<_> = pending
+            .iter()
+            .filter_map(|(id, value)| {
+                let parent = records
+                    .iter()
+                    .find(|r| r.id == *id)
+                    .and_then(|r| r.parent.as_ref())
+                    .unwrap_or(&value.parent);
+                parent
+                    .as_ref()
+                    .filter(|p| !t.contains_key(*p) && !pending.contains_key(*p))
+                    .map(|_| id.clone())
+            })
+            .collect();
+        if invalid.is_empty() {
+            break;
+        }
+        for id in invalid {
+            pending.remove(&id);
+        }
+    }
     let mut conflicts = Vec::new();
     records.retain_mut(|r| {
         let old = b.get(&r.id);
@@ -134,7 +170,7 @@ pub(crate) fn reconcile(
             if r.parent
                 .as_ref()
                 .and_then(Option::as_ref)
-                .is_some_and(|p| !t.contains_key(p))
+                .is_some_and(|p| !t.contains_key(p) && !pending.contains_key(p))
             {
                 conflict(
                     &mut conflicts,
@@ -161,7 +197,9 @@ pub(crate) fn reconcile(
             }
         });
         if let Some(parent) = &r.parent {
-            if parent.as_ref().is_some_and(|p| !t.contains_key(p))
+            if parent
+                .as_ref()
+                .is_some_and(|p| !t.contains_key(p) && !pending.contains_key(p))
                 || old.is_some_and(|old| old.parent != now.parent && now.parent != *parent)
             {
                 conflict(
@@ -450,6 +488,21 @@ pub(crate) fn route(mut model: Model, records: &[Record]) -> Result<Model, Inclu
                     return Err(IncludeError::new(
                         "include descriptor paths change through source refresh",
                     ));
+                }
+                if owner.kind == crate::OwnerKind::Patch {
+                    if let Some(unset) = raw.get_mut("unset").and_then(Value::as_array_mut) {
+                        unset.retain(|v| v.as_str() != Some(k));
+                        if unset.is_empty() {
+                            raw.remove("unset");
+                        }
+                    }
+                    if r.changes[k].is_none() {
+                        raw.entry("unset")
+                            .or_insert_with(|| Value::Array(vec![]))
+                            .as_array_mut()
+                            .unwrap()
+                            .push(Value::String(k.clone()));
+                    }
                 }
                 if let Some(v) = &r.changes[k] {
                     raw.insert(k.clone(), v.clone());

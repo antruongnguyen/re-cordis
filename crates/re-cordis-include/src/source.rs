@@ -25,6 +25,9 @@ pub(crate) struct Model {
     pub owners: BTreeMap<String, Ownership>,
     pub locations: BTreeMap<String, Location>,
     pub warnings: Vec<IncludeError>,
+    load_missing: bool,
+    mounted: BTreeSet<PathBuf>,
+    entry_paths: BTreeMap<(PathBuf, String), Vec<PathSegment>>,
 }
 pub(crate) fn canonical(path: &Path) -> Result<PathBuf, IncludeError> {
     match std::fs::canonicalize(path) {
@@ -104,54 +107,8 @@ fn include_path(v: &Value) -> Option<&str> {
         .then(|| v.get("config")?.get("path")?.as_str())
         .flatten()
 }
-fn discover(value: &Value, base: &Path, out: &mut Vec<PathBuf>) {
-    if let Some(p) = include_path(value) {
-        out.push(base.join(p));
-        return;
-    }
-    if let Some(a) = value.as_array() {
-        for v in a {
-            discover(v, base, out);
-        }
-    } else if let Some(o) = value.as_object() {
-        for (k, v) in o {
-            if k == "entries"
-                || k == "patches"
-                || k == "insert"
-                || (k == "config" && value.get("group") == Some(&Value::Bool(true)))
-            {
-                discover(v, base, out);
-            }
-        }
-    }
-}
-fn load(
-    path: PathBuf,
-    initial: Option<&Value>,
-    files: &mut BTreeMap<PathBuf, Document>,
-    stack: &mut BTreeSet<PathBuf>,
-    depth: usize,
-) -> Result<(), IncludeError> {
-    if depth > MAX_DEPTH {
-        return Err(IncludeError::new("include depth limit exceeded"));
-    }
-    let path = canonical(&path)?;
-    if stack.contains(&path) {
-        return Err(IncludeError::new(format!(
-            "include cycle: {}",
-            path.display()
-        )));
-    }
-    if files.contains_key(&path) {
-        return Err(IncludeError::new(format!(
-            "source mounted more than once: {}",
-            path.display()
-        )));
-    }
-    if files.len() >= MAX_FILES {
-        return Err(IncludeError::new("source file limit exceeded"));
-    }
-    let (bytes, text) = match read(&path) {
+fn load_document(path: &Path, initial: Option<&Value>) -> Result<Document, IncludeError> {
+    let (bytes, text) = match read(path) {
         Ok(b) => {
             let t = String::from_utf8(b.clone()).map_err(|e| IncludeError::new(e.to_string()))?;
             (Some(b), t)
@@ -171,24 +128,13 @@ fn load(
         }
         Err(e) => return Err(e),
     };
-    let parsed = parse_document(&path, &text)?;
+    let parsed = parse_document(path, &text)?;
     entries(&parsed.value)?;
-    let mut includes = Vec::new();
-    discover(&parsed.value, path.parent().unwrap(), &mut includes);
-    stack.insert(path.clone());
-    files.insert(
-        path.clone(),
-        Document {
-            value: parsed.value,
-            bytes,
-            spans: parsed.locations,
-        },
-    );
-    for child in includes {
-        load(child, None, files, stack, depth + 1)?;
-    }
-    stack.remove(&path);
-    Ok(())
+    Ok(Document {
+        value: parsed.value,
+        bytes,
+        spans: parsed.locations,
+    })
 }
 pub(crate) fn reserve(value: &Value, used: &mut BTreeSet<String>) {
     if let Some(id) = value.get("id").and_then(Value::as_str) {
@@ -198,11 +144,9 @@ pub(crate) fn reserve(value: &Value, used: &mut BTreeSet<String>) {
         for v in a {
             reserve(v, used);
         }
-    } else if let Some(o) = value.as_object() {
-        for (k, v) in o {
-            if k == "entries" || k == "patches" || k == "insert" || k == "config" && v.is_array() {
-                reserve(v, used);
-            }
+    } else if value.get("group") == Some(&Value::Bool(true)) {
+        if let Some(c) = value.get("config") {
+            reserve(c, used);
         }
     }
 }
@@ -246,21 +190,9 @@ pub(crate) fn assign(
             .unwrap()
             .insert("id".into(), Value::String(id));
     }
-    let keys: Vec<_> = value.as_object().unwrap().keys().cloned().collect();
-    for k in keys {
-        if k == "entries"
-            || k == "patches"
-            || k == "insert"
-            || k == "config" && value.get(&k).is_some_and(Value::is_array)
-        {
-            assign(
-                value.get_mut(&k).unwrap(),
-                field(path.clone(), &k),
-                file,
-                ids,
-                used,
-                next,
-            );
+    if value.get("group") == Some(&Value::Bool(true)) {
+        if let Some(c) = value.get_mut("config") {
+            assign(c, field(path, "config"), file, ids, used, next);
         }
     }
 }
@@ -272,19 +204,33 @@ impl Model {
     ) -> Result<Self, IncludeError> {
         let root = canonical(&options.path)?;
         let mut files = BTreeMap::new();
-        load(
+        files.insert(
             root.clone(),
-            options.initial.as_ref(),
-            &mut files,
-            &mut BTreeSet::new(),
-            0,
-        )?;
+            load_document(&root, options.initial.as_ref())?,
+        );
+        // Expand once without generated IDs to identify actual entry addresses.
+        // This pass also loads only sources encountered in applied structural data.
+        let model = Self::build(root.clone(), files, true)?;
+        let mut files = model.files;
         let mut used = BTreeSet::new();
-        for d in files.values() {
-            reserve(&d.value, &mut used);
+        for (file, path) in model.entry_paths.keys() {
+            if let Some(id) = files[file]
+                .value
+                .pointer(path)
+                .and_then(|v| v.get("id"))
+                .and_then(Value::as_str)
+            {
+                used.insert(id.into());
+            }
         }
-        for (p, d) in &mut files {
-            assign(&mut d.value, vec![], p, ids, &mut used, next);
+        for ((file, pointer), path) in model.entry_paths {
+            let value = files
+                .get_mut(&file)
+                .unwrap()
+                .value
+                .pointer_mut(&pointer)
+                .unwrap();
+            assign(value, path, &file, ids, &mut used, next);
         }
         ids.retain(|(file, path), id| {
             files
@@ -303,6 +249,13 @@ impl Model {
         root: PathBuf,
         files: BTreeMap<PathBuf, Document>,
     ) -> Result<Self, IncludeError> {
+        Self::build(root, files, false)
+    }
+    fn build(
+        root: PathBuf,
+        files: BTreeMap<PathBuf, Document>,
+        load_missing: bool,
+    ) -> Result<Self, IncludeError> {
         let mut model = Self {
             root: root.clone(),
             files,
@@ -310,6 +263,9 @@ impl Model {
             owners: BTreeMap::new(),
             locations: BTreeMap::new(),
             warnings: vec![],
+            load_missing,
+            mounted: BTreeSet::new(),
+            entry_paths: BTreeMap::new(),
         };
         model.data = model.expand_file(&root, 0)?;
         if model.owners.len() > MAX_ENTRIES {
@@ -320,6 +276,18 @@ impl Model {
     fn expand_file(&mut self, file: &Path, depth: usize) -> Result<Vec<Value>, IncludeError> {
         if depth > MAX_DEPTH {
             return Err(IncludeError::new("group depth limit exceeded"));
+        }
+        if self.load_missing && !self.mounted.insert(file.into()) {
+            return Err(IncludeError::new(format!(
+                "include cycle or source mounted more than once: {}",
+                file.display()
+            )));
+        }
+        if !self.files.contains_key(file) && self.load_missing {
+            if self.files.len() >= MAX_FILES {
+                return Err(IncludeError::new("source file limit exceeded"));
+            }
+            self.files.insert(file.into(), load_document(file, None)?);
         }
         let value = self
             .files
@@ -348,6 +316,8 @@ impl Model {
         if depth > MAX_DEPTH {
             return Err(IncludeError::new("group depth limit exceeded"));
         }
+        self.entry_paths
+            .insert((file.into(), path_key(&path)), path.clone());
         if let Some(id) = v.get("id").and_then(Value::as_str) {
             let owner = Owner {
                 file: file.into(),

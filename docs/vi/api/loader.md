@@ -83,6 +83,7 @@ Kích thước payload Config Rust do ứng dụng quản lý. Đây là giới 
 không phải timeout theo thời gian hay cam kết kích thước tuần tự hóa.
 
 `replace_factory` thay declaration có kiểu đã liên kết.
-`commits`, `reconcile`, snapshot là điểm tích hợp trong bộ nhớ cho adapter
-lưu trữ/theo dõi tương lai. Không có filesystem, Node resolution, JS eval hay
+`commits`, `reconcile`, snapshot là điểm tích hợp trong bộ nhớ được adapter
+persistence của include sử dụng; theo dõi tệp vẫn chưa triển khai. Loader không
+cung cấp filesystem, Node resolution, JS eval hay
 nạp lại binary Rust. Xem [giới hạn](../../limitation.md#loader-and-structural-groups).

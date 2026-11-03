@@ -12,10 +12,10 @@ and unpublished. [File guide](../guides/include.md).
 | `IncludeOptions` | Native root path and optional missing-only initial JSON value. |
 | `IncludeTask` | Waiter for admitted loader work; keep the original host alive through completion. |
 | `Report` | Changed-source flag, independent failures and file-winning conflicts; inspect both lists after awaiting. |
-| `JsonEdit` | Top-level JSON field sets/removals; builder methods preserve explicit null versus removal. |
+| `JsonEdit` | Effective top-level field sets/removals; patch-owned absence uses `unset`, preserving null versus removal. |
 | `Conflict` | Entry ID, optional conflicting key and reason; structural conflicts have no key. |
 | `IncludeError` | Message, shared optional source location, original cause and conflicts retained across a write failure. |
-| `Location` | Canonical file path, structured raw path and optional SourceSpan. |
+| `Location` | Source file path, structured raw path and optional SourceSpan; Include resolves canonical paths. |
 | `Owner`, `OwnerKind`, `Ownership` | Actual file/patch/embedded entry owner and per-key overrides; absent key ownership inherits the entry owner. |
 | `ParsedDocument`, `parse_document` | Bounded strict JSON or restricted YAML value parsing with actual node locations, selected by .json/.yaml/.yml extension. |
 

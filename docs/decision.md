@@ -807,3 +807,10 @@ loss of a pending move. Permission bits are retained on replacement; absent
 roots are installed exclusively with a hard link to the complete sibling temp.
 Include descriptors in moved subtrees are rebased to canonical absolute paths.
 Operation errors retain their original sources and write-failure conflicts.
+
+The IR5 correction adds explicit patch `unset` field names, applied after
+overrides, to preserve effective absence without changing hidden base values.
+It keeps absent config distinct from JSON null. Runtime removal routes this
+marker to the actual patch owner; a later set removes the marker. Structural
+control keys cannot be unset. This is a necessary Rust/JSON representation
+for field deletion, not JavaScript undefined serialization.

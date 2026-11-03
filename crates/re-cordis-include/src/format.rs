@@ -43,17 +43,15 @@ impl Reader<'_> {
     }
     fn next(&mut self) -> Result<(Event, Marker), IncludeError> {
         self.parser.next_token().map_err(|e| {
-            IncludeError::located(
-                e.to_string(),
-                Location {
-                    file: self.file.into(),
-                    path: vec![],
-                    span: Some(SourceSpan {
-                        line: e.marker().line(),
-                        column: e.marker().col() + 1,
-                    }),
-                },
-            )
+            let location = Location {
+                file: self.file.into(),
+                path: vec![],
+                span: Some(SourceSpan {
+                    line: e.marker().line(),
+                    column: e.marker().col() + 1,
+                }),
+            };
+            IncludeError::located_cause(e, location)
         })
     }
     fn node(
@@ -235,17 +233,15 @@ pub fn parse_document(file: &Path, text: &str) -> Result<ParsedDocument, Include
 
 fn json_document(file: &Path, text: &str) -> Result<ParsedDocument, IncludeError> {
     let value = serde_json::from_str::<Value>(text).map_err(|e| {
-        IncludeError::located(
-            e.to_string(),
-            Location {
-                file: file.into(),
-                path: vec![],
-                span: Some(SourceSpan {
-                    line: e.line(),
-                    column: e.column(),
-                }),
-            },
-        )
+        let location = Location {
+            file: file.into(),
+            path: vec![],
+            span: Some(SourceSpan {
+                line: e.line(),
+                column: e.column(),
+            }),
+        };
+        IncludeError::located_cause(e, location)
     })?;
     let mut r = JsonPositions {
         text,

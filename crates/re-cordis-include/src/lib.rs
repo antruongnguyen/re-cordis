@@ -2,6 +2,37 @@
 //!
 //! File reads and writes are synchronous and bounded. Keep the original core
 //! Runtime driven until the returned lifecycle barriers finish.
+//!
+//! Construction itself performs no file I/O; refresh is explicit. This also
+//! permits joining an unused include owner without touching a source file.
+//!
+//! ```
+//! use re_cordis_core::{BoxError, Runtime};
+//! use re_cordis_include::{Include, IncludeOptions};
+//! use re_cordis_loader::Catalog;
+//!
+//! fn main() -> Result<(), BoxError> {
+//!     tokio::runtime::Builder::new_current_thread().build()?.block_on(async {
+//!         let runtime = Runtime::new();
+//!         runtime.run(async {
+//!             let include = Include::new(&runtime.context(), Catalog::new(),
+//!                 IncludeOptions::new("unused.json"))?;
+//!             include.dispose()?.await?;
+//!             Ok::<_, BoxError>(())
+//!         }).await??;
+//!         Ok::<_, BoxError>(())
+//!     })
+//! }
+//! ```
+//!
+//! Include handles stay on their owning Runtime host.
+//!
+//! ```compile_fail
+//! use re_cordis_include::Include;
+//! fn move_to_thread(include: Include) {
+//!     std::thread::spawn(move || drop(include));
+//! }
+//! ```
 mod format;
 mod journal;
 mod patch;
@@ -79,6 +110,11 @@ impl IncludeError {
             conflicts: vec![],
             cause: None,
         }
+    }
+    fn located_cause<E: Error + 'static>(error: E, location: Location) -> Self {
+        let mut error = Self::caused(error);
+        error.location = Some(Rc::new(location));
+        error
     }
     fn located(message: impl Into<String>, location: Location) -> Self {
         Self {
@@ -766,20 +802,34 @@ impl Include {
         let descendants = journal::children_ids(&live, id);
         journal::detach(&mut live, id).ok_or_else(|| IncludeError::new("entry missing"))?;
         let mut records = self.0.journal.borrow().clone();
-        records.retain(|r| r.id == id || !descendants.contains(&r.id));
-        journal::merge(
-            &mut records,
-            journal::Record {
-                snapshot: None,
-                original_parent: None,
-                id: id.into(),
-                created: false,
-                remove: true,
-                parent: None,
-                position: 0,
-                changes: BTreeMap::new(),
-            },
-        )?;
+        let model = self
+            .0
+            .model
+            .borrow()
+            .clone()
+            .ok_or_else(|| IncludeError::new("refresh required"))?;
+        for child in descendants {
+            let pending = records.iter().position(|r| r.id == child);
+            if patch::find(&model.data, &child).is_none() {
+                if let Some(pos) = pending {
+                    records.remove(pos);
+                }
+                continue;
+            }
+            journal::merge(
+                &mut records,
+                journal::Record {
+                    snapshot: None,
+                    original_parent: None,
+                    id: child,
+                    created: false,
+                    remove: true,
+                    parent: None,
+                    position: 0,
+                    changes: BTreeMap::new(),
+                },
+            )?;
+        }
         let planned = journal::route(
             self.0
                 .model

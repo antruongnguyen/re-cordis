@@ -75,6 +75,21 @@ impl Model {
                 warn(self, "patch must be an object");
                 continue;
             };
+            let unset = match object.get("unset") {
+                None => Vec::new(),
+                Some(Value::Array(keys))
+                    if keys.iter().all(|k| {
+                        k.as_str()
+                            .is_some_and(|k| !matches!(k, "id" | "name" | "insert" | "unset"))
+                    }) =>
+                {
+                    keys.iter().map(|k| k.as_str().unwrap()).collect::<Vec<_>>()
+                }
+                _ => {
+                    warn(self, "patch unset must be an array of non-control keys");
+                    continue;
+                }
+            };
             let id = patch.get("id").and_then(Value::as_str);
             let target = id.and_then(|id| find(data, id));
             if let Some(insert) = patch.get("insert") {
@@ -136,12 +151,16 @@ impl Model {
             }
             let replacing = target.get("group") == Some(&Value::Bool(true))
                 && (object.contains_key("config")
-                    || object.get("group").is_some_and(|g| g != &Value::Bool(true)));
-            let will_group = object
-                .get("group")
-                .map(|g| g == &Value::Bool(true))
-                .unwrap_or(target.get("group") == Some(&Value::Bool(true)));
-            if will_group {
+                    || object.get("group").is_some_and(|g| g != &Value::Bool(true))
+                    || unset.contains(&"config")
+                    || unset.contains(&"group"));
+            let will_group = !unset.contains(&"group")
+                && object
+                    .get("group")
+                    .map(|g| g == &Value::Bool(true))
+                    .unwrap_or(target.get("group") == Some(&Value::Bool(true)));
+            let converting = will_group && target.get("group") != Some(&Value::Bool(true));
+            if will_group && !unset.contains(&"config") {
                 if let Some(config) = object.get("config").and_then(Value::as_array) {
                     let mut prior = Vec::new();
                     if target.get("group") == Some(&Value::Bool(true)) {
@@ -172,7 +191,7 @@ impl Model {
             let target = find_mut(data, id).unwrap();
             let target_obj = target.as_object_mut().unwrap();
             for (k, v) in object {
-                if k == "id" || k == "name" {
+                if k == "id" || k == "name" || k == "unset" {
                     continue;
                 }
                 if v.is_null() && k != "config" {
@@ -191,14 +210,37 @@ impl Model {
                     );
                 }
             }
-            if object.contains_key("config") && target.get("group") == Some(&Value::Bool(true)) {
+            for k in &unset {
+                target_obj.remove(*k);
+                if let Some(o) = self.owners.get_mut(id) {
+                    o.keys.insert(
+                        (*k).into(),
+                        Owner {
+                            file: file.into(),
+                            path: path.clone(),
+                            kind: OwnerKind::Patch,
+                        },
+                    );
+                }
+            }
+            if (object.contains_key("config") || converting)
+                && target.get("group") == Some(&Value::Bool(true))
+            {
                 if let Some(a) = target.get("config").and_then(Value::as_array) {
                     let raw = a.clone();
+                    let ownership = self.owners.get(id).unwrap();
+                    let owner = ownership
+                        .keys
+                        .get("config")
+                        .unwrap_or(&ownership.entry)
+                        .clone();
                     let mut children = Vec::new();
                     for (j, v) in raw.into_iter().enumerate() {
-                        let p = index(field(path.clone(), "config"), j);
-                        let v = self.expand(v, file, p.clone(), depth + 1)?;
-                        self.embedded(&v, file, p);
+                        let p = index(field(owner.path.clone(), "config"), j);
+                        let v = self.expand(v, &owner.file, p.clone(), depth + 1)?;
+                        if owner.kind != OwnerKind::File {
+                            self.embedded(&v, &owner.file, p);
+                        }
                         children.push(v);
                     }
                     target

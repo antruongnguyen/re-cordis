@@ -80,6 +80,14 @@ parent file. Removing the patch restores the base value on refresh.
 Anonymous identity is matched by canonical file/raw position; the live cache
 is pruned and bounded. IDs skip explicit IDs in both source and patch entries.
 
+
+Patch `unset` removes effective fields after overrides. For example,
+`{"id":"app","unset":["config","disabled"]}` hides those fields even if a
+lower layer supplies them. `config: null` remains an explicit null value;
+it is not equivalent to `unset: ["config"]`. Control keys `id`, `name`,
+`insert` and `unset` cannot be unset. `JsonEdit::remove` records this absence
+at the patch owner; a later `JsonEdit::set` clears the corresponding marker.
+
 ## Runtime changes and flushing
 
 Use `edit(id, JsonEdit::new().set(key, value))` for a complete top-level entry
@@ -127,3 +135,82 @@ complete sibling temporary file; this requires filesystem hard-link support.
 Existing-file replacement preserves permission bits. Moving an include-bearing
 subtree rebases its descriptors to canonical absolute paths. Conflicts remain
 available on a write error and in the next report.
+
+## Offline example
+
+This complete program reads a real file, applies a typed runtime change, flushes it and joins shutdown. It creates and removes its own temporary directory; no network or external configuration is needed.
+
+```sh
+cargo run -p re-cordis-include --example config_file --locked --offline
+```
+
+```rust
+//! Offline file read, JSON edit, flush and joined shutdown.
+use re_cordis_core::{BoxError, Plugin, Runtime};
+use re_cordis_include::{Include, IncludeOptions, JsonEdit};
+use re_cordis_loader::Catalog;
+use serde_json::json;
+use std::{
+    convert::Infallible,
+    time::{SystemTime, UNIX_EPOCH},
+};
+
+fn main() -> Result<(), BoxError> {
+    let directory = std::env::temp_dir().join(format!(
+        "re-cordis-include-example-{}-{}",
+        std::process::id(),
+        SystemTime::now().duration_since(UNIX_EPOCH)?.as_nanos()
+    ));
+    std::fs::create_dir(&directory)?;
+    let result = (|| -> Result<(), BoxError> {
+        let path = directory.join("cordis.json");
+        std::fs::write(
+            &path,
+            serde_json::to_vec_pretty(&json!([
+                {"id":"worker","name":"worker","config":1}
+            ]))?,
+        )?;
+        let executor = tokio::runtime::Builder::new_current_thread().build()?;
+        executor.block_on(async {
+            let runtime = Runtime::new();
+            runtime
+                .run(async {
+                    let root = runtime.context();
+                    let mut catalog = Catalog::new();
+                    catalog.register_json(
+                        "worker",
+                        Plugin::new("worker", |_, value: u32| async move {
+                            println!("worker loaded with config {value}");
+                            Ok::<_, Infallible>(())
+                        }),
+                        |value| serde_json::from_value::<u32>(value.cloned().unwrap_or(json!(0))),
+                    )?;
+                    let include = Include::new(&root, catalog, IncludeOptions::new(path.clone()))?;
+                    let read = include.refresh()?.await?;
+                    assert!(read.failures.is_empty());
+                    let changed = include
+                        .edit("worker", JsonEdit::new().set("config", json!(2)))?
+                        .await?;
+                    assert!(changed.failures.is_empty() && changed.conflicts.is_empty());
+                    let flush = include.flush()?.await?;
+                    assert!(flush.failures.is_empty() && flush.conflicts.is_empty());
+                    let written: serde_json::Value =
+                        serde_json::from_slice(&std::fs::read(&path)?)?;
+                    assert_eq!(written[0]["config"], 2);
+                    include.dispose()?.await?;
+                    assert!(root.registry().is_empty()?);
+                    assert!(root.drain()?.await?.failures().is_empty());
+                    assert!(runtime.take_failures().is_empty());
+                    println!("config 2 persisted; joined shutdown restored the Registry");
+                    Ok::<_, BoxError>(())
+                })
+                .await??;
+            Ok::<_, BoxError>(())
+        })
+    })();
+    let cleanup = std::fs::remove_dir_all(&directory);
+    result?;
+    cleanup?;
+    Ok(())
+}
+```

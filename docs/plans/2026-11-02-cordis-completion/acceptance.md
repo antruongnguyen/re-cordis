@@ -103,8 +103,9 @@ counts describe tests actually run, not an inferred one-to-one source mapping.
   docs/limitation.md and docs/llms.txt where the slice changes current claims.
 - [ ] Add matched English/Vietnamese guide/API pages, export indexes, examples
   and glossary terms for each shipped public contract.
-- [ ] Extend tests/docs/check.py per delivered crate. It already covers core
-  and timer; new crate exports and snippet dependencies must be checked too.
+- [ ] Extend tests/docs/check.py per delivered crate. It now covers core,
+  timer, logger, loader and include; future crate exports and snippet dependencies
+  must be checked too.
 - [ ] Keep proposed APIs in planning docs until implemented. Do not insert
   unavailable examples into current user guides merely to illustrate a plan.
 - [ ] Record baseline and final revision, commands, tool versions, outcomes,

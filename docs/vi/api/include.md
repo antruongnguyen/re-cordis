@@ -12,10 +12,10 @@ và chưa phát hành. [Hướng dẫn tệp](../guides/include.md).
 | `IncludeOptions` | Đường dẫn gốc bản địa và JSON ban đầu tùy chọn chỉ dùng khi thiếu tệp. |
 | `IncludeTask` | Waiter cho công việc loader đã tiếp nhận; giữ host gốc đến lúc hoàn tất. |
 | `Report` | Cờ nguồn thay đổi, lỗi độc lập và xung đột tệp thắng; kiểm tra cả hai danh sách sau await. |
-| `JsonEdit` | Đặt/bỏ trường JSON cấp entry; builder phân biệt null tường minh với bỏ trường. |
+| `JsonEdit` | Đặt/bỏ trường hiệu lực cấp entry; trường vắng ở owner patch dùng `unset`, phân biệt với null. |
 | `Conflict` | ID entry, khóa xung đột tùy chọn và lý do; xung đột cấu trúc không có khóa. |
 | `IncludeError` | Thông báo, vị trí nguồn tùy chọn dùng chung, nguyên nhân gốc và xung đột được giữ khi ghi thất bại. |
-| `Location` | Đường dẫn tệp đã chuẩn hóa, đường dẫn thô có cấu trúc và SourceSpan tùy chọn. |
+| `Location` | Đường dẫn tệp nguồn, đường dẫn thô có cấu trúc và SourceSpan tùy chọn; Include chuẩn hóa đường dẫn. |
 | `Owner`, `OwnerKind`, `Ownership` | Nơi sở hữu entry trong file/patch/embedded và ghi đè từng khóa; khóa không có owner riêng kế thừa owner của entry. |
 | `ParsedDocument`, `parse_document` | Parse JSON nghiêm ngặt hoặc YAML có giới hạn kèm vị trí node thật, chọn theo đuôi .json/.yaml/.yml. |
 

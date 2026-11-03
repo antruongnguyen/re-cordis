@@ -209,9 +209,9 @@ integrated framework or resolve every behavioral gap.
   and failed writes may require manual partial-line repair.
   Public ingress, live webhook delivery, mutations, and durable/exactly-once
   delivery are excluded. See the consumer document for exact resource/time limits.
-- `re-cordis-core`, `re-cordis-timer`, `re-cordis-logger` and `re-cordis-loader`
-  are implemented within their documented Rust scope. Structural Group belongs
-  to loader; include, HMR and create remain future work. Each slice needs its own
+- `re-cordis-core`, `re-cordis-timer`, `re-cordis-logger`, `re-cordis-loader`
+  and `re-cordis-include` are implemented within their documented Rust scope.
+  Structural Group belongs to loader; HMR and create remain future work. Each slice needs its own
   source/API/dependency review and acceptance, including bilingual
   documentation. See [the roadmap](todo.md).
 - No stability guarantees — the API will change freely until the core is proven.
@@ -355,9 +355,10 @@ See [loader API](en/api/loader.md), [groups](en/api/groups.md) and the
   convenience beyond the pinned TS true/string-only field contract.
   Snapshots intentionally retain source Rc values, not independent resource
   leases or mutable Fiber control.
-- **Deferred satellites:** SourceDocument/reconcile/commits and replace_factory
-  are tested in-memory seams. Include file reading/writing, durability, patch
-  synchronization, filesystem watchers and the HMR engine remain unimplemented.
+- **Satellite boundaries:** SourceDocument/reconcile/commits and replace_factory
+  are tested in-memory seams. Include now supplies bounded file reading/writing,
+  patches and reconciliation in its own crate; filesystem watchers and the HMR
+  engine remain unimplemented.
   Per-entry source failures are independent; runtime structural preflight is
   whole-input, while async plugin failures do not roll back healthy siblings.
 - **Explicit bounds:** JSON syntax/global boundary failures reject the document.
@@ -409,3 +410,7 @@ full pending snapshots recover partial move writes on a later retry. Missing-roo
 creation requires hard-link support. Canonical absolute descriptor rebasing on
 moves preserves the currently resolved child source; later retargeting of the
 old symlink spelling is no longer followed by that rewritten descriptor.
+
+Patch `unset` is an explicit Rust/JSON adaptation for effective field absence.
+It differs from config:null and prevents a removed override from revealing a
+hidden base value. Existing value-only YAML, path and durability limits remain.
