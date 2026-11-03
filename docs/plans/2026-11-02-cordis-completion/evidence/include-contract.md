@@ -133,3 +133,14 @@ The complete source graph's compact effective JSON must fit the accepted loader'
 Anonymous identity cache entries are pruned to live raw file positions and bounded
 at 1024. Multi-file visibility is non-atomic, with tested pending recovery in both
 write orders and after parent-patch/child-file partial failure.
+
+## I4 effective field removal
+
+Override patches also accept `unset: ["key", ...]`, applied after overrides.
+The array contains only strings; `id`, `name`, `insert` and `unset` are forbidden
+control names. Invalid markers skip the entire patch with a located warning.
+An absent effective key retains its patch owner, so runtime removal writes
+back to that owner without revealing a hidden base value. A later set clears
+the marker. Config absence differs from explicit JSON null. Ordinary plugin
+config remains opaque; only actual structural entry collections receive IDs
+and source discovery.

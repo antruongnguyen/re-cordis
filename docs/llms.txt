@@ -17,7 +17,7 @@ Essential application constraints:
 - Injection retains exact providers through cleanup. Rc/BoundService alone are not resource leases.
 - Service set changes the value without replacing publication identity or reloading consumers.
 - Use typed calls/keys/decoders, not JS Proxy/decorators/eval. App-specific Tokio features remain explicit.
-- Include uses JSON-valued mutations, bounded synchronous I/O and explicit refresh; YAML writes normalize values.
+- Include uses JSON-valued mutations, bounded synchronous I/O and explicit refresh; YAML writes normalize values. Joined disposal flushes before child cleanup and reports final write errors.
 - GitHub examples grant no permission for login, authenticated requests or live remote mutations.
 
 ## Start here

@@ -24,7 +24,10 @@ This project does not yet follow semantic versioning — the API is unstable.
   writes. Sibling staging preserves pending edits on failure and never replaces
   unparseable current data. Canonical value output does not preserve YAML
   comments/style. Paired English/Vietnamese guide/API pages and include
-  export/snippet documentation checks.
+  export/snippet documentation checks. Joined disposal flushes before child
+  cleanup and retains final write errors; an offline read/change/flush/shutdown
+  example demonstrates the full flow. Patch `unset` preserves effective field
+  absence without revealing hidden base values or conflating absence with null.
 
 - Added unpublished `re-cordis-loader`: reusable typed factory catalog, parent-owned source entries, latest-intent rebuilds, structural groups/moves, typed isolation/evaluation, bounded JSON and source-location errors, immutable snapshots, runtime commit events, read-only in-memory reconciliation and typed factory replacement seams. Includes deterministic cleanup/failure fixtures, a runnable boot/reconfigure/recover/shutdown example and matching English/Vietnamese loader/group guides and API references.
 - Unpublished `re-cordis-logger` console satellite over existing core exporters:

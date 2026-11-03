@@ -205,7 +205,9 @@ The console [guide](docs/en/guides/console-logging.md) includes runnable setup,
 removal and cleanup. The [timer guide](docs/en/guides/timers.md) covers repaired
 admission, deadlines, cancellation and streams. The [loader guide](docs/en/guides/loader.md)
 covers typed loading, updates, source reconciliation and structural groups.
-Include, HMR and create remain future targets. The
+The [include guide](docs/en/guides/include.md) covers bounded file sources,
+patch ownership, runtime edits and joined flush/shutdown. HMR and create remain
+future targets. The
 [ordered roadmap](docs/todo.md#next-implementation-targets-satellites) records
 per-slice source reviews, design gates, tests and bilingual documentation
 requirements. These remaining targets are not delivered crates or a stable API promise.

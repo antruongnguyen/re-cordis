@@ -107,7 +107,8 @@ The user's **2026-11-03** execution direction selected console before timer
 repair. **`re-cordis-timer` and `re-cordis-logger` are implemented** (see below);
 console C0–C3 and timer repair T0–T5 are independently accepted. Loader/group
 L0–L5/G0–G1 are independently accepted with explicit stable/1.85.0 verification.
-Include, HMR and create remain future targets.
+Include I0–I4 is implemented and undergoing final scoped acceptance. HMR and
+create remain future targets.
 
 The TypeScript specification remains pinned to
 `35fdc969e4b6c48c48ed44717c7a018324e4dd88` in `local/cordis`.

@@ -34,3 +34,11 @@ failures, retries and partial multi-file recovery. read_acceptance.rs and
 lifecycle_acceptance.rs add 11 independent public-API boundary checks, including
 100 resource-baseline cycles. See [implementation evidence](include-implementation.md)
 and [boundary regressions](include-boundary-tests.md).
+
+I4 selected evidence: lifecycle.rs verifies final-flush ordering, original
+parser causes, visible final errors, dropped/repeated joined disposal, reentry,
+latest factory intent and include-descriptor moves. review_repairs.rs adds
+public regressions for pending parents, subtree deletion, opaque application
+JSON, replacement-patch includes and effective patch-owned field removal.
+See [review corrections](include-corrections.md); final acceptance additionally
+requires the scoped re-review and its residual corrections.
