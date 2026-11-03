@@ -15,6 +15,7 @@ chưa ổn định và chưa phát hành. [Hướng dẫn chạy được](../gu
 | `Loader` | Sở hữu cây entry và catalog dưới một owner riêng của core. |
 | `EntryId` | Identity logic ổn định trong loader; sinh entry-N hoặc dùng ID tường minh. |
 | `FactoryId` | Identity cấp phát trong catalog, khác EntryId và FiberId của core. |
+| `FactoryReplacement` | Declaration có kiểu đã liên kết, với preflight thuần trên source tùy chọn; dùng để tiếp nhận cả lô. |
 | `Scope` | Lớp isolation/intercept có kiểu bất biến; isolate mới, isolate_with tường minh, intercept tĩnh và intercept_with được đánh giá. |
 | `EntrySpec`, `EntryKind` | Toàn bộ tùy chọn plugin/group; builder injecting, scope, intercept, condition, map_config có kiểu. |
 | `EntrySnapshot` | Nguồn/options bất biến, config đã đánh giá, transport, state, cha, con có thứ tự, address và Fiber ID hiện tại. |
@@ -82,8 +83,12 @@ Config do decoder quản lý có thể chứa dữ liệu bất kỳ; không tr�
 Kích thước payload Config Rust do ứng dụng quản lý. Đây là giới hạn tiếp nhận,
 không phải timeout theo thời gian hay cam kết kích thước tuần tự hóa.
 
-`replace_factory` thay declaration có kiểu đã liên kết.
-`commits`, `reconcile`, snapshot là điểm tích hợp trong bộ nhớ được adapter
-persistence của include sử dụng; theo dõi tệp vẫn chưa triển khai. Loader không
-cung cấp filesystem, Node resolution, JS eval hay
-nạp lại binary Rust. Xem [giới hạn](../../limitation.md#loader-and-structural-groups).
+`replace_factory` gọi dạng một candidate của `replace_factories`.
+Mỗi lô nhận tối đa 256 `FactoryReplacement`, kiểm tra toàn bộ tên, kiểu source
+và callback `with_preflight` tùy chọn trước khi đổi catalog hay teardown.
+Preflight phải thuần; thay đổi hoặc dispose cùng loader bị từ chối trong lúc đó.
+Plugin validator của core vẫn chạy khi dependency sẵn sàng. Entry giữ source
+mới nhất, decoder và provider chính xác qua cleanup; lỗi sau unload cần phục hồi
+tường minh. `Settlement` báo kết quả.
+`commits`, `reconcile`, snapshot là điểm tích hợp trong bộ nhớ cho satellite.
+Loader không cung cấp filesystem, Node resolution, JS eval hay nạp lại binary Rust. Xem [giới hạn](../../limitation.md#loader-and-structural-groups).

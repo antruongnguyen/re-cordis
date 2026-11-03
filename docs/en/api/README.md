@@ -39,7 +39,7 @@ documented by concern.
 | [Errors and hooks](errors-hooks.md) | `HostError`, `AdmissionError`, `CompletionError`, `ValidationError`, `ValidationIssue`, `PathSegment`, public `hooks` module |
 | [Timer satellite](timer.md) | `TimerExt`, `Sleep`, `IntervalStream`, `IntervalControl`, `Scheduled`, `TimerError` |
 | [Console satellite](console-logger.md) | `ColorMode`, `Alignment`, `LabelStyle`, `Timestamp`, `ConsoleOptions`, `render`, `register`, `register_stdout` |
-| [Loader](loader.md) | `Catalog`, `Config`, `EntrySpec`, `EntryKind`, `EntryId`, `FactoryId`, `Loader`, `LoaderTask`, `LoaderError`, `EntrySnapshot`, `EntryState`, `EntryFailure`, `Settlement`, `Scope`, `Origin`, `CommitRecord`, `SourceId`, `SourceDocument`, `SourceLocation`, `SourceSpan`, `FieldPatch`, `EntryPatch`, `MAX_ENTRIES`, `MAX_JSON_BYTES`, `MAX_JSON_DEPTH`, `MAX_JSON_NODES`, `MAX_STRING_BYTES` |
+| [Loader](loader.md) | `Catalog`, `Config`, `EntrySpec`, `EntryKind`, `EntryId`, `FactoryId`, `FactoryReplacement`, `Loader`, `LoaderTask`, `LoaderError`, `EntrySnapshot`, `EntryState`, `EntryFailure`, `Settlement`, `Scope`, `Origin`, `CommitRecord`, `SourceId`, `SourceDocument`, `SourceLocation`, `SourceSpan`, `FieldPatch`, `EntryPatch`, `MAX_ENTRIES`, `MAX_JSON_BYTES`, `MAX_JSON_DEPTH`, `MAX_JSON_NODES`, `MAX_STRING_BYTES` |
 | [Groups](groups.md) | `Group` |
 | [Include](include.md) | `Include`, `IncludeOptions`, `IncludeTask`, `Report`, `JsonEdit`, `Conflict`, `IncludeError`, `Location`, `Owner`, `OwnerKind`, `Ownership`, `ParsedDocument`, `parse_document`, `MAX_BYTES`, `MAX_DEPTH`, `MAX_NODES`, `MAX_STRING_BYTES`, `MAX_FILES`, `MAX_ENTRIES`, `MAX_PATCHES`, `MAX_RETRIES` |
 

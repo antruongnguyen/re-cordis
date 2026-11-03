@@ -15,6 +15,7 @@ unstable and unpublished. [Runnable guide](../guides/loader.md).
 | `Loader` | Owns entry tree and factory catalog beneath one dedicated core owner. |
 | `EntryId` | Stable, loader-wide logical identity; generated entry-N or explicit ID. |
 | `FactoryId` | Catalog allocation identity, distinct from EntryId and core FiberId. |
+| `FactoryReplacement` | Already-linked typed declaration with optional pure raw-source preflight; used for whole-batch admission. |
 | `Scope` | Immutable typed isolation/intercept layers; fresh isolate, explicit isolate_with, static intercept and evaluated intercept_with. |
 | `EntrySpec`, `EntryKind` | Complete plugin/group options; typed injecting, scope, intercept, condition and map_config builders. |
 | `EntrySnapshot` | Immutable source/options, evaluated config, transport, state, parent, ordered children, address and current Fiber IDs. |
@@ -83,7 +84,13 @@ Decoder-owned config may contain arbitrary data; no field runs JavaScript.
 Native Config payload sizes are application-owned. Bounds are admission limits,
 not a wall-clock timeout or a serializer size promise.
 
-`replace_factory` supports replacement by another linked typed declaration.
-`commits`, `reconcile` and snapshots are in-memory integration seams used by the include persistence adapter;
-watching remains deferred. No filesystem, Node resolution, JS eval or native
-binary reload is provided. See [limitations](../../limitation.md#loader-and-structural-groups).
+`replace_factory` delegates to the one-candidate form of `replace_factories`.
+A batch accepts at most 256 `FactoryReplacement` values and checks all names,
+source types and optional `with_preflight` callbacks before catalog publication
+or teardown. Preflight must be pure; same-loader mutation and disposal are
+refused during it. Core Plugin validation still runs when dependencies are ready.
+Entries retain their latest source, decoder and exact providers through cleanup;
+post-unload failures require explicit recovery. `Settlement` reports the result.
+`commits`, `reconcile` and snapshots are in-memory integration seams used by
+satellites. Loader provides no filesystem, Node resolution, JS eval or native
+binary reload. See [limitations](../../limitation.md#loader-and-structural-groups).

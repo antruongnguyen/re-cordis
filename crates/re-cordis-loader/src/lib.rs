@@ -242,6 +242,51 @@ struct FactoryRecord {
     adapter: Rc<dyn Factory>,
     decoder: Option<Rc<Decoder>>,
 }
+type ReplacementPreflight = dyn Fn(&Config) -> Result<(), BoxError>;
+/// A compiled linked declaration, optionally checked against each retained raw source.
+/// Preflight must be pure; core dependency-ready validation still runs during apply.
+pub struct FactoryReplacement {
+    name: String,
+    adapter: Rc<dyn Factory>,
+    preflight: Option<Rc<ReplacementPreflight>>,
+}
+impl FactoryReplacement {
+    /// Supply a declaration already linked into this process.
+    pub fn new<C: Clone + 'static, R: 'static>(
+        name: impl Into<String>,
+        plugin: Plugin<C, R>,
+    ) -> Self {
+        let name = name.into();
+        Self {
+            adapter: Rc::new(TypedFactory {
+                name: name.clone(),
+                plugin,
+            }),
+            name,
+            preflight: None,
+        }
+    }
+    /// The catalog name being replaced.
+    pub fn name(&self) -> &str {
+        &self.name
+    }
+    /// Check retained raw source before any batch declaration changes or unloads.
+    /// Same-loader mutation and disposal are refused while this callback runs.
+    pub fn with_preflight<F, E>(mut self, validate: F) -> Self
+    where
+        F: Fn(&Config) -> Result<(), E> + 'static,
+        E: Into<BoxError> + 'static,
+    {
+        self.preflight = Some(Rc::new(move |config| validate(config).map_err(Into::into)));
+        self
+    }
+}
+struct PreflightGuard<'a>(&'a Cell<bool>);
+impl Drop for PreflightGuard<'_> {
+    fn drop(&mut self) {
+        self.0.set(false);
+    }
+}
 /// Explicit names resolving to reusable typed core Plugin declarations.
 #[derive(Default)]
 pub struct Catalog {
@@ -698,6 +743,7 @@ struct State {
     update_failure: RefCell<Option<(EntryFailure, Rc<Cell<bool>>)>>,
     retiring: RefCell<Vec<(Rc<Entry>, Option<Retirement>)>>,
     disposed: Cell<bool>,
+    preflighting: Cell<bool>,
     outer: Plugin<Rc<Entry>>,
     group: FactoryRecord,
     order: RefCell<Vec<EntryId>>,
@@ -737,6 +783,7 @@ impl Loader {
                 update_failure: RefCell::new(None),
                 retiring: RefCell::new(Vec::new()),
                 disposed: Cell::new(false),
+                preflighting: Cell::new(false),
                 outer,
                 group: FactoryRecord {
                     id: FactoryId(0),
@@ -873,7 +920,16 @@ impl Loader {
         )?;
         Ok(Self(state))
     }
+    fn mutation_allowed(&self) -> Result<(), LoaderError> {
+        if self.0.preflighting.get() {
+            return Err(LoaderError::Invalid(
+                "loader mutation refused during replacement preflight".into(),
+            ));
+        }
+        Ok(())
+    }
     fn admit(&self) -> Result<(), LoaderError> {
+        self.mutation_allowed()?;
         self.0.owner.context().invoke_callback(|| ())?;
         self.prune();
         if self.0.disposed.get() {
@@ -2622,67 +2678,181 @@ impl Loader {
         name: &str,
         plugin: Plugin<C, R>,
     ) -> Result<LoaderTask<Settlement>, LoaderError> {
+        self.replace_factories(vec![FactoryReplacement::new(name, plugin)])
+    }
+    /// Check and publish up to 256 linked replacements before retiring any entry.
+    /// Each entry keeps its current source and joins its own old cleanup; siblings
+    /// progress independently. Post-unload validation/apply failures do not roll back.
+    pub fn replace_factories(
+        &self,
+        replacements: Vec<FactoryReplacement>,
+    ) -> Result<LoaderTask<Settlement>, LoaderError> {
         self.admit()?;
-        let previous = self
-            .0
-            .catalog
-            .borrow()
-            .factories
-            .get(name)
-            .cloned()
-            .ok_or_else(|| LoaderError::UnknownFactory(name.into()))?;
-        let adapter: Rc<dyn Factory> = Rc::new(TypedFactory {
-            name: name.into(),
-            plugin,
-        });
-        if adapter.contract() != previous.adapter.contract() {
+        if replacements.len() > 256 {
             return Err(LoaderError::Invalid(
-                "factory replacement must preserve the source config contract".into(),
+                "replacement limit 256 exceeded".into(),
             ));
         }
+        let epoch = self.0.catalog.borrow().next;
+        let next = epoch
+            .checked_add(replacements.len() as u64)
+            .ok_or_else(|| LoaderError::Invalid("factory identity exhausted".into()))?;
         let entries: Vec<_> = self
             .0
             .entries
             .borrow()
             .values()
-            .filter(|entry| {
-                entry.spec.borrow().factory == name
-                    && matches!(entry.spec.borrow().kind, EntryKind::Plugin)
-            })
-            .cloned()
+            .map(|entry| (entry.clone(), entry.revision.get()))
             .collect();
-        for entry in &entries {
-            adapter.check(&entry.spec.borrow().config)?;
+        let mut records = BTreeMap::new();
+        for (index, replacement) in replacements.iter().enumerate() {
+            let name = &replacement.name;
+            if name.is_empty() || name.len() > 256 {
+                return Err(LoaderError::Invalid(
+                    "factory name must contain 1..=256 UTF-8 bytes".into(),
+                ));
+            }
+            if records.contains_key(name) {
+                return Err(LoaderError::DuplicateFactory(name.clone()));
+            }
+            let previous = self
+                .0
+                .catalog
+                .borrow()
+                .factories
+                .get(name)
+                .cloned()
+                .ok_or_else(|| LoaderError::UnknownFactory(name.clone()))?;
+            if previous.adapter.contract() != replacement.adapter.contract() {
+                return Err(LoaderError::Invalid(
+                    "factory replacement must preserve the source config contract".into(),
+                ));
+            }
+            for (entry, _) in &entries {
+                let spec = entry.spec.borrow();
+                if spec.factory == *name && matches!(spec.kind, EntryKind::Plugin) {
+                    replacement.adapter.check(&spec.config)?;
+                    entry
+                        .revision
+                        .get()
+                        .checked_add(1)
+                        .ok_or_else(|| LoaderError::Invalid("entry revision exhausted".into()))?;
+                }
+            }
+            records.insert(
+                name.clone(),
+                FactoryRecord {
+                    id: FactoryId(epoch + index as u64 + 1),
+                    adapter: replacement.adapter.clone(),
+                    decoder: previous.decoder,
+                },
+            );
         }
-        let next = self
-            .0
-            .catalog
-            .borrow()
-            .next
-            .checked_add(1)
-            .ok_or_else(|| LoaderError::Invalid("factory identity exhausted".into()))?;
-        let record = FactoryRecord {
-            id: FactoryId(next),
-            adapter,
-            decoder: previous.decoder,
+        {
+            self.0.preflighting.set(true);
+            let _guard = PreflightGuard(&self.0.preflighting);
+            for replacement in &replacements {
+                if let Some(validate) = &replacement.preflight {
+                    for (entry, _) in &entries {
+                        let spec = entry.spec.borrow().clone();
+                        if spec.factory == replacement.name
+                            && matches!(spec.kind, EntryKind::Plugin)
+                        {
+                            self.0
+                                .owner
+                                .context()
+                                .invoke_callback(|| validate(&spec.config))?
+                                .map_err(|source| LoaderError::Decode {
+                                    factory: replacement.name.clone(),
+                                    source: Rc::from(source),
+                                })?;
+                        }
+                    }
+                }
+            }
+            self.0.owner.context().invoke_callback(|| ())?;
+            if self.0.disposed.get()
+                || self.0.catalog.borrow().next != epoch
+                || self.0.entries.borrow().len() != entries.len()
+                || entries.iter().any(|(entry, revision)| {
+                    !entry.live.get()
+                        || entry.revision.get() != *revision
+                        || !self
+                            .0
+                            .entries
+                            .borrow()
+                            .get(&entry.id)
+                            .is_some_and(|current| Rc::ptr_eq(current, entry))
+                })
+            {
+                return Err(LoaderError::Invalid(
+                    "replacement preflight invalidated loader state".into(),
+                ));
+            }
+        }
+        let assigned: BTreeMap<_, _> = records
+            .iter()
+            .map(|(name, record)| (name.clone(), record.id))
+            .collect();
+        let displaced = {
+            let mut catalog = self.0.catalog.borrow_mut();
+            catalog.next = next;
+            records
+                .into_iter()
+                .filter_map(|(name, record)| catalog.factories.insert(name, record))
+                .collect::<Vec<_>>()
         };
-        self.0.catalog.borrow_mut().next = next;
-        let old = self
-            .0
-            .catalog
-            .borrow_mut()
-            .factories
-            .insert(name.into(), record);
-        drop(old);
-        for entry in entries {
+        drop(displaced);
+        let mut failures = Vec::new();
+        for (entry, _) in entries {
+            if !entry.live.get()
+                || !self
+                    .0
+                    .entries
+                    .borrow()
+                    .get(&entry.id)
+                    .is_some_and(|current| Rc::ptr_eq(current, &entry))
+            {
+                continue;
+            }
             let spec = entry.spec.borrow().clone();
+            let Some(expected) = assigned.get(&spec.factory) else {
+                continue;
+            };
+            if !matches!(spec.kind, EntryKind::Plugin)
+                || entry.factory.borrow().id == *expected
+                || !self
+                    .0
+                    .catalog
+                    .borrow()
+                    .factories
+                    .get(&spec.factory)
+                    .is_some_and(|current| current.id == *expected)
+            {
+                continue;
+            }
             let origin = entry.origin.borrow().clone();
-            drop(self.update_origin(&entry.id, spec, origin)?);
+            let location = spec.location.clone();
+            if let Err(error) = self.update_origin(&entry.id, spec, origin) {
+                failures.push(EntryFailure {
+                    id: entry.id.clone(),
+                    error: locate_error(error, location),
+                });
+            }
         }
-        self.settle()
+        let settled = self.settle()?;
+        Ok(LoaderTask(
+            async move {
+                let mut report = settled.await?;
+                report.failures.extend(failures);
+                Ok(report)
+            }
+            .boxed_local(),
+        ))
     }
     /// Start disposal of the whole dedicated owner and join all detached cleanup.
     pub fn dispose(&self) -> Result<LoaderTask<()>, LoaderError> {
+        self.mutation_allowed()?;
         let task = self.0.owner.dispose()?;
         self.0.disposed.set(true);
         let state = self.0.clone();

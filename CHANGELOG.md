@@ -16,6 +16,10 @@ This project does not yet follow semantic versioning — the API is unstable.
 
 ### Added
 
+- Loader `FactoryReplacement` and `replace_factories` preflight a complete linked
+  batch before teardown, refuse same-loader mutation during optional validation,
+  preserve current per-entry intent and report independent replacement failures.
+
 - Unpublished `re-cordis-include`: bounded JSON/restricted YAML source parsing,
   nested includes, canonical source identity/cycle limits, actual source locations,
   missing-only initial data and explicit refresh/recovery over accepted loader.
