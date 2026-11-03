@@ -125,6 +125,9 @@ def check_structure():
     include_source = (ROOT / "crates/re-cordis-include/src/lib.rs").read_text(encoding="utf-8")
     include_exports = exported_names(include_source)
     require(include_exports, "No public include exports discovered")
+    hmr_source = (ROOT / "crates/re-cordis-hmr/src/lib.rs").read_text(encoding="utf-8")
+    hmr_exports = exported_names(hmr_source)
+    require(hmr_exports, "No public HMR exports discovered")
     hooks = (ROOT / "crates/re-cordis-core/src/hooks.rs").read_text(encoding="utf-8")
     payloads = re.findall(r"^pub struct (\w+)", hooks, re.M)
     functions = re.findall(r"^pub fn (\w+)", hooks, re.M)
@@ -133,7 +136,7 @@ def check_structure():
         chapters = "\n".join(path.read_text(encoding="utf-8")
                              for path in (DOCS / language / "api").glob("*.md")
                              if path.name != "README.md")
-        for name in exports | timer_exports | logger_exports | loader_exports | include_exports:
+        for name in exports | timer_exports | logger_exports | loader_exports | include_exports | hmr_exports:
             require(f"`{name}`" in index, f"{language}: export not indexed: {name}")
             require(re.search(rf"\b{re.escape(name)}\b", chapters),
                     f"{language}: export not covered in a chapter: {name}")
@@ -154,6 +157,7 @@ def check_structure():
     print(f"Checked {len(english)} page pairs, {len(exports)} root exports, "
           f"{len(timer_exports)} timer exports, {len(logger_exports)} logger exports, "
           f"{len(loader_exports)} loader exports, {len(include_exports)} include exports, "
+          f"{len(hmr_exports)} HMR exports, "
           f"{len(payloads)} hook payloads, {len(functions)} hooks, local links and llms.txt.")
     require(snippets, "No runnable Rust documentation examples found")
     return snippets
@@ -170,8 +174,9 @@ def run(command, env, timeout=180):
 def run_examples(toolchain, snippets):
     env = os.environ.copy()
     tools = {}
-    for name in ("cargo", "rustc", "rustdoc"):
+    for name in ("cargo", "rustc", "rustdoc", "cargo-clippy", "clippy-driver"):
         tools[name] = run(["rustup", "which", "--toolchain", toolchain, name], env, 30).strip()
+    env["RUSTUP_TOOLCHAIN"] = toolchain
     env["RUSTC"], env["RUSTDOC"] = tools["rustc"], tools["rustdoc"]
     env["PATH"] = str(Path(tools["rustc"]).parent) + os.pathsep + env["PATH"]
     env["CARGO_TARGET_DIR"] = str(ROOT / "target" / ("msrv" if toolchain == "1.85.0" else "stable"))
@@ -180,11 +185,11 @@ def run_examples(toolchain, snippets):
     # Build delivered satellites and collect their explicit snippet libraries.
     # Cargo supplies their transitive dependencies through the dependency path.
     wanted = {"re_cordis_core", "re_cordis_timer", "re_cordis_logger", "re_cordis_loader",
-              "re_cordis_include", "serde_json", "tokio", "futures_util"}
+              "re_cordis_include", "re_cordis_hmr", "serde_json", "tokio", "futures_util"}
     output = run([tools["cargo"], "build", "-p", "re-cordis-timer",
                   "-p", "re-cordis-logger", "-p", "re-cordis-loader",
-                  "-p", "re-cordis-include",
-                  "--lib", "--offline", "--locked",
+                  "-p", "re-cordis-include", "-p", "re-cordis-hmr",
+                  "--features", "re-cordis-hmr/include", "--lib", "--offline", "--locked",
                   "--message-format=json"], env)
     libraries = {}
     for line in output.splitlines():

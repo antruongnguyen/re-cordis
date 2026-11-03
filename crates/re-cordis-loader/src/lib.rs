@@ -2834,17 +2834,36 @@ impl Loader {
             let origin = entry.origin.borrow().clone();
             let location = spec.location.clone();
             if let Err(error) = self.update_origin(&entry.id, spec, origin) {
-                failures.push(EntryFailure {
+                let failure = EntryFailure {
                     id: entry.id.clone(),
                     error: locate_error(error, location),
-                });
+                };
+                if self
+                    .0
+                    .update_failure
+                    .borrow()
+                    .as_ref()
+                    .is_none_or(|(_, observed)| observed.get())
+                {
+                    *self.0.update_failure.borrow_mut() =
+                        Some((failure.clone(), Rc::new(Cell::new(false))));
+                }
+                failures.push(failure);
             }
         }
         let settled = self.settle()?;
         Ok(LoaderTask(
             async move {
                 let mut report = settled.await?;
-                report.failures.extend(failures);
+                for failure in failures {
+                    if !report
+                        .failures
+                        .iter()
+                        .any(|current| current.id == failure.id)
+                    {
+                        report.failures.push(failure);
+                    }
+                }
                 Ok(report)
             }
             .boxed_local(),

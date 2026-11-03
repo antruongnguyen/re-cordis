@@ -478,3 +478,41 @@ async fn commit_factory_change_preserves_newer_sibling_intent_and_decoder() {
         .await
         .unwrap();
 }
+
+#[tokio::test(flavor = "current_thread")]
+async fn dropped_batch_observer_error_remains_observable() {
+    for remove in [false, true] {
+        let runtime = Runtime::new();
+        runtime.run(async {
+            let root = runtime.context();
+            let mut catalog = Catalog::new();
+            catalog.register("worker", inert("old")).unwrap();
+            let loader = Loader::new(&root, catalog).unwrap();
+            let a = loader.create(EntrySpec::new("worker", Config::new(1u32))).unwrap();
+            loader.settle().unwrap().await.unwrap();
+            let once = Rc::new(Cell::new(false));
+            root.on(&loader.commits(), Listener::sync({
+                let loader = loader.clone(); let a = a.clone();
+                move |_, commit: re_cordis_loader::CommitRecord| {
+                    if commit.id != a || once.replace(true) { return Ok(ControlFlow::Continue(())); }
+                    if remove { drop(loader.remove(&a).unwrap()); }
+                    Err(io::Error::other("dropped batch observer"))
+                }
+            })).unwrap();
+            drop(loader.replace_factory("worker", inert("new")).unwrap());
+            let report = loader.settle().unwrap().await.unwrap();
+            let diagnostics = runtime.take_failures();
+            let original = |error: &dyn std::error::Error| {
+                let mut cause = error;
+                while let Some(source) = cause.source() { cause = source; }
+                cause.to_string() == "dropped batch observer"
+            };
+            let in_report = report.failures.iter().any(|failure| failure.id == a && original(&failure.error));
+            let in_runtime = diagnostics.iter().any(|failure| original(failure));
+            eprintln!("removed={remove} later_settlement_has_original={in_report} runtime_has_original={in_runtime}");
+            assert!(in_report || in_runtime, "dropped batch hides original observer cause");
+            assert!(loader.settle().unwrap().await.unwrap().failures.is_empty(), "delivered settlement acknowledges retained error");
+            loader.dispose().unwrap().await.unwrap();
+        }).await.unwrap();
+    }
+}

@@ -16,6 +16,13 @@ This project does not yet follow semantic versioning — the API is unstable.
 
 ### Added
 
+- Unpublished `re-cordis-hmr`: bounded explicit file watching with a joined polling
+  producer, local debounced callbacks, exact tokens, overflow rescans and visible
+  failures; explicit dependency plans select already-linked factory batches.
+  Rust source changes report restart-required. Optional Include integration and
+  final acceptance remain in progress. Paired guides/API and executable checks
+  describe the supported Rust boundary.
+
 - Loader `FactoryReplacement` and `replace_factories` preflight a complete linked
   batch before teardown, refuse same-loader mutation during optional validation,
   preserve current per-entry intent and report independent replacement failures.

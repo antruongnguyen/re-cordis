@@ -177,3 +177,40 @@ behavioral failures; compilation errors are not counted as regression evidence.
    examples and parent-owned documentation checks; independent scoped review
    follows. Parent owns shared Cargo/docs wiring; this worker owns loader seam,
    its regressions, HMR reload module/tests and this contract evidence.
+
+## Selected H3 practical Include forwarding
+
+The same file-managed instances need both config refresh and linked replacement.
+Include's private loader previously made that composition inaccessible. The
+authorized narrow extension preserves Include's lack of HMR dependencies:
+
+```rust
+impl Include {
+    pub fn replace_factories(
+        &self, replacements: Vec<re_cordis_loader::FactoryReplacement>,
+    ) -> Result<IncludeTask<Report>, IncludeError>;
+}
+impl ReloadPlan {
+    #[cfg(feature = "include")]
+    pub fn replace_include(
+        &self, include: &re_cordis_include::Include, changed: &[String],
+        replacements: Vec<FactoryReplacement>,
+    ) -> Result<IncludeTask<Report>, IncludeError>;
+}
+```
+
+Include uses its existing operation guard, awaits the exact loader batch task
+and maps its failures into Report. This does not alter source bytes/data,
+journal, provenance or request a flush; Report.changed remains false.
+ReloadPlan shares one exact-coverage helper for Loader and Include targets.
+A later Include refresh uses the replacement catalog and retained decoder.
+This is one existing Include owner, not a recursive Include/module graph.
+
+Loader keeps all current-batch scheduling failures in the returned task and
+reuses its single first-unobserved global failure slot for dropped waiters,
+including when an observer removed the entry. A delivered settlement
+acknowledges that slot; it does not add an unbounded history. Returned rows
+deduplicate the same entry error supplied by the slot. Ordinary core callback
+cleanup diagnostics still use Runtime::take_failures. A retiring loader ID
+cannot be reused until its joined barrier is observed; the identity-reuse test
+asserts that admission boundary before checking a later new allocation.

@@ -109,7 +109,8 @@ console C0–C3 and timer repair T0–T5 are independently accepted. Loader/grou
 L0–L5/G0–G1 are independently accepted with explicit stable/1.85.0 verification.
 Include I0–I4 is independently accepted with explicit stable/1.85.0 verification;
 see [include acceptance](plans/2026-11-02-cordis-completion/evidence/include-acceptance.md).
-HMR and create remain future targets.
+HMR H0 is approved; H1/H2 code and H3 integration/acceptance are in progress.
+Create remains a future target.
 
 The TypeScript specification remains pinned to
 `35fdc969e4b6c48c48ed44717c7a018324e4dd88` in `local/cordis`.
@@ -220,8 +221,10 @@ reload, filesystem persistence and watching are explicitly excluded/deferred.
   All IR1–IR5 findings and two residuals are resolved; 75 Rust tests plus two
   Rustdoc checks pass on both toolchains. See
   [acceptance](plans/2026-11-02-cordis-completion/evidence/include-acceptance.md).
-- [ ] `hmr`: define what Rust reconfiguration/reload actually means after loader
-  acceptance. File watching and native hot loading require separate decisions.
+- [ ] `hmr`: H0 approved; owner-scoped watching, explicit linked factory batches
+  and source restart-required handling implemented. H3 integration and independent
+  acceptance are in progress; see [evidence](plans/2026-11-02-cordis-completion/evidence/hmr-implementation.md).
+  Native hot loading and a process supervisor are outside this selected scope.
 - [ ] `create`: consider scaffolding only once public crate names, dependency
   setup and application layout are sufficiently settled.
 
@@ -243,7 +246,7 @@ integrations remain separate scope decisions.
 - [ ] Update matching `docs/en/` and `docs/vi/` guides/API indexes, examples,
   glossary terms as needed, and `docs/llms.txt` in the same slice. Extend
   `tests/docs/check.py` for each delivered crate's exports/snippet dependencies;
-  its current automated export coverage includes core, timer, logger, loader and include.
+  its current automated export coverage includes core, timer, logger, loader, include and HMR.
 - [ ] Keep `README.md` status/layout/star matrices, `CHANGELOG.md`,
   `docs/todo.md`, `docs/decision.md`, `docs/limitation.md` and `AGENTS.md` accurate.
   Preserve old milestone evidence as historical, not claims of new delivery.

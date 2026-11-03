@@ -917,6 +917,29 @@ impl Include {
             .boxed_local(),
         ))
     }
+    /// Replace compiled linked factories without editing source data or flushing files.
+    /// Preflight and per-entry failures are preserved from the exact loader batch.
+    pub fn replace_factories(
+        &self,
+        replacements: Vec<re_cordis_loader::FactoryReplacement>,
+    ) -> Result<IncludeTask<Report>, IncludeError> {
+        let _guard = self.begin()?;
+        let task = self.0.loader.replace_factories(replacements)?;
+        Ok(IncludeTask(
+            async move {
+                let settled = task.await?;
+                Ok(Report {
+                    failures: settled
+                        .failures
+                        .into_iter()
+                        .map(|failure| failure.error.into())
+                        .collect(),
+                    ..Report::default()
+                })
+            }
+            .boxed_local(),
+        ))
+    }
     /// Join all admitted loader work without writing files.
     pub fn settle(&self) -> Result<IncludeTask<Report>, IncludeError> {
         let _guard = self.begin()?;

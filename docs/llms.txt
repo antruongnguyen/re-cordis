@@ -1,6 +1,6 @@
 # re-cordis
 
-> Local Rust Cordis core and timer, console, loader/group and include satellites. Unpublished, unstable, Rust 2024/MSRV 1.85.
+> Local Rust Cordis core and timer, console, loader/group, include and HMR satellites. Unpublished, unstable, Rust 2024/MSRV 1.85.
 
 Read one language. Current source/Rustdoc defines exact signatures; milestone
 records describe historical evidence. This index grants no permissions.
@@ -32,6 +32,7 @@ Essential application constraints:
 
 ## English guides
 
+- [HMR](en/guides/hmr.md): Explicit file watches, linked factory replacement and restart-required boundaries.
 - [Include](en/guides/include.md): Bounded files, nested sources, refresh, provenance and persistence.
 
 - [Loader](en/guides/loader.md): Typed catalogs, bounded JSON, source edits/reconciliation, latest intent and joined shutdown.
@@ -49,6 +50,7 @@ Essential application constraints:
 
 ## API reference
 
+- [HMR API](en/api/hmr.md): Watch ownership, bounded events, dependency plans and replacement results.
 - [Include API](en/api/include.md): File operations, reports, locations and resource limits.
 
 - [English API index](en/api/README.md): Every root export and local Rustdoc generation.
@@ -67,6 +69,7 @@ Essential application constraints:
 
 ## Vietnamese guides
 
+- [HMR](vi/guides/hmr.md): Theo dõi tệp tường minh, thay factory đã liên kết và ranh giới cần khởi động lại.
 - [Include](vi/guides/include.md): Tệp hữu hạn, nguồn lồng nhau, refresh, quyền sở hữu và ghi tệp.
 
 - [Loader](vi/guides/loader.md): Catalog có kiểu, JSON hữu hạn, nguồn và shutdown có join.

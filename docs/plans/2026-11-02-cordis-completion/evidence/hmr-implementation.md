@@ -38,3 +38,21 @@ Paired loader API/index and changelog edits accompany this checkpoint. Local
 links/fences and seven documentation checker regressions pass. Full guide/API
 compilation includes the concurrently developing HMR crate and remains the H3
 gate; this checkpoint is not final H2 or whole-HMR acceptance.
+
+## Paused H1/H2 implementation checkpoint
+
+The parent independently verified 45 HMR checks, nine loader batch checks and
+two Include linked-replacement checks on explicit stable 1.97.1 and 1.85.0.
+Both documentation runs execute 13 snippets and the external quick start,
+checking 31 bilingual page pairs and 19 HMR exports. H1 and H2 worker reports
+record their full package/strict Clippy/Rustdoc checks. The code is a durable
+implementation checkpoint, not acceptance: independent review confirms
+[H2-R1](hmr-reload-review.md), which loses one distinct observer error when an
+entry also has an apply failure. That correction and its scoped re-review remain.
+
+The user requested a pause before leaving the office. All workers stopped.
+The [Vietnamese resume handoff](hmr-resume/README.md) identifies exact remaining
+work and preserves the H3 tests/example, failing H2 probe and matrix runner.
+The optional watch_include adapter, offline example execution, final source-map
+joins, independent watcher/adapter review and full shared matrix remain pending.
+No push, publication, automation, create or R0/R1 work was started.

@@ -159,10 +159,12 @@ names are .git, target and node_modules. Registration count includes duplicate
 callbacks and retired registrations whose callback destruction or admitted Include
 barrier has not joined. Quota is released only when retirement has completed,
 preventing unbounded stop/re-register accumulation. stats.watches includes those
-resident registrations; stats.active reports the live subset. Capacities must be positive; poll interval must be positive; checked
+resident registrations; stats.active reports the live subset. Capacities must be positive; poll interval must be positive and representable by checked Instant addition; checked
 timer admission rejects unavailable clocks/unrepresentable deadlines before a
 producer is started. Zero debounce is supported using accepted timer semantics.
-base is resolved once at construction and need not be UTF-8.
+base is resolved once at construction and need not be UTF-8. An existing base
+is canonicalized once, accepting native base aliases such as macOS /var;
+symlink components below the fixed base and explicit path symlinks are refused.
 
 capabilities() is a pure value snapshot. Construction does not produce repeated
 source-replacement warnings. take_events() drains the current bounded history;

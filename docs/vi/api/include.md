@@ -27,6 +27,14 @@ nguồn; `entries`, `data` và `ownership` cho quan sát bất biến.
 `dispose` dừng tiếp nhận và chờ teardown. `final_error` giữ lỗi ghi cuối dù waiter bị bỏ.
 Kiểm tra report/chẩn đoán dọn dẹp của core bên cạnh kết quả include.
 
+`replace_factories` nhận các declaration `FactoryReplacement` đã liên kết qua
+loader riêng của Include và trả đúng kết quả lô dưới dạng `IncludeTask<Report>`.
+Thao tác không flush, không đổi journal, dữ liệu nguồn, provenance hay byte tệp;
+`Report.changed` là false. Mọi candidate được kiểm tra trước teardown thay thế,
+và lỗi từng entry độc lập vẫn có trong report. Refresh sau đó dùng catalog mới.
+`ReloadPlan::replace_include` tùy chọn của HMR thêm lựa chọn dependency tường minh,
+trong khi Include vẫn không phụ thuộc HMR.
+
 | Giới hạn được export | Giá trị |
 |---|---:|
 | `MAX_BYTES` — byte nguồn/JSON hiệu lực/journal | 1048576 |

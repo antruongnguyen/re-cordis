@@ -6,6 +6,9 @@ review, integration, documentation and current verification.
 
 ## Execution scope and revision
 
+**Paused by user on 2026-11-03.** All workers stopped; no automatic continuation.
+Resume using [the saved handoff](evidence/hmr-resume/README.md). HMR is not accepted.
+
 - Current user-selected execution: HMR H0–H3, starting from clean checkpoint 47042d9 on feat/cordis-completion. Include I0–I4 at 0a2df1e and loader at 101f37b remain accepted prerequisites. Fresh sol/high implementation and astra/high independent review use serialized file ownership. Create S0–S2 and whole-program R0/R1 stay unselected; no push or publication.
 
 - Current engineering direction (2026-11-03): prioritize usable Cordis features and idiomatic Rust contracts; see [the decision](../../decision.md#2026-11-03--deliver-cordis-features-through-idiomatic-rust-contracts). Keep initial design bounded, implement with tests/examples, then assess the working feature. Record deliberate differences and actual limitations; do not turn all B0 gaps into a prerequisite or mechanically reproduce TS mechanisms.
@@ -54,9 +57,9 @@ review, integration, documentation and current verification.
 | I3 | done | I2 | sol/high implementation; parent integration | integration, serialized writes | 15670ea | bounded journal/reconciliation/persistence | evidence/include-acceptance.md; evidence/include-final-rereview.md |
 | I4 | done | I3 | sol/high implementation; astra/high final review | integration, serialized writes | 0a2df1e | accepted; all findings resolved | evidence/include-acceptance.md; evidence/include-final-rereview.md |
 | H0 | done | T5, L5, I0 | sol/high probes; astra/high independent review | integration, serialized writes | containing H0 commit | approved with four incorporated corrections | evidence/hmr-h0-review.md |
-| H1 | in_progress | H0, I1 | sol/high watch worker | integration, assigned files | — | test-first implementation | evidence/hmr-watch-contract.md |
-| H2 | in_progress | H0 | sol/high reload worker | integration, assigned files | — | test-first implementation | evidence/hmr-reload-contract.md |
-| H3 | planned | H1, H2, I4 | unassigned | integration | — | not started | evidence/H3/ |
+| H1 | in_progress | H0, I1 | paused; implementation frozen | integration | containing pause checkpoint | 27 tests +1 Rustdoc pass both; final review/Include adapter pending | evidence/hmr-watch-implementation.md |
+| H2 | in_progress | H0 | paused; independent finding open | integration | bbef48b + containing pause checkpoint | H2-R1 confirmed; fix and scoped re-review required | evidence/hmr-reload-review.md |
+| H3 | in_progress | H1, H2, I4 | paused; drafts preserved | integration | containing pause checkpoint | Include factory seam green; watch adapter/example/full acceptance pending | evidence/hmr-resume/README.md |
 | S0 | planned | C3, L5 | unassigned | integration | — | not started | evidence/S0/ |
 | S1 | planned | S0 | unassigned | integration | — | not started | evidence/S1/ |
 | S2 | planned | S1 | unassigned | integration | — | not started | evidence/S2/ |
@@ -278,3 +281,5 @@ independent acceptance; no active B0 blocker or worker remains.
 - 2026-11-03 CP079: H0 independently approved after four concrete corrections: same-loader preflight admission guard, initial real Rescan, externally retained already-admitted IncludeTask join, and active+retiring registration quota. notify 8.2.0/8.2.1 pass explicit 1.85.0 dependency checks but lack portable joined PollWatcher shutdown; use an owned stdlib producer. Two actual loader probes fail on stable/1.85.0 and justify only a batch seam/stale-entry guard. H1 and H2 tests/implementation run on disjoint owned files; parent records milestone commits.
 
 - 2026-11-03 CP080: Frozen H2 loader prerequisite passes 84 package checks, strict Clippy and Rustdoc on explicit stable/1.85.0. Parent reruns all eight new batch tests on both and matches source/test hashes. Two baseline probes plus observer-error RED regression motivate whole-batch admission, guarded preflight, current-entry identity checks and independent error collection. Paired loader API changes accompany this durable code checkpoint. HMR watcher/graph/Include integration and final independent acceptance remain in progress; no core change.
+
+- 2026-11-03 CP081 — USER PAUSE: Parent verified frozen H1/H2 checkpoint on explicit stable/1.85.0: 45 HMR checks (27 watch +17 replacement/nested +1 Rustdoc), nine loader batch and two Include linked tests. Both documentation runs passed 31 page pairs/19 HMR exports/13 executable snippets plus external quick start; seven checker regressions pass. Independent H2 review found H2-R1: EntryId-only dedup drops a distinct scheduling observer failure when the same entry also fails apply. Do not accept H2 until corrected and scoped re-reviewed. H3 watcher adapter is not implemented: nine tests and offline example remain drafts, now preserved in tracked evidence/hmr-resume/. Full shared HMR matrix has not run. User left the office and explicitly requested pause/resume tracking; all workers stopped, no automation or further feature work. Resume from evidence/hmr-resume/README.md; keep later edits and existing accepted prerequisite evidence.

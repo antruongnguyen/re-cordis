@@ -375,6 +375,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "re-cordis-hmr"
+version = "0.0.0"
+dependencies = [
+ "futures-util",
+ "re-cordis-core",
+ "re-cordis-include",
+ "re-cordis-loader",
+ "re-cordis-timer",
+ "tokio",
+]
+
+[[package]]
 name = "re-cordis-include"
 version = "0.0.0"
 dependencies = [

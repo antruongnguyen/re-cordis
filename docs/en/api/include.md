@@ -28,6 +28,14 @@ loader work. `dispose` stops admission and joins teardown. `final_error` retains
 write failure independently of a dropped waiter. Inspect core cleanup
 reports/diagnostics in addition to include results.
 
+`replace_factories` accepts linked `FactoryReplacement` declarations through
+Include's private loader and returns the exact batch result as `IncludeTask<Report>`.
+It does not flush or change journal, source data, provenance or file bytes;
+`Report.changed` is false. All candidates are checked before replacement teardown,
+and independent entry failures remain in the report. Later refresh uses the new
+catalog. The optional HMR `ReloadPlan::replace_include` adds explicit dependency
+selection while keeping Include independent of HMR.
+
 | Exported bound | Value |
 |---|---:|
 | `MAX_BYTES` — source/effective JSON/journal bytes | 1048576 |
