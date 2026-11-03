@@ -1,3 +1,4 @@
+//! Low-level YAML parser capability evidence.
 use yaml_rust2::{
     parser::{Event, MarkedEventReceiver, Parser},
     scanner::Marker,

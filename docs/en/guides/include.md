@@ -79,3 +79,51 @@ An entry may live in a nested file while its config belongs to a patch in the
 parent file. Removing the patch restores the base value on refresh.
 Anonymous identity is matched by canonical file/raw position; the live cache
 is pruned and bounded. IDs skip explicit IDs in both source and patch entries.
+
+## Runtime changes and flushing
+
+Use `edit(id, JsonEdit::new().set(key, value))` for a complete top-level entry
+field. `JsonEdit::remove(key)` removes a field; setting config to JSON null
+retains an explicit null value. `create(value, parent, position)`,
+`remove(id)` and `move_entry(id, parent, position)` edit structure.
+A parent is an optional entry ID; None selects the root. These operations
+return a waiter, and `settle` joins admitted loader work.
+
+Changes enter a bounded in-memory journal before persistence. Repeated edits
+coalesce by entry; create-then-remove leaves no pending write.
+`pending` reports the number of pending entry records. Admission refuses
+overflow before changing the runtime. The adapter does not expose a mutable
+loader or serialize arbitrary native Config values.
+
+Await `flush()?.await?` to reread, reconcile, write and join application of the
+reconciled view. `refresh` uses the same reconciliation policy. A file change
+wins when both sides change the same top-level key differently; `config`
+is one whole key, not a recursive merge of application fields. Identical edits
+are not conflicts. File removal wins over a runtime edit; modifying an entry
+in the file conflicts with runtime removal. Incompatible parent changes are
+reported as structural conflicts. Inspect `Report::conflicts`.
+
+Write-back follows the owner of each entry/key, including nested files,
+patch overrides and entries embedded in patch inserts or replacement group
+configs. Source reconciliation does not itself create a write-back journal.
+An include descriptor's generated group/config cannot be replaced by generic
+runtime edits; change its path in the source and refresh.
+
+On a write failure, the operation returns an error and pending runtime changes
+remain in memory. Correct the external cause and retry refresh/flush, or await
+disposal's final attempt. Never replace an unparseable current file just to
+force a successful save.
+
+Each file is written through a sibling temporary file with bounded attempts.
+Each retry rereads and reconciles current content. Replacement is per file;
+there is no multi-file transaction, fsync crash-durability promise or complete
+concurrent-writer protocol. An uncooperative writer can still race the final
+content check and rename.
+
+A partially successful multi-file flush retains bounded full snapshots so a
+later retry can recover unchanged fields of a moved entry, whichever file was
+written first. Missing roots are installed by exclusively hard-linking the
+complete sibling temporary file; this requires filesystem hard-link support.
+Existing-file replacement preserves permission bits. Moving an include-bearing
+subtree rebases its descriptors to canonical absolute paths. Conflicts remain
+available on a write error and in the next report.

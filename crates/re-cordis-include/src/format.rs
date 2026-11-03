@@ -90,6 +90,12 @@ impl Reader<'_> {
                 if style != TScalarStyle::Plain {
                     return Ok(Value::String(s));
                 }
+                if matches!(
+                    s.to_ascii_lowercase().as_str(),
+                    ".inf" | "+.inf" | "-.inf" | ".nan"
+                ) {
+                    return Err(self.error("non-finite YAML numbers are unsupported", m, path));
+                }
                 match s.as_str() {
                     "" | "~" | "null" | "Null" | "NULL" => Ok(Value::Null),
                     "true" | "True" | "TRUE" => Ok(Value::Bool(true)),

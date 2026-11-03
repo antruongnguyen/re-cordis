@@ -156,11 +156,19 @@ fn load(
             let t = String::from_utf8(b.clone()).map_err(|e| IncludeError::new(e.to_string()))?;
             (Some(b), t)
         }
-        Err(_e) if !path.exists() && initial.is_some() => (
-            None,
-            serde_json::to_string(initial.unwrap())
-                .map_err(|e| IncludeError::new(e.to_string()))?,
-        ),
+        Err(e)
+            if e.cause
+                .as_deref()
+                .and_then(|e| e.downcast_ref::<std::io::Error>())
+                .is_some_and(|e| e.kind() == std::io::ErrorKind::NotFound)
+                && initial.is_some() =>
+        {
+            (
+                None,
+                serde_json::to_string(initial.unwrap())
+                    .map_err(|e| IncludeError::new(e.to_string()))?,
+            )
+        }
         Err(e) => return Err(e),
     };
     let parsed = parse_document(&path, &text)?;
@@ -182,7 +190,7 @@ fn load(
     stack.remove(&path);
     Ok(())
 }
-fn reserve(value: &Value, used: &mut BTreeSet<String>) {
+pub(crate) fn reserve(value: &Value, used: &mut BTreeSet<String>) {
     if let Some(id) = value.get("id").and_then(Value::as_str) {
         used.insert(id.into());
     }
@@ -198,7 +206,7 @@ fn reserve(value: &Value, used: &mut BTreeSet<String>) {
         }
     }
 }
-fn assign(
+pub(crate) fn assign(
     value: &mut Value,
     path: Vec<PathSegment>,
     file: &Path,
@@ -386,59 +394,100 @@ impl Model {
                 .iter()
                 .all(|(p, d)| other.files.get(p).is_some_and(|o| d.bytes == o.bytes))
     }
+
     pub fn rebuild_locations(&mut self) {
         self.locations.clear();
         fn walk(
             a: &[Value],
-            p: Vec<PathSegment>,
+            effective: Vec<PathSegment>,
+            file: PathBuf,
+            rawbase: Vec<PathSegment>,
             owners: &BTreeMap<String, Ownership>,
             files: &BTreeMap<PathBuf, Document>,
             out: &mut BTreeMap<String, Location>,
         ) {
             for (i, v) in a.iter().enumerate() {
-                let path = index(p.clone(), i);
-                if let Some(o) = v
+                let ep = index(effective.clone(), i);
+                let fallback = index(rawbase.clone(), i);
+                let own = v
                     .get("id")
                     .and_then(Value::as_str)
-                    .and_then(|id| owners.get(id))
-                {
-                    let d = files.get(&o.entry.file).unwrap();
-                    out.insert(
-                        path_key(&path),
-                        Location {
-                            file: o.entry.file.clone(),
-                            path: o.entry.path.clone(),
-                            span: d.spans.get(&path_key(&o.entry.path)).cloned(),
-                        },
-                    );
-                    if let Some(m) = v.as_object() {
-                        for k in m.keys() {
-                            let own = o.keys.get(k).unwrap_or(&o.entry);
-                            let raw = field(own.path.clone(), k);
-                            out.insert(
-                                path_key(&field(path.clone(), k)),
-                                Location {
-                                    file: own.file.clone(),
-                                    path: raw.clone(),
-                                    span: files
-                                        .get(&own.file)
-                                        .and_then(|d| d.spans.get(&path_key(&raw)))
-                                        .cloned(),
-                                },
-                            );
-                        }
+                    .and_then(|id| owners.get(id));
+                let (entry_file, entry_path) = own
+                    .map(|o| (o.entry.file.clone(), o.entry.path.clone()))
+                    .unwrap_or((file.clone(), fallback));
+                let span = files
+                    .get(&entry_file)
+                    .and_then(|d| d.spans.get(&path_key(&entry_path)))
+                    .cloned();
+                out.insert(
+                    path_key(&ep),
+                    Location {
+                        file: entry_file.clone(),
+                        path: entry_path.clone(),
+                        span,
+                    },
+                );
+                if let (Some(object), Some(own)) = (v.as_object(), own) {
+                    for k in object.keys() {
+                        let owner = own.keys.get(k).unwrap_or(&own.entry);
+                        let raw = field(owner.path.clone(), k);
+                        out.insert(
+                            path_key(&field(ep.clone(), k)),
+                            Location {
+                                file: owner.file.clone(),
+                                path: raw.clone(),
+                                span: files
+                                    .get(&owner.file)
+                                    .and_then(|d| d.spans.get(&path_key(&raw)))
+                                    .cloned(),
+                            },
+                        );
                     }
                 }
                 if v.get("group") == Some(&Value::Bool(true)) {
-                    if let Some(c) = v.get("config").and_then(Value::as_array) {
-                        walk(c, field(path, "config"), owners, files, out);
+                    if let Some(children) = v.get("config").and_then(Value::as_array) {
+                        let mut child_file = entry_file.clone();
+                        let mut child_path = field(entry_path.clone(), "config");
+                        if let Some(own) = own {
+                            if let Some(o) = own.keys.get("config") {
+                                child_file = o.file.clone();
+                                child_path = field(o.path.clone(), "config");
+                            } else if let Some(raw) = files
+                                .get(&entry_file)
+                                .and_then(|d| d.value.pointer(&path_key(&entry_path)))
+                            {
+                                if include_path(raw).is_some() {
+                                    if let Some(target) = include_path(raw).and_then(|p| {
+                                        canonical(&entry_file.parent().unwrap().join(p)).ok()
+                                    }) {
+                                        if let Some(d) = files.get(&target) {
+                                            child_file = target;
+                                            child_path = entries_path(&d.value);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        walk(
+                            children,
+                            field(ep, "config"),
+                            child_file,
+                            child_path,
+                            owners,
+                            files,
+                            out,
+                        );
                     }
                 }
             }
         }
+        let base = entries_path(&self.files[&self.root].value);
         walk(
             &self.data,
             vec![],
+            self.root.clone(),
+            base,
             &self.owners,
             &self.files,
             &mut self.locations,

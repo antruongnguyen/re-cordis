@@ -9,7 +9,8 @@ TypeScript bằng API Rust tường minh, có kiểu.
 Sản phẩm hiện tại gồm `re-cordis-core`, `re-cordis-timer`, `re-cordis-logger`
 cùng `re-cordis-loader` và `re-cordis-include` chưa phát hành, phiên bản 0.0.0, Rust 2024/MSRV 1.85.
 API chưa ổn định. Loader sở hữu nguồn entry có kiểu và group cấu trúc;
-Include có đọc/refresh tệp và patch có thứ tự; persistence đang được triển khai.
+Include có đọc/refresh tệp, patch có thứ tự và persistence có hòa giải;
+kiểm tra vòng đời/ví dụ/nghiệm thu cuối đang thực hiện.
 HMR và create vẫn là mục tiêu tương lai. Review và nghiệm thu toolchain
 tường minh được ghi trong [lộ trình](../todo.md#next-implementation-targets-satellites).
 Đây là API Rust tường minh, không phải lớp tương thích JavaScript trong suốt.
@@ -18,6 +19,7 @@ tường minh được ghi trong [lộ trình](../todo.md#next-implementation-ta
 
 | Mục tiêu | Bắt đầu tại |
 |---|---|
+| Đọc và refresh tệp cấu hình | [Include](guides/include.md) |
 | Xây dựng ứng dụng đầu tiên | [Bắt đầu sử dụng](getting-started.md), sau đó đọc [khái niệm](concepts.md) |
 | Nạp và cấu hình lại entry theo tên | [Loader](guides/loader.md), [group](guides/groups.md) |
 | Tạo thành phần có thể nạp lại | [Plugin và cập nhật](guides/plugins-and-updates.md) |

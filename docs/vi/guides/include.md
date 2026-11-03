@@ -80,3 +80,49 @@ Entry có thể nằm trong tệp con nhưng config thuộc patch trong tệp ch
 Bỏ patch sẽ khôi phục giá trị gốc khi refresh.
 Danh tính ẩn danh được ghép theo tệp chuẩn hóa/vị trí thô; cache hiện hành được
 dọn và có giới hạn. ID sinh ra tránh ID tường minh trong cả nguồn lẫn patch.
+
+## Thay đổi runtime và flush
+
+Dùng `edit(id, JsonEdit::new().set(key, value))` để thay một trường cấp entry
+hoàn chỉnh. `JsonEdit::remove(key)` bỏ trường; đặt config thành JSON null
+giữ giá trị null tường minh. `create(value, parent, position)`,
+`remove(id)` và `move_entry(id, parent, position)` sửa cấu trúc.
+Parent là ID entry tùy chọn; None chọn gốc. Các thao tác trả waiter,
+còn `settle` chờ công việc loader đã tiếp nhận.
+
+Thay đổi vào journal hữu hạn trong bộ nhớ trước khi ghi tệp. Chỉnh sửa lặp
+được gộp theo entry; tạo rồi xóa không để lại yêu cầu ghi.
+`pending` trả số bản ghi entry đang chờ. Vượt giới hạn bị từ chối trước
+khi đổi runtime. Adapter không lộ loader có thể sửa trực tiếp và không
+tự serialize Config Rust bất kỳ.
+
+Chờ `flush()?.await?` để đọc lại, hòa giải, ghi và chờ áp dụng trạng thái đã
+hòa giải. `refresh` dùng cùng chính sách. Tệp thắng khi hai bên đổi cùng
+khóa cấp entry thành các giá trị khác nhau; `config` là một khóa nguyên khối,
+không merge đệ quy các trường cấu hình ứng dụng. Thay đổi giống nhau không
+xung đột. Xóa trong tệp thắng chỉnh sửa runtime; sửa entry trong tệp xung đột
+với xóa ở runtime. Đổi parent không tương thích được báo là xung đột cấu trúc.
+Kiểm tra `Report::conflicts`.
+
+Ghi ngược theo owner của từng entry/khóa, gồm tệp lồng nhau, giá trị ghi đè của
+patch và entry nằm trong phần insert hoặc config group thay thế.
+Reconcile nguồn không tự tạo journal ghi ngược.
+Không thể dùng sửa runtime tổng quát để thay group/config được sinh của
+include descriptor; hãy đổi đường dẫn trong nguồn rồi refresh.
+
+Khi ghi thất bại, thao tác trả lỗi và giữ thay đổi runtime đang chờ trong bộ
+nhớ. Sửa nguyên nhân bên ngoài rồi thử refresh/flush lại, hoặc chờ lần thử cuối
+khi dispose. Không thay thế tệp hiện tại không parse được để ép lưu thành công.
+
+Mỗi tệp được ghi qua tệp tạm cùng thư mục với số lần thử hữu hạn.
+Mỗi lần thử đọc lại và hòa giải nội dung hiện tại. Thay thế diễn ra từng tệp;
+không có transaction nhiều tệp, bảo đảm fsync khi mất điện hay giao thức đầy đủ
+chống người ghi đồng thời. Người ghi không phối hợp vẫn có thể chen vào giữa
+bước kiểm tra nội dung cuối và rename.
+
+Flush nhiều tệp thành công một phần vẫn giữ snapshot đầy đủ có giới hạn để
+lần thử lại khôi phục được cả các trường không đổi của entry đã chuyển, bất kể
+thứ tự ghi. Tệp gốc còn thiếu được tạo độc quyền bằng hard link tới tệp tạm
+đã ghi đủ; filesystem phải hỗ trợ hard link. Thay tệp hiện có giữ permission
+bits. Chuyển cây con chứa include sẽ đổi descriptor sang đường dẫn tuyệt đối
+đã chuẩn hóa. Xung đột vẫn có trong lỗi ghi và report kế tiếp.

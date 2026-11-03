@@ -102,3 +102,34 @@ admission, flushes admitted deltas, then starts loader subtree disposal; its
 retained joined cleanup includes slow children and exposes final I/O errors.
 Parent owner cleanup also stops admission and performs the bounded final flush;
 the dedicated owner retains cleanup independently of Include/waiter drop.
+
+## I3 implementation refinements
+
+The journal byte budget includes immutable full JSON fallback snapshots and
+original placement metadata, so a partial multi-file write cannot erase unchanged
+fields needed by a pending move. Current provenance is recomputed at JSON admission
+and between factory/group transitions and later option keys. A successfully written
+file regenerates locations from its actual canonical bytes.
+
+Existing-file permission bits are retained before replacement (Unix 0600 is tested).
+New Unix stages use 0600. Missing-only creation hard-links a complete sibling stage
+into a still-absent destination; it never replaces a newly appeared file.
+Existing destinations use rename. Other ownership/ACL/xattr/hardlink metadata and
+fsync durability are outside this policy.
+
+A failed operation exposes file-winning decisions in `IncludeError.conflicts`
+and retains them for the next successful Report. IncludeError's location is an
+immutable `Option<Rc<Location>>`; callback/admission/lifecycle causes are preserved.
+
+Runtime moves carry a rebased absolute canonical path for include descriptors,
+including descriptors nested inside moved groups. Source-path replacement through
+generic config/group/name editing remains explicitly refused before mutation;
+edit a source file and refresh to replace an include path. Only the public Include
+JSON mutation APIs journal changes; native core/loader updates are not implicitly
+serialized. Include owns one stable SourceId across canonical root target changes.
+
+The complete source graph's compact effective JSON must fit the accepted loader's
+1 MiB limit in addition to each file's individual bound. MAX_PATCHES is per file.
+Anonymous identity cache entries are pruned to live raw file positions and bounded
+at 1024. Multi-file visibility is non-atomic, with tested pending recovery in both
+write orders and after parent-patch/child-file partial failure.

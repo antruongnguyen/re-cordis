@@ -9,7 +9,8 @@ core's semantics through explicit, typed Rust APIs.
 The current deliverable is unpublished `re-cordis-core`, `re-cordis-timer`,
 `re-cordis-logger`, `re-cordis-loader` and `re-cordis-include`, version 0.0.0, Rust 2024/MSRV 1.85.
 The API is unstable. Loader owns typed source entries and structural groups;
-Include supplies file reads/refresh and ordered patches; persistence is in progress.
+Include supplies file reads/refresh, ordered patches and reconciled persistence;
+final lifecycle/example/acceptance checks are in progress.
 HMR and create remain future targets. Review and explicit toolchain
 acceptance are tracked in the [roadmap](../todo.md#next-implementation-targets-satellites).
 This is an explicit Rust API, not transparent JavaScript compatibility.

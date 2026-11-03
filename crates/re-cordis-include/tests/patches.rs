@@ -118,3 +118,25 @@ async fn parent_patch_owns_nested_child_key_at_actual_parent_file() {
     })
     .await;
 }
+
+#[tokio::test(flavor = "current_thread")]
+async fn group_replacement_collision_skips_patch_and_preserves_first_source_owner() {
+    let d = Dir::new();
+    d.put("a.json",r#"{"entries":[{"id":"a","name":"worker","config":1},{"id":"g","group":true,"config":[{"id":"old","name":"worker"}]}],"patches":[{"id":"g","config":[{"id":"a","name":"worker","config":9}]}]}"#);
+    let rt = Runtime::new();
+    run(&rt, async {
+        let i = Include::new(
+            &rt.context(),
+            catalog(),
+            IncludeOptions::new(d.path("a.json")),
+        )
+        .unwrap();
+        let report = i.refresh().unwrap().await.unwrap();
+        assert_eq!(report.failures.len(), 1);
+        assert!(i.ownership("old").is_some());
+        assert_eq!(i.ownership("a").unwrap().entry.kind, OwnerKind::File);
+        assert_eq!(i.data()[0]["config"], 1);
+        i.dispose().unwrap().await.unwrap();
+    })
+    .await;
+}

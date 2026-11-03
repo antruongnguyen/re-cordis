@@ -38,7 +38,8 @@ meta-framework for spatiotemporal composability.
 > [loader acceptance](docs/plans/2026-11-02-cordis-completion/evidence/loader-acceptance.md).
 > The unpublished **re-cordis-include** adds bounded JSON/YAML file reads,
 > nested sources, precise locations, explicit refresh/recovery and ordered
-> patches with per-key ownership. Persistence is the ongoing I3–I4 work; see the
+> patches with per-key ownership, bounded journals and reconciled persistence.
+> Final I4 lifecycle/example/acceptance is in progress; see the
 > [include guide](docs/en/guides/include.md).
 > See [loader](docs/en/guides/loader.md) and [groups](docs/en/guides/groups.md), then
 > [the ordered roadmap](docs/todo.md#next-implementation-targets-satellites).

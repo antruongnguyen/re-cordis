@@ -403,3 +403,9 @@ verification completes.
   against concurrent external writers or a power-loss guarantee.
 - **Deferred integrations:** explicit refresh requires no watcher. HMR, create,
   JS evaluation and native binary hot loading are outside this delivery.
+
+I3 persistence is implemented. Writes remain non-atomic across files, but bounded
+full pending snapshots recover partial move writes on a later retry. Missing-root
+creation requires hard-link support. Canonical absolute descriptor rebasing on
+moves preserves the currently resolved child source; later retargeting of the
+old symlink spelling is no longer followed by that rewritten descriptor.

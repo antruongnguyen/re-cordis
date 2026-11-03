@@ -800,3 +800,10 @@ Arbitrary typed loader Config values are not implicitly serializable. Include's
 persistable mutation boundary uses explicit JSON values rather than imposing
 Serialize on accepted native loader plugins. Exact signatures, limits and
 platform boundaries are recorded with the contract and acceptance evidence.
+
+I3 adds bounded immutable pending snapshots and original placement so partial
+multi-file success does not turn an already-written removal into accidental
+loss of a pending move. Permission bits are retained on replacement; absent
+roots are installed exclusively with a hard link to the complete sibling temp.
+Include descriptors in moved subtrees are rebased to canonical absolute paths.
+Operation errors retain their original sources and write-failure conflicts.

@@ -26,3 +26,11 @@ duplicate/tag/alias/document rejection, Unicode positions, byte/depth limits,
 nested owning-file failures and escaped/literal astral JSON characters. Five
 yaml_capabilities.rs fixtures expose parser capabilities without lossless claims.
 Both explicit toolchains pass all 12 tests at this checkpoint.
+
+I2/I3 evidence: patches.rs covers ordered patch application, removal and nested
+provenance; reconcile.rs covers journal/coalescing/conflicts/runtime validation
+and owner routing; write.rs plus private deterministic writer gates cover
+failures, retries and partial multi-file recovery. read_acceptance.rs and
+lifecycle_acceptance.rs add 11 independent public-API boundary checks, including
+100 resource-baseline cycles. See [implementation evidence](include-implementation.md)
+and [boundary regressions](include-boundary-tests.md).

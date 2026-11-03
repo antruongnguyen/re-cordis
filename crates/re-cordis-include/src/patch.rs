@@ -137,6 +137,29 @@ impl Model {
             let replacing = target.get("group") == Some(&Value::Bool(true))
                 && (object.contains_key("config")
                     || object.get("group").is_some_and(|g| g != &Value::Bool(true)));
+            let will_group = object
+                .get("group")
+                .map(|g| g == &Value::Bool(true))
+                .unwrap_or(target.get("group") == Some(&Value::Bool(true)));
+            if will_group {
+                if let Some(config) = object.get("config").and_then(Value::as_array) {
+                    let mut prior = Vec::new();
+                    if target.get("group") == Some(&Value::Bool(true)) {
+                        if let Some(old) = target.get("config").and_then(Value::as_array) {
+                            ids(old, &mut prior);
+                        }
+                    }
+                    let mut names = Vec::new();
+                    ids(config, &mut names);
+                    let mut seen = BTreeSet::new();
+                    if names.iter().any(|id| {
+                        (!prior.contains(id) && self.owners.contains_key(id)) || !seen.insert(id)
+                    }) {
+                        warn(self, "patch group config ID collision");
+                        continue;
+                    }
+                }
+            }
             if replacing {
                 if let Some(old) = target.get("config").and_then(Value::as_array) {
                     let mut stale = Vec::new();

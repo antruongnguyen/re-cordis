@@ -32,3 +32,7 @@ API identifiers remain unchanged in both languages.
 | Structural group | nhóm cấu trúc | Ordered entry parent retained while descendants are disabled |
 | Source reconciliation | đồng bộ nguồn cấu hình | Apply a caller-owned source snapshot without write-back commits |
 | Console exporter | bộ xuất log ra console | An owner-scoped native writer rendering selected core records |
+| Include source | nguồn include | A bounded file whose entries and patches feed an owned loader |
+| Patch ownership | quyền sở hữu của patch | The actual file/patch location supplying an entry or one key |
+| Pending journal | nhật ký thay đổi chờ ghi | Bounded coalesced runtime changes awaiting persistence |
+| Three-way reconciliation | hòa giải ba phía | Compare the previous source, current file and runtime changes; report conflicts |
