@@ -213,8 +213,9 @@ reload, filesystem persistence and watching are explicitly excluded/deferred.
 - [x] `group`: delivered in `re-cordis-loader` with one structural implementation;
   no facade crate. Upstream group re-exports loader Group. See
   [G0–G1](plans/2026-11-02-cordis-completion/group.md).
-- [ ] `include`: evaluate configuration includes, patches, provenance and
-  failure-safe persistence after loader format/ownership contracts exist.
+- [ ] `include`: I0 contract and I1 bounded reads/refresh are implemented.
+  Ordered patches, provenance, persistence and final acceptance continue through
+  [I2–I4](plans/2026-11-02-cordis-completion/include.md).
 - [ ] `hmr`: define what Rust reconfiguration/reload actually means after loader
   acceptance. File watching and native hot loading require separate decisions.
 - [ ] `create`: consider scaffolding only once public crate names, dependency
@@ -238,7 +239,7 @@ integrations remain separate scope decisions.
 - [ ] Update matching `docs/en/` and `docs/vi/` guides/API indexes, examples,
   glossary terms as needed, and `docs/llms.txt` in the same slice. Extend
   `tests/docs/check.py` for each delivered crate's exports/snippet dependencies;
-  its current automated export coverage includes core, timer, logger and loader.
+  its current automated export coverage includes core, timer, logger, loader and include.
 - [ ] Keep `README.md` status/layout/star matrices, `CHANGELOG.md`,
   `docs/todo.md`, `docs/decision.md`, `docs/limitation.md` and `AGENTS.md` accurate.
   Preserve old milestone evidence as historical, not claims of new delivery.

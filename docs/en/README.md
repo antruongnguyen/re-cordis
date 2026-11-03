@@ -7,9 +7,10 @@ and resources change over time. `re-cordis` expresses the TypeScript Cordis
 core's semantics through explicit, typed Rust APIs.
 
 The current deliverable is unpublished `re-cordis-core`, `re-cordis-timer`,
-`re-cordis-logger` and `re-cordis-loader`, version 0.0.0, Rust 2024/MSRV 1.85.
+`re-cordis-logger`, `re-cordis-loader` and `re-cordis-include`, version 0.0.0, Rust 2024/MSRV 1.85.
 The API is unstable. Loader owns typed source entries and structural groups;
-include, HMR and create remain future targets. Review and explicit toolchain
+Include supplies file reads/refresh; patches/persistence are in progress.
+HMR and create remain future targets. Review and explicit toolchain
 acceptance are tracked in the [roadmap](../todo.md#next-implementation-targets-satellites).
 This is an explicit Rust API, not transparent JavaScript compatibility.
 
@@ -18,6 +19,7 @@ This is an explicit Rust API, not transparent JavaScript compatibility.
 | Your goal | Start here |
 |---|---|
 | Build your first application | [Getting started](getting-started.md), then [concepts](concepts.md) |
+| Read and refresh configuration files | [Include](guides/include.md) |
 | Load and reconfigure named entries | [Loader](guides/loader.md), [groups](guides/groups.md) |
 | Create reloadable components | [Plugins and updates](guides/plugins-and-updates.md) |
 | Connect components safely | [Services and scoping](guides/services-and-scoping.md) |

@@ -19,3 +19,10 @@ core evidence is reused.
 Concrete Rust test names and final outcomes are added at the corresponding
 milestones. Platform claims remain limited to the executed matrix and documented
 filesystem contract; no new cross-language include trace is claimed.
+
+I1 executed evidence: read.rs covers missing-only initial, retained malformed
+source/recovery/dedup and nested path/cycles. locations.rs covers scalar policy,
+duplicate/tag/alias/document rejection, Unicode positions, byte/depth limits,
+nested owning-file failures and escaped/literal astral JSON characters. Five
+yaml_capabilities.rs fixtures expose parser capabilities without lossless claims.
+Both explicit toolchains pass all 12 tests at this checkpoint.

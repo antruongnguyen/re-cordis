@@ -3,7 +3,7 @@
 [English](../../en/api/README.md) | [Trang tiếng Việt](../README.md)
 
 Tài liệu bao phủ export công khai của `re-cordis-core` và vệ tinh
-`re-cordis-timer`, `re-cordis-logger`, `re-cordis-loader`, không phải bộ lưu trữ nội bộ hay handle riêng của ví dụ. Nội dung mô tả cách dùng và hợp đồng hành vi;
+`re-cordis-timer`, `re-cordis-logger`, `re-cordis-loader`, `re-cordis-include`, không phải bộ lưu trữ nội bộ hay handle riêng của ví dụ. Nội dung mô tả cách dùng và hợp đồng hành vi;
 Rustdoc được sinh từ mã nguồn là tham chiếu chính xác cho chữ ký, ràng buộc
 generic, trait implementation và trường công khai.
 
@@ -39,6 +39,7 @@ chương bên dưới, và export của vệ tinh `re-cordis-timer` được bao
 | [Vệ tinh Console](console-logger.md) | `ColorMode`, `Alignment`, `LabelStyle`, `Timestamp`, `ConsoleOptions`, `render`, `register`, `register_stdout` |
 | [Loader](loader.md) | `Catalog`, `Config`, `EntrySpec`, `EntryKind`, `EntryId`, `FactoryId`, `Loader`, `LoaderTask`, `LoaderError`, `EntrySnapshot`, `EntryState`, `EntryFailure`, `Settlement`, `Scope`, `Origin`, `CommitRecord`, `SourceId`, `SourceDocument`, `SourceLocation`, `SourceSpan`, `FieldPatch`, `EntryPatch`, `MAX_ENTRIES`, `MAX_JSON_BYTES`, `MAX_JSON_DEPTH`, `MAX_JSON_NODES`, `MAX_STRING_BYTES` |
 | [Groups](groups.md) | `Group` |
+| [Include](include.md) | `Include`, `IncludeOptions`, `IncludeTask`, `Report`, `IncludeError`, `Location`, `Owner`, `OwnerKind`, `Ownership`, `ParsedDocument`, `parse_document`, `MAX_BYTES`, `MAX_DEPTH`, `MAX_NODES`, `MAX_STRING_BYTES`, `MAX_FILES`, `MAX_ENTRIES`, `MAX_PATCHES`, `MAX_RETRIES` |
 
 ## Đọc kết quả phương thức theo hai giai đoạn
 

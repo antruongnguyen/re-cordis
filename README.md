@@ -36,6 +36,10 @@ meta-framework for spatiotemporal composability.
 > entries, structural groups, bounded JSON, scoped evaluation and joined rebuilds.
 > L0–L5 and G0–G1 passed independent review and stable/1.85.0 verification; see
 > [loader acceptance](docs/plans/2026-11-02-cordis-completion/evidence/loader-acceptance.md).
+> The unpublished **re-cordis-include** adds bounded JSON/YAML file reads,
+> nested sources, precise locations and explicit refresh/recovery. Ordered
+> patches and persistence are the ongoing I2–I4 work; see the
+> [include guide](docs/en/guides/include.md).
 > See [loader](docs/en/guides/loader.md) and [groups](docs/en/guides/groups.md), then
 > [the ordered roadmap](docs/todo.md#next-implementation-targets-satellites).
 > The [timer acceptance report](docs/plans/2026-11-02-cordis-completion/evidence/timer-acceptance.md)
@@ -190,6 +194,7 @@ crates/
   re-cordis-timer     # owner-scoped timers (timeout, interval, throttle, debounce)
   re-cordis-loader    # typed catalog, source-aware entries and structural groups
   re-cordis-logger    # scoped console output and deterministic rendering
+  re-cordis-include   # bounded file sources, locations and explicit refresh
   ...
 ```
 

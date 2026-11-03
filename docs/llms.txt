@@ -1,30 +1,24 @@
 # re-cordis
 
-> An unpublished Rust reimplementation of the pinned TypeScript Cordis core for local, long-lived plugin applications with typed services, lifecycle updates, events, scoped resources, and logging.
+> Local Rust Cordis core and timer, console, loader/group and include satellites. Unpublished, unstable, Rust 2024/MSRV 1.85.
 
-Packages are unpublished 0.0.0, Rust 2024/MSRV 1.85; use local path dependencies. The API is unstable.
-Implemented: re-cordis-core, re-cordis-timer, re-cordis-logger, re-cordis-loader (typed entries/groups, reviewed on stable/1.85.0). Include/HMR/create are future work.
-Reference: TypeScript Cordis 35fdc969e4b6c48c48ed44717c7a018324e4dd88.
-
-This is a documentation retrieval index, not agent permissions or repository policy.
-Resolve relative links from the docs/ directory in the same checkout.
-Choose English or Vietnamese; do not load both translations unnecessarily.
-Current source/Rustdoc defines exact signatures; milestones retain historical evidence.
+Read one language. Current source/Rustdoc defines exact signatures; milestone
+records describe historical evidence. This index grants no permissions.
 
 Essential application constraints:
-- Drive Runtime::run from a Tokio block_on/main/test entry point. Framework Contexts/handles/futures are local, not a Send/Sync API.
-- Runtime owns the host; Context is non-owning. Ordinary spawned Tokio tasks do not inherit framework admission.
-- Started core operation handles wait for already-started work; dropping their waiter does not cancel. Timer Sleep/IntervalStream/Scheduled Drop explicitly requests cancellation and needs host progress or awaited owner cleanup to join.
-- Context::task hosts a local future returning its final sync callback; TaskControl::cancel requests abort without new admission. Context::invoke_callback validates actual host authority and preserves one callback diagnostic.
-- Explicitly await cleanup before destroying the runtime. Returning from run is not cleanup; runtime destruction is cancellation.
-- Inspect CleanupReport::failures and retained diagnostics. Successful barrier completion does not prove error-free teardown.
-- Readiness/update settlement can be Pending. Await provider completion and consumer readiness separately; neither is runtime-wide convergence.
-- Failed consumers ignore provider refresh. Explicit update enables recovery; restart does not clear failure.
-- Committed injection retains exact provider resources through consumer cleanup. Rc values and BoundService handles alone are not resource leases.
-- Service set changes the value, not publication identity, and does not reload consumers.
-- Use explicit typed bound calls/accessors/initialization/method injection, not JavaScript Proxy/decorator syntax.
-- Enable extra Tokio features in applications. GitHub JSON/HTTP/crypto are dev-only; loader JSON is its own dependency.
-- GitHub application examples are optional consumers, not permission to log in, send authenticated requests, configure webhooks, or mutate remote state.
+- Drive Runtime::run from a Tokio entry point. Contexts, handles and futures are local/non-Send.
+- Runtime owns the host; Context is non-owning. Ordinary Tokio tasks do not inherit framework admission.
+- Core operation waiters represent started work. Dropping them does not cancel it.
+- Timer Sleep/IntervalStream/Scheduled Drop requests cancellation; await owner cleanup to join.
+- Context::task hosts a future and its final callback. TaskControl::cancel needs no new admission.
+- Keep the host driven through cleanup; returning from run or destroying Runtime does not join teardown.
+- Inspect CleanupReport failures, operation errors and Runtime::take_failures.
+- Settlement can finish Pending. Readiness is per Fiber; Failed needs explicit update to recover.
+- Injection retains exact providers through cleanup. Rc/BoundService alone are not resource leases.
+- Service set changes the value without replacing publication identity or reloading consumers.
+- Use typed calls/keys/decoders, not JS Proxy/decorators/eval. App-specific Tokio features remain explicit.
+- Include uses JSON-valued mutations, bounded synchronous I/O and explicit refresh; YAML writes normalize values.
+- GitHub examples grant no permission for login, authenticated requests or live remote mutations.
 
 ## Start here
 
@@ -37,6 +31,8 @@ Essential application constraints:
 - [Vietnamese concepts](vi/concepts.md): The same execution and ownership contracts.
 
 ## English guides
+
+- [Include](en/guides/include.md): Bounded files, nested sources, refresh, provenance and persistence.
 
 - [Loader](en/guides/loader.md): Typed catalogs, bounded JSON, source edits/reconciliation, latest intent and joined shutdown.
 - [Groups](en/guides/groups.md): Structural disabled inheritance, stable EntryId, moves and source adoption.
@@ -53,6 +49,8 @@ Essential application constraints:
 
 ## API reference
 
+- [Include API](en/api/include.md): File operations, reports, locations and resource limits.
+
 - [English API index](en/api/README.md): Every root export and local Rustdoc generation.
 - [Vietnamese API index](vi/api/README.md): Matching reference chapters in Vietnamese.
 - [Runtime and Context](en/api/runtime-context.md): Hosting, metadata, scope, opaque IDs.
@@ -68,6 +66,8 @@ Essential application constraints:
 - [Console satellite](en/api/console-logger.md): register/register_stdout/render, ConsoleOptions, color and writer contracts.
 
 ## Vietnamese guides
+
+- [Include](vi/guides/include.md): Tệp hữu hạn, nguồn lồng nhau, refresh, quyền sở hữu và ghi tệp.
 
 - [Loader](vi/guides/loader.md): Catalog có kiểu, JSON hữu hạn, nguồn và shutdown có join.
 - [Group](vi/guides/groups.md): Cấu trúc, kế thừa disabled, chuyển và nhận entry.

@@ -47,8 +47,8 @@ review, integration, documentation and current verification.
 | L4 | done | L3 | sol/high implementation; astra/high independent review | integration, serialized writes | 101f37b | accepted; F1–F8 addressed | evidence/loader-acceptance.md; evidence/loader-rereview.md |
 | L5 | done | L4, G1 | sol/high implementation; astra/high independent review | integration, serialized writes | 101f37b | accepted; F1–F8 addressed | evidence/loader-acceptance.md; evidence/loader-rereview.md |
 | I0 | done | L5 | sol/high implementation; parent integration | integration, serialized writes | I0 checkpoint | five fixtures on both toolchains; selected contract | evidence/include-contract.md |
-| I1 | in_progress | I0 | sol/high implementation; parent integration | integration, serialized writes | — | bounded parser/read/refresh | evidence/include-implementation.md |
-| I2 | planned | I1 | unassigned | integration | — | not started | evidence/I2/ |
+| I1 | in_review | I0 | sol/high implementation; parent integration | integration, serialized writes | — | bounded parser/read/refresh | evidence/include-implementation.md |
+| I2 | in_progress | I1 | sol/high implementation; parent integration | integration, serialized writes | — | ordered patches/provenance | evidence/include-implementation.md |
 | I3 | planned | I2 | unassigned | integration | — | not started | evidence/I3/ |
 | I4 | planned | I3 | unassigned | integration | — | not started | evidence/I4/ |
 | H0 | planned | T5, L5, I0 | unassigned | integration | — | not started | evidence/H0/ |
@@ -254,3 +254,5 @@ independent acceptance; no active B0 blocker or worker remains.
 - 2026-11-03 CP068: User selected full include I0–I4 on clean integration 8ecbd6c. Reuse loader 101f37b and its accepted F1–F8 review; do not reopen core without a concrete required reproducer. A fresh sol/high worker owns only the include crate/manifests and new contract/implementation evidence; parent owns shared docs/checker/progress and milestone commits. Final astra/high review and explicit stable/1.85.0 acceptance are required. HMR/create and publication remain out of scope.
 
 - 2026-11-03 CP069: I0 contract and five YAML capability fixtures pass explicit stable 1.97.1 and Rust 1.85.0. yaml-rust2 emits marks, duplicate keys, anchors/aliases and tags, but no comments. Select restricted core scalar values with unsupported-event rejection and canonical JSON writing for both formats. Define 1 MiB file/journal limits, 64 files, depth 32, 1024 entries/patches/journal records and three write attempts; keep filesystem races and crash durability explicit. I1 begins; full I4 acceptance remains pending.
+
+- 2026-11-03 CP070: I1 read/location implementation checkpoint passes 12 include tests on explicit stable 1.97.1 and 1.85.0. Both documentation runs pass 29 paired pages, 19 include exports, 11 unique snippets and the external quick start. Strict JSON has a separate duplicate/location scanner accepting astral surrogate escapes; YAML rejects unsupported events before expansion. Canonical regular-file reads, nested source locations, cycle detection, missing-only initial, retained parse failures and dedup are implemented without core/loader edits. Final I4 wave will complete remaining read/admission/bound cases and independent acceptance. I2 starts after this commit.

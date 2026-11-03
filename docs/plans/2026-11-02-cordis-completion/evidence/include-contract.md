@@ -27,8 +27,8 @@ path; mapped loader failure spans come from actual parser events.
 
 ## Formats and capability evidence
 
-JSON is strict serde_json syntax, with duplicate key rejection added using
-the marked event pass. YAML uses yaml-rust2 0.10.4 marked parser events and a
+JSON is strict serde_json syntax, with a JSON-native duplicate/location pass
+that accepts escaped surrogate pairs independently of YAML syntax. YAML uses yaml-rust2 0.10.4 marked parser events and a
 restricted YAML 1.2 core scalar resolver. Null, booleans, finite JSON numbers,
 strings, sequences and string-key mappings are supported. Duplicate keys,
 anchors/aliases, all explicit tags (including !js) and multiple documents

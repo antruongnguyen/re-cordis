@@ -9,12 +9,12 @@
 | AI agents | [llms.txt](llms.txt) |
 
 These pages describe the current **unpublished, unstable `re-cordis-core`,
-`re-cordis-timer`, `re-cordis-logger` and `re-cordis-loader`** APIs.
+`re-cordis-timer`, `re-cordis-logger`, `re-cordis-loader` and `re-cordis-include`** APIs.
 They are organized by user tasks, not implementation milestones. Both language
 trees have matching paths, equivalent explanations, and identical executable
 code. Each page links to its counterpart.
 
-Các trang này mô tả API **`re-cordis-core`, `re-cordis-timer`, `re-cordis-logger` và `re-cordis-loader` chưa phát hành,
+Các trang này mô tả API **`re-cordis-core`, `re-cordis-timer`, `re-cordis-logger`, `re-cordis-loader` và `re-cordis-include` chưa phát hành,
 chưa ổn định** hiện tại.
 Nội dung tổ chức theo công việc của người dùng, không theo cột mốc triển khai.
 Hai cây ngôn ngữ có đường dẫn tương ứng, diễn giải tương đương và mã chạy giống
@@ -25,7 +25,7 @@ nhau. Mỗi trang liên kết đến bản ngôn ngữ còn lại.
 Generate Rustdoc locally with `cargo doc --workspace --no-deps --locked`.
 Open `target/doc/re_cordis_core/index.html` or
 `target/doc/re_cordis_timer/index.html`, `target/doc/re_cordis_logger/index.html`
-or `target/doc/re_cordis_loader/index.html`,
+or `target/doc/re_cordis_loader/index.html`, `target/doc/re_cordis_include/index.html`,
 adjusted for `CARGO_TARGET_DIR`.
 The bilingual reference explains contracts and maps public exports; Rustdoc
 supplies exact signatures and bounds. There is no published docs.rs release.
@@ -67,7 +67,7 @@ Rust/TOML/shell blocks identical; translate explanatory prose and use the paired
 glossary. A new public export must appear in both API indexes and its chapter.
 Add/update the corresponding `llms.txt` entry when reading paths change.
 For each delivered satellite, add paired guide/API coverage and extend the
-checker's core/timer/logger/loader export and snippet-dependency handling. Keep
+checker's core/timer/logger/loader/include export and snippet-dependency handling. Keep
 planned targets distinct from available APIs; see [the satellite roadmap](todo.md#next-implementation-targets-satellites).
 
 Run the standard-library-only documentation checker (Python 3.9+) from the
@@ -81,7 +81,7 @@ python3 tests/docs/check.py --toolchain 1.85.0
 
 It checks local file links/heading anchors, counterpart navigation, identical
 code blocks, root-export/hook coverage, and the llms.txt structure. It explicitly
-selects compiler/Cargo/rustdoc paths, builds core, timer, logger and loader with the committed lockfile
+selects compiler/Cargo/rustdoc paths, builds core, timer, logger, loader and include with the committed lockfile
 offline into `target/stable` or `target/msrv`, then compiles and executes each
 unique complete Rust documentation example with warnings denied.
 The identical translated examples share that execution evidence.

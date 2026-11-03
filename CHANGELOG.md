@@ -16,6 +16,12 @@ This project does not yet follow semantic versioning — the API is unstable.
 
 ### Added
 
+- Unpublished `re-cordis-include`: bounded JSON/restricted YAML source parsing,
+  nested includes, canonical source identity/cycle limits, actual source locations,
+  missing-only initial data and explicit refresh/recovery over accepted loader.
+  Canonical value output does not preserve YAML comments/style. Paired English/
+  Vietnamese guide/API pages and include export/snippet documentation checks.
+
 - Added unpublished `re-cordis-loader`: reusable typed factory catalog, parent-owned source entries, latest-intent rebuilds, structural groups/moves, typed isolation/evaluation, bounded JSON and source-location errors, immutable snapshots, runtime commit events, read-only in-memory reconciliation and typed factory replacement seams. Includes deterministic cleanup/failure fixtures, a runnable boot/reconfigure/recover/shutdown example and matching English/Vietnamese loader/group guides and API references.
 - Unpublished `re-cordis-logger` console satellite over existing core exporters:
   owned local writers, deterministic rendering, stdout routing, explicit/Auto

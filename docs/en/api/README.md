@@ -3,7 +3,7 @@
 [Tiếng Việt](../../vi/api/README.md) | [English home](../README.md)
 
 This reference covers the public exports of `re-cordis-core` and the
-`re-cordis-timer`, `re-cordis-logger` and `re-cordis-loader` satellites, not their private storage or example-private
+`re-cordis-timer`, `re-cordis-logger`, `re-cordis-loader` and `re-cordis-include` satellites, not their private storage or example-private
 handles. It describes usage and behavioral contracts; generated Rustdoc is
 authoritative for exact signatures, generic bounds, trait implementations, and
 public fields.
@@ -41,6 +41,7 @@ documented by concern.
 | [Console satellite](console-logger.md) | `ColorMode`, `Alignment`, `LabelStyle`, `Timestamp`, `ConsoleOptions`, `render`, `register`, `register_stdout` |
 | [Loader](loader.md) | `Catalog`, `Config`, `EntrySpec`, `EntryKind`, `EntryId`, `FactoryId`, `Loader`, `LoaderTask`, `LoaderError`, `EntrySnapshot`, `EntryState`, `EntryFailure`, `Settlement`, `Scope`, `Origin`, `CommitRecord`, `SourceId`, `SourceDocument`, `SourceLocation`, `SourceSpan`, `FieldPatch`, `EntryPatch`, `MAX_ENTRIES`, `MAX_JSON_BYTES`, `MAX_JSON_DEPTH`, `MAX_JSON_NODES`, `MAX_STRING_BYTES` |
 | [Groups](groups.md) | `Group` |
+| [Include](include.md) | `Include`, `IncludeOptions`, `IncludeTask`, `Report`, `IncludeError`, `Location`, `Owner`, `OwnerKind`, `Ownership`, `ParsedDocument`, `parse_document`, `MAX_BYTES`, `MAX_DEPTH`, `MAX_NODES`, `MAX_STRING_BYTES`, `MAX_FILES`, `MAX_ENTRIES`, `MAX_PATCHES`, `MAX_RETRIES` |
 
 ## Read method results in two stages
 
