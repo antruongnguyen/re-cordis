@@ -51,3 +51,31 @@ does not complete asynchronous cleanup.
 
 See the [include API](../api/include.md), [decisions](../../decision.md#include-files-and-persistence)
 and [limitations](../../limitation.md#include-files-and-persistence).
+
+## Ordered patches and provenance
+
+An object source can add an ordered `patches` array:
+
+```json
+{
+  "entries": [{"id": "app", "name": "application", "config": {"port": 3000}}],
+  "patches": [
+    {"id": "app", "name": "application", "config": {"port": 4000}},
+    {"insert": [{"id": "extra", "name": "application"}]},
+    {"id": "extra", "disabled": true}
+  ]
+}
+```
+
+A patch's `name` is a matching guard. It does not rename the target.
+Without `insert`, `id` is required; with `insert`, no `id` means append
+at the source root, while an `id` selects a structural group.
+Missing targets, name mismatches and non-group insertion are reported and skipped.
+Later patches see earlier insertions. A group config replacement discards the
+old children's ownership before registering the replacement entries.
+
+`ownership(id)` separates the entry owner from each overridden key.
+An entry may live in a nested file while its config belongs to a patch in the
+parent file. Removing the patch restores the base value on refresh.
+Anonymous identity is matched by canonical file/raw position; the live cache
+is pruned and bounded. IDs skip explicit IDs in both source and patch entries.

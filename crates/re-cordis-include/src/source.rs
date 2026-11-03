@@ -215,7 +215,10 @@ fn assign(
     if !value.is_object() {
         return;
     }
-    let is_entry = value.get("name").is_some() || value.get("group") == Some(&Value::Bool(true));
+    let is_patch =
+        path.len() >= 2 && path.get(path.len() - 2) == Some(&PathSegment::Key("patches".into()));
+    let is_entry = !is_patch
+        && (value.get("name").is_some() || value.get("group") == Some(&Value::Bool(true)));
     if is_entry && value.get("id").is_none() {
         let key = (file.into(), path_key(&path));
         let old = ids.get(&key).filter(|id| !used.contains(*id)).cloned();
@@ -275,6 +278,17 @@ impl Model {
         for (p, d) in &mut files {
             assign(&mut d.value, vec![], p, ids, &mut used, next);
         }
+        ids.retain(|(file, path), id| {
+            files
+                .get(file)
+                .and_then(|d| d.value.pointer(path))
+                .and_then(|v| v.get("id"))
+                .and_then(Value::as_str)
+                == Some(id.as_str())
+        });
+        if ids.len() > MAX_ENTRIES {
+            return Err(IncludeError::new("anonymous identity limit exceeded"));
+        }
         Self::from_files(root, files)
     }
     pub fn from_files(
@@ -311,9 +325,12 @@ impl Model {
         for (i, v) in raw.into_iter().enumerate() {
             data.push(self.expand(v, file, index(path.clone(), i), depth)?);
         }
+        if let Some(patches) = value.get("patches").and_then(Value::as_array) {
+            self.apply_patches(&mut data, file, patches, depth)?;
+        }
         Ok(data)
     }
-    fn expand(
+    pub(crate) fn expand(
         &mut self,
         mut v: Value,
         file: &Path,

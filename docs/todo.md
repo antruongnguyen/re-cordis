@@ -213,9 +213,9 @@ reload, filesystem persistence and watching are explicitly excluded/deferred.
 - [x] `group`: delivered in `re-cordis-loader` with one structural implementation;
   no facade crate. Upstream group re-exports loader Group. See
   [G0–G1](plans/2026-11-02-cordis-completion/group.md).
-- [ ] `include`: I0 contract and I1 bounded reads/refresh are implemented.
-  Ordered patches, provenance, persistence and final acceptance continue through
-  [I2–I4](plans/2026-11-02-cordis-completion/include.md).
+- [ ] `include`: I0 contract, I1 bounded reads/refresh and I2 ordered patches/
+  provenance are implemented. Persistence and final acceptance continue through
+  [I3–I4](plans/2026-11-02-cordis-completion/include.md).
 - [ ] `hmr`: define what Rust reconfiguration/reload actually means after loader
   acceptance. File watching and native hot loading require separate decisions.
 - [ ] `create`: consider scaffolding only once public crate names, dependency

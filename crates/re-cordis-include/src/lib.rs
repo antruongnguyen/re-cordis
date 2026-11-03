@@ -3,6 +3,7 @@
 //! File reads and writes are synchronous and bounded. Keep the original core
 //! Runtime driven until the returned lifecycle barriers finish.
 mod format;
+mod patch;
 mod source;
 pub use format::{ParsedDocument, parse_document};
 use futures_util::future::{FutureExt, LocalBoxFuture};
@@ -174,6 +175,7 @@ struct State {
     loader: Loader,
     options: IncludeOptions,
     closed: Cell<bool>,
+    busy: Cell<bool>,
     model: RefCell<Option<source::Model>>,
     ids: RefCell<BTreeMap<(PathBuf, String), String>>,
     next: Cell<u64>,
@@ -199,6 +201,7 @@ impl Include {
             loader,
             options,
             closed: Cell::new(false),
+            busy: Cell::new(false),
             model: RefCell::new(None),
             ids: RefCell::new(BTreeMap::new()),
             next: Cell::new(0),
@@ -220,6 +223,9 @@ impl Include {
         Ok(Self(state))
     }
     fn admit(&self) -> Result<(), IncludeError> {
+        if self.0.busy.get() {
+            return Err(IncludeError::new("include operation in progress"));
+        }
         self.0
             .owner
             .context()
@@ -256,6 +262,8 @@ impl Include {
     /// Reread the bounded source graph, retaining the last valid state on read/parse errors.
     pub fn refresh(&self) -> Result<IncludeTask<Report>, IncludeError> {
         self.admit()?;
+        self.0.busy.set(true);
+        let _guard = OperationGuard(&self.0.busy);
         let mut next = self.0.next.get();
         let mut ids = self.0.ids.borrow().clone();
         let mut model = source::Model::load(&self.0.options, &mut ids, &mut next)?;
@@ -365,5 +373,12 @@ impl Include {
             }
             .boxed_local(),
         ))
+    }
+}
+
+struct OperationGuard<'a>(&'a Cell<bool>);
+impl Drop for OperationGuard<'_> {
+    fn drop(&mut self) {
+        self.0.set(false);
     }
 }

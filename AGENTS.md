@@ -16,8 +16,8 @@ The approved first-consumer scope is implemented: snapshot digest, bounded `gh`
 collector and signed loopback webhook journal (12 additional application tests
 on Unix). See `docs/github-activity.md`. Application dependencies are dev-only.
 Timer, console logger and loader/structural groups are implemented. Include I1
-file reading, locations and explicit refresh are implemented; I2–I4 ordered
-patches, persistence and acceptance are in progress. HMR and create remain future targets. The **`re-cordis-timer`** satellite is
+file reading, locations, explicit refresh and I2 ordered patches/provenance are
+implemented; I3–I4 persistence and acceptance are in progress. HMR and create remain future targets. The **`re-cordis-timer`** satellite is
 delivered (unpublished `crates/re-cordis-timer`: owner-scoped timeout, sleep,
 interval/stream, throttle and debounce over core effects, via a sealed
 `TimerExt` trait; the `tokio` `time`/`macros` features live in the timer crate,

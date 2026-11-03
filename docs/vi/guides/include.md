@@ -51,3 +51,32 @@ không hoàn tất việc dọn dẹp bất đồng bộ.
 
 Xem [API include](../api/include.md), [quyết định](../../decision.md#include-files-and-persistence)
 và [giới hạn](../../limitation.md#include-files-and-persistence).
+
+## Patch có thứ tự và quyền sở hữu
+
+Nguồn dạng object có thể thêm mảng `patches` theo thứ tự:
+
+```json
+{
+  "entries": [{"id": "app", "name": "application", "config": {"port": 3000}}],
+  "patches": [
+    {"id": "app", "name": "application", "config": {"port": 4000}},
+    {"insert": [{"id": "extra", "name": "application"}]},
+    {"id": "extra", "disabled": true}
+  ]
+}
+```
+
+`name` của patch là điều kiện khớp, không đổi tên đối tượng đích.
+Nếu không có `insert` thì phải có `id`; nếu có `insert`, bỏ `id` nghĩa là
+thêm vào cuối gốc nguồn, còn `id` chọn một group cấu trúc.
+Đích không tồn tại, tên không khớp hoặc chèn vào entry không phải group đều được
+báo lỗi và bỏ qua. Patch sau nhìn thấy entry do patch trước chèn.
+Thay config của group sẽ bỏ quyền sở hữu của các con cũ trước khi đăng ký
+entry thay thế.
+
+`ownership(id)` tách owner của entry khỏi owner của từng khóa bị ghi đè.
+Entry có thể nằm trong tệp con nhưng config thuộc patch trong tệp cha.
+Bỏ patch sẽ khôi phục giá trị gốc khi refresh.
+Danh tính ẩn danh được ghép theo tệp chuẩn hóa/vị trí thô; cache hiện hành được
+dọn và có giới hạn. ID sinh ra tránh ID tường minh trong cả nguồn lẫn patch.

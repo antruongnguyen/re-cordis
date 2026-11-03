@@ -48,8 +48,8 @@ review, integration, documentation and current verification.
 | L5 | done | L4, G1 | sol/high implementation; astra/high independent review | integration, serialized writes | 101f37b | accepted; F1–F8 addressed | evidence/loader-acceptance.md; evidence/loader-rereview.md |
 | I0 | done | L5 | sol/high implementation; parent integration | integration, serialized writes | I0 checkpoint | five fixtures on both toolchains; selected contract | evidence/include-contract.md |
 | I1 | in_review | I0 | sol/high implementation; parent integration | integration, serialized writes | — | bounded parser/read/refresh | evidence/include-implementation.md |
-| I2 | in_progress | I1 | sol/high implementation; parent integration | integration, serialized writes | — | ordered patches/provenance | evidence/include-implementation.md |
-| I3 | planned | I2 | unassigned | integration | — | not started | evidence/I3/ |
+| I2 | in_review | I1 | sol/high implementation; parent integration | integration, serialized writes | — | ordered patches/provenance | evidence/include-implementation.md |
+| I3 | in_progress | I2 | sol/high implementation; parent integration | integration, serialized writes | — | bounded journal/reconciliation/persistence | evidence/include-implementation.md |
 | I4 | planned | I3 | unassigned | integration | — | not started | evidence/I4/ |
 | H0 | planned | T5, L5, I0 | unassigned | integration | — | not started | evidence/H0/ |
 | H1 | planned | H0, I1 | unassigned | integration | — | not started | evidence/H1/ |
@@ -256,3 +256,5 @@ independent acceptance; no active B0 blocker or worker remains.
 - 2026-11-03 CP069: I0 contract and five YAML capability fixtures pass explicit stable 1.97.1 and Rust 1.85.0. yaml-rust2 emits marks, duplicate keys, anchors/aliases and tags, but no comments. Select restricted core scalar values with unsupported-event rejection and canonical JSON writing for both formats. Define 1 MiB file/journal limits, 64 files, depth 32, 1024 entries/patches/journal records and three write attempts; keep filesystem races and crash durability explicit. I1 begins; full I4 acceptance remains pending.
 
 - 2026-11-03 CP070: I1 read/location implementation checkpoint passes 12 include tests on explicit stable 1.97.1 and 1.85.0. Both documentation runs pass 29 paired pages, 19 include exports, 11 unique snippets and the external quick start. Strict JSON has a separate duplicate/location scanner accepting astral surrogate escapes; YAML rejects unsupported events before expansion. Canonical regular-file reads, nested source locations, cycle detection, missing-only initial, retained parse failures and dedup are implemented without core/loader edits. Final I4 wave will complete remaining read/admission/bound cases and independent acceptance. I2 starts after this commit.
+
+- 2026-11-03 CP071: I2 checkpoint passes all 16 include tests on explicit stable 1.97.1 and 1.85.0. Ordered guards/inserts/overrides, nested parent patch ownership, stale group child removal, patch removal and anonymous ID collisions are covered. Wrapper operation reentry is refused, and anonymous metadata is pruned/bounded. Both bilingual documentation runs pass unchanged 29 pairs/19 exports/11 snippets and external quick start. Final independent acceptance remains I4; I3 journal/persistence starts next.
