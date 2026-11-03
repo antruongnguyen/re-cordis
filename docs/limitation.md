@@ -414,3 +414,34 @@ old symlink spelling is no longer followed by that rewritten descriptor.
 Patch `unset` is an explicit Rust/JSON adaptation for effective field absence.
 It differs from config:null and prevents a removed override from revealing a
 hidden base value. Existing value-only YAML, path and durability limits remain.
+
+## HMR watching and linked replacement
+
+H0–H3 is selected for implementation; its
+[contract and progress](plans/2026-11-02-cordis-completion/evidence/hmr-contract.md)
+separate delivery evidence from the following chosen boundaries.
+
+- **Rust adaptation:** application-supplied dependency nodes select catalog
+  factory candidates already compiled into the process. Nested core plugins
+  rebuild through their explicitly affected host entry; arbitrary closures
+  inside an unchanged host are not discovered or rewritten.
+- **Runtime boundary:** changed Rust source requires rebuilding/restarting.
+  No process supervisor, inferred Rust/Cargo module graph, Node cache/import
+  emulation, JS evaluator or native binary/ABI swapping is supplied.
+- **Watcher adaptation:** only registered regular file paths are sampled.
+  Ignored names are native path components, with explicit registration override;
+  no recursive root discovery or glob engine is provided. Polling can miss
+  changes entirely between samples; its bounded content digest is not a
+  collision-free or security guarantee.
+- **Path/platform boundary:** native logical paths survive inode replacement.
+  Symlinks are refused, but portable metadata/open operations are not a hostile
+  filesystem confinement protocol. Windows case spellings may remain distinct
+  registrations; macOS execution cannot establish Windows/Linux runtime evidence.
+- **Shutdown boundary:** token Drop/stop requests cancellation; joined watcher
+  or ancestor disposal releases callback captures and waits for the producer.
+  An OS read that is already blocked must return before joining; there is no
+  hard wall-clock shutdown deadline or rollback of callback external effects.
+- **Replacement boundary:** whole-batch declaration/type/optional preflight
+  precedes unload. Core dependency-ready mapping/validation can still fail
+  afterward. This is not a transaction over arbitrary side effects; failed
+  replacement requires explicit update or another candidate to recover.

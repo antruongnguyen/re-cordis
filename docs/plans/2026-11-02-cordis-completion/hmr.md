@@ -40,23 +40,28 @@ All three have explicit dispositions; layers 1–2 do not establish Node HMR par
 
 ## H0 — Reload model and watcher gate
 
+Completed contract: [Rust API and plan](evidence/hmr-contract.md),
+[watcher dependency gate](evidence/hmr-watch-contract.md),
+[batch seam probes](evidence/hmr-reload-contract.md) and
+[independent review](evidence/hmr-h0-review.md).
+
 **Entry:** T5 and L5 accepted; I0's callback/source identity contract is known.
 **Files:** this plan, docs/decision.md, docs/limitation.md.
 
-- [ ] Specify public change/reload/restart-required events, owned watch token,
+- [x] Specify public change/reload/restart-required events, owned watch token,
   path identity, debounce window and queue/backpressure bounds.
-- [ ] Choose watcher semantics for rename-based writes, remove/recreate,
+- [x] Choose watcher semantics for rename-based writes, remove/recreate,
   ignored directories, explicit watches overriding ignore, symlinks and
   Windows case/path behavior. Prove selected crate compatibility on 1.85.0.
-- [ ] Specify an explicit affected-entry/factory dependency model for layer 2.
+- [x] Specify an explicit affected-entry/factory dependency model for layer 2.
   Do not infer a Rust module graph from filenames or Cargo dependencies.
-- [ ] Define replacement validation before unload, per-entry config retention,
+- [x] Define replacement validation before unload, per-entry config retention,
   failure after unload, rollback limits and disposal superseding queued reloads.
   External effects cannot generally be rolled back transactionally.
-- [ ] Choose whether layer 3 ends with a restart-required event or receives a
+- [x] Choose whether layer 3 ends with a restart-required event or receives a
   separately scoped process supervisor. A supervisor needs build failure,
   process ownership, readiness, state transfer and shutdown contracts.
-- [ ] Record a separate feasibility proposal for native dynamic loading only
+- [x] Record a separate feasibility proposal for native dynamic loading only
   if requested: ABI compatibility, code/resource lifetimes, unwind safety,
   memory ownership, state migration and OS unloading. No implicit promise.
 

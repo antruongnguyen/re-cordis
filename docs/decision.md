@@ -814,3 +814,39 @@ It keeps absent config distinct from JSON null. Runtime removal routes this
 marker to the actual patch owner; a later set removes the marker. Structural
 control keys cannot be unset. This is a necessary Rust/JSON representation
 for field deletion, not JavaScript undefined serialization.
+
+## HMR watching and linked replacement
+
+The selected H0–H3 scope starts at 47042d9 and reuses accepted include 0a2df1e,
+loader 101f37b and timer/core task ownership. Exact APIs and execution gates
+live in the [HMR contract](plans/2026-11-02-cordis-completion/evidence/hmr-contract.md).
+
+Watch explicitly registered file paths with a standard-library polling thread
+whose JoinHandle belongs to the watcher. Reviewed notify 8.2.0/8.2.1 compile on
+1.85.0, but PollWatcher does not expose a joined producer shutdown. Keeping our
+own bounded registered-file poller avoids a detached producer or platform-specific
+join claim. Accepted timer debounce and core hosted tasks handle local dispatch.
+Only owned paths, numeric generations, I/O errors and synchronization state
+cross threads. There is no directory traversal or inferred source graph.
+
+Use bounded queue overflow to request a rescan of all active registered paths;
+logical path generations and exact registration tokens reject obsolete delivery.
+File inode replacement does not change the registered path. Missing files can
+recover; symlinks are refused under the documented ordinary-filesystem policy.
+Cancellation requests are distinct from joined watcher/owner disposal, which
+waits for producer termination and local task/capture release.
+
+Factory replacement takes an explicit dependency graph plus already-compiled
+typed candidates. A minimal loader batch seam checks every declaration and
+retained source contract before catalog publication or reload teardown. Optional
+raw-source preflight runs with same-loader mutation admission guarded; core
+Plugin validation stays on the actual dependency-ready replacement Context.
+Loader retains each instance's configuration and exact providers through old
+cleanup, then follows current identity/intent. It owns admitted work even after
+a replacement waiter is dropped. External effects cannot be rolled back after
+unload; Failed results and explicit recovery remain visible.
+
+An optional HMR-side Include adapter refreshes selected source paths and joins
+work already admitted by Include. Include has no dependency on HMR. Changed
+Rust source produces restart-required; the application owns any build/restart
+process. Node caches, JS execution and native ABI loading are outside H0–H3.
