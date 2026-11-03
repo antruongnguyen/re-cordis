@@ -48,6 +48,32 @@ pub(crate) fn children_ids(a: &[Value], id: &str) -> Vec<String> {
     }
     out.into_keys().collect()
 }
+pub(crate) fn prune(records: &mut [Record], id: &str) {
+    for record in records {
+        let group = record
+            .snapshot
+            .as_ref()
+            .is_some_and(|v| v.get("group") == Some(&Value::Bool(true)));
+        if group {
+            if let Some(children) = record
+                .snapshot
+                .as_mut()
+                .and_then(|v| v.get_mut("config"))
+                .and_then(Value::as_array_mut)
+            {
+                detach(children, id);
+            }
+            if let Some(children) = record
+                .changes
+                .get_mut("config")
+                .and_then(Option::as_mut)
+                .and_then(Value::as_array_mut)
+            {
+                detach(children, id);
+            }
+        }
+    }
+}
 pub(crate) fn merge(records: &mut Vec<Record>, new: Record) -> Result<(), IncludeError> {
     if let Some(pos) = records.iter().position(|r| r.id == new.id) {
         let old = &mut records[pos];

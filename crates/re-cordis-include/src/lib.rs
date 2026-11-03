@@ -809,6 +809,7 @@ impl Include {
             .clone()
             .ok_or_else(|| IncludeError::new("refresh required"))?;
         for child in descendants {
+            journal::prune(&mut records, &child);
             let pending = records.iter().position(|r| r.id == child);
             if patch::find(&model.data, &child).is_none() {
                 if let Some(pos) = pending {

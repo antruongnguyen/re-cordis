@@ -28,6 +28,7 @@ pub(crate) struct Model {
     load_missing: bool,
     mounted: BTreeSet<PathBuf>,
     entry_paths: BTreeMap<(PathBuf, String), Vec<PathSegment>>,
+    known_ids: BTreeMap<(PathBuf, String), String>,
 }
 pub(crate) fn canonical(path: &Path) -> Result<PathBuf, IncludeError> {
     match std::fs::canonicalize(path) {
@@ -210,19 +211,20 @@ impl Model {
         );
         // Expand once without generated IDs to identify actual entry addresses.
         // This pass also loads only sources encountered in applied structural data.
-        let model = Self::build(root.clone(), files, true)?;
-        let mut files = model.files;
-        let mut used = BTreeSet::new();
-        for (file, path) in model.entry_paths.keys() {
-            if let Some(id) = files[file]
-                .value
-                .pointer(path)
-                .and_then(|v| v.get("id"))
-                .and_then(Value::as_str)
-            {
-                used.insert(id.into());
-            }
+        let mut model = Self::build(root.clone(), files, true, BTreeMap::new())?;
+        let explicit = model.explicit_ids();
+        let known_ids: BTreeMap<_, _> = ids
+            .iter()
+            .filter(|(_, id)| !explicit.contains(*id))
+            .map(|(path, id)| (path.clone(), id.clone()))
+            .collect();
+        if !known_ids.is_empty() {
+            // Exposed positional IDs can make a new structural patch applicable.
+            // Restore them only in effective entries; raw values stay unchanged.
+            model = Self::build(root.clone(), model.files, true, known_ids)?;
         }
+        let mut used = model.explicit_ids();
+        let mut files = model.files;
         for ((file, pointer), path) in model.entry_paths {
             let value = files
                 .get_mut(&file)
@@ -249,12 +251,26 @@ impl Model {
         root: PathBuf,
         files: BTreeMap<PathBuf, Document>,
     ) -> Result<Self, IncludeError> {
-        Self::build(root, files, false)
+        Self::build(root, files, false, BTreeMap::new())
+    }
+    fn explicit_ids(&self) -> BTreeSet<String> {
+        self.entry_paths
+            .keys()
+            .filter_map(|(file, path)| {
+                self.files[file]
+                    .value
+                    .pointer(path)?
+                    .get("id")?
+                    .as_str()
+                    .map(str::to_owned)
+            })
+            .collect()
     }
     fn build(
         root: PathBuf,
         files: BTreeMap<PathBuf, Document>,
         load_missing: bool,
+        known_ids: BTreeMap<(PathBuf, String), String>,
     ) -> Result<Self, IncludeError> {
         let mut model = Self {
             root: root.clone(),
@@ -266,6 +282,7 @@ impl Model {
             load_missing,
             mounted: BTreeSet::new(),
             entry_paths: BTreeMap::new(),
+            known_ids,
         };
         model.data = model.expand_file(&root, 0)?;
         if model.owners.len() > MAX_ENTRIES {
@@ -316,8 +333,17 @@ impl Model {
         if depth > MAX_DEPTH {
             return Err(IncludeError::new("group depth limit exceeded"));
         }
-        self.entry_paths
-            .insert((file.into(), path_key(&path)), path.clone());
+        let address = (file.into(), path_key(&path));
+        self.entry_paths.insert(address.clone(), path.clone());
+        if v.get("id").is_none()
+            && (v.get("name").is_some() || v.get("group") == Some(&Value::Bool(true)))
+        {
+            if let Some(id) = self.known_ids.get(&address) {
+                v.as_object_mut()
+                    .unwrap()
+                    .insert("id".into(), Value::String(id.clone()));
+            }
+        }
         if let Some(id) = v.get("id").and_then(Value::as_str) {
             let owner = Owner {
                 file: file.into(),

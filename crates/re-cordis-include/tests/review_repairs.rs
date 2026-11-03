@@ -525,3 +525,267 @@ async fn replacement_patch_includes_keep_cycle_and_duplicate_mount_checks() {
         i.dispose().unwrap().await.unwrap();
     }).await;
 }
+
+#[tokio::test(flavor = "current_thread")]
+async fn removed_embedded_created_subtree_stays_removed_after_flush() {
+    let d = Dir::new();
+    d.put("a.json", "[]");
+    let rt = Runtime::new();
+    run(&rt, async {
+        let i = Include::new(
+            &rt.context(),
+            catalog(),
+            IncludeOptions::new(d.path("a.json")),
+        )
+        .unwrap();
+        i.refresh().unwrap().await.unwrap();
+        i.create(
+            json!({"id":"g","group":true,"config":[
+                {"id":"child","group":true,"config":[{"id":"leaf","name":"worker"}]}
+            ]}),
+            None,
+            0,
+        )
+        .unwrap()
+        .await
+        .unwrap();
+        i.remove("child").unwrap().await.unwrap();
+        let expected = json!([{"id":"g","group":true,"config":[]}]);
+        assert_eq!(i.data(), expected);
+        assert_eq!(i.pending(), 1);
+        let report = i.flush().unwrap().await.unwrap();
+        assert!(report.conflicts.is_empty());
+        assert_eq!(i.data(), expected);
+        assert_eq!(read(&d.path("a.json")), expected);
+        assert_eq!(i.entries().len(), 1);
+        assert_eq!(i.pending(), 0);
+        i.dispose().unwrap().await.unwrap();
+    })
+    .await;
+}
+
+#[tokio::test(flavor = "current_thread")]
+async fn stable_anonymous_patch_discovers_relative_source_and_child_owner() {
+    let d = Dir::new();
+    std::fs::create_dir(d.path("nested")).unwrap();
+    d.put(
+        "nested/a.json",
+        r#"{"entries":[{"group":true,"config":[]}]}"#,
+    );
+    d.put(
+        "nested/child.json",
+        r#"[{"id":"leaf","name":"worker","config":1}]"#,
+    );
+    let rt = Runtime::new();
+    run(&rt, async {
+        let i = Include::new(
+            &rt.context(),
+            catalog(),
+            IncludeOptions::new(d.path("nested/a.json")),
+        )
+        .unwrap();
+        i.refresh().unwrap().await.unwrap();
+        let id = i.data()[0]["id"].as_str().unwrap().to_owned();
+        assert_eq!(id, "include-anon-1");
+        assert!(
+            read(&d.path("nested/a.json"))["entries"][0]
+                .get("id")
+                .is_none()
+        );
+        d.put(
+            "nested/a.json",
+            &json!({"entries":[{"group":true,"config":[]}],
+                "patches":[{"id":id,"config":[{"name":"include","config":{"path":"child.json"}}]}]
+            })
+            .to_string(),
+        );
+        let report = i.refresh().unwrap().await.unwrap();
+        assert!(report.failures.is_empty(), "{:?}", report.failures);
+        assert_eq!(i.data()[0]["id"], id);
+        assert_eq!(i.data()[0]["config"][0]["config"][0]["id"], "leaf");
+        assert_eq!(
+            i.ownership("leaf").unwrap().entry.file,
+            std::fs::canonicalize(d.path("nested/child.json")).unwrap()
+        );
+        i.edit("leaf", JsonEdit::new().set("config", json!(9)))
+            .unwrap()
+            .await
+            .unwrap();
+        assert!(i.flush().unwrap().await.unwrap().conflicts.is_empty());
+        assert_eq!(read(&d.path("nested/child.json"))[0]["config"], 9);
+        assert_eq!(
+            read(&d.path("nested/a.json"))["patches"][0]["config"][0]["config"]["path"],
+            "child.json"
+        );
+        i.refresh().unwrap().await.unwrap();
+        assert_eq!(i.data()[0]["id"], id);
+        i.dispose().unwrap().await.unwrap();
+    })
+    .await;
+}
+
+#[tokio::test(flavor = "current_thread")]
+async fn canceled_embedded_subtree_preserves_moves_edits_opaque_config_and_retry() {
+    for move_first in [false, true] {
+        let d = Dir::new();
+        let base =
+            json!([{"id":"a","name":"worker","config":1},{"id":"dest","group":true,"config":[]}]);
+        d.put("a.json", &base.to_string());
+        let opaque = json!([{"id":"child","group":true,"config":[{"id":"leaf","name":"worker"}]}]);
+        let rt = Runtime::new();
+        run(&rt, async {
+                let i = Include::new(&rt.context(), catalog(), IncludeOptions::new(d.path("a.json"))).unwrap();
+                i.refresh().unwrap().await.unwrap();
+                i.create(json!({"id":"g","group":true,"config":[
+                    {"id":"child","group":true,"config":[{"id":"leaf","name":"worker","config":1}]},
+                    {"id":"keep","name":"worker","config":opaque}
+                ]}), None, 2).unwrap().await.unwrap();
+                i.edit("leaf", JsonEdit::new().set("config", json!(2))).unwrap().await.unwrap();
+                i.move_entry("a", Some("child"), 1).unwrap().await.unwrap();
+                if move_first {
+                    i.edit("g", JsonEdit::new().set("disabled", json!(true))).unwrap().await.unwrap();
+                    i.move_entry("g", Some("dest"), 0).unwrap().await.unwrap();
+                }
+                i.remove("child").unwrap().await.unwrap();
+                d.put("a.json", "broken");
+                assert!(i.flush().is_err());
+                if !move_first {
+                    i.move_entry("g", Some("dest"), 0).unwrap().await.unwrap();
+                    i.edit("g", JsonEdit::new().set("disabled", json!(true))).unwrap().await.unwrap();
+                }
+                let expected = json!([{"id":"dest","group":true,"config":[
+                    {"id":"g","group":true,"disabled":true,"config":[{"id":"keep","name":"worker","config":opaque}]}
+                ]}]);
+                assert_eq!(i.data(), expected);
+                d.put("a.json", &base.to_string());
+                let report = i.flush().unwrap().await.unwrap();
+                assert!(report.conflicts.is_empty(), "{:?}", report.conflicts);
+                assert_eq!(i.data(), expected);
+                assert_eq!(read(&d.path("a.json")), expected);
+                assert_eq!(i.pending(), 0);
+                i.dispose().unwrap().await.unwrap();
+            }).await;
+    }
+}
+
+#[tokio::test(flavor = "current_thread")]
+async fn child_moved_out_of_canceled_embedded_subtree_survives_flush() {
+    let d = Dir::new();
+    d.put("a.json", "[]");
+    let rt = Runtime::new();
+    run(&rt, async {
+        let i = Include::new(
+            &rt.context(),
+            catalog(),
+            IncludeOptions::new(d.path("a.json")),
+        )
+        .unwrap();
+        i.refresh().unwrap().await.unwrap();
+        i.create(
+            json!({"id":"g","group":true,"config":[
+                {"id":"child","group":true,"config":[{"id":"leaf","name":"worker","config":1}]}
+            ]}),
+            None,
+            0,
+        )
+        .unwrap()
+        .await
+        .unwrap();
+        i.move_entry("leaf", None, 1).unwrap().await.unwrap();
+        i.edit("leaf", JsonEdit::new().set("config", json!(3)))
+            .unwrap()
+            .await
+            .unwrap();
+        i.remove("child").unwrap().await.unwrap();
+        let expected =
+            json!([{"id":"g","group":true,"config":[]},{"id":"leaf","name":"worker","config":3}]);
+        assert_eq!(i.data(), expected);
+        let report = i.flush().unwrap().await.unwrap();
+        assert!(report.conflicts.is_empty());
+        assert_eq!(i.data(), expected);
+        assert_eq!(read(&d.path("a.json")), expected);
+        i.dispose().unwrap().await.unwrap();
+    })
+    .await;
+}
+
+#[tokio::test(flavor = "current_thread")]
+async fn cached_anonymous_ids_yield_to_explicit_ids_without_loading_skipped_config() {
+    let d = Dir::new();
+    d.put(
+        "a.json",
+        r#"{"entries":[{"group":true,"config":[]},{"name":"worker"}]}"#,
+    );
+    let rt = Runtime::new();
+    run(&rt, async {
+        let i = Include::new(
+            &rt.context(),
+            catalog(),
+            IncludeOptions::new(d.path("a.json")),
+        )
+        .unwrap();
+        i.refresh().unwrap().await.unwrap();
+        let id = i.data()[0]["id"].as_str().unwrap().to_owned();
+        assert_eq!(id, "include-anon-1");
+        d.put(
+            "a.json",
+            &json!({"entries":[{"group":true,"config":[]},{"id":id,"name":"worker"}],
+                "patches":[{"id":id,"name":"other","group":true,"config":[
+                    {"name":"include","config":{"path":"missing.json"}}
+                ]}]
+            })
+            .to_string(),
+        );
+        let report = i.refresh().unwrap().await.unwrap();
+        assert_eq!(report.failures.len(), 1);
+        assert!(report.failures[0].message.contains("name mismatch"));
+        assert_eq!(i.data()[0]["id"], "include-anon-3");
+        assert_eq!(i.data()[1]["id"], id);
+        assert!(i.data()[1].get("config").is_none());
+        assert_eq!(
+            i.ownership(&id).unwrap().entry.path,
+            vec![
+                re_cordis_core::PathSegment::Key("entries".into()),
+                re_cordis_core::PathSegment::Index(1)
+            ]
+        );
+        i.dispose().unwrap().await.unwrap();
+    })
+    .await;
+}
+
+#[tokio::test(flavor = "current_thread")]
+async fn stable_anonymous_patch_keeps_cycle_and_duplicate_mount_checks() {
+    let d = Dir::new();
+    d.put("a.json", r#"{"entries":[{"group":true,"config":[]}]}"#);
+    d.put(
+        "child.json",
+        r#"[{"id":"back","name":"include","config":{"path":"a.json"}}]"#,
+    );
+    let rt = Runtime::new();
+    run(&rt, async {
+            let i = Include::new(&rt.context(), catalog(), IncludeOptions::new(d.path("a.json"))).unwrap();
+            i.refresh().unwrap().await.unwrap();
+            let before = i.data();
+            let id = before[0]["id"].as_str().unwrap();
+            let descriptor = json!({"id":"inc","name":"include","config":{"path":"child.json"}});
+            d.put("a.json", &json!({"entries":[{"group":true,"config":[]}],
+                "patches":[{"id":id,"config":[descriptor]}]
+            }).to_string());
+            assert!(i.refresh().err().unwrap().message.contains("cycle"));
+            assert_eq!(i.data(), before);
+            d.put("child.json", r#"[{"id":"leaf","name":"worker"}]"#);
+            d.put("a.json", &json!({"entries":[{"group":true,"config":[]}],
+                "patches":[{"id":id,"config":[descriptor,{"id":"second","name":"include","config":{"path":"child.json"}}]}]
+            }).to_string());
+            assert!(i.refresh().err().unwrap().message.contains("mounted more than once"));
+            assert_eq!(i.data(), before);
+            d.put("a.json", &json!({"entries":[{"group":true,"config":[]}],
+                "patches":[{"id":id,"config":[descriptor]}]
+            }).to_string());
+            assert!(i.refresh().unwrap().await.unwrap().failures.is_empty());
+            assert_eq!(i.data()[0]["id"], id);
+            assert_eq!(i.data()[0]["config"][0]["config"][0]["id"], "leaf");
+            i.dispose().unwrap().await.unwrap();
+        }).await;
+}
