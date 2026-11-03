@@ -75,8 +75,8 @@ dependency decision and exact limits. Generate the short coding plan for L1.
 
 ## L1 — Registered factories and in-memory entries
 
-**Files to create:** crates/re-cordis-loader/Cargo.toml, src/lib.rs,
-src/lib.rs, src/scope.rs, src/source.rs, tests/catalog.rs, tests/entries.rs.
+**Delivered files:** crates/re-cordis-loader/Cargo.toml, src/lib.rs,
+src/scope.rs, src/source.rs, tests/catalog.rs, tests/entries.rs.
 
 - [ ] Add failing tests for known/unknown/duplicate factory names, stable
   identity across two entries, duplicate explicit IDs, generated IDs and
@@ -198,6 +198,9 @@ and `EntryPatch/FieldPatch`. Exact signatures live in Rustdoc and
   is retained independently of task cancellation. Removed-but-retiring records
   count toward 1024 admission capacity. Owner disposal breaks Entry/Fiber
   cycles and joins detached cleanup after Loader/waiter Drop.
+  Direct updates keep every outstanding barrier (at most 1024 globally);
+  settlement/removal/owner teardown cannot lose an earlier update when a later
+  one completes first. Only the first unobserved update error is retained.
 - Structural groups retain ordered logical children when disabled.
   Cross-group/scope moves rebuild core allocation identity after cleanup;
   same-group reorder is inert. Group addresses adapt navigation, while source

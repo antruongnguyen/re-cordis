@@ -105,8 +105,9 @@ and behavioral tests, not just public type declarations.
 The **2026-10-27** roadmap selected timer → console logger → loader.
 The user's **2026-11-03** execution direction selected console before timer
 repair. **`re-cordis-timer` and `re-cordis-logger` are implemented** (see below);
-console C0–C3 and timer repair T0–T5 are independently accepted. Loader and other
-remaining entries are future targets, not available APIs.
+console C0–C3 and timer repair T0–T5 are independently accepted. Loader/group
+APIs are implemented and undergoing final acceptance. Include, HMR and create
+remain future targets.
 
 The TypeScript specification remains pinned to
 `35fdc969e4b6c48c48ed44717c7a018324e4dd88` in `local/cordis`.

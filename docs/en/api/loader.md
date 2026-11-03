@@ -28,7 +28,14 @@ unstable and unpublished. [Runnable guide](../guides/loader.md).
 `remove` unlinks and starts teardown. `snapshot`/`entries` are reads and do not
 expose mutable Fiber control. `resolve` looks up a current composite address.
 `move_entry` preserves EntryId and changes the address; see [groups](groups.md).
-`settle` waits admitted generations, `dispose` joins owner and detached cleanup.
+`settle` waits admitted generations and every outstanding direct update; later
+updates completing first do not release older barriers. `remove` joins the
+removed subtree's updates; `dispose` and owner shutdown join all updates and
+detached cleanup. Dropping an operation or settlement waiter does not cancel
+work or acknowledge its result. Loader retains the first unobserved direct-update
+failure, rather than an unlimited error history. Completed original/removal
+waiters and successful settlement delivery acknowledge results; disposal can
+report the same retained failure again.
 Use the correct Runtime::run host for mutation and keep it alive through waits.
 Loader retains the first detached lifecycle-task error while still joining all
 cleanup. Ordinary user cleanup errors follow core diagnostics:
@@ -63,6 +70,7 @@ Decoder-owned config may contain arbitrary data; no field runs JavaScript.
 |---|---:|
 | `MAX_ENTRIES` (resident plus retiring entries) | 1024 |
 | Simultaneously live named realms (same limit) | 1024 |
+| Outstanding direct updates, globally (same limit) | 1024 |
 | `MAX_JSON_BYTES` | 1048576 |
 | `MAX_JSON_DEPTH` | 32 |
 | `MAX_JSON_NODES` | 65536 |

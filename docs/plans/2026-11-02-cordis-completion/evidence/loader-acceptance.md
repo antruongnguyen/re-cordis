@@ -70,3 +70,13 @@ The current loader suite passes 66 integration, three unit and two Rustdoc
 checks, with strict Clippy and formatting. F4 overlapping direct-update work
 remains open; its pending regressions are retained separately. This is a
 green checkpoint, not final acceptance. See [implementation history](loader-implementation.md).
+
+## Correction checkpoint CP066
+
+F4 and the scoped F5 reentry follow-up are implemented. The loader now passes
+71 integration tests, three unit tests and two Rustdoc checks. Explicit rustup
+stable 1.97.1 and 1.85.0 full matrices pass (335 workspace tests/Rustdoc checks
+and 21 M0 checks each), including strict Clippy, Rustdoc, four applications and
+bilingual documentation. All 119 executable/fixture input hashes remained fixed.
+Preliminary worker checks used PATH Homebrew 1.99.1; those are separate evidence.
+Final scoped re-review and paired-trace verification remain pending.

@@ -7,6 +7,7 @@ use re_cordis_loader::{
 use std::{
     cell::{Cell, RefCell},
     convert::Infallible,
+    error::Error,
     ops::ControlFlow,
     rc::Rc,
 };
@@ -77,7 +78,6 @@ async fn reentrant_membership_replacement_keeps_newest_tree_visible() {
     })
     .await;
 }
-
 #[tokio::test(flavor = "current_thread")]
 async fn active_group_condition_and_intercept_failures_cleanup_then_explicitly_recover() {
     for intercept in [false, true] {
@@ -146,7 +146,6 @@ async fn active_group_condition_and_intercept_failures_cleanup_then_explicitly_r
         .await;
     }
 }
-
 #[tokio::test(flavor = "current_thread")]
 async fn nested_typed_and_json_source_duplicates_preserve_first_and_healthy_siblings() {
     for json in [false, true] {
@@ -166,7 +165,102 @@ async fn nested_typed_and_json_source_duplicates_preserve_first_and_healthy_sibl
  }).await;
     }
 }
-
+#[derive(Debug)]
+struct OlderUpdateError;
+impl std::fmt::Display for OlderUpdateError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str("older update failed")
+    }
+}
+impl Error for OlderUpdateError {}
+fn contains_older(mut error: &(dyn Error + 'static)) -> bool {
+    loop {
+        if error.downcast_ref::<OlderUpdateError>().is_some() {
+            return true;
+        }
+        match error.source() {
+            Some(source) => error = source,
+            None => return false,
+        }
+    }
+}
+#[tokio::test(flavor = "current_thread")]
+async fn overlapping_direct_updates_join_older_gated_success_and_error() {
+    for fail in [false, true] {
+        let runtime = Runtime::new();
+        bounded(&runtime, async {
+            let root = runtime.context();
+            let (started, entered) = oneshot::channel();
+            let (release, gate) = oneshot::channel();
+            let pause = Rc::new(RefCell::new(Some((started, gate))));
+            let done = Rc::new(Cell::new(false));
+            let mut catalog = Catalog::new();
+            catalog
+                .register(
+                    "worker",
+                    Plugin::new("worker", {
+                        let done = done.clone();
+                        move |ctx, _: u32| {
+                            let pause = pause.clone();
+                            let done = done.clone();
+                            async move {
+                                ctx.on_update::<u32, _, _, BoxError>(move |_, _, _| {
+                                    let pause = pause.borrow_mut().take();
+                                    let done = done.clone();
+                                    async move {
+                                        if let Some((started, gate)) = pause {
+                                            started.send(()).unwrap();
+                                            gate.await.unwrap();
+                                            done.set(true);
+                                            if fail {
+                                                return Err(Box::new(OlderUpdateError) as BoxError);
+                                            }
+                                        }
+                                        Ok(false)
+                                    }
+                                })?;
+                                Ok::<_, BoxError>(())
+                            }
+                        }
+                    }),
+                )
+                .unwrap();
+            let loader = Loader::new(&root, catalog).unwrap();
+            let id = loader
+                .create(EntrySpec::new("worker", Config::new(1_u32)))
+                .unwrap();
+            loader.settle().unwrap().await.unwrap();
+            drop(
+                loader
+                    .update(&id, EntrySpec::new("worker", Config::new(2_u32)))
+                    .unwrap(),
+            );
+            entered.await.unwrap();
+            loader
+                .update(&id, EntrySpec::new("worker", Config::new(3_u32)))
+                .unwrap()
+                .await
+                .unwrap();
+            let mut settled = Box::pin(loader.settle().unwrap());
+            assert!(futures_util::poll!(&mut settled).is_pending());
+            assert!(!done.get());
+            drop(settled);
+            release.send(()).unwrap();
+            let report = loader.settle().unwrap().await.unwrap();
+            assert!(done.get());
+            assert_eq!(report.failures.len(), usize::from(fail));
+            if fail {
+                assert!(contains_older(&report.failures[0].error));
+            }
+            assert_eq!(
+                *loader.snapshot(&id).unwrap().source.get::<u32>().unwrap(),
+                3
+            );
+            loader.dispose().unwrap().await.unwrap();
+        })
+        .await;
+    }
+}
 #[tokio::test(flavor = "current_thread")]
 async fn group_to_plugin_replacement_removes_children_and_joins_gated_capture_cleanup() {
     let runtime = Runtime::new();
@@ -228,7 +322,6 @@ async fn group_to_plugin_replacement_removes_children_and_joins_gated_capture_cl
     })
     .await;
 }
-
 #[tokio::test(flavor = "current_thread")]
 async fn existing_ancestor_cycle_is_rejected_before_source_or_commit_changes() {
     let runtime = Runtime::new();
@@ -283,7 +376,6 @@ async fn existing_ancestor_cycle_is_rejected_before_source_or_commit_changes() {
     })
     .await;
 }
-
 #[tokio::test(flavor = "current_thread")]
 async fn malformed_nested_json_group_retains_source_config_path_and_span() {
     let runtime = Runtime::new();
@@ -295,7 +387,6 @@ async fn malformed_nested_json_group_retains_source_config_path_and_span() {
   loader.dispose().unwrap().await.unwrap();
  }).await;
 }
-
 #[tokio::test(flavor = "current_thread")]
 async fn anonymous_positional_source_update_does_not_reclaim_another_sources_adoption() {
     let runtime = Runtime::new();
@@ -334,6 +425,102 @@ async fn anonymous_positional_source_update_does_not_reclaim_another_sources_ado
         loader.dispose().unwrap().await.unwrap();
     })
     .await;
+}
+
+#[tokio::test(flavor = "current_thread")]
+async fn teardown_joins_an_older_direct_update_after_a_newer_update_completes() {
+    for mode in 0..3 {
+        for fail in [false, true] {
+            let runtime = Runtime::new();
+            bounded(&runtime, async {
+                let root = runtime.context();
+                let (started, entered) = oneshot::channel();
+                let (release, gate) = oneshot::channel();
+                let pause = Rc::new(RefCell::new(Some((started, gate))));
+                let mut catalog = Catalog::new();
+                catalog
+                    .register(
+                        "worker",
+                        Plugin::new("worker", move |ctx, _: u32| {
+                            let pause = pause.clone();
+                            async move {
+                                ctx.on_update::<u32, _, _, BoxError>(move |_, _, _| {
+                                    let pause = pause.borrow_mut().take();
+                                    async move {
+                                        if let Some((started, gate)) = pause {
+                                            started.send(()).unwrap();
+                                            gate.await.unwrap();
+                                            if fail {
+                                                return Err(Box::new(OlderUpdateError) as BoxError);
+                                            }
+                                        }
+                                        Ok(false)
+                                    }
+                                })?;
+                                Ok::<_, BoxError>(())
+                            }
+                        }),
+                    )
+                    .unwrap();
+                let loader = Loader::new(&root, catalog).unwrap();
+                let id = loader
+                    .create(EntrySpec::new("worker", Config::new(1_u32)))
+                    .unwrap();
+                loader.settle().unwrap().await.unwrap();
+                drop(
+                    loader
+                        .update(&id, EntrySpec::new("worker", Config::new(2_u32)))
+                        .unwrap(),
+                );
+                entered.await.unwrap();
+                loader
+                    .update(&id, EntrySpec::new("worker", Config::new(3_u32)))
+                    .unwrap()
+                    .await
+                    .unwrap();
+                let mut teardown = Box::pin(if mode == 2 {
+                    let disposal = root.drain().unwrap();
+                    Box::pin(async move {
+                        disposal.await.unwrap();
+                        Ok(())
+                    })
+                        as std::pin::Pin<
+                            Box<dyn std::future::Future<Output = Result<(), LoaderError>>>,
+                        >
+                } else {
+                    Box::pin(if mode == 1 {
+                        loader.dispose().unwrap()
+                    } else {
+                        loader.remove(&id).unwrap()
+                    })
+                });
+                for _ in 0..8 {
+                    tokio::task::yield_now().await;
+                }
+                assert!(futures_util::poll!(&mut teardown).is_pending());
+                release.send(()).unwrap();
+                let outcome = teardown.await;
+                assert_eq!(outcome.is_err(), fail && mode != 2);
+                if fail {
+                    if mode != 2 {
+                        assert!(contains_older(&outcome.unwrap_err()));
+                    }
+                    assert!(
+                        runtime
+                            .take_failures()
+                            .iter()
+                            .any(|failure| contains_older(failure))
+                    );
+                } else {
+                    outcome.unwrap();
+                }
+                if mode == 0 {
+                    loader.dispose().unwrap().await.unwrap();
+                }
+            })
+            .await;
+        }
+    }
 }
 
 #[tokio::test(flavor = "current_thread")]
@@ -390,7 +577,6 @@ async fn named_realm_identity_survives_live_scopes_and_snapshots_then_recycles()
     })
     .await;
 }
-
 #[tokio::test(flavor = "current_thread")]
 async fn named_realm_live_definition_limit_releases_after_scopes_drop() {
     let runtime = Runtime::new();
@@ -428,6 +614,223 @@ async fn named_realm_live_definition_limit_releases_after_scopes_drop() {
                 .decode_json(r#"[{"name":"worker","isolate":{"value":"after-release"}}]"#)
                 .is_ok()
         );
+        loader.dispose().unwrap().await.unwrap();
+    })
+    .await;
+}
+
+#[tokio::test(flavor = "current_thread")]
+async fn outstanding_direct_update_limit_rejects_before_source_commit_and_recovers_capacity() {
+    let runtime = Runtime::new();
+    bounded(&runtime, async {
+        let root = runtime.context();
+        let (release, gate) = tokio::sync::watch::channel(false);
+        let mut catalog = Catalog::new();
+        catalog
+            .register(
+                "worker",
+                Plugin::new("worker", move |ctx, _: u32| {
+                    let gate = gate.clone();
+                    async move {
+                        ctx.on_update::<u32, _, _, BoxError>(move |_, _, _| {
+                            let mut gate = gate.clone();
+                            async move {
+                                while !*gate.borrow() {
+                                    gate.changed().await?;
+                                }
+                                Ok(false)
+                            }
+                        })?;
+                        Ok::<_, BoxError>(())
+                    }
+                }),
+            )
+            .unwrap();
+        let loader = Loader::new(&root, catalog).unwrap();
+        let id = loader
+            .create(EntrySpec::new("worker", Config::new(0_u32)))
+            .unwrap();
+        loader.settle().unwrap().await.unwrap();
+        for value in 1..=re_cordis_loader::MAX_ENTRIES as u32 {
+            drop(
+                loader
+                    .update(&id, EntrySpec::new("worker", Config::new(value)))
+                    .unwrap(),
+            );
+        }
+        assert!(
+            loader
+                .update(&id, EntrySpec::new("worker", Config::new(u32::MAX)))
+                .is_err()
+        );
+        assert_eq!(
+            *loader.snapshot(&id).unwrap().source.get::<u32>().unwrap(),
+            re_cordis_loader::MAX_ENTRIES as u32
+        );
+        release.send(true).unwrap();
+        assert!(loader.settle().unwrap().await.unwrap().failures.is_empty());
+        loader
+            .update(&id, EntrySpec::new("worker", Config::new(5_u32)))
+            .unwrap()
+            .await
+            .unwrap();
+        loader.dispose().unwrap().await.unwrap();
+    })
+    .await;
+}
+
+#[tokio::test(flavor = "current_thread")]
+async fn reentrant_plugin_replacement_removes_actual_obsolete_children() {
+    let runtime = Runtime::new();
+    bounded(&runtime, async {
+        let root = runtime.context();
+        let (started, entered) = oneshot::channel();
+        let (release, gate) = oneshot::channel();
+        let pause = Rc::new(RefCell::new(Some((started, gate))));
+        let applied = Rc::new(RefCell::new(Vec::new()));
+        let seen = applied.clone();
+        let mut catalog = Catalog::new();
+        catalog
+            .register(
+                "worker",
+                Plugin::new("worker", move |ctx, value: u32| {
+                    seen.borrow_mut().push(value);
+                    let pause = pause.borrow_mut().take();
+                    async move {
+                        ctx.on_dispose(move || async move {
+                            if let Some((started, gate)) = pause {
+                                started.send(()).unwrap();
+                                gate.await.unwrap();
+                            }
+                            Ok::<_, Infallible>(())
+                        })?;
+                        Ok::<_, BoxError>(())
+                    }
+                }),
+            )
+            .unwrap();
+        let loader = Loader::new(&root, catalog).unwrap();
+        let parent = loader.create(group(1, "child")).unwrap();
+        loader.settle().unwrap().await.unwrap();
+        let child = loader.resolve("group:child").unwrap();
+        let nested = loader.clone();
+        let target = parent.clone();
+        let fired = Rc::new(Cell::new(false));
+        root.on(
+            &loader.commits(),
+            Listener::sync(move |_, record: re_cordis_loader::CommitRecord| {
+                if record.id == target && !fired.replace(true) {
+                    drop(nested.update(&target, EntrySpec::new("worker", Config::new(3_u32)))?);
+                }
+                Ok::<_, LoaderError>(ControlFlow::Continue(()))
+            }),
+        )
+        .unwrap();
+        let mut update = Box::pin(
+            loader
+                .update(&parent, EntrySpec::new("worker", Config::new(2_u32)))
+                .unwrap(),
+        );
+        entered.await.unwrap();
+        for _ in 0..8 {
+            tokio::task::yield_now().await;
+        }
+        assert_eq!(*applied.borrow(), vec![1]);
+        let status = futures_util::poll!(&mut update);
+        assert!(status.is_pending(), "update prematurely ready: {status:?}");
+        release.send(()).unwrap();
+        update.await.unwrap();
+        assert!(loader.settle().unwrap().await.unwrap().failures.is_empty());
+        let snapshot = loader.snapshot(&parent).unwrap();
+        assert_eq!(*snapshot.source.get::<u32>().unwrap(), 3);
+        assert_eq!(snapshot.state, EntryState::Active);
+        assert_eq!(*applied.borrow(), vec![1, 3]);
+        assert!(snapshot.children.is_empty());
+        assert!(loader.snapshot(&child).is_none());
+        assert!(loader.resolve("group:child").is_err());
+        loader.dispose().unwrap().await.unwrap();
+    })
+    .await;
+}
+
+#[tokio::test(flavor = "current_thread")]
+async fn dropped_settlement_after_older_error_retention_keeps_failure_visible() {
+    let runtime = Runtime::new();
+    bounded(&runtime, async {
+        let root = runtime.context();
+        let (started, entered) = oneshot::channel();
+        let (release, gate) = oneshot::channel();
+        let pause = Rc::new(RefCell::new(Some((started, gate))));
+        let mut catalog = Catalog::new();
+        catalog
+            .register(
+                "worker",
+                Plugin::new("worker", move |ctx, _: u32| {
+                    let pause = pause.clone();
+                    async move {
+                        ctx.on_update::<u32, _, _, BoxError>(move |_, value, _| {
+                            let pause = if *value == 3 {
+                                pause.borrow_mut().take()
+                            } else {
+                                None
+                            };
+                            async move {
+                                if *value == 2 {
+                                    return Err(Box::new(OlderUpdateError) as BoxError);
+                                }
+                                if let Some((started, gate)) = pause {
+                                    started.send(()).unwrap();
+                                    gate.await.unwrap();
+                                    return Err(Box::new(std::io::Error::other(
+                                        "newer update failed",
+                                    )) as BoxError);
+                                }
+                                Ok(false)
+                            }
+                        })?;
+                        Ok::<_, BoxError>(())
+                    }
+                }),
+            )
+            .unwrap();
+        let loader = Loader::new(&root, catalog).unwrap();
+        let id = loader
+            .create(EntrySpec::new("worker", Config::new(1_u32)))
+            .unwrap();
+        loader.settle().unwrap().await.unwrap();
+        drop(
+            loader
+                .update(&id, EntrySpec::new("worker", Config::new(2_u32)))
+                .unwrap(),
+        );
+        drop(
+            loader
+                .update(&id, EntrySpec::new("worker", Config::new(3_u32)))
+                .unwrap(),
+        );
+        entered.await.unwrap();
+        for _ in 0..8 {
+            tokio::task::yield_now().await;
+        }
+        assert!(
+            runtime
+                .take_failures()
+                .iter()
+                .any(|failure| contains_older(failure))
+        );
+        let mut settled = Box::pin(loader.settle().unwrap());
+        assert!(futures_util::poll!(&mut settled).is_pending());
+        drop(settled);
+        release.send(()).unwrap();
+        let report = loader.settle().unwrap().await.unwrap();
+        assert_eq!(report.failures.len(), 1);
+        assert!(contains_older(&report.failures[0].error));
+        loader
+            .update(&id, EntrySpec::new("worker", Config::new(4_u32)))
+            .unwrap()
+            .await
+            .unwrap();
+        assert!(loader.settle().unwrap().await.unwrap().failures.is_empty());
         loader.dispose().unwrap().await.unwrap();
     })
     .await;

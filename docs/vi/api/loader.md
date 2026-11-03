@@ -28,7 +28,13 @@ chưa ổn định và chưa phát hành. [Hướng dẫn chạy được](../gu
 `remove` gỡ liên kết và bắt đầu teardown. `snapshot`/`entries` chỉ đọc, không
 lộ quyền điều khiển Fiber. `resolve` tra địa chỉ cấu trúc hiện tại.
 `move_entry` giữ EntryId và đổi địa chỉ; xem [group](groups.md).
-`settle` chờ các thế hệ đã tiếp nhận; `dispose` chờ owner và cleanup đã tách.
+`settle` chờ các thế hệ đã tiếp nhận và mọi direct update còn chờ; update mới
+hoàn tất trước không giải phóng barrier của update cũ. `remove` chờ update của
+cây con bị gỡ; `dispose` và shutdown owner chờ toàn bộ update và cleanup đã tách.
+Thả waiter thao tác hoặc settlement không hủy công việc hay xác nhận kết quả.
+Loader giữ lỗi direct update chưa được quan sát đầu tiên, thay vì lưu lịch sử
+lỗi không giới hạn. Waiter update gốc/remove hoàn tất và settlement giao kết quả
+thành công sẽ xác nhận kết quả; dispose có thể báo lại cùng lỗi được giữ.
 Sửa đổi phải trong đúng Runtime::run; giữ runtime sống đến khi chờ xong.
 Loader giữ lỗi lifecycle-task đã tách đầu tiên và vẫn chờ toàn bộ cleanup.
 Lỗi callback cleanup thông thường đi qua chẩn đoán của core: kiểm tra
@@ -63,6 +69,7 @@ Config do decoder quản lý có thể chứa dữ liệu bất kỳ; không tr�
 |---|---:|
 | `MAX_ENTRIES` (entry hiện hữu cộng đang teardown) | 1024 |
 | Realm có tên đồng thời sống (cùng giới hạn) | 1024 |
+| Direct update còn chờ, toàn loader (cùng giới hạn) | 1024 |
 | `MAX_JSON_BYTES` | 1048576 |
 | `MAX_JSON_DEPTH` | 32 |
 | `MAX_JSON_NODES` | 65536 |

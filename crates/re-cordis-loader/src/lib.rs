@@ -669,6 +669,19 @@ impl<T> Future for LoaderTask<T> {
         self.0.as_mut().poll(cx)
     }
 }
+#[derive(Clone)]
+struct PendingUpdate {
+    id: EntryId,
+    work: Work,
+    observed: Rc<Cell<bool>>,
+    location: Option<SourceLocation>,
+}
+struct UpdateReservation<'a>(&'a Cell<usize>);
+impl Drop for UpdateReservation<'_> {
+    fn drop(&mut self) {
+        self.0.set(self.0.get() - 1);
+    }
+}
 type Retirement = Shared<LocalBoxFuture<'static, Result<FiberState, LifecycleError>>>;
 pub(crate) struct NamedRealm {
     id: re_cordis_core::IsolationId,
@@ -680,6 +693,9 @@ struct State {
     next: Cell<u64>,
     retired: RefCell<Vec<Retirement>>,
     retirement_error: RefCell<Option<LifecycleError>>,
+    pending_updates: RefCell<Vec<PendingUpdate>>,
+    update_reservations: Cell<usize>,
+    update_failure: RefCell<Option<(EntryFailure, Rc<Cell<bool>>)>>,
     retiring: RefCell<Vec<(Rc<Entry>, Option<Retirement>)>>,
     disposed: Cell<bool>,
     outer: Plugin<Rc<Entry>>,
@@ -716,6 +732,9 @@ impl Loader {
                 next: Cell::new(0),
                 retired: RefCell::new(Vec::new()),
                 retirement_error: RefCell::new(None),
+                pending_updates: RefCell::new(Vec::new()),
+                update_reservations: Cell::new(0),
+                update_failure: RefCell::new(None),
                 retiring: RefCell::new(Vec::new()),
                 disposed: Cell::new(false),
                 outer,
@@ -746,7 +765,16 @@ impl Loader {
                 let view = entry.view.borrow_mut().take();
                 drop((outer, inner, view));
             }
-            async move { join_retired(&retained).await }
+            async move {
+                let retirement = join_retired(&retained).await;
+                let updates = retained.pending_updates.borrow().clone();
+                join_updates(&retained, updates).await;
+                retirement?;
+                if let Some(failure) = unobserved_update_failure(&retained) {
+                    return Err(failure.error);
+                }
+                Ok::<_, LoaderError>(())
+            }
         })?;
         let weak = Rc::downgrade(&state);
         state.owner.context().on(
@@ -854,6 +882,29 @@ impl Loader {
         Ok(())
     }
     fn prune(&self) {
+        let updates = self.0.pending_updates.replace(Vec::new());
+        let retained = updates
+            .into_iter()
+            .filter(|update| match update.work.clone().now_or_never() {
+                None => true,
+                Some(Err(error)) => {
+                    remember_update_failure(&self.0, update, error);
+                    false
+                }
+                Some(Ok(())) => false,
+            })
+            .collect();
+        *self.0.pending_updates.borrow_mut() = retained;
+        if self
+            .0
+            .update_failure
+            .borrow()
+            .as_ref()
+            .is_some_and(|(_, observed)| observed.get())
+        {
+            let previous = self.0.update_failure.borrow_mut().take();
+            drop(previous);
+        }
         let retired = self.0.retired.replace(Vec::new());
         let retained: Vec<_> = retired
             .into_iter()
@@ -877,7 +928,15 @@ impl Loader {
                     .as_ref()
                     .is_some_and(|task| task.clone().now_or_never().is_none());
                 let work = entry.work.borrow().clone();
-                cleanup_pending || work.is_some_and(|task| task.now_or_never().is_none())
+                let update_pending = self
+                    .0
+                    .pending_updates
+                    .borrow()
+                    .iter()
+                    .any(|update| update.id == entry.id);
+                cleanup_pending
+                    || update_pending
+                    || work.is_some_and(|task| task.now_or_never().is_none())
             })
             .collect();
         *self.0.retiring.borrow_mut() = retained;
@@ -1399,6 +1458,32 @@ impl Loader {
             if let Some(task) = retirement.take() {
                 task.await?;
             }
+            let retiring = self.0.retiring.borrow().clone();
+            let mut descendants = vec![entry.id.clone()];
+            loop {
+                let before = descendants.len();
+                for (child, _) in &retiring {
+                    if child
+                        .parent
+                        .borrow()
+                        .as_ref()
+                        .is_some_and(|parent| descendants.contains(parent))
+                        && !descendants.contains(&child.id)
+                    {
+                        descendants.push(child.id.clone());
+                    }
+                }
+                if descendants.len() == before {
+                    break;
+                }
+            }
+            for (child, task) in retiring {
+                if descendants.contains(&child.id) {
+                    if let Some(task) = task {
+                        task.await?;
+                    }
+                }
+            }
             if !entry.live.get() || self.0.disposed.get() {
                 return Ok(());
             }
@@ -1481,9 +1566,7 @@ impl Loader {
             .checked_add(1)
             .ok_or_else(|| LoaderError::Invalid("entry revision exhausted".into()))?;
         let previous_spec = entry.spec.borrow().clone();
-        let obsolete_children = if matches!(previous_spec.kind, EntryKind::Group(_))
-            && !matches!(spec.kind, EntryKind::Group(_))
-        {
+        let obsolete_children = if !matches!(spec.kind, EntryKind::Group(_)) {
             entry.children.borrow().clone()
         } else {
             Vec::new()
@@ -1507,10 +1590,34 @@ impl Loader {
                     FiberState::Disposed | FiberState::Unloading
                 )
             }) {
-            instance
+            if self.0.pending_updates.borrow().len() + self.0.update_reservations.get()
+                >= MAX_ENTRIES
+            {
+                return Err(LoaderError::Invalid(
+                    "outstanding direct update limit 1024 exceeded".into(),
+                ));
+            }
+            self.0
+                .update_reservations
+                .set(self.0.update_reservations.get() + 1);
+            let _reservation = UpdateReservation(&self.0.update_reservations);
+            let task = instance
                 .as_ref()
-                .map(|instance| instance.update(&spec.config))
-                .transpose()?
+                .expect("eligible direct instance")
+                .update(&spec.config)?;
+            let update = PendingUpdate {
+                id: id.clone(),
+                work: async move {
+                    task.await?;
+                    Ok(())
+                }
+                .boxed_local()
+                .shared(),
+                observed: Rc::new(Cell::new(false)),
+                location: spec.location.clone(),
+            };
+            self.0.pending_updates.borrow_mut().push(update.clone());
+            Some(update)
         } else {
             None
         };
@@ -1539,6 +1646,11 @@ impl Loader {
             drop(old_origin);
         }
         drop((previous, old_factory));
+        let work = if direct.is_none() && !structural {
+            Some(self.work(entry.clone(), retirement)?)
+        } else {
+            None
+        };
         let group = entry.parent.borrow().clone();
         self.commit(CommitRecord {
             id: id.clone(),
@@ -1575,19 +1687,21 @@ impl Loader {
                 .boxed_local(),
             ));
         }
-        if let Some(task) = direct {
-            let work = async move {
-                task.await?;
-                Ok(())
+        if let Some(update) = direct {
+            if entry.revision.get() == next {
+                let previous = entry.work.replace(Some(update.work.clone()));
+                drop(previous);
             }
-            .boxed_local()
-            .shared();
-            let previous = entry.work.replace(Some(work.clone()));
-            drop(previous);
-            return Ok(LoaderTask(work.boxed_local()));
+            return Ok(LoaderTask(
+                async move {
+                    let result = update.work.await;
+                    update.observed.set(true);
+                    result
+                }
+                .boxed_local(),
+            ));
         }
-        let work = self.work(entry, retirement)?;
-        Ok(LoaderTask(work.boxed_local()))
+        Ok(LoaderTask(work.expect("rebuild work").boxed_local()))
     }
     /// Move stable identity to a group. Reordering within one group does not restart.
     /// Crossing groups rebuilds core Fibers after the old generation's cleanup.
@@ -1659,6 +1773,22 @@ impl Loader {
             .get(id)
             .cloned()
             .ok_or_else(|| LoaderError::UnknownEntry(id.clone()))?;
+        let mut removed_ids = vec![id.clone()];
+        let mut cursor = 0;
+        while cursor < removed_ids.len() {
+            if let Ok(child) = self.entry(&removed_ids[cursor]) {
+                removed_ids.extend(child.children.borrow().iter().cloned());
+            }
+            cursor += 1;
+        }
+        let updates = self
+            .0
+            .pending_updates
+            .borrow()
+            .iter()
+            .filter(|update| removed_ids.contains(&update.id))
+            .cloned()
+            .collect::<Vec<_>>();
         let old = self.snapshot(id);
         let retirement = self.retire_entry(&entry)?;
         entry.live.set(false);
@@ -1696,15 +1826,48 @@ impl Loader {
             group,
             origin,
         })?;
+        let state = self.0.clone();
         Ok(LoaderTask(
             async move {
+                let mut failure = None;
                 if let Some(work) = work {
-                    work.await?;
+                    if let Err(error) = work.await {
+                        failure = Some(error);
+                    }
                 }
                 if let Some(task) = retirement {
-                    task.await?;
+                    if let Err(error) = task.await {
+                        if failure.is_none() {
+                            failure = Some(error.into());
+                        }
+                    }
                 }
-                Ok(())
+                if let Some(error) = join_updates(&state, updates.clone()).await {
+                    if failure.is_none() {
+                        failure = Some(error);
+                    }
+                }
+                let retained = state
+                    .update_failure
+                    .borrow()
+                    .as_ref()
+                    .filter(|(failure, observed)| {
+                        removed_ids.contains(&failure.id) && !observed.get()
+                    })
+                    .map(|(failure, observed)| (failure.error.clone(), observed.clone()));
+                if let Some((error, observed)) = retained {
+                    if failure.is_none() {
+                        failure = Some(error);
+                    }
+                    observed.set(true);
+                }
+                for update in updates {
+                    update.observed.set(true);
+                }
+                match failure {
+                    Some(error) => Err(error),
+                    None => Ok(()),
+                }
             }
             .boxed_local(),
         ))
@@ -1738,6 +1901,8 @@ impl Loader {
                             )
                         })
                         .collect();
+                    let updates = loader.0.pending_updates.borrow().clone();
+                    join_updates(&loader.0, updates).await;
                     join_retired(&loader.0).await?;
                     for entry in entries {
                         let work = entry.work.borrow().clone();
@@ -1806,6 +1971,13 @@ impl Loader {
                         break;
                     }
                 }
+                let update_failure = loader.0.update_failure.borrow_mut().take();
+                if let Some((failure, observed)) = update_failure {
+                    if !observed.get() {
+                        failures.insert(failure.id, failure.error);
+                    }
+                }
+                acknowledge_updates(&loader.0);
                 Ok(Settlement {
                     entries: loader.entries(),
                     failures: failures
@@ -2518,8 +2690,13 @@ impl Loader {
             async move {
                 let outcome = task.await;
                 let retirement = join_retired(&state).await;
+                let updates = state.pending_updates.borrow().clone();
+                join_updates(&state, updates).await;
                 outcome?;
                 retirement?;
+                if let Some(failure) = unobserved_update_failure(&state) {
+                    return Err(failure.error);
+                }
                 Ok(())
             }
             .boxed_local(),
@@ -2571,6 +2748,56 @@ fn nested_ids(spec: &EntrySpec) -> Vec<EntryId> {
         }
     }
     ids
+}
+
+fn remember_update_failure(state: &State, update: &PendingUpdate, error: LoaderError) {
+    if update.observed.get() {
+        return;
+    }
+    let previous = state.update_failure.borrow_mut().take();
+    let failure = match previous {
+        Some(previous) if !previous.1.get() => previous,
+        _ => (
+            EntryFailure {
+                id: update.id.clone(),
+                error: locate_error(error, update.location.clone()),
+            },
+            update.observed.clone(),
+        ),
+    };
+    *state.update_failure.borrow_mut() = Some(failure);
+}
+fn unobserved_update_failure(state: &State) -> Option<EntryFailure> {
+    state
+        .update_failure
+        .borrow()
+        .as_ref()
+        .filter(|(_, observed)| !observed.get())
+        .map(|(failure, _)| failure.clone())
+}
+async fn join_updates(state: &State, updates: Vec<PendingUpdate>) -> Option<LoaderError> {
+    let mut first = None;
+    for update in updates {
+        if let Err(error) = update.work.clone().await {
+            if !update.observed.get() {
+                if first.is_none() {
+                    first = Some(error.clone());
+                }
+                remember_update_failure(state, &update, error);
+            }
+        }
+    }
+    first
+}
+fn acknowledge_updates(state: &State) {
+    state.pending_updates.borrow_mut().retain(|update| {
+        if update.work.peek().is_some() {
+            update.observed.set(true);
+            false
+        } else {
+            true
+        }
+    });
 }
 
 #[cfg(test)]

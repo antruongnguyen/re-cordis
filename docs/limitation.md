@@ -369,6 +369,9 @@ See [loader API](en/api/loader.md), [groups](en/api/groups.md) and the
   A label used after all defining scopes drop can acquire a fresh isolation ID,
   while old committed Contexts keep their old identity. Anonymous positional
   source matching only reuses entries still owned at that source root.
+  At most 1024 direct updates may be outstanding across the loader; admission
+  refuses more until completed work is pruned. All admitted barriers are joined,
+  but only the first unobserved direct-update failure is retained globally.
   Async cleanup needs the original host; Drop cannot complete it.
   Loader keeps the first detached lifecycle-task error, not an unlimited error
   history. User cleanup callback errors retain core diagnostic reporting;

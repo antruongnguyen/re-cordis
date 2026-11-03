@@ -703,6 +703,14 @@ Only the first completed retirement-task error is retained, bounding that
 failure memory; all barriers are still joined. Ordinary callback cleanup
 errors follow core Runtime::take_failures diagnostics, not a new loader
 cleanup report or a changed core disposal result.
+Direct updates retain separate barriers in a loader-wide queue of at most 1024
+outstanding operations, including reentrant admission reservations. Later
+completion cannot replace an older barrier. Subtree removal joins its own
+updates; settlement and owner disposal join all. Completed original waiters or
+successful settlement delivery acknowledge results, as does completed subtree
+removal for its updates; dropping a waiter does not. Disposal may report the
+same retained failure again. The first
+unobserved direct-update failure is retained globally, bounding failure history.
 Parent disposal joins those barriers even after Loader/waiter Drop. Entry/Fiber
 source cycles are broken during retirement/owner cleanup.
 

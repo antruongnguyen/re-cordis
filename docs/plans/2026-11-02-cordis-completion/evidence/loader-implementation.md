@@ -1,6 +1,7 @@
 # Loader implementation checkpoint history
 
-Chronological record; later checkpoints supersede earlier frozen hashes and counts.
+Chronological record; later checkpoints supersede earlier frozen hashes, counts
+and toolchain attribution. Final acceptance uses explicit rustup tool paths.
 
 # Loader correction slice — frozen for independent review
 
@@ -269,3 +270,103 @@ SHA-256 at checkpoint 2:
 - src/lib.rs: a16347a12023c05996ed5c2e0d595e07cf985541949c7cb894a7e3401d7aee3e
 - src/scope.rs: 719989c379f002bfcf4d313a5388bfcac8369c3114fb8b7b6c4c226517aa0666
 - tests/final_wave.rs: 88684ac9a657faceecb5d307ab210f188c4152d041b1e5459d152ca6bbdb644d
+
+
+## Final-review correction wave — F4 progress (production implemented)
+
+All 12 current final_wave tests pass, including the restored F4 overlap case
+(success and older error after a dropped settlement waiter), scoped entry/loader
+teardown gates, and a 1024 outstanding-update admission/capacity test.
+Clippy --all-targets -D warnings passes after the queue changes. No design blocker.
+
+Every direct update is recorded before commit in a bounded global pending queue.
+Observation markers distinguish explicitly awaited operation results from dropped
+waiters. A guarded reservation also counts reentrant synchronous admission
+prefixes against the 1024 limit. One unobserved older failure is retained until
+a completed settlement delivers it; dropped settlement futures do not acknowledge
+it. Entry removal joins only the removed subtree's outstanding updates; loader
+disposal and owner shutdown join the whole queue. Completed operations release
+queue capacity on admission/pruning.
+
+The final full crate suite and final frozen source fingerprints are still pending
+at this progress boundary; no acceptance claim is made until those gates finish.
+
+
+## Final-review correction wave — F4 finish and scoped F5 reentry repair
+
+Continuation completed 2026-11-03 in loader-completion worktree. Preserved
+all inherited F1/F2/F3/F5/F6/F7/F8 source, scope, tests and documentation.
+Only src/lib.rs, tests/final_wave.rs and this appended report were changed
+by this continuation. No core/dependency changes, commits or pushes.
+
+F4 admission/teardown:
+- Every direct update remains in the global 1024-operation bounded queue;
+  reentrant synchronous prefixes reserve a slot before calling core update.
+  Pruning completed operations releases capacity while retaining one global
+  unobserved failure, rather than an unlimited historical error list.
+- Settlement joins every queued update; subtree removal joins only that
+  subtree's captured updates; loader disposal and external parent drain join
+  the whole queue. Older work survives newer out-of-order completion.
+- A completed original update waiter observes its own operation. A completed
+  subtree removal observes its captured updates and matching retained failure.
+  Completed settlement consumes the retained failure and observes completed
+  queued operations. Dropped waiters never acknowledge. Loader.dispose and
+  owner cleanup report/return retained unobserved failures without marking
+  their observation token.
+- Latest per-entry work failures continue to exist independently of bounded
+  historical retention; explicit recovery replaces that latest work.
+- Concrete additional red: after an older error was retained and a settlement
+  waiter dropped, a newer gated error caused settlement's or_insert to return
+  only the newer error and consume the older one. The dropped-settlement test
+  failed contains_older(report.failures[0].error). Delivery now gives the first
+  retained error precedence for its entry; the exact case is green.
+- Original F4 overlap and teardown reds on b98eae9 remain documented in the
+  inherited independent review/checkpoint reports. The resumed run verified
+  their current greens and added direct parent-drain coverage.
+
+Scoped F5 follow-up requested by parent/scoped reviewer:
+- Concrete red 1: parent Group->Plugin(2) commit callback updates the same
+  parent to Plugin(3); snapshot.children remained nonempty despite parent
+  source=3/Active. Every accepted non-Group replacement now removes actual
+  logical children it still owns, preserving revision/liveness guards.
+- Concrete red 2: the gated variant returned Ready(Ok(())) for the original
+  update before child cleanup released. Shared rebuild work is admitted
+  before the synchronous commit callback, preserving the original retirement
+  handoff through newer coalesced updates. drive additionally joins the
+  snapshotted detached logical descendant retirements from existing retiring
+  state before spawning the latest generation. No global unrelated-cleanup
+  gate was added.
+- Green oracle asserts original update remains Pending and apply values stay
+  [1] before release; after release apply values are [1,3], accepted source=3,
+  parent Active, no children, no child snapshot or address, no failures.
+
+Final fresh gates (PATH Homebrew cargo/rustc 1.99.1, --locked):
+- cargo test -p re-cordis-loader --locked: PASS — 71 integration tests,
+  3 unit tests, 2 Rustdoc checks (14 final_wave tests).
+- cargo clippy -p re-cordis-loader --all-targets --locked -- -D warnings: PASS.
+- cargo fmt -p re-cordis-loader -- --check: PASS.
+- git diff --check: PASS.
+No broad workspace or stable/MSRV documentation matrix run by this worker;
+parent owns that acceptance and independent scoped review.
+
+New final_wave names:
+- reentrant_plugin_replacement_removes_actual_obsolete_children
+- dropped_settlement_after_older_error_retention_keeps_failure_visible
+Extended:
+- teardown_joins_an_older_direct_update_after_a_newer_update_completes
+  now includes external root.drain for both successful and failing older work.
+Inherited overlap, capacity and other final-wave tests preserved.
+
+Source/tests frozen for parent integration:
+- crates/re-cordis-loader/src/lib.rs:
+  5a68375b64723f35dcb61eda49ed01458fd653687ec150e7c8d4e5450a91beb2
+- crates/re-cordis-loader/tests/final_wave.rs:
+  851ef8c009cd47072e4e19fd5bb74584922e46744a154c8abd6b72894fcb7d62
+
+Ready for review. No source/test edits after the freeze notification unless
+parent requests a further scoped repair.
+
+Toolchain attribution checked explicitly after verification: /opt/homebrew/bin/cargo
+and /opt/homebrew/bin/rustc were used. rustup active reports stable, but explicit
+rustup stable is 1.97.1. These local gates therefore establish PATH 1.99.1 only;
+parent owns explicit stable/1.85.0 verification. Source/tests hashes unchanged.
