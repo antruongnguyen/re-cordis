@@ -8,9 +8,10 @@ Instructions for agents (and humans) working in this repository.
 [Cordis](https://github.com/cordiverse/cordis) meta-framework.
 
 **Status: core, selected satellites and offline R0 integration independently accepted.**
-R1 audits API/package readiness and recommends local/Git checkout consumption
-only today. See `docs/release-readiness.md` for the seven-package experimental
-alpha proposal. Version/dependency/publication changes require a subsequent
+R1 API/package readiness is complete and independently accepted; its verdict
+is local/Git checkout consumption only. See `docs/release-readiness.md` for the
+seven-package experimental alpha proposal and
+`docs/plans/2026-11-02-cordis-completion/evidence/r1-acceptance.md` for evidence. Version/dependency/publication changes require a subsequent
 release decision; keep `0.0.0`/`publish=false`. Each crate carries its MIT notice;
 the generated starter retains that notice in its existing README.
 The completed post-M6 lifecycle-parity slices add six executed Rust/TypeScript

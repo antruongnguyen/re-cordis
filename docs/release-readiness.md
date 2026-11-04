@@ -2,6 +2,9 @@
 
 Date: 2026-11-05 (Asia/Ho_Chi_Minh).
 Scope: R1 after independently accepted R0 on `feat/cordis-completion`.
+The assessment and proposal are independently reviewed and accepted; see
+[R1 acceptance](plans/2026-11-02-cordis-completion/evidence/r1-acceptance.md).
+This does not approve publication.
 
 **Recommendation: ready only for local/Git checkout consumption today.**
 The seven crates remain unpublished, unstable `0.0.0` with `publish=false`.

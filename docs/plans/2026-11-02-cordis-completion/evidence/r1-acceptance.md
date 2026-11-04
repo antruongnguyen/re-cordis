@@ -1,7 +1,9 @@
 # R1 readiness assessment and acceptance
 
 Date: 2026-11-05 (Asia/Ho_Chi_Minh).
-**Status: audit reviewed; two documentation corrections await scoped re-review.**
+**Verdict: R1 completed and independently accepted within its assessment scope.**
+Current readiness remains **local/Git checkout consumption only**; the proposed
+experimental release is not approved for publication.
 R1 concerns readiness assessment and a concrete release proposal, not publication.
 
 ## Baseline and scope
@@ -70,7 +72,7 @@ No concurrent Cargo/docs/parity operation touched shared fixtures.
 | Generated R0 app, both docs checker runs | Eight tests including 100 complete cycles; build, default and real-watch run, strict Clippy pass |
 | cargo test -p re-cordis-create --locked --offline, each explicit toolchain | 22 package tests pass on each |
 | Additional real stable Create output notice probe | Exactly five files; generated README contains root MIT bytes; other four files match the earlier actual generated app byte-for-byte |
-| Changed Markdown links/anchors via existing checker links function | 28 pages pass before this acceptance report; final sweep recorded at closure |
+| Changed Markdown links/anchors via existing checker links function | Final 32-page sweep passes; earlier 28/29/30-page sweeps are not additional unique pages |
 | git diff --check | Pass for inspected work |
 
 The fresh basic/R0 external suites and repeated package checks are not new
@@ -166,6 +168,29 @@ The release decision must choose an explicit checkout-aware archive fixture or
 retain those tests as checkout-only with packaged-CLI distribution coverage.
 No generator/test redesign is introduced in this R1 documentation correction.
 
-These precise correction deltas require fresh scoped re-review before R1
-acceptance. The containing closing commit records final documentation;
-publication/version changes remain excluded.
+Correction revision: `82d8f70e939e7886db835fcfb55e8d630c745e87`.
+A second fresh gpt-6-astra/high context reviewed the exact b45a11c..82d8f70
+delta and retained artifacts. [Scoped re-review](r1-rereview.md) marks both
+R1-R1 and R1-R2 ADDRESSED with no new actionable finding and authorizes local
+assessment closure. Fresh archive-byte, policy, R0-fingerprint, link/anchor
+and exact-diff checks pass; no redundant Cargo/full-matrix execution is claimed.
+
+The final acceptance documentation revision is the containing closing commit
+on feat/cordis-completion. Its only changes after 82d8f70 are the scoped review
+report and final status/evidence links. Audited package contents remain at
+b45a11c; the final reviewed proposal correction is 82d8f70. No implementation,
+template, dependency or feature input changes after package verification.
+Identify the closing commit at this checkpoint with:
+
+```sh
+git log -1 --format=%H -- docs/plans/2026-11-02-cordis-completion/evidence/r1-acceptance.md
+```
+
+Final closure passed the existing 34-pair structure/export checks, a 32-page
+changed-Markdown link/anchor sweep, publication/version/notice assertions and
+git diff --check. Package inputs are unchanged since b45a11c and guide/API
+inputs since the reviewed correction. The exact results are recorded in
+target/r1-final/closure-checks.json. R1's completed
+evidence is separate from the recurring checklist in shared acceptance.
+Publication/version changes remain excluded; no next package, push, tag or
+background continuation is started.

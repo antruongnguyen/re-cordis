@@ -104,9 +104,10 @@ loader/groups, Include, HMR and offline Create are now independently accepted.
 R0 whole-program integration is independently accepted after implementation,
 correction/evidence review and the full shared matrix; see [current progress](progress.md) and
 [executed R0 evidence](evidence/r0-acceptance.md). Historical results do not establish
-verification of later edits. R1 is now selected for a readiness assessment and
-[release proposal](../../release-readiness.md); publication and standalone B1
-remain separate decisions.
+verification of later edits. R1's readiness assessment and
+[release proposal](../../release-readiness.md) are independently accepted; see
+[R1 evidence](evidence/r1-acceptance.md). Publication/version changes and
+standalone B1 remain separate decisions.
 
 ## Recommended approach and alternatives
 

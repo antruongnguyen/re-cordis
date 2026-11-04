@@ -28,8 +28,9 @@ B0's evidence gaps are not a blanket prerequisite for satellite delivery.
   40/40 shared stages: 517 workspace checks per toolchain, actual generated
   applications and final paired documentation pass. See
   [R0 acceptance](plans/2026-11-02-cordis-completion/evidence/r0-acceptance.md).
-- [ ] Complete R1 independent review/acceptance of the
-  [readiness assessment and release proposal](release-readiness.md).
+- [x] Complete R1 audit, focused notice/documentation corrections and independent
+  review/re-review of the [readiness assessment and release proposal](release-readiness.md).
+  See [R1 acceptance](plans/2026-11-02-cordis-completion/evidence/r1-acceptance.md).
   The current recommendation is local/Git checkout consumption only;
   publishing/version changes and standalone B1 remain unselected.
 

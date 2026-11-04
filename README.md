@@ -4,7 +4,7 @@ A Rust reimplementation of [Cordis](https://github.com/cordiverse/cordis) — a
 meta-framework for spatiotemporal composability.
 
 > **Status: core, selected satellites and offline R0 integration independently accepted.**
-> R1 recommends local/Git checkout consumption only at present. The
+> Independently accepted R1 recommends local/Git checkout consumption only. The
 > [release readiness assessment](docs/release-readiness.md) proposes a separate
 > seven-package experimental alpha decision; no package is published.
 > The unpublished `re-cordis-core` has local

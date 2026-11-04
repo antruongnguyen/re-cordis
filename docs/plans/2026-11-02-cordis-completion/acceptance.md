@@ -146,6 +146,14 @@ with the same application/tests and explicit local dependencies.
 
 ## R1 — API/package readiness and release decision
 
+**Completed R1 assessment:** independently accepted on 2026-11-05; see
+[R1 evidence](evidence/r1-acceptance.md) and the
+[release proposal](../../release-readiness.md). Current readiness is local/Git
+checkout consumption only, with a subsequent publication decision still required.
+
+**Recurring review requirements below:** retain these for future release-readiness
+assessments; unchecked boxes are not unfinished R1 evidence or approval to publish.
+
 **Entry:** R0. This prepares a release proposal; it does not publish.
 **Files:** docs/release-readiness.md, package manifests only after the
 corresponding packaging decision, and generated-template dependency metadata.
