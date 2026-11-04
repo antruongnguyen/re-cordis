@@ -34,8 +34,8 @@ This project does not yet follow semantic versioning — the API is unstable.
 
 ### Added
 
-- R1 API/package readiness assessment and a concrete, separately approved release
-  proposal: seven experimental packages, actual dependency order, explicit
+- R1 API/package readiness assessment and a concrete proposal requiring a separate
+  release decision: seven experimental packages, actual dependency order, explicit
   local/Git-only current verdict and macOS/MSRV evidence boundaries. Package
   READMEs and exact MIT notices now accompany all seven crates; generated
   starter documentation retains the same MIT notice within its five-file layout.

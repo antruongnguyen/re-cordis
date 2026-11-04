@@ -1,7 +1,7 @@
 # R1 readiness assessment and acceptance
 
 Date: 2026-11-05 (Asia/Ho_Chi_Minh).
-**Status: audit and focused corrections verified; independent review pending.**
+**Status: audit reviewed; two documentation corrections await scoped re-review.**
 R1 concerns readiness assessment and a concrete release proposal, not publication.
 
 ## Baseline and scope
@@ -89,8 +89,9 @@ formatting is stable-only. No component installation occurred.
 
 - Stable Cargo/rustc/rustdoc 1.97.1, Clippy 0.1.97, rustfmt 1.9.0-stable.
 - MSRV Cargo/rustc/rustdoc 1.85.0, Clippy 0.1.85.
-- Host: Apple Silicon macOS; carried R0 host version 26.7.1. These runs add no
-  Linux/Windows or alternate macOS architecture/version evidence.
+- Host independently queried during R1: arm64 macOS 26.7.1, build 25G241;
+  Python 3.15.2 and Git 2.56.0. These runs add no Linux/Windows or alternate
+  macOS architecture/version evidence.
 
 Reproduce from the repository root with the explicit rustup environment in
 [shared acceptance](../acceptance.md#toolchain-matrix), using the package audit's
@@ -144,7 +145,27 @@ supervision, stable API and standalone B1 remain deferred.
 
 ## Review and revision closure
 
-Independent review will inspect the committed audit/correction/proposal delta,
-then any precise correction deltas. No R1 acceptance is claimed until that review
-and final documentation checks close. The containing closing acceptance commit
-will identify final documentation; publication/version changes remain excluded.
+Audit/package-notice milestone: `b45a11cc2e9b95d64c213f47c2961ce50d6f15ad`.
+A fresh gpt-6-astra/high reviewer inspected exactly baseline..b45a11c, reproduced
+clean package evidence and exercised the actual packaged Create CLI. See
+[the independent review](r1-review.md) for commands, failures and findings.
+
+Two focused documentation corrections follow that review (R1-R1 and R1-R2): CHANGELOG now says
+the proposal requires a separate release decision, and the primary report
+explicitly records six stable extracted-archive scaffold test failures caused
+by its repository-relative checkout fixture. Five library and 11 scaffold tests
+pass in that run; the MSRV archive suite was not run. A prior parent-workspace
+inference error belongs to the review harness and was isolated in ignored
+scratch configuration without changing archive bytes. Neither failure is
+relabeled as a pass.
+
+The unchanged packaged CLI with explicit real checkout passes fresh generated
+application build/five tests/run/strict Clippy on both toolchains. Its exact
+five-file output includes MIT; four non-README files match initial output.
+The release decision must choose an explicit checkout-aware archive fixture or
+retain those tests as checkout-only with packaged-CLI distribution coverage.
+No generator/test redesign is introduced in this R1 documentation correction.
+
+These precise correction deltas require fresh scoped re-review before R1
+acceptance. The containing closing commit records final documentation;
+publication/version changes remain excluded.

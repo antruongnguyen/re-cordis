@@ -141,6 +141,7 @@ license-compliance or security-advisory audit.
 | cargo package --list | Executed for every crate; establishes intended file lists, not successful archive creation or compilation |
 | cargo package --no-verify | Core/Create construct archives; five satellites fail because their core path dependency has no version requirement |
 | cargo package with verification | Core/Create archive verification builds pass on stable and 1.85.0; this is narrower than running their archive test suites |
+| Create tests from an extracted archive | Independent stable run: five library tests and 11 of 17 scaffold tests pass; six scaffold tests fail because their fixture assumes the full repository two directories above CARGO_MANIFEST_DIR |
 | cargo publish --dry-run | Every attempt is refused by publish=false before publish validation; no successful registry dry-run is claimed |
 | Exact crates.io name queries | All seven API queries returned HTTP 404 on the audit date; point-in-time absence only, not ownership, reservation or guaranteed availability |
 | Actual generated app | Real CLI output, metadata, build/test/run and subsequent full docs-checker coverage are recorded separately from crate packaging |
@@ -150,6 +151,19 @@ intermediate results remain separately labeled in [package evidence](plans/2026-
 No production path dependency was patched, versioned, vendored or published
 to bypass an expected packaging refusal. A future release must validate
 normalized manifests and archives against the actual registry versions.
+
+The packaged Create test failure is a repository-layout assumption in its
+`tests/scaffold.rs` checkout fixture, separate from generator behavior with the
+required explicit checkout. The independent reviewer runs the unchanged archive
+CLI with `--cordis-path` pointing at the real checkout on stable and 1.85.0:
+exact five-file output retains the MIT notice, and generated-app build, five
+tests (including 100 cycles), run and strict Clippy pass. The stable archive
+suite's six failures remain recorded; no MSRV archive-suite pass is claimed.
+See the [independent review](plans/2026-11-02-cordis-completion/evidence/r1-review.md).
+Before publication, choose whether to make the archive test fixture accept an
+explicit compatible checkout or retain those cases as checkout-only tests and
+use the verified packaged-CLI integration as their distribution gate. R1 does
+not silently claim every archived test is independently runnable.
 
 ## Proposed publication order and manifest changes
 
@@ -224,6 +238,8 @@ arbitrary concurrent-writer or hard shutdown-latency guarantee is established.
 - A final versioned release checkout has not been resolved, packaged and
   verified against actual published prerequisites. Current dry-runs stop at
   publish=false. Packaged dev-dependency/example closure also remains a gate.
+  The known six Create archive test failures also require an explicit release
+  test-scope/fixture decision; successful packaged CLI use does not erase them.
 - Publisher/owner authority and exact normalized crate-name claims must be
   checked at release time; the HTTP 404 snapshot cannot establish them.
 - Release documentation URLs and the compatible Create checkout must be made

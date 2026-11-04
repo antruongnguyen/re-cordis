@@ -75,7 +75,7 @@ All 34 shared matrix stages pass on explicit stable/1.85.0; see
 | S1 | done | S0 | sol/high implementation; parent verification | integration | d44620c + 8373fa3 | 22 Create tests and 5 generated-app tests per toolchain; CR1/CR2 closed | evidence/create-acceptance.md |
 | S2 | done | S1 | sol/high docs; astra/high review; parent acceptance | integration | 8373fa3; acceptance in closing commit | accepted; all 34 shared stages, 508 workspace checks per toolchain | evidence/create-acceptance.md |
 | R0 | done | T5, C3, L5, G1, I4, H3, S2 | sol/high implementation; astra/high independent review | integration; serialized writes | f7a8e58 + 2023e56 + b35a979 + 35556d5 | accepted; R0-R1 and final evidence review closed; 40/40 stages and final docs pass | evidence/r0-acceptance.md |
-| R1 | in_review | R0 | controller; fresh sol/high audit and astra/high review | integration; serialized writes/Cargo | local audit milestone | independent review pending; package/docs checks pass | evidence/r1-acceptance.md |
+| R1 | in_review | R0 | controller; fresh sol/high audit and astra/high review | integration; serialized writes/Cargo | b45a11c; documentation correction follows | R1-R1/R2 corrected, scoped re-review pending | evidence/r1-acceptance.md |
 
 ## Accepted decisions
 
