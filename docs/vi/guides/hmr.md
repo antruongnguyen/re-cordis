@@ -3,8 +3,9 @@
 [English](../../en/guides/hmr.md) | [Trang chủ tiếng Việt](../README.md)
 
 Crate chưa phát hành `re-cordis-hmr` điều phối các tệp đăng ký rõ ràng và
-thay thế plugin Rust đã được liên kết vào tiến trình. Hợp đồng H0 đã được duyệt;
-nghiệm thu triển khai H1–H3 còn chờ. Xem [API](../api/hmr.md) và
+thay thế plugin Rust đã được liên kết vào tiến trình, với tích hợp Include tùy chọn.
+H2 đã được nghiệm thu độc lập; review watcher/tích hợp và nghiệm thu chung
+còn chờ. Xem [API](../api/hmr.md) và
 [bản đồ nguồn](../../plans/2026-11-02-cordis-completion/evidence/hmr-source-map.md)
 để biết phạm vi và giới hạn bằng chứng.
 
@@ -151,11 +152,13 @@ kết quả biên dịch tệp nguồn vừa thay đổi.
 
 ## Tích hợp Include tùy chọn
 
-Hợp đồng adapter H3 là `watch_include(path, include)`, bật qua feature
-`include` của crate HMR. Nghiệm thu adapter còn chờ.
-Include độc lập với HMR; cần đăng ký rõ ràng từng đường dẫn nguồn.
+Bật feature `include` của crate HMR rồi gọi
+`watch_include(path, include.clone())`. Thao tác đăng ký một đường dẫn kích hoạt
+rõ ràng và gọi refresh trên Include được truyền vào, gồm cả đồ thị nguồn của nó.
+Đăng ký từng tệp cần kích hoạt refresh; adapter không tự tìm đường dẫn.
+Include vẫn độc lập với HMR.
 
-Để thay factory được cùng instance Include đó dùng, hợp đồng tùy chọn thêm
+Để thay factory được cùng instance Include đó dùng, gọi
 `plan.replace_include(&include, changed, replacements)`. Await
 `IncludeTask<Report>` trả về. Nó chuyển đúng completion batch loader và giữ
 journal, data, provenance cùng byte tệp của Include; không flush. Đường này
@@ -164,7 +167,25 @@ dùng cùng kiểm tra đồ thị và candidate rõ ràng như `replace`.
 Adapter giữ IncludeTask đã được nhận ngoài callback có thể bị hủy.
 Stop ngăn refresh tiếp theo; cleanup watcher/ancestor chờ completion đã giữ,
 không gọi Include mới sau khi admission đóng. Đăng ký đã dừng nhưng còn việc
-chưa xong vẫn chiếm quota watch. Lỗi parse giữ nguồn hợp lệ cuối, báo nguyên
-nhân và cho phép refresh hợp lệ sau đó. Self-write dùng rename của Include
-phải hội tụ mà không tạo vòng lặp phản hồi. Xem [Include](include.md) về
-giới hạn persistence và durability.
+chưa xong vẫn chiếm quota watch. Lỗi Include trả về và từng nguyên nhân trong
+`Report.failures` đi vào history `WatchEvent::Failure` hữu hạn đúng một lần cho
+mỗi refresh hoàn tất. Lỗi cleanup core thông thường vẫn dùng kênh
+`Runtime::take_failures`; cần kiểm tra cả hai. Lỗi parse giữ nguồn hợp lệ cuối
+và cho phép refresh hợp lệ sau đó. Self-write dùng rename của Include hội tụ
+mà không apply lại dữ liệu đã chấp nhận không đổi. Xem [Include](include.md)
+về giới hạn persistence và durability.
+
+## Ví dụ offline
+
+Chạy [ví dụ reload hoàn chỉnh](../../../crates/re-cordis-hmr/examples/reload.rs)
+từ thư mục gốc repository:
+
+```sh
+cargo run -p re-cordis-hmr --example reload --features include --locked --offline
+```
+
+Ví dụ tự tạo tệp tạm, theo dõi cấu hình bằng một Include, thay compiled-v1 bằng
+compiled-v2 và giữ EntryId cùng cấu hình hiện tại, rồi xác nhận refresh cấu hình
+sau đó dùng compiled-v2. Nó in snapshot capability một lần, báo
+`RestartRequired` cho mã nguồn, chờ shutdown watcher và Include rồi kiểm tra
+Registry trở về trạng thái ban đầu. Không cần mạng hay tiến trình build bên ngoài.

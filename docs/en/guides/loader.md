@@ -93,7 +93,9 @@ Listen to `loader.commits()` for accepted runtime source edits.
 Reconciliation suppresses write-back commits. The caller owns serialization
 and persistence; the loader does not read or write files.
 `replace_factory` replaces an already-linked declaration and rebuilds affected
-entries after cleanup. It does not compile code, import modules or watch files.
+entries after cleanup. For dependency-selected batches and optional Include
+file watching on the same managed entries, see [HMR](hmr.md). Source changes
+report restart-required; compiled candidates are supplied by the application.
 
 See [groups](groups.md), [the API](../api/loader.md), and
 [limitations](../../limitation.md#loader-and-structural-groups).

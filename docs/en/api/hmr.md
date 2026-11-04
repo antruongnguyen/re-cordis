@@ -8,8 +8,8 @@ Source: [lib.rs](../../../crates/re-cordis-hmr/src/lib.rs),
 Guide: [file changes and replacement](../guides/hmr.md).
 
 `re-cordis-hmr` is unpublished (`0.0.0`, Rust 2024, MSRV 1.85).
-This page describes the approved H0 contract; H1–H3 implementation acceptance
-is pending. File watching, explicit linked replacement and source restart
+This page describes the implemented Rust API. H2 is independently accepted;
+final watcher/integration review and shared acceptance remain pending. File watching, explicit linked replacement and source restart
 notification are separate capabilities. No root recursion, module discovery,
 Node import/cache, native hot loading or process supervisor is provided.
 
@@ -104,16 +104,20 @@ Source-bearing variants preserve their causes.
 
 ## Optional Include adapter
 
-With feature `include`, the contract adds
+With feature `include`, call
 `watch_include(path, include) -> Result<WatchToken, WatchError>`.
-H3 adapter acceptance is pending. Include has no HMR dependency.
+It registers one explicit trigger path and refreshes the supplied Include,
+including its source graph. Paths are not discovered automatically; explicit
+registration overrides ignored components. Include has no HMR dependency.
 
 The adapter retains the admitted IncludeTask independently from callback
 cancellation, starts at most one refresh plus one coalesced follow-up per
 registration, and joins retained completion on watcher/ancestor disposal.
-No new Include admission occurs during cleanup. Include errors and
-Report.failures enter bounded watcher history. Unfinished retirement counts
-against max_watches; supplied Include ownership is not disposed by this adapter.
+No new Include admission occurs during cleanup. Returned Include errors and
+each Report failure enter bounded watcher history once per completed refresh,
+preserving original causes and locations. Ordinary core cleanup failures use
+Runtime diagnostics; inspect `Runtime::take_failures` too. Unfinished retirement
+counts against max_watches; this adapter does not dispose the supplied Include.
 
 ## ReloadNode, ReloadPlan and FactoryReplacement
 
@@ -128,7 +132,7 @@ Cycles converge through a bounded fixed point.
 | `ReloadPlan::new(nodes) -> Result<ReloadPlan, LoaderError>` | Check graph names, mappings, edges and bounds |
 | `affected(changed) -> Result<Vec<String>, LoaderError>` | Reverse dependency closure, factory output in node order; unknown unit fails |
 | `replace(loader, changed, replacements) -> Result<LoaderTask<Settlement>, LoaderError>` | Exact candidate coverage and one loader batch |
-| `replace_include(include, changed, replacements) -> Result<IncludeTask<Report>, IncludeError>` | Optional include feature: the same selection checks and exact Include/loader batch completion; H3 acceptance pending |
+| `replace_include(include, changed, replacements) -> Result<IncludeTask<Report>, IncludeError>` | Optional include feature: the same selection checks and exact Include/loader batch completion |
 
 The optional `replace_include` forwards through `Include::replace_factories`
 for entries managed by that same Include. It preserves journal, data,

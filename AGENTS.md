@@ -20,8 +20,9 @@ implemented and independently accepted. Include delivers bounded files, patches,
 provenance, persistence and joined flush/shutdown; 75 Rust tests and two Rustdoc
 checks pass on stable and 1.85.0. See
 `docs/plans/2026-11-02-cordis-completion/evidence/include-acceptance.md`.
-HMR H0 is approved and H1/H2 watching/linked replacement code is implemented;
-H3 integration and independent acceptance are in progress. See the HMR contract
+HMR H0 is approved and H2 linked replacement is independently accepted.
+H1/H3 watching and optional Include integration are implemented; independent
+watcher/integration review and the shared acceptance matrix remain pending. See the HMR contract
 and evidence in the completion planning directory. Create remains a future target. The **`re-cordis-timer`** satellite is
 delivered (unpublished `crates/re-cordis-timer`: owner-scoped timeout, sleep,
 interval/stream, throttle and debounce over core effects, via a sealed

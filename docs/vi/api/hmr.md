@@ -8,7 +8,8 @@ Nguồn: [lib.rs](../../../crates/re-cordis-hmr/src/lib.rs),
 Hướng dẫn: [thay đổi tệp và thay thế plugin](../guides/hmr.md).
 
 `re-cordis-hmr` chưa phát hành (`0.0.0`, Rust 2024, MSRV 1.85).
-Trang này mô tả hợp đồng H0 đã duyệt; nghiệm thu triển khai H1–H3 còn chờ.
+Trang này mô tả API Rust đã triển khai. H2 đã được nghiệm thu độc lập;
+review watcher/tích hợp và nghiệm thu chung còn chờ.
 Theo dõi tệp, thay thế plugin đã liên kết và thông báo cần restart là ba khả
 năng riêng. Không có duyệt root đệ quy, tìm module, import/cache Node,
 nạp binary động hay bộ điều phối tiến trình.
@@ -105,16 +106,20 @@ Variant có source giữ nguyên nguyên nhân.
 
 ## Adapter Include tùy chọn
 
-Feature `include` thêm hợp đồng
+Với feature `include`, gọi
 `watch_include(path, include) -> Result<WatchToken, WatchError>`.
-Nghiệm thu adapter H3 còn chờ. Include không phụ thuộc HMR.
+Thao tác đăng ký một đường dẫn kích hoạt rõ ràng và refresh Include được truyền
+vào, gồm đồ thị nguồn của nó. Đường dẫn không được tự tìm; đăng ký tường minh
+vượt qua ignored. Include không phụ thuộc HMR.
 
 Adapter giữ IncludeTask đã nhận độc lập với cancellation callback,
 chạy tối đa một refresh và một lượt tiếp theo được gộp cho mỗi đăng ký,
 và chờ completion đã giữ khi dispose watcher/ancestor.
-Cleanup không nhận việc Include mới. Lỗi Include và Report.failures
-đi vào history watcher hữu hạn. Retirement chưa xong tính vào max_watches;
-adapter không dispose Include được truyền vào.
+Cleanup không nhận việc Include mới. Lỗi Include trả về và từng lỗi Report đi
+vào history watcher hữu hạn đúng một lần cho mỗi refresh hoàn tất, giữ nguyên
+nguyên nhân và vị trí. Lỗi cleanup core thông thường dùng diagnostic Runtime;
+cần kiểm tra thêm `Runtime::take_failures`. Retirement chưa xong tính vào
+max_watches; adapter không dispose Include được truyền vào.
 
 ## ReloadNode, ReloadPlan và FactoryReplacement
 
@@ -129,7 +134,7 @@ Chu kỳ hội tụ bằng fixed point hữu hạn.
 | `ReloadPlan::new(nodes) -> Result<ReloadPlan, LoaderError>` | Kiểm tra tên, mapping, edge và bound |
 | `affected(changed) -> Result<Vec<String>, LoaderError>` | Closure phụ thuộc ngược, factory theo thứ tự node; unit không biết báo lỗi |
 | `replace(loader, changed, replacements) -> Result<LoaderTask<Settlement>, LoaderError>` | Tập candidate chính xác và một batch loader |
-| `replace_include(include, changed, replacements) -> Result<IncludeTask<Report>, IncludeError>` | Feature include tùy chọn: cùng kiểm tra chọn candidate và completion Include/loader chính xác; nghiệm thu H3 còn chờ |
+| `replace_include(include, changed, replacements) -> Result<IncludeTask<Report>, IncludeError>` | Feature include tùy chọn: cùng kiểm tra chọn candidate và completion Include/loader chính xác |
 
 Method tùy chọn `replace_include` chuyển qua `Include::replace_factories`
 cho entry được cùng instance Include quản lý. Nó giữ journal, data,

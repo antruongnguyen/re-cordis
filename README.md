@@ -44,7 +44,9 @@ meta-framework for spatiotemporal composability.
 > and the [include guide](docs/en/guides/include.md).
 > The unpublished **re-cordis-hmr** implements bounded owner-scoped file watching,
 > explicit linked factory dependency plans and restart-required source notifications.
-> H0 is approved; H1/H2 code is implemented and H3 integration/acceptance is in progress.
+> Optional Include watching and linked replacement operate on the same managed
+> instances. H0 is approved and H2 is independently accepted; watcher/integration
+> review and the shared acceptance matrix remain pending.
 > See the [HMR guide](docs/en/guides/hmr.md) and
 > [implementation evidence](docs/plans/2026-11-02-cordis-completion/evidence/hmr-implementation.md).
 > See [loader](docs/en/guides/loader.md) and [groups](docs/en/guides/groups.md), then
@@ -214,8 +216,8 @@ admission, deadlines, cancellation and streams. The [loader guide](docs/en/guide
 covers typed loading, updates, source reconciliation and structural groups.
 The [include guide](docs/en/guides/include.md) covers bounded file sources,
 patch ownership, runtime edits and joined flush/shutdown. The [HMR guide](docs/en/guides/hmr.md)
-covers file watching, linked replacement and source restart boundaries; H3 acceptance
-is in progress. Create remains a future target. The
+covers file watching, optional Include refresh, linked replacement and source restart
+boundaries, with a runnable offline example. Final HMR acceptance remains pending. Create remains a future target. The
 [ordered roadmap](docs/todo.md#next-implementation-targets-satellites) records
 per-slice source reviews, design gates, tests and bilingual documentation
 requirements. These remaining targets are not delivered crates or a stable API promise.

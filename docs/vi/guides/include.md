@@ -135,6 +135,14 @@ thứ tự ghi. Tệp gốc còn thiếu được tạo độc quyền bằng ha
 bits. Chuyển cây con chứa include sẽ đổi descriptor sang đường dẫn tuyệt đối
 đã chuẩn hóa. Xung đột vẫn có trong lỗi ghi và report kế tiếp.
 
+## Theo dõi tệp và thay factory tùy chọn
+
+Bật feature `include` của `re-cordis-hmr` để đăng ký tệp kích hoạt tường minh
+bằng `watch_include` và thay factory đã biên dịch qua `replace_include`
+trên cùng Include. Refresh gồm đồ thị nguồn của nó; watcher không tự tìm tệp.
+Xem [HMR](hmr.md#tích-hợp-include-tùy-chọn) về completion được giữ,
+kênh lỗi và ví dụ reload offline.
+
 ## Ví dụ offline
 
 Chương trình hoàn chỉnh này đọc tệp thật, áp dụng thay đổi runtime có kiểu, flush rồi chờ shutdown. Nó tự tạo và dọn thư mục tạm; không cần mạng hay cấu hình bên ngoài.

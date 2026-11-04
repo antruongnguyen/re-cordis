@@ -93,3 +93,11 @@ Chạy `cargo run -p re-cordis-include --example config_file --locked --offline`
 [Ví dụ](../../../crates/re-cordis-include/examples/config_file.rs) đọc tệp tạm,
 sửa cấu hình plugin có kiểu, flush và chờ shutdown.
 Xem [tệp cấu hình](include.md) để đọc cùng chương trình thực thi.
+
+## HMR: cấu hình và thay factory đã biên dịch
+
+Chạy `cargo run -p re-cordis-hmr --example reload --features include --locked --offline`.
+[Ví dụ](../../../crates/re-cordis-hmr/examples/reload.rs) theo dõi cấu hình tạm qua
+Include, thay factory đã biên dịch trên cùng EntryId, xác nhận refresh cấu hình
+sau đó, báo RestartRequired cho mã nguồn rồi chờ shutdown.
+Xem [HMR](hmr.md#ví-dụ-offline) về các lớp hỗ trợ và kênh lỗi.

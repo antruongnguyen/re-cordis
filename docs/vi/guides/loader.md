@@ -93,8 +93,9 @@ có cấu trúc. Dữ liệu runtime không được gán tên tệp giả.
 Theo dõi `loader.commits()` để nhận sửa nguồn runtime đã chấp nhận.
 Reconciliation không phát commit ghi ngược. Bên gọi sở hữu tuần tự hóa và lưu
 trữ; loader không đọc hay ghi tệp. `replace_factory` thay declaration đã liên
-kết và tạo lại các entry liên quan sau cleanup. Nó không biên dịch mã,
-import module hay theo dõi tệp.
+kết và tạo lại các entry liên quan sau cleanup. Xem [HMR](hmr.md) để chọn lô
+theo dependency và theo dõi tệp qua Include tùy chọn trên cùng các entry.
+Mã nguồn thay đổi báo cần restart; ứng dụng cung cấp candidate đã biên dịch.
 
 Xem [group](groups.md), [API](../api/loader.md) và
 [giới hạn](../../limitation.md#loader-and-structural-groups).

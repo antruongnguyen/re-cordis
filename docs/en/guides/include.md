@@ -136,6 +136,14 @@ Existing-file replacement preserves permission bits. Moving an include-bearing
 subtree rebases its descriptors to canonical absolute paths. Conflicts remain
 available on a write error and in the next report.
 
+## Optional file watching and replacement
+
+Enable `re-cordis-hmr`'s `include` feature to register explicit trigger files
+with `watch_include` and replace compiled factories through `replace_include`
+on this same Include. Refresh includes its source graph; the watcher does not
+discover files automatically. See [HMR](hmr.md#optional-include-integration)
+for retained completion, failure channels and the offline reload example.
+
 ## Offline example
 
 This complete program reads a real file, applies a typed runtime change, flushes it and joins shutdown. It creates and removes its own temporary directory; no network or external configuration is needed.

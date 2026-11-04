@@ -3,8 +3,9 @@
 [Tiếng Việt](../../vi/guides/hmr.md) | [English home](../README.md)
 
 The unpublished `re-cordis-hmr` crate coordinates explicit file watches and
-replacement of already-linked Rust plugins. The H0 contract is approved;
-H1–H3 implementation acceptance is pending. See the [API](../api/hmr.md)
+replacement of already-linked Rust plugins, with optional Include integration.
+H2 is independently accepted; final watcher/integration review and shared
+acceptance remain pending. See the [API](../api/hmr.md)
 and [source disposition map](../../plans/2026-11-02-cordis-completion/evidence/hmr-source-map.md)
 for the exact scope and evidence boundary.
 
@@ -153,12 +154,14 @@ running process; it is not a compilation of the changed source file.
 
 ## Optional Include integration
 
-The H3 adapter contract is `watch_include(path, include)`, enabled with the
-HMR crate's `include` feature. Adapter implementation acceptance is pending.
-Include remains independent of HMR; explicitly register each source path.
+Enable the HMR crate's `include` feature and call
+`watch_include(path, include.clone())`. This registers one explicit trigger path
+and calls refresh on the supplied Include, including its source graph. Register
+each file that should trigger refresh; the adapter does not discover paths.
+Include remains independent of HMR.
 
-For replacement of factories used by that same Include instance, the optional
-contract adds `plan.replace_include(&include, changed, replacements)`. Await
+For replacement of factories used by that same Include instance, call
+`plan.replace_include(&include, changed, replacements)`. Await
 its `IncludeTask<Report>`. It forwards the exact loader batch completion and
 preserves Include journal, data, provenance and file bytes; it does not flush.
 This path has the same explicit graph and candidate checks as `replace`.
@@ -167,6 +170,25 @@ The adapter retains the already-admitted IncludeTask outside its cancellable
 callback. Stop suppresses follow-up refreshes; watcher/ancestor cleanup joins
 that retained completion without making a new Include call after admission
 closes. Unfinished retired registrations still consume the watch quota.
-Parse failures preserve the last valid source, report their causes and allow
-later valid refreshes. Rename-based Include self-writes must converge without
-a feedback loop. See [Include](include.md) for persistence and durability limits.
+Returned Include errors and every `Report.failures` cause enter bounded
+`WatchEvent::Failure` history once per completed refresh. Ordinary core cleanup
+failures retain their existing `Runtime::take_failures` channel; inspect both.
+Parse failures preserve the last valid source and allow later valid refreshes.
+Rename-based Include self-writes converge without reapplying unchanged accepted
+data. See [Include](include.md) for persistence and durability limits.
+
+## Offline example
+
+Run the [complete reload example](../../../crates/re-cordis-hmr/examples/reload.rs)
+from the repository root:
+
+```sh
+cargo run -p re-cordis-hmr --example reload --features include --locked --offline
+```
+
+It creates its own temporary files, watches configuration with one Include,
+replaces compiled-v1 with compiled-v2 while preserving EntryId and current
+config, and verifies later config refresh uses compiled-v2. It prints the
+capability snapshot once, reports a source `RestartRequired`, then joins watcher
+and Include shutdown and checks Registry restoration. No network or external
+build process is needed.

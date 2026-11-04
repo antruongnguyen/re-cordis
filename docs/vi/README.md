@@ -10,8 +10,9 @@ Sản phẩm hiện tại gồm `re-cordis-core`, `re-cordis-timer`, `re-cordis-
 cùng `re-cordis-loader`, `re-cordis-include` và `re-cordis-hmr` chưa phát hành, phiên bản 0.0.0, Rust 2024/MSRV 1.85.
 API chưa ổn định. Loader sở hữu nguồn entry có kiểu và group cấu trúc;
 Include có đọc/refresh tệp, patch có thứ tự và persistence có hòa giải đã nghiệm thu.
-Theo dõi tệp và thay factory đã liên kết của HMR đã triển khai; tích hợp/nghiệm thu H3
-đang thực hiện. Create vẫn là mục tiêu tương lai. Review và nghiệm thu toolchain
+HMR đã triển khai theo dõi tệp, refresh Include tùy chọn và thay factory đã liên kết.
+H2 đã được nghiệm thu độc lập; review watcher/tích hợp và nghiệm thu chung
+còn chờ. Create vẫn là mục tiêu tương lai. Review và nghiệm thu toolchain
 tường minh được ghi trong [lộ trình](../todo.md#next-implementation-targets-satellites).
 Đây là API Rust tường minh, không phải lớp tương thích JavaScript trong suốt.
 

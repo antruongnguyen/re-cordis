@@ -18,6 +18,8 @@ Essential application constraints:
 - Service set changes the value without replacing publication identity or reloading consumers.
 - Use typed calls/keys/decoders, not JS Proxy/decorators/eval. App-specific Tokio features remain explicit.
 - Include uses JSON-valued mutations, bounded synchronous I/O and explicit refresh; YAML writes normalize values. Joined disposal flushes before child cleanup and reports final write errors.
+- HMR watches explicit files; watch_include retains admitted refresh through cancellation and joined disposal. Include/Report errors use bounded WatchEvent history; core cleanup errors use Runtime diagnostics.
+- Linked replacement uses declared dependencies and compiled candidates. Source changes emit RestartRequired; no module discovery, compiler or supervisor.
 - GitHub examples grant no permission for login, authenticated requests or live remote mutations.
 
 ## Start here
@@ -32,7 +34,7 @@ Essential application constraints:
 
 ## English guides
 
-- [HMR](en/guides/hmr.md): Explicit file watches, linked factory replacement and restart-required boundaries.
+- [HMR](en/guides/hmr.md): Explicit watches, same-instance Include refresh/replacement, restart boundaries and offline example.
 - [Include](en/guides/include.md): Bounded files, nested sources, refresh, provenance and persistence.
 
 - [Loader](en/guides/loader.md): Typed catalogs, bounded JSON, source edits/reconciliation, latest intent and joined shutdown.
@@ -69,7 +71,7 @@ Essential application constraints:
 
 ## Vietnamese guides
 
-- [HMR](vi/guides/hmr.md): Theo dõi tệp tường minh, thay factory đã liên kết và ranh giới cần khởi động lại.
+- [HMR](vi/guides/hmr.md): Theo dõi tệp, refresh/thay factory trên cùng Include, giới hạn restart và ví dụ offline.
 - [Include](vi/guides/include.md): Tệp hữu hạn, nguồn lồng nhau, refresh, quyền sở hữu và ghi tệp.
 
 - [Loader](vi/guides/loader.md): Catalog có kiểu, JSON hữu hạn, nguồn và shutdown có join.

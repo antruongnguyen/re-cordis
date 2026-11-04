@@ -33,7 +33,9 @@ Thao tác không flush, không đổi journal, dữ liệu nguồn, provenance h
 `Report.changed` là false. Mọi candidate được kiểm tra trước teardown thay thế,
 và lỗi từng entry độc lập vẫn có trong report. Refresh sau đó dùng catalog mới.
 `ReloadPlan::replace_include` tùy chọn của HMR thêm lựa chọn dependency tường minh,
-trong khi Include vẫn không phụ thuộc HMR.
+trong khi Include vẫn không phụ thuộc HMR. `FileWatcher::watch_include` tùy chọn
+kích hoạt refresh trên cùng Include này; xem
+[hướng dẫn HMR](../guides/hmr.md#tích-hợp-include-tùy-chọn).
 
 | Giới hạn được export | Giá trị |
 |---|---:|

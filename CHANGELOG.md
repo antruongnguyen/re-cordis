@@ -25,9 +25,11 @@ This project does not yet follow semantic versioning — the API is unstable.
 - Unpublished `re-cordis-hmr`: bounded explicit file watching with a joined polling
   producer, local debounced callbacks, exact tokens, overflow rescans and visible
   failures; explicit dependency plans select already-linked factory batches.
-  Rust source changes report restart-required. Optional Include integration and
-  final acceptance remain in progress. Paired guides/API and executable checks
-  describe the supported Rust boundary.
+  Optional Include integration retains admitted refresh completion through callback
+  cancellation and joins it during watcher/ancestor shutdown; compiled replacement
+  uses the same Include-managed instances. Rust source changes report restart-required.
+  An offline example and paired guides/API describe the delivered Rust boundary.
+  H2 is independently accepted; final watcher/integration acceptance remains pending.
 
 - Loader `FactoryReplacement` and `replace_factories` preflight a complete linked
   batch before teardown, refuse same-loader mutation during optional validation,

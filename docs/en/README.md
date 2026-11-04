@@ -10,8 +10,9 @@ The current deliverable is unpublished `re-cordis-core`, `re-cordis-timer`,
 `re-cordis-logger`, `re-cordis-loader`, `re-cordis-include` and `re-cordis-hmr`, version 0.0.0, Rust 2024/MSRV 1.85.
 The API is unstable. Loader owns typed source entries and structural groups;
 Include supplies accepted file reads/refresh, ordered patches and reconciled persistence.
-HMR watching and linked replacement are implemented; H3 integration/acceptance
-is in progress. Create remains a future target. Review and explicit toolchain
+HMR file watching, optional Include refresh and linked replacement are implemented.
+H2 is independently accepted; watcher/integration review and shared acceptance
+remain pending. Create remains a future target. Review and explicit toolchain
 acceptance are tracked in the [roadmap](../todo.md#next-implementation-targets-satellites).
 This is an explicit Rust API, not transparent JavaScript compatibility.
 

@@ -93,3 +93,11 @@ Run `cargo run -p re-cordis-include --example config_file --locked --offline`.
 The [example](../../../crates/re-cordis-include/examples/config_file.rs) reads
 a temporary file, changes a typed plugin config, flushes and joins shutdown.
 See [configuration files](include.md) for the identical executable program.
+
+## HMR configuration and compiled replacement
+
+Run `cargo run -p re-cordis-hmr --example reload --features include --locked --offline`.
+The [example](../../../crates/re-cordis-hmr/examples/reload.rs) watches a temporary
+configuration through Include, replaces its compiled factory on the same EntryId,
+verifies later config refresh, reports source RestartRequired and joins shutdown.
+See [HMR](hmr.md#offline-example) for the supported layers and failure channels.

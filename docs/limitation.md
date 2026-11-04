@@ -209,11 +209,11 @@ integrated framework or resolve every behavioral gap.
   and failed writes may require manual partial-line repair.
   Public ingress, live webhook delivery, mutations, and durable/exactly-once
   delivery are excluded. See the consumer document for exact resource/time limits.
-- `re-cordis-core`, `re-cordis-timer`, `re-cordis-logger`, `re-cordis-loader`
-  and `re-cordis-include` are implemented within their documented Rust scope.
-  Structural Group belongs to loader; HMR and create remain future work. Each slice needs its own
-  source/API/dependency review and acceptance, including bilingual
-  documentation. See [the roadmap](todo.md).
+- `re-cordis-core`, `re-cordis-timer`, `re-cordis-logger`, `re-cordis-loader`,
+  `re-cordis-include` and `re-cordis-hmr` are implemented within their documented
+  Rust scope. Structural Group belongs to loader. HMR watcher/integration review
+  and shared acceptance remain pending; create remains future work.
+  See [the roadmap](todo.md).
 - No stability guarantees — the API will change freely until the core is proven.
 - `spikes/m0` uses separate test-only models: one dependency per lifecycle
   Fiber, synchronous setup, and no integrated update/recovery/logger protocol.
@@ -357,8 +357,8 @@ See [loader API](en/api/loader.md), [groups](en/api/groups.md) and the
   leases or mutable Fiber control.
 - **Satellite boundaries:** SourceDocument/reconcile/commits and replace_factory
   are tested in-memory seams. Include now supplies bounded file reading/writing,
-  patches and reconciliation in its own crate; filesystem watchers and the HMR
-  engine remain unimplemented.
+  patches and reconciliation in its own crate; HMR supplies explicit file
+  watching and application-declared linked replacement in a separate crate.
   Per-entry source failures are independent; runtime structural preflight is
   whole-input, while async plugin failures do not roll back healthy siblings.
 - **Explicit bounds:** JSON syntax/global boundary failures reject the document.
@@ -402,8 +402,10 @@ verification completes.
   storage. Byte/count bounds do not guarantee a wall-clock deadline. Sibling
   replacement does not provide a multi-file transaction, a complete protocol
   against concurrent external writers or a power-loss guarantee.
-- **Deferred integrations:** explicit refresh requires no watcher. HMR, create,
-  JS evaluation and native binary hot loading are outside this delivery.
+- **Integration boundary:** explicit refresh requires no watcher. The optional
+  HMR adapter triggers refresh on the supplied Include; each watched path must
+  be registered explicitly. Create, JS evaluation and native binary hot loading
+  remain outside the delivered scope.
 
 I3 persistence is implemented. Writes remain non-atomic across files, but bounded
 full pending snapshots recover partial move writes on a later retry. Missing-root
@@ -417,7 +419,9 @@ hidden base value. Existing value-only YAML, path and durability limits remain.
 
 ## HMR watching and linked replacement
 
-H0–H3 is selected for implementation; its
+H0–H3 watching, optional Include integration and linked replacement are
+implemented. H2 is independently accepted; watcher/integration review and the
+shared matrix remain pending. The
 [contract and progress](plans/2026-11-02-cordis-completion/evidence/hmr-contract.md)
 separate delivery evidence from the following chosen boundaries.
 
@@ -441,6 +445,12 @@ separate delivery evidence from the following chosen boundaries.
   or ancestor disposal releases callback captures and waits for the producer.
   An OS read that is already blocked must return before joining; there is no
   hard wall-clock shutdown deadline or rollback of callback external effects.
+- **Include boundary:** one registered path triggers refresh of the supplied
+  Include's source graph; paths are not discovered automatically. Stop/Drop
+  suppresses follow-up but retained admitted work must finish before watcher or
+  ancestor cleanup joins. Returned Include errors and Report failures use bounded
+  WatchEvent history; ordinary core cleanup failures use Runtime diagnostics.
+  The adapter does not dispose Include, and linked replacement does not flush.
 - **Replacement boundary:** whole-batch declaration/type/optional preflight
   precedes unload. Core dependency-ready mapping/validation can still fail
   afterward. This is not a transaction over arbitrary side effects; failed

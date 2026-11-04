@@ -34,7 +34,9 @@ It does not flush or change journal, source data, provenance or file bytes;
 `Report.changed` is false. All candidates are checked before replacement teardown,
 and independent entry failures remain in the report. Later refresh uses the new
 catalog. The optional HMR `ReloadPlan::replace_include` adds explicit dependency
-selection while keeping Include independent of HMR.
+selection while keeping Include independent of HMR. Its optional
+`FileWatcher::watch_include` triggers refresh on this same Include; see the
+[HMR guide](../guides/hmr.md#optional-include-integration).
 
 | Exported bound | Value |
 |---|---:|

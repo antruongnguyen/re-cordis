@@ -846,7 +846,20 @@ cleanup, then follows current identity/intent. It owns admitted work even after
 a replacement waiter is dropped. External effects cannot be rolled back after
 unload; Failed results and explicit recovery remain visible.
 
-An optional HMR-side Include adapter refreshes selected source paths and joins
-work already admitted by Include. Include has no dependency on HMR. Changed
-Rust source produces restart-required; the application owns any build/restart
-process. Node caches, JS execution and native ABI loading are outside H0–H3.
+The optional HMR-side `watch_include(path, include)` registers one explicit
+trigger path and invokes refresh on the supplied Include, including its source
+graph. It retains the admitted IncludeTask outside the cancellable callback;
+stop suppresses follow-up and watcher/ancestor cleanup joins that same task
+without new Include admission. Active and unfinished retired registrations share
+one quota. Returned Include errors and every Report failure retain their original
+causes in bounded WatchEvent history; ordinary core cleanup failures retain their
+existing Runtime diagnostics channel.
+
+`ReloadPlan::replace_include` forwards the exact linked factory batch through
+that same Include's private loader. It preserves journal, data, provenance and
+file bytes and does not flush. The offline reload example demonstrates watched
+config updates before and after compiled replacement on one stable EntryId.
+Include has no dependency on HMR. Changed Rust source produces restart-required;
+the application owns any build/restart process. Node caches, JS execution and
+native ABI loading are outside H0–H3. H2 is independently accepted; final
+watcher/integration review and shared acceptance remain pending.
