@@ -214,6 +214,17 @@ mutations, global counters and Node-cache eviction are TS harness details.
 Rust must use bounded synthetic/gated oracles and joined resource assertions;
 a callback count or cleanup waiter alone cannot prove release.
 
+## Read-error overflow correction
+
+`filesystem::overflow_retries_original_read_failures_then_coalesces_delivery`
+verifies that two original read errors survive a one-slot ingress overflow,
+each is retained once after capacity recovers, no history eviction hides the
+result, and producer disposal joins. It supplements W-04/W-06/W-10. See
+[correction evidence](hmr-overflow-correction.md); the HMR totals after this
+correction are 55 integration + 1 Rustdoc with Include and 44 + 1 without it,
+on both explicit toolchains. Independent re-review and shared acceptance
+remain required.
+
 ## Acceptance boundary
 
 The exact W/I/R test references and focused explicit stable/1.85.0 results above

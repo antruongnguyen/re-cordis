@@ -210,6 +210,86 @@ async fn oversized_file_failure_preserves_original_io_cause_and_recovers() -> Re
     Ok(())
 }
 
+#[tokio::test(flavor = "current_thread")]
+async fn overflow_retries_original_read_failures_then_coalesces_delivery() -> Result<(), BoxError> {
+    use std::error::Error;
+    let d = Dir::new();
+    let a = d.path("a.json");
+    let b = d.path("b.json");
+    std::fs::write(&a, b"oversized")?;
+    std::fs::write(&b, b"oversized")?;
+    let runtime = Runtime::new();
+    runtime
+        .run(async {
+            let mut o = options(&d);
+            o.max_file_bytes = 1;
+            o.max_watches = 2;
+            o.queue_capacity = 1;
+            o.event_capacity = 16;
+            let w = FileWatcher::new(&runtime.context(), o)?;
+            let _a = w.watch_source(&a)?;
+            let _b = w.watch_source(&b)?;
+            // Hold the local receiver until both producer failures contend for one slot.
+            let end = std::time::Instant::now() + Duration::from_secs(2);
+            while w.stats().queue_overflows == 0 && std::time::Instant::now() < end {
+                std::thread::sleep(Duration::from_millis(1));
+            }
+            let overflowed = w.stats().queue_overflows > 0;
+            let mut failures = vec![];
+            let delivered = until(|| {
+                failures.extend(w.take_events().into_iter().filter_map(|event| {
+                    if let WatchEvent::Failure(failure) = event {
+                        Some(failure)
+                    } else {
+                        None
+                    }
+                }));
+                failures.len() >= 2
+            })
+            .await;
+            // Several unchanged samples after delivery must produce no further read failures.
+            tokio::time::sleep(Duration::from_millis(50)).await;
+            failures.extend(w.take_events().into_iter().filter_map(|event| {
+                if let WatchEvent::Failure(failure) = event {
+                    Some(failure)
+                } else {
+                    None
+                }
+            }));
+            tokio::time::timeout(Duration::from_secs(2), w.dispose()?).await??;
+            assert!(!w.stats().producer_running);
+            assert_eq!(w.stats().queued, 0);
+            assert_eq!(w.stats().watches, 0);
+            assert_eq!(w.stats().events_evicted, 0);
+            assert!(
+                overflowed,
+                "the ingress must overflow before the receiver progresses"
+            );
+            delivered?;
+            failures.sort_by(|a, b| a.path.cmp(&b.path));
+            assert_eq!(
+                failures.len(),
+                2,
+                "each unchanged failure must be delivered exactly once"
+            );
+            assert_eq!(failures[0].path.as_ref(), Some(&a));
+            assert_eq!(failures[1].path.as_ref(), Some(&b));
+            for failure in failures {
+                assert_eq!(failure.stage, WatchFailureStage::Read);
+                let cause = failure
+                    .source()
+                    .unwrap()
+                    .downcast_ref::<std::io::Error>()
+                    .unwrap();
+                assert_eq!(cause.kind(), std::io::ErrorKind::InvalidData);
+                assert_eq!(cause.to_string(), "file exceeds watcher byte limit");
+            }
+            Ok::<_, BoxError>(())
+        })
+        .await??;
+    Ok(())
+}
+
 #[cfg(unix)]
 #[tokio::test(flavor = "current_thread")]
 async fn symlink_replacement_reports_failure_then_regular_file_recovers() -> Result<(), BoxError> {

@@ -1198,13 +1198,14 @@ fn producer(shared: Arc<Shared>, interval: Duration, limit: u64) {
                 }
                 Err(error) => {
                     let key = (error.kind(), error.to_string());
-                    if entry.2.as_ref() != Some(&key) {
-                        entry.2 = Some(key);
-                        let _ = shared.send(Message::Failure {
+                    if entry.2.as_ref() != Some(&key)
+                        && shared.send(Message::Failure {
                             path: path.clone(),
                             generation: *generation,
                             error,
-                        });
+                        }) == Ok(SyntheticDelivery::Queued)
+                    {
+                        entry.2 = Some(key);
                     }
                 }
             }

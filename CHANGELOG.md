@@ -9,6 +9,9 @@ This project does not yet follow semantic versioning — the API is unstable.
 
 ### Fixed
 
+- Watcher read failures retry after ingress overflow and coalesce only after
+  successful queue admission, preserving original errors when capacity recovers.
+
 - Linked replacement settlement preserves distinct apply and commit-observer
   failures for the same entry. Exact batch waiters retain every scheduling cause;
   abandoned waiters keep the bounded first-unobserved scheduling failure. An
