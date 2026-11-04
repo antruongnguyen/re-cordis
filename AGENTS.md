@@ -117,6 +117,8 @@ new delivered satellite.
 
 ## Tooling conventions
 
+- Write session and handoff prompts for this project in English unless explicitly
+  requested otherwise. Conversational updates follow the user's requested language.
 - After implementing and verifying each milestone, commit its code and related
   documentation on the current branch. Do not push unless explicitly requested.
 - Never include a `Co-authored-by` trailer in git commit messages.
