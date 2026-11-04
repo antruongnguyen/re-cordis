@@ -327,14 +327,23 @@ impl Application {
             ],
         )?)
     }
-    /// Request cancellation once, then observe every subsystem's joined result.
+    /// Join admitted watch work before canceling Include, then join the owner.
     pub async fn shutdown(self) -> Result<(), BoxError> {
-        let watch = self.watcher.dispose()?;
-        let include = self.include.dispose()?;
-        let owner = self.owner.dispose()?;
-        let owner = owner.await;
-        let watch = watch.await;
-        let include = include.await;
+        let watch = async {
+            self.watcher.dispose()?.await?;
+            Ok::<_, BoxError>(())
+        }
+        .await;
+        let include = async {
+            self.include.dispose()?.await?;
+            Ok::<_, BoxError>(())
+        }
+        .await;
+        let owner = async {
+            self.owner.dispose()?.await?;
+            Ok::<_, BoxError>(())
+        }
+        .await;
         let final_error = self.include.final_error();
         let watch_failure = self
             .watcher

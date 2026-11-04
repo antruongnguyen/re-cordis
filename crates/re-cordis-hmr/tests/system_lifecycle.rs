@@ -369,6 +369,102 @@ async fn shutdown_preserves_distinct_io_and_cleanup_failures() -> Result<(), Box
 }
 
 #[tokio::test(flavor = "current_thread", start_paused = true)]
+async fn application_shutdown_joins_admitted_refresh_before_disposing_include()
+-> Result<(), BoxError> {
+    let directory = Directory::new()?;
+    let runtime = Runtime::new();
+    runtime
+        .run(async {
+            let root = runtime.context();
+            let effects = root.get_effects()?.len();
+            let registry = root.registry().len()?;
+            let app = Application::boot(&root, &directory.0, io::sink(), false).await?;
+            let probe = app.probe.clone();
+            let include = app.include.clone();
+            let old = probe.providers.borrow()[0].upgrade().unwrap();
+            let old_serial = old.serial;
+            let (entered, release) = app.hold_consumer();
+            let mut source = include.data();
+            source[0]["config"][0]["config"] = json!(2);
+            std::fs::write(
+                directory.0.join("cordis.json"),
+                serde_json::to_vec(&source)?,
+            )?;
+            app.emit_config()?;
+            app.fire().await;
+            entered.await?;
+            assert_eq!(app.watcher.stats().callbacks_running, 1);
+            let mut shutdown = Box::pin(app.shutdown());
+            assert!(
+                shutdown.as_mut().now_or_never().is_none(),
+                "watcher join waits for admitted refresh"
+            );
+            assert_eq!(old.call()?, "v1:1");
+            assert_eq!(probe.live_providers.get(), 1);
+            assert!(probe.writer.upgrade().is_some());
+            assert!(probe.catalog.upgrade().is_some());
+            drop(old);
+            release.send(()).unwrap();
+            let result = shutdown.await;
+            assert!(
+                result.is_ok(),
+                "clean admitted refresh must finish before Include disposal: {result:?}"
+            );
+            assert_eq!(
+                probe.providers.borrow().len(),
+                2,
+                "admitted replacement finished"
+            );
+            assert_eq!(
+                probe.consumers.borrow().len(),
+                2,
+                "consumer rebound before teardown"
+            );
+            assert_eq!(
+                probe.retained.borrow().as_slice(),
+                &[(old_serial, true, "v1:1".into(), "v1:1".into())]
+            );
+            assert!(include.final_error().is_none());
+            assert_eq!(include.pending(), 0);
+            assert!(
+                include
+                    .entries()
+                    .iter()
+                    .all(|entry| entry.state == EntryState::Disposed
+                        && entry.fiber_id.is_none()
+                        && entry.outer_id.is_none())
+            );
+            assert_eq!(probe.live_providers.get(), 0);
+            assert_eq!(probe.live_consumers.get(), 0);
+            assert!(
+                probe
+                    .providers
+                    .borrow()
+                    .iter()
+                    .all(|provider| provider.upgrade().is_none())
+            );
+            assert!(probe.writer.upgrade().is_none());
+            assert!(probe.callback.upgrade().is_none());
+            assert!(probe.timer.upgrade().is_none());
+            assert_eq!(root.get_effects()?.len(), effects);
+            assert_eq!(root.registry().len()?, registry);
+            assert!(runtime.take_failures().is_empty());
+            assert!(
+                probe.catalog.upgrade().is_some(),
+                "retained Include explicitly owns catalog"
+            );
+            drop(include);
+            assert!(
+                probe.catalog.upgrade().is_none(),
+                "catalog released after final Include handle drop"
+            );
+            Ok::<_, BoxError>(())
+        })
+        .await??;
+    Ok(())
+}
+
+#[tokio::test(flavor = "current_thread", start_paused = true)]
 async fn hundred_composed_lifecycles_restore_baselines_and_captures() -> Result<(), BoxError> {
     let directory = Directory::new()?;
     let runtime = Runtime::new();
