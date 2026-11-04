@@ -33,7 +33,7 @@ cargo run -p re-cordis-create --offline --locked -- --help
 
 | Đối số | Ý nghĩa |
 |---|---|
-| `NAME` | Tên package Cargo; bắt đầu bằng chữ ASCII thường, sau đó là chữ thường, chữ số, `_` hoặc `-`, tối đa 64 byte. Từ dành riêng Rust/Cargo và tên thiết bị Windows bị từ chối. |
+| `NAME` | Tên package Cargo; bắt đầu bằng chữ ASCII thường, sau đó là chữ thường, chữ số, `_` hoặc `-`, tối đa 64 byte. Từ dành riêng Rust/Cargo, tên thiết bị Windows, và `re-cordis-core`, `re-cordis-logger`, `re-cordis-loader` bị từ chối. |
 | `--path PATH` | Đích; mặc định là `NAME` tương đối với thư mục làm việc. Đường dẫn native cho phép dấu cách và Unicode. |
 | `--cordis-path PATH` | Checkout repository cục bộ bắt buộc, cung cấp core, logger và loader. |
 | `-h`, `--help` | In cách dùng và thoát thành công, không sinh tệp. |

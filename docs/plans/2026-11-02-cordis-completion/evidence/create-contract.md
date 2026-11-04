@@ -34,6 +34,8 @@ bundled template under that package. See [source dispositions](create-source-map
 - Exit codes: 0 success/help, 2 argument or validation failure, 1 filesystem I/O.
 - Names: 1–64 lowercase ASCII bytes, initial letter, remaining letters/digits,
   hyphens or underscores; reserved Rust/Cargo and Windows device names refused.
+  The bundled dependency names `re-cordis-core`, `re-cordis-logger`, and
+  `re-cordis-loader` are also refused to avoid `0.0.0` Cargo package collisions.
   Name and destination are separate: native paths may contain spaces or Unicode.
   Paths embedded in Cargo TOML must be Unicode and properly escaped.
 - Validate an explicit checkout root and expected core/logger/loader manifests

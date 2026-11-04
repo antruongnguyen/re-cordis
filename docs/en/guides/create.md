@@ -33,7 +33,7 @@ cargo run -p re-cordis-create --offline --locked -- --help
 
 | Argument | Meaning |
 |---|---|
-| `NAME` | Cargo package name; starts with an ASCII lowercase letter, then lowercase letters, digits, `_` or `-`, at most 64 bytes. Rust/Cargo reserved names and Windows device names are refused. |
+| `NAME` | Cargo package name; starts with an ASCII lowercase letter, then lowercase letters, digits, `_` or `-`, at most 64 bytes. Rust/Cargo reserved names, Windows device names, and `re-cordis-core`, `re-cordis-logger`, `re-cordis-loader` are refused. |
 | `--path PATH` | Destination; defaults to `NAME` relative to the working directory. Native paths can contain spaces and Unicode. |
 | `--cordis-path PATH` | Required local repository checkout supplying core, logger and loader. |
 | `-h`, `--help` | Print usage and exit successfully without generating files. |

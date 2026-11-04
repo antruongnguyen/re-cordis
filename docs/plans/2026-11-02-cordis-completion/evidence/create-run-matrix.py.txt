@@ -45,6 +45,8 @@ before = fingerprints()
 tools = {}
 for tc in ("stable", "1.85.0"):
     names = ("cargo", "rustc", "rustdoc", "cargo-clippy", "clippy-driver")
+    if tc == "stable":
+        names += ("cargo-fmt", "rustfmt")
     paths = {name: subprocess.check_output(
         ["rustup", "which", "--toolchain", tc, name], text=True).strip()
         for name in names}

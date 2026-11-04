@@ -880,9 +880,12 @@ records upstream dispositions. No core hosting contracts are reopened.
   contextual `CreateError` and a small native-argument CLI replaces interactive
   JavaScript/package-manager scaffolding. The generator uses only std, runs
   no subprocess and requires no framework host.
+- **Name admission:** reject the three bundled Cordis dependency package names
+  before staging. Reusing one at version `0.0.0` creates a Cargo lockfile identity
+  collision at different paths; accepting it would generate an unusable project.
 - **Dependency choice:** unpublished `0.0.0` Cordis crates use validated canonical
   absolute Unicode checkout paths with TOML escaping. Validation checks this
-  repository's literal manifest/layout spelling, not arbitrary Cargo TOML or source. An empty application `[workspace]`
+  repository's literal manifest/layout spelling, not arbitrary Cargo TOML or source. An application `[workspace]` with resolver 3
   prevents accidental membership in an enclosing workspace. Rust 2024/MSRV 1.85
   and unpublished status remain explicit. Dependency installation and lockfile
   creation happen only through the user's subsequent Cargo commands.

@@ -18,7 +18,9 @@ ghi các ranh giới đã chọn.
 Chữ ký: `create(name: &str, destination: &Path, cordis_path: &Path) -> Result<PathBuf, CreateError>`.
 
 Tên bắt đầu bằng chữ ASCII thường, chỉ chứa chữ thường/chữ số/`_`/`-`,
-tối đa 64 byte. Từ dành riêng Rust/Cargo và tên thiết bị Windows bị từ chối.
+tối đa 64 byte. Từ dành riêng Rust/Cargo, tên thiết bị Windows và tên dependency
+`re-cordis-core`, `re-cordis-logger`, `re-cordis-loader` bị từ chối để tránh
+trùng tên/version trong Cargo.
 Đích riêng biệt giữ nguyên đối số đường dẫn native, gồm dấu cách và Unicode;
 filesystem có thể từ chối chuỗi byte khác bằng lỗi I/O.
 Thư mục cha phải tồn tại; đích phải chưa tồn tại hoặc là thư mục thông thường

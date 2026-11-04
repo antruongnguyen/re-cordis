@@ -353,3 +353,117 @@ fn native_nonunicode_destination_obeys_host_filesystem_and_cleans_failure() {
         assert!(dest.join("Cargo.toml").is_file());
     }
 }
+
+#[test]
+fn bundled_dependency_names_are_refused_before_library_staging() {
+    for name in ["re-cordis-core", "re-cordis-logger", "re-cordis-loader"] {
+        for empty in [false, true] {
+            let fixture = Fixture::new();
+            let dest = fixture.0.join("app");
+            if empty {
+                fs::create_dir(&dest).unwrap();
+            }
+            let error = create(name, &dest, &checkout()).unwrap_err();
+            assert!(matches!(
+                error,
+                re_cordis_create::CreateError::Validation(_)
+            ));
+            assert_eq!(error.exit_code(), 2);
+            if empty {
+                assert!(names(&dest).is_empty());
+                assert_eq!(names(&fixture.0), ["app"]);
+            } else {
+                assert!(!dest.exists());
+                assert!(names(&fixture.0).is_empty());
+            }
+        }
+    }
+}
+
+#[test]
+fn bundled_dependency_names_exit_two_without_cli_destination_writes() {
+    for name in ["re-cordis-core", "re-cordis-logger", "re-cordis-loader"] {
+        for empty in [false, true] {
+            let fixture = Fixture::new();
+            let dest = fixture.0.join("app");
+            if empty {
+                fs::create_dir(&dest).unwrap();
+            }
+            let output = Command::new(env!("CARGO_BIN_EXE_re-cordis-create"))
+                .current_dir(&fixture.0)
+                .arg(name)
+                .arg("--path")
+                .arg(&dest)
+                .arg("--cordis-path")
+                .arg(checkout())
+                .output()
+                .unwrap();
+            assert_eq!(output.status.code(), Some(2), "{name}, empty={empty}");
+            assert!(String::from_utf8_lossy(&output.stderr).contains("project name"));
+            assert!(output.stdout.is_empty());
+            if empty {
+                assert!(names(&dest).is_empty());
+                assert_eq!(names(&fixture.0), ["app"]);
+            } else {
+                assert!(!dest.exists());
+                assert!(names(&fixture.0).is_empty());
+            }
+        }
+    }
+}
+
+#[test]
+fn stage_shaped_and_long_destinations_generate_complete_projects() {
+    const PROBE: &str = "RE_CORDIS_CREATE_DESTINATION_PROBE";
+    let Ok(spelling) = std::env::var(PROBE) else {
+        for spelling in ["exact", "uppercase", "alternate", "long"] {
+            let output = Command::new(std::env::current_exe().unwrap())
+                .args([
+                    "--exact",
+                    "stage_shaped_and_long_destinations_generate_complete_projects",
+                    "--nocapture",
+                ])
+                .env(PROBE, spelling)
+                .output()
+                .unwrap();
+            assert!(
+                output.status.success(),
+                "{spelling}: {}{}",
+                String::from_utf8_lossy(&output.stdout),
+                String::from_utf8_lossy(&output.stderr),
+            );
+        }
+        return;
+    };
+    let fixture = Fixture::new();
+    let basename = format!(".re-cordis-create-{}-0", std::process::id());
+    let basename = match spelling.as_str() {
+        "uppercase" => basename.to_ascii_uppercase(),
+        "alternate" => format!("_re-cordis-create-{}-0", std::process::id()),
+        "long" => "a".repeat(240),
+        _ => basename,
+    };
+    let dest = fixture.0.join(&basename);
+    assert_eq!(create("valid-app", &dest, &checkout()).unwrap(), dest);
+    assert_eq!(
+        names(&dest),
+        [".gitignore", "Cargo.toml", "README.md", "src"],
+    );
+    assert_eq!(names(&dest.join("src")), ["app.rs", "main.rs"]);
+    assert_eq!(names(&fixture.0), [basename]);
+}
+
+#[test]
+fn other_cordis_crate_names_remain_available_for_projects() {
+    let fixture = Fixture::new();
+    for name in [
+        "re-cordis-create",
+        "re-cordis-timer",
+        "re-cordis-include",
+        "re-cordis-hmr",
+    ] {
+        let dest = fixture.0.join(name);
+        create(name, &dest, &checkout()).unwrap();
+        assert!(dest.join("Cargo.toml").is_file());
+    }
+}

@@ -98,8 +98,9 @@ local file/heading links.
 
 Create checks run the actual generator through argument arrays, compare documented
 options with live CLI help, verify the five generated files and Cargo metadata,
-then build/test/run the external application and check strict Clippy/formatting
-with each selected toolchain. Dependency resolution is offline. This executes
+then build/test/run the external application and check strict Clippy
+with each selected toolchain. Formatting uses explicitly resolved stable tools,
+following the shared acceptance policy. Dependency resolution is offline. This executes
 the selected local scaffolding path, not remote templates or cross-platform I/O.
 
 This is an opt-in documentation check; it does not modify the existing CI matrix.

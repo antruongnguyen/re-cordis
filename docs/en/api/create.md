@@ -20,7 +20,9 @@ Signature: `create(name: &str, destination: &Path, cordis_path: &Path) -> Result
 
 The name starts with an ASCII lowercase letter, contains only lowercase
 letters/digits/`_`/`-`, and is at most 64 bytes. Rust/Cargo reserved names
-and Windows device names are refused. The separate destination preserves native
+and Windows device names are refused, as are the bundled dependency names
+`re-cordis-core`, `re-cordis-logger`, and `re-cordis-loader` to avoid Cargo
+name/version collisions. The separate destination preserves native
 OS path arguments, including spaces and Unicode; the filesystem may reject other
 byte sequences with an I/O error. Its parent must already exist; the destination must be
 absent or an empty ordinary directory. Files, symlinks and nonempty directories

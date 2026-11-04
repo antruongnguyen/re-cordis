@@ -470,7 +470,10 @@ independent acceptance. See the [guide](en/guides/create.md) and
 - **Publication boundary:** Cordis crates remain unpublished. Generated canonical
   absolute path dependencies require the checkout to remain available; moving it
   requires manifest edits. Canonical dependency paths must be Unicode; destination
-  paths may contain arbitrary OS bytes. Checkout validation recognizes the current
+  arguments preserve native OS bytes but the filesystem may reject them
+  (macOS EILSEQ was exercised). The three bundled Cordis dependency names are
+  unavailable as project names because their `0.0.0` Cargo identities collide.
+  Checkout validation recognizes the current
   literal manifest/layout spelling, not arbitrary TOML or source integrity.
   Offline Cargo still requires cached third-party
   dependencies, and dependency restoration is an explicit user operation.

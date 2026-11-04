@@ -279,7 +279,12 @@ def run_examples(toolchain, snippets):
             print(f"Generated application {command} on {toolchain}:\n{output.strip()}")
         run([tools["cargo"], "clippy", "--manifest-path", manifest_path,
              "--all-targets", "--offline", "--locked", "--", "-D", "warnings"], env)
-        run([tools["cargo"], "fmt", "--manifest-path", manifest_path, "--check"], env)
+        if toolchain == "stable":
+            for name in ("cargo-fmt", "rustfmt"):
+                formatter = run(["rustup", "which", "--toolchain", toolchain, name], env, 30).strip()
+                require(Path(formatter).parent == Path(tools["rustc"]).parent,
+                        f"Formatter is outside the selected toolchain: {name}")
+            run([tools["cargo"], "fmt", "--manifest-path", manifest_path, "--check"], env)
     print(f"Passed Create CLI, exact files, Cargo metadata and external application on {toolchain}.")
 
 

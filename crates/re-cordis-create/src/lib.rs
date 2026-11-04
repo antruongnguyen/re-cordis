@@ -223,6 +223,9 @@ fn validate_name(name: &str) -> Result<(), CreateError> {
         "lpt7",
         "lpt8",
         "lpt9",
+        "re-cordis-core",
+        "re-cordis-logger",
+        "re-cordis-loader",
     ];
     if !(1..=64).contains(&name.len())
         || !name.as_bytes()[0].is_ascii_lowercase()
@@ -367,10 +370,21 @@ fn stage_project(
     write: impl FnOnce(&Path) -> Result<(), CreateError>,
 ) -> Result<(), CreateError> {
     let parent = destination.parent().expect("canonical parent checked");
+    // Opposite leading-dot status stays distinct even on case-insensitive filesystems.
+    let prefix = if destination
+        .file_name()
+        .expect("final component checked")
+        .as_encoded_bytes()
+        .starts_with(b".")
+    {
+        "_re-cordis-create"
+    } else {
+        ".re-cordis-create"
+    };
     let stage = (0..128)
         .find_map(|_| {
             let path = parent.join(format!(
-                ".re-cordis-create-{}-{}",
+                "{prefix}-{}-{}",
                 std::process::id(),
                 NEXT.fetch_add(1, Ordering::Relaxed)
             ));
@@ -428,11 +442,9 @@ mod tests {
     }
     fn assert_no_stage(parent: &Path) {
         assert!(fs::read_dir(parent).unwrap().all(|entry| {
-            !entry
-                .unwrap()
-                .file_name()
-                .to_string_lossy()
-                .starts_with(".re-cordis-create-")
+            let name = entry.unwrap().file_name();
+            let name = name.to_string_lossy();
+            !name.starts_with(".re-cordis-create-") && !name.starts_with("_re-cordis-create-")
         }));
     }
     #[test]
@@ -510,6 +522,59 @@ mod tests {
         assert_eq!(fs::read_to_string(staging).unwrap(), "owned staging");
         fs::remove_file(staging).unwrap();
         assert!(!dest.exists());
+    }
+    #[test]
+    fn staging_aliases_keep_final_absent_until_commit() {
+        const PROBE: &str = "RE_CORDIS_CREATE_STAGE_BOUNDARY_PROBE";
+        let Ok(spelling) = std::env::var(PROBE) else {
+            for spelling in ["exact", "uppercase"] {
+                let output = std::process::Command::new(std::env::current_exe().unwrap())
+                    .args([
+                        "--exact",
+                        "tests::staging_aliases_keep_final_absent_until_commit",
+                        "--nocapture",
+                    ])
+                    .env(PROBE, spelling)
+                    .output()
+                    .unwrap();
+                assert!(
+                    output.status.success(),
+                    "{spelling}: {}{}",
+                    String::from_utf8_lossy(&output.stdout),
+                    String::from_utf8_lossy(&output.stderr),
+                );
+            }
+            return;
+        };
+        let parent =
+            std::env::temp_dir().join(format!("cordis-create-boundary-{}", std::process::id(),));
+        fs::create_dir(&parent).unwrap();
+        let fixture = Fixture(fs::canonicalize(parent).unwrap());
+        let basename = format!(".re-cordis-create-{}-0", std::process::id());
+        let basename = if spelling == "uppercase" {
+            basename.to_ascii_uppercase()
+        } else {
+            basename
+        };
+        let dest = fixture.0.join(&basename);
+        stage_project(&dest, |stage| {
+            assert!(
+                !dest.exists(),
+                "final directory exists before staged writes"
+            );
+            write_files(stage, &[("Cargo.toml", "complete".into())])?;
+            assert!(
+                !dest.exists(),
+                "staged writes populated the final directory"
+            );
+            check_destination(&dest)
+        })
+        .unwrap();
+        assert_eq!(
+            fs::read_to_string(dest.join("Cargo.toml")).unwrap(),
+            "complete"
+        );
+        assert_eq!(fs::read_dir(&fixture.0).unwrap().count(), 1);
     }
     #[test]
     fn toml_paths_escape_quotes_slashes_and_controls() {
