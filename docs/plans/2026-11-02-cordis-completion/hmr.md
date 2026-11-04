@@ -89,19 +89,19 @@ tests/watch.rs, tests/paths.rs. Optional include adapter after I1.
 
 **Files:** create src/reload.rs, tests/reload.rs, tests/nested.rs.
 
-- [ ] Test two instances of one factory with different configs, two unrelated
+- [x] Test two instances of one factory with different configs, two unrelated
   factories, a changed dependency, unchanged shared dependencies and nested hosts.
-- [ ] Validate all proposed replacement factories before scheduling teardown;
+- [x] Validate all proposed replacement factories before scheduling teardown;
   invalid candidates keep old instances running.
-- [ ] For each affected owner, retain its exact providers through cleanup and
+- [x] For each affected owner, retain its exact providers through cleanup and
   start its replacement only after old resource release. Let unrelated entries
   progress while a slow sibling is gated.
-- [ ] During unload, change config, disable/remove entries, replace parent
+- [x] During unload, change config, disable/remove entries, replace parent
   hosts and re-enable entries. Recheck current identity/intent before rebuilding
   so no child is instantiated twice or resurrected after removal.
-- [ ] Preserve failure diagnostics and define recovery after replacement apply
+- [x] Preserve failure diagnostics and define recovery after replacement apply
   fails. Do not claim pre-import rollback can reverse already-completed teardown.
-- [ ] Run repeated replacement/teardown baseline tests and commit.
+- [x] Run repeated replacement/teardown baseline tests and commit.
 
 ## H3 — Integration, fallback and acceptance
 
