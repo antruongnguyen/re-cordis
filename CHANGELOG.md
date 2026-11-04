@@ -9,6 +9,10 @@ This project does not yet follow semantic versioning — the API is unstable.
 
 ### Fixed
 
+- Linked replacement settlement preserves distinct apply and commit-observer
+  failures for the same entry. Exact batch waiters retain every scheduling cause;
+  abandoned waiters keep the bounded first-unobserved scheduling failure.
+
 - Loader settlement and teardown retain overlapping direct-update barriers, with
   bounded admission and error retention even when waiters are dropped. Final
   loader review corrections also preserve reentrant group membership, independent

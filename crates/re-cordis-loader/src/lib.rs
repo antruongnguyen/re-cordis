@@ -1931,6 +1931,12 @@ impl Loader {
     /// Wait for admitted work, newly included group children and detached cleanup.
     /// Pending succeeds; each latest entry failure is reported independently.
     pub fn settle(&self) -> Result<LoaderTask<Settlement>, LoaderError> {
+        self.settle_with_failures(Vec::new())
+    }
+    fn settle_with_failures(
+        &self,
+        scheduled: Vec<(EntryFailure, Rc<Cell<bool>>)>,
+    ) -> Result<LoaderTask<Settlement>, LoaderError> {
         self.admit()?;
         let loader = self.clone();
         Ok(LoaderTask(
@@ -2029,17 +2035,23 @@ impl Loader {
                 }
                 let update_failure = loader.0.update_failure.borrow_mut().take();
                 if let Some((failure, observed)) = update_failure {
-                    if !observed.get() {
+                    if !observed.get()
+                        && !scheduled
+                            .iter()
+                            .any(|(_, current)| Rc::ptr_eq(current, &observed))
+                    {
                         failures.insert(failure.id, failure.error);
                     }
                 }
+                let mut failures: Vec<_> = failures
+                    .into_iter()
+                    .map(|(id, error)| EntryFailure { id, error })
+                    .collect();
+                failures.extend(scheduled.into_iter().map(|(failure, _)| failure));
                 acknowledge_updates(&loader.0);
                 Ok(Settlement {
                     entries: loader.entries(),
-                    failures: failures
-                        .into_iter()
-                        .map(|(id, error)| EntryFailure { id, error })
-                        .collect(),
+                    failures,
                 })
             }
             .boxed_local(),
@@ -2838,6 +2850,7 @@ impl Loader {
                     id: entry.id.clone(),
                     error: locate_error(error, location),
                 };
+                let observed = Rc::new(Cell::new(false));
                 if self
                     .0
                     .update_failure
@@ -2846,28 +2859,12 @@ impl Loader {
                     .is_none_or(|(_, observed)| observed.get())
                 {
                     *self.0.update_failure.borrow_mut() =
-                        Some((failure.clone(), Rc::new(Cell::new(false))));
+                        Some((failure.clone(), observed.clone()));
                 }
-                failures.push(failure);
+                failures.push((failure, observed));
             }
         }
-        let settled = self.settle()?;
-        Ok(LoaderTask(
-            async move {
-                let mut report = settled.await?;
-                for failure in failures {
-                    if !report
-                        .failures
-                        .iter()
-                        .any(|current| current.id == failure.id)
-                    {
-                        report.failures.push(failure);
-                    }
-                }
-                Ok(report)
-            }
-            .boxed_local(),
-        ))
+        self.settle_with_failures(failures)
     }
     /// Start disposal of the whole dedicated owner and join all detached cleanup.
     pub fn dispose(&self) -> Result<LoaderTask<()>, LoaderError> {

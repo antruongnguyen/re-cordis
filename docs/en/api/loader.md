@@ -91,6 +91,11 @@ or teardown. Preflight must be pure; same-loader mutation and disposal are
 refused during it. Core Plugin validation still runs when dependencies are ready.
 Entries retain their latest source, decoder and exact providers through cleanup;
 post-unload failures require explicit recovery. `Settlement` reports the result.
+The exact batch task retains every scheduling failure alongside lifecycle errors,
+including distinct causes for the same EntryId. Dropping that waiter retains only
+the first unobserved scheduling failure in the loader's bounded slot. Ordinary
+settlement keeps its existing first-unobserved-per-entry policy; it does not
+retain every cause from an abandoned batch.
 `commits`, `reconcile` and snapshots are in-memory integration seams used by
 satellites. Loader provides no filesystem, Node resolution, JS eval or native
 binary reload. See [limitations](../../limitation.md#loader-and-structural-groups).

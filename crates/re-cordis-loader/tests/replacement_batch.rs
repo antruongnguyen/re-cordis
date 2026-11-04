@@ -516,3 +516,149 @@ async fn dropped_batch_observer_error_remains_observable() {
         }).await.unwrap();
     }
 }
+fn original_io_error<'a>(error: &'a (dyn std::error::Error + 'static)) -> &'a io::Error {
+    let mut cause = error;
+    while let Some(source) = cause.source() {
+        cause = source;
+    }
+    cause
+        .downcast_ref::<io::Error>()
+        .expect("original I/O error")
+}
+
+#[tokio::test(flavor = "current_thread")]
+async fn exact_batch_retains_both_observer_and_apply_errors_for_each_entry() {
+    let runtime = Runtime::new();
+    runtime
+        .run(async {
+            let root = runtime.context();
+            let mut catalog = Catalog::new();
+            catalog.register("worker", inert("old")).unwrap();
+            let loader = Loader::new(&root, catalog).unwrap();
+            for (id, config) in [("a", 1u32), ("b", 2u32)] {
+                loader
+                    .create(EntrySpec::new("worker", Config::new(config)).id(id))
+                    .unwrap();
+            }
+            loader.settle().unwrap().await.unwrap();
+            root.on(
+                &loader.commits(),
+                Listener::sync(|_, commit: re_cordis_loader::CommitRecord| {
+                    Err::<ControlFlow<()>, _>(io::Error::other(format!(
+                        "observer-{}",
+                        commit.id.as_str()
+                    )))
+                }),
+            )
+            .unwrap();
+            let failed = Plugin::new("failed", |_, config: u32| async move {
+                Err::<(), _>(io::Error::other(format!("apply-{config}")))
+            });
+            let report = loader
+                .replace_factory("worker", failed)
+                .unwrap()
+                .await
+                .unwrap();
+            let mut actual: Vec<_> = report
+                .failures
+                .iter()
+                .map(|failure| {
+                    (
+                        failure.id.as_str(),
+                        original_io_error(&failure.error).to_string(),
+                    )
+                })
+                .collect();
+            actual.sort();
+            eprintln!("exact batch original causes: {actual:?}");
+            assert_eq!(
+                actual,
+                [
+                    ("a", "apply-1".into()),
+                    ("a", "observer-a".into()),
+                    ("b", "apply-2".into()),
+                    ("b", "observer-b".into()),
+                ]
+            );
+            let later = loader.settle().unwrap().await.unwrap();
+            assert_eq!(later.failures.len(), 2);
+            for failure in later.failures {
+                assert!(
+                    original_io_error(&failure.error)
+                        .to_string()
+                        .starts_with("apply-")
+                );
+            }
+            let mut diagnostics: Vec<_> = runtime
+                .take_failures()
+                .iter()
+                .map(|error| original_io_error(error).to_string())
+                .collect();
+            diagnostics.sort();
+            assert_eq!(diagnostics, ["apply-1", "apply-2"]);
+            loader.dispose().unwrap().await.unwrap();
+        })
+        .await
+        .unwrap();
+}
+
+#[tokio::test(flavor = "current_thread")]
+async fn dropped_batch_keeps_first_unobserved_observer_policy() {
+    let runtime = Runtime::new();
+    runtime
+        .run(async {
+            let root = runtime.context();
+            let mut catalog = Catalog::new();
+            catalog.register("worker", inert("old")).unwrap();
+            let loader = Loader::new(&root, catalog).unwrap();
+            for (id, config) in [("a", 1u32), ("b", 2u32)] {
+                loader
+                    .create(EntrySpec::new("worker", Config::new(config)).id(id))
+                    .unwrap();
+            }
+            loader.settle().unwrap().await.unwrap();
+            root.on(
+                &loader.commits(),
+                Listener::sync(|_, commit: re_cordis_loader::CommitRecord| {
+                    Err::<ControlFlow<()>, _>(io::Error::other(format!(
+                        "observer-{}",
+                        commit.id.as_str()
+                    )))
+                }),
+            )
+            .unwrap();
+            let failed = Plugin::new("failed", |_, config: u32| async move {
+                Err::<(), _>(io::Error::other(format!("apply-{config}")))
+            });
+            drop(loader.replace_factory("worker", failed).unwrap());
+            let report = loader.settle().unwrap().await.unwrap();
+            let mut actual: Vec<_> = report
+                .failures
+                .iter()
+                .map(|failure| {
+                    (
+                        failure.id.as_str(),
+                        original_io_error(&failure.error).to_string(),
+                    )
+                })
+                .collect();
+            actual.sort();
+            eprintln!("dropped batch original causes: {actual:?}");
+            assert_eq!(
+                actual,
+                [("a", "observer-a".into()), ("b", "apply-2".into())]
+            );
+            let later = loader.settle().unwrap().await.unwrap();
+            assert_eq!(later.failures.len(), 2);
+            for failure in later.failures {
+                assert!(
+                    original_io_error(&failure.error)
+                        .to_string()
+                        .starts_with("apply-")
+                );
+            }
+            loader.dispose().unwrap().await.unwrap();
+        })
+        .await
+        .unwrap();
+}

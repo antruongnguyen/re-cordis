@@ -90,5 +90,10 @@ Preflight phải thuần; thay đổi hoặc dispose cùng loader bị từ ch�
 Plugin validator của core vẫn chạy khi dependency sẵn sàng. Entry giữ source
 mới nhất, decoder và provider chính xác qua cleanup; lỗi sau unload cần phục hồi
 tường minh. `Settlement` báo kết quả.
+Task của đúng lô giữ mọi lỗi scheduling cùng lỗi lifecycle, kể cả các nguyên nhân
+khác nhau của cùng EntryId. Thả waiter đó chỉ giữ lỗi scheduling chưa quan sát
+đầu tiên trong slot có giới hạn của loader. Settlement thông thường giữ chính
+sách ưu tiên lỗi chưa quan sát đầu tiên của entry; nó không giữ mọi nguyên nhân
+của lô đã bị thả waiter.
 `commits`, `reconcile`, snapshot là điểm tích hợp trong bộ nhớ cho satellite.
 Loader không cung cấp filesystem, Node resolution, JS eval hay nạp lại binary Rust. Xem [giới hạn](../../limitation.md#loader-and-structural-groups).

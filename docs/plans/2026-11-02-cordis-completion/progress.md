@@ -6,8 +6,9 @@ review, integration, documentation and current verification.
 
 ## Execution scope and revision
 
-**Paused by user on 2026-11-03.** All workers stopped; no automatic continuation.
-Resume using [the saved handoff](evidence/hmr-resume/README.md). HMR is not accepted.
+**Resumed by user on 2026-11-04 from clean checkpoint `56de5f4`.**
+The [saved handoff](evidence/hmr-resume/README.md) remains historical evidence.
+HMR acceptance is pending H2-R1 correction, H3 integration and final review/matrix.
 
 - Current user-selected execution: HMR H0–H3, starting from clean checkpoint 47042d9 on feat/cordis-completion. Include I0–I4 at 0a2df1e and loader at 101f37b remain accepted prerequisites. Fresh sol/high implementation and astra/high independent review use serialized file ownership. Create S0–S2 and whole-program R0/R1 stay unselected; no push or publication.
 
@@ -283,3 +284,7 @@ independent acceptance; no active B0 blocker or worker remains.
 - 2026-11-03 CP080: Frozen H2 loader prerequisite passes 84 package checks, strict Clippy and Rustdoc on explicit stable/1.85.0. Parent reruns all eight new batch tests on both and matches source/test hashes. Two baseline probes plus observer-error RED regression motivate whole-batch admission, guarded preflight, current-entry identity checks and independent error collection. Paired loader API changes accompany this durable code checkpoint. HMR watcher/graph/Include integration and final independent acceptance remain in progress; no core change.
 
 - 2026-11-03 CP081 — USER PAUSE: Parent verified frozen H1/H2 checkpoint on explicit stable/1.85.0: 45 HMR checks (27 watch +17 replacement/nested +1 Rustdoc), nine loader batch and two Include linked tests. Both documentation runs passed 31 page pairs/19 HMR exports/13 executable snippets plus external quick start; seven checker regressions pass. Independent H2 review found H2-R1: EntryId-only dedup drops a distinct scheduling observer failure when the same entry also fails apply. Do not accept H2 until corrected and scoped re-reviewed. H3 watcher adapter is not implemented: nine tests and offline example remain drafts, now preserved in tracked evidence/hmr-resume/. Full shared HMR matrix has not run. User left the office and explicitly requested pause/resume tracking; all workers stopped, no automation or further feature work. Resume from evidence/hmr-resume/README.md; keep later edits and existing accepted prerequisite evidence.
+
+- 2026-11-04 CP082: Resumed at clean 56de5f4 on feat/cordis-completion. H0/prerequisite evidence is retained. Sequence: reproduce/correct H2-R1, commit and independently review the correction plus remaining H2 scope; implement retained IncludeTask adapter with active+retiring quota; finish offline example and paired docs/source dispositions; independently review H1/H3 and run shared explicit stable/1.85.0 matrix. Fresh sol/high implementation and astra/high reviews have serialized file ownership. No core change, create, R0/R1, push or publication selected. Parent owns shared docs/progress and milestone commits.
+
+- 2026-11-04 CP083: H2-R1 saved probe reproduced RED on stable/1.85.0. The exact batch now uses retained occurrence identity to keep both observer and apply causes for each entry; ordinary settlement and abandoned-waiter first-unobserved policy remain unchanged. Two new regression tests plus unchanged final_wave pass. Focused verification: 87 loader checks, 17 HMR reload/nested, two Include linked tests and original probe on both explicit toolchains; strict three-crate Clippy/Rustdoc pass. Parent inspected the correction diff and RED/GREEN logs, ran both bilingual documentation checks (31 pairs, 19 HMR exports, 13 snippets/external quick start) and seven checker regressions. Correction is ready for local commit and independent delta/H2 completion review; see evidence/hmr-h2-correction.md.
