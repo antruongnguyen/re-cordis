@@ -68,11 +68,14 @@ loader. It does not compile Rust or replace native binary code. See
 
 ## Shut down admitted work
 
-Stop accepting application work, request watcher/timer cancellation, then await
-the relevant watcher and Include/owner barriers. A stop request or dropped token
-does not join an admitted refresh. Include disposal flushes its pending journal
-before child cleanup; inspect persistence errors and the resulting file bytes.
-Release retained handles before asserting capture/weak-reference destruction.
+Orderly Application::shutdown first stops and joins the watcher while Include
+can finish already-admitted refresh work. It then disposes/joins Include and the
+application owner, including timers and writer; every stage's errors remain visible.
+A stop request or dropped token alone does not join a refresh. The tests separately
+exercise forced ancestor cancellation and inspect the retained cancellation cause.
+Include disposal flushes its pending journal before child cleanup; inspect
+persistence errors and the resulting file bytes. Release retained handles before
+asserting capture/weak-reference destruction.
 
 Synchronous Write and ordinary filesystem calls can block the local executor.
 Flush/replacement is not fsync, a multi-file transaction, or protection against
@@ -98,6 +101,6 @@ and requires dependencies already cached.
 
 The production basic template remains unchanged. There is no additional
 distributed template variant. [Create](create.md) explains ordinary scaffolding;
-[the R0 plan](../../plans/2026-11-02-cordis-completion/evidence/r0-plan.md)
-tracks the integration acceptance work. Existing paired core and loader traces
+[R0 evidence](../../plans/2026-11-02-cordis-completion/evidence/r0-acceptance.md)
+records the executed matrix, review closure and source dispositions. Existing paired core and loader traces
 retain their own bounded evidence; this application is not a new TS parity suite.

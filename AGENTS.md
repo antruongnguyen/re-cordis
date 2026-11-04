@@ -7,7 +7,7 @@ Instructions for agents (and humans) working in this repository.
 `re-cordis` is a from-scratch Rust reimplementation of the
 [Cordis](https://github.com/cordiverse/cordis) meta-framework.
 
-**Status: M0-M6 Rust core delivery and acceptance implemented.**
+**Status: core, selected satellites and offline R0 integration independently accepted.**
 The completed post-M6 lifecycle-parity slices add six executed Rust/TypeScript
 scenarios (152 Rust integration tests, 17 Rustdoc checks), including bounded
 failure/recovery evidence. See `docs/lifecycle-parity.md` for reproduction and
@@ -26,15 +26,19 @@ stable/1.85.0 shared matrix passes; see
 `docs/plans/2026-11-02-cordis-completion/evidence/hmr-acceptance.md`.
 Create S0–S2 is independently accepted: the unpublished stdlib-only
 `re-cordis-create` crate/binary generates one offline local-checkout application.
-The final stable/1.85.0 matrix passes 508 workspace checks per toolchain,
+Its Create acceptance matrix passed 508 workspace checks per toolchain,
 including 22 Create tests; generated apps pass five tests with 100 lifecycle cycles.
 See `docs/plans/2026-11-02-cordis-completion/evidence/create-acceptance.md`
 and `docs/en/guides/create.md`.
-R0 whole-program integration uses one example-private application shared by
+R0 whole-program integration is independently accepted, using one example-private
+application shared by
 `crates/re-cordis-hmr/examples/system_lifecycle.rs`, its deterministic integration
 tests, and an actual Create-generated external fixture. The basic distributed
-template stays unchanged. See `docs/en/guides/system-lifecycle.md` and the
-completion-plan execution progress for current review/acceptance.
+template stays unchanged. The final shared matrix passes 40 stages, 517 workspace
+checks per stable/1.85.0 toolchain and eight R0 tests per actual generated external
+application, including 100 complete lifecycle cycles. See
+`docs/plans/2026-11-02-cordis-completion/evidence/r0-acceptance.md` and
+`docs/en/guides/system-lifecycle.md` for review, reproduction and boundaries.
 The **`re-cordis-timer`** satellite is
 delivered (unpublished `crates/re-cordis-timer`: owner-scoped timeout, sleep,
 interval/stream, throttle and debounce over core effects, via a sealed

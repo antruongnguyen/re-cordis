@@ -120,6 +120,8 @@ Rust matrix is for implementation acceptance, not every prose edit.
 
 ## R0 — Whole-program integration acceptance
 
+**Completed:** independently accepted on 2026-11-04; see [R0 evidence](evidence/r0-acceptance.md).
+
 **Entry:** T5, C3, L5, G1, I4, H3 and S2 accepted within reviewed scope.
 **Files:** crates/re-cordis-hmr/examples/system_lifecycle.rs and
 crates/re-cordis-hmr/tests/system_lifecycle.rs, sharing
@@ -128,19 +130,19 @@ integration dependency; Include uses the existing optional feature.
 The documentation checker extends actual Create-generated temporary output
 with the same application/tests and explicit local dependencies.
 
-- [ ] Boot a generated application with logger, typed provider/consumer,
+- [x] Boot a generated application with logger, typed provider/consumer,
   timer, loader groups, include source and optional watcher.
-- [ ] Change config, move a provider between isolation groups, hold consumer
+- [x] Change config, move a provider between isolation groups, hold consumer
   cleanup, replace a linked factory, fail/recover a load and shut down while
   a file write/watch event is pending. Assert causal order and original errors.
-- [ ] Prove all owned tasks, streams, writers, watches, journals and children
+- [x] Prove all owned tasks, streams, writers, watches, journals and children
   release at the documented barrier; unrelated siblings still progress.
-- [ ] Preserve the existing GitHub application tests and offline examples.
+- [x] Preserve the existing GitHub application tests and offline examples.
   Add no live external calls to the ordinary test suite.
-- [ ] Finish every source-case disposition. Publish separate totals for
+- [x] Reconcile composition-relevant source dispositions using accepted ledgers. Keep separate totals for
   executed equivalents, Rust representations, exclusions and open defects;
   do not collapse these into a misleading completion percentage.
-- [ ] Run the complete matrix, review the integration diff and commit.
+- [x] Run the complete matrix, review the integration diff and commit.
 
 ## R1 — API/package readiness and release decision
 

@@ -24,14 +24,16 @@ B0's evidence gaps are not a blanket prerequisite for satellite delivery.
   Shared review/toolchain acceptance is recorded in the
   [timer report](plans/2026-11-02-cordis-completion/evidence/timer-acceptance.md).
 - [x] Deliver and independently accept loader/groups, Include, HMR and offline Create.
-- [ ] Complete selected R0 whole-program integration, real generated application,
-  independent review and the shared matrix; see [execution](plans/2026-11-02-cordis-completion/progress.md).
+- [x] Complete R0 implementation, independent correction/evidence review and
+  40/40 shared stages: 517 workspace checks per toolchain, actual generated
+  applications and final paired documentation pass. See
+  [R0 acceptance](plans/2026-11-02-cordis-completion/evidence/r0-acceptance.md).
   R1 and standalone B1 are not selected.
 
 The older milestones below retain their historical delivery evidence. A
 checked historical box does not override an open repair in the completion plan.
 
-Current execution: **B0 is complete and independently accepted with tracked
+Accepted baseline: **B0 is complete and independently accepted with tracked
 gaps on 2026-11-03**. All correction, scoped review, non-obligation accounting,
 ledger validation and final acceptance gates passed. The ledger preserves
 144 declarations / 156 variants, 540 runtime obligations, six type obligations
@@ -48,7 +50,7 @@ Timer T0–T5 and its required minimal B2 task bridge are independently accepted
 with 48 timer tests/three Rustdoc checks and six focused core tests.
 The full stable/1.85.0 matrix and both paired fixtures passed.
 Loader/groups, Include, HMR and offline Create are also independently accepted.
-R0 whole-program integration is the current selected work. No background
+R0 whole-program integration is independently accepted. No background
 continuation is scheduled. See
 [detailed progress](plans/2026-11-02-cordis-completion/progress.md#resume-next)
 and [B0 evidence](plans/2026-11-02-cordis-completion/evidence.md).

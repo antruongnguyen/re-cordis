@@ -9,6 +9,10 @@ This project does not yet follow semantic versioning — the API is unstable.
 
 ### Fixed
 
+- Orderly R0 application shutdown joins admitted watcher refresh work before
+  disposing Include/its owner, avoiding a reproduced cancellation race while
+  retaining failure inspection and forced-ancestor cancellation coverage.
+
 - R0's gated shutdown reproducer exposed a canceled loader worker leaving a
   structural group snapshot at Unloading after joined resource release. Owner
   cleanup now clears the stale running flag; a focused regression distinguishes

@@ -101,8 +101,9 @@ planning checks specified in [acceptance](acceptance.md).
 
 This table preserves the planning baseline. Core/B0, timer, console,
 loader/groups, Include, HMR and offline Create are now independently accepted.
-R0 whole-program integration is selected; see [current progress](progress.md)
-and its [execution plan](evidence/r0-plan.md). Historical results do not establish
+R0 whole-program integration is independently accepted after implementation,
+correction/evidence review and the full shared matrix; see [current progress](progress.md) and
+[executed R0 evidence](evidence/r0-acceptance.md). Historical results do not establish
 verification of later edits, and R1/standalone B1 remain unselected.
 
 ## Recommended approach and alternatives

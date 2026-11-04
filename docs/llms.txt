@@ -34,7 +34,7 @@ Essential application constraints:
 
 ## English guides
 
-- [Whole-program lifecycle](en/guides/system-lifecycle.md): Shared reference/generated app, retention and shutdown.
+- [Whole-program lifecycle](en/guides/system-lifecycle.md): Accepted R0 reference/generated app, retention and shutdown.
 
 - [Create](en/guides/create.md): Offline scaffolding and application commands.
 - [HMR](en/guides/hmr.md): Explicit watching, Include refresh/replacement and restart.
@@ -75,7 +75,7 @@ Essential application constraints:
 
 ## Vietnamese guides
 
-- [Vòng đời tích hợp](vi/guides/system-lifecycle.md): Ứng dụng dùng chung, retention, phục hồi và shutdown có join.
+- [Vòng đời tích hợp](vi/guides/system-lifecycle.md): R0 đã nghiệm thu, retention, phục hồi và shutdown có join.
 
 - [Create](vi/guides/create.md): Sinh dự án ngoại tuyến và lệnh ứng dụng.
 - [HMR](vi/guides/hmr.md): Theo dõi tệp, refresh/thay factory trên cùng Include, giới hạn restart và ví dụ offline.

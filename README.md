@@ -3,7 +3,7 @@
 A Rust reimplementation of [Cordis](https://github.com/cordiverse/cordis) — a
 meta-framework for spatiotemporal composability.
 
-> **Status: M0-M6 Rust core delivery and acceptance implemented.**
+> **Status: core, selected satellites and offline R0 integration independently accepted.**
 > The unpublished `re-cordis-core` has local
 > hosting, typed plugins/Registry grouping, scoped effects and diagnostics,
 > typed events, validation, restart, parent-owned disposal, typed service
@@ -46,7 +46,7 @@ meta-framework for spatiotemporal composability.
 > explicit linked factory dependency plans and restart-required source notifications.
 > Optional Include watching and linked replacement operate on the same managed
 > instances. H0–H3 is independently accepted; the explicit stable/1.85.0 shared
-> matrix passes 486 workspace checks per toolchain.
+> HMR acceptance matrix passed 486 workspace checks per toolchain.
 > See the [HMR guide](docs/en/guides/hmr.md) and
 > [acceptance evidence](docs/plans/2026-11-02-cordis-completion/evidence/hmr-acceptance.md).
 > The selected **re-cordis-create** S0–S2 supplies offline scaffolding from a local
@@ -63,10 +63,12 @@ meta-framework for spatiotemporal composability.
 > core evidence, timer fixes and all seven upstream satellites, with scheduling gates.
 > The concept map below remains the framework target, not a shipped feature list.
 
-> Whole-program R0 composes the accepted components in one shared application:
+> Independently accepted R0 composes the components in one shared application:
 > provider retention during group moves, configuration persistence, linked replacement,
-> failure/recovery and joined shutdown. See the [integration guide](docs/en/guides/system-lifecycle.md)
-> and [execution progress](docs/plans/2026-11-02-cordis-completion/progress.md).
+> failure/recovery and joined shutdown. The final stable/1.85.0 matrix passes
+> 517 workspace checks per toolchain and actual generated applications.
+> See the [integration guide](docs/en/guides/system-lifecycle.md) and
+> [R0 verification](docs/plans/2026-11-02-cordis-completion/evidence/r0-acceptance.md).
 
 ## User guides and API documentation
 

@@ -24,6 +24,13 @@ ReloadPlan replaces already-linked candidates through the same Include-managed
 instances. Error observations follow the operation/report/watcher-history/Runtime
 contracts, and are not added together as distinct failures.
 
+Independent R0-R1 review reproduced an application shutdown race on both
+toolchains: canceling Include before the watcher joins can stop workers of an
+admitted valid refresh. Orderly shutdown must join the watcher while Include
+remains live, then dispose/join Include and the application owner. Forced
+ancestor cancellation remains separately supported and tested with its original
+retained cancellation cause. No framework change is needed for this ordering.
+
 The documentation checker first verifies the unmodified generated basic app,
 then extends only its temporary output with explicit local dependencies and
 the shared R0 program/tests. Keep production templates unchanged: acceptance

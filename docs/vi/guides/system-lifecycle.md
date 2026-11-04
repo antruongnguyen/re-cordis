@@ -68,11 +68,14 @@ Nó không biên dịch Rust hay thay mã nhị phân native. Xem [HMR](hmr.md) 
 
 ## Shutdown công việc đã tiếp nhận
 
-Ngừng nhận công việc ứng dụng, yêu cầu hủy watcher/timer, rồi chờ các barrier
-watcher và Include/chủ sở hữu tương ứng. Yêu cầu stop hay thả token không join
-refresh đã tiếp nhận. Dispose Include flush journal đang chờ trước cleanup
-con; cần kiểm tra lỗi persistence và byte thực tế trong tệp.
-Thả handle còn giữ trước khi assert capture/weak reference đã giải phóng.
+Application::shutdown theo thứ tự trước hết stop và join watcher khi Include
+còn có thể hoàn tất refresh đã tiếp nhận. Sau đó nó dispose/join Include và
+chủ sở hữu ứng dụng, gồm timer và writer; lỗi ở từng bước vẫn được quan sát.
+Chỉ yêu cầu stop hay thả token không join refresh. Các test kiểm tra riêng việc
+hủy ancestor cưỡng bức và đọc nguyên nhân hủy được giữ lại.
+Dispose Include flush journal đang chờ trước cleanup con; cần kiểm tra lỗi
+persistence và byte thực tế trong tệp. Thả handle còn giữ trước khi assert
+capture/weak reference đã giải phóng.
 
 Write đồng bộ và thao tác filesystem thông thường có thể chặn bộ thực thi cục
 bộ. Flush/thay tệp không phải fsync, transaction nhiều tệp hay bảo vệ trước race
@@ -97,6 +100,6 @@ cần dependency có sẵn trong cache.
 
 Template cơ bản production giữ nguyên. Không có biến thể template phân phối
 mới. [Create](create.md) hướng dẫn sinh dự án thông thường;
-[kế hoạch R0](../../plans/2026-11-02-cordis-completion/evidence/r0-plan.md)
-theo dõi việc nghiệm thu tích hợp. Trace đối chiếu core và loader hiện có giữ
+[bằng chứng R0](../../plans/2026-11-02-cordis-completion/evidence/r0-acceptance.md)
+ghi ma trận đã chạy, kết quả review và phân loại bằng chứng nguồn. Trace đối chiếu core và loader hiện có giữ
 phạm vi bằng chứng riêng; ứng dụng này không phải bộ parity TypeScript mới.

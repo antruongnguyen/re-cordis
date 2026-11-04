@@ -107,7 +107,8 @@ After those basic-template checks, the same test-owned external project is
 extended with explicit local timer/Include/HMR dependencies and the exact shared
 R0 example/application/test files. Build/test/run and strict Clippy use both
 selected toolchains; formatting remains stable-only. See the
-[integration guide](en/guides/system-lifecycle.md). No production template variant
+[integration guide](en/guides/system-lifecycle.md) and
+[executed R0 evidence](plans/2026-11-02-cordis-completion/evidence/r0-acceptance.md). No production template variant
 is added, and no temporary fixture source becomes a public API.
 
 This is an opt-in documentation check; it does not modify the existing CI matrix.

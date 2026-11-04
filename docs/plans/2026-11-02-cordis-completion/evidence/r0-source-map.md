@@ -88,6 +88,7 @@ not to inferred source-equivalence counts.
 |---|---|
 | provider_move_keeps_exact_old_binding_and_sibling_progress | Actual provider move, exact old service before/after cleanup gate, independent sibling/timer progress, new binding and persisted move. |
 | linked_replacement_and_distinct_failure_channels_recover | Linked candidates, failed load, direct update error, parser watcher history and explicit recovery. |
+| application_shutdown_joins_admitted_refresh_before_disposing_include | Orderly application shutdown joins held valid refresh before closing Include; new binding completes, original provider is retained through the gate, and every resource is released. |
 | shutdown_joins_pending_work_and_persists_journal | Held refresh, pending journal, cancellation request versus join, successful final persistence and resource barriers. |
 | shutdown_preserves_distinct_io_and_cleanup_failures | Same pending composition with retained original parser and cleanup causes, no invalid-file overwrite. |
 | hundred_composed_lifecycles_restore_baselines_and_captures | 100 actual full application cycles and effect/listener/Registry/publication/weak-capture release checks. |
@@ -101,6 +102,11 @@ shutdown_snapshot regression address that bookkeeping; no core/B0 reopening
 or new public API is implied. The provider-move test is additional native
 evidence for the loader G row discussed above, not a newly executed TS pair or
 a blanket closure of its other assertions.
+
+Independent finding R0-R1 is an application ordering defect, separately repaired
+at `35556d5`: orderly shutdown joins watcher work before closing Include. The new
+native oracle above complements the existing forced ancestor-cancellation tests;
+[scoped re-review](r0-rereview.md) closes the finding on both toolchains.
 
 ## Preserved paired corpus
 

@@ -62,13 +62,13 @@ Use CodeGraph before code exploration. Reuse existing Include/HMR integration an
 
 ## Task 3: Independent review, correction and acceptance
 
-- [ ] Provide exact implementation diff, report, commands and evidence to a fresh independent reviewer.
-- [ ] Correct actionable findings with focused regressions, commit verified deltas, and obtain scoped re-review.
-- [ ] Run complete current shared stable/1.85.0 matrix, all relevant runnable examples, generated apps,
+- [x] Provide exact implementation diff, report, commands and evidence to a fresh independent reviewer.
+- [x] Correct actionable findings with focused regressions, commit verified deltas, and obtain scoped re-review.
+- [x] Run complete current shared stable/1.85.0 matrix, all relevant runnable examples, generated apps,
   documentation regressions and paired traces serially. Save long logs and tool/input hashes under target/.
-- [ ] Save durable r0-acceptance.md with revisions, tool versions, results, review closure, source
+- [x] Save durable r0-acceptance.md with revisions, tool versions, results, review closure, source
   dispositions and remaining limits; distinguish recurring gates from completed R0 evidence.
-- [ ] Commit final acceptance and verify no task-owned changes remain. Do not start another package.
+- [x] Commit final acceptance and verify no task-owned changes remain. Do not start another package.
 
 ## Reproduced integration correction
 
