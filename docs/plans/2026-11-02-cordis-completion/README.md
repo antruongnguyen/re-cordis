@@ -42,7 +42,7 @@ The independent Rust port remains engineering evidence, not a specification.
 | [Group](group.md) | Structural groups owned by loader; packaging decision | G0–G1 |
 | [Include](include.md) | Config sources, patches, provenance, reconciliation and persistence | I0–I4 |
 | [HMR](hmr.md) | Scoped watchers, reload coordination and honest Rust code-reload boundaries | H0–H3 |
-| [Create](create.md) | Reproducible Cargo application scaffolding | S0–S2 |
+| [Create](create.md) | Accepted offline Cargo application scaffolding with local checkout dependencies | S0–S2 |
 | [Acceptance](acceptance.md) | Shared delivery gates and final integration/release assessment | R0–R1 |
 | [Scheduling](schedule.md) | Dependencies, review boundaries, scheduling worksheet | All |
 | [Source inventory](source-inventory.md) | Pinned satellite test declaration locations and package coverage | Inputs to every gate |

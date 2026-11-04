@@ -3,9 +3,8 @@
 [English](../../en/guides/create.md) | [Trang tiếng Việt](../README.md)
 
 `re-cordis-create` sinh một ứng dụng nhỏ dùng core, console logger và loader
-chưa phát hành từ checkout cục bộ. Phạm vi S0–S2 đã chọn là sinh dự án ngoại tuyến;
-tiến độ triển khai và nghiệm thu được ghi trong
-[gói công việc Create](../../plans/2026-11-02-cordis-completion/create.md).
+chưa phát hành từ checkout cục bộ. S0–S2 ngoại tuyến đã được nghiệm thu độc lập
+trên stable/1.85.0; xem [báo cáo nghiệm thu](../../plans/2026-11-02-cordis-completion/evidence/create-acceptance.md).
 
 ## Sinh và chạy ứng dụng
 

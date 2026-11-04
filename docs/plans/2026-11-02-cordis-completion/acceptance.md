@@ -61,6 +61,7 @@ for cordis_tc in stable 1.85.0; do
     test "$(dirname "$cordis_clippy")" = "$cordis_bin"
     test "$(dirname "$cordis_driver")" = "$cordis_bin"
     export PATH="$cordis_bin:$PATH"
+    export RUSTUP_TOOLCHAIN="$cordis_tc"
     export RUSTC="$cordis_rustc" RUSTDOC="$cordis_rustdoc"
     export CARGO_TARGET_DIR="$PWD/target/acceptance-$cordis_tc"
     export RUSTDOCFLAGS='-D warnings'
@@ -104,8 +105,9 @@ counts describe tests actually run, not an inferred one-to-one source mapping.
 - [ ] Add matched English/Vietnamese guide/API pages, export indexes, examples
   and glossary terms for each shipped public contract.
 - [ ] Extend tests/docs/check.py per delivered crate. It now covers core,
-  timer, logger, loader and include; future crate exports and snippet dependencies
-  must be checked too.
+  timer, logger, loader, include, HMR and Create. Create additionally executes
+  live CLI/help, exact generated files, Cargo metadata and external applications
+  on both toolchains; future crate exports/snippets must be checked too.
 - [ ] Keep proposed APIs in planning docs until implemented. Do not insert
   unavailable examples into current user guides merely to illustrate a plan.
 - [ ] Record baseline and final revision, commands, tool versions, outcomes,

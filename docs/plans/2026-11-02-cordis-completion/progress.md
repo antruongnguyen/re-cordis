@@ -6,7 +6,9 @@ review, integration, documentation and current verification.
 
 ## Execution scope and revision
 
-**Resumed by user on 2026-11-04 from clean checkpoint `56de5f4`.**
+**Create offline S0–S2 is complete and independently accepted at `8373fa3`.**
+See [Create acceptance](evidence/create-acceptance.md). The earlier HMR resume
+started from clean `56de5f4` on 2026-11-04.
 The [saved handoff](evidence/hmr-resume/README.md) remains historical evidence.
 **HMR H0–H3 is complete and independently accepted at source `55a55d1`.**
 All 34 shared matrix stages pass on explicit stable/1.85.0; see
@@ -63,9 +65,9 @@ All 34 shared matrix stages pass on explicit stable/1.85.0; see
 | H1 | done | H0, I1 | sol/high implementation; astra/high independent acceptance | integration | 55a55d1 | accepted; H1-R4 fixed; full shared matrix passes | evidence/hmr-acceptance.md |
 | H2 | done | H0 | sol/high corrections; astra/high independent acceptance | integration | 0e8d306 | accepted; H2-R1/R2/R3 addressed | evidence/hmr-h2-accepted-review.md |
 | H3 | done | H1, H2, I4 | sol/high implementation; astra/high independent acceptance | integration | 77b50b5 + 55a55d1 | accepted; 10 integration tests; HMR 56/45 and full matrix pass | evidence/hmr-acceptance.md |
-| S0 | in_review | C3, L5 | parent contract; sol/high implementation | integration | — | contract selected; final review pending | evidence/create-contract.md |
-| S1 | in_review | S0 | sol/high implementation; parent verification | integration | — | 17 package tests +5 external-app tests per toolchain pass; independent review pending | evidence/create-implementation.md |
-| S2 | in_progress | S1 | sol/high docs; parent checker/evidence; astra/high review pending | integration | — | source dispositions drafted; acceptance pending | evidence/create-source-map.md |
+| S0 | done | C3, L5 | sol/high implementation; astra/high independent review | integration | 8373fa3 | accepted; explicit offline contract | evidence/create-acceptance.md |
+| S1 | done | S0 | sol/high implementation; parent verification | integration | d44620c + 8373fa3 | 22 Create tests and 5 generated-app tests per toolchain; CR1/CR2 closed | evidence/create-acceptance.md |
+| S2 | done | S1 | sol/high docs; astra/high review; parent acceptance | integration | 8373fa3; acceptance in closing commit | accepted; all 34 shared stages, 508 workspace checks per toolchain | evidence/create-acceptance.md |
 | R0 | planned | T5, C3, L5, G1, I4, H3, S2 | unassigned | integration | — | not started | evidence/R0/ |
 | R1 | planned | R0 | unassigned | integration | — | not started | evidence/R1/ |
 
@@ -318,3 +320,7 @@ independent acceptance; no active B0 blocker or worker remains.
 - 2026-11-04 CP096: Create S0/S1 implemented from clean `8124fed` using fresh sol/high workers with disjoint code/docs ownership. The stdlib-only generator and one basic Cargo app pass 17 package tests and 5 generated app tests per explicit stable 1.97.1/1.85.0, including 100 lifecycle cycles and original error/resource checks. Parent reruns both documentation checkers (33 pairs/2 Create exports/13 snippets/quickstart/generated app), verifies freeze hashes and 8 checker regressions. Pre-freeze input defects are reproduced and corrected. This is a verified implementation checkpoint; fresh independent review and the full S2 shared matrix remain. No prerequisite production change or push/publication.
 
 - 2026-11-04 CP097: S1 committed as d44620c. The pre-correction shared matrix passes all 34 stages with 503 workspace checks per toolchain and 162 unchanged executable inputs; preserved under target/create-20261104/before-review. Fresh astra/high review approves the generated application's lifecycle but reproduces CR1 (three local 0.0.0 package name collisions) and CR2 (exact/uppercase destination alias of staging). A fresh sol/high worker owns the narrow generator/tests correction. Final S2 acceptance waits for committed corrections, scoped re-review and a fresh full matrix.
+
+- 2026-11-04 CP098: CR1/CR2 corrections committed as 8373fa3 after RED/GREEN on both toolchains, 22 Create tests, unchanged-template generated application checks and precise stable formatter resolution. Fresh astra/high scoped review closes both findings and approves the final offline specification/code quality. The final shared matrix passes all 34 stages: 508 workspace checks per explicit stable/1.85.0, 21 M0, strict Clippy/Rustdoc, six examples, 33 paired doc pages/2 Create exports/13 snippets/quickstart/generated app, eight checker regressions and unchanged core/loader traces. All 162 executable inputs stay fixed; pinned TypeScript is clean. S0–S2 are accepted; B1, platform/CI expansion and R0/R1 remain unselected.
+
+- 2026-11-04 CP099: Final documentation closure passes on stable and 1.85.0 after accepted status edits: 33 pairs, 2 Create exports, 13 snippets, external quick start and five generated-app tests. Eight checker regressions, 12 plan/evidence link/fence checks, final llms structure/size and all 162 unchanged executable fingerprints pass. The closing commit accepts offline S0–S2 with the independent re-review report; no production change after 8373fa3, push or publication.

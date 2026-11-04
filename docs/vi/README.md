@@ -13,8 +13,8 @@ API chưa ổn định. Loader sở hữu nguồn entry có kiểu và group c�
 Include có đọc/refresh tệp, patch có thứ tự và persistence có hòa giải đã nghiệm thu.
 HMR đã triển khai theo dõi tệp, refresh Include tùy chọn và thay factory đã liên kết.
 H0–H3 đã được nghiệm thu độc lập và qua đầy đủ ma trận chung stable/1.85.0.
-Create S0–S2 sinh ứng dụng từ checkout cục bộ; triển khai đang chờ nghiệm thu
-độc lập. Review và nghiệm thu toolchain
+Create S0–S2 sinh ứng dụng từ checkout cục bộ và đã được nghiệm thu độc lập
+trên stable/1.85.0. Review và nghiệm thu toolchain
 tường minh được ghi trong [lộ trình](../todo.md#next-implementation-targets-satellites).
 Đây là API Rust tường minh, không phải lớp tương thích JavaScript trong suốt.
 

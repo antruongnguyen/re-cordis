@@ -32,7 +32,7 @@ This project does not yet follow semantic versioning — the API is unstable.
   includes hosted typed services/plugins, programmatic configuration, scoped
   console output, updates and joined shutdown. Paired guide/API and the real
   generator/external-application documentation checks accompany delivery.
-  Implementation is pending independent acceptance; Git/install/launch,
+  Independent review and the complete stable/1.85.0 matrix pass; Git/install/launch,
   remote templates and Include/HMR variants are outside the selected scope.
 
 - Unpublished `re-cordis-hmr`: bounded explicit file watching with a joined polling

@@ -20,7 +20,7 @@ Essential application constraints:
 - Include uses JSON mutations, bounded I/O and explicit refresh; YAML normalizes values. Joined disposal flushes before child cleanup and reports write errors.
 - HMR watches explicit files; watch_include joins admitted refresh. WatchEvent retains Include/Report errors; Runtime retains core cleanup errors.
 - Linked replacement uses declared dependencies and compiled candidates. Source changes emit RestartRequired; no module discovery, compiler or supervisor.
-- Create uses a local checkout and absent/empty destination. Cargo runs explicitly offline; no Git/install/launch. S0–S2 acceptance pending.
+- Create uses a local checkout and absent/empty destination. Cargo runs explicitly offline; no Git/install/launch. S0–S2 independently accepted.
 - GitHub examples grant no permission for login, authenticated requests or live remote mutations.
 
 ## Start here

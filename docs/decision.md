@@ -907,3 +907,7 @@ records upstream dispositions. No core hosting contracts are reopened.
   generator and generated application offline using both explicit toolchains.
   Runtime filesystem evidence is macOS only. Independent acceptance is pending;
   existing core and satellite acceptance retains its original scope.
+
+Offline S0–S2 is independently accepted at executable revision `8373fa3`;
+see [final verification](plans/2026-11-02-cordis-completion/evidence/create-acceptance.md).
+Publication and additional template capabilities remain separate decisions.

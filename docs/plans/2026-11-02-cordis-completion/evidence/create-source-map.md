@@ -40,3 +40,7 @@ or force/yes; the offline Rust policy deliberately refuses nonempty destinations
 Git/init and install/launch are omitted entirely, with readable Cargo commands
 left to the user. The supported transaction and concurrency boundaries are in
 [the Create contract](create-contract.md).
+
+The [initial independent review](create-review.md) verified this disposition;
+[scoped re-review](create-rereview.md) preserves it after CR1/CR2 corrections.
+Final executed counts and scope are in [acceptance](create-acceptance.md).

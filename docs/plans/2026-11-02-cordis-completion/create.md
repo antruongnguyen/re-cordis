@@ -1,93 +1,77 @@
 # Create application scaffolding implementation plan
 
-> For execution: use superpowers:executing-plans, or subagent-driven-development
-> when delegation is selected. Track the checkboxes per work package.
+**Status: offline S0–S2 implemented, independently reviewed and accepted (2026-11-04).**
+Final executable revision: `8373fa3`; see [acceptance](evidence/create-acceptance.md).
 
-**Goal:** Generate a small, runnable Cargo application that uses the accepted
-Cordis APIs and shuts down correctly.
-**Architecture:** A CLI writes a reviewed bundled/local template into a new
-destination. Optional template transport is isolated from rendering and writing.
-**Tech stack:** Rust 2024, std filesystem/process APIs; select a CLI/transport
-dependency only if the reviewed interface requires it.
-**Spec:** [Master design](README.md), pinned packages/create/src/{index,bin}.ts
-and tests/scaffold.spec.ts.
+**Goal:** Generate a small, runnable Cargo application using accepted Cordis APIs
+and explicit joined shutdown.
+**Architecture:** stdlib-only library and standalone CLI, one bundled basic
+template, exclusive sibling staging and single-rename destination commit.
+**Spec:** [Master design](README.md), [selected contract](evidence/create-contract.md),
+pinned TypeScript Create src/index.ts, src/bin.ts and tests/scaffold.spec.ts.
 
 ## Global constraints
 
-Rust edition 2024; resolver 3; minimum Rust 1.85, tested with 1.85.0. MIT;
-version 0.0.0 and publish=false. Generated dependencies must resolve while
-unpublished; do not emit fictional crates.io versions.
+Rust 2024, resolver 3, minimum Rust 1.85 tested with 1.85.0. MIT,
+version 0.0.0 and publish=false. Explicit checkout path dependencies remain
+usable while unpublished. No core contract change, push or publication.
 
-Upstream downloads registry templates, handles malformed responses and
-transport/archive failures, edits package metadata, optionally initializes Git
-and installs/runs an application, and stages Yarn binaries. Rust needs Cargo
-application generation; npm metadata/Yarn staging are explicit non-applicable
-mechanisms. Transport failures remain relevant if remote templates are offered.
+## S0 — CLI and template gate: complete
 
-## Selected offline S0–S2 execution (2026-11-04)
+- [x] Choose crate/binary `re-cordis-create` and public `create`/`CreateError`.
+  Invocation: `cargo run -p re-cordis-create --offline --locked -- NAME --path DEST --cordis-path CHECKOUT`.
+- [x] Define strict Cargo names, native destination paths, existing parent,
+  absent/empty destination, noninteractive operation and exit codes 0/1/2.
+  Refuse files/symlinks/nonempty destinations and the three bundled dependency
+  package names; no destructive force option.
+- [x] Bundle one basic template and validate the explicit local checkout.
+  Escape canonical core/logger/loader path dependencies; no machine path or
+  fictional crates.io release is embedded.
+- [x] Generate local Runtime, owned console logger, typed plugin/service,
+  programmatic loader config, actual update and explicit joined shutdown.
+- [x] Omit Git initialization, dependency installation and launch options.
+  The generator starts no subprocess; tests/checkers use process argument arrays.
+- [x] Exclude remote/local arbitrary templates, transport/archive/cache and
+  Include/HMR variants. Source exclusions are explicit, not passing tests.
 
-The user selected one bundled basic Cargo application with explicit local checkout
-dependencies, no remote templates and no automatic Git/install/run behavior.
-The [concrete contract and execution plan](evidence/create-contract.md) governs
-this slice; the [14-declaration source map](evidence/create-source-map.md) keeps
-unselected transport/Yarn behavior separate from execution evidence.
-Implementation, independent review and shared acceptance remain in progress.
+## S1 — Offline generation and actual applications: complete
 
-## S0 — CLI and template gate
+Files: `crates/re-cordis-create/{Cargo.toml,README.md,src,templates/basic,tests}`.
+Generated set: Cargo.toml, src/main.rs, src/app.rs, README.md and .gitignore.
 
-**Entry:** C3 and L5 provide the stable-enough application shape for this scope.
-**Files:** this plan, docs/decision.md, a reviewed generated-file manifest.
+- [x] Regress invalid/reserved names, spaces/Unicode and escaped/token-shaped paths,
+  missing parents, checkout layout, files/symlinks/nonempty/repeated destinations,
+  real write/rename failure and failed owned-stage cleanup.
+- [x] Prepare complete sibling staging, check destination again and rename once.
+  Correct CR2 before-create exact/case-folded stage aliases; test final invisibility
+  during staging and preserve unrelated contents.
+- [x] Validate exact files, readable usage and real Cargo manifest/workspace/path
+  metadata. Correct CR1's three conflicting local package identities before writes.
+- [x] Build/test/run external Cargo applications on stable and 1.85.0.
+  Five app tests include 100 lifecycle cycles, weak resource/capture release,
+  real update, joined cleanup and distinct original error channels.
+- [x] Commit verified implementation `d44620c` and correction `8373fa3` with docs.
+  [Implementation evidence](evidence/create-implementation.md);
+  [correction evidence](evidence/create-corrections.md).
 
-- [ ] Choose the crate/binary name and whether this is a standalone command or
-  Cargo subcommand; document invocation before implementation.
-- [ ] Specify project name/path validation, destination-exists behavior,
-  noninteractive operation, template selection and exit/error output. Recommend
-  refusing nonempty destinations instead of a destructive force option.
-- [ ] Choose a bundled/local template first. Define explicit checkout/path
-  dependency input while crates are unpublished; avoid machine-specific paths.
-- [ ] Select the minimal generated app: explicit local host, logger, a typed
-  plugin/service, accepted loader configuration and joined shutdown. Additional
-  include/HMR template variants depend on I4/H3 and are separate optional content.
-- [ ] Treat Git init, dependency installation and launching as explicit options.
-  No shell interpolation of project names/paths and no automatic push.
-- [ ] Decide whether remote templates are necessary. If selected, define origin,
-  version/integrity, timeout/byte bounds, cache policy and archive path rules
-  before adding a downloader.
+## S2 — Offline distribution decision and acceptance: complete
 
-## S1 — Offline scaffolding and generated-app verification
+- [x] Classify all 14 source declarations in the [source map](evidence/create-source-map.md).
+- [x] Remote transport remains unselected. HTTP, metadata, timeout, archive and
+  cache tests/modules are not applicable to this delivered slice and were not run.
+  No stub downloader or fictitious transport coverage is shipped.
+- [x] Obtain independent full implementation/application [review](evidence/create-review.md).
+  Resolve CR1/CR2 in a verified correction commit; fresh scoped
+  [re-review](evidence/create-rereview.md) accepts both with no new important defect.
+- [x] Update current front-door/status/decision/limitation docs, matched EN/VI
+  guide/API/index/glossary routes and llms.txt. Extend the existing checker for
+  Create exports, live CLI help and actual generated external applications.
+- [x] Pass all 34 shared stages on the final source: 508 workspace checks per
+  toolchain, strict lint/docs, M0, six examples, existing paired traces and
+  generated applications. Formatting uses explicitly resolved stable tools.
+- [x] Record commands, revisions, versions, counts, source hashes, limits and
+  final acceptance. Commit the closing documentation/status record.
 
-**Files to create after name decision:** crates/re-cordis-create/Cargo.toml,
-src/main.rs, src/lib.rs, templates/basic/, tests/scaffold.rs. The directory
-name is proposed; S0 may choose a Cargo-subcommand-compatible binary name.
-
-- [ ] Test invalid names, spaces/Unicode in paths, missing parent, nonempty
-  destination, write failure, repeat invocation and no partial final destination.
-- [ ] Render into a staging directory, verify its manifest/file set and move
-  into the final destination using the reviewed collision policy. Leave unrelated
-  user files unchanged and clean up only owned staging artifacts.
-- [ ] Generate actual local dependency manifests; test exact files and readable
-  instructions. Use process argument arrays for optional Git/Cargo commands.
-- [ ] Build/test/run the generated application as an external Cargo project
-  on stable and 1.85.0. Trigger an update and shutdown and inspect cleanup errors.
-- [ ] Document the CLI in both languages and commit the accepted offline slice.
-
-## S2 — Template distribution decision and satellite acceptance
-
-**Files:** tests/transport.rs and a transport module only if remote scope is
-selected; otherwise source-case ledger, CLI docs and examples.
-
-- [ ] Classify every scaffold.spec.ts declaration: portable failure behavior,
-  Cargo equivalent, remote-transport conditional case, or npm/Yarn-specific exclusion.
-- [ ] If remote templates are selected, test with a local fixture server:
-  missing version, malformed metadata, failed/no-body response, header/body
-  timeout, dropped connection, invalid archive and missing/invalid manifest.
-- [ ] Enforce archive traversal/symlink policy, integrity verification, total
-  bytes/files limits and atomic cache/destination commit; failed downloads
-  must not overwrite an existing template or project.
-- [ ] If remote templates are not selected, close those cases with explicit
-  reviewed exclusions; do not ship a stub downloader or claim those tests passed.
-- [ ] Run shared acceptance and generated-app checks; record supported
-  template versions/capabilities, document and commit.
-
-Publication of the CLI and a crates.io dependency template are R1 decisions.
-Local scaffolding can be completed and used before publication.
+Publication and crates.io template versions remain R1 decisions; R0/R1, standalone
+B1 and CI/platform expansion were not started. Runtime filesystem evidence is
+macOS only. See [acceptance](evidence/create-acceptance.md) for exact boundaries.

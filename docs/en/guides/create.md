@@ -3,9 +3,8 @@
 [Tiếng Việt](../../vi/guides/create.md) | [English home](../README.md)
 
 `re-cordis-create` generates one small application using the local unpublished
-core, console logger and loader. The selected S0–S2 scope is offline scaffolding;
-implementation and acceptance progress are tracked in the
-[Create work package](../../plans/2026-11-02-cordis-completion/create.md).
+core, console logger and loader. Offline S0–S2 is independently accepted on
+stable/1.85.0; see the [acceptance report](../../plans/2026-11-02-cordis-completion/evidence/create-acceptance.md).
 
 ## Generate and run
 

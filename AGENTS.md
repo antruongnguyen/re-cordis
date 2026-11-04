@@ -24,9 +24,11 @@ HMR H0–H3 is implemented and independently accepted: bounded file watching,
 linked replacement, retained Include refresh and joined shutdown. The explicit
 stable/1.85.0 shared matrix passes; see
 `docs/plans/2026-11-02-cordis-completion/evidence/hmr-acceptance.md`.
-The selected Create S0–S2 adds the unpublished stdlib-only `re-cordis-create`
-crate/binary for offline local-checkout scaffolding; implementation is pending
-independent acceptance. See `docs/plans/2026-11-02-cordis-completion/create.md`
+Create S0–S2 is independently accepted: the unpublished stdlib-only
+`re-cordis-create` crate/binary generates one offline local-checkout application.
+The final stable/1.85.0 matrix passes 508 workspace checks per toolchain,
+including 22 Create tests; generated apps pass five tests with 100 lifecycle cycles.
+See `docs/plans/2026-11-02-cordis-completion/evidence/create-acceptance.md`
 and `docs/en/guides/create.md`.
 The **`re-cordis-timer`** satellite is
 delivered (unpublished `crates/re-cordis-timer`: owner-scoped timeout, sleep,

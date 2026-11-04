@@ -113,8 +113,8 @@ HMR H0–H3 watching, linked replacement, optional Include integration and the
 offline example are implemented and independently accepted. The full explicit
 stable/1.85.0 matrix passes; see [HMR acceptance](plans/2026-11-02-cordis-completion/evidence/hmr-acceptance.md).
 The user's **2026-11-04** direction selects minimal offline Create S0–S2.
-The stdlib-only generator and core/logger/loader application are in delivery,
-pending independent acceptance; see [Create](plans/2026-11-02-cordis-completion/create.md)
+The stdlib-only generator and core/logger/loader application are independently
+accepted on stable/1.85.0; see [Create acceptance](plans/2026-11-02-cordis-completion/evidence/create-acceptance.md)
 and the [user guide](en/guides/create.md).
 
 The TypeScript specification remains pinned to
@@ -231,11 +231,11 @@ reload, filesystem persistence and watching are explicitly excluded/deferred.
   the offline example pass the full explicit stable/1.85.0 shared matrix. See
   [acceptance](plans/2026-11-02-cordis-completion/evidence/hmr-acceptance.md).
   Native hot loading and a process supervisor are outside this selected scope.
-- [ ] `create`: selected offline S0–S2 delivery uses local checkout dependencies,
+- [x] `create`: accepted offline S0–S2 delivery uses local checkout dependencies,
   native destination paths, complete sibling staging and a minimal hosted
   core/logger/loader application. Paired guide/API and actual generator/application
-  checks accompany delivery; independent acceptance is pending. See
-  [work package](plans/2026-11-02-cordis-completion/create.md).
+  checks pass on both toolchains; independent review closes CR1/CR2. See
+  [acceptance](plans/2026-11-02-cordis-completion/evidence/create-acceptance.md).
   Remote templates, archives/cache, Git/install/launch and Include/HMR variants
   remain unselected.
 

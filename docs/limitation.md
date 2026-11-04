@@ -213,7 +213,7 @@ integrated framework or resolve every behavioral gap.
   `re-cordis-include` and `re-cordis-hmr` are implemented within their documented
   Rust scope. Structural Group belongs to loader. HMR H0–H3 is independently
   accepted with shared stable/1.85.0 verification. Selected offline Create S0–S2
-  is pending independent acceptance; remote scaffolding remains unselected.
+  is independently accepted; remote scaffolding remains unselected.
   See [the roadmap](todo.md).
 - No stability guarantees — the API will change freely until the core is proven.
 - `spikes/m0` uses separate test-only models: one dependency per lifecycle
@@ -405,8 +405,8 @@ verification completes.
   against concurrent external writers or a power-loss guarantee.
 - **Integration boundary:** explicit refresh requires no watcher. The optional
   HMR adapter triggers refresh on the supplied Include; each watched path must
-  be registered explicitly. Create, JS evaluation and native binary hot loading
-  remain outside the delivered scope.
+  be registered explicitly. Create templates using Include, JS evaluation and
+  native binary hot loading remain outside this integration scope.
 
 I3 persistence is implemented. Writes remain non-atomic across files, but bounded
 full pending snapshots recover partial move writes on a later retry. Missing-root
@@ -459,8 +459,9 @@ separate delivery evidence from the following chosen boundaries.
 
 ## Create offline scaffolding
 
-Selected Create S0–S2 supplies a small local-checkout generator, pending
-independent acceptance. See the [guide](en/guides/create.md) and
+Create S0–S2 supplies an independently accepted local-checkout generator; see
+[acceptance](plans/2026-11-02-cordis-completion/evidence/create-acceptance.md),
+the [guide](en/guides/create.md) and
 [decisions](decision.md#create-offline-scaffolding).
 
 - **Deliberate Rust adaptation:** explicit name/native path arguments and a
