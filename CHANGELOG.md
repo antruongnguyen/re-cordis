@@ -9,6 +9,11 @@ This project does not yet follow semantic versioning — the API is unstable.
 
 ### Fixed
 
+- R0's gated shutdown reproducer exposed a canceled loader worker leaving a
+  structural group snapshot at Unloading after joined resource release. Owner
+  cleanup now clears the stale running flag; a focused regression distinguishes
+  the cancellation request, actual resource join and final Disposed snapshot.
+
 - Watcher read failures retry after ingress overflow and coalesce only after
   successful queue admission, preserving original errors when capacity recovers.
 
@@ -24,6 +29,13 @@ This project does not yet follow semantic versioning — the API is unstable.
   source siblings, source locations, cycle preflight and bounded realm metadata.
 
 ### Added
+
+- R0 whole-program reference application and shared deterministic integration tests:
+  typed provider retention across isolated group moves, scoped console/timers,
+  Include edits/persistence, linked replacement, explicit recovery and joined shutdown.
+  The documentation checker extends a real Create-generated external fixture with
+  the exact same application/tests on stable and 1.85.0; the production template
+  remains unchanged. Paired English/Vietnamese integration guidance accompanies it.
 
 - Selected Create S0–S2: unpublished stdlib-only `re-cordis-create` crate/binary
   generates a minimal offline application from local core/logger/loader paths.

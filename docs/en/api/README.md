@@ -9,6 +9,9 @@ handles. It describes usage and behavioral contracts; generated Rustdoc is
 authoritative for exact signatures, generic bounds, trait implementations, and
 public fields.
 
+The [whole-program guide](../guides/system-lifecycle.md) combines these APIs.
+Its application types remain example-private and introduce no public exports.
+
 ## Generate exact API documentation
 
 From the repository root:

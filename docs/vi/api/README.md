@@ -7,6 +7,9 @@ Tài liệu bao phủ export công khai của `re-cordis-core` và vệ tinh
 Rustdoc được sinh từ mã nguồn là tham chiếu chính xác cho chữ ký, ràng buộc
 generic, trait implementation và trường công khai.
 
+[Hướng dẫn tích hợp](../guides/system-lifecycle.md) ghép các API này.
+Các kiểu ứng dụng thuộc riêng ví dụ và không thêm export công khai.
+
 ## Sinh tài liệu API chính xác
 
 Tại thư mục gốc repository:

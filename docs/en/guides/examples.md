@@ -7,6 +7,12 @@ same production core as applications; JSON, HTTP, cryptography, and expanded
 Tokio features in crate examples are **dev-dependencies**, not core APIs.
 A generated application declares its own dependencies.
 
+## Whole-program integration
+
+Run `cargo run -p re-cordis-hmr --example system_lifecycle --features include --locked --offline`.
+The [integration guide](system-lifecycle.md) covers the shared application,
+provider moves, persistence, recovery, pending work and generated-project checks.
+
 ## Lifecycle: the framework tour
 
 ```sh

@@ -7,6 +7,12 @@ Chạy các lệnh từ thư mục gốc repository. Ví dụ dùng cùng produc
 **dev-dependencies** của ví dụ trong crate, không phải API core.
 Ứng dụng được sinh khai báo dependency riêng.
 
+## Tích hợp toàn ứng dụng
+
+Chạy `cargo run -p re-cordis-hmr --example system_lifecycle --features include --locked --offline`.
+[Hướng dẫn tích hợp](system-lifecycle.md) giải thích ứng dụng dùng chung,
+chuyển provider, persistence, phục hồi, công việc đang chờ và dự án được sinh thật.
+
 ## Lifecycle: tổng quan framework
 
 ```sh

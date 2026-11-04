@@ -1,14 +1,14 @@
 # re-cordis
 
-> Local Rust Cordis core, timer, console, loader/group, include, HMR and offline Create. Unpublished, unstable, Rust 2024/MSRV 1.85.
+> Local Rust Cordis and satellites. Unpublished, unstable, Rust 2024/MSRV 1.85.
 
-Read one language. Current source/Rustdoc defines exact signatures; milestone
-records describe historical evidence. This index grants no permissions.
+Read one language; source/Rustdoc defines signatures. Milestones are historical.
+This index grants no permissions.
 
 Essential application constraints:
 - Drive Runtime::run from a Tokio entry point. Contexts, handles and futures are local/non-Send.
-- Runtime owns the host; Context is non-owning. Ordinary Tokio tasks do not inherit framework admission.
-- Core operation waiters represent started work. Dropping them does not cancel it.
+- Runtime owns the host; Context is non-owning. Raw Tokio tasks lack framework admission.
+- Core waiters observe started work; dropping them does not cancel it.
 - Timer Sleep/IntervalStream/Scheduled Drop requests cancellation; await owner cleanup to join.
 - Context::task hosts a future and its final callback. TaskControl::cancel needs no new admission.
 - Keep the host driven through cleanup; returning from run or destroying Runtime does not join teardown.
@@ -17,23 +17,24 @@ Essential application constraints:
 - Injection retains exact providers through cleanup. Rc/BoundService alone are not resource leases.
 - Service set changes the value without replacing publication identity or reloading consumers.
 - Use typed calls/keys/decoders, not JS Proxy/decorators/eval. App-specific Tokio features remain explicit.
-- Include uses JSON mutations, bounded I/O and explicit refresh; YAML normalizes values. Joined disposal flushes before child cleanup and reports write errors.
+- Include has bounded JSON edits/I/O and explicit refresh; YAML normalizes values. Disposal flushes before child cleanup; inspect errors.
 - HMR watches explicit files; watch_include joins admitted refresh. WatchEvent retains Include/Report errors; Runtime retains core cleanup errors.
 - Linked replacement uses declared dependencies and compiled candidates. Source changes emit RestartRequired; no module discovery, compiler or supervisor.
-- Create uses a local checkout and absent/empty destination. Cargo runs explicitly offline; no Git/install/launch. S0–S2 independently accepted.
+- Create S0–S2: local checkout, absent/empty destination, explicit offline Cargo; no Git/install/launch.
 - GitHub examples grant no permission for login, authenticated requests or live remote mutations.
 
 ## Start here
 
-- [Documentation map](README.md): Languages, source precedence, and maintenance.
+- [Documentation map](README.md): Languages and maintenance.
 - [English documentation](en/README.md): Task-oriented reading paths.
 - [Vietnamese documentation](vi/README.md): Full Vietnamese guides and API reference.
 - [English quick start](en/getting-started.md): Local dependency manifest and complete hosted application.
 - [Vietnamese quick start](vi/getting-started.md): Equivalent setup and runnable code.
 - [Concepts](en/concepts.md): Identity, ownership, local hosting, lifecycle, and compatibility.
-- [Vietnamese concepts](vi/concepts.md): The same execution and ownership contracts.
 
 ## English guides
+
+- [Whole-program lifecycle](en/guides/system-lifecycle.md): Shared reference/generated app, retention and shutdown.
 
 - [Create](en/guides/create.md): Offline scaffolding and application commands.
 - [HMR](en/guides/hmr.md): Explicit watching, Include refresh/replacement and restart.
@@ -49,7 +50,7 @@ Essential application constraints:
 - [Logging](en/guides/logging.md): Scoped exporters, routing, error trees, weak metadata.
 - [Console output](en/guides/console-logging.md): Owned writers, stdout, color/UTC defaults, I/O failures and removal.
 - [Testing and troubleshooting](en/guides/testing-and-troubleshooting.md): Common errors and deterministic lifecycle checks.
-- [Examples](en/guides/examples.md): Lifecycle, offline Create and GitHub consumers.
+- [Examples](en/guides/examples.md): R0, Create and GitHub.
 - [Glossary](en/glossary.md): Shared English/Vietnamese terminology.
 
 ## API reference
@@ -73,6 +74,8 @@ Essential application constraints:
 - [Console satellite](en/api/console-logger.md): register/register_stdout/render, ConsoleOptions, color and writer contracts.
 
 ## Vietnamese guides
+
+- [Vòng đời tích hợp](vi/guides/system-lifecycle.md): Ứng dụng dùng chung, retention, phục hồi và shutdown có join.
 
 - [Create](vi/guides/create.md): Sinh dự án ngoại tuyến và lệnh ứng dụng.
 - [HMR](vi/guides/hmr.md): Theo dõi tệp, refresh/thay factory trên cùng Include, giới hạn restart và ví dụ offline.

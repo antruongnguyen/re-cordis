@@ -67,8 +67,8 @@ Keep the pinned TypeScript implementation as the semantic specification.
 | Previous gates A–C and M0–M6 | Local Tokio/LocalSet hosting, non-Send handles, started operations, explicit cleanup, distinct identities, bound views, typed event continuations and synchronous source/resolved validation; see the previous plan's completion boundary and the later decision entries | B0 reconciles evidence; B2 changes core only for its required failing public-API reproducer. Do not repeat the original prototypes or reselect the runtime/type architecture. |
 | Core compatibility | Existing M5/M6 typed reflection/injection/logging representations and documented safety deviations, including sync-only bail, one-use next, observer-error cleanup and shared-slot notifications | Attach the existing restriction and tested substitute to the relevant case. Investigate only an uncovered assertion, changed contract, contradiction or dependent satellite requirement; exclusions remain separate from parity. |
 | Completed evidence | Historical case checklist and M2–M6 source maps; six paired lifecycle scenarios / 73 observations; bounded GitHub consumers; accepted B0 matrix and fragment reviews | Reuse applicable results with their revision, exact scope and test/trace references. Complete missing B0 assertion/variant/type provenance and joins; historical checkmarks alone do not establish those finer claims. |
-| Delivered timer choices | Sealed TimerExt, no TimerService/install step, monotonic Tokio clock, single-consumer Stream representation, omitted deprecated aliases; see both documents' Timer satellite sections | T0 defines zero/range, eager deadlines, bounded pending ticks, wrapper cancellation, disabled-driver and panic/reentry contracts; T1–T5 implement and verify them in the timer report. The old first-poll/yield observation is subject to TF7 repair, not a permanent deadline guarantee. Preserve unrelated accepted choices. |
-| Satellite composition | Console output extends core exporters; loader uses core plugin/service ownership; serialization belongs at satellite boundaries; timer→console→loader order is selected | Review the new satellite APIs and integration behavior. Do not reimplement core logging, lifecycle, validation or retention merely because a satellite uses them. Include/HMR/create contracts remain new work. |
+| Delivered timer choices | Sealed TimerExt, no TimerService/install step, monotonic Tokio clock, single-consumer Stream representation, omitted deprecated aliases; see both documents' Timer satellite sections | T0–T5 are accepted: checked eager deadlines, hosted callbacks, bounded ticks and joined cancellation are verified in the timer acceptance report. Reuse that delivery; the historical first-poll/yield limitation is superseded. |
+| Satellite composition | Console output extends core exporters; loader uses core plugin/service ownership; serialization belongs at satellite boundaries; timer→console→loader order is selected | Reuse accepted satellite APIs and review their composition in R0. Do not reimplement core logging, lifecycle, validation or retention merely because a satellite uses them. Include/HMR/offline Create contracts are accepted. |
 | Historical wording | Later implemented milestones and specific current decisions supersede earlier prototype directions or narrower phase status | B1 reconciles stale phrases such as “No further slice or satellite is selected” and core-only documentation descriptions. They do not reopen completed selection/design gates or erase genuine limitations. |
 
 Every new handoff identifies **carried decisions/evidence**, **the uncovered
@@ -78,8 +78,8 @@ when source/implementation/dependencies changed, evidence is insufficient or
 contradictory, a demonstrated consumer need requires it, or the user changes
 the contract. A new worker/session or old “unresolved” heading is not a reason.
 
-B0's remaining ledger entries measure unfinished reconciliation, not missing
-features or a reversal of M6 delivery. For each obligation, reuse a sufficient
+B0's accepted ledger records explicit missing-evidence obligations, not proven
+missing features or a reversal of M6 delivery. For each obligation, reuse a sufficient
 existing mapping and join its current execution evidence; inspect source and
 tests only as needed to establish missing provenance or resolve a mismatch.
 Do not add duplicate tests to recreate existing evidence. Keep newly identified
@@ -88,7 +88,7 @@ accounting. Reusing evidence does not waive independent review or required
 verification of changed integrated code; unchanged prose needs only the
 planning checks specified in [acceptance](acceptance.md).
 
-## Current baseline
+## Historical starting baseline (2026-11-02)
 
 | Area | Evidence and qualification |
 |---|---|
@@ -99,9 +99,11 @@ planning checks specified in [acceptance](acceptance.md).
 | Other satellites | No Rust implementation in the workspace. Upstream group is only a re-export of loader's Group. |
 | Fresh checks on 2026-11-02 | Workspace tests passed; five documentation regressions passed; eight unique guide/API examples and the external quick start passed on stable 1.97.1 and Rust 1.85.0. Full lint/MSRV workspace/differential matrices were not rerun for the initial review. |
 
-The baseline is historical evidence attached to a revision, not a continuing
-claim that the tree is green after future edits. B0 records a fresh executable
-baseline before the first production change.
+This table preserves the planning baseline. Core/B0, timer, console,
+loader/groups, Include, HMR and offline Create are now independently accepted.
+R0 whole-program integration is selected; see [current progress](progress.md)
+and its [execution plan](evidence/r0-plan.md). Historical results do not establish
+verification of later edits, and R1/standalone B1 remain unselected.
 
 ## Recommended approach and alternatives
 

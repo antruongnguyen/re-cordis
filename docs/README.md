@@ -103,6 +103,13 @@ with each selected toolchain. Formatting uses explicitly resolved stable tools,
 following the shared acceptance policy. Dependency resolution is offline. This executes
 the selected local scaffolding path, not remote templates or cross-platform I/O.
 
+After those basic-template checks, the same test-owned external project is
+extended with explicit local timer/Include/HMR dependencies and the exact shared
+R0 example/application/test files. Build/test/run and strict Clippy use both
+selected toolchains; formatting remains stable-only. See the
+[integration guide](en/guides/system-lifecycle.md). No production template variant
+is added, and no temporary fixture source becomes a public API.
+
 This is an opt-in documentation check; it does not modify the existing CI matrix.
 Other shell examples are not executed. It does not make authenticated requests, install packages,
 or validate external URLs. If dependencies are missing, the offline build fails

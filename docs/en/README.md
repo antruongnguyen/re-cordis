@@ -22,6 +22,7 @@ This is an explicit Rust API, not transparent JavaScript compatibility.
 
 | Your goal | Start here |
 |---|---|
+| Compose and verify a whole application | [Whole-program lifecycle](guides/system-lifecycle.md) |
 | Generate a minimal offline application | [Create](guides/create.md) |
 | Build your first application | [Getting started](getting-started.md), then [concepts](concepts.md) |
 | Watch files and replace linked plugins | [HMR](guides/hmr.md) |

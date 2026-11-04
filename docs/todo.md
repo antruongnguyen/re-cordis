@@ -23,9 +23,10 @@ B0's evidence gaps are not a blanket prerequisite for satellite delivery.
   self-retirement, bounded streams, reentry and joined owner capture release.
   Shared review/toolchain acceptance is recorded in the
   [timer report](plans/2026-11-02-cordis-completion/evidence/timer-acceptance.md).
-- [ ] Review and schedule the [work packages](plans/2026-11-02-cordis-completion/schedule.md):
-  loader/group, include, HMR, create, then integrated acceptance.
-  API/dependency choices and calendar dates in this program are not frozen.
+- [x] Deliver and independently accept loader/groups, Include, HMR and offline Create.
+- [ ] Complete selected R0 whole-program integration, real generated application,
+  independent review and the shared matrix; see [execution](plans/2026-11-02-cordis-completion/progress.md).
+  R1 and standalone B1 are not selected.
 
 The older milestones below retain their historical delivery evidence. A
 checked historical box does not override an open repair in the completion plan.
@@ -46,7 +47,8 @@ acceptance; see [logger evidence](plans/2026-11-02-cordis-completion/evidence/lo
 Timer T0–T5 and its required minimal B2 task bridge are independently accepted,
 with 48 timer tests/three Rustdoc checks and six focused core tests.
 The full stable/1.85.0 matrix and both paired fixtures passed.
-All remaining 23 packages stay planned. No background
+Loader/groups, Include, HMR and offline Create are also independently accepted.
+R0 whole-program integration is the current selected work. No background
 continuation is scheduled. See
 [detailed progress](plans/2026-11-02-cordis-completion/progress.md#resume-next)
 and [B0 evidence](plans/2026-11-02-cordis-completion/evidence.md).
@@ -112,7 +114,7 @@ see [include acceptance](plans/2026-11-02-cordis-completion/evidence/include-acc
 HMR H0–H3 watching, linked replacement, optional Include integration and the
 offline example are implemented and independently accepted. The full explicit
 stable/1.85.0 matrix passes; see [HMR acceptance](plans/2026-11-02-cordis-completion/evidence/hmr-acceptance.md).
-The user's **2026-11-04** direction selects minimal offline Create S0–S2.
+The user's **2026-11-04** direction selects R0 after accepted offline Create S0–S2.
 The stdlib-only generator and core/logger/loader application are independently
 accepted on stable/1.85.0; see [Create acceptance](plans/2026-11-02-cordis-completion/evidence/create-acceptance.md)
 and the [user guide](en/guides/create.md).

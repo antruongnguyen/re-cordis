@@ -122,8 +122,11 @@ Rust matrix is for implementation acceptance, not every prose edit.
 
 **Entry:** T5, C3, L5, G1, I4, H3 and S2 accepted within reviewed scope.
 **Files:** crates/re-cordis-hmr/examples/system_lifecycle.rs and
-crates/re-cordis-hmr/tests/system_lifecycle.rs, with console/include as dev-only
-integration dependencies; docs evidence and all status/coverage matrices.
+crates/re-cordis-hmr/tests/system_lifecycle.rs, sharing
+crates/re-cordis-hmr/examples/system_lifecycle/app.rs. Console is a dev-only
+integration dependency; Include uses the existing optional feature.
+The documentation checker extends actual Create-generated temporary output
+with the same application/tests and explicit local dependencies.
 
 - [ ] Boot a generated application with logger, typed provider/consumer,
   timer, loader groups, include source and optional watcher.

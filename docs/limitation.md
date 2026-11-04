@@ -70,7 +70,8 @@ Three failure/recovery compositions now have paired execution: obsolete/latest
 load failures with gated rollback and exactly-once diagnostics, an abandoned
 update waiter, and explicit gated recovery after ignored provider refresh.
 This is not exhaustive failure/recovery, cancellation, observer-error, or
-exporter-error protocol parity. No further slice or satellite is selected.
+exporter-error protocol parity. Subsequent satellite delivery and selected R0
+integration retain this bounded core parity claim.
 
 - Services use explicit `ServiceKey<T>` access, not JS properties. M5 supports
   isolated slots with retained boundary history and explicit `BoundService`
@@ -192,9 +193,9 @@ integrated framework or resolve every behavioral gap.
 ## Scope limitations (current)
 
 - [English](en/README.md) and [Vietnamese](vi/README.md) user documentation
-  covers the current unpublished core. The API reference complements generated
-  Rustdoc; it does not establish a stable release, translated Rust identifiers,
-  full upstream compatibility or satellite availability. `llms.txt` is a local
+  covers the current unpublished core and delivered satellites. The API reference
+  complements generated Rustdoc; it does not establish a stable release,
+  translated Rust identifiers or full upstream compatibility. `llms.txt` is a local
   retrieval index, not a published documentation service or agent permissions.
 - Approved [GitHub activity consumers](github-activity.md) are application
   examples, not production satellites. The digest supports bounded GitHub.com
@@ -271,8 +272,8 @@ separates implementation evidence from shared verification.
   synchronous panic; the normal panic hook is still visible. No detached timer
   task or retained core callback diagnostic is created.
 
-Remaining satellites remain future work; timer repair does not implement loader,
-group/include/HMR/create or settle unrelated B0 evidence gaps.
+Subsequent loader/groups, Include, HMR and offline Create delivery is recorded
+below. Timer acceptance does not settle unrelated B0 evidence gaps.
 
 ## Console logger satellite
 
@@ -491,3 +492,33 @@ the [guide](en/guides/create.md) and
 - **Missing evidence:** runtime filesystem execution is macOS only. The selected
   toolchain checks do not establish Linux/Windows execution or a stable published
   API. Create adds no new cross-language core lifecycle evidence.
+
+## Whole-program integration
+
+R0's [reference application](en/guides/system-lifecycle.md) and actual generated
+external fixture exercise the same example-private Rust implementation. This
+is a composition of current APIs, not a new distributed template or public API.
+
+- **Rust adaptation:** provider movement keeps logical EntryId but rebuilds Fiber
+  and publication identity. Committed injection keeps the old provider usable
+  through dependent cleanup; moving a consumer later binds the new scope.
+- **Snapshot correction:** R0's gated shutdown regression fixes a canceled loader
+  worker's stale Unloading flag. A Disposed snapshot alone still does not replace
+  inspecting joined completion, actual resource release and diagnostics.
+- **Execution boundary:** current-thread Tokio/local Runtime and non-Send handles
+  remain required. Deterministic synthetic events/paused time prove causal work
+  and release barriers; real polling is supplementary. Cancel/Drop is not join,
+  and successful waiters do not replace inspecting cleanup/Runtime diagnostics.
+- **Filesystem boundary:** Include and console output use ordinary synchronous
+  I/O. Pending-journal flush is not fsync, a multi-file transaction, arbitrary
+  external-writer coordination or hostile-filesystem confinement. An admitted
+  blocked OS read may delay joined shutdown.
+- **Generated fixture boundary:** the checker extends temporary output after
+  running the unchanged Create basic app. Local paths require the checkout to
+  remain present; offline Cargo needs cached dependencies. The production
+  basic template remains the only distributed variant.
+- **Missing evidence:** native filesystem/watcher execution remains macOS only.
+  R0 does not add a whole-program Rust/TypeScript trace, close all B0/loader
+  source gaps, establish Windows/Linux support or a stable published API.
+- **Unselected work:** R1, standalone B1, CI/platform expansion, remote Create,
+  additional templates, live integrations and process supervision remain separate.

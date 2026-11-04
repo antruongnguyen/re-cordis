@@ -22,6 +22,7 @@ tường minh được ghi trong [lộ trình](../todo.md#next-implementation-ta
 
 | Mục tiêu | Bắt đầu tại |
 |---|---|
+| Ghép và kiểm tra ứng dụng hoàn chỉnh | [Vòng đời tích hợp](guides/system-lifecycle.md) |
 | Sinh ứng dụng ngoại tuyến tối thiểu | [Create](guides/create.md) |
 | Theo dõi tệp và thay plugin đã liên kết | [HMR](guides/hmr.md) |
 | Đọc và refresh tệp cấu hình | [Include](guides/include.md) |

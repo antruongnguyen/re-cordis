@@ -63,6 +63,11 @@ meta-framework for spatiotemporal composability.
 > core evidence, timer fixes and all seven upstream satellites, with scheduling gates.
 > The concept map below remains the framework target, not a shipped feature list.
 
+> Whole-program R0 composes the accepted components in one shared application:
+> provider retention during group moves, configuration persistence, linked replacement,
+> failure/recovery and joined shutdown. See the [integration guide](docs/en/guides/system-lifecycle.md)
+> and [execution progress](docs/plans/2026-11-02-cordis-completion/progress.md).
+
 ## User guides and API documentation
 
 Start with the task-oriented documentation in

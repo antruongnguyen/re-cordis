@@ -182,6 +182,58 @@ def run(command, env, timeout=180):
     return result.stdout
 
 
+def run_generated_r0(destination, toolchain, tools, env):
+    """Extend only the already generated test fixture with the shared R0 program."""
+    manifest_file = destination / "Cargo.toml"
+    manifest = manifest_file.read_text(encoding="utf-8")
+    dependencies = []
+    for name in ("timer", "include", "hmr"):
+        path = json.dumps((ROOT / f"crates/re-cordis-{name}").as_posix())
+        features = ', features = ["include"]' if name == "hmr" else ""
+        dependencies.append(f"re-cordis-{name} = {{ path = {path}{features} }}")
+    dependencies += ['serde_json = "1"', 'futures-util = "0.3"']
+    manifest = manifest.replace("[dependencies]\n", "[dependencies]\n" + "\n".join(dependencies) + "\n")
+    manifest = manifest.replace('features = ["rt"]',
+                                'features = ["rt", "time", "sync", "macros", "test-util"]')
+    manifest += """
+[features]
+default = ["include"]
+include = []
+
+[[bin]]
+name = "cordis-created-app"
+path = "examples/system_lifecycle.rs"
+"""
+    manifest_file.write_text(manifest, encoding="utf-8")
+    for relative in ("examples/system_lifecycle.rs", "examples/system_lifecycle/app.rs",
+                     "tests/system_lifecycle.rs"):
+        target = destination / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes((ROOT / "crates/re-cordis-hmr" / relative).read_bytes())
+    manifest_path = str(manifest_file)
+    metadata = json.loads(run([tools["cargo"], "metadata", "--manifest-path", manifest_path,
+                               "--no-deps", "--format-version=1", "--offline"], env))
+    package = next(p for p in metadata["packages"] if p["name"] == "cordis-created-app")
+    for name in ("core", "logger", "loader", "timer", "include", "hmr"):
+        dependency = next(d for d in package["dependencies"] if d["name"] == f"re-cordis-{name}")
+        require(Path(dependency["path"]).resolve() == ROOT / f"crates/re-cordis-{name}",
+                f"Incorrect R0 local path dependency: {name}")
+    for command in ("build", "test", "run"):
+        args = [tools["cargo"], command, "--manifest-path", manifest_path, "--offline"]
+        if command != "build":
+            args.append("--locked")
+        output = run(args, env)
+        print(f"Generated R0 application {command} on {toolchain}:\n{output.strip()}")
+    run([tools["cargo"], "clippy", "--manifest-path", manifest_path,
+         "--all-targets", "--offline", "--locked", "--", "-D", "warnings"], env)
+    if toolchain == "stable":
+        run([tools["cargo"], "fmt", "--manifest-path", manifest_path, "--check"], env)
+    output = run([tools["cargo"], "run", "--manifest-path", manifest_path,
+                  "--offline", "--locked", "--", "--watch"], env)
+    print(f"Generated R0 real-watch run on {toolchain}:\n{output.strip()}")
+    print(f"Passed actual generated R0 application on {toolchain}.")
+
+
 def run_examples(toolchain, snippets):
     env = os.environ.copy()
     tools = {}
@@ -285,6 +337,7 @@ def run_examples(toolchain, snippets):
                 require(Path(formatter).parent == Path(tools["rustc"]).parent,
                         f"Formatter is outside the selected toolchain: {name}")
             run([tools["cargo"], "fmt", "--manifest-path", manifest_path, "--check"], env)
+        run_generated_r0(destination, toolchain, tools, env)
     print(f"Passed Create CLI, exact files, Cargo metadata and external application on {toolchain}.")
 
 

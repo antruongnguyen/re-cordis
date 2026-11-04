@@ -30,6 +30,11 @@ The final stable/1.85.0 matrix passes 508 workspace checks per toolchain,
 including 22 Create tests; generated apps pass five tests with 100 lifecycle cycles.
 See `docs/plans/2026-11-02-cordis-completion/evidence/create-acceptance.md`
 and `docs/en/guides/create.md`.
+R0 whole-program integration uses one example-private application shared by
+`crates/re-cordis-hmr/examples/system_lifecycle.rs`, its deterministic integration
+tests, and an actual Create-generated external fixture. The basic distributed
+template stays unchanged. See `docs/en/guides/system-lifecycle.md` and the
+completion-plan execution progress for current review/acceptance.
 The **`re-cordis-timer`** satellite is
 delivered (unpublished `crates/re-cordis-timer`: owner-scoped timeout, sleep,
 interval/stream, throttle and debounce over core effects, via a sealed

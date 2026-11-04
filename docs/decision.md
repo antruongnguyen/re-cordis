@@ -4,6 +4,46 @@ A lightweight log of decisions made for this project and the reasoning behind
 them. Newest first. This is intentionally not a heavy ADR process; it records
 *what we chose and why* so the choices aren't re-litigated silently.
 
+## 2026-11-04 — Verify the complete offline application through shared code
+
+R0 composes accepted core, timer, console logger, loader/groups, Include, HMR
+and offline Create without redesigning their production APIs. One application
+module under the HMR example is imported by its integration tests and copied
+unchanged into the actual Create-generated external test fixture. The HMR crate
+gains only the necessary application dev dependency; no facade crate is needed.
+
+Include's explicit JSON edits and move_entry are the persistence boundary.
+Moving a provider across isolated groups rebuilds its Fiber while preserving
+EntryId. The old consumer's committed dependency retains that exact provider
+through gated cleanup. Moving the consumer afterward establishes a new binding
+in the destination realm; it does not mutate an old Context's scope.
+
+Use a synthetic watcher and paused time for deterministic admission/cancellation
+oracles; real registered-file polling remains bounded supplemental evidence.
+ReloadPlan replaces already-linked candidates through the same Include-managed
+instances. Error observations follow the operation/report/watcher-history/Runtime
+contracts, and are not added together as distinct failures.
+
+The documentation checker first verifies the unmodified generated basic app,
+then extends only its temporary output with explicit local dependencies and
+the shared R0 program/tests. Keep production templates unchanged: acceptance
+does not introduce a new supported template product. Process execution uses
+argument arrays; both explicit stable/1.85.0 toolchains build, test and run the
+external Cargo application offline.
+
+R0's concrete gated shutdown reproducer also found a stale loader group snapshot:
+Context::task cancellation skipped the convergence worker's running=false tail.
+Owner cleanup now clears that bookkeeping flag when closing entries; the native
+regression separately verifies request versus join and actual resource release.
+See [the narrow correction](plans/2026-11-02-cordis-completion/evidence/r0-loader-correction.md).
+No core or public API redesign is involved.
+
+Source reconciliation carries accepted prerequisite ledgers and preserves B0's
+remaining gaps. New native composition evidence does not imply a new whole-program
+TypeScript trace or Windows/Linux runtime evidence. See the
+[integration guide](en/guides/system-lifecycle.md), [execution plan](plans/2026-11-02-cordis-completion/evidence/r0-plan.md)
+and [source dispositions](plans/2026-11-02-cordis-completion/evidence/r0-source-map.md).
+
 ## 2026-11-03 — Deliver Cordis features through idiomatic Rust contracts
 
 The user reaffirmed that this project implements Cordis in Rust, prioritizing
@@ -905,7 +945,7 @@ records upstream dispositions. No core hosting contracts are reopened.
   product choices, not inherent Rust limitations.
 - **Evidence:** paired guides/API and documentation checks execute the actual
   generator and generated application offline using both explicit toolchains.
-  Runtime filesystem evidence is macOS only. Independent acceptance is pending;
+  Runtime filesystem evidence is macOS only. Independent S0–S2 acceptance is complete;
   existing core and satellite acceptance retains its original scope.
 
 Offline S0–S2 is independently accepted at executable revision `8373fa3`;
