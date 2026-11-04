@@ -91,7 +91,8 @@ Plugin validator của core vẫn chạy khi dependency sẵn sàng. Entry giữ
 mới nhất, decoder và provider chính xác qua cleanup; lỗi sau unload cần phục hồi
 tường minh. `Settlement` báo kết quả.
 Task của đúng lô giữ mọi lỗi scheduling cùng lỗi lifecycle, kể cả các nguyên nhân
-khác nhau của cùng EntryId. Thả waiter đó chỉ giữ lỗi scheduling chưa quan sát
+khác nhau của cùng EntryId. Slot trỏ đến đúng công việc đã có trong báo cáo
+chỉ được báo một lần. Thả waiter đó chỉ giữ lỗi scheduling chưa quan sát
 đầu tiên trong slot có giới hạn của loader. Settlement thông thường giữ chính
 sách ưu tiên lỗi chưa quan sát đầu tiên của entry; nó không giữ mọi nguyên nhân
 của lô đã bị thả waiter.

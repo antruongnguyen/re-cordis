@@ -721,6 +721,12 @@ struct PendingUpdate {
     observed: Rc<Cell<bool>>,
     location: Option<SourceLocation>,
 }
+struct UpdateFailure {
+    failure: EntryFailure,
+    observed: Rc<Cell<bool>>,
+    // Direct-update identity survives pruning; scheduling failures have no work.
+    work: Option<Work>,
+}
 struct UpdateReservation<'a>(&'a Cell<usize>);
 impl Drop for UpdateReservation<'_> {
     fn drop(&mut self) {
@@ -740,7 +746,7 @@ struct State {
     retirement_error: RefCell<Option<LifecycleError>>,
     pending_updates: RefCell<Vec<PendingUpdate>>,
     update_reservations: Cell<usize>,
-    update_failure: RefCell<Option<(EntryFailure, Rc<Cell<bool>>)>>,
+    update_failure: RefCell<Option<UpdateFailure>>,
     retiring: RefCell<Vec<(Rc<Entry>, Option<Retirement>)>>,
     disposed: Cell<bool>,
     preflighting: Cell<bool>,
@@ -956,7 +962,7 @@ impl Loader {
             .update_failure
             .borrow()
             .as_ref()
-            .is_some_and(|(_, observed)| observed.get())
+            .is_some_and(|failure| failure.observed.get())
         {
             let previous = self.0.update_failure.borrow_mut().take();
             drop(previous);
@@ -1907,10 +1913,10 @@ impl Loader {
                     .update_failure
                     .borrow()
                     .as_ref()
-                    .filter(|(failure, observed)| {
-                        removed_ids.contains(&failure.id) && !observed.get()
+                    .filter(|retained| {
+                        removed_ids.contains(&retained.failure.id) && !retained.observed.get()
                     })
-                    .map(|(failure, observed)| (failure.error.clone(), observed.clone()));
+                    .map(|retained| (retained.failure.error.clone(), retained.observed.clone()));
                 if let Some((error, observed)) = retained {
                     if failure.is_none() {
                         failure = Some(error);
@@ -1941,6 +1947,7 @@ impl Loader {
         let loader = self.clone();
         Ok(LoaderTask(
             async move {
+                // Row provenance follows every convergence overwrite/removal.
                 let mut failures = BTreeMap::new();
                 loop {
                     let entries: Vec<_> = loader.0.entries.borrow().values().cloned().collect();
@@ -1969,10 +1976,13 @@ impl Loader {
                     for entry in entries {
                         let work = entry.work.borrow().clone();
                         if let Some(work) = work {
-                            if let Err(error) = work.await {
+                            if let Err(error) = work.clone().await {
                                 failures.insert(
                                     entry.id.clone(),
-                                    locate_error(error, entry.spec.borrow().location.clone()),
+                                    (
+                                        locate_error(error, entry.spec.borrow().location.clone()),
+                                        Some(work),
+                                    ),
                                 );
                                 continue;
                             }
@@ -1982,9 +1992,12 @@ impl Loader {
                             if let Err(error) = outer.ready()?.await {
                                 failures.insert(
                                     entry.id.clone(),
-                                    locate_error(
-                                        error.into(),
-                                        entry.spec.borrow().location.clone(),
+                                    (
+                                        locate_error(
+                                            error.into(),
+                                            entry.spec.borrow().location.clone(),
+                                        ),
+                                        None,
                                     ),
                                 );
                                 continue;
@@ -1995,16 +2008,19 @@ impl Loader {
                             if let Err(error) = instance.ready()?.await {
                                 failures.insert(
                                     entry.id.clone(),
-                                    locate_error(
-                                        error.into(),
-                                        entry.spec.borrow().location.clone(),
+                                    (
+                                        locate_error(
+                                            error.into(),
+                                            entry.spec.borrow().location.clone(),
+                                        ),
+                                        None,
                                     ),
                                 );
                                 continue;
                             }
                         }
                         if let Some(error) = entry.rejected.borrow().clone() {
-                            failures.insert(entry.id.clone(), error);
+                            failures.insert(entry.id.clone(), (error, None));
                         } else {
                             failures.remove(&entry.id);
                         }
@@ -2034,23 +2050,33 @@ impl Loader {
                     }
                 }
                 let update_failure = loader.0.update_failure.borrow_mut().take();
-                if let Some((failure, observed)) = update_failure {
+                if let Some(UpdateFailure {
+                    failure,
+                    observed,
+                    work,
+                }) = update_failure {
                     if !observed.get() {
                         if let Some(scheduled) = &mut scheduled {
                             if !scheduled
                                 .iter()
                                 .any(|(_, current)| Rc::ptr_eq(current, &observed))
+                                && !work.as_ref().is_some_and(|work| {
+                                    failures
+                                        .get(&failure.id)
+                                        .and_then(|(_, current)| current.as_ref())
+                                        .is_some_and(|current| work.ptr_eq(current))
+                                })
                             {
                                 scheduled.push((failure, observed));
                             }
                         } else {
-                            failures.insert(failure.id, failure.error);
+                            failures.insert(failure.id, (failure.error, None));
                         }
                     }
                 }
                 let mut failures: Vec<_> = failures
                     .into_iter()
-                    .map(|(id, error)| EntryFailure { id, error })
+                    .map(|(id, (error, _))| EntryFailure { id, error })
                     .collect();
                 failures.extend(scheduled.into_iter().flatten().map(|(failure, _)| failure));
                 acknowledge_updates(&loader.0);
@@ -2861,10 +2887,13 @@ impl Loader {
                     .update_failure
                     .borrow()
                     .as_ref()
-                    .is_none_or(|(_, observed)| observed.get())
+                    .is_none_or(|failure| failure.observed.get())
                 {
-                    *self.0.update_failure.borrow_mut() =
-                        Some((failure.clone(), observed.clone()));
+                    *self.0.update_failure.borrow_mut() = Some(UpdateFailure {
+                        failure: failure.clone(),
+                        observed: observed.clone(),
+                        work: None,
+                    });
                 }
                 failures.push((failure, observed));
             }
@@ -2947,14 +2976,15 @@ fn remember_update_failure(state: &State, update: &PendingUpdate, error: LoaderE
     }
     let previous = state.update_failure.borrow_mut().take();
     let failure = match previous {
-        Some(previous) if !previous.1.get() => previous,
-        _ => (
-            EntryFailure {
+        Some(previous) if !previous.observed.get() => previous,
+        _ => UpdateFailure {
+            failure: EntryFailure {
                 id: update.id.clone(),
                 error: locate_error(error, update.location.clone()),
             },
-            update.observed.clone(),
-        ),
+            observed: update.observed.clone(),
+            work: Some(update.work.clone()),
+        },
     };
     *state.update_failure.borrow_mut() = Some(failure);
 }
@@ -2963,8 +2993,8 @@ fn unobserved_update_failure(state: &State) -> Option<EntryFailure> {
         .update_failure
         .borrow()
         .as_ref()
-        .filter(|(_, observed)| !observed.get())
-        .map(|(failure, _)| failure.clone())
+        .filter(|failure| !failure.observed.get())
+        .map(|failure| failure.failure.clone())
 }
 async fn join_updates(state: &State, updates: Vec<PendingUpdate>) -> Option<LoaderError> {
     let mut first = None;

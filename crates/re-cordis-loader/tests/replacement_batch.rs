@@ -768,3 +768,200 @@ async fn exact_batch_keeps_apply_and_observer_causes_with_an_older_slot() {
 async fn exact_batch_keeps_apply_causes_with_an_older_slot_and_successful_observers() {
     exact_batch_with_older_observer_slot(false).await;
 }
+
+async fn same_direct_update_occurrence(replace_unrelated: bool, completed: bool) {
+    let runtime = Runtime::new();
+    runtime
+        .run(async {
+            let calls = Rc::new(Cell::new(0));
+            let (finished, completion) = tokio::sync::oneshot::channel();
+            let finished = Rc::new(RefCell::new(Some(finished)));
+            let mut catalog = Catalog::new();
+            catalog
+                .register(
+                    "worker",
+                    Plugin::new("worker", {
+                        let calls = calls.clone();
+                        move |ctx, _: u32| {
+                            let calls = calls.clone();
+                            let finished = finished.clone();
+                            async move {
+                                ctx.on_update::<u32, _, _, io::Error>(move |_, _, _| {
+                                    let calls = calls.clone();
+                                    let finished = finished.clone();
+                                    async move {
+                                        calls.set(calls.get() + 1);
+                                        finished.borrow_mut().take().unwrap().send(()).unwrap();
+                                        Err::<bool, _>(io::Error::other("one-direct-update"))
+                                    }
+                                })?;
+                                Ok::<_, BoxError>(())
+                            }
+                        }
+                    }),
+                )
+                .unwrap();
+            catalog.register("other", inert("other")).unwrap();
+            let loader = Loader::new(&runtime.context(), catalog).unwrap();
+            let id = loader
+                .create(EntrySpec::new("worker", Config::new(1u32)).id("a"))
+                .unwrap();
+            loader
+                .create(EntrySpec::new("other", Config::new(0u32)).id("b"))
+                .unwrap();
+            loader.settle().unwrap().await.unwrap();
+            drop(
+                loader
+                    .update(&id, EntrySpec::new("worker", Config::new(2u32)))
+                    .unwrap(),
+            );
+            if completed {
+                completion.await.unwrap();
+                // Admission prunes the completed pending work without observing its error.
+                drop(loader.settle().unwrap());
+            }
+            let replacements = if replace_unrelated {
+                vec![FactoryReplacement::new("other", inert("other-new"))]
+            } else {
+                vec![]
+            };
+            let report = loader
+                .replace_factories(replacements)
+                .unwrap()
+                .await
+                .unwrap();
+            let causes: Vec<_> = report
+                .failures
+                .iter()
+                .map(|failure| {
+                    (
+                        failure.id.as_str(),
+                        original_io_error(&failure.error).to_string(),
+                    )
+                })
+                .collect();
+            eprintln!("replace_unrelated={replace_unrelated} completed={completed} calls={} causes={causes:?}", calls.get());
+            assert_eq!(calls.get(), 1);
+            assert_eq!(causes, [("a", "one-direct-update".into())]);
+            let later = loader.settle().unwrap().await.unwrap();
+            assert_eq!(later.failures.len(), 1);
+            assert_eq!(later.failures[0].id, id);
+            assert_eq!(
+                original_io_error(&later.failures[0].error).to_string(),
+                "one-direct-update"
+            );
+            loader.dispose().unwrap().await.unwrap();
+        })
+        .await
+        .unwrap();
+}
+
+#[tokio::test(flavor = "current_thread")]
+async fn empty_exact_batch_deduplicates_direct_update_occurrence() {
+    for completed in [true, false] {
+        same_direct_update_occurrence(false, completed).await;
+    }
+}
+
+#[tokio::test(flavor = "current_thread")]
+async fn unrelated_exact_batch_deduplicates_direct_update_occurrence() {
+    for completed in [true, false] {
+        same_direct_update_occurrence(true, completed).await;
+    }
+}
+
+#[tokio::test(flavor = "current_thread")]
+async fn exact_batch_keeps_distinct_direct_apply_and_observer_occurrences_with_equal_messages() {
+    let runtime = Runtime::new();
+    runtime
+        .run(async {
+            let (finished, completion) = tokio::sync::oneshot::channel();
+            let finished = Rc::new(RefCell::new(Some(finished)));
+            let mut catalog = Catalog::new();
+            catalog
+                .register(
+                    "worker",
+                    Plugin::new("worker", move |ctx, _: u32| {
+                        let finished = finished.clone();
+                        async move {
+                            ctx.on_update::<u32, _, _, io::Error>(move |_, _, _| {
+                                let finished = finished.clone();
+                                async move {
+                                    finished.borrow_mut().take().unwrap().send(()).unwrap();
+                                    Err::<bool, _>(io::Error::new(
+                                        io::ErrorKind::BrokenPipe,
+                                        "same-message",
+                                    ))
+                                }
+                            })?;
+                            Ok::<_, BoxError>(())
+                        }
+                    }),
+                )
+                .unwrap();
+            let root = runtime.context();
+            let loader = Loader::new(&root, catalog).unwrap();
+            let id = loader
+                .create(EntrySpec::new("worker", Config::new(1u32)).id("a"))
+                .unwrap();
+            loader.settle().unwrap().await.unwrap();
+            drop(
+                loader
+                    .update(&id, EntrySpec::new("worker", Config::new(2u32)))
+                    .unwrap(),
+            );
+            completion.await.unwrap();
+            drop(loader.settle().unwrap());
+            root.on(
+                &loader.commits(),
+                Listener::sync(|_, _: re_cordis_loader::CommitRecord| {
+                    Err::<ControlFlow<()>, _>(io::Error::new(
+                        io::ErrorKind::NotFound,
+                        "same-message",
+                    ))
+                }),
+            )
+            .unwrap();
+            let failed = Plugin::new("failed", |_, _: u32| async {
+                Err::<(), _>(io::Error::new(
+                    io::ErrorKind::PermissionDenied,
+                    "same-message",
+                ))
+            });
+            let report = loader
+                .replace_factory("worker", failed)
+                .unwrap()
+                .await
+                .unwrap();
+            let mut causes: Vec<_> = report
+                .failures
+                .iter()
+                .map(|failure| {
+                    let error = original_io_error(&failure.error);
+                    (
+                        failure.id.as_str(),
+                        format!("{:?}", error.kind()),
+                        error.to_string(),
+                    )
+                })
+                .collect();
+            causes.sort();
+            assert_eq!(
+                causes,
+                [
+                    ("a", "BrokenPipe".into(), "same-message".into()),
+                    ("a", "NotFound".into(), "same-message".into()),
+                    ("a", "PermissionDenied".into(), "same-message".into()),
+                ]
+            );
+            let later = loader.settle().unwrap().await.unwrap();
+            assert_eq!(later.failures.len(), 1);
+            assert_eq!(
+                original_io_error(&later.failures[0].error).kind(),
+                io::ErrorKind::PermissionDenied
+            );
+            loader.dispose().unwrap().await.unwrap();
+        })
+        .await
+        .unwrap();
+}
