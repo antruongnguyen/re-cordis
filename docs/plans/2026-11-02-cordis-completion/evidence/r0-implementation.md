@@ -51,7 +51,7 @@ defines/enables its local `include` feature so the copied test gate runs.
 | Test | What it establishes |
 |---|---|
 | `provider_move_keeps_exact_old_binding_and_sibling_progress` | Actually moves the provider from left to right isolation via Include, preserving logical EntryId and rebuilding Fiber; holds old injecting consumer cleanup; proves pointer-exact old provider remains callable/alive until release; unrelated sibling config and owned timer progress before release; left consumer becomes Pending, then a supported consumer move obtains the new provider; source move persists. |
-| `linked_replacement_and_distinct_failure_channels_recover` | Linked ReloadPlan candidates preserve EntryId/file bytes while FactoryId changes; apply failure 201 reaches Report and Runtime with the same original error pointer; update middleware failure 202 reaches its operation and Runtime with the same pointer; distinct failures each appear once; explicit recovery restores Active; malformed bytes reach watcher history with the original serde_json error and recover without a parser Runtime diagnostic. |
+| `linked_replacement_and_distinct_failure_channels_recover` | Linked ReloadPlan candidates preserve EntryId/file bytes while FactoryId changes; direct service calls return v2:1, recovered v3:1 and updated v3:5; Include settlement verifies the consumer uses that updated exact provider; apply failure 201 reaches Report and Runtime with the same original error pointer; update middleware failure 202 reaches its operation and Runtime with the same pointer; distinct failures each appear once; explicit recovery restores Active; malformed bytes reach watcher history with the original serde_json error and recover without a parser Runtime diagnostic. |
 | `shutdown_joins_pending_work_and_persists_journal` | With admitted watched refresh, owned timers/unread stream, a held consumer cleanup, a queued follow-up and pending journal, cancellation differs from join; ancestor flush persists the admitted entry before child release; the canceled refresh is retained once with its Include/loader cause and source location. |
 | `shutdown_preserves_distinct_io_and_cleanup_failures` | The same pending shutdown preserves malformed source bytes and final_error/pending journal instead of overwriting them; original cleanup error 301 and original parser write error each reach Runtime once; nested root CleanupReport remains empty as accepted core channels specify. |
 | `hundred_composed_lifecycles_restore_baselines_and_captures` | 100 deterministic full boots/config edits/linked replacements/flushes/disposals restore root effect/Registry and service baselines; post-shutdown event dispatch invokes no old consumer listener; provider, writer, catalog, watcher callback and timer captures release at their documented barriers. |
@@ -124,6 +124,18 @@ The separate loader correction passes 91 Rust tests and two Rustdoc checks and
 strict all-target Clippy on both toolchains; see its report. Long logs/builds
 are under `target/r0-implementation/`, not committed. Full shared
 workspace/M0/docs/parity/external-app acceptance remains the controller's work.
+
+## Observable behavior oracle strengthening
+
+After application commit `2023e56`, the replacement oracle adds concrete
+published-provider calls for `v2:1`, recovered `v3:1`, and config-updated
+`v3:5`. It awaits Include settlement before asserting the injecting consumer
+uses the updated provider: the direct provider update waiter does not imply
+dependent readiness. All seven focused tests pass again on both toolchains,
+and stable formatting passes. Commands/exits are in
+`target/r0-implementation/app-behavior-stages.json`; logs are
+`app-behavior-{stable,1.85.0}.log`. The application/example implementation is
+unchanged from the eight-stage verified milestone.
 
 ## Boundaries
 

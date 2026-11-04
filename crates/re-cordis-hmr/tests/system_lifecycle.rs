@@ -107,6 +107,17 @@ async fn linked_replacement_and_distinct_failure_channels_recover() -> Result<()
             let replaced = app.replace("v2", None)?.await?;
             assert!(replaced.failures.is_empty());
             assert!(!replaced.changed);
+            assert_eq!(
+                app.probe
+                    .providers
+                    .borrow()
+                    .last()
+                    .unwrap()
+                    .upgrade()
+                    .unwrap()
+                    .call()?,
+                "v2:1"
+            );
             assert_eq!(app.entry("provider").id, before.id);
             assert_ne!(app.entry("provider").factory_id, before.factory_id);
             assert_eq!(std::fs::read(directory.0.join("cordis.json"))?, bytes);
@@ -125,6 +136,32 @@ async fn linked_replacement_and_distinct_failure_channels_recover() -> Result<()
             assert!(app.replace("v3", None)?.await?.failures.is_empty());
             assert_eq!(app.entry("provider").state, EntryState::Active);
             assert_eq!(app.entry("consumer").state, EntryState::Active);
+            assert_eq!(
+                app.probe
+                    .providers
+                    .borrow()
+                    .last()
+                    .unwrap()
+                    .upgrade()
+                    .unwrap()
+                    .call()?,
+                "v3:1"
+            );
+            app.include
+                .edit("provider", JsonEdit::new().set("config", json!(5)))?
+                .await?;
+            assert!(app.include.settle()?.await?.failures.is_empty());
+            let updated = app
+                .probe
+                .providers
+                .borrow()
+                .last()
+                .unwrap()
+                .upgrade()
+                .unwrap();
+            assert_eq!(updated.call()?, "v3:5");
+            assert_eq!(app.probe.consumers.borrow().last(), Some(&updated.serial));
+            drop(updated);
 
             let rejected = app
                 .include
