@@ -1,0 +1,12 @@
+[package]
+name = "re-cordis-create"
+description = "Offline Cargo application scaffolding for re-cordis"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+publish = false
+
+[lints]
+workspace = true

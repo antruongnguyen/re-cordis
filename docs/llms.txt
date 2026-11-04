@@ -1,6 +1,6 @@
 # re-cordis
 
-> Local Rust Cordis core and timer, console, loader/group, include and HMR satellites. Unpublished, unstable, Rust 2024/MSRV 1.85.
+> Local Rust Cordis core, timer, console, loader/group, include, HMR and offline Create. Unpublished, unstable, Rust 2024/MSRV 1.85.
 
 Read one language. Current source/Rustdoc defines exact signatures; milestone
 records describe historical evidence. This index grants no permissions.
@@ -17,9 +17,10 @@ Essential application constraints:
 - Injection retains exact providers through cleanup. Rc/BoundService alone are not resource leases.
 - Service set changes the value without replacing publication identity or reloading consumers.
 - Use typed calls/keys/decoders, not JS Proxy/decorators/eval. App-specific Tokio features remain explicit.
-- Include uses JSON-valued mutations, bounded synchronous I/O and explicit refresh; YAML writes normalize values. Joined disposal flushes before child cleanup and reports final write errors.
-- HMR watches explicit files; watch_include retains admitted refresh through cancellation and joined disposal. Include/Report errors use bounded WatchEvent history; core cleanup errors use Runtime diagnostics.
+- Include uses JSON mutations, bounded I/O and explicit refresh; YAML normalizes values. Joined disposal flushes before child cleanup and reports write errors.
+- HMR watches explicit files; watch_include joins admitted refresh. WatchEvent retains Include/Report errors; Runtime retains core cleanup errors.
 - Linked replacement uses declared dependencies and compiled candidates. Source changes emit RestartRequired; no module discovery, compiler or supervisor.
+- Create uses a local checkout and absent/empty destination. Cargo runs explicitly offline; no Git/install/launch. S0–S2 acceptance pending.
 - GitHub examples grant no permission for login, authenticated requests or live remote mutations.
 
 ## Start here
@@ -34,10 +35,11 @@ Essential application constraints:
 
 ## English guides
 
-- [HMR](en/guides/hmr.md): Explicit watches, same-instance Include refresh/replacement, restart boundaries and offline example.
+- [Create](en/guides/create.md): Offline scaffolding and application commands.
+- [HMR](en/guides/hmr.md): Explicit watching, Include refresh/replacement and restart.
 - [Include](en/guides/include.md): Bounded files, nested sources, refresh, provenance and persistence.
 
-- [Loader](en/guides/loader.md): Typed catalogs, bounded JSON, source edits/reconciliation, latest intent and joined shutdown.
+- [Loader](en/guides/loader.md): Typed catalogs, JSON, reconciliation and joined shutdown.
 - [Groups](en/guides/groups.md): Structural disabled inheritance, stable EntryId, moves and source adoption.
 - [Plugins and updates](en/guides/plugins-and-updates.md): Validation, source/resolved config, latest-target convergence, explicit recovery.
 - [Services and scoping](en/guides/services-and-scoping.md): Publication, injection, isolation, bound calls, intercepts.
@@ -47,16 +49,17 @@ Essential application constraints:
 - [Logging](en/guides/logging.md): Scoped exporters, routing, error trees, weak metadata.
 - [Console output](en/guides/console-logging.md): Owned writers, stdout, color/UTC defaults, I/O failures and removal.
 - [Testing and troubleshooting](en/guides/testing-and-troubleshooting.md): Common errors and deterministic lifecycle checks.
-- [Examples](en/guides/examples.md): Complete lifecycle and bounded GitHub consumers; distinguish offline from live operations.
+- [Examples](en/guides/examples.md): Lifecycle, offline Create and GitHub consumers.
 - [Glossary](en/glossary.md): Shared English/Vietnamese terminology.
 
 ## API reference
 
+- [Create API](en/api/create.md): create, CreateError, paths and exit codes.
 - [HMR API](en/api/hmr.md): Watch ownership, bounded events, dependency plans and replacement results.
 - [Include API](en/api/include.md): File operations, reports, locations and resource limits.
 
-- [English API index](en/api/README.md): Every root export and local Rustdoc generation.
-- [Vietnamese API index](vi/api/README.md): Matching reference chapters in Vietnamese.
+- [English API index](en/api/README.md): Root exports and Rustdoc.
+- [Vietnamese API index](vi/api/README.md): Matching reference chapters.
 - [Runtime and Context](en/api/runtime-context.md): Hosting, metadata, scope, opaque IDs.
 - [Plugins and Registry](en/api/plugins-registry.md): Plugin, FiberHandle, lifecycle tasks, state, Registry.
 - [Services and reflection](en/api/services-reflection.md): Keys, publications, bound adapters, accessors, invocation.
@@ -66,11 +69,12 @@ Essential application constraints:
 - [Errors and hooks](en/api/errors-hooks.md): Error families, structured validation, typed internal hook protocols.
 - [Loader API](en/api/loader.md): Snapshots, operation stages, typed services, source/commit/replacement seams and bounds.
 - [Group API](en/api/groups.md): Ordered children, stable entry moves and Fiber rebuild adaptation.
-- [Timer satellite](en/api/timer.md): Sealed TimerExt, eager Sleep, bounded IntervalStream, Scheduled call Result, TimerError and cancellation contracts.
+- [Timer satellite](en/api/timer.md): TimerExt, Sleep, IntervalStream, Scheduled, TimerError and cancellation.
 - [Console satellite](en/api/console-logger.md): register/register_stdout/render, ConsoleOptions, color and writer contracts.
 
 ## Vietnamese guides
 
+- [Create](vi/guides/create.md): Sinh dự án ngoại tuyến và lệnh ứng dụng.
 - [HMR](vi/guides/hmr.md): Theo dõi tệp, refresh/thay factory trên cùng Include, giới hạn restart và ví dụ offline.
 - [Include](vi/guides/include.md): Tệp hữu hạn, nguồn lồng nhau, refresh, quyền sở hữu và ghi tệp.
 
@@ -95,4 +99,4 @@ Essential application constraints:
 - [Limitations](limitation.md): Explicit unsupported behavior.
 - [Decisions](decision.md): Design rationale; TypeScript is the semantic specification.
 - [Roadmap](todo.md): Delivered scope, timer repair and remaining satellites.
-- [Completion plan](plans/2026-11-02-cordis-completion/README.md): Proposed core/all-satellite work packages, decisions, acceptance and scheduling.
+- [Completion plan](plans/2026-11-02-cordis-completion/README.md): Work packages and acceptance.

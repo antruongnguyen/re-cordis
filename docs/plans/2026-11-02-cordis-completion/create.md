@@ -24,6 +24,15 @@ and installs/runs an application, and stages Yarn binaries. Rust needs Cargo
 application generation; npm metadata/Yarn staging are explicit non-applicable
 mechanisms. Transport failures remain relevant if remote templates are offered.
 
+## Selected offline S0–S2 execution (2026-11-04)
+
+The user selected one bundled basic Cargo application with explicit local checkout
+dependencies, no remote templates and no automatic Git/install/run behavior.
+The [concrete contract and execution plan](evidence/create-contract.md) governs
+this slice; the [14-declaration source map](evidence/create-source-map.md) keeps
+unselected transport/Yarn behavior separate from execution evidence.
+Implementation, independent review and shared acceptance remain in progress.
+
 ## S0 — CLI and template gate
 
 **Entry:** C3 and L5 provide the stable-enough application shape for this scope.

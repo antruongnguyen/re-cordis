@@ -36,3 +36,5 @@ API identifiers remain unchanged in both languages.
 | Patch ownership | quyền sở hữu của patch | The actual file/patch location supplying an entry or one key |
 | Pending journal | nhật ký thay đổi chờ ghi | Bounded coalesced runtime changes awaiting persistence |
 | Three-way reconciliation | hòa giải ba phía | Compare the previous source, current file and runtime changes; report conflicts |
+| Scaffolding | sinh khung dự án | Generate a fixed editable application from a local checkout |
+| Staging directory | thư mục staging | Owned sibling directory rendered completely before final rename |

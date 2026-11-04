@@ -78,6 +78,14 @@ def exported_names(source):
     return names
 
 
+def check_create_help(help_text, documentation):
+    """Keep the actual bundled CLI flags visible in the user reference."""
+    options = set(re.findall(r"--[a-z][a-z-]*", help_text))
+    require(options, "No Create CLI options discovered")
+    for option in sorted(options):
+        require(option in documentation, f"Create CLI option not documented: {option}")
+
+
 def check_structure():
     english = {path.relative_to(DOCS / "en") for path in (DOCS / "en").rglob("*.md")}
     vietnamese = {path.relative_to(DOCS / "vi") for path in (DOCS / "vi").rglob("*.md")}
@@ -128,6 +136,9 @@ def check_structure():
     hmr_source = (ROOT / "crates/re-cordis-hmr/src/lib.rs").read_text(encoding="utf-8")
     hmr_exports = exported_names(hmr_source)
     require(hmr_exports, "No public HMR exports discovered")
+    create_source = (ROOT / "crates/re-cordis-create/src/lib.rs").read_text(encoding="utf-8")
+    create_exports = exported_names(create_source)
+    require(create_exports, "No public Create exports discovered")
     hooks = (ROOT / "crates/re-cordis-core/src/hooks.rs").read_text(encoding="utf-8")
     payloads = re.findall(r"^pub struct (\w+)", hooks, re.M)
     functions = re.findall(r"^pub fn (\w+)", hooks, re.M)
@@ -136,7 +147,7 @@ def check_structure():
         chapters = "\n".join(path.read_text(encoding="utf-8")
                              for path in (DOCS / language / "api").glob("*.md")
                              if path.name != "README.md")
-        for name in exports | timer_exports | logger_exports | loader_exports | include_exports | hmr_exports:
+        for name in exports | timer_exports | logger_exports | loader_exports | include_exports | hmr_exports | create_exports:
             require(f"`{name}`" in index, f"{language}: export not indexed: {name}")
             require(re.search(rf"\b{re.escape(name)}\b", chapters),
                     f"{language}: export not covered in a chapter: {name}")
@@ -157,7 +168,7 @@ def check_structure():
     print(f"Checked {len(english)} page pairs, {len(exports)} root exports, "
           f"{len(timer_exports)} timer exports, {len(logger_exports)} logger exports, "
           f"{len(loader_exports)} loader exports, {len(include_exports)} include exports, "
-          f"{len(hmr_exports)} HMR exports, "
+          f"{len(hmr_exports)} HMR exports, {len(create_exports)} Create exports, "
           f"{len(payloads)} hook payloads, {len(functions)} hooks, local links and llms.txt.")
     require(snippets, "No runnable Rust documentation examples found")
     return snippets
@@ -185,10 +196,10 @@ def run_examples(toolchain, snippets):
     # Build delivered satellites and collect their explicit snippet libraries.
     # Cargo supplies their transitive dependencies through the dependency path.
     wanted = {"re_cordis_core", "re_cordis_timer", "re_cordis_logger", "re_cordis_loader",
-              "re_cordis_include", "re_cordis_hmr", "serde_json", "tokio", "futures_util"}
+              "re_cordis_include", "re_cordis_hmr", "re_cordis_create", "serde_json", "tokio", "futures_util"}
     output = run([tools["cargo"], "build", "-p", "re-cordis-timer",
                   "-p", "re-cordis-logger", "-p", "re-cordis-loader",
-                  "-p", "re-cordis-include", "-p", "re-cordis-hmr",
+                  "-p", "re-cordis-include", "-p", "re-cordis-hmr", "-p", "re-cordis-create",
                   "--features", "re-cordis-hmr/include", "--lib", "--offline", "--locked",
                   "--message-format=json"], env)
     libraries = {}
@@ -230,6 +241,46 @@ def run_examples(toolchain, snippets):
         run([tools["cargo"], "run", "--manifest-path", str(folder / "Cargo.toml"),
              "--offline", "--quiet"], env)
     print(f"Passed actual quick-start dependency manifest on {toolchain}.")
+
+    create_command = [tools["cargo"], "run", "-p", "re-cordis-create", "--offline", "--locked", "--"]
+    help_text = run([*create_command, "--help"], env)
+    for language in ("en", "vi"):
+        documentation = "\n".join(
+            (DOCS / language / f"{part}/create.md").read_text(encoding="utf-8")
+            for part in ("guides", "api")
+        )
+        check_create_help(help_text, documentation)
+    with tempfile.TemporaryDirectory(prefix="cordis-create-docs-") as directory:
+        destination = Path(directory) / "ứng dụng có khoảng trắng"
+        run([*create_command, "cordis-created-app", "--path", str(destination),
+             "--cordis-path", str(ROOT)], env)
+        expected = {"Cargo.toml", "src/main.rs", "src/app.rs", "README.md", ".gitignore"}
+        actual = {p.relative_to(destination).as_posix()
+                  for p in destination.rglob("*") if p.is_file()}
+        require(actual == expected, f"Unexpected Create file set: {actual}")
+        manifest_path = str(destination / "Cargo.toml")
+        metadata = json.loads(run([tools["cargo"], "metadata", "--manifest-path", manifest_path,
+                                   "--no-deps", "--format-version=1", "--offline"], env))
+        require(Path(metadata["workspace_root"]).resolve() == destination.resolve(),
+                "Generated application inherited a different workspace")
+        package = next(p for p in metadata["packages"] if p["name"] == "cordis-created-app")
+        require(package["version"] == "0.0.0" and package["edition"] == "2024" and package["rust_version"] == "1.85"
+                and package["publish"] == [], "Generated application package policy drifted")
+        for name in ("core", "logger", "loader"):
+            dependency = next(d for d in package["dependencies"] if d["name"] == f"re-cordis-{name}")
+            require(Path(dependency["path"]).resolve() == ROOT / f"crates/re-cordis-{name}",
+                    f"Incorrect generated path dependency: {name}")
+        for command in ("build", "test", "run"):
+            # First build resolves an external lockfile using cached dependencies.
+            args = [tools["cargo"], command, "--manifest-path", manifest_path, "--offline"]
+            if command != "build":
+                args.append("--locked")
+            output = run(args, env)
+            print(f"Generated application {command} on {toolchain}:\n{output.strip()}")
+        run([tools["cargo"], "clippy", "--manifest-path", manifest_path,
+             "--all-targets", "--offline", "--locked", "--", "-D", "warnings"], env)
+        run([tools["cargo"], "fmt", "--manifest-path", manifest_path, "--check"], env)
+    print(f"Passed Create CLI, exact files, Cargo metadata and external application on {toolchain}.")
 
 
 if __name__ == "__main__":

@@ -9,12 +9,14 @@
 | AI agents | [llms.txt](llms.txt) |
 
 These pages describe the current **unpublished, unstable `re-cordis-core`,
-`re-cordis-timer`, `re-cordis-logger`, `re-cordis-loader`, `re-cordis-include` and `re-cordis-hmr`** APIs.
+`re-cordis-timer`, `re-cordis-logger`, `re-cordis-loader`, `re-cordis-include`,
+`re-cordis-hmr` and selected offline `re-cordis-create`** APIs.
 They are organized by user tasks, not implementation milestones. Both language
 trees have matching paths, equivalent explanations, and identical executable
 code. Each page links to its counterpart.
 
-Các trang này mô tả API **`re-cordis-core`, `re-cordis-timer`, `re-cordis-logger`, `re-cordis-loader`, `re-cordis-include` và `re-cordis-hmr` chưa phát hành,
+Các trang này mô tả API **`re-cordis-core`, `re-cordis-timer`, `re-cordis-logger`, `re-cordis-loader`, `re-cordis-include`, `re-cordis-hmr` và `re-cordis-create`
+ngoại tuyến đã chọn chưa phát hành,
 chưa ổn định** hiện tại.
 Nội dung tổ chức theo công việc của người dùng, không theo cột mốc triển khai.
 Hai cây ngôn ngữ có đường dẫn tương ứng, diễn giải tương đương và mã chạy giống
@@ -26,7 +28,7 @@ Generate Rustdoc locally with `cargo doc --workspace --no-deps --locked`.
 Open `target/doc/re_cordis_core/index.html` or
 `target/doc/re_cordis_timer/index.html`, `target/doc/re_cordis_logger/index.html`
 or `target/doc/re_cordis_loader/index.html`, `target/doc/re_cordis_include/index.html`,
-`target/doc/re_cordis_hmr/index.html`,
+`target/doc/re_cordis_hmr/index.html`, `target/doc/re_cordis_create/index.html`,
 adjusted for `CARGO_TARGET_DIR`.
 The bilingual reference explains contracts and maps public exports; Rustdoc
 supplies exact signatures and bounds. There is no published docs.rs release.
@@ -68,7 +70,7 @@ Rust/TOML/shell blocks identical; translate explanatory prose and use the paired
 glossary. A new public export must appear in both API indexes and its chapter.
 Add/update the corresponding `llms.txt` entry when reading paths change.
 For each delivered satellite, add paired guide/API coverage and extend the
-checker's core/timer/logger/loader/include/HMR export and snippet-dependency handling. Keep
+checker's core/timer/logger/loader/include/HMR/Create export and snippet-dependency handling. Keep
 planned targets distinct from available APIs; see [the satellite roadmap](todo.md#next-implementation-targets-satellites).
 
 Run the standard-library-only documentation checker (Python 3.9+) from the
@@ -82,7 +84,8 @@ python3 tests/docs/check.py --toolchain 1.85.0
 
 It checks local file links/heading anchors, counterpart navigation, identical
 code blocks, root-export/hook coverage, and the llms.txt structure. It explicitly
-selects compiler/Cargo/rustdoc paths, builds core, timer, logger, loader, include and HMR (with its optional Include adapter) with the committed lockfile
+selects compiler/Cargo/rustdoc paths, builds core, timer, logger, loader, include,
+HMR (with its optional Include adapter) and Create with the committed lockfile
 offline into `target/stable` or `target/msrv`, then compiles and executes each
 unique complete Rust documentation example with warnings denied.
 The identical translated examples share that execution evidence.
@@ -93,8 +96,14 @@ Unchecked Rust attributes and unclosed triple-backtick fences are rejected in
 both languages. The regression checks cover these rejection paths and broken
 local file/heading links.
 
+Create checks run the actual generator through argument arrays, compare documented
+options with live CLI help, verify the five generated files and Cargo metadata,
+then build/test/run the external application and check strict Clippy/formatting
+with each selected toolchain. Dependency resolution is offline. This executes
+the selected local scaffolding path, not remote templates or cross-platform I/O.
+
 This is an opt-in documentation check; it does not modify the existing CI matrix.
-It does not run shell examples, make authenticated requests, install packages,
+Other shell examples are not executed. It does not make authenticated requests, install packages,
 or validate external URLs. If dependencies are missing, the offline build fails
 explicitly; restore required dependencies deliberately before retrying.
 Preserve [the existing acceptance checks](m6.md#verification) for behavior changes.

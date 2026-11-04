@@ -25,6 +25,16 @@ This project does not yet follow semantic versioning — the API is unstable.
 
 ### Added
 
+- Selected Create S0–S2: unpublished stdlib-only `re-cordis-create` crate/binary
+  generates a minimal offline application from local core/logger/loader paths.
+  Names, checkout inputs and destinations are validated; complete sibling staging
+  precedes a single rename with visible I/O/cleanup failures. The application
+  includes hosted typed services/plugins, programmatic configuration, scoped
+  console output, updates and joined shutdown. Paired guide/API and the real
+  generator/external-application documentation checks accompany delivery.
+  Implementation is pending independent acceptance; Git/install/launch,
+  remote templates and Include/HMR variants are outside the selected scope.
+
 - Unpublished `re-cordis-hmr`: bounded explicit file watching with a joined polling
   producer, local debounced callbacks, exact tokens, overflow rescans and visible
   failures; explicit dependency plans select already-linked factory batches.

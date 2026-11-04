@@ -112,7 +112,10 @@ see [include acceptance](plans/2026-11-02-cordis-completion/evidence/include-acc
 HMR H0–H3 watching, linked replacement, optional Include integration and the
 offline example are implemented and independently accepted. The full explicit
 stable/1.85.0 matrix passes; see [HMR acceptance](plans/2026-11-02-cordis-completion/evidence/hmr-acceptance.md).
-Create remains a future target.
+The user's **2026-11-04** direction selects minimal offline Create S0–S2.
+The stdlib-only generator and core/logger/loader application are in delivery,
+pending independent acceptance; see [Create](plans/2026-11-02-cordis-completion/create.md)
+and the [user guide](en/guides/create.md).
 
 The TypeScript specification remains pinned to
 `35fdc969e4b6c48c48ed44717c7a018324e4dd88` in `local/cordis`.
@@ -228,8 +231,13 @@ reload, filesystem persistence and watching are explicitly excluded/deferred.
   the offline example pass the full explicit stable/1.85.0 shared matrix. See
   [acceptance](plans/2026-11-02-cordis-completion/evidence/hmr-acceptance.md).
   Native hot loading and a process supervisor are outside this selected scope.
-- [ ] `create`: consider scaffolding only once public crate names, dependency
-  setup and application layout are sufficiently settled.
+- [ ] `create`: selected offline S0–S2 delivery uses local checkout dependencies,
+  native destination paths, complete sibling staging and a minimal hosted
+  core/logger/loader application. Paired guide/API and actual generator/application
+  checks accompany delivery; independent acceptance is pending. See
+  [work package](plans/2026-11-02-cordis-completion/create.md).
+  Remote templates, archives/cache, Git/install/launch and Include/HMR variants
+  remain unselected.
 
 Do not treat this list as approval to implement all satellites together.
 Publication, API stabilization, public ingress and new external-service
@@ -249,7 +257,8 @@ integrations remain separate scope decisions.
 - [ ] Update matching `docs/en/` and `docs/vi/` guides/API indexes, examples,
   glossary terms as needed, and `docs/llms.txt` in the same slice. Extend
   `tests/docs/check.py` for each delivered crate's exports/snippet dependencies;
-  its current automated export coverage includes core, timer, logger, loader, include and HMR.
+  its current automated export coverage includes core, timer, logger, loader,
+  include, HMR and Create; Create also generates/tests/runs an external application.
 - [ ] Keep `README.md` status/layout/star matrices, `CHANGELOG.md`,
   `docs/todo.md`, `docs/decision.md`, `docs/limitation.md` and `AGENTS.md` accurate.
   Preserve old milestone evidence as historical, not claims of new delivery.
@@ -317,8 +326,8 @@ These consumers are not a generic harness or a new satellite/M7 commitment.
   and explicit limits; no unmeasured performance or universal-winner claim.
 
 See [the documentation map](README.md). These pages document the existing
-unpublished core, timer, logger and loader; the remaining satellite roadmap is future work,
-not an API-stability promise.
+unpublished core, timer, logger, loader/group, Include, HMR and selected offline
+Create contracts; delivery acceptance and API stability remain distinct.
 Maintain both languages and the agent index when public contracts change.
 
 ## Cross-cutting

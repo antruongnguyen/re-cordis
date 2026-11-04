@@ -3,7 +3,8 @@
 [Tiếng Việt](../../vi/api/README.md) | [English home](../README.md)
 
 This reference covers the public exports of `re-cordis-core` and the
-`re-cordis-timer`, `re-cordis-logger`, `re-cordis-loader`, `re-cordis-include` and `re-cordis-hmr` satellites, not their private storage or example-private
+`re-cordis-timer`, `re-cordis-logger`, `re-cordis-loader`, `re-cordis-include`,
+`re-cordis-hmr` and selected offline `re-cordis-create` satellites, not their private storage or example-private
 handles. It describes usage and behavioral contracts; generated Rustdoc is
 authoritative for exact signatures, generic bounds, trait implementations, and
 public fields.
@@ -43,6 +44,7 @@ documented by concern.
 | [Groups](groups.md) | `Group` |
 | [Include](include.md) | `Include`, `IncludeOptions`, `IncludeTask`, `Report`, `JsonEdit`, `Conflict`, `IncludeError`, `Location`, `Owner`, `OwnerKind`, `Ownership`, `ParsedDocument`, `parse_document`, `MAX_BYTES`, `MAX_DEPTH`, `MAX_NODES`, `MAX_STRING_BYTES`, `MAX_FILES`, `MAX_ENTRIES`, `MAX_PATCHES`, `MAX_RETRIES` |
 | [HMR](hmr.md) | `Change`, `ChangeKind`, `FactoryReplacement`, `FileWatcher`, `ReloadNode`, `ReloadPlan`, `SyntheticDelivery`, `SyntheticError`, `SyntheticEvents`, `WatchBackend`, `WatchCapabilities`, `WatchError`, `WatchEvent`, `WatchFailure`, `WatchFailureStage`, `WatchId`, `WatchOptions`, `WatchStats`, `WatchToken` |
+| [Create](create.md) | `create`, `CreateError` |
 
 ## Read method results in two stages
 

@@ -4,7 +4,8 @@
 
 Run these commands from the repository root. Framework integration uses the
 same production core as applications; JSON, HTTP, cryptography, and expanded
-Tokio features in these examples are **dev-dependencies**, not core APIs.
+Tokio features in crate examples are **dev-dependencies**, not core APIs.
+A generated application declares its own dependencies.
 
 ## Lifecycle: the framework tour
 
@@ -101,3 +102,13 @@ The [example](../../../crates/re-cordis-hmr/examples/reload.rs) watches a tempor
 configuration through Include, replaces its compiled factory on the same EntryId,
 verifies later config refresh, reports source RestartRequired and joins shutdown.
 See [HMR](hmr.md#offline-example) for the supported layers and failure channels.
+
+## Create a local application
+
+Use [Create](create.md) to generate the fixed offline core/logger/loader
+application from this checkout, then run its own tests and executable explicitly.
+The [generator](../../../crates/re-cordis-create/src/lib.rs) includes typed
+services/plugins, scoped console output, programmatic configuration, updates
+and joined shutdown. Its generated tests cover release and error channels.
+This is application scaffolding; Include/HMR variants and automatic Git/install/
+launch are outside the selected S0–S2 scope.

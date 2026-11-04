@@ -1,0 +1,17 @@
+[package]
+name = "{{name}}"
+version = "0.0.0"
+edition = "2024"
+rust-version = "1.85"
+publish = false
+license = "MIT"
+
+# This application is independent even when created inside the checkout.
+[workspace]
+resolver = "3"
+
+[dependencies]
+re-cordis-core = { path = {{core}} }
+re-cordis-logger = { path = {{logger}} }
+re-cordis-loader = { path = {{loader}} }
+tokio = { version = "1.48", default-features = false, features = ["rt"] }

@@ -95,6 +95,7 @@ successful shutdown paths.
 
 ## Next
 
+To generate a complete local-checkout application, use [Create](guides/create.md).
 Read [concepts](concepts.md), then [plugins and updates](guides/plugins-and-updates.md).
 For a complete provider/consumer tree, run the repository's existing example:
 

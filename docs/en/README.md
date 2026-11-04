@@ -7,11 +7,14 @@ and resources change over time. `re-cordis` expresses the TypeScript Cordis
 core's semantics through explicit, typed Rust APIs.
 
 The current deliverable is unpublished `re-cordis-core`, `re-cordis-timer`,
-`re-cordis-logger`, `re-cordis-loader`, `re-cordis-include` and `re-cordis-hmr`, version 0.0.0, Rust 2024/MSRV 1.85.
+`re-cordis-logger`, `re-cordis-loader`, `re-cordis-include`, `re-cordis-hmr`
+and selected offline `re-cordis-create`, version 0.0.0, Rust 2024/MSRV 1.85.
 The API is unstable. Loader owns typed source entries and structural groups;
 Include supplies accepted file reads/refresh, ordered patches and reconciled persistence.
 HMR file watching, optional Include refresh and linked replacement are implemented.
-H0–H3 is independently accepted with the full stable/1.85.0 shared matrix. Create remains a future target. Review and explicit toolchain
+H0–H3 is independently accepted with the full stable/1.85.0 shared matrix.
+Create S0–S2 generates a local-checkout application; implementation is pending
+independent acceptance. Review and explicit toolchain
 acceptance are tracked in the [roadmap](../todo.md#next-implementation-targets-satellites).
 This is an explicit Rust API, not transparent JavaScript compatibility.
 
@@ -19,6 +22,7 @@ This is an explicit Rust API, not transparent JavaScript compatibility.
 
 | Your goal | Start here |
 |---|---|
+| Generate a minimal offline application | [Create](guides/create.md) |
 | Build your first application | [Getting started](getting-started.md), then [concepts](concepts.md) |
 | Watch files and replace linked plugins | [HMR](guides/hmr.md) |
 | Read and refresh configuration files | [Include](guides/include.md) |

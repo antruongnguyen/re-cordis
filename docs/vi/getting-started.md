@@ -93,6 +93,7 @@ kết thúc tiến trình và hủy host không phải các nhánh dừng thành
 
 ## Đọc tiếp
 
+Để sinh ứng dụng hoàn chỉnh từ checkout cục bộ, dùng [Create](guides/create.md).
 Đọc [khái niệm](concepts.md), sau đó [plugin và cập nhật](guides/plugins-and-updates.md).
 Để xem cây provider/consumer hoàn chỉnh, chạy ví dụ sẵn có của repository:
 

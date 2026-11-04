@@ -865,3 +865,42 @@ native ABI loading are outside H0–H3. H0–H3 is independently accepted with
 [full shared verification](plans/2026-11-02-cordis-completion/evidence/hmr-acceptance.md)
 on stable and 1.85.0. Exact replacement failures preserve distinct occurrences;
 read-error coalescing begins only after successful ingress admission.
+
+## Create offline scaffolding
+
+The user's 2026-11-04 selection is minimal offline S0–S2. The unpublished
+`re-cordis-create` library/binary generates one useful Rust application from
+a local checkout, using the accepted core, console logger and loader.
+The [work package](plans/2026-11-02-cordis-completion/create.md) records the
+selected slice and acceptance progress; the
+[source map](plans/2026-11-02-cordis-completion/evidence/create-source-map.md)
+records upstream dispositions. No core hosting contracts are reopened.
+
+- **Rust representation:** a synchronous `create` function with `Path` inputs,
+  contextual `CreateError` and a small native-argument CLI replaces interactive
+  JavaScript/package-manager scaffolding. The generator uses only std, runs
+  no subprocess and requires no framework host.
+- **Dependency choice:** unpublished `0.0.0` Cordis crates use validated canonical
+  absolute Unicode checkout paths with TOML escaping. Validation checks this
+  repository's literal manifest/layout spelling, not arbitrary Cargo TOML or source. An empty application `[workspace]`
+  prevents accidental membership in an enclosing workspace. Rust 2024/MSRV 1.85
+  and unpublished status remain explicit. Dependency installation and lockfile
+  creation happen only through the user's subsequent Cargo commands.
+- **Application contract:** a current-thread Tokio entry point drives the existing
+  local Runtime, typed service/plugin configuration, scoped console output,
+  loader updates and explicit joined shutdown. The generated program checks
+  operation errors, cleanup reports and runtime diagnostics; meaningful tests
+  verify resource release and error channels.
+- **Filesystem choice:** validate name/checkout/destination before rendering all
+  five files in an owned sibling staging directory, recheck destination and
+  commit through one rename. Destinations are absent or empty ordinary
+  directories, their parents already exist, and failed staging cleanup is visible.
+  This is a narrow local operation, not a hostile-filesystem confinement or
+  power-loss durability protocol; empty-directory rename behavior is platform-dependent.
+- **Deferred scope:** remote templates, downloaders, archives/cache, Git/install/
+  launch options and Include/HMR templates are unselected. They are separate
+  product choices, not inherent Rust limitations.
+- **Evidence:** paired guides/API and documentation checks execute the actual
+  generator and generated application offline using both explicit toolchains.
+  Runtime filesystem evidence is macOS only. Independent acceptance is pending;
+  existing core and satellite acceptance retains its original scope.

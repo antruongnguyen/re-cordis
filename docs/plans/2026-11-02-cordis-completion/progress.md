@@ -12,7 +12,7 @@ The [saved handoff](evidence/hmr-resume/README.md) remains historical evidence.
 All 34 shared matrix stages pass on explicit stable/1.85.0; see
 [final acceptance](evidence/hmr-acceptance.md).
 
-- Current user-selected execution: HMR H0–H3, starting from clean checkpoint 47042d9 on feat/cordis-completion. Include I0–I4 at 0a2df1e and loader at 101f37b remain accepted prerequisites. Fresh sol/high implementation and astra/high independent review use serialized file ownership. Create S0–S2 and whole-program R0/R1 stay unselected; no push or publication.
+- Current user-selected execution (2026-11-04): minimal offline Create S0–S2 from clean 8124fed on feat/cordis-completion. HMR acceptance 4c8f423 and executable 55a55d1, Include I0–I4 at 0a2df1e and loader at 101f37b remain accepted prerequisites. Fresh sol/high implementation/documentation and astra/high independent review use serialized file ownership. No remote templates, standalone B1, CI/platform expansion, R0/R1, push or publication.
 
 - Current engineering direction (2026-11-03): prioritize usable Cordis features and idiomatic Rust contracts; see [the decision](../../decision.md#2026-11-03--deliver-cordis-features-through-idiomatic-rust-contracts). Keep initial design bounded, implement with tests/examples, then assess the working feature. Record deliberate differences and actual limitations; do not turn all B0 gaps into a prerequisite or mechanically reproduce TS mechanisms.
 - Authorized 2026-11-02: local recommended scope in all 35 packages, including routine design gates resolved by independent planning/review. R1 ends in a proposal. No push, publication, deployment, credentials, or live integrations.
@@ -63,9 +63,9 @@ All 34 shared matrix stages pass on explicit stable/1.85.0; see
 | H1 | done | H0, I1 | sol/high implementation; astra/high independent acceptance | integration | 55a55d1 | accepted; H1-R4 fixed; full shared matrix passes | evidence/hmr-acceptance.md |
 | H2 | done | H0 | sol/high corrections; astra/high independent acceptance | integration | 0e8d306 | accepted; H2-R1/R2/R3 addressed | evidence/hmr-h2-accepted-review.md |
 | H3 | done | H1, H2, I4 | sol/high implementation; astra/high independent acceptance | integration | 77b50b5 + 55a55d1 | accepted; 10 integration tests; HMR 56/45 and full matrix pass | evidence/hmr-acceptance.md |
-| S0 | planned | C3, L5 | unassigned | integration | — | not started | evidence/S0/ |
-| S1 | planned | S0 | unassigned | integration | — | not started | evidence/S1/ |
-| S2 | planned | S1 | unassigned | integration | — | not started | evidence/S2/ |
+| S0 | in_review | C3, L5 | parent contract; sol/high implementation | integration | — | contract selected; final review pending | evidence/create-contract.md |
+| S1 | in_review | S0 | sol/high implementation; parent verification | integration | — | 17 package tests +5 external-app tests per toolchain pass; independent review pending | evidence/create-implementation.md |
+| S2 | in_progress | S1 | sol/high docs; parent checker/evidence; astra/high review pending | integration | — | source dispositions drafted; acceptance pending | evidence/create-source-map.md |
 | R0 | planned | T5, C3, L5, G1, I4, H3, S2 | unassigned | integration | — | not started | evidence/R0/ |
 | R1 | planned | R0 | unassigned | integration | — | not started | evidence/R1/ |
 
@@ -314,3 +314,5 @@ independent acceptance; no active B0 blocker or worker remains.
 - 2026-11-04 CP094: HMR H0–H3 accepted at source 55a55d1. All 34 shared stages pass: 486 workspace, 21 M0 and 45 default-HMR checks per toolchain; six examples, strict Clippy/Rustdoc, paired docs and existing core/loader traces pass. All 152 executable inputs match the freeze; pinned TS remains clean. Independent H2 and H1/H3 reviews close all R1–R4 findings. Final edits close status, checklists and acceptance only; no create, R0/R1, push or publication.
 
 - 2026-11-04 CP095: Final status-only verification passes both documentation toolchains (31 pairs, 19 HMR exports, 13 snippets and external quick start), seven checker regressions, 21 HMR plan/evidence link/fence checks and all 152 unchanged executable fingerprints. H0–H3 are done; B1, S0–S2 and R0/R1 remain planned. The closing local commit includes the accepted H1/H3 review and final acceptance record; no source changed after matrix revision55a55d1 and no push/publication was performed.
+
+- 2026-11-04 CP096: Create S0/S1 implemented from clean8124fed using fresh sol/high workers with disjoint code/docs ownership. The stdlib-only generator and one basic Cargo app pass17 package tests and5 generated app tests per explicit stable1.97.1/1.85.0, including100 lifecycle cycles and original error/resource checks. Parent reruns both documentation checkers (33pairs/2Create exports/13snippets/quickstart/generated app), verifies freeze hashes and8 checker regressions. Pre-freeze input defects are reproduced and corrected. This is a verified implementation checkpoint; fresh independent review and the full S2 shared matrix remain. No prerequisite production change or push/publication.

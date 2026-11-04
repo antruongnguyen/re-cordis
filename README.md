@@ -49,6 +49,12 @@ meta-framework for spatiotemporal composability.
 > matrix passes 486 workspace checks per toolchain.
 > See the [HMR guide](docs/en/guides/hmr.md) and
 > [acceptance evidence](docs/plans/2026-11-02-cordis-completion/evidence/hmr-acceptance.md).
+> The selected **re-cordis-create** S0–S2 supplies offline scaffolding from a local
+> checkout, with a hosted application using core, console logger and loader.
+> It performs no Git/install/launch subprocess or network operation.
+> Implementation is pending independent acceptance; see the
+> [Create guide](docs/en/guides/create.md) and
+> [work package](docs/plans/2026-11-02-cordis-completion/create.md).
 > See [loader](docs/en/guides/loader.md) and [groups](docs/en/guides/groups.md), then
 > [the ordered roadmap](docs/todo.md#next-implementation-targets-satellites).
 > The [timer acceptance report](docs/plans/2026-11-02-cordis-completion/evidence/timer-acceptance.md)
@@ -131,7 +137,7 @@ worse engineering.
 | Automatic parent/child teardown | **★★★** Parent-owned children and reusable root drains follow the TS model; drains are snapshots, not global shutdown barriers. | **★★★** Parent cascade and reusable root disposal; applications must still await asynchronous cleanup. | **☆☆☆** Independent Fiber lifetimes can outlive their spawn origin instead; applications must arrange collective teardown explicitly. |
 | Concurrent independent cleanup | **★★★** Concurrent top-level cleanup avoids imposing a global sequential dependency; sibling completion order is not guaranteed. Composed cleanup is reverse sequential. | **★★★** Concurrent top-level disposal and reverse sequential composed effects; Promise completion must be handled explicitly. | **☆☆☆** Strict sequential reverse-commit, attempt-all cleanup instead gives a fixed order; later cleanups wait for earlier ones. |
 | Original callback-error inspection | **★★★** Preserves original Rust error sources and explicit cause/aggregate trees; callers must inspect operation results and cleanup reports. | **★★★** Retains native Error objects and cause/aggregate behavior; JavaScript formatting and reflective error handling do not translate transparently to Rust. | **★☆☆** Operation-specific typed failures retain callback kind/diagnostic text; normalized callback failures do not expose the original error object for downcasting. |
-| Ready-to-adopt package breadth | **★☆☆** Unpublished core plus timer, console-exporter, loader/group and include satellites, MSRV 1.85, and application examples; explicit watch/linked replacement HMR is accepted within its documented Rust scope; no stable API. | **★★★** Broader timer, loader, console-logger and other JS packages; the reviewed core is an unstable release candidate. | **★★☆** Versioned facade, core, timer and declarative loader crates; requires Rust 1.88 and remains pre-1.0. |
+| Ready-to-adopt package breadth | **★☆☆** Unpublished core plus timer, console-exporter, loader/group and include satellites, MSRV 1.85, and application examples; explicit watch/linked replacement HMR is accepted; selected offline Create scaffolding is pending acceptance; no stable API. | **★★★** Broader timer, loader, console-logger and other JS packages; the reviewed core is an unstable release candidate. | **★★☆** Versioned facade, core, timer and declarative loader crates; requires Rust 1.88 and remains pre-1.0. |
 | Compatibility evidence (not ranked) | **—** Six executed Rust/TS scenarios compare 73 observations; this is bounded evidence, not full upstream-suite parity. | **—** Behavioral specification and original tests; its JavaScript mechanisms remain the reference, not a Rust API prescription. | **—** Own parity ledger and concurrency/type-checking tests; its ledger targets a different, older TS pin, so classifications are not directly interchangeable. |
 
 **Quick choice:** favor TypeScript Cordis for native JS ergonomics and its wider
@@ -167,7 +173,7 @@ capability. A deliberate redesign can be preferable despite a lower TS-fit score
 | Event routing, snapshots and once | **★★★** Explicit filters/global listeners; selected callback snapshots survive removal. | **★★★ Implemented:** typed filters/global listeners, service-realm filters and TS-style selected snapshots. | **★★☆ Redesigned:** ancestor-or-self Event Scope routing and invocation-time occurrence claims; removal can skip unclaimed delivery. |
 | Core logging | **★★★** Contextual names, exporter levels, default 1000-record buffer, weak Fiber metadata and error flattening. | **★★☆ Implemented/adapter:** buffer, scoped exporters, weak metadata and explicit ErrorValue trees; Rust formatting replaces JS formatters. | **★★☆** Named channels, scoped exporters and opt-in BufferExporter; no default retained log history. |
 | Internal hooks and observations | **★★★** Internal events for plugin/status/service/config/update/get/set/listener/dispatch. | **★★☆ Adapter:** public typed `hooks` payloads and explicit update adapters, with documented observer-error safety differences. | **★★☆ Redesigned:** typed postcommit runtime observations and a separate, non-dispatchable precommit update pipeline. |
-| Timer, console exporter, loader, include and HMR packages | **★★★** Separate JS satellite packages, including timer, loader and HMR. | **★☆☆ Partial:** timer, console-exporter, loader/group and file-backed include behavior are implemented; explicit watch/linked replacement HMR is independently accepted. GitHub consumers are examples, not satellites. | **★★☆** Timer and immutable declarative loader crates plus facade; not a native hot-loading or full JS satellite port. |
+| Timer, console exporter, loader, include, HMR and Create packages | **★★★** Separate JS satellite packages, including timer, loader and HMR. | **★☆☆ Partial:** timer, console-exporter, loader/group and file-backed include behavior are implemented; explicit watch/linked replacement HMR is independently accepted. Selected offline Create uses local checkout dependencies and is pending acceptance. GitHub consumers are examples, not satellites. | **★★☆** Timer and immutable declarative loader crates plus facade; not a native hot-loading or full JS satellite port. |
 | Identity-breaking Fiber replacement | **☆☆☆** No corresponding lifecycle operation at the reviewed TS pin. | **☆☆☆** Not selected; restart/update preserve Fiber identity. | **★★★** Additional `era_swap` operation creates a successor with a fresh Fiber identity. |
 
 Our contracts and evidence are detailed in the [M6 audit](docs/m6.md),
@@ -205,11 +211,11 @@ crates/
   re-cordis-logger    # scoped console output and deterministic rendering
   re-cordis-include   # bounded files, patches, locations and reconciled persistence
   re-cordis-hmr       # explicit file watches and already-linked factory replacement
-  ...
+  re-cordis-create    # offline local-checkout application scaffolding
 ```
 
-`re-cordis-core`, `re-cordis-timer`, `re-cordis-logger`, `re-cordis-loader` and
-`re-cordis-include` and `re-cordis-hmr` exist in the workspace.
+`re-cordis-core`, `re-cordis-timer`, `re-cordis-logger`, `re-cordis-loader`,
+`re-cordis-include`, `re-cordis-hmr` and `re-cordis-create` belong to the workspace.
 The console [guide](docs/en/guides/console-logging.md) includes runnable setup,
 removal and cleanup. The [timer guide](docs/en/guides/timers.md) covers repaired
 admission, deadlines, cancellation and streams. The [loader guide](docs/en/guides/loader.md)
@@ -217,10 +223,12 @@ covers typed loading, updates, source reconciliation and structural groups.
 The [include guide](docs/en/guides/include.md) covers bounded file sources,
 patch ownership, runtime edits and joined flush/shutdown. The [HMR guide](docs/en/guides/hmr.md)
 covers file watching, optional Include refresh, linked replacement and source restart
-boundaries, with a runnable offline example. HMR H0–H3 is independently accepted. Create remains a future target. The
+boundaries, with a runnable offline example. HMR H0–H3 is independently accepted.
+The [Create guide](docs/en/guides/create.md) generates a minimal offline application
+from this checkout; S0–S2 implementation is pending independent acceptance. The
 [ordered roadmap](docs/todo.md#next-implementation-targets-satellites) records
 per-slice source reviews, design gates, tests and bilingual documentation
-requirements. These remaining targets are not delivered crates or a stable API promise.
+requirements. Publication and API stability remain separate scope decisions.
 The [implementation plan](docs/implementation-plan.md) preserves the core's
 source review, Rust design gates, milestone dependencies and acceptance criteria.
 

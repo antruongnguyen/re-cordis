@@ -23,7 +23,12 @@ checks pass on stable and 1.85.0. See
 HMR H0–H3 is implemented and independently accepted: bounded file watching,
 linked replacement, retained Include refresh and joined shutdown. The explicit
 stable/1.85.0 shared matrix passes; see
-`docs/plans/2026-11-02-cordis-completion/evidence/hmr-acceptance.md`. Create remains a future target. The **`re-cordis-timer`** satellite is
+`docs/plans/2026-11-02-cordis-completion/evidence/hmr-acceptance.md`.
+The selected Create S0–S2 adds the unpublished stdlib-only `re-cordis-create`
+crate/binary for offline local-checkout scaffolding; implementation is pending
+independent acceptance. See `docs/plans/2026-11-02-cordis-completion/create.md`
+and `docs/en/guides/create.md`.
+The **`re-cordis-timer`** satellite is
 delivered (unpublished `crates/re-cordis-timer`: owner-scoped timeout, sleep,
 interval/stream, throttle and debounce over core effects, via a sealed
 `TimerExt` trait; the `tokio` `time`/`macros` features live in the timer crate,
@@ -46,7 +51,8 @@ work packages and scheduling gates. See `docs/todo.md` for source review,
 per-slice design gates and documentation acceptance, and
 `docs/superpowers/specs`/`docs/superpowers/plans` for the timer design and plan.
 The root Rust 2024 workspace contains the unpublished `crates/re-cordis-core`,
-`crates/re-cordis-timer`, `crates/re-cordis-logger`, `crates/re-cordis-loader`, `crates/re-cordis-include` and `crates/re-cordis-hmr` (Rust 1.85 minimum).
+`crates/re-cordis-timer`, `crates/re-cordis-logger`, `crates/re-cordis-loader`, `crates/re-cordis-include`, `crates/re-cordis-hmr`
+and `crates/re-cordis-create` (Rust 1.85 minimum).
 Use `cargo test --workspace`.
 Acceptance, logging, examples and compatibility restrictions are in `docs/m6.md`.
 Isolation/bound-call/update contracts are in `docs/m5.md`;
@@ -112,8 +118,9 @@ in the same change:
 
 Run `python3 -B tests/docs/test_check.py` and the documentation checker for
 explicit stable/1.85.0 toolchains after guide/API changes; see `docs/README.md`.
-Its current export/snippet checks cover core, timer, logger, loader, include and HMR; extend them for each
-new delivered satellite.
+Its current export/snippet checks cover core, timer, logger, loader, include, HMR
+and Create; Create also runs the real generator and external application.
+Extend them for each new delivered satellite.
 
 ## Tooling conventions
 

@@ -212,7 +212,8 @@ integrated framework or resolve every behavioral gap.
 - `re-cordis-core`, `re-cordis-timer`, `re-cordis-logger`, `re-cordis-loader`,
   `re-cordis-include` and `re-cordis-hmr` are implemented within their documented
   Rust scope. Structural Group belongs to loader. HMR H0–H3 is independently
-  accepted with shared stable/1.85.0 verification; create remains future work.
+  accepted with shared stable/1.85.0 verification. Selected offline Create S0–S2
+  is pending independent acceptance; remote scaffolding remains unselected.
   See [the roadmap](todo.md).
 - No stability guarantees — the API will change freely until the core is proven.
 - `spikes/m0` uses separate test-only models: one dependency per lifecycle
@@ -455,3 +456,34 @@ separate delivery evidence from the following chosen boundaries.
   precedes unload. Core dependency-ready mapping/validation can still fail
   afterward. This is not a transaction over arbitrary side effects; failed
   replacement requires explicit update or another candidate to recover.
+
+## Create offline scaffolding
+
+Selected Create S0–S2 supplies a small local-checkout generator, pending
+independent acceptance. See the [guide](en/guides/create.md) and
+[decisions](decision.md#create-offline-scaffolding).
+
+- **Deliberate Rust adaptation:** explicit name/native path arguments and a
+  synchronous Result-based API replace interactive JS/package-manager flows.
+  A fixed core/logger/loader template supplies an application the user edits;
+  this does not emulate every upstream Create option.
+- **Publication boundary:** Cordis crates remain unpublished. Generated canonical
+  absolute path dependencies require the checkout to remain available; moving it
+  requires manifest edits. Canonical dependency paths must be Unicode; destination
+  paths may contain arbitrary OS bytes. Checkout validation recognizes the current
+  literal manifest/layout spelling, not arbitrary TOML or source integrity.
+  Offline Cargo still requires cached third-party
+  dependencies, and dependency restoration is an explicit user operation.
+- **Filesystem boundary:** a destination must be absent or empty, must not be a
+  symlink, and must have an existing parent. Staging and one rename avoid placing
+  a partially rendered template at the final path; an empty-directory rename may
+  fail on a platform/filesystem. Portable metadata/rename operations do not
+  guarantee confinement against hostile parent replacement, protection against
+  every concurrent writer, or durability through power loss.
+- **Deferred capability:** Git initialization, dependency installation,
+  application launch, remote templates/downloaders, archive/cache management and
+  Include/HMR variants are unselected. Rust does not inherently prevent those
+  features; they are outside this minimal delivery.
+- **Missing evidence:** runtime filesystem execution is macOS only. The selected
+  toolchain checks do not establish Linux/Windows execution or a stable published
+  API. Create adds no new cross-language core lifecycle evidence.

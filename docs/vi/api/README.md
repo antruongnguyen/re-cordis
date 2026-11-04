@@ -3,7 +3,7 @@
 [English](../../en/api/README.md) | [Trang tiếng Việt](../README.md)
 
 Tài liệu bao phủ export công khai của `re-cordis-core` và vệ tinh
-`re-cordis-timer`, `re-cordis-logger`, `re-cordis-loader`, `re-cordis-include`, `re-cordis-hmr`, không phải bộ lưu trữ nội bộ hay handle riêng của ví dụ. Nội dung mô tả cách dùng và hợp đồng hành vi;
+`re-cordis-timer`, `re-cordis-logger`, `re-cordis-loader`, `re-cordis-include`, `re-cordis-hmr` và `re-cordis-create` ngoại tuyến đã chọn, không phải bộ lưu trữ nội bộ hay handle riêng của ví dụ. Nội dung mô tả cách dùng và hợp đồng hành vi;
 Rustdoc được sinh từ mã nguồn là tham chiếu chính xác cho chữ ký, ràng buộc
 generic, trait implementation và trường công khai.
 
@@ -41,6 +41,7 @@ chương bên dưới, và export của vệ tinh `re-cordis-timer` được bao
 | [Groups](groups.md) | `Group` |
 | [Include](include.md) | `Include`, `IncludeOptions`, `IncludeTask`, `Report`, `JsonEdit`, `Conflict`, `IncludeError`, `Location`, `Owner`, `OwnerKind`, `Ownership`, `ParsedDocument`, `parse_document`, `MAX_BYTES`, `MAX_DEPTH`, `MAX_NODES`, `MAX_STRING_BYTES`, `MAX_FILES`, `MAX_ENTRIES`, `MAX_PATCHES`, `MAX_RETRIES` |
 | [HMR](hmr.md) | `Change`, `ChangeKind`, `FactoryReplacement`, `FileWatcher`, `ReloadNode`, `ReloadPlan`, `SyntheticDelivery`, `SyntheticError`, `SyntheticEvents`, `WatchBackend`, `WatchCapabilities`, `WatchError`, `WatchEvent`, `WatchFailure`, `WatchFailureStage`, `WatchId`, `WatchOptions`, `WatchStats`, `WatchToken` |
+| [Create](create.md) | `create`, `CreateError` |
 
 ## Đọc kết quả phương thức theo hai giai đoạn
 

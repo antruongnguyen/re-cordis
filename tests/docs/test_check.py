@@ -9,6 +9,14 @@ import check
 
 
 class DocumentationChecks(unittest.TestCase):
+    def test_create_help_options_require_documentation(self):
+        help_text = "re-cordis-create NAME --path DEST --cordis-path CHECKOUT --help"
+        check.check_create_help(help_text, help_text)
+        with self.assertRaisesRegex(ValueError, "--cordis-path"):
+            check.check_create_help(help_text, "re-cordis-create --path --help")
+        with self.assertRaisesRegex(ValueError, "No Create CLI options"):
+            check.check_create_help("", help_text)
+
     def test_satellite_exports_include_generic_functions_and_exclude_private_items(self):
         source = ("pub enum ColorMode {}\n"
                   "pub struct ConsoleOptions {}\n"

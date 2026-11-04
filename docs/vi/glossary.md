@@ -36,3 +36,5 @@ Giữ nguyên định danh API trong cả hai ngôn ngữ.
 | Patch ownership | quyền sở hữu của patch | Vị trí file/patch thực sự cung cấp entry hoặc một khóa |
 | Pending journal | nhật ký thay đổi chờ ghi | Thay đổi runtime đã gộp, có giới hạn và đang chờ lưu |
 | Three-way reconciliation | hòa giải ba phía | So sánh nguồn trước đó, tệp hiện tại và thay đổi runtime; báo xung đột |
+| Scaffolding | sinh khung dự án | Sinh ứng dụng cố định có thể chỉnh sửa từ checkout cục bộ |
+| Staging directory | thư mục staging | Thư mục cùng cha thuộc generator, ghi đủ trước rename cuối |

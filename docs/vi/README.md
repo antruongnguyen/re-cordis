@@ -7,11 +7,14 @@ thay đổi theo thời gian. `re-cordis` biểu diễn ngữ nghĩa của lõi 
 TypeScript bằng API Rust tường minh, có kiểu.
 
 Sản phẩm hiện tại gồm `re-cordis-core`, `re-cordis-timer`, `re-cordis-logger`
-cùng `re-cordis-loader`, `re-cordis-include` và `re-cordis-hmr` chưa phát hành, phiên bản 0.0.0, Rust 2024/MSRV 1.85.
+cùng `re-cordis-loader`, `re-cordis-include`, `re-cordis-hmr` và `re-cordis-create`
+ngoại tuyến đã chọn chưa phát hành, phiên bản 0.0.0, Rust 2024/MSRV 1.85.
 API chưa ổn định. Loader sở hữu nguồn entry có kiểu và group cấu trúc;
 Include có đọc/refresh tệp, patch có thứ tự và persistence có hòa giải đã nghiệm thu.
 HMR đã triển khai theo dõi tệp, refresh Include tùy chọn và thay factory đã liên kết.
-H0–H3 đã được nghiệm thu độc lập và qua đầy đủ ma trận chung stable/1.85.0. Create vẫn là mục tiêu tương lai. Review và nghiệm thu toolchain
+H0–H3 đã được nghiệm thu độc lập và qua đầy đủ ma trận chung stable/1.85.0.
+Create S0–S2 sinh ứng dụng từ checkout cục bộ; triển khai đang chờ nghiệm thu
+độc lập. Review và nghiệm thu toolchain
 tường minh được ghi trong [lộ trình](../todo.md#next-implementation-targets-satellites).
 Đây là API Rust tường minh, không phải lớp tương thích JavaScript trong suốt.
 
@@ -19,6 +22,7 @@ tường minh được ghi trong [lộ trình](../todo.md#next-implementation-ta
 
 | Mục tiêu | Bắt đầu tại |
 |---|---|
+| Sinh ứng dụng ngoại tuyến tối thiểu | [Create](guides/create.md) |
 | Theo dõi tệp và thay plugin đã liên kết | [HMR](guides/hmr.md) |
 | Đọc và refresh tệp cấu hình | [Include](guides/include.md) |
 | Xây dựng ứng dụng đầu tiên | [Bắt đầu sử dụng](getting-started.md), sau đó đọc [khái niệm](concepts.md) |

@@ -4,7 +4,8 @@
 
 Chạy các lệnh từ thư mục gốc repository. Ví dụ dùng cùng production core như
 ứng dụng; JSON, HTTP, mật mã và feature Tokio mở rộng trong ví dụ là
-**dev-dependencies**, không phải API core.
+**dev-dependencies** của ví dụ trong crate, không phải API core.
+Ứng dụng được sinh khai báo dependency riêng.
 
 ## Lifecycle: tổng quan framework
 
@@ -101,3 +102,13 @@ Chạy `cargo run -p re-cordis-hmr --example reload --features include --locked 
 Include, thay factory đã biên dịch trên cùng EntryId, xác nhận refresh cấu hình
 sau đó, báo RestartRequired cho mã nguồn rồi chờ shutdown.
 Xem [HMR](hmr.md#ví-dụ-offline) về các lớp hỗ trợ và kênh lỗi.
+
+## Create: sinh ứng dụng cục bộ
+
+Dùng [Create](create.md) để sinh ứng dụng core/logger/loader ngoại tuyến cố định
+từ checkout này, rồi chạy kiểm thử và executable của ứng dụng tường minh.
+[Generator](../../../crates/re-cordis-create/src/lib.rs) gồm service/plugin
+có kiểu, console theo phạm vi, cấu hình lập trình, cập nhật và shutdown có join.
+Kiểm thử được sinh bao phủ giải phóng tài nguyên và các kênh lỗi.
+Đây là sinh khung ứng dụng; biến thể Include/HMR và tự động Git/cài đặt/khởi chạy
+nằm ngoài phạm vi S0–S2 đã chọn.
