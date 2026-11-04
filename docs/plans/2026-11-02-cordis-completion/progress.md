@@ -6,6 +6,8 @@ review, integration, documentation and current verification.
 
 ## Execution scope and revision
 
+Current user-selected execution (2026-11-05): complete R1 readiness assessment and a reviewed release proposal from clean e3f0f65. See [R1 plan](evidence/r1-plan.md). Publication/version changes and standalone B1 remain outside scope.
+
 **R0 is complete and independently accepted at executable `35556d5`.**
 The full 40-stage matrix and final documentation checks pass; see
 [R0 acceptance](evidence/r0-acceptance.md). The closing commit carries this status.
@@ -18,7 +20,7 @@ The [saved handoff](evidence/hmr-resume/README.md) remains historical evidence.
 All 34 shared matrix stages pass on explicit stable/1.85.0; see
 [final acceptance](evidence/hmr-acceptance.md).
 
-- Current user-selected execution (2026-11-04): offline whole-program R0 from clean e8b5eb5 on feat/cordis-completion. Carry Create executable/checker 8373fa3, HMR acceptance 4c8f423/executable 55a55d1, Include 0a2df1e, loader 101f37b, timer/logger/core and B0 acceptance. Fresh sol/high implementation and astra/high independent review use serialized file ownership and coordinated Cargo execution. See [R0 plan](evidence/r0-plan.md). No R1, standalone B1, CI/platform expansion, remote Create/template variants, live integrations, push or publication.
+- Previous user-selected execution (2026-11-04): offline whole-program R0 from clean e8b5eb5 on feat/cordis-completion. Carry Create executable/checker 8373fa3, HMR acceptance 4c8f423/executable 55a55d1, Include 0a2df1e, loader 101f37b, timer/logger/core and B0 acceptance. Fresh sol/high implementation and astra/high independent review use serialized file ownership and coordinated Cargo execution. See [R0 plan](evidence/r0-plan.md). No R1, standalone B1, CI/platform expansion, remote Create/template variants, live integrations, push or publication.
 
 - Current engineering direction (2026-11-03): prioritize usable Cordis features and idiomatic Rust contracts; see [the decision](../../decision.md#2026-11-03--deliver-cordis-features-through-idiomatic-rust-contracts). Keep initial design bounded, implement with tests/examples, then assess the working feature. Record deliberate differences and actual limitations; do not turn all B0 gaps into a prerequisite or mechanically reproduce TS mechanisms.
 - Authorized 2026-11-02: local recommended scope in all 35 packages, including routine design gates resolved by independent planning/review. R1 ends in a proposal. No push, publication, deployment, credentials, or live integrations.
@@ -73,7 +75,7 @@ All 34 shared matrix stages pass on explicit stable/1.85.0; see
 | S1 | done | S0 | sol/high implementation; parent verification | integration | d44620c + 8373fa3 | 22 Create tests and 5 generated-app tests per toolchain; CR1/CR2 closed | evidence/create-acceptance.md |
 | S2 | done | S1 | sol/high docs; astra/high review; parent acceptance | integration | 8373fa3; acceptance in closing commit | accepted; all 34 shared stages, 508 workspace checks per toolchain | evidence/create-acceptance.md |
 | R0 | done | T5, C3, L5, G1, I4, H3, S2 | sol/high implementation; astra/high independent review | integration; serialized writes | f7a8e58 + 2023e56 + b35a979 + 35556d5 | accepted; R0-R1 and final evidence review closed; 40/40 stages and final docs pass | evidence/r0-acceptance.md |
-| R1 | planned | R0 | unassigned | integration | — | not started | evidence/R1/ |
+| R1 | in_review | R0 | controller; fresh sol/high audit and astra/high review | integration; serialized writes/Cargo | local audit milestone | independent review pending; package/docs checks pass | evidence/r1-acceptance.md |
 
 ## Accepted decisions
 
@@ -168,7 +170,7 @@ independent acceptance; no active B0 blocker or worker remains.
 
 1. B0 is complete. Read [final independent acceptance](evidence/B0/review.md) and [the ledger report](evidence/B0/ledger/report.md) for its exact evidence scope. Do not repeat the accepted matrix/report, FR-1, first-two-events, recovered validation, family reviews/corrections or final ledger audit.
 2. Reconcile Git before any future work. Integration is `/Users/I756434/Projects/private/cordis-rust` on `feat/cordis-completion`. Preserve newer changes. The `b0-cli-source` managed worktree remains a detached snapshot at 7fd7cde, not the integration branch.
-3. Logger C0–C3, timer T0–T5/B2, loader L0–L5/G0–G1, Include I0–I4, HMR H0–H3 and offline Create S0–S2 are independently accepted. R0 is independently accepted at executable 35556d5; see evidence/r0-acceptance.md and its closing documentation commit. No automatic continuation remains. Reuse prerequisite evidence. Do not push, publish or begin R1/standalone B1.
+3. Logger C0–C3, timer T0–T5/B2, loader L0–L5/G0–G1, Include I0–I4, HMR H0–H3 and offline Create S0–S2 are independently accepted. R0 is independently accepted at executable 35556d5; see evidence/r0-acceptance.md and its closing documentation commit. No automatic continuation remains. Reuse prerequisite evidence. R1 is now selected under the 2026-11-05 request. Do not push, publish or begin standalone B1.
 4. Carry all 147 owned evidence gaps forward with their precise actions. A passing regression can close evidence; only an actual dependent gate plus a failing public-API reproducer admits conditional B2. B0 acceptance is accounting, not implementation of those gaps or unrestricted TS parity.
 5. Reuse the accepted six-scenario/73-observation matrix while recorded executable hashes establish applicability. Preserve original artifacts, historical failures and commands.tsv's reviewed working-copy line-ending qualification. No normalization or repeat recovery probe is needed.
 6. For later authorized work, retain D009 routing: fresh gpt-6.1-sol/high execution and gpt-6-astra/high planning/review, with explicit model/effort and fork_turns=none. Do not use the failed CLI path or resume failed contexts. Keep shared integration serialized and new worker work isolated.

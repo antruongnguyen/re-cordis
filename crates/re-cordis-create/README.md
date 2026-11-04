@@ -28,3 +28,11 @@ options and no automatic processes. Generated absolute path dependencies refer
 to the supplied checkout. Inspect the generated README before testing or running
 the application. The fixed layout check is not a general Cargo TOML parser or a
 source authenticity audit.
+
+Version remains `0.0.0` with `publish=false`; there is no supported crates.io
+installation or published docs.rs release. The checkout must remain available
+at the generated absolute paths; moving it requires manifest edits, and its
+source changes affect subsequent builds without a package-version change.
+Runtime filesystem evidence covers macOS only. The checkout's
+`docs/release-readiness.md` records the release proposal; it is not bundled in
+this crate archive. See [LICENSE](LICENSE) for the MIT notice.

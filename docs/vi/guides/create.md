@@ -64,6 +64,17 @@ Kiểm thử của ứng dụng xác nhận giải phóng tài nguyên và báo 
 trình đó theo hướng dẫn [loader](loader.md), [service](services-and-scoping.md)
 và [cleanup](effects-and-cleanup.md).
 
+## Phân phối và thông báo giấy phép template
+
+README được sinh giữ nguyên thông báo MIT của mã khởi đầu;
+đầu ra vẫn đúng năm tệp. Giữ thông báo đó khi phân phối lại template hoặc phần
+đáng kể của nó. Phần bạn bổ sung có thể có thông báo bản quyền riêng.
+Cargo.lock không chốt nội dung phụ thuộc path tuyệt đối. Hãy dùng checkout tại
+revision đã review; thay đổi checkout có thể đổi lần build ứng dụng tiếp theo.
+[Đề xuất phát hành](../../release-readiness.md) chỉ phân phối công cụ yêu cầu
+checkout tường minh này lúc đầu. Chế độ sinh phụ thuộc registry cần quyết định
+riêng trong tương lai; R1 chưa cung cấp package alpha để cài đặt.
+
 ## Đích và phạm vi
 
 Generator từ chối tệp, symlink hoặc thư mục không rỗng đã tồn tại, và đích

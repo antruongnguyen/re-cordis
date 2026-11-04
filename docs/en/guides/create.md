@@ -64,6 +64,17 @@ Its tests exercise resource release and error reporting. Extend that working
 program through the [loader](loader.md), [services](services-and-scoping.md)
 and [cleanup](effects-and-cleanup.md) guides.
 
+## Distribution and template notice
+
+The generated README retains the original MIT notice for the starter code;
+the output still has exactly five files. Preserve that notice when redistributing
+the template or substantial portions. Your additions can carry their own notices.
+Cargo.lock does not pin the contents of the absolute path dependencies. Use a
+reviewed checkout revision; changing it can change the next application build.
+The [release proposal](../../release-readiness.md) would distribute only this
+explicit-checkout tool initially. A registry-backed generator mode remains a
+separate future decision, and no alpha package is available from R1.
+
 ## Destination and scope
 
 The generator refuses an existing file, symlink or nonempty directory, and a

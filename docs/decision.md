@@ -4,6 +4,32 @@ A lightweight log of decisions made for this project and the reasoning behind
 them. Newest first. This is intentionally not a heavy ADR process; it records
 *what we chose and why* so the choices aren't re-litigated silently.
 
+## 2026-11-05 — Separate accepted behavior from distribution readiness
+
+R1 recommends local/Git checkout consumption only while preparing a concrete
+seven-package 0.1.0-alpha.1 proposal. These versions and registry changes are
+proposals, not releases or approval to publish. Keep 0.0.0/publish=false.
+The [readiness report](release-readiness.md) derives order from actual Cargo
+normal dependencies and distinguishes HMR's dev-only logger edge.
+
+Package inspection found omitted MIT notices and six absent crate READMEs.
+Add exact root notices and minimal package-specific onboarding. Preserve the
+same MIT text in the generated starter's existing README, retaining its five
+files, source and manifest. This corrects redistribution documentation without
+changing API/feature/dependency behavior or adding a template variant.
+
+No facade has a demonstrated consumer benefit: accepted Create/R0 applications
+already compose explicit crates, and Group belongs to loader. The proposed
+Create release remains an offline tool requiring a compatible complete checkout.
+Path sources are mutable despite Cargo.lock; preserve checkout revision and
+location. A registry-backed template requires its own post-publication decision.
+
+Use explicit stable/1.85.0 package/docs checks and reuse R0 execution where
+source/manifest/lock inputs are unchanged. Proposed runtime support is limited
+to the tested Apple Silicon macOS host; broader platform support, semver
+stability and fresh registry dependency resolution are separate gates.
+See [limitations](limitation.md#distribution-readiness).
+
 ## 2026-11-04 — Verify the complete offline application through shared code
 
 R0 composes accepted core, timer, console logger, loader/groups, Include, HMR

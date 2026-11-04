@@ -4,6 +4,28 @@ Known gaps, unresolved questions, and places where a faithful port is hard.
 This is where we are honest about what does *not* translate cleanly from the
 TypeScript original to Rust.
 
+## Distribution readiness
+
+The [R1 assessment](release-readiness.md) recommends local/Git checkout
+consumption only. All seven crates remain 0.0.0/publish=false. Five satellites
+cannot construct registry archives with their current versionless path
+dependencies; publish dry-runs stop at publish=false. Core/Create archive
+verification does not prove the whole dependency set can be published.
+
+Exact crates.io API 404 responses are only time-stamped absence evidence,
+not name reservation or publisher authority. New local documentation is not
+necessarily online. Package/readme and generated-template MIT notice omissions
+are corrected; actual release versions, registry resolution, normalized
+dev/example dependencies, documentation URLs and compatible Create checkout
+still need validation under a subsequent release decision.
+
+Path dependencies track current checkout contents, not immutable Cargo.lock
+sources. Moving a checkout needs manifest edits; changing it may change the
+application despite version 0.0.0. Keep reviewed revisions and a common Cordis
+source. Current local/non-Send contracts and macOS-only runtime filesystem/watch
+evidence remain; a proposed experimental alpha adds no Windows/Linux or stable
+API guarantee. See [the decision](decision.md#2026-11-05--separate-accepted-behavior-from-distribution-readiness).
+
 ## How to classify Rust differences
 
 Under the [2026-11-03 implementation direction](decision.md#2026-11-03--deliver-cordis-features-through-idiomatic-rust-contracts),
@@ -216,7 +238,9 @@ integrated framework or resolve every behavioral gap.
   accepted with shared stable/1.85.0 verification. Selected offline Create S0–S2
   is independently accepted; remote scaffolding remains unselected.
   See [the roadmap](todo.md).
-- No stability guarantees — the API will change freely until the core is proven.
+- No cross-revision API stability promise exists for unpublished 0.0.0.
+  Core/satellite behavioral acceptance does not establish semver stability;
+  see the proposed alpha policy in [release readiness](release-readiness.md).
 - `spikes/m0` uses separate test-only models: one dependency per lifecycle
   Fiber, synchronous setup, and no integrated update/recovery/logger protocol.
   Its passing tests are design evidence, not production parity coverage.
@@ -520,5 +544,5 @@ is a composition of current APIs, not a new distributed template or public API.
 - **Missing evidence:** native filesystem/watcher execution remains macOS only.
   R0 does not add a whole-program Rust/TypeScript trace, close all B0/loader
   source gaps, establish Windows/Linux support or a stable published API.
-- **Unselected work:** R1, standalone B1, CI/platform expansion, remote Create,
+- **Unselected work:** publication, standalone B1, CI/platform expansion, remote Create,
   additional templates, live integrations and process supervision remain separate.

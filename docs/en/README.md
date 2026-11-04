@@ -18,6 +18,11 @@ on stable/1.85.0. Review and explicit toolchain
 acceptance are tracked in the [roadmap](../todo.md#next-implementation-targets-satellites).
 This is an explicit Rust API, not transparent JavaScript compatibility.
 
+Read the [release readiness assessment](../release-readiness.md) before choosing
+a distribution channel: current consumption uses a complete local/Git checkout.
+The proposed seven-package alpha is not an available release; runtime filesystem
+and watcher evidence remains macOS-only.
+
 ## Choose a reading path
 
 | Your goal | Start here |

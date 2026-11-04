@@ -60,6 +60,12 @@ xem từng chương thay vì cho rằng mọi phương thức đều cần `run`
 
 ## Tính ổn định và tương thích
 
+R1 đánh giá API hiện tại mà không thêm cam kết semver.
+[Đề xuất phát hành](../../release-readiness.md) mô tả khả năng dùng đồng bộ
+0.1.0-alpha.1; các crate hiện vẫn 0.0.0/publish=false. Trường công khai,
+trait implementation và re-export phụ thuộc cũng ảnh hưởng tính tương thích.
+
+
 Mọi API hiện chưa ổn định. Nhiều lỗi có `#[non_exhaustive]`; match ở ứng dụng
 phải cho phép variant tương lai. ID là định danh opaque, so sánh/hash được;
 không có hợp đồng số hóa, serialization hay thứ tự.

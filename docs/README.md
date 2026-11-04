@@ -56,6 +56,7 @@ context; current capabilities are described by the new guides and current source
 | [M1](m1.md), [M2](m2.md), [M3](m3.md), [M4](m4.md), [M5](m5.md), [M6](m6.md) | Hosting, effects/events, plugins, services, scoping/updates, final compatibility audit |
 | [Lifecycle parity](lifecycle-parity.md) | Six executed paired scenarios and evidence boundaries |
 | [GitHub activity](github-activity.md) | Application contracts, limits, and executable commands |
+| [Release readiness](release-readiness.md) | Current local/Git-only verdict, package audit and proposed experimental release |
 | [Limitations](limitation.md) | Known restrictions and unresolved tensions |
 | [Decisions](decision.md) | Rationale and conventions |
 | [Roadmap](todo.md) | Delivered and deferred scope |

@@ -63,6 +63,12 @@ new work; see the relevant chapter rather than assuming every method needs
 
 ## Stability and compatibility
 
+R1 reviews this current API surface without adding a semver promise. The
+[release proposal](../../release-readiness.md) describes a possible coordinated
+0.1.0-alpha.1; all current crates remain 0.0.0/publish=false. Public fields,
+trait implementations and dependency re-exports also affect compatibility.
+
+
 All APIs are currently unstable. Many errors are `#[non_exhaustive]`; downstream
 matches must allow future variants. IDs are opaque and comparable/hashable;
 there is no numeric serialization or ordering contract.

@@ -36,6 +36,13 @@ dấu gạch dưới. Nếu ứng dụng dùng timer, I/O, signal hoặc macro c
 bật các feature tương ứng trong phụ thuộc Tokio của **ứng dụng**; bộ feature
 tối thiểu của core không tự bật chúng.
 
+Chốt checkout đầy đủ tại một revision Git đã review và dùng cùng nguồn đó cho
+mọi crate Cordis. Cargo.lock không đóng băng nội dung phụ thuộc path: sửa checkout
+sẽ ảnh hưởng lần build tiếp theo dù version vẫn là 0.0.0. Di chuyển checkout cần
+sửa đường dẫn phụ thuộc. Bằng chứng filesystem/watcher chỉ có trên macOS;
+xem [đánh giá phát hành](../release-readiness.md) để biết kết luận hiện chỉ dùng
+local/Git và chính sách alpha được đề xuất riêng.
+
 ## Ứng dụng đầu tiên hoàn chỉnh
 
 Đặt mã sau vào `src/main.rs`, rồi chạy `cargo run` trong `my-app`.

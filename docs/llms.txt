@@ -25,6 +25,7 @@ Essential application constraints:
 
 ## Start here
 
+- [Release readiness](release-readiness.md): Local/Git-only verdict and alpha proposal.
 - [Documentation map](README.md): Languages and maintenance.
 - [English documentation](en/README.md): Task-oriented reading paths.
 - [Vietnamese documentation](vi/README.md): Full Vietnamese guides and API reference.
@@ -101,5 +102,5 @@ Essential application constraints:
 - [GitHub consumer contract](github-activity.md): Exact file/process/loopback HTTP limits; no public ingress or exactly-once durability.
 - [Limitations](limitation.md): Explicit unsupported behavior.
 - [Decisions](decision.md): Design rationale; TypeScript is the semantic specification.
-- [Roadmap](todo.md): Delivered scope, timer repair and remaining satellites.
+- [Roadmap](todo.md): Accepted and future scope.
 - [Completion plan](plans/2026-11-02-cordis-completion/README.md): Work packages and acceptance.

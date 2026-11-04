@@ -28,7 +28,10 @@ B0's evidence gaps are not a blanket prerequisite for satellite delivery.
   40/40 shared stages: 517 workspace checks per toolchain, actual generated
   applications and final paired documentation pass. See
   [R0 acceptance](plans/2026-11-02-cordis-completion/evidence/r0-acceptance.md).
-  R1 and standalone B1 are not selected.
+- [ ] Complete R1 independent review/acceptance of the
+  [readiness assessment and release proposal](release-readiness.md).
+  The current recommendation is local/Git checkout consumption only;
+  publishing/version changes and standalone B1 remain unselected.
 
 The older milestones below retain their historical delivery evidence. A
 checked historical box does not override an open repair in the completion plan.
@@ -220,7 +223,7 @@ The [L0–L5](plans/2026-11-02-cordis-completion/loader.md) and
 JavaScript imports/eval, mutable prototype reparenting, native shared-library
 reload, filesystem persistence and watching are explicitly excluded/deferred.
 
-### Other satellites — planned after the first three targets
+### Other satellites — accepted within the selected Rust scope
 
 - [x] `group`: delivered in `re-cordis-loader` with one structural implementation;
   no facade crate. Upstream group re-exports loader Group. See

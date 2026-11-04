@@ -18,6 +18,11 @@ trên stable/1.85.0. Review và nghiệm thu toolchain
 tường minh được ghi trong [lộ trình](../todo.md#next-implementation-targets-satellites).
 Đây là API Rust tường minh, không phải lớp tương thích JavaScript trong suốt.
 
+Đọc [đánh giá mức sẵn sàng phát hành](../release-readiness.md) trước khi chọn
+cách phân phối: hiện dùng checkout đầy đủ từ máy cục bộ/Git.
+Đề xuất alpha gồm bảy package chưa phải bản phát hành có thể cài đặt;
+bằng chứng thực thi filesystem và watcher vẫn chỉ có trên macOS.
+
 ## Chọn lộ trình đọc
 
 | Mục tiêu | Bắt đầu tại |
