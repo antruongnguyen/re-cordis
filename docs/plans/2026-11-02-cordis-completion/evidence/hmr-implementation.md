@@ -2,7 +2,9 @@
 
 Date: 2026-11-03 (Asia/Ho_Chi_Minh).
 Baseline: 47042d9 on feat/cordis-completion. H0 contract: 5065adc.
-H1–H3 final independent review and shared acceptance remain pending.
+**H0–H3 is now independently accepted at source `55a55d1`; the full shared
+matrix passes. See [final acceptance](hmr-acceptance.md).** The sections below
+preserve earlier checkpoint evidence and their historical pending gates.
 
 ## Loader batch seam checkpoint
 

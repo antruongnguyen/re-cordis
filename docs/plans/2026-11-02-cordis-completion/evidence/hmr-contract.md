@@ -1,7 +1,7 @@
 # HMR H0–H3 Rust contract and execution plan
 
 Date: 2026-11-03 (Asia/Ho_Chi_Minh).
-Status: H0 independently approved; H1–H3 implementation acceptance pending.
+Status: H0–H3 implemented and independently accepted; [final verification](hmr-acceptance.md).
 Review: [H0 verdict and required oracles](hmr-h0-review.md).
 Baseline: 47042d9; TypeScript: 35fdc969e4b6c48c48ed44717c7a018324e4dd88.
 
@@ -32,17 +32,17 @@ replacement/update to recover. No automatic rollback after unload.
 - [x] H0: review exact signatures, bounds, path policy, preflight semantics
   and watcher dependency/MSRV probe. Record chosen tradeoffs in decision.md
   and limitation.md, then commit the contract.
-- [ ] H1: add crate, synthetic events, bounded polling, debounce, registration
+- [x] H1: add crate, synthetic events, bounded polling, debounce, registration
   tokens, diagnostics and joined cleanup. First prove duplicate/burst/overflow,
   ignored override, original errors and no work after disposal with deterministic
   tests; supplement with bounded atomic rename/remove/recreate smoke. Run focused
   tests and strict package Clippy on explicit stable and 1.85.0; commit.
-- [ ] H2: implement the smallest proven loader batch seam and explicit HMR
+- [x] H2: implement the smallest proven loader batch seam and explicit HMR
   dependency plan. Test invalid whole-batch candidates, two configs, transitive
   dependencies, unchanged shared dependencies, slow independent siblings, exact
   retained providers, nested hosts, mutation during cleanup and explicit recovery.
   Run loader/HMR focused tests and strict Clippy on both toolchains; commit.
-- [ ] H3: optional Include adapter, runnable offline reload example, paired
+- [x] H3: optional Include adapter, runnable offline reload example, paired
   guide/API pages and checker support. Record all pinned HMR declarations'
   dispositions, independent review findings and correction deltas. Run shared
   workspace/M0/docs/examples/parity acceptance on explicit stable and 1.85.0;

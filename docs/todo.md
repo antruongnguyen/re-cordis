@@ -109,9 +109,9 @@ console C0–C3 and timer repair T0–T5 are independently accepted. Loader/grou
 L0–L5/G0–G1 are independently accepted with explicit stable/1.85.0 verification.
 Include I0–I4 is independently accepted with explicit stable/1.85.0 verification;
 see [include acceptance](plans/2026-11-02-cordis-completion/evidence/include-acceptance.md).
-HMR H0 is approved and H2 is independently accepted. H1/H3 watching, optional
-Include integration and the offline example are implemented; independent review
-and the shared acceptance matrix remain pending.
+HMR H0–H3 watching, linked replacement, optional Include integration and the
+offline example are implemented and independently accepted. The full explicit
+stable/1.85.0 matrix passes; see [HMR acceptance](plans/2026-11-02-cordis-completion/evidence/hmr-acceptance.md).
 Create remains a future target.
 
 The TypeScript specification remains pinned to
@@ -223,11 +223,10 @@ reload, filesystem persistence and watching are explicitly excluded/deferred.
   All IR1–IR5 findings and two residuals are resolved; 75 Rust tests plus two
   Rustdoc checks pass on both toolchains. See
   [acceptance](plans/2026-11-02-cordis-completion/evidence/include-acceptance.md).
-- [ ] `hmr`: H0 approved and H2 independently accepted; owner-scoped watching,
-  optional Include refresh, same-instance linked factory batches, source
-  restart-required handling and an offline example are implemented. Watcher/H3
-  review and the shared matrix remain pending; see
-  [evidence](plans/2026-11-02-cordis-completion/evidence/hmr-implementation.md).
+- [x] `hmr`: H0–H3 independently accepted; owner-scoped watching, retained Include
+  refresh, same-instance linked factory batches, source restart-required and
+  the offline example pass the full explicit stable/1.85.0 shared matrix. See
+  [acceptance](plans/2026-11-02-cordis-completion/evidence/hmr-acceptance.md).
   Native hot loading and a process supervisor are outside this selected scope.
 - [ ] `create`: consider scaffolding only once public crate names, dependency
   setup and application layout are sufficiently settled.

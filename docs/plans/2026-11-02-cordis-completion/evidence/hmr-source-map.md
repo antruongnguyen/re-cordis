@@ -4,8 +4,8 @@ Date: 2026-11-04 (Asia/Ho_Chi_Minh).
 TypeScript pin: `35fdc969e4b6c48c48ed44717c7a018324e4dd88`.
 Rust design baseline: `47042d9`; approved H0 commit: `5065adc`.
 H2 accepted code: `0e8d306`; H3 implementation checkpoint: `77b50b5`.
-Status: declaration accounting and focused execution complete; H1/H3 independent
-review and shared acceptance remain pending.
+Status: declaration accounting, independent H0–H3 review and full shared
+acceptance complete at source `55a55d1`; see [verification](hmr-acceptance.md).
 
 This map records every test declaration in pinned `packages/hmr/tests/index.spec.ts`
 and `path.spec.ts`, plus the HMR implementation surfaces and relevant fixtures.
@@ -31,7 +31,7 @@ path; it preserves journal, data, provenance and file bytes and performs no flus
 |---|---|
 | A | Carried core/loader behavior, exercised through an HMR replacement in R. Initial registration/event/service behavior alone adds no new HMR equivalence claim. |
 | W | [Watch contract](hmr-watch-contract.md): exact registrations; synthetic duplicate/burst/overflow tests, generation suppression, explicit ignore override, callback error/panic recovery, hosted cancellation and joined producer/capture release. Real bounded file tests supplement it. |
-| I | Optional HMR-side Include adapter: an explicit trigger path refreshes the supplied Include's source graph, with last-valid parse recovery, rename-based self-write convergence, retained already-admitted IncludeTask completion, no follow-up after stop and resident-work quota. I-01–I-06 record focused execution; independent H3 acceptance remains pending. |
+| I | Optional HMR-side Include adapter: an explicit trigger path refreshes the supplied Include's source graph, with last-valid parse recovery, rename-based self-write convergence, retained already-admitted IncludeTask completion, no follow-up after stop and resident-work quota. I-01–I-06 record focused execution; independent H3 and shared acceptance are complete. |
 | R | [Replacement contract](hmr-reload-contract.md): explicit graph/candidates, admission before teardown, original per-entry configs, exact old resource/provider release, independent siblings, latest-intent/nested host guards, post-unload diagnostics/recovery and 100-cycle baselines. R-01–R-10 record concrete tests; H2 is independently accepted. |
 | N | Node-specific mechanism unsupported: imports/exports, ModuleJob discovery, ESM/CJS caches, syntax compilation, JS filename resolution and process exit. W/I/R may represent the useful resulting behavior, without executing that mechanism. |
 | P | Native path adaptation with missing Windows runtime evidence. macOS file smoke is insufficient; Linux runtime evidence is also not established by it. |
@@ -84,8 +84,9 @@ loader/Include seams. I-01–I-06 name all ten H3 declarations. The focused
 [H3 checkpoint](hmr-include-implementation.md) records 54 HMR integration tests
 plus one Rustdoc check with all features, 43 plus one with default features,
 and the offline example passing on explicit stable 1.97.1 and 1.85.0.
-These are execution results; H1/H3 independent review and shared acceptance
-remain pending.
+These are checkpoint execution results. The final correction and
+[shared acceptance](hmr-acceptance.md) pass 56 all-feature HMR checks and
+45 default-feature checks on each toolchain.
 
 ## Implementation surfaces
 
@@ -222,16 +223,17 @@ each is retained once after capacity recovers, no history eviction hides the
 result, and producer disposal joins. It supplements W-04/W-06/W-10. See
 [correction evidence](hmr-overflow-correction.md); the HMR totals after this
 correction are 55 integration + 1 Rustdoc with Include and 44 + 1 without it,
-on both explicit toolchains. Independent re-review and shared acceptance
-remain required.
+on both explicit toolchains. [Independent re-review](hmr-watch-adapter-review.md)
+and [shared acceptance](hmr-acceptance.md) are complete.
 
 ## Acceptance boundary
 
 The exact W/I/R test references and focused explicit stable/1.85.0 results above
 come from [H1 implementation](hmr-watch-implementation.md), the
 [accepted H2 review](hmr-h2-accepted-review.md) and
-[H3 implementation](hmr-include-implementation.md). H3's final gate still requires
-independent frozen-diff watcher/integration review and the shared matrix.
+[H3 implementation](hmr-include-implementation.md). The final
+[independent review](hmr-watch-adapter-review.md) and
+[34-stage shared matrix](hmr-acceptance.md) pass at source `55a55d1`.
 Existing H0 dependency probes remain in the watch contract; they do not execute
 this HMR crate. Historical resume/R1/R2/R3 reports are retained unchanged.
 Keep missing Windows and Linux runtime evidence visible. Portable std polling

@@ -8,7 +8,9 @@ review, integration, documentation and current verification.
 
 **Resumed by user on 2026-11-04 from clean checkpoint `56de5f4`.**
 The [saved handoff](evidence/hmr-resume/README.md) remains historical evidence.
-HMR acceptance is pending H2-R1 correction, H3 integration and final review/matrix.
+**HMR H0–H3 is complete and independently accepted at source `55a55d1`.**
+All 34 shared matrix stages pass on explicit stable/1.85.0; see
+[final acceptance](evidence/hmr-acceptance.md).
 
 - Current user-selected execution: HMR H0–H3, starting from clean checkpoint 47042d9 on feat/cordis-completion. Include I0–I4 at 0a2df1e and loader at 101f37b remain accepted prerequisites. Fresh sol/high implementation and astra/high independent review use serialized file ownership. Create S0–S2 and whole-program R0/R1 stay unselected; no push or publication.
 
@@ -57,10 +59,10 @@ HMR acceptance is pending H2-R1 correction, H3 integration and final review/matr
 | I2 | done | I1 | sol/high implementation; parent integration | integration, serialized writes | 61b7f97 | ordered patches/provenance | evidence/include-acceptance.md; evidence/include-final-rereview.md |
 | I3 | done | I2 | sol/high implementation; parent integration | integration, serialized writes | 15670ea | bounded journal/reconciliation/persistence | evidence/include-acceptance.md; evidence/include-final-rereview.md |
 | I4 | done | I3 | sol/high implementation; astra/high final review | integration, serialized writes | 0a2df1e | accepted; all findings resolved | evidence/include-acceptance.md; evidence/include-final-rereview.md |
-| H0 | done | T5, L5, I0 | sol/high probes; astra/high independent review | integration, serialized writes | containing H0 commit | approved with four incorporated corrections | evidence/hmr-h0-review.md |
-| H1 | in_progress | H0, I1 | frozen; final H1/H3 review pending | integration | 56de5f4 | 27 tests +1 Rustdoc pass both; adapter gate follows H2 | evidence/hmr-watch-implementation.md |
+| H0 | done | T5, L5, I0 | sol/high probes; astra/high independent review | integration, serialized writes | 5065adc | approved with four incorporated corrections | evidence/hmr-h0-review.md |
+| H1 | done | H0, I1 | sol/high implementation; astra/high independent acceptance | integration | 55a55d1 | accepted; H1-R4 fixed; full shared matrix passes | evidence/hmr-acceptance.md |
 | H2 | done | H0 | sol/high corrections; astra/high independent acceptance | integration | 0e8d306 | accepted; H2-R1/R2/R3 addressed | evidence/hmr-h2-accepted-review.md |
-| H3 | in_review | H1, H2, I4 | sol/high implementation; independent review pending | integration | containing H3 commit | 55 all-feature / 44 default checks pass both tools; docs/matrix pending | evidence/hmr-include-implementation.md |
+| H3 | done | H1, H2, I4 | sol/high implementation; astra/high independent acceptance | integration | 77b50b5 + 55a55d1 | accepted; 10 integration tests; HMR 56/45 and full matrix pass | evidence/hmr-acceptance.md |
 | S0 | planned | C3, L5 | unassigned | integration | — | not started | evidence/S0/ |
 | S1 | planned | S0 | unassigned | integration | — | not started | evidence/S1/ |
 | S2 | planned | S1 | unassigned | integration | — | not started | evidence/S2/ |
@@ -306,3 +308,9 @@ independent acceptance; no active B0 blocker or worker remains.
 - 2026-11-04 CP091: H3 committed 77b50b5. Paired docs/source dispositions now describe implemented APIs, same-Include example and both error channels; all 53 TS declaration rows cite concrete Rust or carried evidence, with no Node trace or Windows/Linux claim. Parent caught and corrected llms 8 KiB cap and a missing ledger column delimiter without weakening checker. Both explicit documentation runs pass 31 page pairs/19 HMR exports/13 snippets/external quick start; seven checker regressions pass. Independent H1/H3 review validates retained Include work and four extra admission/drop/ancestor probes plus full HMR 55 on both tools, but finds H1-R4: a read error coalescing signature is recorded before failed queue admission, suppressing its future delivery after overflow. Fresh sol/high correction is limited to producer error admission and its regression; final matrix waits for scoped re-review.
 
 - 2026-11-04 CP092: H1-R4 unchanged public probe reproduced RED on both tools; one real-filesystem regression also fails before the fix. Producer now records its read-error coalescing signature only after Queued admission; overflow permits retry. Both original typed failures become visible without eviction, then unchanged failures coalesce and shutdown joins. Full HMR all-feature 55 integration + 1 Rustdoc and default 44 + 1, strict checks/Clippy/Rustdoc both modes, offline example and original probe pass stable/1.85.0. Parent inspected the small producer delta and logs. Correction frozen for local commit and scoped independent re-review; docs consistency already accepted at3f5e562.
+
+- 2026-11-04 CP093: Independent H1/H3 and frozen docs review accepts55a55d1; H1-R4 is closed, H2 acceptance carried. Final shared runner target/hmr-20261104/run_matrix.py is executing against152 frozen source/fixture inputs recorded in final-inputs.json. Stable stages all pass:486 workspace checks,21 M0,45 default-HMR, strict checks/Clippy/Rustdoc, six offline examples, formatting, docs31pairs/19exports/13snippets/external quickstart, seven checker regressions, core six/73 and loader two/nine paired traces. MSRV half is in progress; no final delivery claim yet. matrix.json records each stage/command/exit/log.
+
+- 2026-11-04 CP094: HMR H0–H3 accepted at source 55a55d1. All 34 shared stages pass: 486 workspace, 21 M0 and 45 default-HMR checks per toolchain; six examples, strict Clippy/Rustdoc, paired docs and existing core/loader traces pass. All 152 executable inputs match the freeze; pinned TS remains clean. Independent H2 and H1/H3 reviews close all R1–R4 findings. Final edits close status, checklists and acceptance only; no create, R0/R1, push or publication.
+
+- 2026-11-04 CP095: Final status-only verification passes both documentation toolchains (31 pairs, 19 HMR exports, 13 snippets and external quick start), seven checker regressions, 21 HMR plan/evidence link/fence checks and all 152 unchanged executable fingerprints. H0–H3 are done; B1, S0–S2 and R0/R1 remain planned. The closing local commit includes the accepted H1/H3 review and final acceptance record; no source changed after matrix revision55a55d1 and no push/publication was performed.

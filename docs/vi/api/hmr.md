@@ -8,8 +8,8 @@ Nguồn: [lib.rs](../../../crates/re-cordis-hmr/src/lib.rs),
 Hướng dẫn: [thay đổi tệp và thay thế plugin](../guides/hmr.md).
 
 `re-cordis-hmr` chưa phát hành (`0.0.0`, Rust 2024, MSRV 1.85).
-Trang này mô tả API Rust đã triển khai. H2 đã được nghiệm thu độc lập;
-review watcher/tích hợp và nghiệm thu chung còn chờ.
+Trang này mô tả API Rust đã triển khai. H0–H3 đã được nghiệm thu độc lập;
+xem [kiểm chứng chung](../../plans/2026-11-02-cordis-completion/evidence/hmr-acceptance.md).
 Theo dõi tệp, thay thế plugin đã liên kết và thông báo cần restart là ba khả
 năng riêng. Không có duyệt root đệ quy, tìm module, import/cache Node,
 nạp binary động hay bộ điều phối tiến trình.

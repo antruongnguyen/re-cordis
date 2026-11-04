@@ -18,7 +18,7 @@ All Context, Fiber, Scheduled, callback, and local error handles stay on the
 original local host. Only owned PathBuf values, numeric generations, standard I/O
 errors, bounded queue state and Arc cancellation state cross to the producer.
 
-## Proposed exact public surface
+## Selected public surface
 
 The implementation may use the core BoxError and LocalFuture aliases below.
 Public names are settled here so the H0 reviewer can accept or amend them.

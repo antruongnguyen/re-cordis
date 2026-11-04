@@ -1,7 +1,7 @@
 # HMR H2 linked replacement contract
 
 Date: 2026-11-03 (Asia/Ho_Chi_Minh).
-Status: H0 contract independently approved; H2 implementation pending.
+Status: H2 implemented and independently accepted; [review](hmr-h2-accepted-review.md).
 Baseline: `47042d9e805fa558e69416c8ffb1030333b0c38b` on `feat/cordis-completion`.
 TypeScript pin: `35fdc969e4b6c48c48ed44717c7a018324e4dd88`.
 
@@ -28,9 +28,10 @@ cleanup (`:425`, `:455`, `:463`). Its nested, handoff, malformed-export,
 multiple-entry and unload-race variants are in `tests/index.spec.ts:974–1610`.
 Path tests select no extra executable-code replacement semantics.
 
-## Exact proposed API
+## Selected API
 
-These signatures remain planning material until implemented:
+These approved signatures are implemented; the user guides and Rustdoc describe
+the current API:
 
 ```rust
 // re-cordis-loader
@@ -209,8 +210,9 @@ This is one existing Include owner, not a recursive Include/module graph.
 Loader keeps all current-batch scheduling failures in the returned task and
 reuses its single first-unobserved global failure slot for dropped waiters,
 including when an observer removed the entry. A delivered settlement
-acknowledges that slot; it does not add an unbounded history. Returned rows
-deduplicate the same entry error supplied by the slot. Ordinary core callback
+acknowledges that slot; it does not add an unbounded history. Exact batch rows preserve distinct lifecycle and scheduling causes, including
+an older slot cause; they deduplicate only the same admitted work occurrence.
+Ordinary settlement retains its accepted first-unobserved-per-entry policy. Ordinary core callback
 cleanup diagnostics still use Runtime::take_failures. A retiring loader ID
 cannot be reused until its joined barrier is observed; the identity-reuse test
 asserts that admission boundary before checking a later new allocation.

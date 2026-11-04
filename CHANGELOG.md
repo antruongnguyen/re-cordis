@@ -32,7 +32,7 @@ This project does not yet follow semantic versioning — the API is unstable.
   cancellation and joins it during watcher/ancestor shutdown; compiled replacement
   uses the same Include-managed instances. Rust source changes report restart-required.
   An offline example and paired guides/API describe the delivered Rust boundary.
-  H2 is independently accepted; final watcher/integration acceptance remains pending.
+  H0–H3 is independently accepted, with the full stable/1.85.0 shared matrix passing.
 
 - Loader `FactoryReplacement` and `replace_factories` preflight a complete linked
   batch before teardown, refuse same-loader mutation during optional validation,

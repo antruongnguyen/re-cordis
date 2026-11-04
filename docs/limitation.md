@@ -211,8 +211,8 @@ integrated framework or resolve every behavioral gap.
   delivery are excluded. See the consumer document for exact resource/time limits.
 - `re-cordis-core`, `re-cordis-timer`, `re-cordis-logger`, `re-cordis-loader`,
   `re-cordis-include` and `re-cordis-hmr` are implemented within their documented
-  Rust scope. Structural Group belongs to loader. HMR watcher/integration review
-  and shared acceptance remain pending; create remains future work.
+  Rust scope. Structural Group belongs to loader. HMR H0–H3 is independently
+  accepted with shared stable/1.85.0 verification; create remains future work.
   See [the roadmap](todo.md).
 - No stability guarantees — the API will change freely until the core is proven.
 - `spikes/m0` uses separate test-only models: one dependency per lifecycle
@@ -420,8 +420,8 @@ hidden base value. Existing value-only YAML, path and durability limits remain.
 ## HMR watching and linked replacement
 
 H0–H3 watching, optional Include integration and linked replacement are
-implemented. H2 is independently accepted; watcher/integration review and the
-shared matrix remain pending. The
+implemented and independently accepted. The full stable/1.85.0 shared matrix
+passes; see [acceptance](plans/2026-11-02-cordis-completion/evidence/hmr-acceptance.md). The
 [contract and progress](plans/2026-11-02-cordis-completion/evidence/hmr-contract.md)
 separate delivery evidence from the following chosen boundaries.
 

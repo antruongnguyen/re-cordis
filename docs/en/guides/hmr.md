@@ -4,8 +4,7 @@
 
 The unpublished `re-cordis-hmr` crate coordinates explicit file watches and
 replacement of already-linked Rust plugins, with optional Include integration.
-H2 is independently accepted; final watcher/integration review and shared
-acceptance remain pending. See the [API](../api/hmr.md)
+H0–H3 is independently accepted with the full stable/1.85.0 shared matrix. See the [API](../api/hmr.md)
 and [source disposition map](../../plans/2026-11-02-cordis-completion/evidence/hmr-source-map.md)
 for the exact scope and evidence boundary.
 

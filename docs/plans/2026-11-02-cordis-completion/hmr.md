@@ -72,17 +72,17 @@ Completed contract: [Rust API and plan](evidence/hmr-contract.md),
 **Files to create:** crates/re-cordis-hmr/Cargo.toml, src/lib.rs, src/watch.rs,
 tests/watch.rs, tests/paths.rs. Optional include adapter after I1.
 
-- [ ] Begin with a deterministic synthetic event source: duplicate changes,
+- [x] Begin with a deterministic synthetic event source: duplicate changes,
   burst coalescing, multiple callbacks on one path, ignored paths, explicit
   override, callback failure, dropped token and owner cleanup.
-- [ ] Bridge watcher-thread events into the local host using bounded messages;
+- [x] Bridge watcher-thread events into the local host using bounded messages;
   never move non-Send Context/Fiber handles onto the watcher thread.
-- [ ] Implement exact watch removal and joined producer shutdown using the
+- [x] Implement exact watch removal and joined producer shutdown using the
   reviewed authority/cancellation path. Cancellation of timer debounce must
   prevent a stale queued refresh after disposal.
-- [ ] Add bounded real filesystem smoke tests for atomic rename/remove/recreate
+- [x] Add bounded real filesystem smoke tests for atomic rename/remove/recreate
   and platform path behavior. A smoke test supplements deterministic tests.
-- [ ] Connect include.refresh without making include depend on HMR; parse
+- [x] Connect include.refresh without making include depend on HMR; parse
   failures are visible and leave later valid refreshes usable. Commit.
 
 ## H2 — Explicit factory replacement coordination
@@ -108,13 +108,13 @@ tests/watch.rs, tests/paths.rs. Optional include adapter after I1.
 **Files:** examples/reload.rs, tests/include_integration.rs, paired guides/hmr.md
 and api/hmr.md, indexes and source-case evidence.
 
-- [ ] Demonstrate config reload with optional include integration after I4,
+- [x] Demonstrate config reload with optional include integration after I4,
   linked factory replacement, and a source change that reports restart-required.
-- [ ] Verify the fallback still refreshes configuration when code replacement
+- [x] Verify the fallback still refreshes configuration when code replacement
   is unavailable; surface the capability once without warning on every event.
-- [ ] Prove burst updates, rename-based self-writes, parse recovery, resource
+- [x] Prove burst updates, rename-based self-writes, parse recovery, resource
   release and shutdown across timer/loader/include boundaries.
-- [ ] Account for every HMR declaration, explicitly separating Node module
+- [x] Account for every HMR declaration, explicitly separating Node module
   import/cache/dependency behavior from tested Rust equivalents.
-- [ ] Run shared acceptance and supported-platform watcher tests, document
+- [x] Run shared acceptance and supported-platform watcher tests, document
   supported layers under the HMR name, and commit.

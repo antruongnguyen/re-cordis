@@ -11,8 +11,7 @@ cùng `re-cordis-loader`, `re-cordis-include` và `re-cordis-hmr` chưa phát h�
 API chưa ổn định. Loader sở hữu nguồn entry có kiểu và group cấu trúc;
 Include có đọc/refresh tệp, patch có thứ tự và persistence có hòa giải đã nghiệm thu.
 HMR đã triển khai theo dõi tệp, refresh Include tùy chọn và thay factory đã liên kết.
-H2 đã được nghiệm thu độc lập; review watcher/tích hợp và nghiệm thu chung
-còn chờ. Create vẫn là mục tiêu tương lai. Review và nghiệm thu toolchain
+H0–H3 đã được nghiệm thu độc lập và qua đầy đủ ma trận chung stable/1.85.0. Create vẫn là mục tiêu tương lai. Review và nghiệm thu toolchain
 tường minh được ghi trong [lộ trình](../todo.md#next-implementation-targets-satellites).
 Đây là API Rust tường minh, không phải lớp tương thích JavaScript trong suốt.
 

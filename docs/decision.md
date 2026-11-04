@@ -861,5 +861,7 @@ file bytes and does not flush. The offline reload example demonstrates watched
 config updates before and after compiled replacement on one stable EntryId.
 Include has no dependency on HMR. Changed Rust source produces restart-required;
 the application owns any build/restart process. Node caches, JS execution and
-native ABI loading are outside H0–H3. H2 is independently accepted; final
-watcher/integration review and shared acceptance remain pending.
+native ABI loading are outside H0–H3. H0–H3 is independently accepted with
+[full shared verification](plans/2026-11-02-cordis-completion/evidence/hmr-acceptance.md)
+on stable and 1.85.0. Exact replacement failures preserve distinct occurrences;
+read-error coalescing begins only after successful ingress admission.
