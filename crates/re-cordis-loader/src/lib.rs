@@ -813,6 +813,7 @@ impl Loader {
             let entries: Vec<_> = retained.entries.borrow().values().cloned().collect();
             for entry in entries {
                 entry.live.set(false);
+                entry.running.set(false);
                 let outer = entry.outer.borrow_mut().take();
                 let inner = entry.instance.borrow_mut().take();
                 let view = entry.view.borrow_mut().take();
