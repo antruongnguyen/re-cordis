@@ -144,7 +144,8 @@ async fn atomic_rename_remove_and_parent_recreate_keep_logical_watch() -> Result
             until(|| latest.borrow().as_deref() == Some("two")).await?;
             std::fs::remove_file(&path)?;
             std::fs::remove_dir(&parent)?;
-            until(|| latest.borrow().is_none()).await?;
+            until(|| latest.borrow().is_none() && kinds.borrow().contains(&ChangeKind::Removed))
+                .await?;
             assert!(kinds.borrow().contains(&ChangeKind::Removed));
             std::fs::create_dir(&parent)?;
             std::fs::write(&path, b"three")?;

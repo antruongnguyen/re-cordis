@@ -1,138 +1,158 @@
-# HMR H3 Include adapter implementation proposal
+# HMR H3 Include adapter implementation checkpoint
 
-Date: 2026-11-03. Status: design/test proposal; implementation ownership pending.
-Baseline: 47042d9; approved H0: 5065adc; loader batch checkpoint: bbef48b.
+Date: 2026-11-04. Status: **implemented and focused verification passed; independent H3 review and shared acceptance pending**.
+Implementation baseline: `e44754e2f69de19c088a35ab39fa576877a35f39`.
+H2 code gate: `0e8d306b25b54600f15aac79514d45abf5431497`, independently accepted.
+Reuse approved H0 [watch contract](hmr-watch-contract.md), [H0 review](hmr-h0-review.md), accepted Include I4, loader L5/H2 and timer/core task contracts.
+No core, loader or Include production code changed in this slice.
 
-## Reused contracts and uncovered delta
+## Delivered adapter and resource boundary
 
-Reuse accepted Include I4, loader L5, timer T0–T5 and the existing core hosted
-callback/task bridge. H0 review HR0-3/HR0-4 requires retained admitted Include work
-and bounded retirement after callback cancellation. H1 owns ordinary callbacks,
-path polling, dispatch, timer cancellation and producer join. H2 owns
-Include::replace_factories and ReloadPlan::replace_include. No core change.
+The optional `FileWatcher::watch_include(path, Include)` registers one explicit
+file and refreshes that same Include. Include remains independent of HMR; no
+source graph is discovered and the adapter does not dispose its supplied Include.
 
-The H3 adapter is explicit and optional:
+Hosted callback creation admits `Include::refresh` synchronously and immediately
+stores its transformed shared local completion on the registration. The ordinary
+abortable callback awaits a clone. The existing local receiver selects input
+notification or completion among at most `max_watches` retained registrations.
+No extra task/effect is created per refresh and no local handle crosses to the
+producer thread.
 
-```rust
-#[cfg(feature = "include")]
-pub fn watch_include(&self, path: impl AsRef<Path>, include: Include)
-    -> Result<WatchToken, WatchError>;
-```
+The transformed completion retains original returned Include errors, every
+`Report.failures` IncludeError, and contained asynchronous panic messages.
+Exactly one observer takes the retained completion; error publication and
+destruction occur outside mutable framework borrows. Successful callbacks return
+unit without separately reporting the same failures.
 
-It watches one supplied path and refreshes the supplied Include. It never discovers
-an Include source graph or disposes the supplied Include. Parse/read/lifecycle
-errors and each Report.failures cause are retained in bounded WatchEvent history.
+One refresh runs per registration, with one coalesced follow-up. Stop/drop clears
+pending state and aborts its callback clone while keeping admitted Include work.
+Active plus retiring registrations count against `max_watches`. Reclamation
+requires completion observation and destruction of the running callback.
+Watcher/ancestor cleanup snapshots and awaits these same completions, then joins
+the owned producer; it makes no new Include refresh/settlement admission after
+shutdown has started.
 
-## Minimal retained-work design
+The offline `reload` example watches a temporary Include file, refreshes config
+1 to 2, replaces compiled-v1 with compiled-v2 through `ReloadPlan::replace_include`
+on the same managed EntryId, then refreshes config 3 through compiled-v2.
+A source watch reports RestartRequired. Watcher and Include teardown are joined
+and Registry restoration is asserted. Its `serde_json = "1"` dependency is
+dev-only; `required-features = ["include"]` gates the example.
 
-Add only cfg(include) private registration state. Hosted callback creation admits
-Include::refresh synchronously and immediately retains the returned IncludeTask
-as a shared local future. The callback awaits a clone; cancellation drops that
-clone without dropping the retained barrier. One refresh runs per registration;
-pending changes collapse into one follow-up. Stop/drop clears pending state.
+## Test-first evidence and corrected draft oracle
 
-The existing bounded local receiver additionally drives retained completions,
-including inactive registrations whose callback has been aborted. Completion is
-observed once, original Include causes are emitted outside framework borrows,
-and an inactive entry is reclaimed only after callback destruction and barrier
-observation. Active plus retiring entries continue to count against max_watches.
-No additional task/effect is created per refresh and no local handle crosses the
-producer thread boundary.
+Logs are under ignored `target/hmr-h3-resume/`.
 
-Watcher cleanup stops dispatch first and snapshots retained tasks. It awaits those
-same admitted tasks and observes their results before completing; it never calls
-Include::settle/refresh after owner admission has closed. Refused self/ancestor
-joins remain delegated to existing core disposal before stopping watcher state.
+1. Restored saved tests failed for the missing `watch_include` API on explicit
+   1.85.0: `missing-api-red-1.85.0.log`.
+2. The straightforward ordinary-callback adapter failed the held cleanup test:
+   watcher disposal returned while Include's actual old-resource release was
+   still gated. `barrier-red-1.85.0.log` preserves the behavioral RED.
+3. Retained completion repaired joined cleanup and quota, but the saved fixture
+   expected an ordinary core cleanup error in watcher history. A direct Include
+   reproduction returned `Report { changed: true, failures: [], conflicts: [] }`;
+   `Runtime::take_failures()` retained `CleanupFailure -> OriginalFailure(17)`.
+   See `direct-include-error-red-1.85.0.log` and the saved probe excerpt
+   `direct-include-error-probe.rs.txt` in that log directory.
+4. Parent ruled that this was a draft oracle mismatch with the accepted error
+   channels, not a missing production guarantee. The four held cases retain the
+   OriginalFailure(17) cleanup and assert exactly one original cause through
+   Runtime diagnostics. Their source now also contains two real, nonfatal
+   Include patch errors. After callback abort/join, watcher history must contain
+   both original typed IncludeErrors, each once, with exact messages, source
+   file, patches indices 0/1 and spans. All gated release, pending barrier, quota,
+   no-follow-up and no-spurious-disposed-error assertions remain.
+   The existing parser recovery test still checks
+   `WatchFailure -> IncludeError -> serde_json::Error`.
+5. The direct error-channel control test passes on stable and 1.85.0. No
+   dependency implementation was altered to satisfy the mistaken draft oracle.
 
-## Test-first steps
+Historical proposal/resume prose called the saved draft nine tests; the preserved
+`hmr-resume/include_integration.rs.txt` actually declares eight. That saved
+handoff is unchanged. Delivery contains ten: the eight corrected/restored cases,
+one successful held-refresh/single-follow-up case, and one direct Include
+error-channel control.
 
-1. Synthetic valid refresh, invalid JSON followed by recovery, and Include-generated
-   rename self-write convergence: assert same managed entry/config, bounded errors,
-   file bytes and no second lifecycle application for unchanged accepted data.
-2. Gate old plugin cleanup after a watched refresh. Stop/drop token, queue another
-   change, and dispose watcher or common ancestor. Assert joined disposal stays
-   pending until actual resource release, original failed cleanup remains inspectable
-   after callback abort, and queued follow-up is never admitted.
-3. Fill max_watches with stopped registrations whose Include barriers remain held.
-   Assert registration rejects until barrier completion is observed and then quota
-   recovers; repeated cancellation/late completion cannot grow resident work.
-4. Real polling supplement: immediate write, atomic rename, remove/recreate and
-   invalid-file recovery under bounded deadline. Always join watcher and Include.
-5. Offline example watches/refreshes the same Include-managed instance, replaces
-   a linked compiled factory through ReloadPlan::replace_include, reports a source
-   RestartRequired event, and joins watcher plus Include shutdown.
+The ten H3 tests cover:
 
-Tests: crates/re-cordis-hmr/tests/include_integration.rs. Example:
-crates/re-cordis-hmr/examples/reload.rs; manifest required-features=["include"]
-and serde_json only as a dev dependency. H1 watch.rs ownership must be handed off
-before tracked adapter/manifest/example/test edits.
+- Synthetic invalid bytes followed by recovery, 100-event bursts, atomic rename
+  and Include-generated self-write convergence on the same EntryId.
+- Token stop, token Drop, watcher disposal and ancestor disposal while old plugin
+  cleanup is gated; actual release, both original error channels, retained quota
+  and suppression of queued follow-up.
+- Two stopped registrations exhausting quota until their completions are observed.
+- A successful held refresh followed by exactly one coalesced refresh; configs
+  apply as [1, 2, 3] after old-resource release.
+- 100 watcher create/use/dispose cycles restoring effects and Registry, plus weak
+  callback/catalog capture release.
+- Bounded real polling immediate write, atomic rename, invalid file/removal
+  recovery, self-write convergence and joined producer/Include cleanup.
+- Direct Include cleanup-error channel control.
 
-## Verification boundary
+## Authorized H1 filesystem oracle correction
 
-Targeted HMR all-feature tests, strict all-target Clippy, Rustdoc and runnable
-example on explicit stable and 1.85.0 tools. Resolve Cargo/rustc/rustdoc/
-cargo-clippy/clippy-driver with rustup and export matching RUSTUP_TOOLCHAIN,
-RUSTC, RUSTDOC and leading toolchain PATH. Long logs under target/hmr-h3.
-Parent owns workspace/M0/docs/parity matrix, paired guides and final integration.
-macOS polling smoke does not establish Linux/Windows runtime acceptance.
+An initial default HMR run failed
+`atomic_rename_remove_and_parent_recreate_keep_logical_watch`:
+a queued older callback could observe deleted bytes and set `latest = None`
+before the Removed event was dispatched. The old test treated missing bytes
+alone as proof that Removed had arrived. The focused rerun passed; the original
+failure remains in `default-test-1.85.0.log`.
 
+Parent authorized only this test's bounded wait to require both missing bytes
+and an observed Removed event. Existing event, sticky path and joined-resource
+assertions remain. No production behavior, sleeps or timeout was changed.
+Ten focused repeats per toolchain pass in
+`h1-oracle-repeat-{stable,1.85.0}.log`, followed by the normal final suites.
+This adds `tests/filesystem.rs` to the H3 review/freeze scope.
 
-## Paused resume checkpoint
+## Final executed focused verification
 
-User pause received at 2026-11-03 11:32 UTC (18:32 Asia/Ho_Chi_Minh).
-No H3 adapter/source/manifest implementation was authorized or performed.
-No H3 commit was made. No verification result is claimed.
+Every Cargo/rustc/rustdoc/cargo-clippy/clippy-driver executable was resolved with
+`rustup which --toolchain stable|1.85.0`. Matching RUSTUP_TOOLCHAIN, RUSTC,
+RUSTDOC and leading toolchain-bin PATH were explicit. Tool paths and versions
+are in `tools-{stable,1.85.0}.json`; commands are in ignored
+`run_focused.py` and `matrix-{stable,1.85.0}.json`.
 
-Drafts exist only under ignored target/hmr-h3; the parent may preserve them:
+| Check | Stable 1.97.1 | Rust 1.85.0 |
+|---|---|---|
+| HMR all-feature/all-target check, locked | Pass | Pass |
+| HMR default all-target check, locked | Pass | Pass |
+| HMR all-feature tests, locked | 54 integration + 1 Rustdoc | 54 integration + 1 Rustdoc |
+| HMR default tests, locked | 43 integration + 1 Rustdoc | 43 integration + 1 Rustdoc |
+| H3 subset including direct channel control | 10 pass | 10 pass |
+| Strict all-feature/all-target Clippy | Pass | Pass |
+| Strict default/all-target Clippy | Pass | Pass |
+| Strict no-deps all-feature Rustdoc | Pass | Pass |
+| Strict no-deps default Rustdoc | Pass | Pass |
+| Runnable offline reload example | Pass | Pass |
+| Corrected H1 oracle repetitions | 10/10 | 10/10 |
+| Owned five Rust files, explicit stable rustfmt check | Pass | Same source |
+| git diff --check | Pass | Same source |
 
-- `/Users/I756434/Projects/private/cordis-rust/target/hmr-h3/include_integration.rs`
-  is the optional test draft, with file-level cfg(feature="include") and
-  futures_util::FutureExt. Nine tests cover synthetic invalid-byte recovery,
-  burst/rename self-write convergence, token stop, token Drop, watcher disposal,
-  ancestor disposal while old Include plugin cleanup is held, retained quota
-  recovery, 100 full watcher lifecycle cycles with parent-effect and weak capture
-  release checks, and bounded real polling/removal/recreation recovery.
-- `/Users/I756434/Projects/private/cordis-rust/target/hmr-h3/reload.rs`
-  is the runnable offline example draft. It watches a temporary Include file,
-  updates its configuration, replaces compiled-v1 with compiled-v2 via
-  ReloadPlan::replace_include on that same Include-managed entry, verifies later
-  configuration refresh uses compiled-v2, reports source RestartRequired and
-  joins watcher/Include shutdown before checking Registry restoration.
+Final log names: `{check-all,check-default,test-all,test-default,clippy-all,
+clippy-default,doc-all,doc-default,example}-{stable,1.85.0}.log`.
+Draft example type and crate-cfg lint-order setup failures are preserved as
+`first-matrix-*` logs; corrected final commands pass.
+Build roots are `target/hmr-h3-resume/build-{stable,1.85.0}`.
 
-The integration draft was briefly created/restored under the crate after worker
-freeze, then moved back to target at the parent's checkpoint request. Neither
-`crates/re-cordis-hmr/tests/include_integration.rs` nor
-`crates/re-cordis-hmr/examples/reload.rs` should exist at this pause. No watcher,
-lib.rs or Cargo.toml was edited by this H3 worker. H1/H2 remain parent-owned.
+Full workspace `cargo fmt --all --check` flagged only the inherited H2
+`crates/re-cordis-loader/src/lib.rs:2054` formatting delta. This worker left
+that file untouched for parent coordination. Log:
+`workspace-format-check-stable.log`. This is not a workspace-format pass.
 
-### Remaining ordered work
+Seven executable source/test/manifest SHA256 hashes are recorded in
+`target/hmr-h3-resume/source-freeze.json` at the implementation baseline above.
+No Git index operation, worker commit, push, publishing or additional agent was
+performed. Parent owns shared docs, declaration accounting, shared acceptance,
+independent review and commits.
 
-1. Parent completes/commits the frozen H1/H2 checkpoint and explicitly hands
-   watch.rs/lib.rs/Cargo.toml ownership to the H3 implementer.
-2. Add serde_json as HMR dev-only dependency and example required-features=["include"].
-   Restore the integration test draft. Run the expected missing watch_include
-   API RED with explicit rustup tools; fix any unrelated draft compilation errors.
-   No RED has been executed yet.
-3. Implement cfg(include) retained IncludeTask state. Small implementation option:
-   register the callback, then attach its weak Entry/State captures; immediately
-   retain successful refresh admission. Receiver uses its existing Notify plus
-   select_all over at most max_watches retained shared completions. Observe
-   original failure causes once. RunningGuard only reclaims stopped entries when
-   their retained completion is observed. Stop clears pending and aborts callback;
-   watcher on_dispose snapshots and awaits the same completion without new
-   Include admission. Keep local handles off the producer thread.
-4. Restore the example draft into examples/reload.rs only after required-features
-   manifest wiring. Run tests/example and fix real failures without weakening
-   resource-release/error/no-follow-up assertions. OriginalFailure(17) is the
-   cleanup-cause type asserted through Error::source in the held tests.
-5. Targeted all-feature/default HMR check/tests, strict all-target Clippy, Rustdoc
-   and cargo run --example reload --features include on stable and 1.85.0.
-   Resolve all five tools with rustup and export matching RUSTUP_TOOLCHAIN,
-   RUSTC, RUSTDOC and leading toolchain PATH. Logs target/hmr-h3.
-6. Update this evidence with actual RED/GREEN commands/counts and hand off the
-   frozen working result to parent for review/docs/workspace acceptance/commit.
+## Evidence boundaries
 
-Both stable and 1.85.0 Cargo/rustc/rustdoc/cargo-clippy/clippy-driver path probes
-resolved to matching `/Users/I756434/.rustup/toolchains/<toolchain>-aarch64-apple-darwin/bin`.
-These setup probes are not test acceptance. Draft tests and example have not
-been compiled or executed. macOS runtime checks remain unexecuted for H3.
+Executed on aarch64 macOS. Linux/Windows runtime watcher acceptance remains
+absent. Polling may miss changes between samples, process-local fingerprints
+have their documented collision caveat, symlink checks are ordinary filesystem
+behavior, and blocked OS I/O may delay joined shutdown. Source changes report
+RestartRequired; no supervisor, Node cache/eval or native binary loading is
+provided. Focused H3 verification does not claim the workspace/M0/docs/parity
+matrix or independent acceptance.

@@ -2054,7 +2054,8 @@ impl Loader {
                     failure,
                     observed,
                     work,
-                }) = update_failure {
+                }) = update_failure
+                {
                     if !observed.get() {
                         if let Some(scheduled) = &mut scheduled {
                             if !scheduled

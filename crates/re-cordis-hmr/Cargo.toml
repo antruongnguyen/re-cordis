@@ -20,7 +20,12 @@ re-cordis-include = { path = "../re-cordis-include", optional = true }
 futures-util.workspace = true
 tokio = { workspace = true, features = ["rt", "sync", "macros"] }
 
+[[example]]
+name = "reload"
+required-features = ["include"]
+
 [dev-dependencies]
+serde_json = "1"
 tokio = { workspace = true, features = ["rt", "time", "macros", "test-util"] }
 
 [lints]

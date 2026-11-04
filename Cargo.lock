@@ -383,6 +383,7 @@ dependencies = [
  "re-cordis-include",
  "re-cordis-loader",
  "re-cordis-timer",
+ "serde_json",
  "tokio",
 ]
 

@@ -266,6 +266,8 @@ fn admitted(ctx: &Context) -> Result<(), WatchError> {
 }
 
 type Callback = Box<dyn FnMut(Change) -> LocalFuture<Result<(), BoxError>>>;
+#[cfg(feature = "include")]
+type IncludeWork = futures_util::future::Shared<LocalFuture<Vec<Rc<dyn Error>>>>;
 struct Entry {
     id: WatchId,
     path: PathBuf,
@@ -275,6 +277,20 @@ struct Entry {
     pending: Cell<Option<ChangeKind>>,
     running: Cell<bool>,
     control: RefCell<Option<TaskControl>>,
+    #[cfg(feature = "include")]
+    include_work: RefCell<Option<IncludeWork>>,
+}
+impl Entry {
+    fn has_include_work(&self) -> bool {
+        #[cfg(feature = "include")]
+        {
+            self.include_work.borrow().is_some()
+        }
+        #[cfg(not(feature = "include"))]
+        {
+            false
+        }
+    }
 }
 enum Message {
     Change {
@@ -404,10 +420,61 @@ impl State {
             self.shared.state.lock().unwrap().paths.remove(&e.path);
             self.shared.changed.notify_all();
         }
-        if !e.running.get() {
-            self.entries.borrow_mut().remove(&id);
-        }
+        self.reclaim(&e);
         drop(callback);
+    }
+    fn reclaim(&self, entry: &Entry) {
+        if !entry.active.get() && !entry.running.get() && !entry.has_include_work() {
+            let retired = self.entries.borrow_mut().remove(&entry.id);
+            drop(retired);
+        }
+    }
+    #[cfg(feature = "include")]
+    fn include_work(&self) -> Vec<(Rc<Entry>, IncludeWork)> {
+        self.entries
+            .borrow()
+            .values()
+            .filter_map(|entry| {
+                entry
+                    .include_work
+                    .borrow()
+                    .as_ref()
+                    .map(|work| (entry.clone(), work.clone()))
+            })
+            .collect()
+    }
+    #[cfg(feature = "include")]
+    fn observe_include(&self, entry: &Entry, failures: Vec<Rc<dyn Error>>) {
+        let work = entry.include_work.borrow_mut().take();
+        if work.is_none() {
+            return;
+        }
+        drop(work);
+        for error in failures {
+            self.failure(
+                Some(entry.id),
+                Some(entry.path.clone()),
+                WatchFailureStage::Callback,
+                error,
+            );
+        }
+        self.reclaim(entry);
+    }
+    async fn wait_activity(&self) {
+        #[cfg(feature = "include")]
+        {
+            let (entries, works): (Vec<_>, Vec<_>) = self.include_work().into_iter().unzip();
+            if !works.is_empty() {
+                tokio::select! {
+                    _ = self.shared.notify.notified() => {},
+                    (failures, index, _) = futures_util::future::select_all(works) => {
+                        self.observe_include(&entries[index], failures);
+                    }
+                }
+                return;
+            }
+        }
+        self.shared.notify.notified().await;
     }
     fn stop(&self) {
         if self.closed.replace(true) {
@@ -450,7 +517,7 @@ impl State {
         let entries = self.entries.borrow().values().cloned().collect::<Vec<_>>();
         let mut announced = BTreeSet::new();
         for e in entries {
-            if !e.active.get() || e.running.get() {
+            if !e.active.get() || e.running.get() || e.has_include_work() {
                 continue;
             }
             let Some(kind) = e.pending.take() else {
@@ -541,7 +608,7 @@ impl State {
     }
     async fn receive(self: Rc<Self>) -> fn() {
         loop {
-            self.shared.notify.notified().await;
+            self.wait_activity().await;
             if self.closed.get() {
                 break;
             }
@@ -599,9 +666,7 @@ impl Drop for RunningGuard {
         self.entry.running.set(false);
         self.entry.control.borrow_mut().take();
         if let Some(s) = self.state.upgrade() {
-            if !self.entry.active.get() {
-                s.entries.borrow_mut().remove(&self.entry.id);
-            }
+            s.reclaim(&self.entry);
             s.shared.notify.notify_one();
         }
     }
@@ -720,7 +785,13 @@ impl FileWatcher {
         state.ctx.on_dispose(move || {
             cleanup.stop();
             let handle = cleanup.producer.borrow_mut().take();
+            #[cfg(feature = "include")]
+            let works = cleanup.include_work();
             async move {
+                #[cfg(feature = "include")]
+                for (entry, work) in works {
+                    cleanup.observe_include(&entry, work.await);
+                }
                 if let Some(handle) = handle {
                     let result = tokio::task::spawn_blocking(move || handle.join())
                         .await
@@ -802,6 +873,8 @@ impl FileWatcher {
             pending: Cell::new(None),
             running: Cell::new(false),
             control: RefCell::new(None),
+            #[cfg(feature = "include")]
+            include_work: RefCell::new(None),
         });
         self.state.entries.borrow_mut().insert(id, e.clone());
         {
@@ -827,6 +900,53 @@ impl FileWatcher {
         Ok(self
             .register(path.as_ref(), Some(Box::new(callback)), false, false)?
             .unwrap())
+    }
+    /// Watch one explicit source and refresh the supplied Include.
+    ///
+    /// Stop suppresses follow-up refreshes. Watcher/ancestor disposal joins the
+    /// already-admitted Include work and retains each original failure once.
+    /// The supplied Include is not disposed by this adapter.
+    #[cfg(feature = "include")]
+    pub fn watch_include(
+        &self,
+        path: impl AsRef<Path>,
+        include: re_cordis_include::Include,
+    ) -> Result<WatchToken, WatchError> {
+        let token = self.register(path.as_ref(), None, false, false)?.unwrap();
+        let entry = self.state.entries.borrow().get(&token.id).unwrap().clone();
+        let weak = Rc::downgrade(&entry);
+        let shared = self.state.shared.clone();
+        *entry.callback.borrow_mut() = Some(Box::new(move |_| {
+            let admitted = include.refresh();
+            let work = async move {
+                match admitted {
+                    Err(error) => vec![Rc::new(error) as Rc<dyn Error>],
+                    Ok(task) => match std::panic::AssertUnwindSafe(task).catch_unwind().await {
+                        Ok(Ok(report)) => report
+                            .failures
+                            .into_iter()
+                            .map(|error| Rc::new(error) as Rc<dyn Error>)
+                            .collect(),
+                        Ok(Err(error)) => vec![Rc::new(error) as Rc<dyn Error>],
+                        Err(panic) => {
+                            vec![Rc::new(PanicMessage(panic_text(panic))) as Rc<dyn Error>]
+                        }
+                    },
+                }
+            }
+            .boxed_local()
+            .shared();
+            if let Some(entry) = weak.upgrade() {
+                *entry.include_work.borrow_mut() = Some(work.clone());
+            }
+            shared.notify.notify_one();
+            async move {
+                let _ = work.await;
+                Ok(())
+            }
+            .boxed_local()
+        }));
+        Ok(token)
     }
     /// Watch an exact file only if no ignored component matches.
     pub fn observe<F>(
