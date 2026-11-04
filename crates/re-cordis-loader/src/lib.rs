@@ -1931,11 +1931,11 @@ impl Loader {
     /// Wait for admitted work, newly included group children and detached cleanup.
     /// Pending succeeds; each latest entry failure is reported independently.
     pub fn settle(&self) -> Result<LoaderTask<Settlement>, LoaderError> {
-        self.settle_with_failures(Vec::new())
+        self.settle_with_failures(None)
     }
     fn settle_with_failures(
         &self,
-        scheduled: Vec<(EntryFailure, Rc<Cell<bool>>)>,
+        mut scheduled: Option<Vec<(EntryFailure, Rc<Cell<bool>>)>>,
     ) -> Result<LoaderTask<Settlement>, LoaderError> {
         self.admit()?;
         let loader = self.clone();
@@ -2035,19 +2035,24 @@ impl Loader {
                 }
                 let update_failure = loader.0.update_failure.borrow_mut().take();
                 if let Some((failure, observed)) = update_failure {
-                    if !observed.get()
-                        && !scheduled
-                            .iter()
-                            .any(|(_, current)| Rc::ptr_eq(current, &observed))
-                    {
-                        failures.insert(failure.id, failure.error);
+                    if !observed.get() {
+                        if let Some(scheduled) = &mut scheduled {
+                            if !scheduled
+                                .iter()
+                                .any(|(_, current)| Rc::ptr_eq(current, &observed))
+                            {
+                                scheduled.push((failure, observed));
+                            }
+                        } else {
+                            failures.insert(failure.id, failure.error);
+                        }
                     }
                 }
                 let mut failures: Vec<_> = failures
                     .into_iter()
                     .map(|(id, error)| EntryFailure { id, error })
                     .collect();
-                failures.extend(scheduled.into_iter().map(|(failure, _)| failure));
+                failures.extend(scheduled.into_iter().flatten().map(|(failure, _)| failure));
                 acknowledge_updates(&loader.0);
                 Ok(Settlement {
                     entries: loader.entries(),
@@ -2864,7 +2869,7 @@ impl Loader {
                 failures.push((failure, observed));
             }
         }
-        self.settle_with_failures(failures)
+        self.settle_with_failures(Some(failures))
     }
     /// Start disposal of the whole dedicated owner and join all detached cleanup.
     pub fn dispose(&self) -> Result<LoaderTask<()>, LoaderError> {

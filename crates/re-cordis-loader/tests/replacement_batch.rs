@@ -662,3 +662,109 @@ async fn dropped_batch_keeps_first_unobserved_observer_policy() {
         .await
         .unwrap();
 }
+
+async fn exact_batch_with_older_observer_slot(current_observers_fail: bool) {
+    let runtime = Runtime::new();
+    runtime
+            .run(async {
+                let root = runtime.context();
+                let mut catalog = Catalog::new();
+                catalog.register("worker", inert("old")).unwrap();
+                let loader = Loader::new(&root, catalog).unwrap();
+                for (id, config) in [("a", 1u32), ("b", 2u32)] {
+                    loader
+                        .create(EntrySpec::new("worker", Config::new(config)).id(id))
+                        .unwrap();
+                }
+                loader.settle().unwrap().await.unwrap();
+                let phase = Rc::new(Cell::new(1));
+                root.on(
+                    &loader.commits(),
+                    Listener::sync({
+                        let phase = phase.clone();
+                        move |_, commit: re_cordis_loader::CommitRecord| {
+                            if phase.get() == 2 && !current_observers_fail {
+                                return Ok(ControlFlow::Continue(()));
+                            }
+                            Err::<ControlFlow<()>, _>(io::Error::other(format!(
+                                "observer-{}-{}",
+                                phase.get(),
+                                commit.id.as_str()
+                            )))
+                        }
+                    }),
+                )
+                .unwrap();
+                drop(loader.replace_factory("worker", inert("first")).unwrap());
+                phase.set(2);
+                let failed = Plugin::new("failed", |_, config: u32| async move {
+                    Err::<(), _>(io::Error::other(format!("apply-{config}")))
+                });
+                let report = loader
+                    .replace_factory("worker", failed)
+                    .unwrap()
+                    .await
+                    .unwrap();
+                let mut actual: Vec<_> = report
+                    .failures
+                    .iter()
+                    .map(|failure| {
+                        (
+                            failure.id.as_str(),
+                            original_io_error(&failure.error).to_string(),
+                        )
+                    })
+                    .collect();
+                actual.sort();
+                let mut expected = vec![
+                    ("a", "apply-1".into()),
+                    ("a", "observer-1-a".into()),
+                    ("b", "apply-2".into()),
+                ];
+                if current_observers_fail {
+                    expected.extend([
+                        ("a", "observer-2-a".into()),
+                        ("b", "observer-2-b".into()),
+                    ]);
+                }
+                expected.sort();
+                eprintln!("exact batch with older slot, current_observers_fail={current_observers_fail}: {actual:?}");
+                assert_eq!(actual, expected);
+                let later = loader.settle().unwrap().await.unwrap();
+                let mut later_causes: Vec<_> = later
+                    .failures
+                    .iter()
+                    .map(|failure| {
+                        (
+                            failure.id.as_str(),
+                            original_io_error(&failure.error).to_string(),
+                        )
+                    })
+                    .collect();
+                later_causes.sort();
+                assert_eq!(
+                    later_causes,
+                    [("a", "apply-1".into()), ("b", "apply-2".into())]
+                );
+                let mut diagnostics: Vec<_> = runtime
+                    .take_failures()
+                    .iter()
+                    .map(|error| original_io_error(error).to_string())
+                    .collect();
+                diagnostics.sort();
+                assert_eq!(diagnostics, ["apply-1", "apply-2"]);
+                loader.dispose().unwrap().await.unwrap();
+            })
+            .await
+            .unwrap();
+}
+
+#[tokio::test(flavor = "current_thread")]
+async fn exact_batch_keeps_apply_and_observer_causes_with_an_older_slot() {
+    exact_batch_with_older_observer_slot(true).await;
+}
+
+#[tokio::test(flavor = "current_thread")]
+async fn exact_batch_keeps_apply_causes_with_an_older_slot_and_successful_observers() {
+    exact_batch_with_older_observer_slot(false).await;
+}
