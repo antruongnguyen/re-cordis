@@ -69,9 +69,10 @@ checker changes; .github/workflows/ci.yml for a reviewed CI addition.
 
 **Reconciled scope (2026-11-05):** later deliveries satisfy most original
 items. The old instruction to leave timer repair open is superseded by accepted
-T0–T5. This checklist records completed work/decisions; final B1 acceptance
-still requires current verification and independent review in the
-[follow-up report](evidence/2026-11-05-b1-closure.md).
+T0–T5. **B1 is independently accepted** after the complete shared matrix and
+scoped correction re-review; see the
+[follow-up report](evidence/2026-11-05-b1-closure.md). Checked decisions below
+include an explicit CI deferral, not implemented CI coverage.
 
 - [x] Current status and checker export coverage include all seven delivered
   crates; reuse [R1 acceptance](evidence/r1-acceptance.md) and the

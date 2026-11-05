@@ -107,8 +107,10 @@ correction/evidence review and the full shared matrix; see [current progress](pr
 verification of later edits. R1's readiness assessment and
 [release proposal](../../release-readiness.md) are independently accepted; see
 [R1 evidence](evidence/r1-acceptance.md). Publication/version changes remain
-separate decisions. The bounded B1/local preparation follow-up is now selected;
-see [its execution plan](evidence/2026-11-05-b1-plan.md).
+separate decisions. The bounded B1/local preparation follow-up is independently
+accepted; see [its closure evidence](evidence/2026-11-05-b1-closure.md).
+All 35 work packages are done within their documented scopes; CI/platform
+expansion and the actual release remain separate decisions.
 
 ## Recommended approach and alternatives
 

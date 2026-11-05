@@ -33,9 +33,11 @@ B0's evidence gaps are not a blanket prerequisite for satellite delivery.
   See [R1 acceptance](plans/2026-11-02-cordis-completion/evidence/r1-acceptance.md).
   The current recommendation is local/Git checkout consumption only;
   publishing/version changes remain subject to a separate release decision.
-- [ ] Close selected bounded B1 and local release preparation after fresh
-  verification/review: status reconciliation, permanent planning/evidence links,
-  explicit-checkout Create archive tests and focused provenance notices. See
+- [x] Complete bounded B1 and local release preparation with independent
+  review/re-review: status reconciliation, permanent planning/evidence links,
+  explicit-checkout Create archive tests and focused provenance notices.
+  All 35 work packages are done within accepted scope; CI/platform expansion
+  and actual release decisions remain explicitly deferred. See
   [the follow-up](plans/2026-11-02-cordis-completion/evidence/2026-11-05-b1-closure.md).
 
 The older milestones below retain their historical delivery evidence. A

@@ -14,7 +14,8 @@ seven-package experimental alpha proposal and
 `docs/plans/2026-11-02-cordis-completion/evidence/r1-acceptance.md` for evidence. Version/dependency/publication changes require a subsequent
 release decision; keep `0.0.0`/`publish=false`. Each crate carries its MIT notice;
 the generated starter retains that notice in its existing README.
-The selected bounded B1/local release follow-up is recorded in
+Bounded B1/local release preparation is independently accepted; all 35 work
+packages are done within scope. See
 docs/plans/2026-11-02-cordis-completion/evidence/2026-11-05-b1-closure.md.
 Create archive tests use test-only CORDIS_CREATE_TEST_CHECKOUT when outside
 the repository; the CLI still requires --cordis-path and a separate complete

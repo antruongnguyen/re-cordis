@@ -8,7 +8,8 @@ meta-framework for spatiotemporal composability.
 > [release readiness assessment](docs/release-readiness.md) proposes a separate
 > seven-package experimental alpha decision; no package is published.
 > The [bounded B1 follow-up](docs/plans/2026-11-02-cordis-completion/evidence/2026-11-05-b1-closure.md)
-> reconciles current status, planning-link checks and local release preparation.
+> is independently accepted: current status, planning-link checks and local
+> release preparation are verified within scope; CI expansion remains deferred.
 > Create archive tests now accept a separate compatible checkout; the tool still
 > requires that checkout and does not bundle the framework.
 > The unpublished `re-cordis-core` has local
