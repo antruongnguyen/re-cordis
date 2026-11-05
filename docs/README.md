@@ -22,9 +22,43 @@ Nội dung tổ chức theo công việc của người dùng, không theo cột
 Hai cây ngôn ngữ có đường dẫn tương ứng, diễn giải tương đương và mã chạy giống
 nhau. Mỗi trang liên kết đến bản ngôn ngữ còn lại.
 
+## Build and preview the documentation site
+
+The standalone [website application](../website/README.md) compiles the canonical
+docs/en and docs/vi Markdown at build time using Fumadocs/Next.js and Bun.
+The development site includes same-revision Rustdoc, browser-side static search,
+public llms.txt and per-page Markdown. The site Rustdoc includes dependency
+documentation so inherited trait links resolve; generated API bytes are preserved.
+It remains unpublished until the owner
+activates and deploys GitHub Pages. The local [llms.txt](llms.txt) stays
+checkout-relative and is not copied as the public index.
+
+From the repository root (Bash, Bun 1.4.4 and Node.js 22):
+
+```sh
+source .github/scripts/rust-tools.sh stable
+"$CORDIS_CARGO" fetch --locked
+CARGO_TARGET_DIR="$PWD/target/site-rustdoc" "$CORDIS_CARGO" doc --workspace --all-features --locked --offline
+cd website
+bun install --frozen-lockfile
+CORDIS_RUSTDOC_DIR=../target/site-rustdoc/doc bun run build
+bun run typecheck
+bun run lint
+bun run check
+bun run preview
+```
+
+Preview the exported files at http://127.0.0.1:4173/re-cordis/ (not the Next.js
+development server). Build and copy Rustdoc from the same checkout revision;
+rebuild after a commit to update pinned source links and provenance. The website
+README documents route mapping, checks and owner-side Pages activation.
+The [EN](en/guides/documentation.md) and [VI](vi/guides/documentation.md)
+channel guides distinguish development guides, exact APIs and future releases.
+
 ## Exact API signatures
 
-Generate Rustdoc locally with `cargo doc --workspace --no-deps --locked`.
+Generate Rustdoc locally with `cargo doc --workspace --all-features --no-deps --locked`.
+The all-feature build includes HMR's optional Include adapter.
 Open `target/doc/re_cordis_core/index.html` or
 `target/doc/re_cordis_timer/index.html`, `target/doc/re_cordis_logger/index.html`
 or `target/doc/re_cordis_loader/index.html`, `target/doc/re_cordis_include/index.html`,
@@ -44,9 +78,9 @@ The index summarizes the seven package boundaries, required features, current
 distribution constraints, lifecycle/error rules and applicable notices. Its
 paired guide links retain both languages without duplicating long descriptions;
 the API indexes lead to the complete contract chapters. Keep it below 8 KiB.
-A future website should generate its public index from the actual published
-routes, retaining these constraints and language/version context. Preserve this
-checkout-relative index; copying it unchanged does not produce valid site URLs.
+The website generates its public index from actual exported routes, retaining
+these constraints and language/revision context. Preserve this checkout-relative
+index; copying it unchanged does not produce valid site URLs.
 
 The file is a retrieval aid following the [llms.txt proposal](https://llmstxt.org/),
 not an authorization mechanism or replacement for repository instructions.
@@ -125,12 +159,19 @@ selected toolchains; formatting remains stable-only. See the
 [executed R0 evidence](plans/2026-11-02-cordis-completion/evidence/r0-acceptance.md). No production template variant
 is added, and no temporary fixture source becomes a public API.
 
-This is an opt-in documentation check; it does not modify the existing CI matrix.
-The inspected .github/workflows/ci.yml defines Ubuntu stable/1.85.0 Rust jobs,
-stable-only lint/formatting and workspace/M0 tests, but neither Python
-documentation regression nor guide execution. Adding those is recommended
-with explicit dependency restoration and per-toolchain results; implementation
-and wider platform acceptance are deferred by the bounded B1 decision.
+The new .github/workflows/documentation.yml prepares these regressions and
+full guide checks on macOS with explicit stable/1.85.0 tools and a locked
+Cargo fetch and .github/scripts/restore-docs-dependencies.py before offline
+execution. The latter restores the generated R0 app's default futures-util
+macro feature, which the workspace lock alone does not fetch. Its temporary
+manifest/lock stay outside the repository. It also checks Rustdoc feature variants.
+A separate Linux job builds/checks the static website using the exact Rustdoc
+artifact produced by the stable macOS guide job. It does not compile or run
+the framework on Linux, or establish new filesystem/watcher acceptance. The existing
+.github/workflows/ci.yml Rust matrix is preserved. The separate Pages workflow
+is manual, requires PAGES_DEPLOY_ENABLED=true and deploy=true, waits for all
+documentation jobs, and uses the github-pages environment. These files have
+local validation only until the owner pushes them and runs GitHub Actions.
 Other shell examples are not executed. It does not make authenticated requests, install packages,
 or validate external URLs. If dependencies are missing, the offline build fails
 explicitly; restore required dependencies deliberately before retrying.

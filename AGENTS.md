@@ -20,7 +20,10 @@ docs/plans/2026-11-02-cordis-completion/evidence/2026-11-05-b1-closure.md.
 Create archive tests use test-only CORDIS_CREATE_TEST_CHECKOUT when outside
 the repository; the CLI still requires --cordis-path and a separate complete
 checkout. Planning/evidence links are included in the local docs checker;
-CI/documentation execution and platform expansion remain deferred proposals.
+The subsequent documentation delivery prepares separate macOS guide CI and a
+static Fumadocs site with gated manual Pages deployment; see website/README.md
+and docs/plans/2026-11-05-documentation-site/plan.md. Hosted execution/deployment,
+registry/docs.rs publication and platform expansion remain separate gates.
 The completed post-M6 lifecycle-parity slices add six executed Rust/TypeScript
 scenarios (152 Rust integration tests, 17 Rustdoc checks), including bounded
 failure/recovery evidence. See `docs/lifecycle-parity.md` for reproduction and

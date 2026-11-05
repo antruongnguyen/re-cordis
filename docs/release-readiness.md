@@ -6,7 +6,10 @@ The [dated follow-up](plans/2026-11-02-cordis-completion/evidence/2026-11-05-b1-
 records the Create fixture correction, provenance notices and current verification.
 The assessment and proposal are independently reviewed and accepted; see
 [R1 acceptance](plans/2026-11-02-cordis-completion/evidence/r1-acceptance.md).
-This does not approve publication.
+This does not approve publication. The subsequent
+[documentation delivery](plans/2026-11-05-documentation-site/plan.md) prepares
+local Fumadocs/Rustdoc output, documentation CI and manual Pages deployment;
+it does not establish a reachable deployed site or hosted docs.rs release.
 
 **Recommendation: ready only for local/Git checkout consumption today.**
 The seven crates remain unpublished, unstable `0.0.0` with `publish=false`.

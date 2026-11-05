@@ -1,0 +1,45 @@
+import { defineI18n } from 'fumadocs-core/i18n';
+import { uiTranslations, i18nProvider } from 'fumadocs-ui/i18n';
+
+export const i18n = defineI18n({ defaultLanguage: 'en', languages: ['en', 'vi'] });
+const translations = i18n.translations().extend(uiTranslations()).add({
+  en: { displayName: 'English' },
+  vi: {
+    displayName: 'Tiếng Việt',
+    'Search(search trigger)': 'Tìm tài liệu',
+    'Search(search dialog)': 'Tìm tài liệu',
+    'No results found(search dialog)': 'Không tìm thấy kết quả',
+    'Search failed(search dialog)': 'Tìm kiếm thất bại',
+    'Search failed, showing results for {query}(search dialog)': 'Tìm kiếm thất bại, hiển thị kết quả cho {query}',
+    'Open Search(search trigger)(aria-label)': 'Mở tìm kiếm',
+    'Close Search(search dialog)(aria-label)': 'Đóng tìm kiếm',
+    'Choose a language(language switcher)': 'Chọn ngôn ngữ',
+    'Choose a language(language switcher)(aria-label)': 'Chọn ngôn ngữ',
+    'On this page(table of contents)': 'Trên trang này',
+    'No Headings(table of contents)': 'Không có tiêu đề',
+    'Table of Contents(inline table of contents)': 'Mục lục',
+    'Previous Page(pagination)': 'Trang trước',
+    'Next Page(pagination)': 'Trang sau',
+    'Toggle Menu(mobile menu)(aria-label)': 'Mở hoặc đóng menu',
+    'Open Sidebar(sidebar)(aria-label)': 'Mở thanh bên',
+    'Close Sidebar(sidebar)(aria-label)': 'Đóng thanh bên',
+    'Close Sidebar(aria-label)': 'Đóng thanh bên',
+    'Collapse Sidebar(sidebar)(aria-label)': 'Thu gọn thanh bên',
+    'Show Sidebar(sidebar)': 'Hiện thanh bên',
+    'Hide Sidebar(sidebar)': 'Ẩn thanh bên',
+    'Light(theme switcher)(aria-label)': 'Giao diện sáng',
+    'Dark(theme switcher)(aria-label)': 'Giao diện tối',
+    'System(theme switcher)(aria-label)': 'Theo hệ thống',
+    'Toggle Theme(theme switcher)(aria-label)': 'Đổi giao diện',
+    'Copy Markdown(page actions)': 'Sao chép Markdown',
+    'Copied Markdown(page actions)': 'Đã sao chép Markdown',
+    'Copy Text(code block)(aria-label)': 'Sao chép mã',
+    'Copied Text(code block)(aria-label)': 'Đã sao chép mã',
+    'Copy Anchor Link(heading anchor)(aria-label)': 'Sao chép liên kết tiêu đề',
+    'Copied Anchor Link(heading anchor)(aria-label)': 'Đã sao chép liên kết tiêu đề',
+    'View as Markdown(page actions)': 'Xem Markdown',
+    'Edit on GitHub(edit page)': 'Xem nguồn trên GitHub',
+    'Layout Tab(layout tab trigger)': 'Chọn phần tài liệu',
+  },
+});
+export const providerI18n = (locale: string) => i18nProvider(translations, locale);

@@ -27,6 +27,10 @@ ghi bản sửa test archive/notice cục bộ và quyết định hoãn CI.
 Giữ [notice upstream](../../UPSTREAM-NOTICES.md) áp dụng khi phân phối lại
 các phần được xác định là có chuyển thể.
 
+[Hướng dẫn các kênh tài liệu](guides/documentation.md) giải thích cách xem
+Fumadocs cục bộ, Rustdoc cùng revision và các bước Pages/docs.rs còn cần quyết
+định triển khai/phát hành. Đây là tài liệu phát triển cho các crate chưa phát hành.
+
 ## Chọn lộ trình đọc
 
 | Mục tiêu | Bắt đầu tại |

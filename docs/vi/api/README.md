@@ -10,6 +10,10 @@ generic, trait implementation và trường công khai.
 [Hướng dẫn tích hợp](../guides/system-lifecycle.md) ghép các API này.
 Các kiểu ứng dụng thuộc riêng ví dụ và không thêm export công khai.
 
+Website phát triển cũng kèm Rustdoc chính xác từ revision của bản build.
+Xem [các kênh tài liệu](../guides/documentation.md) để biết đầu ra cục bộ,
+API Include tùy chọn của HMR và chính sách docs.rs theo phiên bản chính xác.
+
 ## Sinh tài liệu API chính xác
 
 Tại thư mục gốc repository:

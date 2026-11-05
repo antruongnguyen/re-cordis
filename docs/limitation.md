@@ -28,11 +28,31 @@ The separate complete checkout is still required and is not contained in the
 archive. Without CORDIS_CREATE_TEST_CHECKOUT the tests retain their ordinary
 repository-relative behavior. This is not a new production generator capability.
 
-Bounded B1 reconciles status and adds local planning/evidence link coverage.
-The CI decision is explicitly deferred: existing Rust jobs do not execute
-Python documentation regressions or guide/application checks. Those local
-executions and the proposed CI addition do not establish Linux/Windows
-filesystem/watcher acceptance. See [the follow-up](plans/2026-11-02-cordis-completion/evidence/2026-11-05-b1-closure.md).
+Bounded B1 reconciled status and added local planning/evidence link coverage,
+deferring CI at that checkpoint; see [the follow-up](plans/2026-11-02-cordis-completion/evidence/2026-11-05-b1-closure.md).
+The subsequent [documentation delivery](plans/2026-11-05-documentation-site/plan.md)
+prepares separate macOS guide checks and a static-site build workflow. Local
+validation of those files is not a hosted Actions run. The prepared Pages site
+is development/local-checkout documentation; owner activation and deployment
+are still required. The Linux build job and local Rustdoc compilation establish
+no new Linux/Windows filesystem/watcher acceptance.
+
+HMR docs.rs metadata selects the optional Include API without changing default
+features. No hosted docs.rs build has occurred; local stable/MSRV Rustdoc does
+not substitute for docs.rs Linux/nightly execution on actual published crates.
+Development guides bundle matching-revision Rustdoc. Future release snapshots
+must use exact-version docs.rs links and verified registry dependencies; see
+[documentation channels](en/guides/documentation.md).
+
+The site includes dependency Rustdoc to resolve inherited trait links in the
+re-cordis APIs. The compiler still emits 112 unresolved prose/method references to
+inactive feature/platform APIs or inherited anchors inside dependency documentation
+(76 targets in 32 dependency-owned pages); they are recorded as an exact checked set, not
+interpreted as supported re-cordis APIs. No re-cordis or website page is exempted
+from link checks. Four absent external-implementor scripts receive empty
+registrations; all compiler-emitted HTML/API bytes remain unchanged. Generated
+Rustdoc may also log non-blocking font-preload warnings in Chromium. See the
+[website verification notes](../website/README.md) for the artifact boundary.
 
 Path dependencies track current checkout contents, not immutable Cargo.lock
 sources. Moving a checkout needs manifest edits; changing it may change the

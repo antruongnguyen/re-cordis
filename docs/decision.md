@@ -4,6 +4,35 @@ A lightweight log of decisions made for this project and the reasoning behind
 them. Newest first. This is intentionally not a heavy ADR process; it records
 *what we chose and why* so the choices aren't re-litigated silently.
 
+## 2026-11-05 — Prepare static bilingual guides and a separate API channel
+
+Use a standalone Bun/Fumadocs/Next.js application over the canonical docs/en
+and docs/vi Markdown. Keep Rust/TOML/shell examples and checker paths intact.
+Use the standard documentation layout and explicit locale routes; GitHub Pages
+cannot run locale middleware or server search. Browser search consumes static
+locale indexes. Build public llms.txt and per-page Markdown from the same routes
+while retaining the reviewed checkout-relative index.
+
+The actual remote is antruongnguyen/re-cordis, so the project path is /re-cordis.
+README/relative Markdown links map to pages; explicit source/evidence links use
+the build Git revision. Bundle all-feature Rustdoc from the same revision so
+exact signatures remain available before a registry release. Future release
+guides must select exact-version APIs; development guides must not silently
+select latest released docs.rs content.
+
+Prepare independent documentation CI with explicit dependency restoration,
+macOS guide execution and a Linux-only static build. Keep existing Rust CI.
+Pages deployment is a separate manual owner opt-in with a protected environment;
+this delivery makes no hosted CI, Pages, docs.rs or Linux runtime claim.
+
+docs.rs generates Rustdoc after actual crates.io publication. Only HMR needs
+metadata selecting its optional include feature; do not change runtime defaults,
+targets, versions, path dependencies or publish flags. Local/nightly/container
+availability and executed checks are recorded with the
+[delivery plan](plans/2026-11-05-documentation-site/plan.md) and
+[docs.rs assessment](plans/2026-11-05-documentation-site/docs-rs-assessment.md).
+The separate coordinated alpha release decision remains outstanding.
+
 ## 2026-11-05 — Close bounded B1 and make Create archive tests checkout-aware
 
 Reconcile B1 against later accepted deliveries. Timer T0–T5 supersedes the

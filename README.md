@@ -9,7 +9,10 @@ meta-framework for spatiotemporal composability.
 > seven-package experimental alpha decision; no package is published.
 > The [bounded B1 follow-up](docs/plans/2026-11-02-cordis-completion/evidence/2026-11-05-b1-closure.md)
 > is independently accepted: current status, planning-link checks and local
-> release preparation are verified within scope; CI expansion remains deferred.
+> release preparation are verified within scope. A subsequent documentation
+> delivery prepares the bilingual Fumadocs site, documentation CI and gated
+> Pages workflow; [build and preview locally](website/README.md). Pages deployment
+> and hosted docs.rs publication remain owner/release actions.
 > Create archive tests now accept a separate compatible checkout; the tool still
 > requires that checkout and does not bundle the framework.
 > The unpublished `re-cordis-core` has local

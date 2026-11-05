@@ -1,0 +1,42 @@
+name: Deploy documentation to Pages
+
+# Owner opt-in only. Ordinary pushes and pull requests never deploy.
+on:
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: "Deploy the checked documentation from this selected branch?"
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: documentation-pages
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    if: inputs.deploy && vars.PAGES_DEPLOY_ENABLED == 'true'
+    uses: ./.github/workflows/documentation.yml
+    permissions:
+      contents: read
+      pages: read
+    with:
+      pages-artifact: true
+
+  deploy:
+    needs: verify
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy checked artifact
+        id: deployment
+        uses: actions/deploy-pages@v4

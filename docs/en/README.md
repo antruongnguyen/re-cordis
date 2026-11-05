@@ -26,6 +26,10 @@ records local archive-test/notice corrections and the deferred CI decision.
 Preserve the applicable [upstream notices](../../UPSTREAM-NOTICES.md) when
 redistributing identified adapted material.
 
+The [documentation-channel guide](guides/documentation.md) explains local
+Fumadocs preview, matching-revision Rustdoc and the remaining Pages/docs.rs
+release gates. This is development documentation for unpublished crates.
+
 ## Choose a reading path
 
 | Your goal | Start here |

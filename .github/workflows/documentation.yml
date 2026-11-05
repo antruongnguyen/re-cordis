@@ -1,0 +1,114 @@
+name: Documentation
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      pages-artifact:
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  guides:
+    name: Guides (${{ matrix.toolchain }}, macOS)
+    runs-on: macos-14
+    strategy:
+      fail-fast: false
+      matrix:
+        toolchain: [stable, "1.85.0"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy, rustfmt
+      - uses: dtolnay/rust-toolchain@master
+        if: matrix.toolchain != 'stable'
+        with:
+          toolchain: ${{ matrix.toolchain }}
+          components: clippy
+      - name: Restore locked dependencies and execute guides
+        shell: bash
+        run: |
+          source .github/scripts/rust-tools.sh "${{ matrix.toolchain }}"
+          "$CORDIS_CARGO" fetch --locked
+          python3 -B .github/scripts/restore-docs-dependencies.py
+          python3 -B tests/docs/test_check.py
+          python3 -B tests/docs/check.py --toolchain "${{ matrix.toolchain }}"
+      - name: Check API documentation feature configurations
+        shell: bash
+        run: |
+          source .github/scripts/rust-tools.sh "${{ matrix.toolchain }}"
+          "$CORDIS_CARGO" doc --workspace --all-features --no-deps --locked --offline
+          "$CORDIS_CARGO" test -p re-cordis-hmr --doc --features include --locked --offline
+          "$CORDIS_CARGO" test -p re-cordis-hmr --doc --no-default-features --locked --offline
+
+      - name: Build the website's exact API artifact on macOS
+        if: matrix.toolchain == 'stable'
+        shell: bash
+        run: |
+          source .github/scripts/rust-tools.sh stable
+          CARGO_TARGET_DIR="$PWD/target/site-rustdoc" "$CORDIS_CARGO" doc --workspace --all-features --locked --offline
+      - name: Share exact API artifact with the static site job
+        if: matrix.toolchain == 'stable'
+        uses: actions/upload-artifact@v4
+        with:
+          name: rustdoc-for-website
+          path: target/site-rustdoc/doc
+          include-hidden-files: true
+          retention-days: 1
+
+  site:
+    name: Static site (Linux, macOS Rustdoc artifact)
+    needs: guides
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "1.4.4"
+      - uses: actions/download-artifact@v4
+        with:
+          name: rustdoc-for-website
+          path: target/site-rustdoc/doc
+      - name: Configure Pages metadata (deployment preparation only)
+        if: inputs.pages-artifact == true
+        uses: actions/configure-pages@v5
+      - name: Install website dependencies
+        working-directory: website
+        run: bun install --frozen-lockfile
+      - name: Build and verify static artifact
+        working-directory: website
+        env:
+          CORDIS_RUSTDOC_DIR: ../target/site-rustdoc/doc
+        run: |
+          bun run build
+          bun run typecheck
+          bun run lint
+          bun run check
+      - name: Upload Pages artifact
+        if: inputs.pages-artifact == true
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: website/out
+      - name: Retain checked preview artifact
+        if: inputs.pages-artifact != true
+        uses: actions/upload-artifact@v4
+        with:
+          name: documentation-preview
+          path: website/out
+          include-hidden-files: true
+          retention-days: 7

@@ -43,6 +43,16 @@ This project does not yet follow semantic versioning — the API is unstable.
 
 ### Added
 
+- Bilingual Fumadocs/Next.js development documentation over the canonical EN/VI
+  Markdown, static browser search, revision-pinned source/Rustdoc links, public
+  llms.txt and page Markdown, with project-subpath export checks and preview.
+- Separate documentation CI preparation with restored dependencies and macOS
+  stable/1.85.0 guide checks, plus a gated manual GitHub Pages workflow. Existing
+  Rust CI is preserved; no hosted run or deployment is claimed.
+- Documentation-channel guides and minimal HMR docs.rs metadata including its
+  optional Include API. All crates remain 0.0.0/publish=false; docs.rs hosting
+  still requires an approved actual registry release.
+
 - Revised the compact AI-agent reading index with the complete package map,
   feature/distribution prerequisites, lifecycle pitfalls, Create archive-test
   boundary and upstream notices, retaining paired guide links below 8 KiB.

@@ -12,6 +12,9 @@ publish = false
 default = []
 include = ["dep:re-cordis-include"]
 
+[package.metadata.docs.rs]
+features = ["include"]
+
 [dependencies]
 re-cordis-core = { path = "../re-cordis-core" }
 re-cordis-timer = { path = "../re-cordis-timer" }
