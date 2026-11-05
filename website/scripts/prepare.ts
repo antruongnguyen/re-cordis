@@ -8,7 +8,6 @@ import remarkGfm from 'remark-gfm';
 import remarkRehype from 'remark-rehype';
 import remarkStringify from 'remark-stringify';
 import rehypeSlug from 'rehype-slug';
-import rehypeStringify from 'rehype-stringify';
 import { rehypeCode } from 'fumadocs-core/mdx-plugins/rehype-code';
 import { createSearchAPI } from 'fumadocs-core/search/server';
 import { toString } from 'mdast-util-to-string';
@@ -52,7 +51,7 @@ const linkSources = new Set<string>();
 const markdownProcessor = unified().use(remarkParse).use(remarkGfm).use(remarkStringify, { fences: true });
 const htmlProcessor = unified().use(remarkRehype).use(rehypeSlug).use(rehypeCode, {
   themes: { light: 'github-light', dark: 'github-dark' },
-}).use(rehypeStringify);
+});
 for (const source of [...canonical].sort()) {
   const locale = source.split('/')[1];
   const file = source.slice(8);
@@ -80,13 +79,12 @@ for (const source of [...canonical].sort()) {
     else toc.push({ title: toText(node), url: `#${node.properties.id}`, depth });
   });
   htmlTree.children = htmlTree.children.filter((node) => !(node.type === 'element' && node.tagName === 'h1'));
-  const html = htmlProcessor.stringify(htmlTree);
   const url = pageUrl(settings.basePath, locale, file);
   const mdUrl = markdownUrl(settings.basePath, locale, file);
   const output = path.join('public', mdUrl.slice(settings.basePath.length + 1));
   await mkdir(path.dirname(output), { recursive: true });
   await writeFile(output, `<!-- Development documentation; unpublished 0.0.0. Build revision ${revision}. -->\n<!-- Page: ${settings.origin}${url} -->\n\n${markdown}`);
-  pages.push({ locale, file, source, title, titleId, html, toc, url, markdownUrl: mdUrl, content: toText(htmlTree), sourceUrl: `${settings.github}/blob/${revision}/${source}` });
+  pages.push({ locale, file, source, title, titleId, body: htmlTree, toc, url, markdownUrl: mdUrl, content: toText(htmlTree), sourceUrl: `${settings.github}/blob/${revision}/${source}` });
 }
 for (const source of linkSources) {
   await stat(path.join(root, source));

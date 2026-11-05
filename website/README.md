@@ -3,7 +3,9 @@
 Development/unpublished documentation using standard Fumadocs UI, Next.js
 static export and Bun. `../docs/en` and `../docs/vi` are the sole user content
 sources. Markdown is parsed at build time with remark/GFM and rendered with
-Fumadocs' Shiki highlighter. No copied content tree, MDX conversion,
+Fumadocs' Shiki highlighter. The highlighted tree renders through native
+CodeBlock/Pre components: block typography is isolated from inline code, with
+localized copy buttons that preserve the complete code text. No copied content tree, MDX conversion,
 request-time filesystem, middleware, server search or AI backend is needed.
 
 ## Build and preview
@@ -120,7 +122,8 @@ search and TOC popover. The layout follows the structure of
 
 `bun run check` runs route-adapter regressions, then inspects actual exported
 locale/page routes, HTML links/anchors/assets, pinned source paths/revisions,
-seven Rustdoc channels/assets, Markdown code preservation, public LLM coverage,
+seven Rustdoc channels/assets, Markdown code preservation, native code-block
+wrappers/copy controls and exact rendered code text, public LLM coverage,
 source/Rustdoc fingerprints, private-document exclusion and English/Vietnamese
 static search results. Crate package lists and Rustdoc inputs exclude both
 internal trees; docs.rs builds crate documentation, not the website or root docs.

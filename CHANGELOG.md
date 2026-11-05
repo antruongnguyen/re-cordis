@@ -19,6 +19,10 @@ This project does not yet follow semantic versioning — the API is unstable.
 
 ### Fixed
 
+- Documentation code blocks use native Fumadocs rendering instead of inheriting
+  inline-code borders/backgrounds; each block now has a localized copy button,
+  with whitespace and blank lines preserved in both themes.
+
 - Create archive scaffold tests accept an explicit compatible checkout through
   test-only `CORDIS_CREATE_TEST_CHECKOUT`, retaining ordinary repository behavior.
   Actual archive suites and generated applications pass on stable/1.85.0;

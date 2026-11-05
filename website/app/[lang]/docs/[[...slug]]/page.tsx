@@ -1,6 +1,9 @@
 import { notFound } from 'next/navigation';
 import { DocsBody, DocsPage, DocsTitle, MarkdownCopyButton } from 'fumadocs-ui/layouts/docs/page';
 import { pages, settings, rustdocCrate } from '@/lib/site';
+import { CodeBlock, Pre } from 'fumadocs-ui/components/codeblock';
+import { toJsx } from 'fumadocs-core/utils/hast-to-jsx';
+import type { Root as HtmlRoot } from 'hast';
 
 const findPage = (lang: string, slug: string[] = []) => pages.find((page) => page.locale === lang && page.url === `${settings.basePath}/${lang}/docs/${slug.length ? `${slug.join('/')}/` : ''}`);
 export const dynamicParams = false;
@@ -28,7 +31,14 @@ export default async function Page({ params }: { params: Promise<{ lang: string;
       <a className="underline" href={page.sourceUrl}>{vi ? 'Nguồn tại revision build' : 'Source at build revision'}</a>
       {page.file.startsWith('api/') && <a className="underline" href={rustdoc}>{vi ? 'Rustdoc chính xác' : 'Exact Rustdoc'}</a>}
     </div>
-    <DocsBody dangerouslySetInnerHTML={{ __html: page.html }} />
+    <DocsBody>{toJsx(page.body as HtmlRoot, {
+      components: {
+        pre: ({ ref, ...props }) => {
+          void ref;
+          return <CodeBlock {...props}><Pre>{props.children}</Pre></CodeBlock>;
+        },
+      },
+    })}</DocsBody>
     {page.file === 'api/README.md' && <nav aria-label={vi ? 'Rustdoc các package' : 'Package Rustdoc'} className="mt-6 flex flex-wrap gap-4 text-sm">{['core', 'timer', 'logger', 'loader', 'include', 'hmr', 'create'].map((crate) => <a key={crate} className="underline" href={`${settings.basePath}/rustdoc/${settings.revision}/re_cordis_${crate}/index.html`}>re-cordis-{crate}</a>)}</nav>}
     <p className="mt-8 break-all text-xs text-fd-muted-foreground">{vi ? 'Revision build' : 'Build revision'}: {settings.revision}</p>
   </DocsPage>;

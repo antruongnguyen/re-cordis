@@ -169,6 +169,16 @@ for (const page of pages) {
   const actual = markdownParser.parse(markdown) as MdRoot;
   const raw = markdownParser.parse(await readFile(path.join(root, page.source), 'utf8')) as MdRoot;
   assert.deepEqual(codeBlocks(actual), codeBlocks(raw), `Executable Markdown code changed: ${page.source}`);
+  const renderedBlocks = html('.prose pre');
+  const expectedBlocks = codeBlocks(raw);
+  assert.equal(renderedBlocks.length, expectedBlocks.length, 'Missing rendered code block: ' + page.source);
+  renderedBlocks.each((index, element) => {
+    const block = html(element).closest('figure');
+    assert(block.hasClass('not-prose'), 'Code blocks must be isolated from inline-code typography: ' + page.source);
+    assert.equal(block.find('button').length, 1, 'Each code block needs its own copy button: ' + page.source);
+    assert.equal(block.find('button').text().trim(), page.locale === 'vi' ? 'Sao chép mã' : 'Copy Text');
+    assert.equal(html(element).text(), expectedBlocks[index].value, 'Rendered/copied code text changed: ' + page.source);
+  });
   const urls: string[] = [];
   visit(actual, (node) => { if (node.type === 'link' || node.type === 'image' || node.type === 'definition') urls.push(node.url); });
   for (const href of urls) await checkUrl(href, page.url);
