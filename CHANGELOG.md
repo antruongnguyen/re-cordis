@@ -43,6 +43,10 @@ This project does not yet follow semantic versioning — the API is unstable.
 
 ### Added
 
+- Revised the compact AI-agent reading index with the complete package map,
+  feature/distribution prerequisites, lifecycle pitfalls, Create archive-test
+  boundary and upstream notices, retaining paired guide links below 8 KiB.
+
 - Scoped root/core upstream MIT notices for identified Cordis/cosmokit-derived
   logger material and literal source-evidence excerpts; existing repository and
   generated-template notices are preserved.

@@ -40,6 +40,14 @@ checkout. Ask it to follow the relevant English or Vietnamese guide and API
 links before proposing application code. Relative links resolve from `docs/`;
 the index is not self-contained API documentation.
 
+The index summarizes the seven package boundaries, required features, current
+distribution constraints, lifecycle/error rules and applicable notices. Its
+paired guide links retain both languages without duplicating long descriptions;
+the API indexes lead to the complete contract chapters. Keep it below 8 KiB.
+A future website should generate its public index from the actual published
+routes, retaining these constraints and language/version context. Preserve this
+checkout-relative index; copying it unchanged does not produce valid site URLs.
+
 The file is a retrieval aid following the [llms.txt proposal](https://llmstxt.org/),
 not an authorization mechanism or replacement for repository instructions.
 It does not grant network, credential, deployment, or mutation permissions.

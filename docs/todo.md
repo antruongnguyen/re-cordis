@@ -67,6 +67,13 @@ and [B0 evidence](plans/2026-11-02-cordis-completion/evidence.md).
 
 ## Planning and project setup
 
+The next documentation delivery has a prepared
+[session prompt](plans/2026-11-05-documentation-site-session.md): Fumadocs over
+the existing EN/VI sources, static GitHub Pages/search/LLM output, documentation
+CI and separate docs.rs preparation. The reviewed local llms.txt revision is
+complete; the website/workflows are not implemented by that revision. Actual
+Pages deployment and crate publication remain separate authorized actions.
+
 - [x] Initialize documentation (`AGENTS.md`, `README.md`, `docs/*`).
 - [x] Review and pin both references, including independent read-only agent
   reviews; write and source-check the initial core implementation plan.
