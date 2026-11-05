@@ -11,8 +11,10 @@ meta-framework for spatiotemporal composability.
 > is independently accepted: current status, planning-link checks and local
 > release preparation are verified within scope. A subsequent documentation
 > delivery prepares the bilingual Fumadocs site, documentation CI and gated
-> Pages workflow; [build and preview locally](website/README.md). Pages deployment
-> and hosted docs.rs publication remain owner/release actions.
+> Pages workflow; [build and preview locally](website/README.md). The
+> [documentation delivery](docs/plans/2026-11-05-documentation-site/delivery.md)
+> is independently accepted locally. Pages deployment and hosted docs.rs
+> publication remain owner/release actions.
 > Create archive tests now accept a separate compatible checkout; the tool still
 > requires that checkout and does not bundle the framework.
 > The unpublished `re-cordis-core` has local

@@ -8,8 +8,10 @@ and session prompt after accepted B1; no reset to the B1 checkpoint occurred.
 Spec: [approved session](../2026-11-05-documentation-site-session.md).
 Execution: [ownership and gates](plan.md).
 
-The implementation is locally verified; the immutable implementation commit
-and independent final verdict are recorded in the closing section after review.
+Implementation f7f503fb629652fe9d6d66edca122ab01b7297d8 is locally verified and
+independently accepted in the [full review](review.md). A fresh context
+[verified the substantive corrections](rereview.md), with all four addressed
+and no new breakage within scope.
 No push, settings change, deployment, publication or release tag is performed.
 
 ## Delivered artifact and channels
@@ -173,7 +175,45 @@ Demonstrated failures and corrections:
 
 ## Review and closing record
 
-Independent gpt-6-astra/high review is in progress in a fresh context. The
-reviewer has inspected settled code, preservation and recorded gate hashes.
-Final immutable snapshot, verdict and any scoped re-review are appended after
-the implementation commit. This report does not yet claim independent acceptance.
+**Accepted locally.** Implementation commit:
+f7f503fb629652fe9d6d66edca122ab01b7297d8.
+The [independent review](review.md) accepts that immutable source and its clean
+export, with no remaining actionable findings. Its own checks cover all 35
+language pairs, 4822 site-local references, exact source/Rustdoc bytes, HTTP
+responses and fresh EN/VI/mobile browser interactions. Controller evidence
+and reviewer execution are explicitly distinguished.
+
+The [fresh scoped re-review](rereview.md) verifies the four substantive
+corrections already in f7: navigation/language/focus, macOS-to-Linux artifact
+transfer and deployment gates, portable website-owned provenance, and the exact
+compiler-output boundary/additions. All are addressed with no new scoped
+breakage. This is correction verification on the same implementation, not an
+invented post-review code delta or a repeat of the full review.
+
+After the implementation commit, the controller ran a fresh stable
+cargo clean --doc followed by dependency-inclusive cargo doc, frozen Bun install,
+build, typecheck, lint and the complete static check; every command exited zero.
+The clean artifact identifies f7 and dirty=false, contains 3443 emitted Rustdoc
+files unchanged plus five documented additions (3448 total), and retains
+470915 validated link/anchor and 15875 asset references. Removing stale compiler
+outputs accounts for the smaller file inventory than the provisional build.
+
+The reviewed public-provenance SHA-256 is
+0066499db29c329db47abb82a684edf9fe000883cc4f0238ea5eeae89d7090f8.
+Exact committed-source logs are target/documentation-site/committed-*.log,
+committed-provenance.json, committed-static-check.json and
+committed-log-hashes.json. Independent audit records live under
+target/documentation-site-review and target/documentation-site-rereview.
+Compiler-owned workstation paths are separately retained/acknowledged in
+508 files and one generated filename; no website-owned public data contains HOME.
+
+Closure adds only review/evidence and current-status bookkeeping. It does not
+change the accepted website/Rust/checker/lock inputs. Identify its local commit:
+```sh
+git log -1 --format=%H -- docs/plans/2026-11-05-documentation-site/delivery.md
+```
+Rebuild the final export from that clean closing HEAD so source links and
+provenance identify the complete committed delivery. The controller's final
+build/check logs remain under target/documentation-site/final-*.log.
+No hosted deployment/publication, pushed-source availability or broader
+platform evidence is implied by this local acceptance.

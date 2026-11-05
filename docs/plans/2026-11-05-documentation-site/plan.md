@@ -5,6 +5,10 @@ Spec: [approved session prompt](../2026-11-05-documentation-site-session.md).
 Baseline: 94907cb on feat/cordis-completion; clean working tree.
 Remote: https://github.com/antruongnguyen/re-cordis.git; project path /re-cordis.
 
+Status: locally implemented, verified and independently accepted; see
+[delivery evidence and reviews](delivery.md). Owner deployment/release gates
+remain separate.
+
 ## Constraints and ownership
 
 Preserve seven 0.0.0/publish=false crates, production APIs/features/dependencies,

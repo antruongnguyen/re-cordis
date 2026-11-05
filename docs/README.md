@@ -54,6 +54,8 @@ rebuild after a commit to update pinned source links and provenance. The website
 README documents route mapping, checks and owner-side Pages activation.
 The [EN](en/guides/documentation.md) and [VI](vi/guides/documentation.md)
 channel guides distinguish development guides, exact APIs and future releases.
+[Local delivery evidence](plans/2026-11-05-documentation-site/delivery.md) records
+verification, independent review and the remaining hosted/release gates.
 
 ## Exact API signatures
 

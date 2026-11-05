@@ -68,7 +68,7 @@ and [B0 evidence](plans/2026-11-02-cordis-completion/evidence.md).
 ## Planning and project setup
 
 The subsequent [documentation delivery](plans/2026-11-05-documentation-site/plan.md)
-implements the selected [session prompt](plans/2026-11-05-documentation-site-session.md):
+is locally complete and independently accepted. It implements the selected [session prompt](plans/2026-11-05-documentation-site-session.md):
 Fumadocs over canonical EN/VI sources, static search/Markdown/LLM output and
 same-revision Rustdoc, documentation CI and separate docs.rs preparation.
 The reviewed local llms.txt remains checkout-relative. Local verification and
