@@ -66,7 +66,7 @@ Keep the pinned TypeScript implementation as the semantic specification.
 |---|---|---|
 | Previous gates A–C and M0–M6 | Local Tokio/LocalSet hosting, non-Send handles, started operations, explicit cleanup, distinct identities, bound views, typed event continuations and synchronous source/resolved validation; see the previous plan's completion boundary and the later decision entries | B0 reconciles evidence; B2 changes core only for its required failing public-API reproducer. Do not repeat the original prototypes or reselect the runtime/type architecture. |
 | Core compatibility | Existing M5/M6 typed reflection/injection/logging representations and documented safety deviations, including sync-only bail, one-use next, observer-error cleanup and shared-slot notifications | Attach the existing restriction and tested substitute to the relevant case. Investigate only an uncovered assertion, changed contract, contradiction or dependent satellite requirement; exclusions remain separate from parity. |
-| Completed evidence | Historical case checklist and M2–M6 source maps; six paired lifecycle scenarios / 73 observations; bounded GitHub consumers; accepted B0 matrix and fragment reviews | Reuse applicable results with their revision, exact scope and test/trace references. Complete missing B0 assertion/variant/type provenance and joins; historical checkmarks alone do not establish those finer claims. |
+| Completed evidence | Historical case checklist and M2–M6 source maps; six paired lifecycle scenarios / 73 observations; bounded GitHub consumers; accepted B0 matrix and fragment reviews | Reuse accepted B0 accounting and applicable execution evidence with their revision, exact scope and test/trace references. Retain the 147 tracked evidence gaps; investigate changed or insufficient evidence only when relevant to selected work. Do not reopen the completed accounting wholesale. |
 | Delivered timer choices | Sealed TimerExt, no TimerService/install step, monotonic Tokio clock, single-consumer Stream representation, omitted deprecated aliases; see both documents' Timer satellite sections | T0–T5 are accepted: checked eager deadlines, hosted callbacks, bounded ticks and joined cancellation are verified in the timer acceptance report. Reuse that delivery; the historical first-poll/yield limitation is superseded. |
 | Satellite composition | Console output extends core exporters; loader uses core plugin/service ownership; serialization belongs at satellite boundaries; timer→console→loader order is selected | Reuse accepted satellite APIs and review their composition in R0. Do not reimplement core logging, lifecycle, validation or retention merely because a satellite uses them. Include/HMR/offline Create contracts are accepted. |
 | Historical wording | Later implemented milestones and specific current decisions supersede earlier prototype directions or narrower phase status | B1 reconciles stale phrases such as “No further slice or satellite is selected” and core-only documentation descriptions. They do not reopen completed selection/design gates or erase genuine limitations. |
@@ -106,9 +106,9 @@ correction/evidence review and the full shared matrix; see [current progress](pr
 [executed R0 evidence](evidence/r0-acceptance.md). Historical results do not establish
 verification of later edits. R1's readiness assessment and
 [release proposal](../../release-readiness.md) are independently accepted; see
-[R1 evidence](evidence/r1-acceptance.md). Publication/version changes and
-the bounded B1/local preparation follow-up is now selected; see
-[its execution plan](evidence/2026-11-05-b1-plan.md).
+[R1 evidence](evidence/r1-acceptance.md). Publication/version changes remain
+separate decisions. The bounded B1/local preparation follow-up is now selected;
+see [its execution plan](evidence/2026-11-05-b1-plan.md).
 
 ## Recommended approach and alternatives
 
