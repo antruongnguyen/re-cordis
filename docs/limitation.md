@@ -15,9 +15,24 @@ verification does not prove the whole dependency set can be published.
 Exact crates.io API 404 responses are only time-stamped absence evidence,
 not name reservation or publisher authority. New local documentation is not
 necessarily online. Package/readme and generated-template MIT notice omissions
-are corrected; actual release versions, registry resolution, normalized
+are corrected. The focused follow-up additionally preserves applicable Shigma
+notices for identified derived logger code and literal source excerpts; this
+is not legal certification or a binary/vendor dependency-notice audit. Actual
+release versions, registry resolution, normalized
 dev/example dependencies, documentation URLs and compatible Create checkout
 still need validation under a subsequent release decision.
+
+The six Create archive scaffold failures recorded by R1 are corrected by a
+test-only explicit checkout fixture; both archive suites pass on stable/1.85.0.
+The separate complete checkout is still required and is not contained in the
+archive. Without CORDIS_CREATE_TEST_CHECKOUT the tests retain their ordinary
+repository-relative behavior. This is not a new production generator capability.
+
+Bounded B1 reconciles status and adds local planning/evidence link coverage.
+The CI decision is explicitly deferred: existing Rust jobs do not execute
+Python documentation regressions or guide/application checks. Those local
+executions and the proposed CI addition do not establish Linux/Windows
+filesystem/watcher acceptance. See [the follow-up](plans/2026-11-02-cordis-completion/evidence/2026-11-05-b1-closure.md).
 
 Path dependencies track current checkout contents, not immutable Cargo.lock
 sources. Moving a checkout needs manifest edits; changing it may change the
@@ -544,5 +559,5 @@ is a composition of current APIs, not a new distributed template or public API.
 - **Missing evidence:** native filesystem/watcher execution remains macOS only.
   R0 does not add a whole-program Rust/TypeScript trace, close all B0/loader
   source gaps, establish Windows/Linux support or a stable published API.
-- **Unselected work:** publication, standalone B1, CI/platform expansion, remote Create,
+- **Unselected work:** publication, CI/platform expansion, remote Create,
   additional templates, live integrations and process supervision remain separate.

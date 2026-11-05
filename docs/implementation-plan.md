@@ -320,13 +320,14 @@ finishing a slice does not imply full core parity.
 | M5: traced scoping and updates | M4 | Implemented with explicit Rust adapters: isolation boundaries, own/injected views, intercept precedence/custom merging, bound calls, accessors/mixins/associations/invocation, typed internal hooks, and update/noSave/validation/recovery/latest-target coalescing. See `m5.md` and the case checklist for tested representations and deviations; native JS property/decorator syntax is not implemented. |
 | M6: core acceptance | M5 | Implemented: logger names/levels/weak metadata/error/format adapters, explicit initialization/method injection, public type checks, a tested end-to-end example and compatibility audit. Every source-map area has integrated evidence or an explicit Rust representation/restriction; this is not unrestricted JS reflection compatibility. See `m6.md`. |
 
-The current next-target order, selected on 2026-10-27, is timer, console logging,
-then loader; see [the satellite roadmap](todo.md#next-implementation-targets-satellites).
-Each target starts with pinned-source review and a bounded API/dependency gate.
+The historical next-target order selected on 2026-10-27 was timer, console
+logging, then loader. Timer repair T0–T5, console C0–C3, loader/groups,
+Include, HMR, offline Create and R0/R1 are now independently accepted within
+their documented Rust scopes; see [current progress](plans/2026-11-02-cordis-completion/progress.md)
+and [the satellite roadmap](todo.md#next-implementation-targets-satellites).
 Timer cleanup reuses effects; console output reuses core exporters; file
-formats/serialization belong at satellite boundaries. Timer is implemented;
-its remaining acceptance repairs and every later satellite are planned in the
-[2026-11-02 completion program](plans/2026-11-02-cordis-completion/README.md).
+formats/serialization belong at satellite boundaries. Current distribution
+remains local/Git checkout only; B1 reconciles status and acceptance tooling.
 Do not promise native shared-library hot reload as a direct equivalent of JS
 loading. The ordered targets supersede the earlier open package-selection
 decision without redefining completed core milestones.

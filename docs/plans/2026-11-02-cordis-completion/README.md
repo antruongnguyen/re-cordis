@@ -107,7 +107,8 @@ correction/evidence review and the full shared matrix; see [current progress](pr
 verification of later edits. R1's readiness assessment and
 [release proposal](../../release-readiness.md) are independently accepted; see
 [R1 evidence](evidence/r1-acceptance.md). Publication/version changes and
-standalone B1 remain separate decisions.
+the bounded B1/local preparation follow-up is now selected; see
+[its execution plan](evidence/2026-11-05-b1-plan.md).
 
 ## Recommended approach and alternatives
 

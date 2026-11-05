@@ -4,6 +4,40 @@ A lightweight log of decisions made for this project and the reasoning behind
 them. Newest first. This is intentionally not a heavy ADR process; it records
 *what we chose and why* so the choices aren't re-litigated silently.
 
+## 2026-11-05 — Close bounded B1 and make Create archive tests checkout-aware
+
+Reconcile B1 against later accepted deliveries. Timer T0–T5 supersedes the
+old instruction to leave repair open; its 22-declaration correction is already
+present. Preserve historical reports and B0's 147 evidence gaps, separating
+recurring acceptance rules from remaining work. Extend existing local link
+discovery to nested planning/evidence pages with a demonstrated regression.
+
+Create's archived scaffold tests assumed a full repository two directories
+above CARGO_MANIFEST_DIR. Choose the smallest test-only correction:
+CORDIS_CREATE_TEST_CHECKOUT supplies an explicit compatible checkout using
+native OS paths; absence keeps ordinary repository behavior. Do not add a
+production option or bundle framework crates. Actual archive tests and CLI
+applications use a separate complete checkout pinned to accepted R1 03d2550;
+both toolchains verify the unchanged extracted archive files. This is offline
+tool validation, not a self-contained framework distribution.
+
+The existing Ubuntu Rust CI omits Python docs regressions and guide execution.
+Recommend adding both with explicit dependency restoration and recorded
+per-toolchain results in a separately selected CI change. This session defers
+CI/platform expansion. Local checks do not establish new platform coverage.
+
+See [follow-up evidence](plans/2026-11-02-cordis-completion/evidence/2026-11-05-b1-closure.md)
+and [distribution limits](limitation.md#distribution-readiness).
+Publication authority, final names, actual registry dependencies, reachable
+release docs/checkout and final release approval remain separate gates.
+
+Focused provenance review identifies Cordis logger palettes/channel hash,
+cosmokit default-name tokenization and literal upstream assertion excerpts.
+Preserve the exact applicable Shigma MIT text in root/core UPSTREAM-NOTICES.md;
+keep original project/package/template notices and historical evidence bytes.
+This is a demonstrated notice correction, not a legal certification or a claim
+that every source/dependency distribution has been exhaustively audited.
+
 ## 2026-11-05 — Separate accepted behavior from distribution readiness
 
 R1 recommends local/Git checkout consumption only while preparing a concrete

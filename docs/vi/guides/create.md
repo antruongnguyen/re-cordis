@@ -75,6 +75,19 @@ revision đã review; thay đổi checkout có thể đổi lần build ứng d�
 checkout tường minh này lúc đầu. Chế độ sinh phụ thuộc registry cần quyết định
 riêng trong tương lai; R1 chưa cung cấp package alpha để cài đặt.
 
+## Kiểm thử archive Cargo
+
+Scaffold test của package Create đã giải nén cần một checkout đầy đủ riêng.
+Đặt biến chỉ dành cho test `CORDIS_CREATE_TEST_CHECKOUT` đến checkout đó;
+nếu không đặt, test vẫn dùng repository chứa nó như trước. Hành vi CLI giữ nguyên
+và vẫn yêu cầu `--cordis-path`. Archive chứa template, không chứa các crate của
+framework. Giải nén ngoài workspace nguồn cha để tránh lỗi Cargo dò workspace
+không liên quan. [README package](../../../crates/re-cordis-create/README.md)
+ghi lệnh chạy; [bằng chứng archive](../../plans/2026-11-02-cordis-completion/evidence/2026-11-05-create-archive.md)
+ghi kết quả stable/1.85.0 với checkout tại revision
+`03d255029db6a57ccc17c0b1e26facdb491c058b`, byte giải nén giữ nguyên và kiểm tra
+ứng dụng năm tệp được tạo bởi CLI build từ archive thật.
+
 ## Đích và phạm vi
 
 Generator từ chối tệp, symlink hoặc thư mục không rỗng đã tồn tại, và đích

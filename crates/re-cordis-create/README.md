@@ -29,6 +29,23 @@ to the supplied checkout. Inspect the generated README before testing or running
 the application. The fixed layout check is not a general Cargo TOML parser or a
 source authenticity audit.
 
+Scaffold tests use the containing repository by default. When testing an
+extracted Cargo archive outside that repository, explicitly supply a compatible
+complete checkout through the test-only `CORDIS_CREATE_TEST_CHECKOUT` variable:
+
+```sh
+CORDIS_CREATE_TEST_CHECKOUT='/absolute/path/to/pinned/cordis-rust' cargo test --manifest-path '/absolute/path/to/extracted/re-cordis-create-0.0.0/Cargo.toml' --locked --offline
+```
+
+The fixture was verified with the complete checkout pinned to Git revision
+`03d255029db6a57ccc17c0b1e26facdb491c058b` on stable and Rust 1.85.0. Keep all
+Cordis crates at that same revision when reproducing this check. The variable
+preserves native OS paths and applies only to tests; CLI use still requires
+`--cordis-path`. Extract the archive outside any containing source workspace;
+Cargo workspace discovery is separate from checkout fixture validation. These
+tests remain dependent on an external checkout; the archive does not bundle the
+runtime crates. Offline generated-app checks also require cached dependencies.
+
 Version remains `0.0.0` with `publish=false`; there is no supported crates.io
 installation or published docs.rs release. The checkout must remain available
 at the generated absolute paths; moving it requires manifest edits, and its

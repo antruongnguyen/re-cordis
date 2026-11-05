@@ -25,7 +25,7 @@ Essential application constraints:
 
 ## Start here
 
-- [Release readiness](release-readiness.md): Local/Git-only verdict and alpha proposal.
+- [Release readiness](release-readiness.md): Local preparation, remaining gates and alpha proposal.
 - [Documentation map](README.md): Languages and maintenance.
 - [English documentation](en/README.md): Task-oriented reading paths.
 - [Vietnamese documentation](vi/README.md): Full Vietnamese guides and API reference.
@@ -99,8 +99,8 @@ Essential application constraints:
 
 - [M6 audit](m6.md): Compatibility representations, safety deviations, verification precautions.
 - [Lifecycle parity](lifecycle-parity.md): Six paired scenarios, 73 observations; not unrestricted upstream parity.
-- [GitHub consumer contract](github-activity.md): Exact file/process/loopback HTTP limits; no public ingress or exactly-once durability.
+- [GitHub consumer contract](github-activity.md): File/process/loopback limits.
 - [Limitations](limitation.md): Explicit unsupported behavior.
 - [Decisions](decision.md): Design rationale; TypeScript is the semantic specification.
 - [Roadmap](todo.md): Accepted and future scope.
-- [Completion plan](plans/2026-11-02-cordis-completion/README.md): Work packages and acceptance.
+- [B1 follow-up](plans/2026-11-02-cordis-completion/evidence/2026-11-05-b1-closure.md): Status, archive fixture, notices and CI deferral.

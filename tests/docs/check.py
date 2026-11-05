@@ -110,7 +110,9 @@ def check_structure():
     pages = [DOCS / language / relative for language in ("en", "vi") for relative in english]
     pages += [DOCS / "README.md", DOCS / "llms.txt", ROOT / "README.md",
               ROOT / "CHANGELOG.md", DOCS / "todo.md", DOCS / "decision.md",
-              DOCS / "limitation.md"]
+              DOCS / "limitation.md", DOCS / "release-readiness.md",
+              DOCS / "implementation-plan.md", ROOT / "AGENTS.md"]
+    pages += sorted((DOCS / "plans").rglob("*.md"))
     for path in pages:
         links(path)
 

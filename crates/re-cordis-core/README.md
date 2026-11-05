@@ -20,3 +20,5 @@ Read `docs/release-readiness.md` for the distribution proposal and evidence
 boundaries. Those repository guides are not bundled in this crate archive.
 
 See [LICENSE](LICENSE) for the MIT notice.
+See [UPSTREAM-NOTICES.md](UPSTREAM-NOTICES.md) for the applicable Cordis/cosmokit
+notice for adapted logger material.

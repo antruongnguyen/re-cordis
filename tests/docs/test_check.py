@@ -85,6 +85,22 @@ class DocumentationChecks(unittest.TestCase):
                             with self.assertRaisesRegex(ValueError, error):
                                 check.check_structure()
 
+    def test_planning_evidence_links_are_checked(self):
+        with tempfile.TemporaryDirectory(prefix="cordis-plan-links-",
+                                         dir=check.DOCS / "plans") as directory:
+            plan = Path(directory) / "evidence" / "review.md"
+            plan.parent.mkdir()
+            target = plan.parent / "acceptance.md"
+            target.write_text("# Accepted\n", encoding="utf-8")
+            plan.write_text("[Evidence](acceptance.md#accepted)\n", encoding="utf-8")
+            check.check_structure()
+            for link, error in (("absent.md", "missing link target"),
+                                ("acceptance.md#absent", "missing heading")):
+                with self.subTest(link=link):
+                    plan.write_text(f"[Evidence]({link})\n", encoding="utf-8")
+                    with self.assertRaisesRegex(ValueError, error):
+                        check.check_structure()
+
     def test_local_file_and_heading_links(self):
         with tempfile.TemporaryDirectory(prefix="cordis-docs-links-") as directory:
             root = Path(directory).resolve()

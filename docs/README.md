@@ -84,7 +84,12 @@ python3 tests/docs/check.py --toolchain 1.85.0
 ```
 
 It checks local file links/heading anchors, counterpart navigation, identical
-code blocks, root-export/hook coverage, and the llms.txt structure. It explicitly
+code blocks, root-export/hook coverage, and the llms.txt structure. Local-link
+coverage includes every Markdown file under docs/plans (including nested
+evidence), release-readiness.md, implementation-plan.md and root AGENTS.md.
+It validates inline Markdown file/heading links, not bare code-formatted paths
+or external URL availability. A regression proves missing nested plan/evidence
+targets and anchors fail through the normal structure-check entry point. It explicitly
 selects compiler/Cargo/rustdoc paths, builds core, timer, logger, loader, include,
 HMR (with its optional Include adapter) and Create with the committed lockfile
 offline into `target/stable` or `target/msrv`, then compiles and executes each
@@ -113,6 +118,11 @@ selected toolchains; formatting remains stable-only. See the
 is added, and no temporary fixture source becomes a public API.
 
 This is an opt-in documentation check; it does not modify the existing CI matrix.
+The inspected .github/workflows/ci.yml defines Ubuntu stable/1.85.0 Rust jobs,
+stable-only lint/formatting and workspace/M0 tests, but neither Python
+documentation regression nor guide execution. Adding those is recommended
+with explicit dependency restoration and per-toolchain results; implementation
+and wider platform acceptance are deferred by the bounded B1 decision.
 Other shell examples are not executed. It does not make authenticated requests, install packages,
 or validate external URLs. If dependencies are missing, the offline build fails
 explicitly; restore required dependencies deliberately before retrying.

@@ -75,6 +75,19 @@ The [release proposal](../../release-readiness.md) would distribute only this
 explicit-checkout tool initially. A registry-backed generator mode remains a
 separate future decision, and no alpha package is available from R1.
 
+## Testing a Cargo archive
+
+An extracted Create package's scaffold tests need a separate complete checkout.
+Set the test-only `CORDIS_CREATE_TEST_CHECKOUT` to that checkout; without it,
+tests use the containing repository as before. CLI behavior is unchanged and
+still requires `--cordis-path`. The archive includes the template, not framework
+crates. Extract outside a parent source workspace to avoid unrelated Cargo
+workspace-discovery errors. The [package README](../../../crates/re-cordis-create/README.md)
+gives the command; [archive evidence](../../plans/2026-11-02-cordis-completion/evidence/2026-11-05-create-archive.md)
+records stable/1.85.0 tests with checkout revision
+`03d255029db6a57ccc17c0b1e26facdb491c058b`, unchanged extracted bytes and the
+actual archive-built CLI's five-file application checks.
+
 ## Destination and scope
 
 The generator refuses an existing file, symlink or nonempty directory, and a

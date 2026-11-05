@@ -7,6 +7,10 @@ meta-framework for spatiotemporal composability.
 > Independently accepted R1 recommends local/Git checkout consumption only. The
 > [release readiness assessment](docs/release-readiness.md) proposes a separate
 > seven-package experimental alpha decision; no package is published.
+> The [bounded B1 follow-up](docs/plans/2026-11-02-cordis-completion/evidence/2026-11-05-b1-closure.md)
+> reconciles current status, planning-link checks and local release preparation.
+> Create archive tests now accept a separate compatible checkout; the tool still
+> requires that checkout and does not bundle the framework.
 > The unpublished `re-cordis-core` has local
 > hosting, typed plugins/Registry grouping, scoped effects and diagnostics,
 > typed events, validation, restart, parent-owned disposal, typed service
@@ -329,4 +333,5 @@ See [M0 results](docs/m0.md) for evidence, selected design directions, and limit
 
 ## License
 
-MIT; see [LICENSE](LICENSE). The TypeScript upstream is also MIT-licensed.
+MIT; see [LICENSE](LICENSE). Applicable notices for adapted logger material and
+quoted upstream evidence are retained in [UPSTREAM-NOTICES.md](UPSTREAM-NOTICES.md).

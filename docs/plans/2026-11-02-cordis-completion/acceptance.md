@@ -5,6 +5,11 @@ implementation work package; R0/R1 are final integration/distribution decisions.
 
 ## Per-slice entry gate
 
+The entry and documentation/commit checklists are **recurring requirements**,
+not unfinished B1 or accepted-delivery checkboxes. Each selected slice records
+its actual completion in a dated report. See the
+[B1 follow-up](evidence/2026-11-05-b1-closure.md) for the 2026-11-05 reconciliation.
+
 - [ ] Confirm selected work package, current revision, understood worktree
   and prerequisite acceptance. Do not discard unrelated changes.
 - [ ] Apply the [prior-decision/evidence reuse rule](README.md#prior-decisions-and-evidence-reuse):

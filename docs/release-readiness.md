@@ -1,7 +1,9 @@
 # Release readiness and initial release proposal
 
 Date: 2026-11-05 (Asia/Ho_Chi_Minh).
-Scope: R1 after independently accepted R0 on `feat/cordis-completion`.
+Scope: accepted R1 plus bounded B1/local release preparation on `feat/cordis-completion`.
+The [dated follow-up](plans/2026-11-02-cordis-completion/evidence/2026-11-05-b1-closure.md)
+records the Create fixture correction, provenance notices and current verification.
 The assessment and proposal are independently reviewed and accepted; see
 [R1 acceptance](plans/2026-11-02-cordis-completion/evidence/r1-acceptance.md).
 This does not approve publication.
@@ -128,13 +130,15 @@ guide tree. Root export documentation is checked in both languages. R1 does
 not introduce archive trimming or remove test fixtures to make packaging appear
 successful.
 
-The repository's MIT notice is distinct from upstream's
-“Copyright (c) 2021-present Shigma” notice. Reference-source inspection is not
-a legal provenance certification. Retain applicable upstream notices for any
-identified copied/substantial derived material when preparing the actual
-release; do not replace them with the repository's own notice. Dependency
-license metadata and package contents are inspected, without claiming a full
-license-compliance or security-advisory audit.
+The focused follow-up identifies Cordis-derived logger palettes/channel hash,
+cosmokit 1.8.1-derived default-name tokenization, and literal upstream test
+excerpts in source evidence. The exact “Copyright (c) 2021-present Shigma” MIT
+notice is now retained in root and core package UPSTREAM-NOTICES.md; existing
+repository/package/template MIT notices remain intact. See
+[provenance evidence](plans/2026-11-02-cordis-completion/evidence/2026-11-05-provenance.md).
+This closes those identified local omissions, not a legal certification or
+an exhaustive third-party compliance/security audit. Future binary/vendor or
+changed-source distributions still need their applicable notice review.
 
 ## Distribution checks and their limits
 
@@ -144,7 +148,7 @@ license-compliance or security-advisory audit.
 | cargo package --list | Executed for every crate; establishes intended file lists, not successful archive creation or compilation |
 | cargo package --no-verify | Core/Create construct archives; five satellites fail because their core path dependency has no version requirement |
 | cargo package with verification | Core/Create archive verification builds pass on stable and 1.85.0; this is narrower than running their archive test suites |
-| Create tests from an extracted archive | Independent stable run: five library tests and 11 of 17 scaffold tests pass; six scaffold tests fail because their fixture assumes the full repository two directories above CARGO_MANIFEST_DIR |
+| Create tests from an extracted archive | R1 stable failure reproduced on both toolchains; after the test-only explicit-checkout correction, five library and all 17 scaffold tests pass on stable and 1.85.0 with unchanged extracted archive bytes |
 | cargo publish --dry-run | Every attempt is refused by publish=false before publish validation; no successful registry dry-run is claimed |
 | Exact crates.io name queries | All seven API queries returned HTTP 404 on the audit date; point-in-time absence only, not ownership, reservation or guaranteed availability |
 | Actual generated app | Real CLI output, metadata, build/test/run and subsequent full docs-checker coverage are recorded separately from crate packaging |
@@ -155,18 +159,21 @@ No production path dependency was patched, versioned, vendored or published
 to bypass an expected packaging refusal. A future release must validate
 normalized manifests and archives against the actual registry versions.
 
-The packaged Create test failure is a repository-layout assumption in its
-`tests/scaffold.rs` checkout fixture, separate from generator behavior with the
-required explicit checkout. The independent reviewer runs the unchanged archive
-CLI with `--cordis-path` pointing at the real checkout on stable and 1.85.0:
-exact five-file output retains the MIT notice, and generated-app build, five
-tests (including 100 cycles), run and strict Clippy pass. The stable archive
-suite's six failures remain recorded; no MSRV archive-suite pass is claimed.
-See the [independent review](plans/2026-11-02-cordis-completion/evidence/r1-review.md).
-Before publication, choose whether to make the archive test fixture accept an
-explicit compatible checkout or retain those cases as checkout-only tests and
-use the verified packaged-CLI integration as their distribution gate. R1 does
-not silently claim every archived test is independently runnable.
+The B1/local-preparation follow-up resolves the fixture decision with test-only
+`CORDIS_CREATE_TEST_CHECKOUT`. Its absence preserves repository tests; the CLI
+still requires `--cordis-path`. Actual baseline archives reproduce the same six
+failures on stable and 1.85.0, extracted outside any source workspace so Cargo's
+parent-workspace discovery is not the cause. Corrected Cargo archives pass all
+22 tests using a separate complete checkout pinned to accepted R1
+`03d255029db6a57ccc17c0b1e26facdb491c058b`; all extracted file bytes remain
+unchanged before/after tests. Each actual archive-built CLI produces exactly
+five files with MIT, and generated-app build, five tests including 100 cycles,
+run and strict Clippy pass on both toolchains. See
+[the reproduction and commands](plans/2026-11-02-cordis-completion/evidence/2026-11-05-create-archive.md).
+Historical [R1 review](plans/2026-11-02-cordis-completion/evidence/r1-review.md)
+retains its original failure and narrower scope. The archive contains the tool
+and template, not a self-contained framework; an external compatible checkout
+and cached application dependencies remain required.
 
 ## Proposed publication order and manifest changes
 
@@ -241,8 +248,8 @@ arbitrary concurrent-writer or hard shutdown-latency guarantee is established.
 - A final versioned release checkout has not been resolved, packaged and
   verified against actual published prerequisites. Current dry-runs stop at
   publish=false. Packaged dev-dependency/example closure also remains a gate.
-  The known six Create archive test failures also require an explicit release
-  test-scope/fixture decision; successful packaged CLI use does not erase them.
+  The Create fixture decision is now implemented and locally verified; retest
+  the final release tool against its declared compatible checkout.
 - Publisher/owner authority and exact normalized crate-name claims must be
   checked at release time; the HTTP 404 snapshot cannot establish them.
 - Release documentation URLs and the compatible Create checkout must be made
@@ -257,7 +264,9 @@ they are not left as implementation blockers.
 
 **Deferred capabilities:** stable API/1.0, a facade, wider platform acceptance,
 remote or registry-backed Create templates, extra templates, native binary hot
-loading, process supervision, live integrations and a broad B1 cleanup.
+loading, process supervision and live integrations. Bounded B1 status/link
+closure and local archive/provenance preparation are covered by the dated
+follow-up; CI implementation/platform expansion remain deferred.
 
 The next release decision must approve the seven-package scope, alpha version
 and coordination policy, macOS/MSRV support statement, publisher/name ownership,

@@ -9,6 +9,15 @@ This project does not yet follow semantic versioning — the API is unstable.
 
 ### Fixed
 
+- Create archive scaffold tests accept an explicit compatible checkout through
+  test-only `CORDIS_CREATE_TEST_CHECKOUT`, retaining ordinary repository behavior.
+  Actual archive suites and generated applications pass on stable/1.85.0;
+  the offline tool still requires a separate checkout.
+
+- B1 status/checklists distinguish accepted deliveries, recurring requirements
+  and deferred CI/release decisions. Documentation checks now cover nested
+  planning/evidence links, with a broken-file/heading regression.
+
 - Orderly R0 application shutdown joins admitted watcher refresh work before
   disposing Include/its owner, avoiding a reproduced cancellation race while
   retaining failure inspection and forced-ancestor cancellation coverage.
@@ -33,6 +42,10 @@ This project does not yet follow semantic versioning — the API is unstable.
   source siblings, source locations, cycle preflight and bounded realm metadata.
 
 ### Added
+
+- Scoped root/core upstream MIT notices for identified Cordis/cosmokit-derived
+  logger material and literal source-evidence excerpts; existing repository and
+  generated-template notices are preserved.
 
 - R1 API/package readiness assessment and a concrete proposal requiring a separate
   release decision: seven experimental packages, actual dependency order, explicit

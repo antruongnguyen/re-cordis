@@ -67,18 +67,32 @@ docs/decision.md, docs/limitation.md, docs/llms.txt, README.md, AGENTS.md,
 CHANGELOG.md; tests/docs/check.py and tests/docs/test_check.py only for actual
 checker changes; .github/workflows/ci.yml for a reviewed CI addition.
 
-- [ ] Replace current-status claims that no satellites exist or the checker
-  is core-only. Preserve dated M0–M6 evidence as historical.
-- [ ] Mark timer contract repair as open; do not erase its delivered code or
-  successful historical tests. Correct the old timer spec's 20-case claim: the
-  pinned timer test file has 22 syntactic declarations, not an executed count.
-- [ ] Separate recurring acceptance requirements from per-slice completed
-  checkboxes. Each delivery records its own commands and revision.
-- [ ] Keep link checking over the new planning tree, including a regression
-  for a deliberately broken plan link if permanent checker coverage is added.
-- [ ] Decide whether to add Python doc regressions/guide execution to CI;
-  current Rust CI does not run them. Add them only with explicit dependency
-  restoration and per-toolchain results, never by relying on a warm cache.
+**Reconciled scope (2026-11-05):** later deliveries satisfy most original
+items. The old instruction to leave timer repair open is superseded by accepted
+T0–T5. This checklist records completed work/decisions; final B1 acceptance
+still requires current verification and independent review in the
+[follow-up report](evidence/2026-11-05-b1-closure.md).
+
+- [x] Current status and checker export coverage include all seven delivered
+  crates; reuse [R1 acceptance](evidence/r1-acceptance.md) and the
+  [documentation map](../../README.md). Correct the remaining stale satellite
+  paragraph in the [older implementation plan](../../implementation-plan.md);
+  preserve dated M0–M6 and original planning-baseline evidence.
+- [x] Record accepted [T0–T5 repair](evidence/timer-acceptance.md), not an open
+  repair. The [historical timer design](../../superpowers/specs/2026-10-27-re-cordis-timer-design.md)
+  already says 22 syntactic declarations and identifies its superseded contracts;
+  no repeated timer implementation or new parity claim is needed.
+- [x] Separate recurring acceptance checklists in TODO/shared acceptance from
+  completed work-package checkboxes. Keep commands/revisions in each delivery's
+  evidence; an unchecked recurring requirement is not unfinished delivery.
+- [x] Extend existing local-link discovery recursively through docs/plans,
+  including evidence, plus current readiness/implementation/AGENTS pages.
+  A nested planning regression rejects missing files and heading anchors after
+  proving both were missed before the change.
+- [x] Inspect existing Rust CI and record the decision: recommend future Python
+  regressions and both-toolchain guide execution with explicit dependency
+  restoration, but defer CI changes/platform acceptance in this session.
+  No CI coverage is claimed from that decision or from local executions.
 
 **Exit:** public status, roadmap and machine-readable reading paths agree;
 both language docs remain correct for actually available APIs.
