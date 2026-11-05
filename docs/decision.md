@@ -4,6 +4,25 @@ A lightweight log of decisions made for this project and the reasoning behind
 them. Newest first. This is intentionally not a heavy ADR process; it records
 *what we chose and why* so the choices aren't re-litigated silently.
 
+## 2026-11-05 — Separate reader documentation from internal records
+
+The user selected a full-width layout following shadcn/AI SDK documentation.
+Reuse Fumadocs slots and grid variables for a desktop header, fixed sidebar,
+wide reading column and TOC; retain the existing mobile drawer and keyboard
+behavior. No framework or package dependency changes are needed.
+
+Compile the same canonical EN/VI Markdown, but remove internal planning/design
+links, images and reference definitions before rendering or indexing. Keep
+local source evidence intact. Scan every exported text format, including RSC,
+search, Markdown/LLM and Rustdoc; no internal paths may be published. The seven
+crate roots already exclude these repository-level directories structurally,
+so redundant Cargo exclude metadata would add no protection.
+
+Refresh every workflow action against official releases and migration notes,
+pin full SHAs with exact version comments, and select maintained macos-26 after
+macos-14 retirement. Preserve explicit Rust toolchains, artifact transfer and
+manual deployment gates. Local validation is distinct from hosted execution.
+
 ## 2026-11-05 — Prepare static bilingual guides and a separate API channel
 
 Use a standalone Bun/Fumadocs/Next.js application over the canonical docs/en

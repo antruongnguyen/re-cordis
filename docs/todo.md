@@ -65,6 +65,18 @@ continuation is scheduled. See
 [detailed progress](plans/2026-11-02-cordis-completion/progress.md#resume-next)
 and [B0 evidence](plans/2026-11-02-cordis-completion/evidence.md).
 
+## Documentation refinement (2026-11-05)
+
+The public site now uses a full-width reference layout and excludes internal
+planning/design links from all exported formats. All workflow actions have
+current audited release pins; documentation checks use supported macos-26.
+Crate README/package/Rustdoc inputs exclude the two repository-only trees.
+See the [reviewed refinement](plans/2026-11-05-documentation-site/refinement.md),
+[action audit](plans/2026-11-05-documentation-site/actions-refresh.md)
+and [package visibility audit](plans/2026-11-05-documentation-site/package-docs-visibility.md).
+Hosted workflow execution, Pages deployment and registry publication remain
+separate owner/release actions.
+
 ## Planning and project setup
 
 The subsequent [documentation delivery](plans/2026-11-05-documentation-site/plan.md)

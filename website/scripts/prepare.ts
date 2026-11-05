@@ -17,6 +17,7 @@ import { visit } from 'unist-util-visit';
 import type { Root as MdRoot } from 'mdast';
 import type { Root as HtmlRoot } from 'hast';
 import { locales, mapLink, markdownUrl, pageUrl, repository } from './routes';
+import { publicDocumentation } from './visibility';
 
 const root = path.resolve('..');
 const git = (...args: string[]) => execFileSync('git', args, { cwd: root, encoding: 'utf8' }).trim();
@@ -61,6 +62,7 @@ for (const source of [...canonical].sort()) {
   const heading = md.children.find((node) => node.type === 'heading' && node.depth === 1);
   if (!heading) throw new Error(`Missing page title: ${source}`);
   const title = toString(heading);
+  publicDocumentation(md, source, settings.github);
   visit(md, (node) => {
     if (node.type !== 'link' && node.type !== 'image' && node.type !== 'definition') return;
     const mapped = mapLink(node.url, source, canonical, settings, node.type === 'image');

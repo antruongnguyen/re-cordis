@@ -22,7 +22,9 @@ Read the [release readiness assessment](../release-readiness.md) before choosing
 a distribution channel: current consumption uses a complete local/Git checkout.
 The proposed seven-package alpha is not an available release; runtime filesystem
 and watcher evidence remains macOS-only. The [B1 follow-up](../plans/2026-11-02-cordis-completion/evidence/2026-11-05-b1-closure.md)
-records local archive-test/notice corrections and the deferred CI decision.
+records local archive-test/notice corrections and the CI decision at that checkpoint.
+Documentation CI and the gated Pages workflow are now implemented locally; hosted
+execution and deployment still require owner action.
 Preserve the applicable [upstream notices](../../UPSTREAM-NOTICES.md) when
 redistributing identified adapted material.
 

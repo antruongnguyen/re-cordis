@@ -16,6 +16,11 @@ và [Create](create.md).
 
 `docs/en/` và `docs/vi/` là nguồn Markdown chính. Website dựng trực tiếp từ
 các tệp này, giữ các trang tương ứng và ví dụ thực thi giống nhau.
+Kế hoạch kỹ thuật và hồ sơ thiết kế nội bộ chỉ nằm trong checkout. Trang công
+khai, tìm kiếm và Markdown tải xuống bỏ liên kết đến các hồ sơ đó; package crate
+và Rustdoc không nhập chúng. Website dùng khung tài liệu toàn chiều rộng,
+sidebar cố định và mục lục trên desktop.
+
 Hướng dẫn phát triển đi theo checkout và có thể thay đổi mà không đổi phiên bản
 package. Kiểm tra revision bản dựng trước khi so sánh hướng dẫn đã lưu với mã mới.
 

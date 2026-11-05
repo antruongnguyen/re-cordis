@@ -328,6 +328,9 @@ and [the satellite roadmap](todo.md#next-implementation-targets-satellites).
 Timer cleanup reuses effects; console output reuses core exporters; file
 formats/serialization belong at satellite boundaries. Current distribution
 remains local/Git checkout only; B1 reconciles status and acceptance tooling.
+The subsequent bilingual site and documentation CI are implemented locally.
+Public exports exclude internal planning/design records; hosted Pages/docs.rs
+and broader platform acceptance remain separate gates.
 Do not promise native shared-library hot reload as a direct equivalent of JS
 loading. The ordered targets supersede the earlier open package-selection
 decision without redefining completed core milestones.

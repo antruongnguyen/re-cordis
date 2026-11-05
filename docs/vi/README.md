@@ -23,7 +23,9 @@ cách phân phối: hiện dùng checkout đầy đủ từ máy cục bộ/Git.
 Đề xuất alpha gồm bảy package chưa phải bản phát hành có thể cài đặt;
 bằng chứng thực thi filesystem và watcher vẫn chỉ có trên macOS.
 [Bản bổ sung B1](../plans/2026-11-02-cordis-completion/evidence/2026-11-05-b1-closure.md)
-ghi bản sửa test archive/notice cục bộ và quyết định hoãn CI.
+ghi bản sửa test archive/notice cục bộ và quyết định CI tại mốc đó.
+CI tài liệu và workflow Pages có cổng kiểm soát hiện đã được triển khai cục bộ;
+chạy trên GitHub và triển khai vẫn cần chủ repository thực hiện.
 Giữ [notice upstream](../../UPSTREAM-NOTICES.md) áp dụng khi phân phối lại
 các phần được xác định là có chuyển thể.
 

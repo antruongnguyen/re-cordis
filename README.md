@@ -3,85 +3,37 @@
 A Rust reimplementation of [Cordis](https://github.com/cordiverse/cordis) — a
 meta-framework for spatiotemporal composability.
 
-> **Status: core, selected satellites and offline R0 integration independently accepted.**
-> Independently accepted R1 recommends local/Git checkout consumption only. The
-> [release readiness assessment](docs/release-readiness.md) proposes a separate
-> seven-package experimental alpha decision; no package is published.
-> The [bounded B1 follow-up](docs/plans/2026-11-02-cordis-completion/evidence/2026-11-05-b1-closure.md)
-> is independently accepted: current status, planning-link checks and local
-> release preparation are verified within scope. A subsequent documentation
-> delivery prepares the bilingual Fumadocs site, documentation CI and gated
-> Pages workflow; [build and preview locally](website/README.md). The
-> [documentation delivery](docs/plans/2026-11-05-documentation-site/delivery.md)
-> is independently accepted locally. Pages deployment and hosted docs.rs
-> publication remain owner/release actions.
-> Create archive tests now accept a separate compatible checkout; the tool still
-> requires that checkout and does not bundle the framework.
-> The unpublished `re-cordis-core` has local
-> hosting, typed plugins/Registry grouping, scoped effects and diagnostics,
-> typed events, validation, restart, parent-owned disposal, typed service
-> publication/lookup, and dependency-driven injection convergence.
-> It also has isolation boundaries, explicit bound service calls/intercepts,
-> typed reflection/hooks, config updates/recovery, and latest-target convergence.
-> M6 adds traced/configured logging, error cause/aggregate adapters, weak lifecycle
-> metadata, explicit initialization/method injection, type checks, and an end-to-end example.
-> This is an unpublished explicit Rust API, not transparent JavaScript
-> Proxy/decorator compatibility or a claim of unrestricted TS parity.
-> Post-M6 hardening now executes six paired lifecycle scenarios
-> against the pinned TypeScript core; see [lifecycle parity](docs/lifecycle-parity.md).
-> This includes superseded/latest load failures, abandoned waits, and explicit
-> recovery. Those slices needed no production changes or new dependencies.
-> The core/parity checkpoint has 152 integration tests and 17 Rustdoc checks.
-> Approved GitHub-activity consumers add a snapshot digest, bounded `gh` collector
-> and signed loopback webhook journal (12 application tests on Unix, for 164
-> workspace integration tests at that checkpoint and the same 17 Rustdoc checks).
-> See [GitHub activity consumers](docs/github-activity.md).
-> Application-only dependencies do not extend the production core.
-> The **`re-cordis-timer`** satellite is implemented (owner-scoped timeout,
-> sleep, interval/stream, throttle and debounce; 48 crate tests and three
-> Rustdoc checks). Checked admission-time clocks, hosted callbacks, bounded
-> streams and joined owner cancellation are implemented. The
-> **`re-cordis-logger`** console adapter is implemented with scoped owned writers,
-> deterministic rendering, explicit color/UTC policy and visible I/O errors
-> (21 logger tests); final review/acceptance is tracked in its
-> [work package](docs/plans/2026-11-02-cordis-completion/logger.md).
-> The unpublished **re-cordis-loader** now implements typed catalogs, source-aware
-> entries, structural groups, bounded JSON, scoped evaluation and joined rebuilds.
-> L0–L5 and G0–G1 passed independent review and stable/1.85.0 verification; see
-> [loader acceptance](docs/plans/2026-11-02-cordis-completion/evidence/loader-acceptance.md).
-> The unpublished **re-cordis-include** adds bounded JSON/YAML file reads,
-> nested sources, precise locations, explicit refresh/recovery and ordered
-> patches with per-key ownership, bounded journals and reconciled persistence.
-> I0–I4 is independently accepted with joined flush/shutdown, 75 Rust tests
-> and two Rustdoc checks; see [acceptance](docs/plans/2026-11-02-cordis-completion/evidence/include-acceptance.md)
-> and the [include guide](docs/en/guides/include.md).
-> The unpublished **re-cordis-hmr** implements bounded owner-scoped file watching,
-> explicit linked factory dependency plans and restart-required source notifications.
-> Optional Include watching and linked replacement operate on the same managed
-> instances. H0–H3 is independently accepted; the explicit stable/1.85.0 shared
-> HMR acceptance matrix passed 486 workspace checks per toolchain.
-> See the [HMR guide](docs/en/guides/hmr.md) and
-> [acceptance evidence](docs/plans/2026-11-02-cordis-completion/evidence/hmr-acceptance.md).
-> The selected **re-cordis-create** S0–S2 supplies offline scaffolding from a local
-> checkout, with a hosted application using core, console logger and loader.
-> It performs no Git/install/launch subprocess or network operation.
-> S0–S2 is independently accepted, including actual generated applications on
-> stable/1.85.0; see the [Create guide](docs/en/guides/create.md) and
-> [acceptance](docs/plans/2026-11-02-cordis-completion/evidence/create-acceptance.md).
-> See [loader](docs/en/guides/loader.md) and [groups](docs/en/guides/groups.md), then
-> [the ordered roadmap](docs/todo.md#next-implementation-targets-satellites).
-> The [timer acceptance report](docs/plans/2026-11-02-cordis-completion/evidence/timer-acceptance.md)
-> records repair verification and its declared Rust adaptations.
-> The [completion plan](docs/plans/2026-11-02-cordis-completion/README.md) covers
-> core evidence, timer fixes and all seven upstream satellites, with scheduling gates.
-> The concept map below remains the framework target, not a shipped feature list.
+> **Development release: local/Git checkout use only.**
+> The seven crates remain unpublished `0.0.0` with `publish=false`,
+> Rust 2024 and MSRV 1.85. Core, the selected satellites and whole-application
+> integration are independently accepted within their documented Rust scope.
+> The experimental alpha remains a separate [release decision](docs/release-readiness.md).
+> Filesystem/watcher runtime evidence remains macOS-only.
 
-> Independently accepted R0 composes the components in one shared application:
-> provider retention during group moves, configuration persistence, linked replacement,
-> failure/recovery and joined shutdown. The final stable/1.85.0 matrix passes
-> 517 workspace checks per toolchain and actual generated applications.
-> See the [integration guide](docs/en/guides/system-lifecycle.md) and
-> [R0 verification](docs/plans/2026-11-02-cordis-completion/evidence/r0-acceptance.md).
+| Package | Delivered capability |
+|---|---|
+| [Core](docs/en/api/README.md) | Hosted Runtime/Context, typed plugins, services/injection, events, effects and diagnostics |
+| [Timer](docs/en/guides/timers.md) | Owner-scoped timeouts, sleep, intervals, throttle and debounce |
+| [Console logger](docs/en/guides/console-logging.md) | Scoped writers, color/UTC rendering and visible I/O errors |
+| [Loader and groups](docs/en/guides/loader.md) | Typed catalogs, source reconciliation, structural groups and joined rebuilds |
+| [Include](docs/en/guides/include.md) | Bounded files, patches/provenance and reconciled persistence |
+| [HMR](docs/en/guides/hmr.md) | File watching and linked replacement; optional Include adapter |
+| [Create](docs/en/guides/create.md) | One offline application requiring a separate compatible checkout |
+
+The [system lifecycle guide](docs/en/guides/system-lifecycle.md) composes the
+packages with explicit recovery and joined shutdown. This is an idiomatic,
+explicit Rust API; it does not promise transparent JavaScript or full TS parity.
+Historical test counts and acceptance evidence remain in the
+[engineering documentation map](docs/README.md#engineering-references).
+
+The [bilingual documentation site](website/README.md) uses a full-width
+documentation layout, static search, public Markdown/LLM files and exact Rustdoc.
+Internal planning/design trees are excluded from published pages and links.
+All workflows use audited current action releases; documentation execution uses
+a supported macOS runner and Pages deployment remains manually gated.
+The [local delivery](docs/plans/2026-11-05-documentation-site/delivery.md) is
+independently accepted; Pages activation/deployment and hosted docs.rs still
+require owner/release actions.
 
 ## User guides and API documentation
 

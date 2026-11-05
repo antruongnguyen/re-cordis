@@ -16,6 +16,11 @@ and [Create](create.md).
 
 `docs/en/` and `docs/vi/` are the canonical Markdown sources. The website builds
 these files directly, preserving matching pages and executable examples.
+Internal engineering plans and design records stay in the checkout. Public
+pages, search and Markdown downloads omit links to those records; crate packages
+and Rustdoc do not import them. The website uses a full-width documentation frame
+with a fixed sidebar and desktop table of contents.
+
 Development guides follow the checkout and may change without a package-version
 change. Check the build revision before comparing a saved guide with newer code.
 

@@ -19,11 +19,16 @@ packages are done within scope. See
 docs/plans/2026-11-02-cordis-completion/evidence/2026-11-05-b1-closure.md.
 Create archive tests use test-only CORDIS_CREATE_TEST_CHECKOUT when outside
 the repository; the CLI still requires --cordis-path and a separate complete
-checkout. Planning/evidence links are included in the local docs checker;
-The subsequent documentation delivery prepares separate macOS guide CI and a
-static Fumadocs site with gated manual Pages deployment; see website/README.md
-and docs/plans/2026-11-05-documentation-site/plan.md. Hosted execution/deployment,
-registry/docs.rs publication and platform expansion remain separate gates.
+checkout. Planning/evidence links remain checked locally. The documentation
+site is implemented and independently accepted locally; see website/README.md
+and docs/plans/2026-11-05-documentation-site/delivery.md. It uses a full-width
+Fumadocs layout and excludes docs/plans and docs/superpowers from published
+pages, links, search and Markdown/LLM output. Those trees are outside all crate
+package roots and must not be imported into crate READMEs or Rustdoc.
+All workflow actions use audited release SHA pins; documentation CI uses the
+supported macos-26 runner. Preserve explicit stable/1.85.0 checks and manual
+Pages gates. Hosted execution/deployment, registry/docs.rs publication and
+platform expansion remain separate gates.
 The completed post-M6 lifecycle-parity slices add six executed Rust/TypeScript
 scenarios (152 Rust integration tests, 17 Rustdoc checks), including bounded
 failure/recovery evidence. See `docs/lifecycle-parity.md` for reproduction and
@@ -156,6 +161,10 @@ Extend them for each new delivered satellite.
 - After implementing and verifying each milestone, commit its code and related
   documentation on the current branch. Do not push unless explicitly requested.
 - Never include a `Co-authored-by` trailer in git commit messages.
+- Keep action pins current using official releases and migration notes. Retain
+  the exact version in SHA comments and keep runner images supported.
+- Keep docs/plans and docs/superpowers repository-only. Public exports must not
+  contain their routes, URLs or content; retain canonical local evidence links.
 - Use `rg` (ripgrep) instead of `grep` for searching.
 - If a `.codegraph/` directory appears at the repo root, prefer CodeGraph
   (`codegraph explore ...`) over grep/find for understanding code. Indexing is

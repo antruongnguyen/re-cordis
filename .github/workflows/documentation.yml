@@ -16,20 +16,21 @@ permissions:
 jobs:
   guides:
     name: Guides (${{ matrix.toolchain }}, macOS)
-    runs-on: macos-14
+    runs-on: macos-26
     strategy:
       fail-fast: false
       matrix:
         toolchain: [stable, "1.85.0"]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: "3.12"
-      - uses: dtolnay/rust-toolchain@stable
+      - uses: dtolnay/rust-toolchain@683b588c487a69d01f6c6ddf40f036ff682cc2c8 # master (2026-11-05)
         with:
+          toolchain: stable
           components: clippy, rustfmt
-      - uses: dtolnay/rust-toolchain@master
+      - uses: dtolnay/rust-toolchain@683b588c487a69d01f6c6ddf40f036ff682cc2c8 # master (2026-11-05)
         if: matrix.toolchain != 'stable'
         with:
           toolchain: ${{ matrix.toolchain }}
@@ -58,7 +59,7 @@ jobs:
           CARGO_TARGET_DIR="$PWD/target/site-rustdoc" "$CORDIS_CARGO" doc --workspace --all-features --locked --offline
       - name: Share exact API artifact with the static site job
         if: matrix.toolchain == 'stable'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: rustdoc-for-website
           path: target/site-rustdoc/doc
@@ -73,20 +74,20 @@ jobs:
       contents: read
       pages: read
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: "22"
-      - uses: oven-sh/setup-bun@v2
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
         with:
           bun-version: "1.4.4"
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: rustdoc-for-website
           path: target/site-rustdoc/doc
       - name: Configure Pages metadata (deployment preparation only)
         if: inputs.pages-artifact == true
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
       - name: Install website dependencies
         working-directory: website
         run: bun install --frozen-lockfile
@@ -101,12 +102,12 @@ jobs:
           bun run check
       - name: Upload Pages artifact
         if: inputs.pages-artifact == true
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
           path: website/out
       - name: Retain checked preview artifact
         if: inputs.pages-artifact != true
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: documentation-preview
           path: website/out

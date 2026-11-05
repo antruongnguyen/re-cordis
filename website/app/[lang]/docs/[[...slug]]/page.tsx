@@ -20,7 +20,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string;
   const vi = lang === 'vi';
   const rustdoc = `${settings.basePath}/rustdoc/${settings.revision}/${rustdocCrate(page)}/index.html`;
   return <DocsPage id="main-content" tabIndex={-1} toc={page.toc}>
-    <p className="mb-4 rounded-lg border border-fd-border bg-fd-muted p-3 text-sm">{vi ? 'Tài liệu phát triển · chưa phát hành · chỉ dùng checkout local/Git. Rust 1.85 trở lên; bằng chứng filesystem/watcher trên macOS.' : 'Development documentation · unpublished · local/Git checkout use. Rust 1.85 minimum; filesystem/watcher runtime evidence on macOS.'}</p>
+    <p className="documentation-status">{vi ? 'Tài liệu phát triển · chưa phát hành · chỉ dùng checkout local/Git. Rust 1.85 trở lên; bằng chứng filesystem/watcher trên macOS.' : 'Development documentation · unpublished · local/Git checkout use. Rust 1.85 minimum; filesystem/watcher runtime evidence on macOS.'}</p>
     <DocsTitle id={page.titleId}>{page.title}</DocsTitle>
     <div className="mb-6 flex flex-wrap items-center gap-4 border-b border-fd-border pb-4 text-sm">
       <MarkdownCopyButton markdownUrl={page.markdownUrl} />

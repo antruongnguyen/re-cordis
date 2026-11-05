@@ -24,7 +24,7 @@ nhau. Mỗi trang liên kết đến bản ngôn ngữ còn lại.
 
 ## Build and preview the documentation site
 
-The standalone [website application](../website/README.md) compiles the canonical
+The full-width [website application](../website/README.md) compiles the canonical
 docs/en and docs/vi Markdown at build time using Fumadocs/Next.js and Bun.
 The development site includes same-revision Rustdoc, browser-side static search,
 public llms.txt and per-page Markdown. The site Rustdoc includes dependency
@@ -52,6 +52,12 @@ Preview the exported files at http://127.0.0.1:4173/re-cordis/ (not the Next.js
 development server). Build and copy Rustdoc from the same checkout revision;
 rebuild after a commit to update pinned source links and provenance. The website
 README documents route mapping, checks and owner-side Pages activation.
+Only docs/en and docs/vi become reader pages. Links/images/reference definitions
+pointing to docs/plans or docs/superpowers are removed from the public projection;
+local Markdown and historical records remain intact. The export checker scans
+HTML, RSC/JavaScript, Markdown, search/LLM data and Rustdoc for those paths.
+Each crate has its own README and package root; neither internal tree is included
+in crate packages or used by docs.rs. This boundary is not Git repository access control.
 The [EN](en/guides/documentation.md) and [VI](vi/guides/documentation.md)
 channel guides distinguish development guides, exact APIs and future releases.
 [Local delivery evidence](plans/2026-11-05-documentation-site/delivery.md) records
@@ -162,7 +168,7 @@ selected toolchains; formatting remains stable-only. See the
 is added, and no temporary fixture source becomes a public API.
 
 The new .github/workflows/documentation.yml prepares these regressions and
-full guide checks on macOS with explicit stable/1.85.0 tools and a locked
+full guide checks on supported macos-26 with explicit stable/1.85.0 tools and a locked
 Cargo fetch and .github/scripts/restore-docs-dependencies.py before offline
 execution. The latter restores the generated R0 app's default futures-util
 macro feature, which the workspace lock alone does not fetch. Its temporary

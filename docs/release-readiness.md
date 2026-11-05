@@ -269,7 +269,9 @@ they are not left as implementation blockers.
 remote or registry-backed Create templates, extra templates, native binary hot
 loading, process supervision and live integrations. Bounded B1 status/link
 closure and local archive/provenance preparation are covered by the dated
-follow-up; CI implementation/platform expansion remain deferred.
+follow-up. Documentation CI and the gated Pages workflow are now implemented
+locally, with current action pins and a supported macOS runner; actual hosted
+execution/deployment and platform expansion remain unverified/separate gates.
 
 The next release decision must approve the seven-package scope, alpha version
 and coordination policy, macOS/MSRV support statement, publisher/name ownership,

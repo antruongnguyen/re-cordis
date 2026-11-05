@@ -15,6 +15,7 @@ import type { Root as MdRoot } from 'mdast';
 import type { Root as HtmlRoot } from 'hast';
 import dependencyProseLinks from './rustdoc-prose-links.json';
 import { locales, mapLink, pageUrl, markdownUrl } from './routes';
+import { internalDocumentationPath, isInternalDocumentation } from './visibility';
 
 const root = path.resolve('..');
 const output = path.resolve('out');
@@ -23,10 +24,11 @@ const pages: { locale: string; file: string; source: string; title: string; titl
 const { basePath, origin, github, revision } = provenance;
 assert(!Object.hasOwn(provenance, 'rustdocInput'), 'Private Rustdoc input path must not be published.');
 for await (const file of new Bun.Glob('**/*').scan('out')) {
-  if (file.startsWith('rustdoc/')) continue; // Exact Rustdoc retains compiler paths; Pages rebuilds on its hosted macOS runner.
+  assert(!internalDocumentationPath.test(file), 'Internal documentation file exported: ' + file);
   if (!/\.(?:html|js|json|css|md|txt)$/.test(file)) continue;
   const content = await readFile(path.join(output, file), 'utf8');
-  assert(!process.env.HOME || !content.includes(process.env.HOME), 'Workstation home path leaked into public artifact: ' + file);
+  assert(!internalDocumentationPath.test(content.replace(/\\\//g, '/')), 'Internal documentation leaked into public artifact: ' + file);
+  if (!file.startsWith('rustdoc/')) assert(!process.env.HOME || !content.includes(process.env.HOME), 'Workstation home path leaked into public artifact: ' + file);
 }
 const head = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim();
 assert.equal(revision, head, 'Export revision is stale; rebuild after commit.');
@@ -172,6 +174,7 @@ for (const page of pages) {
   for (const href of urls) await checkUrl(href, page.url);
   visit(raw, (node) => {
     if (node.type === 'link' || node.type === 'image' || node.type === 'definition') {
+      if (isInternalDocumentation(node.url, page.source, github)) return;
       assert(urls.includes(mapLink(node.url, page.source, canonical, provenance, node.type === 'image').url), `Missing mapped Markdown link: ${page.source}: ${node.url}`);
     }
   });

@@ -93,8 +93,12 @@ Trailing-slash pages are enumerated for both languages:
 Page/navigation/search/LLM routes derive from the same canonical data.
 Task navigation and Fumadocs UI are translated. Language switching preserves
 the page. Relative canonical Markdown/README links become website links;
-other source/evidence links use GitHub blob URLs pinned to the build revision.
-Images use pinned raw URLs. Plans/ledgers stay outside navigation and search.
+public source links use GitHub blob URLs pinned to the build revision.
+Links, images and Markdown reference definitions targeting docs/plans or
+docs/superpowers are removed before HTML, search and public Markdown generation.
+Their descriptive link text is retained where useful; neither tree is exported
+or listed in public provenance. Images for public sources use pinned raw URLs.
+The repository's local canonical Markdown and engineering records remain intact.
 Compatibility/releases/changelog retain explicit pinned source pages, with
 translated sidebar labels. Historical evidence remains unchanged.
 
@@ -103,14 +107,29 @@ package/essential contracts and page routes; per-page Markdown preserves code
 and adapts links. No `llms-full.txt` is generated: retrieve relevant pages from
 the bounded bilingual index.
 
+## Layout
+
+The documentation frame fills the viewport, with a 64 px desktop header, a
+fixed left sidebar and a right-hand TOC. The reading column grows up to 72rem
+while the outer frame remains full-width. Mobile retains the Fumadocs drawer,
+search and TOC popover. The layout follows the structure of
+[shadcn docs](https://ui.shadcn.com/docs) and
+[AI SDK docs](https://ai-sdk.dev/docs/introduction) using existing Fumadocs slots.
+
 ## Verification and deployment
 
 `bun run check` runs route-adapter regressions, then inspects actual exported
 locale/page routes, HTML links/anchors/assets, pinned source paths/revisions,
 seven Rustdoc channels/assets, Markdown code preservation, public LLM coverage,
-source/Rustdoc fingerprints and English/Vietnamese static search results.
+source/Rustdoc fingerprints, private-document exclusion and English/Vietnamese
+static search results. Crate package lists and Rustdoc inputs exclude both
+internal trees; docs.rs builds crate documentation, not the website or root docs.
 Browser checks additionally cover search, language switching, keyboard/mobile
 navigation and deep-link reloads against the exported preview.
+
+Workflow actions are pinned to the current audited release commits with exact
+version comments; macOS guide checks run on supported macos-26. The Rustdoc
+artifact is transferred to the Linux site build. Hosted runs remain unverified.
 
 After separate authorization to push reviewed commits, ensure the workflow is
 available on the default branch. Set Settings → Pages → Source to GitHub Actions;

@@ -46,6 +46,7 @@ this command does not publish to docs.rs.
 ## Start here
 
 - [Documentation map](README.md): Reading paths and maintenance checks.
+- [Website maintenance](../website/README.md): Static publishing and source boundaries.
 - [English documentation](en/README.md): Start here for English.
 - [Vietnamese documentation](vi/README.md): Bắt đầu đọc bằng tiếng Việt.
 - [English quick start](en/getting-started.md): Local setup and a complete app.

@@ -61,6 +61,19 @@ source. Current local/non-Send contracts and macOS-only runtime filesystem/watch
 evidence remain; a proposed experimental alpha adds no Windows/Linux or stable
 API guarantee. See [the decision](decision.md#2026-11-05--separate-accepted-behavior-from-distribution-readiness).
 
+## Documentation publication boundary
+
+The full-width public site includes only the canonical EN/VI reader pages.
+Repository-only plans/design records are neither routes nor search documents;
+their links and images are removed from rendered pages and Markdown exports.
+The export check covers HTML, client/RSC payloads, search, LLM files and Rustdoc.
+Each crate's own README and nested package root excludes those repository-level
+trees from docs.rs inputs. This is a documentation boundary, not an access-control
+mechanism: tracked engineering records remain in the Git repository.
+
+Current action release pins and supported macos-26 are locally checked; no
+hosted Actions/Pages run or new runtime-platform acceptance is implied.
+
 ## How to classify Rust differences
 
 Under the [2026-11-03 implementation direction](decision.md#2026-11-03--deliver-cordis-features-through-idiomatic-rust-contracts),
