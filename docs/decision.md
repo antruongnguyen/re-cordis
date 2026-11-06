@@ -4,6 +4,35 @@ A lightweight log of decisions made for this project and the reasoning behind
 them. Newest first. This is intentionally not a heavy ADR process; it records
 *what we chose and why* so the choices aren't re-litigated silently.
 
+## 2026-11-06 — Prepare the approved experimental alpha candidate
+
+The maintainer approved preparation of seven coordinated `0.1.0-alpha.1`
+packages and designated crates.io account antruongnguyen. Set the shared Cargo
+version, restrict the seven publish policies to `["crates-io"]`, and give all
+ten internal normal/optional/dev path edges exact `=0.1.0-alpha.1` requirements,
+including HMR's dev logger. Preserve third-party resolution, features, Rust 2024,
+MSRV 1.85, local/non-Send hosting and explicit joined cleanup.
+
+During alpha development, intentional breaking changes require release notes
+and a new coordinated alpha version; recommend exact consumer pins. Runtime
+support remains the tested Apple Silicon macOS environment. Create stays an
+offline tool requiring `--cordis-path` and a separate compatible complete
+checkout. Its five-file template and application `0.0.0`/`publish=false`
+remain unchanged; version/layout admission is not source compatibility evidence.
+
+Derive development website version labels, Markdown/LLM headers and public
+provenance from the workspace manifest through the existing generated settings,
+using Bun's native TOML parser. Keep the candidate explicitly unpublished and
+the live Pages snapshot separate. Tag-pinned guides and exact-version docs.rs
+destinations are planned release references until verified.
+
+This supersedes the prior preparation prohibition, not the publication gate.
+No upload, release tag or Pages refresh is authorized. Full candidate/archive
+verification, independent review and final candidate SHA/compatible-checkout
+recording remain required before the publication decision. See
+[the approval](plans/2026-11-06-public-delivery/release-decision.md) and
+[draft release notes](plans/2026-11-06-public-delivery/release-notes-draft.md).
+
 ## 2026-11-06 — Publish development documentation through manual Pages builds
 
 The initial GitHub Pages deployment succeeded at revision

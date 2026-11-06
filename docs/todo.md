@@ -18,8 +18,12 @@ delivery tasks; the 35 accepted implementation work packages remain closed.
   [PR #1 and exact-main verification](plans/2026-11-06-public-delivery/integration.md) are complete.
 - [x] D2: Deploy and verify public EN/VI documentation and exact-revision Rustdoc.
   [Public deployment and live verification](plans/2026-11-06-public-delivery/documentation.md) are complete.
-- [ ] D3–D6: Decide the alpha contract, prepare/review the candidate, then publish,
-  verify actual registry/CLI consumers and close release documentation.
+- [x] D3: Approve preparation of the seven-package `0.1.0-alpha.1` candidate.
+  [Release decision and publisher designation](plans/2026-11-06-public-delivery/release-decision.md) are recorded.
+- [x] D4: Prepare and independently review frozen candidate `84fa9bd`.
+  [Verification, archive checksums and remaining registry gates](plans/2026-11-06-public-delivery/release-candidate.md) are recorded.
+- [ ] D5–D6: After approval of the exact candidate, publish and verify actual
+  registry/CLI consumers, then close release documentation.
 
 The initial D1 push/PR documentation runs passed macOS stable/1.85.0 guide checks
 but failed the site inventory on two hidden associated-type links that newer
@@ -27,8 +31,10 @@ Rustdoc renders as plain text. The [scoped repair](plans/2026-11-06-public-deliv
 passes both real compiler artifacts and fresh hosted CI; its independent review
 and the final D1 integration checks are complete.
 
-Planning does not authorize push, merge, deployment, version changes or
-publication. Keep `0.0.0`/`publish=false` until the recorded release decision.
+Planning alone does not authorize execution or publication. D3 approves candidate
+version/dependency changes and crates.io-only publish policies. Upload, release
+tags and deployment remain gated; publication requires approval of the exact
+reviewed candidate and fresh publisher/name checks.
 
 ## Completion planning (2026-11-02)
 

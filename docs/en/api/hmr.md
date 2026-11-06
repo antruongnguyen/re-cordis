@@ -7,7 +7,7 @@ Source: [lib.rs](../../../crates/re-cordis-hmr/src/lib.rs),
 [reload.rs](../../../crates/re-cordis-hmr/src/reload.rs).
 Guide: [file changes and replacement](../guides/hmr.md).
 
-`re-cordis-hmr` is unpublished (`0.0.0`, Rust 2024, MSRV 1.85).
+`re-cordis-hmr` is unpublished (`0.1.0-alpha.1`, Rust 2024, MSRV 1.85).
 This page describes the implemented Rust API. H0–H3 is independently accepted;
 see the [shared verification](../../plans/2026-11-02-cordis-completion/evidence/hmr-acceptance.md). File watching, explicit linked replacement and source restart
 notification are separate capabilities. No root recursion, module discovery,

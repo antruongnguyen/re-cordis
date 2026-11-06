@@ -50,7 +50,7 @@ fn main() -> Result<(), BoxError> {
                 trace.push(format!("advance 20 count={}", count.get()));
                 assert_trace(
                     "timeout",
-                    include_str!("../../../tests/timer_parity/timeout.txt"),
+                    include_str!("fixtures/timer_parity/timeout.txt"),
                     &trace,
                 )?;
 
@@ -66,7 +66,7 @@ fn main() -> Result<(), BoxError> {
                 trace.push(format!("advance 20 count={}", count.get()));
                 assert_trace(
                     "cancel",
-                    include_str!("../../../tests/timer_parity/cancel.txt"),
+                    include_str!("fixtures/timer_parity/cancel.txt"),
                     &trace,
                 )?;
 
@@ -95,7 +95,7 @@ fn main() -> Result<(), BoxError> {
                 trace.push("await resolved".into());
                 assert_trace(
                     "sleep",
-                    include_str!("../../../tests/timer_parity/sleep.txt"),
+                    include_str!("fixtures/timer_parity/sleep.txt"),
                     &trace,
                 )?;
 
@@ -115,7 +115,7 @@ fn main() -> Result<(), BoxError> {
                 trace.push(format!("advance 40 count={}", count.get()));
                 assert_trace(
                     "interval",
-                    include_str!("../../../tests/timer_parity/interval.txt"),
+                    include_str!("fixtures/timer_parity/interval.txt"),
                     &trace,
                 )?;
 

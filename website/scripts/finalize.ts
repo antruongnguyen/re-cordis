@@ -7,7 +7,7 @@ const provenance = JSON.parse(await readFile('.generated/provenance.json', 'utf8
 const rustdocDir = path.join('out/rustdoc', provenance.revision);
 await rm(rustdocDir, { recursive: true, force: true });
 await cp(provenance.rustdocInput, rustdocDir, { recursive: true });
-const index = '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>re-cordis exact Rustdoc</title></head><body><main><h1>re-cordis exact Rustdoc</h1><p>Development documentation for unpublished 0.0.0 crates. Build revision: ' + provenance.revision + '</p><ul>' + provenance.crates.map((crate: string) => '<li><a href="re_cordis_' + crate + '/index.html">re-cordis-' + crate + '</a></li>').join('') + '</ul></main></body></html>';
+const index = '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>re-cordis exact Rustdoc</title></head><body><main><h1>re-cordis exact Rustdoc</h1><p>Development documentation for unpublished ' + provenance.version + ' candidate crates. Build revision: ' + provenance.revision + '</p><ul>' + provenance.crates.map((crate: string) => '<li><a href="re_cordis_' + crate + '/index.html">re-cordis-' + crate + '</a></li>').join('') + '</ul></main></body></html>';
 const generatedLanding = !(await Bun.file(path.join(provenance.rustdocInput, 'index.html')).exists());
 if (generatedLanding) await writeFile(path.join(rustdocDir, 'index.html'), index);
 const generatedEmptyImplementors = [];

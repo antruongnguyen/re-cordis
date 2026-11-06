@@ -1,6 +1,6 @@
 # Public Documentation and Experimental Alpha Delivery Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to execute this plan task-by-task. The user requested execution on 2026-11-06. D1 and D2 are complete; preserve the subsequent release decision gates.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to execute this plan task-by-task. The user requested execution on 2026-11-06. D1 through D4 are complete; publication still requires approval of the frozen candidate.
 
 **Goal:** Deliver the accepted framework through verified public documentation, then a separately approved seven-package experimental alpha.
 
@@ -98,33 +98,37 @@ If deployment fails before publication, retain the last successful site and repo
 
 ## D3 — Record the release decision
 
+**Execution:** Candidate preparation approved by the maintainer; [decision and publisher designation](../../plans/2026-11-06-public-delivery/release-decision.md). Publication remains separately gated.
+
 **Files:** `docs/release-readiness.md`; create `docs/plans/2026-11-06-public-delivery/release-decision.md` when the decision is made.
 **Produces:** A concrete approved or deferred release contract consumed by D4.
 
-- [ ] Present the existing seven-package proposal, with no expanded API/platform/template scope.
-- [ ] Confirm coordinated `0.1.0-alpha.1`, exact consumer pins and an alpha policy permitting documented breaking changes only in a new coordinated alpha version.
-- [ ] Confirm publisher account/authority and recheck exact normalized crate names at release time. Inspect an existing package's ownership if present; absence is not a reservation.
-- [ ] Confirm the support statement, actual documentation URL, proposed tag `v0.1.0-alpha.1` and the compatible complete checkout for offline Create. Record the final candidate SHA as the intended target of that tag in release evidence before publication.
-- [ ] State clearly that the published Create CLI still requires `--cordis-path`; publishing it does not produce a registry-backed template.
-- [ ] Record approval to prepare version/dependency/publication-policy changes, or record deferral and stop at the completed D2 outcome.
+- [x] Present the existing seven-package proposal, with no expanded API/platform/template scope.
+- [x] Confirm coordinated `0.1.0-alpha.1`, exact consumer pins and an alpha policy permitting documented breaking changes only in a new coordinated alpha version.
+- [x] Confirm publisher account/authority and recheck exact normalized crate names at release time. Inspect an existing package's ownership if present; absence is not a reservation.
+- [x] Confirm the support statement, actual documentation URL, proposed tag `v0.1.0-alpha.1` and the compatible complete checkout for offline Create. Record the final candidate SHA as the intended target of that tag in release evidence before publication.
+- [x] State clearly that the published Create CLI still requires `--cordis-path`; publishing it does not produce a registry-backed template.
+- [x] Record approval to prepare version/dependency/publication-policy changes, or record deferral and stop at the completed D2 outcome.
 
 **Exit:** One explicit release contract. Choosing this planning sequence is not that release approval.
 
 ## D4 — Prepare one reviewable alpha candidate
 
+**Execution:** Prepared and independently reviewed on the release branch; frozen source 84fa9bd. See [candidate evidence](../../plans/2026-11-06-public-delivery/release-candidate.md). No publication or candidate deployment occurred.
+
 **Files:** Root `Cargo.toml`/`Cargo.lock`; all seven `crates/*/Cargo.toml` and package READMEs; `CHANGELOG.md`, current status/decision/limitation docs, and matching EN/VI installation/Create/documentation guidance. Preserve the template's manifest/source and notices unless a reproduced compatibility failure requires a separately reviewed correction.
 **Produces:** A reviewed candidate SHA, package inventory, local verification report and draft release notes in `docs/plans/2026-11-06-public-delivery/release-candidate.md`.
 
-- [ ] Start `feat/alpha-release` from integrated main after checking for an existing suitable branch/worktree. Inspect branch protection and preserve source/acceptance history.
-- [ ] Set the shared package version to `0.1.0-alpha.1`. For the approved seven crates, remove the publication prohibition or explicitly restrict publication to crates.io.
-- [ ] Add `version = "=0.1.0-alpha.1"` alongside every internal dependency path, including optional HMR Include and HMR's dev-only logger edge. Re-resolve and review Cargo.lock; preserve third-party features/pins and HMR defaults.
-- [ ] Update package/readme/release text for the actual alpha contract. Use immutable release-tag guide links and exact-version docs.rs links for release references; keep the development site distinguishable from the release snapshot. Draft links do not count as reachable documentation.
-- [ ] Re-run the full shared acceptance matrix below on the versioned candidate, not just the prior 517-test audit. Check each crate's minimal normal dependency graph as well as unified workspace features.
-- [ ] Inspect all intended Cargo file lists and normalized manifests where archives can actually be built. Confirm package LICENSE/README, core upstream notices, examples/tests and the embedded Create template; exclude repository-only evidence.
-- [ ] Verify actual core/Create archives and their tests on both toolchains. Extract outside any Cargo workspace; Create tests use a separate candidate checkout via `CORDIS_CREATE_TEST_CHECKOUT`. Archive contents must remain unchanged by verification.
-- [ ] Record which satellite archive/dry-run checks await real registry prerequisites. Do not claim a seven-package registry preflight from local path builds, no-verify archives or patch overrides.
-- [ ] Review changes and results, resolve material findings, commit/integrate the candidate and pass hosted checks. Record the final immutable SHA outside the commit it identifies to avoid self-referential metadata.
-- [ ] Present that candidate, package list, results, remaining progressive checks, release notes and partial-publication recovery rule for publication authorization. No automatic publication workflow is needed for this one-off alpha.
+- [x] Start `feat/alpha-release` from integrated main after checking for an existing suitable branch/worktree. Inspect branch protection and preserve source/acceptance history.
+- [x] Set the shared package version to `0.1.0-alpha.1`. For the approved seven crates, remove the publication prohibition or explicitly restrict publication to crates.io.
+- [x] Add `version = "=0.1.0-alpha.1"` alongside every internal dependency path, including optional HMR Include and HMR's dev-only logger edge. Re-resolve and review Cargo.lock; preserve third-party features/pins and HMR defaults.
+- [x] Update package/readme/release text for the actual alpha contract. Use immutable release-tag guide links and exact-version docs.rs links for release references; keep the development site distinguishable from the release snapshot. Draft links do not count as reachable documentation.
+- [x] Re-run the full shared acceptance matrix below on the versioned candidate, not just the prior 517-test audit. Check each crate's minimal normal dependency graph as well as unified workspace features.
+- [x] Inspect all intended Cargo file lists and normalized manifests where archives can actually be built. Confirm package LICENSE/README, core upstream notices, examples/tests and the embedded Create template; exclude repository-only evidence.
+- [x] Verify actual core/Create archives and their tests on both toolchains. Extract outside any Cargo workspace; Create tests use a separate candidate checkout via `CORDIS_CREATE_TEST_CHECKOUT`. Archive contents must remain unchanged by verification.
+- [x] Record which satellite archive/dry-run checks await real registry prerequisites. Do not claim a seven-package registry preflight from local path builds, no-verify archives or patch overrides.
+- [x] Review changes and results, resolve material findings, commit/integrate the candidate and pass hosted checks. Record the final immutable SHA outside the commit it identifies to avoid self-referential metadata.
+- [x] Present that candidate, package list, results, remaining progressive checks, release notes and partial-publication recovery rule for publication authorization. No automatic publication workflow is needed for this one-off alpha.
 
 **Exit:** A clean, reviewed versioned candidate with honest local-vs-registry evidence and an exact publication scope.
 

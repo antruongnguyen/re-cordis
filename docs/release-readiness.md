@@ -1,7 +1,8 @@
-# Release readiness and initial release proposal
+# Release readiness and experimental alpha candidate
 
-Assessment date: 2026-11-05; documentation availability updated 2026-11-06 (Asia/Ho_Chi_Minh).
-Scope: accepted R1 plus bounded B1/local release preparation on `feat/cordis-completion`.
+Assessment date: 2026-11-05; candidate preparation updated 2026-11-06 (Asia/Ho_Chi_Minh).
+The historical R1/B1 package results below retain their original scope and versions.
+Historical assessment scope: accepted R1 plus bounded B1/local preparation on `feat/cordis-completion`.
 The [dated follow-up](plans/2026-11-02-cordis-completion/evidence/2026-11-05-b1-closure.md)
 records the Create fixture correction, provenance notices and current verification.
 The assessment and proposal are independently reviewed and accepted; see
@@ -15,17 +16,27 @@ after successful main CI and the initial manual deployment at revision
 [website verification](../website/README.md#verification-and-deployment).
 This does not establish a registry release or hosted docs.rs release.
 
-**Recommendation: ready only for local/Git checkout consumption today.**
-The seven crates remain unpublished, unstable `0.0.0` with `publish=false`.
-The implementation is useful within its documented Rust contracts, but the
-current manifests cannot publish the complete package set. A successful
-standalone archive build is not registry readiness.
+**Current availability: local/Git checkout consumption only.**
+The maintainer approved preparation of seven unpublished `0.1.0-alpha.1`
+experimental candidates on 2026-11-06 and designated crates.io account
+[antruongnguyen](https://crates.io/users/antruongnguyen). The workspace version,
+all ten exact internal dependency requirements and crates.io-only publish policies
+now reflect that contract. No upload, release tag or hosted docs.rs release has
+occurred. Candidate verification and review remain distinct from registry readiness.
+A focused [D4 fixture correction](plans/2026-11-06-public-delivery/core-archive-fixtures.md)
+makes Rust parity tests/examples use exact package-local trace copies while
+retaining root comparison fixtures. Clean integrated and registry package
+validation remain separate gates.
 
-**Proposal, requiring a subsequent release decision:** a coordinated
-`0.1.0-alpha.1` experimental release of the six runtime libraries and the
-explicitly offline Create library/CLI described below. Do not publish a stable
-API, facade, remote generator or new platform promise as part of that release.
-No version, dependency, feature, release tag or publication change is made by R1.
+The approved scope is six runtime libraries and the explicitly offline Create
+library/CLI below, Rust 1.85 minimum and the tested Apple Silicon macOS runtime
+environment. Use exact pins. Intentional breaking changes during alpha development
+require release notes and a new coordinated alpha version. A stable API, facade,
+remote generator and new platform promise are outside this release.
+See the [preparation decision](plans/2026-11-06-public-delivery/release-decision.md)
+and [draft release notes](plans/2026-11-06-public-delivery/release-notes-draft.md).
+The proposed tag is `v0.1.0-alpha.1`; tag-pinned guides and exact-version docs.rs
+links in the draft are planned destinations, not verified availability.
 
 See [R1 package evidence](plans/2026-11-02-cordis-completion/evidence/r1-package-audit.md)
 for commands and stage-specific results, [R1 execution plan](plans/2026-11-02-cordis-completion/evidence/r1-plan.md)
@@ -45,7 +56,7 @@ mixing core package identities can produce incompatible public Rust types.
 
 Cargo.lock pins registry resolution; it does not freeze the contents of a
 path dependency. Moving the checkout breaks Create's canonical absolute paths;
-editing/updating it changes the next build even if its version remains 0.0.0.
+editing/updating it changes the next build without a version change.
 Keep the checkout present, pin its Git revision and commit the application's
 lockfile. Offline builds additionally require cached third-party dependencies.
 
@@ -64,7 +75,7 @@ scenarios/nine observations remain bounded comparisons. B0's 147 evidence
 gaps and the loader map's narrower gaps are neither proven defects nor an
 automatic R1 implementation queue. See [limitations](limitation.md).
 
-## Proposed release scope
+## Approved candidate scope
 
 | Cargo package / Rust import | Selected capability | Important boundary |
 |---|---|---|
@@ -86,8 +97,10 @@ a loader-owned export without adding functionality.
 ## Actual dependency and feature audit
 
 All seven inherit Rust 2024, MSRV 1.85, MIT and the same repository URL from
-the workspace; resolver is 3. Every package has a description and remains
-publish=false. No workspace package uses a target-specific dependency or
+the workspace; resolver is 3. Every package has a description. Candidate
+manifests restrict publication to `["crates-io"]` and retain local paths with
+exact `=0.1.0-alpha.1` internal requirements. No workspace package uses a
+target-specific dependency or
 build script. Create has no Cargo dependencies: its generated application's
 dependencies are a separate graph.
 
@@ -148,7 +161,7 @@ This closes those identified local omissions, not a legal certification or
 an exhaustive third-party compliance/security audit. Future binary/vendor or
 changed-source distributions still need their applicable notice review.
 
-## Distribution checks and their limits
+## Distribution checks and their limits (historical R1/B1)
 
 | Stage | Actual result / interpretation |
 |---|---|
@@ -196,24 +209,24 @@ The normal dependency DAG permits this sequence:
 
 Logger is not an HMR production dependency. Its dev-only edge matters for
 the packaged examples/tests: Cargo strips a versionless path dev-dependency
-from a normalized registry manifest. The release change should give that
-edge a version as well and preserve archive example/test usability; placing
+from a normalized registry manifest. The candidate gives that
+edge an exact version and retains archive example/test inputs; placing
 logger before HMR supports that validation. No build-dependency cycle exists.
 
-For the proposed first alpha, use coordinated package version
+The approved candidate uses coordinated package version
 0.1.0-alpha.1 and exact matching internal requirements
 `version = "=0.1.0-alpha.1"` alongside each local `path`, including optional
 HMR Include and HMR's dev logger edge. Paths continue serving local workspace
-development; normalized published manifests use registry versions. Change
-publish=false only for the separately approved package set. Re-resolve and
-review Cargo.lock with both explicit toolchains, verify all intended feature
+development; normalized published manifests use registry versions. The seven
+publish policies are `["crates-io"]`; enabling them does not authorize upload.
+Review Cargo.lock with both explicit toolchains, verify all intended feature
 sets and inspect Cargo's normalized archive metadata. Preflight the complete
 release checkout, then verify each dependent package/dry-run against its
 already-published prerequisites before proceeding in that order.
 
-Create is proposed only as an offline tool requiring a compatible complete
+Create is approved only as an offline tool requiring a compatible complete
 checkout. Its own binary package contains the template, not the framework.
-Its generated package may remain 0.0.0/publish=false with absolute path
+Its generated package intentionally remains 0.0.0/publish=false with absolute path
 dependencies; publishing the tool does not make those dependencies portable.
 Test the released tool against the explicitly documented checkout revision.
 Changing only package versions does not test generated source compatibility;
@@ -225,21 +238,21 @@ tested versions, revise --cordis-path/checkout expectations and prove generation
 resolution, build, tests and shutdown from outside the repository. Do not
 advertise that mode or preemptively change the current manifest/template here.
 
-## Proposed stability, MSRV and platforms
+## Approved alpha stability, MSRV and platforms
 
 During alpha.N development, allow intentional API changes only with release
 notes and a new coordinated alpha number; recommend exact pins to consumers.
 The first alpha is not 1.0 compatibility. Before removing the prerelease
 suffix, define the 0.x policy: compatible fixes in patch releases, breaking
 changes in the next minor, migration notes for public types/traits/errors,
-and explicit treatment of feature/default and MSRV changes. Do not silently
-claim that today's 0.0.0 already follows this proposed policy.
+and explicit treatment of feature/default and MSRV changes. The approved alpha
+policy does not establish that future non-prerelease policy.
 
 Keep 1.85 as the initial MSRV and verify with 1.85.0; use stable for formatting.
 A future MSRV increase requires a recorded release decision and fresh dependency
 resolution evidence, rather than inferring support from edition metadata.
 
-Propose initial verified runtime support only for the tested Apple Silicon
+Initial verified runtime support covers only the tested Apple Silicon
 macOS host/target (`aarch64-apple-darwin`, macOS 26.7.1 in carried acceptance).
 Do not infer all macOS versions/architectures. Linux and Windows remain
 unverified for runtime filesystem/watcher behavior, not proven broken.
@@ -249,13 +262,13 @@ arbitrary concurrent-writer or hard shutdown-latency guarantee is established.
 
 ## Release blockers, limits and remaining decisions
 
-**Blockers for registry publication of the proposed set:**
+**Remaining gates for registry publication of the approved candidate:**
 
-- The current publish=false/version policy has not been changed by a release
-  decision; versionless local dependencies prevent five satellite archives.
-- A final versioned release checkout has not been resolved, packaged and
-  verified against actual published prerequisites. Current dry-runs stop at
-  publish=false. Packaged dev-dependency/example closure also remains a gate.
+- Complete full stable/1.85.0 candidate verification, package inventory, actual
+  core/Create archive checks and independent review at the final candidate SHA.
+- Verify dependent normalized archives/dry-runs progressively against actual
+  published prerequisites. Local path builds do not prove registry resolution.
+  Packaged dev-dependency/example closure also remains a gate.
   The Create fixture decision is now implemented and locally verified; retest
   the final release tool against its declared compatible checkout.
 - Publisher/owner authority and exact normalized crate-name claims must be
@@ -264,7 +277,7 @@ arbitrary concurrent-writer or hard shutdown-latency guarantee is established.
   reachable at the chosen release revision. The public development site is not
   an immutable guide snapshot for the proposed alpha release.
 
-**Nonblocking limitations for the proposed explicitly experimental scope:**
+**Nonblocking limitations for the approved experimental scope:**
 local/non-Send hosting, required joined teardown, bounded parity evidence,
 macOS-only runtime evidence, synchronous bounded I/O, polling gaps, value YAML,
 and the offline Create checkout requirement. These must remain visible to
@@ -279,9 +292,9 @@ follow-up. Rust and documentation checks run on pull requests and pushes to main
 main CI and the initial gated manual Pages deployment have succeeded.
 Platform expansion remains a separate gate.
 
-The next release decision must approve the seven-package scope, alpha version
-and coordination policy, macOS/MSRV support statement, publisher/name ownership,
-published documentation location and exact checkout supported by offline Create.
-Only then perform the version/dependency/publication work and its full shared
-stable/1.85.0 verification. R1 completes the assessment and proposal; it grants
-no publication approval.
+Preparation approval covers the seven-package version/dependency/publish-policy
+change. Publication still requires approval of the exact reviewed candidate,
+fresh publisher/name checks, progressive package validation, release documentation
+and the exact complete checkout supported by offline Create. R1/B1 remain
+historical local evidence; neither their acceptance nor candidate preparation
+grants upload, tag creation or deployment permission.

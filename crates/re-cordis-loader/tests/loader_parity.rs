@@ -91,7 +91,7 @@ async fn dependency_arrival_failure_and_explicit_recovery() {
             assert!(root.registry().is_empty().unwrap());
             assert_trace(
                 "recovery",
-                include_str!("../../../tests/loader_parity/recovery.txt"),
+                include_str!("fixtures/loader_parity/recovery.txt"),
                 &trace,
             );
         }),
@@ -175,7 +175,7 @@ async fn structural_disabled_group_controls_child_cleanup() {
             assert!(root.registry().is_empty().unwrap());
             assert_trace(
                 "group",
-                include_str!("../../../tests/loader_parity/group.txt"),
+                include_str!("fixtures/loader_parity/group.txt"),
                 &trace,
             );
         }),

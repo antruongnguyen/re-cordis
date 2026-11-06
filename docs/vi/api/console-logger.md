@@ -6,7 +6,7 @@ Mã nguồn: [lib.rs](../../../crates/re-cordis-logger/src/lib.rs).
 Hướng dẫn: [ghi log ra console](../guides/console-logging.md).
 Ví dụ: [console.rs](../../../crates/re-cordis-logger/examples/console.rs).
 
-`re-cordis-logger` (`0.0.0`, chưa phát hành, Rust 2024, MSRV 1.85) tương ứng
+`re-cordis-logger` (`0.1.0-alpha.1`, chưa phát hành, Rust 2024, MSRV 1.85) tương ứng
 với `logger-console` của TypeScript. Crate không thêm dịch vụ Logger, bộ lọc,
 buffer, runtime ẩn hay tác vụ nền. Định dạng lịch dùng `time = 0.3.36`
 chỉ với tính năng std/formatting; phụ thuộc của core không thay đổi.

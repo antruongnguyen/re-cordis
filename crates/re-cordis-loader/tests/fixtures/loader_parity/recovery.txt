@@ -1,0 +1,4 @@
+pending state=Pending values=[]
+arrived state=Failed values=[-1]
+recovered state=Active values=[-1, 2]
+removed entries=0 releases=1

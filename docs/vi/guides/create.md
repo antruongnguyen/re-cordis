@@ -71,9 +71,12 @@ README được sinh giữ nguyên thông báo MIT của mã khởi đầu;
 đáng kể của nó. Phần bạn bổ sung có thể có thông báo bản quyền riêng.
 Cargo.lock không chốt nội dung phụ thuộc path tuyệt đối. Hãy dùng checkout tại
 revision đã review; thay đổi checkout có thể đổi lần build ứng dụng tiếp theo.
-[Đề xuất phát hành](../../release-readiness.md) chỉ phân phối công cụ yêu cầu
-checkout tường minh này lúc đầu. Chế độ sinh phụ thuộc registry cần quyết định
-riêng trong tương lai; R1 chưa cung cấp package alpha để cài đặt.
+[Hợp đồng alpha](../../release-readiness.md) đã duyệt giữ công cụ yêu cầu
+checkout tường minh này. Bản ứng viên `0.1.0-alpha.1` vẫn chưa phát hành.
+Chế độ sinh phụ thuộc registry cần quyết định riêng trong tương lai. Công cụ
+sau khi phát hành vẫn cần checkout đầy đủ riêng tại revision tương thích được
+ghi cùng bản phát hành; kiểm tra version/bố cục không chứng minh tương thích
+mã nguồn. `0.0.0`/`publish=false` của ứng dụng được sinh vẫn có chủ ý.
 
 ## Kiểm thử archive Cargo
 

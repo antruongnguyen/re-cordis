@@ -3,11 +3,26 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
-This project does not yet follow semantic versioning — the API is unstable.
+The API is experimental. Alpha releases use coordinated versions; intentional
+breaking changes require release notes and a new alpha version. Use exact pins.
 
 ## [Unreleased]
 
 ### Changed
+
+- Made core/loader parity tests and the timer parity example self-contained in
+  Cargo packages using twelve exact package-local trace copies. Root comparison
+  fixtures, expected bytes and runtime behavior remain unchanged.
+
+- Prepared the approved seven-package `0.1.0-alpha.1` experimental candidate,
+  restricted manifests to crates.io and added exact internal version requirements
+  while retaining local paths. No registry upload or release tag is included.
+- Kept Rust 1.85, tested Apple Silicon macOS support, local hosting and explicit
+  joined cleanup. Create remains offline with a compatible complete checkout;
+  its five-file template and application `0.0.0`/`publish=false` are unchanged.
+- Derived development website version labels and public metadata from the
+  workspace manifest. Candidate guides identify unpublished status; release
+  guide/docs.rs destinations remain planned until separately verified.
 
 - Published development documentation on GitHub Pages with English/Vietnamese
   guides, API contracts, same-revision Rustdoc and public build provenance.
@@ -78,8 +93,9 @@ This project does not yet follow semantic versioning — the API is unstable.
   stable/1.85.0 guide checks, plus a gated manual GitHub Pages workflow. Existing
   Rust CI is preserved; no hosted run or deployment is claimed.
 - Documentation-channel guides and minimal HMR docs.rs metadata including its
-  optional Include API. All crates remain 0.0.0/publish=false; docs.rs hosting
-  still requires an approved actual registry release.
+  optional Include API. At the historical R1/B1 checkpoint, all crates remained
+  0.0.0/publish=false; docs.rs hosting still requires an approved actual registry
+  release.
 
 - Revised the compact AI-agent reading index with the complete package map,
   feature/distribution prerequisites, lifecycle pitfalls, Create archive-test

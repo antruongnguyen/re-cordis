@@ -6,8 +6,9 @@ Use the guides for application contracts and Rustdoc for exact signatures,
 generic bounds, trait implementations and public fields. Both must describe
 the same source revision and feature configuration.
 
-All seven crates currently remain unpublished, unstable `0.0.0` with
-`publish=false`. The development documentation site is public on GitHub Pages,
+All seven crates are unpublished, experimental `0.1.0-alpha.1` candidates.
+Preparation is approved; registry publication remains separately gated.
+The development documentation site is public on GitHub Pages,
 with [English](https://antruongnguyen.github.io/re-cordis/en/docs/) and
 [Vietnamese](https://antruongnguyen.github.io/re-cordis/vi/docs/) guides and
 same-revision Rustdoc. This is not a released docs.rs build. Continue
@@ -84,8 +85,9 @@ still need to enable that feature explicitly for `watch_include` and
 
 [docs.rs builds](https://docs.rs/about/builds) automatically generate Rustdoc
 from packages released on crates.io. The Fumadocs site is a separate artifact;
-it is not uploaded to docs.rs. Current package publication is disabled and the
-[coordinated alpha release](../../release-readiness.md) remains a proposal.
+it is not uploaded to docs.rs. The
+[coordinated alpha candidate](../../release-readiness.md) is approved for preparation;
+its crates.io-only manifest policy does not authorize an upload.
 There is no current re-cordis docs.rs release to link to.
 
 Before a release, prepare an immutable guide snapshot from the same source
