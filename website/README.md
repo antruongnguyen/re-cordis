@@ -1,12 +1,23 @@
 # re-cordis documentation website
 
-Development/unpublished documentation using standard Fumadocs UI, Next.js
+Public development documentation using standard Fumadocs UI, Next.js
 static export and Bun. `../docs/en` and `../docs/vi` are the sole user content
 sources. Markdown is parsed at build time with remark/GFM and rendered with
 Fumadocs' Shiki highlighter. The highlighted tree renders through native
 CodeBlock/Pre components: block typography is isolated from inline code, with
 localized copy buttons that preserve the complete code text. No copied content tree, MDX conversion,
 request-time filesystem, middleware, server search or AI backend is needed.
+
+The [live site](https://antruongnguyen.github.io/re-cordis/) provides
+[English](https://antruongnguyen.github.io/re-cordis/en/docs/) and
+[Vietnamese](https://antruongnguyen.github.io/re-cordis/vi/docs/) guides,
+[API contracts](https://antruongnguyen.github.io/re-cordis/en/docs/api/),
+same-revision Rustdoc and a [public AI index](https://antruongnguyen.github.io/re-cordis/llms.txt).
+The initial manual deployment on 2026-11-06 used revision
+`3718217aac6f8f11f1f11c221bf2730cbe169bd6`; its
+[build provenance](https://antruongnguyen.github.io/re-cordis/build-provenance.json)
+records that revision. Later documentation changes require a new manual deployment.
+All seven crates remain unpublished and experimental at `0.0.0`/`publish=false`.
 
 ## Build and preview
 
@@ -109,7 +120,7 @@ The repository's local canonical Markdown and engineering records remain intact.
 Compatibility/releases/changelog retain explicit pinned source pages, with
 translated sidebar labels. Historical evidence remains unchanged.
 
-The local `../docs/llms.txt` remains unchanged. The public index reuses its
+The local `../docs/llms.txt` remains checkout-relative. The public index reuses its
 package/essential contracts and page routes; per-page Markdown preserves code
 and adapts links. No `llms-full.txt` is generated: retrieve relevant pages from
 the bounded bilingual index.
@@ -136,17 +147,24 @@ Browser checks additionally cover search, language switching, keyboard/mobile
 navigation and deep-link reloads against the exported preview.
 
 Workflow actions use major-version tags; macOS guide checks run on supported
-macos-26. The Rustdoc artifact is transferred to the Linux site build. Hosted
-push/PR guide jobs passed, while their initial site checks failed on the compiler
-rendering distinction above. Both real artifacts pass the corrected checker
-locally; fresh hosted CI remains required.
+macos-26. The Rustdoc artifact is transferred to the Linux site build. Rust and
+documentation checks run on pull requests and pushes to main. Initial hosted
+guide jobs passed while site checks exposed the compiler rendering distinction
+above. Fresh main checks passed with the corrected checker, including the
+deployed revision's [Rust CI](https://github.com/antruongnguyen/re-cordis/actions/runs/42204299211)
+and [documentation CI](https://github.com/antruongnguyen/re-cordis/actions/runs/42204299299).
+The [initial Pages workflow](https://github.com/antruongnguyen/re-cordis/actions/runs/42204868321)
+succeeded, and the site, both locale indexes, public llms.txt and provenance
+returned HTTP 200. This establishes deployment availability; live browser QA
+acceptance remains separate.
 
 After separate authorization to push reviewed commits, ensure the workflow is
 available on the default branch. Set Settings → Pages → Source to GitHub Actions;
 protect the `github-pages` environment with allowed branches/reviewers; set the
 repository Actions variable `PAGES_DEPLOY_ENABLED=true`; dispatch `pages.yml` on
-the reviewed branch with `deploy=true`. A push alone does not deploy. This local
-session does not push or deploy. docs.rs builds from crates published to crates.io; no hosted docs.rs
+the reviewed main revision with `deploy=true`. A push alone does not deploy.
+The initial deployment succeeded; retain the same manual gates for
+subsequent refreshes. docs.rs builds from crates published to crates.io; no hosted docs.rs
 release exists while these crates remain `0.0.0`/`publish=false`.
 
 ## Official references consulted

@@ -13,8 +13,9 @@ dependencies; publish dry-runs stop at publish=false. Core/Create archive
 verification does not prove the whole dependency set can be published.
 
 Exact crates.io API 404 responses are only time-stamped absence evidence,
-not name reservation or publisher authority. New local documentation is not
-necessarily online. Package/readme and generated-template MIT notice omissions
+not name reservation or publisher authority. The public development site follows
+its deployed revision; new local documentation needs a separate manual refresh.
+Package/readme and generated-template MIT notice omissions
 are corrected. The focused follow-up additionally preserves applicable Shigma
 notices for identified derived logger code and literal source excerpts; this
 is not legal certification or a binary/vendor dependency-notice audit. Actual
@@ -31,10 +32,11 @@ repository-relative behavior. This is not a new production generator capability.
 Bounded B1 reconciled status and added local planning/evidence link coverage,
 deferring CI at that checkpoint; see [the follow-up](plans/2026-11-02-cordis-completion/evidence/2026-11-05-b1-closure.md).
 The subsequent [documentation delivery](plans/2026-11-05-documentation-site/plan.md)
-prepares separate macOS guide checks and a static-site build workflow. Local
-validation of those files is not a hosted Actions run. The prepared Pages site
-is development/local-checkout documentation; owner activation and deployment
-are still required. The Linux build job and local Rustdoc compilation establish
+prepared separate macOS guide checks and a static-site build workflow. Rust and
+documentation CI now run on pull requests and pushes to main; main checks and
+the initial manual Pages deployment have succeeded. The
+[public site](https://antruongnguyen.github.io/re-cordis/) is development/local-checkout
+documentation for unpublished crates. The Linux build job and Rustdoc compilation establish
 no new Linux/Windows filesystem/watcher acceptance.
 
 HMR docs.rs metadata selects the optional Include API without changing default
@@ -76,8 +78,12 @@ mechanism: tracked engineering records remain in the Git repository.
 
 Current action major-version tags and supported macos-26 are retained. Initial
 hosted push/PR guide checks passed; their site checks exposed the compiler
-rendering distinction above. Its local repair awaits fresh hosted verification;
-no Pages deployment or new runtime-platform acceptance is implied.
+rendering distinction above. Fresh main checks passed with the repair, followed
+by the initial manual Pages deployment at revision
+`3718217aac6f8f11f1f11c221bf2730cbe169bd6`; see
+[website verification](../website/README.md#verification-and-deployment).
+Deployment availability does not establish live browser QA acceptance or new
+runtime-platform acceptance.
 
 ## How to classify Rust differences
 

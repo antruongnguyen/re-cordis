@@ -1,15 +1,19 @@
 # Release readiness and initial release proposal
 
-Date: 2026-11-05 (Asia/Ho_Chi_Minh).
+Assessment date: 2026-11-05; documentation availability updated 2026-11-06 (Asia/Ho_Chi_Minh).
 Scope: accepted R1 plus bounded B1/local release preparation on `feat/cordis-completion`.
 The [dated follow-up](plans/2026-11-02-cordis-completion/evidence/2026-11-05-b1-closure.md)
 records the Create fixture correction, provenance notices and current verification.
 The assessment and proposal are independently reviewed and accepted; see
 [R1 acceptance](plans/2026-11-02-cordis-completion/evidence/r1-acceptance.md).
 This does not approve publication. The subsequent
-[documentation delivery](plans/2026-11-05-documentation-site/plan.md) prepares
-local Fumadocs/Rustdoc output, documentation CI and manual Pages deployment;
-it does not establish a reachable deployed site or hosted docs.rs release.
+[documentation delivery](plans/2026-11-05-documentation-site/plan.md) prepared
+Fumadocs/Rustdoc output, documentation CI and manual Pages deployment.
+The [development site](https://antruongnguyen.github.io/re-cordis/) is now public
+after successful main CI and the initial manual deployment at revision
+`3718217aac6f8f11f1f11c221bf2730cbe169bd6`; see
+[website verification](../website/README.md#verification-and-deployment).
+This does not establish a registry release or hosted docs.rs release.
 
 **Recommendation: ready only for local/Git checkout consumption today.**
 The seven crates remain unpublished, unstable `0.0.0` with `publish=false`.
@@ -34,8 +38,9 @@ Use a complete checkout at a reviewed commit and the documented local Cargo
 paths. “Git consumption” here means obtaining and pinning that complete
 checkout, then following the [quick start](en/getting-started.md) or
 [Create guide](en/guides/create.md). R1 does not establish a remote Cargo Git
-installation workflow, repository access rights, or online availability of
-these unpushed changes. Keep all Cordis crates from the same revision/source;
+installation workflow or repository access rights. The public repository and
+development site now provide the deployed revision; later checkout changes
+require their own review and documentation refresh. Keep all Cordis crates from the same revision/source;
 mixing core package identities can produce incompatible public Rust types.
 
 Cargo.lock pins registry resolution; it does not freeze the contents of a
@@ -256,7 +261,8 @@ arbitrary concurrent-writer or hard shutdown-latency guarantee is established.
 - Publisher/owner authority and exact normalized crate-name claims must be
   checked at release time; the HTTP 404 snapshot cannot establish them.
 - Release documentation URLs and the compatible Create checkout must be made
-  reachable at the chosen release revision. R1's local commits are not pushed.
+  reachable at the chosen release revision. The public development site is not
+  an immutable guide snapshot for the proposed alpha release.
 
 **Nonblocking limitations for the proposed explicitly experimental scope:**
 local/non-Send hosting, required joined teardown, bounded parity evidence,
@@ -269,9 +275,9 @@ they are not left as implementation blockers.
 remote or registry-backed Create templates, extra templates, native binary hot
 loading, process supervision and live integrations. Bounded B1 status/link
 closure and local archive/provenance preparation are covered by the dated
-follow-up. Documentation CI and the gated Pages workflow are now implemented
-locally, with current action pins and a supported macOS runner; actual hosted
-execution/deployment and platform expansion remain unverified/separate gates.
+follow-up. Rust and documentation checks run on pull requests and pushes to main;
+main CI and the initial gated manual Pages deployment have succeeded.
+Platform expansion remains a separate gate.
 
 The next release decision must approve the seven-package scope, alpha version
 and coordination policy, macOS/MSRV support statement, publisher/name ownership,

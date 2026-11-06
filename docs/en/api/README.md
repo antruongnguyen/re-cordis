@@ -12,8 +12,9 @@ public fields.
 The [whole-program guide](../guides/system-lifecycle.md) combines these APIs.
 Its application types remain example-private and introduce no public exports.
 
-The development website also bundles exact Rustdoc from its build revision.
-See [documentation channels](../guides/documentation.md) for local output,
+The [public development website](https://antruongnguyen.github.io/re-cordis/en/docs/api/)
+also bundles exact Rustdoc from its deployed build revision.
+See [documentation channels](../guides/documentation.md) for public and local output,
 HMR's optional Include API and future exact-version docs.rs policy.
 
 ## Generate exact API documentation

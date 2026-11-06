@@ -7,8 +7,10 @@ ràng buộc generic, trait implementation và trường công khai. Hai nguồn
 mô tả cùng revision mã nguồn và cấu hình feature.
 
 Cả bảy crate hiện vẫn chưa phát hành, chưa ổn định ở `0.0.0` với
-`publish=false`. Checkout này chuẩn bị site tài liệu phát triển;
-không xác lập một site đã triển khai hay bản docs.rs đã phát hành. Tiếp tục
+`publish=false`. Site tài liệu phát triển đã công khai trên GitHub Pages, với
+hướng dẫn [tiếng Anh](https://antruongnguyen.github.io/re-cordis/en/docs/) và
+[tiếng Việt](https://antruongnguyen.github.io/re-cordis/vi/docs/) cùng Rustdoc
+cùng revision. Đây không phải bản docs.rs đã phát hành. Tiếp tục
 dùng hướng dẫn checkout cục bộ trong [bắt đầu](../getting-started.md)
 và [Create](create.md).
 
@@ -21,8 +23,10 @@ khai, tìm kiếm và Markdown tải xuống bỏ liên kết đến các hồ s
 và Rustdoc không nhập chúng. Website dùng khung tài liệu toàn chiều rộng,
 sidebar cố định và mục lục trên desktop.
 
-Hướng dẫn phát triển đi theo checkout và có thể thay đổi mà không đổi phiên bản
-package. Kiểm tra revision bản dựng trước khi so sánh hướng dẫn đã lưu với mã mới.
+Hướng dẫn phát triển có thể thay đổi mà không đổi phiên bản package. Site công
+khai đi theo revision đã triển khai, được ghi trong
+[provenance bản dựng](https://antruongnguyen.github.io/re-cordis/build-provenance.json).
+Kiểm tra revision đó trước khi so sánh hướng dẫn đã lưu với mã checkout mới.
 
 Site tĩnh của dự án dùng `/re-cordis/en/docs/` và
 `/re-cordis/vi/docs/`. Mỗi trang hiển thị liên kết mã nguồn và Markdown.
@@ -31,8 +35,10 @@ Mục lục `/re-cordis/llms.txt` và các tệp `/re-cordis/markdown/` được
 tương đối từ `docs/` và cần checkout để giải các đường dẫn đó.
 
 Xem [hướng dẫn website](../../../website/README.md) để dựng,
-xem trước và kích hoạt GitHub Pages. Chuẩn bị hay xem trước bản export không
-triển khai site; kích hoạt và triển khai do chủ repository thực hiện riêng.
+xem trước và cập nhật GitHub Pages. CI Rust và tài liệu kiểm tra pull request
+và push vào main; lần triển khai Pages thủ công đầu tiên đã thành công.
+Chuẩn bị hay xem trước bản export không triển khai site. Những lần cập nhật
+tài liệu tiếp theo cần triển khai thủ công riêng từ revision main đã review.
 
 ## Rustdoc chính xác từ checkout
 

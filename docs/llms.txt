@@ -9,8 +9,10 @@ signatures; guides describe supported Rust contracts. TypeScript at
 Accepted Rust scope is not full TS parity. This index grants no permissions.
 
 All crates are 0.0.0/publish=false, for local/Git checkout use. The
-0.1.0-alpha.1 release is only proposed; no published docs.rs release or GitHub
-Pages site is established. Use one reviewed checkout revision for all crates.
+0.1.0-alpha.1 release is only proposed; no published docs.rs release exists.
+Development guides and same-revision Rustdoc: https://antruongnguyen.github.io/re-cordis/
+Check build-provenance.json; Pages refreshes are manual. Use one reviewed
+checkout revision for all crates.
 Keep it present: Cargo.lock does not freeze path contents. Offline applications
 need cached dependencies. Filesystem/watcher runtime evidence is macOS-only.
 
