@@ -11,6 +11,8 @@ no token is included in this record.
 
 ## Published versions and checksums
 
+| Package | Registry SHA-256 |
+|---|---|
 | [re-cordis-core](https://crates.io/crates/re-cordis-core/0.1.0-alpha.1) | `a43d1315315ec4c1833b8ca8e646838ccff834dcfde88f6aae8f9d86bf569cde` |
 | [re-cordis-timer](https://crates.io/crates/re-cordis-timer/0.1.0-alpha.1) | `824275ad3b8b52fdf2dda90df39355e3daf793cd2182018a75bc281fb48a80bc` |
 | [re-cordis-logger](https://crates.io/crates/re-cordis-logger/0.1.0-alpha.1) | `1a62186e1d5166e0feb514c0b366d4a1e69d7d8a519fd4ec2d65d38b82bb8bd7` |
