@@ -7,6 +7,21 @@ we learn; it is not a contract. Detailed source evidence, design gates,
 milestone prerequisites, and exit criteria live in the
 [implementation plan](implementation-plan.md).
 
+## Next delivery phase (planned 2026-11-06)
+
+The user selected public documentation followed by an experimental alpha.
+The [delivery plan](superpowers/plans/2026-11-06-public-delivery.md) defines the
+sequence, verification and separate execution/release decisions. These are new
+delivery tasks; the 35 accepted implementation work packages remain closed.
+
+- [ ] D1: Integrate the accepted branch and verify hosted Rust/documentation CI.
+- [ ] D2: Deploy and verify public EN/VI documentation and exact-revision Rustdoc.
+- [ ] D3–D6: Decide the alpha contract, prepare/review the candidate, then publish,
+  verify actual registry/CLI consumers and close release documentation.
+
+Planning does not authorize push, merge, deployment, version changes or
+publication. Keep `0.0.0`/`publish=false` until the recorded release decision.
+
 ## Completion planning (2026-11-02)
 
 Execution follows the [2026-11-03 Rust implementation direction](decision.md#2026-11-03--deliver-cordis-features-through-idiomatic-rust-contracts):
