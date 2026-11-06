@@ -9,6 +9,8 @@ This project does not yet follow semantic versioning — the API is unstable.
 
 ### Changed
 
+- CI and documentation workflows now run on pull requests and pushes to `main`,
+  avoiding duplicate feature-branch push runs.
 - Refocused the root README on project purpose, packages, getting started and
   supported contracts; removed third-party Rust-project comparisons and
   reference-only commentary from documentation and agent guidance.
