@@ -1,0 +1,986 @@
+{
+  "schema_version": 1,
+  "rust_revision": "9a7633c0b3b98e5f37e9f2211f3ffa67fdac5edc",
+  "typescript_revision": "35fdc969e4b6c48c48ed44717c7a018324e4dd88",
+  "implementation_revision": "808c9f573dd96c56fa2ec43e0b1bfb9ed39b2f3f",
+  "status": "associate family reconciliation complete; exact source assertions and accepted stable/MSRV logs joined; independent integration review pending",
+  "declarations": [
+    {
+      "id": "core/associate.spec.ts:5",
+      "source_file": "local/cordis/packages/core/tests/associate.spec.ts",
+      "source_line": 5,
+      "source_end_line": 29,
+      "title": "service injection",
+      "suite": [
+        "Association"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/associate.spec.ts:5/default/a23",
+              "behavior": "expect(root.foo).to.be.instanceof(Foo)",
+              "source_assertion_lines": [
+                23
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "associated_service_and_accessor_adapters_use_original_authority_and_receiver_identity",
+                  "lines": [
+                    509,
+                    525,
+                    527,
+                    605,
+                    607
+                  ],
+                  "assertion": "The typed base publication is bound/read and remains present after the associated provider is disposed.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "source-map-audit",
+                "reason": "Typed ServiceKey, AccessorKey, associated, map/rebind, ordinary Rust fields and Debug are the accepted substitutes for JavaScript property/prototype tracking. The cited assertions establish the substitute behavior, not transparent Proxy or class syntax compatibility."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The typed base publication is bound/read and remains present after the associated provider is disposed. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/associate.spec.ts:5/default/a24",
+              "behavior": "expect(root.foo.bar).to.be.instanceof(FooBar)",
+              "source_assertion_lines": [
+                24
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "associated_service_and_accessor_adapters_use_original_authority_and_receiver_identity",
+                  "lines": [
+                    584,
+                    588,
+                    589,
+                    590,
+                    591,
+                    592
+                  ],
+                  "assertion": "A re-bound associated service resolves foo.answer and returns 42.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "source-map-audit",
+                "reason": "Typed ServiceKey, AccessorKey, associated, map/rebind, ordinary Rust fields and Debug are the accepted substitutes for JavaScript property/prototype tracking. The cited assertions establish the substitute behavior, not transparent Proxy or class syntax compatibility."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "A re-bound associated service resolves foo.answer and returns 42. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/associate.spec.ts:5/default/a25",
+              "behavior": "expect(root.foo.qux).to.equal(1)",
+              "source_assertion_lines": [
+                25
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "associated_service_and_accessor_adapters_use_original_authority_and_receiver_identity",
+                  "lines": [
+                    525,
+                    526,
+                    527
+                  ],
+                  "assertion": "The bound Base receiver mutates and reads its ordinary Rust qux field as 2.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "source-map-audit",
+                "reason": "Typed ServiceKey, AccessorKey, associated, map/rebind, ordinary Rust fields and Debug are the accepted substitutes for JavaScript property/prototype tracking. The cited assertions establish the substitute behavior, not transparent Proxy or class syntax compatibility."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The bound Base receiver mutates and reads its ordinary Rust qux field as 2. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/associate.spec.ts:5/default/a27",
+              "behavior": "expect(root.foo.bar).to.be.undefined",
+              "source_assertion_lines": [
+                27
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "associated_service_and_accessor_adapters_use_original_authority_and_receiver_identity",
+                  "lines": [
+                    605,
+                    606,
+                    607
+                  ],
+                  "assertion": "Disposing the extension provider removes foo.answer while foo remains published.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "source-map-audit",
+                "reason": "Typed ServiceKey, AccessorKey, associated, map/rebind, ordinary Rust fields and Debug are the accepted substitutes for JavaScript property/prototype tracking. The cited assertions establish the substitute behavior, not transparent Proxy or class syntax compatibility."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Disposing the extension provider removes foo.answer while foo remains published. Both accepted workspace-test command logs list this test as ok."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/associate.spec.ts:30",
+      "source_file": "local/cordis/packages/core/tests/associate.spec.ts",
+      "source_line": 30,
+      "source_end_line": 57,
+      "title": "property injection",
+      "suite": [
+        "Association"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/associate.spec.ts:30/default/a42",
+              "behavior": "expect(root.foo).to.be.instanceof(Foo)",
+              "source_assertion_lines": [
+                42
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "associated_service_and_accessor_adapters_use_original_authority_and_receiver_identity",
+                  "lines": [
+                    509,
+                    521,
+                    524,
+                    525
+                  ],
+                  "assertion": "The typed foo publication is available to the injecting consumer as a BoundService<Base>.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "source-map-audit",
+                "reason": "Typed ServiceKey, AccessorKey, associated, map/rebind, ordinary Rust fields and Debug are the accepted substitutes for JavaScript property/prototype tracking. The cited assertions establish the substitute behavior, not transparent Proxy or class syntax compatibility."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The typed foo publication is available to the injecting consumer as a BoundService<Base>. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/associate.spec.ts:30/default/a50",
+              "behavior": "expect(ctx.foo.qux).to.equal(2)",
+              "source_assertion_lines": [
+                50
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "associated_service_and_accessor_adapters_use_original_authority_and_receiver_identity",
+                  "lines": [
+                    525,
+                    526,
+                    527
+                  ],
+                  "assertion": "The bound Base receiver mutates and reads its ordinary Rust qux field as 2.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "source-map-audit",
+                "reason": "Typed ServiceKey, AccessorKey, associated, map/rebind, ordinary Rust fields and Debug are the accepted substitutes for JavaScript property/prototype tracking. The cited assertions establish the substitute behavior, not transparent Proxy or class syntax compatibility."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The bound Base receiver mutates and reads its ordinary Rust qux field as 2. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/associate.spec.ts:30/default/a51",
+              "behavior": "expect(ctx.foo.bar).to.equal(3)",
+              "source_assertion_lines": [
+                51
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "associated_service_and_accessor_adapters_use_original_authority_and_receiver_identity",
+                  "lines": [
+                    510,
+                    533,
+                    534,
+                    535
+                  ],
+                  "assertion": "The dotted foo.property service is explicitly associated with the bound base and reads 3.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "source-map-audit",
+                "reason": "Typed ServiceKey, AccessorKey, associated, map/rebind, ordinary Rust fields and Debug are the accepted substitutes for JavaScript property/prototype tracking. The cited assertions establish the substitute behavior, not transparent Proxy or class syntax compatibility."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The dotted foo.property service is explicitly associated with the bound base and reads 3. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/associate.spec.ts:30/default/a52",
+              "behavior": "expect(() => ctx[`foo.qux`]).to.throw('cannot get property \"foo.qux\" without inject')",
+              "source_assertion_lines": [
+                52
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "associated_service_and_accessor_adapters_use_original_authority_and_receiver_identity",
+                  "lines": [
+                    528,
+                    529,
+                    530,
+                    531
+                  ],
+                  "assertion": "A separately named foo.qux service is rejected as undeclared despite the Base field named qux.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "source-map-audit",
+                "reason": "Typed ServiceKey, AccessorKey, associated, map/rebind, ordinary Rust fields and Debug are the accepted substitutes for JavaScript property/prototype tracking. The cited assertions establish the substitute behavior, not transparent Proxy or class syntax compatibility."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "A separately named foo.qux service is rejected as undeclared despite the Base field named qux. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/associate.spec.ts:30/default/a53",
+              "behavior": "expect(ctx[`foo.bar`]).to.equal(3)",
+              "source_assertion_lines": [
+                53
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "associated_service_and_accessor_adapters_use_original_authority_and_receiver_identity",
+                  "lines": [
+                    510,
+                    533,
+                    534,
+                    535
+                  ],
+                  "assertion": "The dotted foo.property service is explicitly associated with the bound base and reads 3.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "source-map-audit",
+                "reason": "Typed ServiceKey, AccessorKey, associated, map/rebind, ordinary Rust fields and Debug are the accepted substitutes for JavaScript property/prototype tracking. The cited assertions establish the substitute behavior, not transparent Proxy or class syntax compatibility."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The dotted foo.property service is explicitly associated with the bound base and reads 3. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/associate.spec.ts:30/default/a54",
+              "behavior": "expect(ctx.foo.baz()).to.be.instanceof(Foo)",
+              "source_assertion_lines": [
+                54
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "associated_service_and_accessor_adapters_use_original_authority_and_receiver_identity",
+                  "lines": [
+                    542,
+                    543,
+                    544,
+                    545,
+                    546,
+                    548,
+                    549
+                  ],
+                  "assertion": "A receiver-preserving accessor returns the exact Rc<Base> allocation.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "source-map-audit",
+                "reason": "Typed ServiceKey, AccessorKey, associated, map/rebind, ordinary Rust fields and Debug are the accepted substitutes for JavaScript property/prototype tracking. The cited assertions establish the substitute behavior, not transparent Proxy or class syntax compatibility."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "A receiver-preserving accessor returns the exact Rc<Base> allocation. Both accepted workspace-test command logs list this test as ok."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/associate.spec.ts:58",
+      "source_file": "local/cordis/packages/core/tests/associate.spec.ts",
+      "source_line": 58,
+      "source_end_line": 113,
+      "title": "associated type - service injection",
+      "suite": [
+        "Association"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/associate.spec.ts:58/default/a102",
+              "behavior": "expect(session).to.be.instanceof(Session)",
+              "source_assertion_lines": [
+                102
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "associated_service_and_accessor_adapters_use_original_authority_and_receiver_identity",
+                  "lines": [
+                    571,
+                    572,
+                    573,
+                    584
+                  ],
+                  "assertion": "The typed Session receiver is constructed through BoundService::map and can be rebound without changing its Rust type.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "source-map-audit",
+                "reason": "Typed ServiceKey, AccessorKey, associated, map/rebind, ordinary Rust fields and Debug are the accepted substitutes for JavaScript property/prototype tracking. The cited assertions establish the substitute behavior, not transparent Proxy or class syntax compatibility."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The typed Session receiver is constructed through BoundService::map and can be rebound without changing its Rust type. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/associate.spec.ts:58/default/a103",
+              "behavior": "expect(session.bar).to.be.undefined",
+              "source_assertion_lines": [
+                103
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "associated_service_and_accessor_adapters_use_original_authority_and_receiver_identity",
+                  "lines": [
+                    555,
+                    556,
+                    557,
+                    558,
+                    569,
+                    571,
+                    574,
+                    575
+                  ],
+                  "assertion": "Before the required associated authority is injected, the typed session accessor/association returns an explicit error.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "source-map-audit",
+                "reason": "Typed ServiceKey, AccessorKey, associated, map/rebind, ordinary Rust fields and Debug are the accepted substitutes for JavaScript property/prototype tracking. The cited assertions establish the substitute behavior, not transparent Proxy or class syntax compatibility."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Before the required associated authority is injected, the typed session accessor/association returns an explicit error. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/associate.spec.ts:58/default/a108",
+              "behavior": "expect(session).to.be.instanceof(Session)",
+              "source_assertion_lines": [
+                108
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "associated_service_and_accessor_adapters_use_original_authority_and_receiver_identity",
+                  "lines": [
+                    571,
+                    572,
+                    573,
+                    584
+                  ],
+                  "assertion": "The typed Session receiver is constructed through BoundService::map and can be rebound without changing its Rust type.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "source-map-audit",
+                "reason": "Typed ServiceKey, AccessorKey, associated, map/rebind, ordinary Rust fields and Debug are the accepted substitutes for JavaScript property/prototype tracking. The cited assertions establish the substitute behavior, not transparent Proxy or class syntax compatibility."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The typed Session receiver is constructed through BoundService::map and can be rebound without changing its Rust type. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/associate.spec.ts:58/default/a109",
+              "behavior": "expect(session.answer()).to.equal(42)",
+              "source_assertion_lines": [
+                109
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "associated_service_and_accessor_adapters_use_original_authority_and_receiver_identity",
+                  "lines": [
+                    584,
+                    588,
+                    589,
+                    590,
+                    591,
+                    592
+                  ],
+                  "assertion": "After rebinding to the injecting child, the associated answer service returns 42.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "source-map-audit",
+                "reason": "Typed ServiceKey, AccessorKey, associated, map/rebind, ordinary Rust fields and Debug are the accepted substitutes for JavaScript property/prototype tracking. The cited assertions establish the substitute behavior, not transparent Proxy or class syntax compatibility."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "After rebinding to the injecting child, the associated answer service returns 42. Both accepted workspace-test command logs list this test as ok."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/associate.spec.ts:114",
+      "source_file": "local/cordis/packages/core/tests/associate.spec.ts",
+      "source_line": 114,
+      "source_end_line": 175,
+      "title": "associated type - accessor injection",
+      "suite": [
+        "Association"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/associate.spec.ts:114/default/a164",
+              "behavior": "expect(session).to.be.instanceof(Session)",
+              "source_assertion_lines": [
+                164
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "associated_service_and_accessor_adapters_use_original_authority_and_receiver_identity",
+                  "lines": [
+                    571,
+                    572,
+                    573,
+                    584
+                  ],
+                  "assertion": "The typed Session receiver is constructed through BoundService::map and can be rebound without changing its Rust type.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "source-map-audit",
+                "reason": "Typed ServiceKey, AccessorKey, associated, map/rebind, ordinary Rust fields and Debug are the accepted substitutes for JavaScript property/prototype tracking. The cited assertions establish the substitute behavior, not transparent Proxy or class syntax compatibility."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The typed Session receiver is constructed through BoundService::map and can be rebound without changing its Rust type. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/associate.spec.ts:114/default/a165",
+              "behavior": "expect(() => session.bar).to.throw()",
+              "source_assertion_lines": [
+                165
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "associated_service_and_accessor_adapters_use_original_authority_and_receiver_identity",
+                  "lines": [
+                    555,
+                    556,
+                    557,
+                    558,
+                    569,
+                    571,
+                    574,
+                    575
+                  ],
+                  "assertion": "Before the required associated authority is injected, the typed session accessor/association returns an explicit error.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "source-map-audit",
+                "reason": "Typed ServiceKey, AccessorKey, associated, map/rebind, ordinary Rust fields and Debug are the accepted substitutes for JavaScript property/prototype tracking. The cited assertions establish the substitute behavior, not transparent Proxy or class syntax compatibility."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Before the required associated authority is injected, the typed session accessor/association returns an explicit error. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/associate.spec.ts:114/default/a169",
+              "behavior": "expect(session.bar).to.be.undefined",
+              "source_assertion_lines": [
+                169
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "source-map-audit",
+                "reason": "Typed ServiceKey, AccessorKey, associated, map/rebind, ordinary Rust fields and Debug are the accepted substitutes for JavaScript property/prototype tracking. The cited assertions establish the substitute behavior, not transparent Proxy or class syntax compatibility."
+              },
+              "gap": {
+                "id": "G-B0-associate-114-a169",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/acceptance.rs::associated_service_and_accessor_adapters_use_original_authority_and_receiver_identity at 571\u2013586: after injecting bar and rebinding the Session but before write_accessor, assert read_accessor succeeds and returns the typed initial receiver value 0. Keep the later setter/read assertion 101 separate. This represents the TS authorized unset-field read with ordinary Rust initialization, not an access error.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 169 is inside the bar-authorized injection at 167, before any setter call: the successful accessor returns its initially unset receiver field. In acceptance.rs, associated_service_and_accessor_adapters_use_original_authority_and_receiver_identity initializes Session.secret to 0 at 571\u2013573, then checks unauthorized errors at 574\u2013575. Its authorized rebind at 576\u2013584 writes 100 before the first successful read at 585\u2013586. No authorized initial-value read is asserted. Ordinary Rust field initialization and the accepted typed accessor representation remain valid; unauthorized errors do not witness this read."
+            },
+            {
+              "id": "core/associate.spec.ts:114/default/a171",
+              "behavior": "expect(session.bar).to.equal(101)",
+              "source_assertion_lines": [
+                171
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "associated_service_and_accessor_adapters_use_original_authority_and_receiver_identity",
+                  "lines": [
+                    584,
+                    585,
+                    586
+                  ],
+                  "assertion": "The rebound Session setter stores value + 1 and the getter returns 101.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "source-map-audit",
+                "reason": "Typed ServiceKey, AccessorKey, associated, map/rebind, ordinary Rust fields and Debug are the accepted substitutes for JavaScript property/prototype tracking. The cited assertions establish the substitute behavior, not transparent Proxy or class syntax compatibility."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The rebound Session setter stores value + 1 and the getter returns 101. Both accepted workspace-test command logs list this test as ok."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/associate.spec.ts:176",
+      "source_file": "local/cordis/packages/core/tests/associate.spec.ts",
+      "source_line": 176,
+      "source_end_line": 234,
+      "title": "associated access follows the service fiber",
+      "suite": [
+        "Association"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/associate.spec.ts:176/default/a226",
+              "behavior": "expect(root.baz.probe()).to.equal('bar')",
+              "source_assertion_lines": [
+                226
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/services.rs",
+                  "symbol": "root_invocation_does_not_grant_a_captured_plugin_context_root_authority",
+                  "lines": [
+                    509,
+                    515,
+                    521,
+                    522,
+                    523,
+                    524,
+                    525,
+                    526,
+                    527,
+                    528,
+                    529
+                  ],
+                  "assertion": "A captured definition Context with the dependency declared can read foo even when invoked from root.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "source-map-audit",
+                "reason": "Typed ServiceKey, AccessorKey, associated, map/rebind, ordinary Rust fields and Debug are the accepted substitutes for JavaScript property/prototype tracking. The cited assertions establish the substitute behavior, not transparent Proxy or class syntax compatibility."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "A captured definition Context with the dependency declared can read foo even when invoked from root. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/associate.spec.ts:176/default/a227",
+              "behavior": "expect(() => root.qux.probe()).to.throw('cannot get property \"foo.bar\" without inject')",
+              "source_assertion_lines": [
+                227
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/services.rs",
+                  "symbol": "root_invocation_does_not_grant_a_captured_plugin_context_root_authority",
+                  "lines": [
+                    503,
+                    509,
+                    515,
+                    516,
+                    517,
+                    518,
+                    519,
+                    520
+                  ],
+                  "assertion": "A captured definition Context without the dependency remains Undeclared even when root invokes it.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "source-map-audit",
+                "reason": "Typed ServiceKey, AccessorKey, associated, map/rebind, ordinary Rust fields and Debug are the accepted substitutes for JavaScript property/prototype tracking. The cited assertions establish the substitute behavior, not transparent Proxy or class syntax compatibility."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "A captured definition Context without the dependency remains Undeclared even when root invokes it. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/associate.spec.ts:176/default/a229",
+              "behavior": "expect(ctx.baz.probe()).to.equal('bar')",
+              "source_assertion_lines": [
+                229
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/services.rs",
+                  "symbol": "root_invocation_does_not_grant_a_captured_plugin_context_root_authority",
+                  "lines": [
+                    509,
+                    515,
+                    521,
+                    522,
+                    523,
+                    524,
+                    525,
+                    526,
+                    527,
+                    528,
+                    529
+                  ],
+                  "assertion": "A captured definition Context with the dependency declared can read foo even when invoked from root.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "source-map-audit",
+                "reason": "Typed ServiceKey, AccessorKey, associated, map/rebind, ordinary Rust fields and Debug are the accepted substitutes for JavaScript property/prototype tracking. The cited assertions establish the substitute behavior, not transparent Proxy or class syntax compatibility."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "A captured definition Context with the dependency declared can read foo even when invoked from root. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/associate.spec.ts:176/default/a230",
+              "behavior": "expect(() => ctx.qux.probe()).to.throw('cannot get property \"foo.bar\" without inject')",
+              "source_assertion_lines": [
+                230
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/services.rs",
+                  "symbol": "root_invocation_does_not_grant_a_captured_plugin_context_root_authority",
+                  "lines": [
+                    503,
+                    509,
+                    515,
+                    516,
+                    517,
+                    518,
+                    519,
+                    520
+                  ],
+                  "assertion": "A captured definition Context without the dependency remains Undeclared even when root invokes it.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "source-map-audit",
+                "reason": "Typed ServiceKey, AccessorKey, associated, map/rebind, ordinary Rust fields and Debug are the accepted substitutes for JavaScript property/prototype tracking. The cited assertions establish the substitute behavior, not transparent Proxy or class syntax compatibility."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "A captured definition Context without the dependency remains Undeclared even when root invokes it. Both accepted workspace-test command logs list this test as ok."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/associate.spec.ts:235",
+      "source_file": "local/cordis/packages/core/tests/associate.spec.ts",
+      "source_line": 235,
+      "source_end_line": 256,
+      "title": "inspect",
+      "suite": [
+        "Association"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/associate.spec.ts:235/default/a242",
+              "behavior": "expect(arg.toString()).to.include('class X')",
+              "source_assertion_lines": [
+                242
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "typed_rooted_values_dynamic_events_and_context_type_guards_need_no_proxy_reflection",
+                  "lines": [
+                    706,
+                    707,
+                    708,
+                    709,
+                    710
+                  ],
+                  "assertion": "Inside the explicit bound callback, a locally constructed X is formatted with ordinary Rust Debug and renders X; no X argument adapter or forwarding hop is exercised.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "source-map-audit",
+                "reason": "Typed ServiceKey, AccessorKey, associated, map/rebind, ordinary Rust fields and Debug are the accepted substitutes for JavaScript property/prototype tracking. The cited assertions establish the substitute behavior, not transparent Proxy or class syntax compatibility."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Inside the explicit bound callback, a locally constructed X is formatted with ordinary Rust Debug and renders X; no X argument adapter or forwarding hop is exercised. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/associate.spec.ts:235/default/a247",
+              "behavior": "expect(arg.toString()).to.include('class X')",
+              "source_assertion_lines": [
+                247
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "source-map-audit",
+                "reason": "Typed ServiceKey, AccessorKey, associated, map/rebind, ordinary Rust fields and Debug are the accepted substitutes for JavaScript property/prototype tracking. The cited assertions establish the substitute behavior, not transparent Proxy or class syntax compatibility."
+              },
+              "gap": {
+                "id": "G-B0-associate-235-a247",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/acceptance.rs::typed_rooted_values_dynamic_events_and_context_type_guards_need_no_proxy_reflection at 706\u2013710 with an X value forwarded through a second/nested bound callback, then assert ordinary Debug still renders X at the second hop (TS associate.spec.ts:247). The association fixture has no Debug path and is not the candidate for this follow-up.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The candidate is acceptance.rs::typed_rooted_values_dynamic_events_and_context_type_guards_need_no_proxy_reflection at 706\u2013710: X is created and formatted inside one bound callback. There is no second nested forwarding call or Debug value crossing that boundary. The first formatting representation at /a242 remains supported."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "rust-representation"
+      ]
+    }
+  ]
+}

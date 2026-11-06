@@ -1,0 +1,15 @@
+COMMAND: /Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/cargo doc --workspace --no-deps --locked
+CWD: /Users/I756434/Projects/private/cordis-rust
+START_UTC: 2026-11-02T08:35:43.734618+00:00
+
+    Checking futures-core v0.3.34
+    Checking tokio v1.54.1
+    Checking futures-util v0.3.34
+    Checking re-cordis-core v0.0.0 (/Users/I756434/Projects/private/cordis-rust/crates/re-cordis-core)
+ Documenting re-cordis-core v0.0.0 (/Users/I756434/Projects/private/cordis-rust/crates/re-cordis-core)
+ Documenting re-cordis-timer v0.0.0 (/Users/I756434/Projects/private/cordis-rust/crates/re-cordis-timer)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.43s
+   Generated /Users/I756434/Projects/private/cordis-rust/target/acceptance-1.85.0/doc/re_cordis_core/index.html and 1 other file
+
+END_UTC: 2026-11-02T08:35:45.182715+00:00
+EXIT_CODE: 0

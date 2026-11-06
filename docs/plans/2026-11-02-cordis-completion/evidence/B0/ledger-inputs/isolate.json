@@ -1,0 +1,1431 @@
+{
+  "schema_version": 1,
+  "rust_revision": "9a7633c0b3b98e5f37e9f2211f3ffa67fdac5edc",
+  "typescript_revision": "35fdc969e4b6c48c48ed44717c7a018324e4dd88",
+  "implementation_revision": "808c9f573dd96c56fa2ec43e0b1bfb9ed39b2f3f",
+  "status": "isolate family reconciliation complete; exact source assertions and accepted stable/MSRV logs joined; independent integration review pending",
+  "declarations": [
+    {
+      "id": "core/isolate.spec.ts:7",
+      "source_file": "local/cordis/packages/core/tests/isolate.spec.ts",
+      "source_line": 7,
+      "source_end_line": 23,
+      "title": "does not expose own provisions across isolation boundaries",
+      "suite": [
+        "Isolation"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/isolate.spec.ts:7/default/a12",
+              "behavior": "expect(isolated.foo).to.be.ok",
+              "source_assertion_lines": [
+                12
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback",
+                  "lines": [
+                    53,
+                    54,
+                    55,
+                    56,
+                    57
+                  ],
+                  "assertion": "A fresh isolated slot has no parent fallback, then exposes only its own publication.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "A fresh isolated slot has no parent fallback, then exposes only its own publication. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:7/default/a13",
+              "behavior": "expect(() => ctx.foo).to.throw('cannot get property \"foo\" without inject')",
+              "source_assertion_lines": [
+                13
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-7-a13",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback at 25\u201357. Add a non-root own provider and both outer/isolated no-inject child branches; assert the own-provider Fiber outer Context returns ServiceError::Undeclared for the isolated own provision. Match TS isolate.spec.ts:13; keep own-provision inheritance distinct from inherited injection authority.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 13 requires the own-provider Fiber outer Context returns ServiceError::Undeclared for the isolated own provision. Candidate scoping.rs::fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback at 25\u201357: the fixture checks injection boundaries at 40\u201351 and root-owned realm values at 53\u201357; it has no non-root own provider plus both child branches."
+            },
+            {
+              "id": "core/isolate.spec.ts:7/default/a15",
+              "behavior": "expect(ctx.foo).to.be.ok",
+              "source_assertion_lines": [
+                15
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-7-a15",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback at 25\u201357. Add a non-root own provider and both outer/isolated no-inject child branches; assert a no-inject child inheriting the own-provider isolated Context reads the inherited own provision. Match TS isolate.spec.ts:15; keep own-provision inheritance distinct from inherited injection authority.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 15 requires a no-inject child inheriting the own-provider isolated Context reads the inherited own provision. Candidate scoping.rs::fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback at 25\u201357: the fixture checks injection boundaries at 40\u201351 and root-owned realm values at 53\u201357; it has no non-root own provider plus both child branches."
+            },
+            {
+              "id": "core/isolate.spec.ts:7/default/a18",
+              "behavior": "expect(() => ctx.foo).to.throw('cannot get property \"foo\" without inject')",
+              "source_assertion_lines": [
+                18
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-7-a18",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback at 25\u201357. Add a non-root own provider and both outer/isolated no-inject child branches; assert a no-inject child from the own-provider outer Context returns ServiceError::Undeclared for that isolated own provision. Match TS isolate.spec.ts:18; keep own-provision inheritance distinct from inherited injection authority.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 18 requires a no-inject child from the own-provider outer Context returns ServiceError::Undeclared for that isolated own provision. Candidate scoping.rs::fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback at 25\u201357: the fixture checks injection boundaries at 40\u201351 and root-owned realm values at 53\u201357; it has no non-root own provider plus both child branches."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/isolate.spec.ts:24",
+      "source_file": "local/cordis/packages/core/tests/isolate.spec.ts",
+      "source_line": 24,
+      "source_end_line": 54,
+      "title": "does not inherit the injected view across isolation boundaries",
+      "suite": [
+        "Isolation"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/isolate.spec.ts:24/default/a47",
+              "behavior": "expect(results).to.deep.equal([\n'outer',\n'cannot get property \"foo\" without inject',\n'cannot get property \"foo\" without inject',\n])",
+              "source_assertion_lines": [
+                47,
+                48,
+                49,
+                50,
+                51
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback",
+                  "lines": [
+                    37,
+                    38,
+                    39,
+                    40,
+                    41,
+                    42,
+                    43,
+                    44,
+                    45,
+                    46,
+                    47,
+                    48,
+                    49,
+                    50,
+                    51
+                  ],
+                  "assertion": "The ordinary child inherits authority; both fresh and same-label derived boundaries reject it as Undeclared.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The ordinary child inherits authority; both fresh and same-label derived boundaries reject it as Undeclared. Both accepted workspace-test command logs list this test as ok."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/isolate.spec.ts:55",
+      "source_file": "local/cordis/packages/core/tests/isolate.spec.ts",
+      "source_line": 55,
+      "source_end_line": 105,
+      "title": "isolated context",
+      "suite": [
+        "Isolation"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/isolate.spec.ts:55/default/a74",
+              "behavior": "expect(root.foo).to.have.property('bar', 100)",
+              "source_assertion_lines": [
+                74
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback",
+                  "lines": [
+                    53,
+                    55,
+                    56
+                  ],
+                  "assertion": "The root slot retains its own value while the isolated slot is independently populated.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The root slot retains its own value while the isolated slot is independently populated. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a75",
+              "behavior": "expect(ctx1.foo).to.be.undefined",
+              "source_assertion_lines": [
+                75
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback",
+                  "lines": [
+                    53,
+                    54
+                  ],
+                  "assertion": "A fresh isolated slot does not fall back to the root publication before it is populated.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "A fresh isolated slot does not fall back to the root publication before it is populated. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a76",
+              "behavior": "expect(ctx2.foo).to.be.undefined",
+              "source_assertion_lines": [
+                76
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback",
+                  "lines": [
+                    53,
+                    54
+                  ],
+                  "assertion": "A fresh isolated slot does not fall back to the root publication before it is populated.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "A fresh isolated slot does not fall back to the root publication before it is populated. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a78",
+              "behavior": "expect(callback.mock.calls).to.have.length(1)",
+              "source_assertion_lines": [
+                78
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-55-a78",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type at 65\u2013103. Create three root/fresh-realm consumers, publish and withdraw in the TS sequence, and assert expect(callback.mock.calls).to.have.length(1) at the corresponding step using explicit settlement joins. Match TS isolate.spec.ts:78; do not infer this observation from readiness or final state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 78 requires the exact callback/disposer count at source line 78. Candidate scoping.rs::shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type at 65\u2013103: The fixture has one alias consumer and checks Active/Pending, not three root/fresh-realm consumers with separate callback/disposer counters after each publication or withdrawal."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a79",
+              "behavior": "expect(dispose.mock.calls).to.have.length(0)",
+              "source_assertion_lines": [
+                79
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-55-a79",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type at 65\u2013103. Create three root/fresh-realm consumers, publish and withdraw in the TS sequence, and assert expect(dispose.mock.calls).to.have.length(0) at the corresponding step using explicit settlement joins. Match TS isolate.spec.ts:79; do not infer this observation from readiness or final state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 79 requires the exact callback/disposer count at source line 79. Candidate scoping.rs::shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type at 65\u2013103: The fixture has one alias consumer and checks Active/Pending, not three root/fresh-realm consumers with separate callback/disposer counters after each publication or withdrawal."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a82",
+              "behavior": "expect(root.foo).to.have.property('bar', 100)",
+              "source_assertion_lines": [
+                82
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback",
+                  "lines": [
+                    53,
+                    55,
+                    56
+                  ],
+                  "assertion": "The root slot retains its own value while the isolated slot is independently populated.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The root slot retains its own value while the isolated slot is independently populated. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a83",
+              "behavior": "expect(ctx1.foo).to.have.property('bar', 200)",
+              "source_assertion_lines": [
+                83
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback",
+                  "lines": [
+                    55,
+                    56,
+                    57
+                  ],
+                  "assertion": "The isolated slot returns its own value while root keeps the root value.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The isolated slot returns its own value while root keeps the root value. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a84",
+              "behavior": "expect(ctx2.foo).to.be.undefined",
+              "source_assertion_lines": [
+                84
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback",
+                  "lines": [
+                    53,
+                    54
+                  ],
+                  "assertion": "A fresh isolated slot does not fall back to the root publication before it is populated.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "A fresh isolated slot does not fall back to the root publication before it is populated. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a86",
+              "behavior": "expect(callback.mock.calls).to.have.length(2)",
+              "source_assertion_lines": [
+                86
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-55-a86",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type at 65\u2013103. Create three root/fresh-realm consumers, publish and withdraw in the TS sequence, and assert expect(callback.mock.calls).to.have.length(2) at the corresponding step using explicit settlement joins. Match TS isolate.spec.ts:86; do not infer this observation from readiness or final state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 86 requires the exact callback/disposer count at source line 86. Candidate scoping.rs::shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type at 65\u2013103: The fixture has one alias consumer and checks Active/Pending, not three root/fresh-realm consumers with separate callback/disposer counters after each publication or withdrawal."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a87",
+              "behavior": "expect(dispose.mock.calls).to.have.length(0)",
+              "source_assertion_lines": [
+                87
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-55-a87",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type at 65\u2013103. Create three root/fresh-realm consumers, publish and withdraw in the TS sequence, and assert expect(dispose.mock.calls).to.have.length(0) at the corresponding step using explicit settlement joins. Match TS isolate.spec.ts:87; do not infer this observation from readiness or final state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 87 requires the exact callback/disposer count at source line 87. Candidate scoping.rs::shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type at 65\u2013103: The fixture has one alias consumer and checks Active/Pending, not three root/fresh-realm consumers with separate callback/disposer counters after each publication or withdrawal."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a90",
+              "behavior": "expect(root.foo).to.be.undefined",
+              "source_assertion_lines": [
+                90
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/services.rs",
+                  "symbol": "repeated_republication_restores_baselines_and_disposed_handles_release_snapshot_values",
+                  "lines": [
+                    435,
+                    438,
+                    441,
+                    442,
+                    444
+                  ],
+                  "assertion": "After withdrawing the root publication and awaiting settlement, the explicit root.get_unchecked read returns None. This witnesses the absent global lookup, not isolated lookups or surviving realm values.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "TS isolate.spec.ts:90 reads the root slot after withdrawing its publication. services.rs:435\u2013444 withdraws a root publication and explicitly asserts root.get_unchecked returns None. This sufficient existing witness replaces the unrelated isolated consumer Pending check. It does not establish immediate pre-settlement timing, isolated post-withdrawal reads, surviving realm values, or callback/disposer counts; those separate boundaries retain their own gaps. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a91",
+              "behavior": "expect(ctx1.foo).to.have.property('bar', 200)",
+              "source_assertion_lines": [
+                91
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-55-a91",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback at 53\u201357. Extend the root/fresh-realm pair to three realms, withdraw root and later publish the third slot, then assert expect(ctx1.foo).to.have.property('bar', 200) at the TS intermediate step. Match TS isolate.spec.ts:91; do not infer this observation from readiness or final state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 91 requires the surviving/third-realm lookup at source line 91. Candidate scoping.rs::fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback at 53\u201357: The fixture checks a populated root/isolated pair before withdrawal, with no root withdrawal followed by third-slot publication or those intermediate surviving reads."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a92",
+              "behavior": "expect(ctx2.foo).to.be.undefined",
+              "source_assertion_lines": [
+                92
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback",
+                  "lines": [
+                    53,
+                    54
+                  ],
+                  "assertion": "A fresh isolated slot does not fall back to the root publication before it is populated.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "A fresh isolated slot does not fall back to the root publication before it is populated. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a94",
+              "behavior": "expect(callback.mock.calls).to.have.length(2)",
+              "source_assertion_lines": [
+                94
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-55-a94",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type at 65\u2013103. Create three root/fresh-realm consumers, publish and withdraw in the TS sequence, and assert expect(callback.mock.calls).to.have.length(2) at the corresponding step using explicit settlement joins. Match TS isolate.spec.ts:94; do not infer this observation from readiness or final state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 94 requires the exact callback/disposer count at source line 94. Candidate scoping.rs::shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type at 65\u2013103: The fixture has one alias consumer and checks Active/Pending, not three root/fresh-realm consumers with separate callback/disposer counters after each publication or withdrawal."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a95",
+              "behavior": "expect(dispose.mock.calls).to.have.length(1)",
+              "source_assertion_lines": [
+                95
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-55-a95",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type at 65\u2013103. Create three root/fresh-realm consumers, publish and withdraw in the TS sequence, and assert expect(dispose.mock.calls).to.have.length(1) at the corresponding step using explicit settlement joins. Match TS isolate.spec.ts:95; do not infer this observation from readiness or final state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 95 requires the exact callback/disposer count at source line 95. Candidate scoping.rs::shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type at 65\u2013103: The fixture has one alias consumer and checks Active/Pending, not three root/fresh-realm consumers with separate callback/disposer counters after each publication or withdrawal."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a98",
+              "behavior": "expect(root.foo).to.be.undefined",
+              "source_assertion_lines": [
+                98
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-55-a98",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback at 53\u201357. Extend the root/fresh-realm pair to three realms, withdraw root and later publish the third slot, then assert expect(root.foo).to.be.undefined at the TS intermediate step. Match TS isolate.spec.ts:98; do not infer this observation from readiness or final state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 98 requires the surviving/third-realm lookup at source line 98. Candidate scoping.rs::fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback at 53\u201357: The fixture checks a populated root/isolated pair before withdrawal, with no root withdrawal followed by third-slot publication or those intermediate surviving reads."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a99",
+              "behavior": "expect(ctx1.foo).to.have.property('bar', 200)",
+              "source_assertion_lines": [
+                99
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-55-a99",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback at 53\u201357. Extend the root/fresh-realm pair to three realms, withdraw root and later publish the third slot, then assert expect(ctx1.foo).to.have.property('bar', 200) at the TS intermediate step. Match TS isolate.spec.ts:99; do not infer this observation from readiness or final state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 99 requires the surviving/third-realm lookup at source line 99. Candidate scoping.rs::fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback at 53\u201357: The fixture checks a populated root/isolated pair before withdrawal, with no root withdrawal followed by third-slot publication or those intermediate surviving reads."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a100",
+              "behavior": "expect(ctx2.foo).to.have.property('bar', 300)",
+              "source_assertion_lines": [
+                100
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-55-a100",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback at 53\u201357. Extend the root/fresh-realm pair to three realms, withdraw root and later publish the third slot, then assert expect(ctx2.foo).to.have.property('bar', 300) at the TS intermediate step. Match TS isolate.spec.ts:100; do not infer this observation from readiness or final state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 100 requires the surviving/third-realm lookup at source line 100. Candidate scoping.rs::fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback at 53\u201357: The fixture checks a populated root/isolated pair before withdrawal, with no root withdrawal followed by third-slot publication or those intermediate surviving reads."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a102",
+              "behavior": "expect(callback.mock.calls).to.have.length(3)",
+              "source_assertion_lines": [
+                102
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-55-a102",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type at 65\u2013103. Create three root/fresh-realm consumers, publish and withdraw in the TS sequence, and assert expect(callback.mock.calls).to.have.length(3) at the corresponding step using explicit settlement joins. Match TS isolate.spec.ts:102; do not infer this observation from readiness or final state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 102 requires the exact callback/disposer count at source line 102. Candidate scoping.rs::shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type at 65\u2013103: The fixture has one alias consumer and checks Active/Pending, not three root/fresh-realm consumers with separate callback/disposer counters after each publication or withdrawal."
+            },
+            {
+              "id": "core/isolate.spec.ts:55/default/a103",
+              "behavior": "expect(dispose.mock.calls).to.have.length(1)",
+              "source_assertion_lines": [
+                103
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-55-a103",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type at 65\u2013103. Create three root/fresh-realm consumers, publish and withdraw in the TS sequence, and assert expect(dispose.mock.calls).to.have.length(1) at the corresponding step using explicit settlement joins. Match TS isolate.spec.ts:103; do not infer this observation from readiness or final state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 103 requires the exact callback/disposer count at source line 103. Candidate scoping.rs::shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type at 65\u2013103: The fixture has one alias consumer and checks Active/Pending, not three root/fresh-realm consumers with separate callback/disposer counters after each publication or withdrawal."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/isolate.spec.ts:106",
+      "source_file": "local/cordis/packages/core/tests/isolate.spec.ts",
+      "source_line": 106,
+      "source_end_line": 151,
+      "title": "shared label",
+      "suite": [
+        "Isolation"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/isolate.spec.ts:106/default/a125",
+              "behavior": "expect(callback.mock.calls).to.have.length(0)",
+              "source_assertion_lines": [
+                125
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-106-a125",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type at 65\u2013103. Add root and both same-label consumers with distinct activation/disposal counters and a populated root slot; assert expect(callback.mock.calls).to.have.length(0) at the TS stage after settlement. Match TS isolate.spec.ts:125; do not infer this observation from readiness or final state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 125 requires the exact shared-label activation/disposal count at source line 125. Candidate scoping.rs::shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type at 65\u2013103: The fixture has one cross-name alias consumer, not a root consumer plus two same-name shared-label consumers, and no corresponding callback/disposer counts."
+            },
+            {
+              "id": "core/isolate.spec.ts:106/default/a128",
+              "behavior": "expect(root.foo).to.have.property('bar', 100)",
+              "source_assertion_lines": [
+                128
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback",
+                  "lines": [
+                    53,
+                    55,
+                    56
+                  ],
+                  "assertion": "The root slot retains its own value while the isolated slot is independently populated.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The root slot retains its own value while the isolated slot is independently populated. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:106/default/a129",
+              "behavior": "expect(ctx1.foo).to.be.undefined",
+              "source_assertion_lines": [
+                129
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback",
+                  "lines": [
+                    53,
+                    54
+                  ],
+                  "assertion": "A fresh isolated slot does not fall back to the root publication before it is populated.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "A fresh isolated slot does not fall back to the root publication before it is populated. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:106/default/a130",
+              "behavior": "expect(ctx2.foo).to.be.undefined",
+              "source_assertion_lines": [
+                130
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback",
+                  "lines": [
+                    53,
+                    54
+                  ],
+                  "assertion": "A fresh isolated slot does not fall back to the root publication before it is populated.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "A fresh isolated slot does not fall back to the root publication before it is populated. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:106/default/a132",
+              "behavior": "expect(callback.mock.calls).to.have.length(1)",
+              "source_assertion_lines": [
+                132
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-106-a132",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type at 65\u2013103. Add root and both same-label consumers with distinct activation/disposal counters and a populated root slot; assert expect(callback.mock.calls).to.have.length(1) at the TS stage after settlement. Match TS isolate.spec.ts:132; do not infer this observation from readiness or final state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 132 requires the exact shared-label activation/disposal count at source line 132. Candidate scoping.rs::shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type at 65\u2013103: The fixture has one cross-name alias consumer, not a root consumer plus two same-name shared-label consumers, and no corresponding callback/disposer counts."
+            },
+            {
+              "id": "core/isolate.spec.ts:106/default/a133",
+              "behavior": "expect(dispose.mock.calls).to.have.length(0)",
+              "source_assertion_lines": [
+                133
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-106-a133",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type at 65\u2013103. Add root and both same-label consumers with distinct activation/disposal counters and a populated root slot; assert expect(dispose.mock.calls).to.have.length(0) at the TS stage after settlement. Match TS isolate.spec.ts:133; do not infer this observation from readiness or final state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 133 requires the exact shared-label activation/disposal count at source line 133. Candidate scoping.rs::shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type at 65\u2013103: The fixture has one cross-name alias consumer, not a root consumer plus two same-name shared-label consumers, and no corresponding callback/disposer counts."
+            },
+            {
+              "id": "core/isolate.spec.ts:106/default/a136",
+              "behavior": "expect(root.foo).to.have.property('bar', 100)",
+              "source_assertion_lines": [
+                136
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback",
+                  "lines": [
+                    53,
+                    55,
+                    56
+                  ],
+                  "assertion": "The root slot retains its own value while the isolated slot is independently populated.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The root slot retains its own value while the isolated slot is independently populated. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:106/default/a137",
+              "behavior": "expect(ctx1.foo).to.have.property('bar', 200)",
+              "source_assertion_lines": [
+                137
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type",
+                  "lines": [
+                    74,
+                    75,
+                    76,
+                    80,
+                    81,
+                    82,
+                    83
+                  ],
+                  "assertion": "Two differently named Context views selecting one IsolationId read the same publication.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Two differently named Context views selecting one IsolationId read the same publication. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:106/default/a138",
+              "behavior": "expect(ctx2.foo).to.have.property('bar', 200)",
+              "source_assertion_lines": [
+                138
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type",
+                  "lines": [
+                    74,
+                    75,
+                    76,
+                    80,
+                    81,
+                    82,
+                    83
+                  ],
+                  "assertion": "Two differently named Context views selecting one IsolationId read the same publication.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Two differently named Context views selecting one IsolationId read the same publication. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:106/default/a140",
+              "behavior": "expect(callback.mock.calls).to.have.length(3)",
+              "source_assertion_lines": [
+                140
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-106-a140",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type at 65\u2013103. Add root and both same-label consumers with distinct activation/disposal counters and a populated root slot; assert expect(callback.mock.calls).to.have.length(3) at the TS stage after settlement. Match TS isolate.spec.ts:140; do not infer this observation from readiness or final state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 140 requires the exact shared-label activation/disposal count at source line 140. Candidate scoping.rs::shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type at 65\u2013103: The fixture has one cross-name alias consumer, not a root consumer plus two same-name shared-label consumers, and no corresponding callback/disposer counts."
+            },
+            {
+              "id": "core/isolate.spec.ts:106/default/a141",
+              "behavior": "expect(dispose.mock.calls).to.have.length(0)",
+              "source_assertion_lines": [
+                141
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-106-a141",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type at 65\u2013103. Add root and both same-label consumers with distinct activation/disposal counters and a populated root slot; assert expect(dispose.mock.calls).to.have.length(0) at the TS stage after settlement. Match TS isolate.spec.ts:141; do not infer this observation from readiness or final state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 141 requires the exact shared-label activation/disposal count at source line 141. Candidate scoping.rs::shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type at 65\u2013103: The fixture has one cross-name alias consumer, not a root consumer plus two same-name shared-label consumers, and no corresponding callback/disposer counts."
+            },
+            {
+              "id": "core/isolate.spec.ts:106/default/a144",
+              "behavior": "expect(root.foo).to.have.property('bar', 100)",
+              "source_assertion_lines": [
+                144
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback",
+                  "lines": [
+                    53,
+                    55,
+                    56
+                  ],
+                  "assertion": "The root slot retains its own value while the isolated slot is independently populated.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The root slot retains its own value while the isolated slot is independently populated. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:106/default/a145",
+              "behavior": "expect(ctx1.foo).to.be.undefined",
+              "source_assertion_lines": [
+                145
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-106-a145",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type at 75\u201396 with a populated root slot and two same-name views sharing one isolated label. Withdraw the shared publication, explicitly assert the first isolated lookup is None rather than falling back to the root value, and independently assert root still holds its value (TS isolate.spec.ts:145). Do not substitute consumer.ready() for the lookup.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 145 reads the first shared-label view after withdrawing their publication while root still has value 100. scoping.rs::shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type at 75\u201396 asserts pre-withdrawal alias reads and post-withdrawal consumer Pending only; it has no populated root fallback and no post-withdrawal read of either isolated view."
+            },
+            {
+              "id": "core/isolate.spec.ts:106/default/a146",
+              "behavior": "expect(ctx2.foo).to.be.undefined",
+              "source_assertion_lines": [
+                146
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-106-a146",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type at 75\u201396 with a populated root slot and two same-name views sharing one isolated label. Withdraw the shared publication, explicitly assert the second isolated lookup is None rather than falling back to the root value, and independently assert root still holds its value (TS isolate.spec.ts:146). Do not substitute consumer.ready() for the lookup.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 146 reads the second shared-label view after withdrawing their publication while root still has value 100. scoping.rs::shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type at 75\u201396 asserts pre-withdrawal alias reads and post-withdrawal consumer Pending only; it has no populated root fallback and no post-withdrawal read of either isolated view."
+            },
+            {
+              "id": "core/isolate.spec.ts:106/default/a148",
+              "behavior": "expect(callback.mock.calls).to.have.length(3)",
+              "source_assertion_lines": [
+                148
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-106-a148",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type at 65\u2013103. Add root and both same-label consumers with distinct activation/disposal counters and a populated root slot; assert expect(callback.mock.calls).to.have.length(3) at the TS stage after settlement. Match TS isolate.spec.ts:148; do not infer this observation from readiness or final state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 148 requires the exact shared-label activation/disposal count at source line 148. Candidate scoping.rs::shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type at 65\u2013103: The fixture has one cross-name alias consumer, not a root consumer plus two same-name shared-label consumers, and no corresponding callback/disposer counts."
+            },
+            {
+              "id": "core/isolate.spec.ts:106/default/a149",
+              "behavior": "expect(dispose.mock.calls).to.have.length(2)",
+              "source_assertion_lines": [
+                149
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-106-a149",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type at 65\u2013103. Add root and both same-label consumers with distinct activation/disposal counters and a populated root slot; assert expect(dispose.mock.calls).to.have.length(2) at the TS stage after settlement. Match TS isolate.spec.ts:149; do not infer this observation from readiness or final state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 149 requires the exact shared-label activation/disposal count at source line 149. Candidate scoping.rs::shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type at 65\u2013103: The fixture has one cross-name alias consumer, not a root consumer plus two same-name shared-label consumers, and no corresponding callback/disposer counts."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/isolate.spec.ts:152",
+      "source_file": "local/cordis/packages/core/tests/isolate.spec.ts",
+      "source_line": 152,
+      "source_end_line": 171,
+      "title": "isolated event",
+      "suite": [
+        "Isolation"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/isolate.spec.ts:152/default/a168",
+              "behavior": "expect(outer.mock.calls).to.have.length(0)",
+              "source_assertion_lines": [
+                168
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "realm_filtered_events_still_admit_global_listeners",
+                  "lines": [
+                    288,
+                    289,
+                    290,
+                    291,
+                    292,
+                    293,
+                    294,
+                    295,
+                    311,
+                    312,
+                    313,
+                    314,
+                    315,
+                    316
+                  ],
+                  "assertion": "Realm-filtered dispatch excludes the outer local listener and invokes the isolated listener once (plus the explicit global listener).",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Realm-filtered dispatch excludes the outer local listener and invokes the isolated listener once (plus the explicit global listener). Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/isolate.spec.ts:152/default/a169",
+              "behavior": "expect(inner.mock.calls).to.have.length(1)",
+              "source_assertion_lines": [
+                169
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/scoping.rs",
+                  "symbol": "realm_filtered_events_still_admit_global_listeners",
+                  "lines": [
+                    288,
+                    289,
+                    290,
+                    291,
+                    292,
+                    293,
+                    294,
+                    295,
+                    311,
+                    312,
+                    313,
+                    314,
+                    315,
+                    316
+                  ],
+                  "assertion": "Realm-filtered dispatch excludes the outer local listener and invokes the isolated listener once (plus the explicit global listener).",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Realm-filtered dispatch excludes the outer local listener and invokes the isolated listener once (plus the explicit global listener). Both accepted workspace-test command logs list this test as ok."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/isolate.spec.ts:172",
+      "source_file": "local/cordis/packages/core/tests/isolate.spec.ts",
+      "source_line": 172,
+      "source_end_line": 203,
+      "title": "keeps own provisions separate from the injected view",
+      "suite": [
+        "Isolation"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/isolate.spec.ts:172/default/a181",
+              "behavior": "expect(ctx.foo.value).to.equal('outer')",
+              "source_assertion_lines": [
+                181
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-172-a181",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::an_injected_publication_is_released_even_after_providing_the_same_name_in_another_realm at 443\u2013460 with a second own isolated provision. Read the consumer outer Context after both own provisions exist and assert it still resolves the injected outer value. Match TS isolate.spec.ts:181; keep own provision and injection authority paths distinct.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 181 requires outer injected value while the same consumer owns two isolated provisions. scoping.rs::fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback at 53\u201357 uses root-owned provisions; its root bypass does not test an injected consumer own-versus-injected path. an_injected_publication_is_released_even_after_providing_the_same_name_in_another_realm at 437\u2013479 creates an own isolated provision but asserts no values. same_name_publications_in_two_realms_keep_resources_until_the_exact_consumer_finishes at 519\u2013532 reads an explicitly injected consumer during cleanup, not a no-inject child or withdrawn own access."
+            },
+            {
+              "id": "core/isolate.spec.ts:172/default/a182",
+              "behavior": "expect(first.foo.value).to.equal('first')",
+              "source_assertion_lines": [
+                182
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-172-a182",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::an_injected_publication_is_released_even_after_providing_the_same_name_in_another_realm at 443\u2013460 with a second own isolated provision. Read the first isolated Context of that consumer and assert its own first value, without adding inject. Match TS isolate.spec.ts:182; keep own provision and injection authority paths distinct.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 182 requires first own isolated value from the providing consumer, despite isolation blocking inherited inject. scoping.rs::fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback at 53\u201357 uses root-owned provisions; its root bypass does not test an injected consumer own-versus-injected path. an_injected_publication_is_released_even_after_providing_the_same_name_in_another_realm at 437\u2013479 creates an own isolated provision but asserts no values. same_name_publications_in_two_realms_keep_resources_until_the_exact_consumer_finishes at 519\u2013532 reads an explicitly injected consumer during cleanup, not a no-inject child or withdrawn own access."
+            },
+            {
+              "id": "core/isolate.spec.ts:172/default/a183",
+              "behavior": "expect(second.foo.value).to.equal('second')",
+              "source_assertion_lines": [
+                183
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-172-a183",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::an_injected_publication_is_released_even_after_providing_the_same_name_in_another_realm at 437\u2013479. Assert the consumer second own isolated value while its outer Context still reads the injected root value. Match TS isolate.spec.ts:183; do not infer this observation from readiness or final state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 183 requires the consumer second own realm value. Candidate scoping.rs::an_injected_publication_is_released_even_after_providing_the_same_name_in_another_realm at 437\u2013479: The candidate creates one own isolated provision but performs no corresponding reads or diagnostic assertion. The two-realm retention fixture at 483\u2013563 reads only a separately injected first realm during cleanup, not this own-provision path."
+            },
+            {
+              "id": "core/isolate.spec.ts:172/default/a185",
+              "behavior": "expect(ctx.foo.value).to.equal('first')",
+              "source_assertion_lines": [
+                185
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-172-a185",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::an_injected_publication_is_released_even_after_providing_the_same_name_in_another_realm at 443\u2013460 with a second own isolated provision. Spawn a child from the first isolated Context without declaring inject and assert its checked lookup reads the parent consumer first own value. Match TS isolate.spec.ts:185; keep own provision and injection authority paths distinct.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 185 requires first own provision inherited by a child that has no inject declaration. scoping.rs::fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback at 53\u201357 uses root-owned provisions; its root bypass does not test an injected consumer own-versus-injected path. an_injected_publication_is_released_even_after_providing_the_same_name_in_another_realm at 437\u2013479 creates an own isolated provision but asserts no values. same_name_publications_in_two_realms_keep_resources_until_the_exact_consumer_finishes at 519\u2013532 reads an explicitly injected consumer during cleanup, not a no-inject child or withdrawn own access."
+            },
+            {
+              "id": "core/isolate.spec.ts:172/default/a188",
+              "behavior": "expect(ctx.foo.value).to.equal('second')",
+              "source_assertion_lines": [
+                188
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-172-a188",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::an_injected_publication_is_released_even_after_providing_the_same_name_in_another_realm at 437\u2013479. Spawn a no-inject child in the second own realm and assert its inherited checked lookup returns the second own value. Match TS isolate.spec.ts:188; do not infer this observation from readiness or final state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 188 requires the second no-inject child inherited own lookup. Candidate scoping.rs::an_injected_publication_is_released_even_after_providing_the_same_name_in_another_realm at 437\u2013479: The candidate creates one own isolated provision but performs no corresponding reads or diagnostic assertion. The two-realm retention fixture at 483\u2013563 reads only a separately injected first realm during cleanup, not this own-provision path."
+            },
+            {
+              "id": "core/isolate.spec.ts:172/default/a192",
+              "behavior": "expect(ctx.foo.value).to.equal('outer')",
+              "source_assertion_lines": [
+                192
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-172-a192",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::an_injected_publication_is_released_even_after_providing_the_same_name_in_another_realm at 437\u2013479. Withdraw only the first own provision and assert the outer consumer Context still reads the injected outer value. Match TS isolate.spec.ts:192; do not infer this observation from readiness or final state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 192 requires the outer injected value after withdrawing only the first own realm. Candidate scoping.rs::an_injected_publication_is_released_even_after_providing_the_same_name_in_another_realm at 437\u2013479: The candidate creates one own isolated provision but performs no corresponding reads or diagnostic assertion. The two-realm retention fixture at 483\u2013563 reads only a separately injected first realm during cleanup, not this own-provision path."
+            },
+            {
+              "id": "core/isolate.spec.ts:172/default/a193",
+              "behavior": "expect(() => first.foo).to.throw('cannot get property \"foo\" without inject')",
+              "source_assertion_lines": [
+                193
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-172-a193",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::an_injected_publication_is_released_even_after_providing_the_same_name_in_another_realm at 443\u2013460 with a second own isolated provision. Withdraw only the consumer first own publication and assert first.get returns ServiceError::Undeclared while outer injected access and the second own provision remain available. Match TS isolate.spec.ts:193; keep own provision and injection authority paths distinct.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 193 requires checked Undeclared error in the first realm after withdrawing its own provision. scoping.rs::fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback at 53\u201357 uses root-owned provisions; its root bypass does not test an injected consumer own-versus-injected path. an_injected_publication_is_released_even_after_providing_the_same_name_in_another_realm at 437\u2013479 creates an own isolated provision but asserts no values. same_name_publications_in_two_realms_keep_resources_until_the_exact_consumer_finishes at 519\u2013532 reads an explicitly injected consumer during cleanup, not a no-inject child or withdrawn own access."
+            },
+            {
+              "id": "core/isolate.spec.ts:172/default/a194",
+              "behavior": "expect(second.foo.value).to.equal('second')",
+              "source_assertion_lines": [
+                194
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-172-a194",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::an_injected_publication_is_released_even_after_providing_the_same_name_in_another_realm at 437\u2013479. Withdraw only the first own provision and assert the second own lookup still returns its second value. Match TS isolate.spec.ts:194; do not infer this observation from readiness or final state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 194 requires the second own realm value surviving withdrawal of the first. Candidate scoping.rs::an_injected_publication_is_released_even_after_providing_the_same_name_in_another_realm at 437\u2013479: The candidate creates one own isolated provision but performs no corresponding reads or diagnostic assertion. The two-realm retention fixture at 483\u2013563 reads only a separately injected first realm during cleanup, not this own-provision path."
+            },
+            {
+              "id": "core/isolate.spec.ts:172/default/a196",
+              "behavior": "expect(ctx.foo.value).to.equal('outer')",
+              "source_assertion_lines": [
+                196
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-172-a196",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::an_injected_publication_is_released_even_after_providing_the_same_name_in_another_realm at 437\u2013479. Register a final consumer disposer and assert its outer checked lookup reads the retained injected outer value during teardown. Match TS isolate.spec.ts:196; do not infer this observation from readiness or final state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 196 requires the outer injected value during final consumer cleanup. Candidate scoping.rs::an_injected_publication_is_released_even_after_providing_the_same_name_in_another_realm at 437\u2013479: The candidate creates one own isolated provision but performs no corresponding reads or diagnostic assertion. The two-realm retention fixture at 483\u2013563 reads only a separately injected first realm during cleanup, not this own-provision path."
+            },
+            {
+              "id": "core/isolate.spec.ts:172/default/a200",
+              "behavior": "expect(root.logger.buffer.filter(message => message.type === 'error')).to.have.length(0)",
+              "source_assertion_lines": [
+                200
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-isolate-172-a200",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/scoping.rs::an_injected_publication_is_released_even_after_providing_the_same_name_in_another_realm at 437\u2013479. After the exact own/injected two-realm consumer disposal, assert the runtime error diagnostic count is zero. Match TS isolate.spec.ts:200; do not infer this observation from readiness or final state.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 200 requires zero error diagnostics after the own/injected two-realm lifecycle. Candidate scoping.rs::an_injected_publication_is_released_even_after_providing_the_same_name_in_another_realm at 437\u2013479: The candidate creates one own isolated provision but performs no corresponding reads or diagnostic assertion. The two-realm retention fixture at 483\u2013563 reads only a separately injected first realm during cleanup, not this own-provision path."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence"
+      ]
+    }
+  ]
+}

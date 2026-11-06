@@ -1,0 +1,21 @@
+COMMAND: python3 -B tests/docs/check.py --toolchain 1.85.0
+CWD: /Users/I756434/Projects/private/cordis-rust
+START_UTC: 2026-11-02T08:36:05.360945+00:00
+
+Checked 21 page pairs, 56 root exports, 6 timer exports, 11 hook payloads, 10 hooks, local links and llms.txt.
+cargo 1.85.0 (d73d2caf9 2024-12-31)
+rustc 1.85.0 (4d91de4e4 2025-02-17)
+rustdoc 1.85.0 (4d91de4e4 2025-02-17)
+Passed: api/timer.md (both languages)
+Passed: getting-started.md (both languages)
+Passed: guides/effects-and-cleanup.md (both languages)
+Passed: guides/events.md (both languages)
+Passed: guides/logging.md (both languages)
+Passed: guides/plugins-and-updates.md (both languages)
+Passed: guides/services-and-scoping.md (both languages)
+Passed: guides/timers.md (both languages)
+Executed 8 unique Rust examples on 1.85.0.
+Passed actual quick-start dependency manifest on 1.85.0.
+
+END_UTC: 2026-11-02T08:36:13.188020+00:00
+EXIT_CODE: 0

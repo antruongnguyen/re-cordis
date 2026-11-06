@@ -1,0 +1,10 @@
+# B0 associate/invoke mapping handoff
+
+Repository /Users/I756434/Projects/private/cordis-rust; feat/cordis-completion. B0 Task 2 under accepted evidence/B0/plan.md. Executor gpt-6.1-sol/high. The previous decorator/reflect fragment is saved and awaiting review; do not change it in this task. No commits, additional agents, progress.md edits, Cargo/docs/parity reruns or production edits.
+
+Read AGENTS.md, completion core.md/acceptance.md and B0 plan, exact TS pinned specs packages/core/tests/associate.spec.ts (6 declarations) and invoke.spec.ts (2 declarations) under local/cordis at 35fdc969e4b6c48c48ed44717c7a018324e4dd88, relevant TS implementation, current Rust assertions/helpers and documented restrictions. Use CodeGraph first on indexed code.
+
+Copy ONLY these eight records from evidence/B0/ledger/cases.json into owned ledger-inputs/associate-invoke.json. Complete assertion/variant-level mappings using the same schema and evidence classes as the decorator/reflect fragment. Trace requester/receiver attribution, associated results and bound-call cleanup rather than matching names. Split mixed obligations; existing Rust restrictions may be represented or unsupported only with exact documented basis. Missing evidence requires concrete regression, owner and gate; it is not a confirmed bug. Check every cited Rust test against matrix/results.json and both workspace-test logs. Inventory and source-mapped tests do not imply TS parity.
+
+Save completed declarations incrementally. Also own report-associate-invoke.md: revisions/pin, commands actually used, counts/classes, actual assertion evidence, reviewed-limit candidates and unresolved findings. Use Python standard-library fragment validation of eight unique expected IDs, original obligation IDs/variants, valid classes/fields/links/line references, real passing test names, and no pending execution links. Do not modify ledger/cases.json or other fragments. Finish with a short handoff of paths/counts/gaps so integration can review this stable fragment.
+

@@ -9,6 +9,40 @@ import check
 
 
 class DocumentationChecks(unittest.TestCase):
+    def test_create_help_options_require_documentation(self):
+        help_text = "re-cordis-create NAME --path DEST --cordis-path CHECKOUT --help"
+        check.check_create_help(help_text, help_text)
+        with self.assertRaisesRegex(ValueError, "--cordis-path"):
+            check.check_create_help(help_text, "re-cordis-create --path --help")
+        with self.assertRaisesRegex(ValueError, "No Create CLI options"):
+            check.check_create_help("", help_text)
+
+    def test_satellite_exports_include_generic_functions_and_exclude_private_items(self):
+        source = ("pub enum ColorMode {}\n"
+                  "pub struct ConsoleOptions {}\n"
+                  "pub trait TimerExt {}\n"
+                  "pub fn render() {}\n"
+                  "pub fn register<W: Write>() {}\n"
+                  "pub fn register_stdout() {}\n"
+                  "pub(crate) fn internal() {}\n"
+                  "fn hidden() {}\n")
+        self.assertEqual(check.direct_exports(source),
+                         {"ColorMode", "ConsoleOptions", "TimerExt", "render",
+                          "register", "register_stdout"})
+
+    def test_loader_exports_include_reexports_and_alias_without_private_names(self):
+        source = ("pub struct Loader {}\n"
+                  "pub const MAX_BYTES: usize = 1024;\n"
+                  "pub type Size = usize;\n"
+                  "pub use crate::scope::Scope;\n"
+                  "pub use source::{EntryPatch, MAX_ENTRIES};\n"
+                  "pub use re_cordis_core::hooks::Value as Config;\n"
+                  "use source::SourceInput;\n"
+                  "pub(crate) struct Entry {}\n")
+        self.assertEqual(check.exported_names(source),
+                         {"Loader", "Scope", "EntryPatch", "MAX_ENTRIES", "Config",
+                          "MAX_BYTES", "Size"})
+
     def test_complete_fences(self):
         self.assertEqual(
             check.blocks("```rust\nfn main() {}\n```\n\n```toml\nx = 1\n```\n"),
@@ -50,6 +84,22 @@ class DocumentationChecks(unittest.TestCase):
                         with patch.object(check, "DOCS", docs):
                             with self.assertRaisesRegex(ValueError, error):
                                 check.check_structure()
+
+    def test_planning_evidence_links_are_checked(self):
+        with tempfile.TemporaryDirectory(prefix="cordis-plan-links-",
+                                         dir=check.DOCS / "plans") as directory:
+            plan = Path(directory) / "evidence" / "review.md"
+            plan.parent.mkdir()
+            target = plan.parent / "acceptance.md"
+            target.write_text("# Accepted\n", encoding="utf-8")
+            plan.write_text("[Evidence](acceptance.md#accepted)\n", encoding="utf-8")
+            check.check_structure()
+            for link, error in (("absent.md", "missing link target"),
+                                ("acceptance.md#absent", "missing heading")):
+                with self.subTest(link=link):
+                    plan.write_text(f"[Evidence]({link})\n", encoding="utf-8")
+                    with self.assertRaisesRegex(ValueError, error):
+                        check.check_structure()
 
     def test_local_file_and_heading_links(self):
         with tempfile.TemporaryDirectory(prefix="cordis-docs-links-") as directory:

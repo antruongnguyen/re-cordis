@@ -85,3 +85,35 @@ or thread-safe task.
 `RecursiveComposition`, `HostStopped`, and `DriverPanicked`.
 Immediate refusal never implies the supplied acquisition succeeded.
 See [errors and hooks](errors-hooks.md).
+
+## Hosted tasks and synchronous callbacks
+
+Source: [task.rs](../../../crates/re-cordis-core/src/task.rs).
+
+`Context::task(future)` returns `Result<(Effect, TaskControl), AdmissionError>`.
+The local `'static` future returns its final synchronous `FnOnce()` callback.
+Core polls it under the admitted host and owner, contains panics, retires its
+exact registration, then invokes the callback without a suspension between
+retirement and invocation. A transferred task still completes normally; a
+completed transferred disposer becomes a no-op at later cleanup.
+
+Cloneable `TaskControl::cancel()` is cancellation authority only. It marks and
+requests abort safely outside Runtime::run, without admitting or invoking code.
+The supervisor joins task destruction before retirement. Owner cleanup begins
+cancellation synchronously and awaits that shared join. Core Effect/TaskControl
+Drop is inert; timer operation wrappers explicitly request cancellation.
+A separately claimed Effect completion retains the existing independent-waiter
+contract. Keep the original host alive and driven through joined cleanup.
+
+`Context::invoke_callback(callback)` checks the current host and live owner,
+then invokes a synchronous callback with panic containment. It does not create
+host authority for user-spawned Tokio tasks. `CallbackError` distinguishes
+`Admission(AdmissionError)` from `Callback(CleanupFailure)`, preserves sources,
+and reports the original panic exactly once through normal diagnostics.
+Ordinary returned values, including nested Results, are returned unchanged.
+
+Task future polling and terminal/synchronous callbacks use the existing
+self/ancestor lifecycle guard. Waiting for the task's own owner lifecycle or
+drain is refused; nested registrations remain supported. Cancelling a task
+waiting for its own manually claimed Effect completion aborts the task so its
+supervisor can finish.

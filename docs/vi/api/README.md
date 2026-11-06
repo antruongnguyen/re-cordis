@@ -3,9 +3,16 @@
 [English](../../en/api/README.md) | [Trang tiếng Việt](../README.md)
 
 Tài liệu bao phủ export công khai của `re-cordis-core` và vệ tinh
-`re-cordis-timer`, không phải bộ lưu trữ nội bộ hay handle riêng của ví dụ. Nội dung mô tả cách dùng và hợp đồng hành vi;
+`re-cordis-timer`, `re-cordis-logger`, `re-cordis-loader`, `re-cordis-include`, `re-cordis-hmr` và `re-cordis-create` ngoại tuyến đã chọn, không phải bộ lưu trữ nội bộ hay handle riêng của ví dụ. Nội dung mô tả cách dùng và hợp đồng hành vi;
 Rustdoc được sinh từ mã nguồn là tham chiếu chính xác cho chữ ký, ràng buộc
 generic, trait implementation và trường công khai.
+
+[Hướng dẫn tích hợp](../guides/system-lifecycle.md) ghép các API này.
+Các kiểu ứng dụng thuộc riêng ví dụ và không thêm export công khai.
+
+Website phát triển cũng kèm Rustdoc chính xác từ revision của bản build.
+Xem [các kênh tài liệu](../guides/documentation.md) để biết đầu ra cục bộ,
+API Include tùy chọn của HMR và chính sách docs.rs theo phiên bản chính xác.
 
 ## Sinh tài liệu API chính xác
 
@@ -23,18 +30,25 @@ Package `0.0.0` chưa phát hành không phải đích cài đặt crates.io đ�
 
 Mỗi export gốc từ [lib.rs](../../../crates/re-cordis-core/src/lib.rs) thuộc một
 chương bên dưới, và export của vệ tinh `re-cordis-timer` được bao phủ bởi
-[chương timer](timer.md). Phương thức mở rộng Context được phân theo chức năng.
+[chương timer](timer.md); export console thuộc
+[console logger](console-logger.md). Phương thức mở rộng Context được phân theo chức năng.
 
 | Chương | Kiểu / module công khai |
 |---|---|
 | [Runtime và Context](runtime-context.md) | `Runtime`, `Context`, `RuntimeId`, `FiberId`, `PublicationId`, `IsolationId` |
 | [Plugin và Registry](plugins-registry.md) | `Plugin`, `FiberHandle`, `FiberState`, `LifecycleTask`, `UpdateOptions`, `Registry`, `LifecycleError` |
 | [Dịch vụ và reflection](services-reflection.md) | `ServiceKey`, `Dependency`, `ServiceRegistration`, `BoundService`, `ServiceInvoke`, `AccessorKey`, `Accessor`, `ServiceError`, `ReflectError` |
-| [Effect và dọn dẹp](effects.md) | `Disposer`, `Effect`, `EffectMeta`, `Completion`, `CleanupReport`, `CleanupFailure`, `LocalFuture`, `BoxError`, `SetupError` |
+| [Effect và dọn dẹp](effects.md) | `Disposer`, `Effect`, `EffectMeta`, `Completion`, `CleanupReport`, `CleanupFailure`, `LocalFuture`, `BoxError`, `SetupError`, `TaskControl`, `CallbackError` |
 | [Sự kiện](events.md) | `Event`, `Listener`, `ListenerOptions`, `DispatchOptions`, `ListenerRegistration`, `Next`, `AsyncNext`, `EventTask`, `EventError` |
 | [Ghi log](logging.md) | `Logger`, `LoggerConfig`, `Level`, `LogRecord`, `WeakFiber`, `ErrorValue`, `ColorDepth`, `ExporterOptions`, `ExporterRegistration`, `LogError` |
 | [Lỗi và hook](errors-hooks.md) | `HostError`, `AdmissionError`, `CompletionError`, `ValidationError`, `ValidationIssue`, `PathSegment`, module công khai `hooks` |
 | [Vệ tinh Timer](timer.md) | `TimerExt`, `Sleep`, `IntervalStream`, `IntervalControl`, `Scheduled`, `TimerError` |
+| [Vệ tinh Console](console-logger.md) | `ColorMode`, `Alignment`, `LabelStyle`, `Timestamp`, `ConsoleOptions`, `render`, `register`, `register_stdout` |
+| [Loader](loader.md) | `Catalog`, `Config`, `EntrySpec`, `EntryKind`, `EntryId`, `FactoryId`, `FactoryReplacement`, `Loader`, `LoaderTask`, `LoaderError`, `EntrySnapshot`, `EntryState`, `EntryFailure`, `Settlement`, `Scope`, `Origin`, `CommitRecord`, `SourceId`, `SourceDocument`, `SourceLocation`, `SourceSpan`, `FieldPatch`, `EntryPatch`, `MAX_ENTRIES`, `MAX_JSON_BYTES`, `MAX_JSON_DEPTH`, `MAX_JSON_NODES`, `MAX_STRING_BYTES` |
+| [Groups](groups.md) | `Group` |
+| [Include](include.md) | `Include`, `IncludeOptions`, `IncludeTask`, `Report`, `JsonEdit`, `Conflict`, `IncludeError`, `Location`, `Owner`, `OwnerKind`, `Ownership`, `ParsedDocument`, `parse_document`, `MAX_BYTES`, `MAX_DEPTH`, `MAX_NODES`, `MAX_STRING_BYTES`, `MAX_FILES`, `MAX_ENTRIES`, `MAX_PATCHES`, `MAX_RETRIES` |
+| [HMR](hmr.md) | `Change`, `ChangeKind`, `FactoryReplacement`, `FileWatcher`, `ReloadNode`, `ReloadPlan`, `SyntheticDelivery`, `SyntheticError`, `SyntheticEvents`, `WatchBackend`, `WatchCapabilities`, `WatchError`, `WatchEvent`, `WatchFailure`, `WatchFailureStage`, `WatchId`, `WatchOptions`, `WatchStats`, `WatchToken` |
+| [Create](create.md) | `create`, `CreateError` |
 
 ## Đọc kết quả phương thức theo hai giai đoạn
 
@@ -49,6 +63,12 @@ xem từng chương thay vì cho rằng mọi phương thức đều cần `run`
 được bên ngoài nó.
 
 ## Tính ổn định và tương thích
+
+R1 đánh giá API hiện tại mà không thêm cam kết semver.
+[Đề xuất phát hành](../../release-readiness.md) mô tả khả năng dùng đồng bộ
+0.1.0-alpha.1; các crate hiện vẫn 0.0.0/publish=false. Trường công khai,
+trait implementation và re-export phụ thuộc cũng ảnh hưởng tính tương thích.
+
 
 Mọi API hiện chưa ổn định. Nhiều lỗi có `#[non_exhaustive]`; match ở ứng dụng
 phải cho phép variant tương lai. ID là định danh opaque, so sánh/hash được;

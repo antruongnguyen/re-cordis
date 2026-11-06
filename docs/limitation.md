@@ -4,7 +4,103 @@ Known gaps, unresolved questions, and places where a faithful port is hard.
 This is where we are honest about what does *not* translate cleanly from the
 TypeScript original to Rust.
 
-## JavaScript-only mechanisms with no Rust equivalent
+## Distribution readiness
+
+The [R1 assessment](release-readiness.md) recommends local/Git checkout
+consumption only. All seven crates remain 0.0.0/publish=false. Five satellites
+cannot construct registry archives with their current versionless path
+dependencies; publish dry-runs stop at publish=false. Core/Create archive
+verification does not prove the whole dependency set can be published.
+
+Exact crates.io API 404 responses are only time-stamped absence evidence,
+not name reservation or publisher authority. New local documentation is not
+necessarily online. Package/readme and generated-template MIT notice omissions
+are corrected. The focused follow-up additionally preserves applicable Shigma
+notices for identified derived logger code and literal source excerpts; this
+is not legal certification or a binary/vendor dependency-notice audit. Actual
+release versions, registry resolution, normalized
+dev/example dependencies, documentation URLs and compatible Create checkout
+still need validation under a subsequent release decision.
+
+The six Create archive scaffold failures recorded by R1 are corrected by a
+test-only explicit checkout fixture; both archive suites pass on stable/1.85.0.
+The separate complete checkout is still required and is not contained in the
+archive. Without CORDIS_CREATE_TEST_CHECKOUT the tests retain their ordinary
+repository-relative behavior. This is not a new production generator capability.
+
+Bounded B1 reconciled status and added local planning/evidence link coverage,
+deferring CI at that checkpoint; see [the follow-up](plans/2026-11-02-cordis-completion/evidence/2026-11-05-b1-closure.md).
+The subsequent [documentation delivery](plans/2026-11-05-documentation-site/plan.md)
+prepares separate macOS guide checks and a static-site build workflow. Local
+validation of those files is not a hosted Actions run. The prepared Pages site
+is development/local-checkout documentation; owner activation and deployment
+are still required. The Linux build job and local Rustdoc compilation establish
+no new Linux/Windows filesystem/watcher acceptance.
+
+HMR docs.rs metadata selects the optional Include API without changing default
+features. No hosted docs.rs build has occurred; local stable/MSRV Rustdoc does
+not substitute for docs.rs Linux/nightly execution on actual published crates.
+Development guides bundle matching-revision Rustdoc. Future release snapshots
+must use exact-version docs.rs links and verified registry dependencies; see
+[documentation channels](en/guides/documentation.md).
+
+The site includes dependency Rustdoc to resolve inherited trait links in the
+re-cordis APIs. Rustdoc 1.97.1 emits 112 unresolved references in 97 checked entries
+(76 targets, 32 dependency pages); the hosted 1.99.1 artifact emits 110 in 96
+entries (75 targets, 31 pages). The only difference is two hidden
+`syn::parse::Peek::Token` uses: the newer compiler renders them as plain text.
+The checker recognizes that exact signature rendering and still rejects every
+other omission/count change. Retained dependency links do not establish
+supported re-cordis APIs. No re-cordis or website page is exempted
+from link checks. Four absent external-implementor scripts receive empty
+registrations; all compiler-emitted HTML/API bytes remain unchanged. Generated
+Rustdoc may also log non-blocking font-preload warnings in Chromium. See the
+[website verification notes](../website/README.md) for the artifact boundary.
+
+Path dependencies track current checkout contents, not immutable Cargo.lock
+sources. Moving a checkout needs manifest edits; changing it may change the
+application despite version 0.0.0. Keep reviewed revisions and a common Cordis
+source. Current local/non-Send contracts and macOS-only runtime filesystem/watch
+evidence remain; a proposed experimental alpha adds no Windows/Linux or stable
+API guarantee. See [the decision](decision.md#2026-11-05--separate-accepted-behavior-from-distribution-readiness).
+
+## Documentation publication boundary
+
+The full-width public site includes only the canonical EN/VI reader pages.
+Repository-only plans/design records are neither routes nor search documents;
+their links and images are removed from rendered pages and Markdown exports.
+The export check covers HTML, client/RSC payloads, search, LLM files and Rustdoc.
+Each crate's own README and nested package root excludes those repository-level
+trees from docs.rs inputs. This is a documentation boundary, not an access-control
+mechanism: tracked engineering records remain in the Git repository.
+
+Current action major-version tags and supported macos-26 are retained. Initial
+hosted push/PR guide checks passed; their site checks exposed the compiler
+rendering distinction above. Its local repair awaits fresh hosted verification;
+no Pages deployment or new runtime-platform acceptance is implied.
+
+## How to classify Rust differences
+
+Under the [2026-11-03 implementation direction](decision.md#2026-11-03--deliver-cordis-features-through-idiomatic-rust-contracts),
+a different Rust API is not automatically a missing feature. Describe the
+upstream purpose, supported Rust contract and any capability the user loses.
+Record the reason and alternative in decision.md as well. Use distinct labels:
+
+- **Rust adaptation:** a supported feature expressed through Rust types,
+  ownership, traits or explicit operations; test that documented contract.
+- **Language/runtime constraint or unsuitable emulation:** no suitable native
+  equivalent, or compatibility would require disproportionate machinery;
+  explain the actual constraint and the supported alternative.
+- **Deferred feature:** feasible work that is not implemented yet.
+- **Missing evidence:** behavior not sufficiently tested; neither a proven
+  defect nor proof that Rust cannot support it.
+
+Do not label a capability impossible merely because Rust lacks the same syntax
+or built-in mechanism. Conversely, an adapter with reduced behavior must state
+that reduction. Existing guarantees and explicit async-cleanup boundaries
+continue to apply; this policy adds no new API or performance guarantee.
+
+## JavaScript mechanisms requiring explicit Rust designs
 
 The original Cordis core derives much of its ergonomics from features Rust does
 not have. These require real design, not translation:
@@ -49,7 +145,8 @@ Three failure/recovery compositions now have paired execution: obsolete/latest
 load failures with gated rollback and exactly-once diagnostics, an abandoned
 update waiter, and explicit gated recovery after ignored provider refresh.
 This is not exhaustive failure/recovery, cancellation, observer-error, or
-exporter-error protocol parity. No further slice or satellite is selected.
+exporter-error protocol parity. Subsequent satellite delivery and selected R0
+integration retain this bounded core parity claim.
 
 - Services use explicit `ServiceKey<T>` access, not JS properties. M5 supports
   isolated slots with retained boundary history and explicit `BoundService`
@@ -171,9 +268,9 @@ integrated framework or resolve every behavioral gap.
 ## Scope limitations (current)
 
 - [English](en/README.md) and [Vietnamese](vi/README.md) user documentation
-  covers the current unpublished core. The API reference complements generated
-  Rustdoc; it does not establish a stable release, translated Rust identifiers,
-  full upstream compatibility or satellite availability. `llms.txt` is a local
+  covers the current unpublished core and delivered satellites. The API reference
+  complements generated Rustdoc; it does not establish a stable release,
+  translated Rust identifiers or full upstream compatibility. `llms.txt` is a local
   retrieval index, not a published documentation service or agent permissions.
 - Approved [GitHub activity consumers](github-activity.md) are application
   examples, not production satellites. The digest supports bounded GitHub.com
@@ -188,12 +285,15 @@ integrated framework or resolve every behavioral gap.
   and failed writes may require manual partial-line repair.
   Public ingress, live webhook delivery, mutations, and durable/exactly-once
   delivery are excluded. See the consumer document for exact resource/time limits.
-- `re-cordis-core` and the `re-cordis-timer` satellite are implemented. The
-  console logger and loader are the selected next roadmap targets, not available
-  APIs; other satellites remain candidate work. Each slice needs its own
-  source/API/dependency review and acceptance, including bilingual
-  documentation. See [the roadmap](todo.md).
-- No stability guarantees — the API will change freely until the core is proven.
+- `re-cordis-core`, `re-cordis-timer`, `re-cordis-logger`, `re-cordis-loader`,
+  `re-cordis-include` and `re-cordis-hmr` are implemented within their documented
+  Rust scope. Structural Group belongs to loader. HMR H0–H3 is independently
+  accepted with shared stable/1.85.0 verification. Selected offline Create S0–S2
+  is independently accepted; remote scaffolding remains unselected.
+  See [the roadmap](todo.md).
+- No cross-revision API stability promise exists for unpublished 0.0.0.
+  Core/satellite behavioral acceptance does not establish semver stability;
+  see the proposed alpha policy in [release readiness](release-readiness.md).
 - `spikes/m0` uses separate test-only models: one dependency per lifecycle
   Fiber, synchronous setup, and no integrated update/recovery/logger protocol.
   Its passing tests are design evidence, not production parity coverage.
@@ -208,19 +308,294 @@ observer-failure or name-only alias notification behavior.
 
 ## Timer satellite
 
-- The callback-less `interval` is a `futures_util::Stream`, not the JavaScript
-  async iterator. The concurrent multi-reader protocol — `return(value)`
-  resolving all pending reads with one value and `throw(reason)` rejecting all
-  — is not reproduced; a `Stream` has one logical consumer. Use `interval` with
-  a callback for fan-out. Termination is a clean end (`stop`), a final
-  `Err(reason)` (`fail`), or a final `Err(Disposed)` (owner disposal).
-- The deprecated `setTimeout`/`setInterval` upstream aliases are not ported.
-- Timers use the monotonic `tokio::time` clock, not wall-clock `Date.now()`.
-  Throttle/debounce windows are therefore monotonic. This is deliberate; see
-  [decisions](decision.md#timer-satellite).
-- There is no ambient `ctx.timeout()` mixin: operations come from the sealed
-  `TimerExt` trait, which must be imported. There is no `TimerService`.
-- Timer operations schedule on the runtime's local task set and require the
-  owning context to be live. They are cancelled by owner disposal; dropping a
-  handle is not itself asynchronous cleanup of in-flight work beyond the
-  task-abort the disposal registration performs.
+T0–T5 repairs admission, eager deadlines, hosted callbacks, registration retirement,
+bounded tick storage, callback reentry and joined owner cancellation. Executed
+regressions and their original failure reasons are recorded in the
+[timer repair plan](plans/2026-11-02-cordis-completion/timer.md#executed-repair-evidence);
+[final acceptance](plans/2026-11-02-cordis-completion/evidence/timer-acceptance.md)
+separates implementation evidence from shared verification.
+
+- **Language/API representation:** sealed TimerExt on Context, owned 'static
+  FnOnce/FnMut callbacks and explicit Scheduled::call replace JS mixins/callable
+  objects. Contexts, wrappers and futures remain local and non-Send. Deprecated
+  setTimeout/setInterval aliases and TimerService installation are omitted.
+- **Deliberate clock adaptation:** checked monotonic Tokio deadlines replace
+  Date.now() wall-clock windows. Deadline admission is eager; late first polling
+  does not extend the requested delay. Zero one-shots/debounce are asynchronous,
+  throttle leads immediately, and zero repeat periods/unrepresentable deadlines
+  return InvalidDelay. Positive sub-millisecond periods retain Tokio millisecond
+  precision. Missed ticks skip to the next original phase even below Tokio's
+  native 5ms skip threshold. Exhausted next-phase arithmetic stops callback
+  repetition or terminates a stream with InvalidDelay.
+- **Deliberate stream adaptation:** one logical consumer and one coalesced pending
+  tick; TS serves only pending next() calls. Committed terminal state wins over
+  queued ticks. stop gives None, fail gives one original Err then stable None,
+  and delivered owner cancellation gives Disposed once. The first committed gate
+  wins; an owner lifecycle request alone has not yet committed that gate.
+  JS concurrent-reader return(value)/throw(reason), return values and repeated
+  rejection after termination are unavailable. Use callback interval for fan-out.
+- **Ownership/hosting constraint:** Sleep/Stream/Scheduled Drop requests abort;
+  synchronous Drop is not an asynchronous join. Drive the original host or
+  await owner cancellation to join captures/registration retirement. Core Effect
+  and TaskControl Drop remain inert, and separately claimed manual Effect
+  completions are separate barriers. TaskControl cancellation cannot admit work.
+  Raw user-spawned tasks still lack HOST authority; timer callbacks have it.
+- **Callback policy:** user code runs outside mutable framework borrows.
+  Positive-delay recursive calls coalesce; recursive zero-delay calls are ignored.
+  Panic stops the affected repeating/scheduled operation and reports once while
+  siblings remain usable. Self/ancestor lifecycle waits are refused.
+- **Runtime environment:** Tokio has no public time-driver-presence query.
+  Missing-driver construction returns TimeDriverUnavailable after containing its
+  synchronous panic; the normal panic hook is still visible. No detached timer
+  task or retained core callback diagnostic is created.
+
+Subsequent loader/groups, Include, HMR and offline Create delivery is recorded
+below. Timer acceptance does not settle unrelated B0 evidence gaps.
+
+## Console logger satellite
+
+`re-cordis-logger` is implemented as an unpublished synchronous native writer
+adapter. See [the paired console API](en/api/console-logger.md) and
+[decisions](decision.md#console-logger-satellite) for its full supported contract.
+
+- **Language/API representation:** owned `Write + 'static`, free registration
+  functions and the existing core removal token replace a JS exporter class.
+  Rust Display/Debug/format! supplies formatting; JS object inspection,
+  exporter custom placeholders and browser-console original arguments cannot
+  be recovered from a core `LogRecord`. Use explicit `ErrorValue` trees for
+  aggregate/cause errors; the adapter does not rewrite JS stack strings.
+- **Deliberate output adaptation:** UTC record-time milliseconds replaces
+  local render-time templates; custom timezone/template support is deferred.
+  Integer millisecond deltas replace humanized upstream durations. The first
+  and backward deltas are zero, and only successful write+flush commits the
+  baseline. UTC years outside 0–9999/layout overflow fail explicitly.
+- **Terminal capability boundary:** Auto uses captured stdout/Unicode
+  FORCE_COLOR/NO_COLOR/TERM facts, not the full supports-color heuristic or
+  browser/Windows console machinery. Explicit colors override those facts.
+  Truecolor requests cap at ANSI256; ANSI16 timestamps use SGR90 gray.
+  Auto is plain for custom writers and pure render, unless callers resolve
+  their own facts into an explicit policy. Plain adds no escapes but preserves
+  user text, including existing ANSI. Unicode label padding counts UTF-16,
+  not terminal display cells or grapheme clusters.
+- **Runtime/ownership contract:** synchronous slow I/O blocks the local log
+  call. There is no asynchronous sink, stderr split, buffer or retry queue.
+  Standard short/interrupted writes are handled; write/flush failures remain
+  visible and partial output cannot be rolled back or guaranteed atomic
+  across independent stdout writers. Flush is not filesystem durability.
+- **Reentry/snapshot contract:** recursive calls into an exporting writer get
+  an I/O error; core still attempts other exporters. The adapter creates no
+  automatic recursive error log. Removal affects future records; an already
+  selected callback may finish before its writer capture is released.
+  A writer panic follows existing core callback panic handling; hostile/panicking
+  destructors retain the core's documented limits.
+- **Evidence boundary:** deterministic Rust tests cover the five source test
+  areas with explicitly classified representations; they do not establish a
+  new executed cross-language console trace or unrestricted upstream parity.
+  Final review and the explicit stable/MSRV acceptance are recorded separately
+  from implementation in the [console work package](plans/2026-11-02-cordis-completion/logger.md).
+
+## Loader and structural groups
+
+The unpublished loader/group delivery is useful native Rust loading and
+reconfiguration, not unrestricted execution of the eleven upstream JS suites.
+See [loader API](en/api/loader.md), [groups](en/api/groups.md) and the
+[source dispositions](plans/2026-11-02-cordis-completion/loader.md#source-case-dispositions).
+
+- **Runtime boundary and unsuitable emulation:** this Rust runtime supplies no JS import/export objects,
+  callable constructors, expression evaluator, mutable prototype chain,
+  Node module cache or V8 stack-rewriting protocol. Explicit typed catalog
+  declarations, decoder/condition/mapper closures and typed service keys replace
+  those mechanisms. Unsupported disabled expressions and unregistered contracts
+  fail clearly; decoder-owned config can contain expression-shaped data but
+  nothing executes it. Embedding a JavaScript engine or a native ABI loader is
+  a separate project, not an inherent impossibility in Rust.
+- **Deliberate ownership adaptation:** cross-group/scope moves preserve EntryId
+  but rebuild outer/inner Fiber allocations after old cleanup. Use immutable
+  snapshots for new Fiber IDs; old committed consumer Contexts retain exact
+  providers through cleanup. Same-group reorder does not restart.
+  Callback-bearing group reevaluation also rebuilds its outer lifecycle and
+  may replace descendant Fiber IDs; logical entry identity remains stable.
+  Framework self/ancestor lifecycle calls remain refused inside callbacks;
+  loaders do not silently acquire deferred authority.
+- **Namespace adaptation:** IDs are globally unique within a loader across
+  SourceDocuments. Mutable group addresses are navigation paths; they do not
+  reproduce upstream nested-source-local duplicate IDs or subtree namespaces.
+  Callers combining sources must assign unique explicit IDs.
+- **Typed-config boundary:** C needs Clone, not Serialize; arbitrary native
+  equality is unavailable. Explicit updates can replay equal source. Config
+  mapping snapshots evaluated C before validation; original Plugin<C,R> does
+  not expose initial resolved R, which remains in application apply code.
+  Condition/intercept callback errors leave Failed state and require explicit
+  update; JavaScript false-like/error-to-disabled semantics are not emulated.
+  Entry injection configuration is static typed Dependency data; changing it
+  requires an update rather than a JS expression refresh. All entries use an
+  outer owner even when injection is empty. Explicit settle replaces implicit
+  loader-service awaiting. JSON isolate false/null means inherit, a deliberate
+  convenience beyond the pinned TS true/string-only field contract.
+  Snapshots intentionally retain source Rc values, not independent resource
+  leases or mutable Fiber control.
+- **Satellite boundaries:** SourceDocument/reconcile/commits and replace_factory
+  are tested in-memory seams. Include now supplies bounded file reading/writing,
+  patches and reconciliation in its own crate; HMR supplies explicit file
+  watching and application-declared linked replacement in a separate crate.
+  Per-entry source failures are independent; runtime structural preflight is
+  whole-input, while async plugin failures do not roll back healthy siblings.
+- **Explicit bounds:** JSON syntax/global boundary failures reject the document.
+  JSON entry decode failures preserve healthy siblings. Native group depth is
+  32; admission counts removed-but-retiring entries until their joined barrier
+  is observed. No unbounded commit journal or queued rebuild history is stored.
+  Source metadata for empty/obsolete ownership is pruned. At most 1024 named
+  realms can have live defining Scope tokens; snapshots can retain those tokens.
+  A label used after all defining scopes drop can acquire a fresh isolation ID,
+  while old committed Contexts keep their old identity. Anonymous positional
+  source matching only reuses entries still owned at that source root.
+  At most 1024 direct updates may be outstanding across the loader; admission
+  refuses more until completed work is pruned. All admitted barriers are joined,
+  but only the first unobserved direct-update failure is retained globally.
+  Async cleanup needs the original host; Drop cannot complete it.
+  Loader keeps the first detached lifecycle-task error, not an unlimited error
+  history. User cleanup callback errors retain core diagnostic reporting;
+  inspect Runtime::take_failures, not just Disposed or a successful waiter.
+- **Evidence boundary:** deterministic Rust tests cover identity, admission,
+  source updates/adoption, latest rebuild intent, failure, evaluation and
+  teardown compositions including 100 group cycles and retained provider moves.
+  Final MSRV/stable review and new paired traces are recorded separately;
+  the six existing core traces retain their original scope.
+
+## Include files and persistence
+
+The selected include I0–I4 scope uses explicit JSON-valued source changes and
+local hosted operations over accepted loader/core. See the
+[include contract](plans/2026-11-02-cordis-completion/evidence/include-contract.md)
+for exact limits and the capability gate; delivery evidence is recorded when
+verification completes.
+
+- **Format adaptation:** canonical value YAML does not retain comments, anchor
+  identities, quoting or style. Aliases/anchors, custom tags and executable
+  nodes are rejected; JavaScript execution and stack rewriting are unavailable.
+  A value parser does not establish lossless round-trip compatibility.
+- **Ownership adaptation:** globally unique loader EntryIds and explicit
+  serialized changes replace upstream proxy-mediated mutable options. Arbitrary
+  native Config values cannot be persisted without a caller-selected encoding.
+- **I/O boundary:** synchronous bounded file operations may block on slow
+  storage. Byte/count bounds do not guarantee a wall-clock deadline. Sibling
+  replacement does not provide a multi-file transaction, a complete protocol
+  against concurrent external writers or a power-loss guarantee.
+- **Integration boundary:** explicit refresh requires no watcher. The optional
+  HMR adapter triggers refresh on the supplied Include; each watched path must
+  be registered explicitly. Create templates using Include, JS evaluation and
+  native binary hot loading remain outside this integration scope.
+
+I3 persistence is implemented. Writes remain non-atomic across files, but bounded
+full pending snapshots recover partial move writes on a later retry. Missing-root
+creation requires hard-link support. Canonical absolute descriptor rebasing on
+moves preserves the currently resolved child source; later retargeting of the
+old symlink spelling is no longer followed by that rewritten descriptor.
+
+Patch `unset` is an explicit Rust/JSON adaptation for effective field absence.
+It differs from config:null and prevents a removed override from revealing a
+hidden base value. Existing value-only YAML, path and durability limits remain.
+
+## HMR watching and linked replacement
+
+H0–H3 watching, optional Include integration and linked replacement are
+implemented and independently accepted. The full stable/1.85.0 shared matrix
+passes; see [acceptance](plans/2026-11-02-cordis-completion/evidence/hmr-acceptance.md). The
+[contract and progress](plans/2026-11-02-cordis-completion/evidence/hmr-contract.md)
+separate delivery evidence from the following chosen boundaries.
+
+- **Rust adaptation:** application-supplied dependency nodes select catalog
+  factory candidates already compiled into the process. Nested core plugins
+  rebuild through their explicitly affected host entry; arbitrary closures
+  inside an unchanged host are not discovered or rewritten.
+- **Runtime boundary:** changed Rust source requires rebuilding/restarting.
+  No process supervisor, inferred Rust/Cargo module graph, Node cache/import
+  emulation, JS evaluator or native binary/ABI swapping is supplied.
+- **Watcher adaptation:** only registered regular file paths are sampled.
+  Ignored names are native path components, with explicit registration override;
+  no recursive root discovery or glob engine is provided. Polling can miss
+  changes entirely between samples; its bounded content digest is not a
+  collision-free or security guarantee.
+- **Path/platform boundary:** native logical paths survive inode replacement.
+  Symlinks are refused, but portable metadata/open operations are not a hostile
+  filesystem confinement protocol. Windows case spellings may remain distinct
+  registrations; macOS execution cannot establish Windows/Linux runtime evidence.
+- **Shutdown boundary:** token Drop/stop requests cancellation; joined watcher
+  or ancestor disposal releases callback captures and waits for the producer.
+  An OS read that is already blocked must return before joining; there is no
+  hard wall-clock shutdown deadline or rollback of callback external effects.
+- **Include boundary:** one registered path triggers refresh of the supplied
+  Include's source graph; paths are not discovered automatically. Stop/Drop
+  suppresses follow-up but retained admitted work must finish before watcher or
+  ancestor cleanup joins. Returned Include errors and Report failures use bounded
+  WatchEvent history; ordinary core cleanup failures use Runtime diagnostics.
+  The adapter does not dispose Include, and linked replacement does not flush.
+- **Replacement boundary:** whole-batch declaration/type/optional preflight
+  precedes unload. Core dependency-ready mapping/validation can still fail
+  afterward. This is not a transaction over arbitrary side effects; failed
+  replacement requires explicit update or another candidate to recover.
+
+## Create offline scaffolding
+
+Create S0–S2 supplies an independently accepted local-checkout generator; see
+[acceptance](plans/2026-11-02-cordis-completion/evidence/create-acceptance.md),
+the [guide](en/guides/create.md) and
+[decisions](decision.md#create-offline-scaffolding).
+
+- **Deliberate Rust adaptation:** explicit name/native path arguments and a
+  synchronous Result-based API replace interactive JS/package-manager flows.
+  A fixed core/logger/loader template supplies an application the user edits;
+  this does not emulate every upstream Create option.
+- **Publication boundary:** Cordis crates remain unpublished. Generated canonical
+  absolute path dependencies require the checkout to remain available; moving it
+  requires manifest edits. Canonical dependency paths must be Unicode; destination
+  arguments preserve native OS bytes but the filesystem may reject them
+  (macOS EILSEQ was exercised). The three bundled Cordis dependency names are
+  unavailable as project names because their `0.0.0` Cargo identities collide.
+  Checkout validation recognizes the current
+  literal manifest/layout spelling, not arbitrary TOML or source integrity.
+  Offline Cargo still requires cached third-party
+  dependencies, and dependency restoration is an explicit user operation.
+- **Filesystem boundary:** a destination must be absent or empty, must not be a
+  symlink, and must have an existing parent. Staging and one rename avoid placing
+  a partially rendered template at the final path; an empty-directory rename may
+  fail on a platform/filesystem. Portable metadata/rename operations do not
+  guarantee confinement against hostile parent replacement, protection against
+  every concurrent writer, or durability through power loss.
+- **Deferred capability:** Git initialization, dependency installation,
+  application launch, remote templates/downloaders, archive/cache management and
+  Include/HMR variants are unselected. Rust does not inherently prevent those
+  features; they are outside this minimal delivery.
+- **Missing evidence:** runtime filesystem execution is macOS only. The selected
+  toolchain checks do not establish Linux/Windows execution or a stable published
+  API. Create adds no new cross-language core lifecycle evidence.
+
+## Whole-program integration
+
+R0's [reference application](en/guides/system-lifecycle.md) and actual generated
+external fixture exercise the same example-private Rust implementation. This
+is a composition of current APIs, not a new distributed template or public API.
+
+- **Rust adaptation:** provider movement keeps logical EntryId but rebuilds Fiber
+  and publication identity. Committed injection keeps the old provider usable
+  through dependent cleanup; moving a consumer later binds the new scope.
+- **Snapshot correction:** R0's gated shutdown regression fixes a canceled loader
+  worker's stale Unloading flag. A Disposed snapshot alone still does not replace
+  inspecting joined completion, actual resource release and diagnostics.
+- **Execution boundary:** current-thread Tokio/local Runtime and non-Send handles
+  remain required. Deterministic synthetic events/paused time prove causal work
+  and release barriers; real polling is supplementary. Cancel/Drop is not join,
+  and successful waiters do not replace inspecting cleanup/Runtime diagnostics.
+- **Filesystem boundary:** Include and console output use ordinary synchronous
+  I/O. Pending-journal flush is not fsync, a multi-file transaction, arbitrary
+  external-writer coordination or hostile-filesystem confinement. An admitted
+  blocked OS read may delay joined shutdown.
+- **Generated fixture boundary:** the checker extends temporary output after
+  running the unchanged Create basic app. Local paths require the checkout to
+  remain present; offline Cargo needs cached dependencies. The production
+  basic template remains the only distributed variant.
+- **Missing evidence:** native filesystem/watcher execution remains macOS only.
+  R0 does not add a whole-program Rust/TypeScript trace, close all B0/loader
+  source gaps, establish Windows/Linux support or a stable published API.
+- **Unselected work:** publication, CI/platform expansion, remote Create,
+  additional templates, live integrations and process supervision remain separate.

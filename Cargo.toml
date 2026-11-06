@@ -1,5 +1,5 @@
 [workspace]
-members = ["crates/re-cordis-core", "crates/re-cordis-timer"]
+members = ["crates/re-cordis-core", "crates/re-cordis-timer", "crates/re-cordis-logger", "crates/re-cordis-loader", "crates/re-cordis-include", "crates/re-cordis-hmr", "crates/re-cordis-create"]
 exclude = ["spikes/m0"]
 resolver = "3"
 

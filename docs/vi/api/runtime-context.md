@@ -57,7 +57,7 @@ về quy tắc gộp và truy vết.
 | Nhóm | Phương thức |
 |---|---|
 | [Plugin](plugins-registry.md) | `plugin`, `inject`, `inject_method`, `registry`, `on_update`, `on_update_sync` |
-| [Tài nguyên](effects.md) | `on_dispose`, `on_dispose_sync`, `effect`, `effect_iter`, `effect_async`, `effect_stream`, `get_effects`, `drain` |
+| [Tài nguyên](effects.md) | `on_dispose`, `on_dispose_sync`, `effect`, `effect_iter`, `effect_async`, `effect_stream`, `get_effects`, `drain`, `task`, `invoke_callback` |
 | [Dịch vụ](services-reflection.md) | `provide`, `provide_checked`, `set`, `get`, `get_direct`, `get_unchecked`, `bind`, `bind_direct`, `service_filter`, `accessor`, `read_accessor`, `write_accessor` |
 | [Sự kiện](events.md) | `on`, `on_with`, `once`, `emit`, `parallel`, `serial`, `bail`, `waterfall`, `waterfall_async` |
 | [Ghi log](logging.md) | `logger`, `log_buffer`, `add_exporter` |

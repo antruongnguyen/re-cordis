@@ -1,0 +1,34 @@
+{
+  "stable": {
+    "paths": {
+      "cargo": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo",
+      "rustc": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustc",
+      "rustdoc": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustdoc",
+      "cargo-clippy": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo-clippy",
+      "clippy-driver": "/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/clippy-driver"
+    },
+    "versions": {
+      "cargo": "cargo 1.97.1 (c980f4866 2026-06-30)",
+      "rustc": "rustc 1.97.1 (8bab26f4f 2026-07-14)",
+      "rustdoc": "rustdoc 1.97.1 (8bab26f4f 2026-07-14)",
+      "cargo-clippy": "clippy 0.1.97 (8bab26f4f6 2026-07-14)",
+      "clippy-driver": "clippy 0.1.97 (8bab26f4f6 2026-07-14)"
+    }
+  },
+  "1.85.0": {
+    "paths": {
+      "cargo": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/cargo",
+      "rustc": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/rustc",
+      "rustdoc": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/rustdoc",
+      "cargo-clippy": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/cargo-clippy",
+      "clippy-driver": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/clippy-driver"
+    },
+    "versions": {
+      "cargo": "cargo 1.85.0 (d73d2caf9 2024-12-31)",
+      "rustc": "rustc 1.85.0 (4d91de4e4 2025-02-17)",
+      "rustdoc": "rustdoc 1.85.0 (4d91de4e4 2025-02-17)",
+      "cargo-clippy": "clippy 0.1.85 (4d91de4e48 2025-02-17)",
+      "clippy-driver": "clippy 0.1.85 (4d91de4e48 2025-02-17)"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+[package]
+    name = "hmr-reload-review-probe"
+    version = "0.0.0"
+    edition = "2024"
+    [workspace]
+    [dependencies]
+    re-cordis-core = { path = "../../../crates/re-cordis-core" }
+    re-cordis-loader = { path = "../../../crates/re-cordis-loader" }
+    re-cordis-include = { path = "../../../crates/re-cordis-include" }
+    tokio = { version = "1", features = ["rt", "macros", "sync", "time"] }

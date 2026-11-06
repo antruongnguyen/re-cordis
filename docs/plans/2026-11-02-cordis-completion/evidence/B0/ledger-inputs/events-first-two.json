@@ -1,0 +1,276 @@
+{
+  "schema_version": 1,
+  "rust_revision": "9a7633c0b3b98e5f37e9f2211f3ffa67fdac5edc",
+  "typescript_revision": "35fdc969e4b6c48c48ed44717c7a018324e4dd88",
+  "implementation_revision": "808c9f573dd96c56fa2ec43e0b1bfb9ed39b2f3f",
+  "status": "bounded two-declaration events fragment complete; source assertions reviewed and existing matrix Rust results joined; independent review pending",
+  "declarations": [
+    {
+      "id": "core/events.spec.ts:18",
+      "source_file": "local/cordis/packages/core/tests/events.spec.ts",
+      "source_line": 18,
+      "source_end_line": 34,
+      "title": "supports symbol event names across dispatch modes",
+      "suite": [
+        "Events"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/events.spec.ts:18/default/a25",
+              "behavior": "A symbol-selected synchronous listener receives the bail argument and its non-continuing answer is returned.",
+              "source_assertion_lines": [
+                25
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "symbols_named_contracts_prototype_names_and_empty_bucket_removal",
+                  "lines": [
+                    95,
+                    98,
+                    100,
+                    103,
+                    105,
+                    115,
+                    116,
+                    117,
+                    118
+                  ],
+                  "assertion": "The Event::symbol listener returns ControlFlow::Break(v); bail on a clone of that exact symbol with 2 is asserted as ControlFlow::Break(2).",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust uses an opaque typed Event key and ControlFlow<R> instead of a JavaScript Symbol and raw callback return. Break values, including zero, remain answers; this is the documented typed representation, not mechanism compatibility."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "This is the direct typed substitute for the source assertion: the cloned opaque symbol selects the same listener and preserves the exact numeric answer."
+            },
+            {
+              "id": "core/events.spec.ts:18/default/a26",
+              "behavior": "Serial dispatch on the same symbol-selected listener returns the listener's argument as its first answer.",
+              "source_assertion_lines": [
+                26
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "symbols_named_contracts_prototype_names_and_empty_bucket_removal",
+                  "lines": [
+                    95,
+                    98,
+                    100,
+                    103,
+                    105,
+                    127,
+                    128,
+                    129,
+                    130,
+                    131,
+                    132
+                  ],
+                  "assertion": "The same Event::symbol listener returns ControlFlow::Break(v); serial with 5 is awaited and asserted as ControlFlow::Break(5).",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "five-dispatch-modes-with-honest-callback-shapes",
+                "reason": "Rust serial dispatch returns a started EventTask<ControlFlow<R>> and uses an opaque typed Event key. This preserves the awaited first-answer behavior through the explicit Rust representation."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The fixture uses a different sentinel value from the TS source, but asserts the same argument-to-answer relation on the same symbol registration."
+            },
+            {
+              "id": "core/events.spec.ts:18/default/a28",
+              "behavior": "Emit, bail, serial, and parallel each invoke the selected listener once, in dispatch order, with the argument supplied to that mode.",
+              "source_assertion_lines": [
+                28
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "symbols_named_contracts_prototype_names_and_empty_bucket_removal",
+                  "lines": [
+                    32,
+                    38,
+                    44,
+                    45,
+                    51,
+                    55,
+                    60,
+                    66,
+                    70,
+                    95,
+                    98,
+                    100,
+                    103,
+                    104,
+                    110,
+                    114,
+                    115,
+                    119,
+                    123,
+                    127,
+                    134
+                  ],
+                  "assertion": "One branch records exact [emit, bail, serial, parallel] arguments as [1, 0, 2, 3]. The symbol branch proves equal descriptions do not alias, then invokes that same generic path through bail, emit, parallel, and serial and asserts four calls.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "event-contracts-registration-and-selection",
+                "reason": "Event::symbol is the opaque typed replacement for JavaScript Symbol identity. The fixture reviews the common generic dispatch path with exact arguments and separately asserts symbol identity/selection through all four modes."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The Rust fixture deliberately factors the source assertion: exact per-mode forwarding/order is asserted for the generic named-key path, while the adjacent opaque-symbol branch asserts non-aliasing and one invocation by each requested mode. No paired TS run is claimed."
+            },
+            {
+              "id": "core/events.spec.ts:18/default/a32",
+              "behavior": "After disposing the symbol listener registration, a later emit does not invoke it again.",
+              "source_assertion_lines": [
+                32
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "symbols_named_contracts_prototype_names_and_empty_bucket_removal",
+                  "lines": [
+                    78,
+                    79,
+                    80,
+                    81,
+                    82,
+                    83,
+                    95,
+                    98,
+                    100,
+                    119,
+                    123,
+                    127,
+                    134,
+                    135,
+                    136,
+                    140
+                  ],
+                  "assertion": "Exact ListenerRegistration::remove is followed by an emit and unchanged callback history in the generic-key branch; the symbol branch is then removed by owner drain and a later symbol emit leaves its count at four.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "event-contracts-registration-and-selection",
+                "reason": "Rust exposes ListenerRegistration::remove plus owner cleanup instead of a bare disposer closure. Both synchronously claim the same registration; dropping the registration token is inert."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The fixture covers both parts of the explicit Rust representation: exact manual removal prevents later delivery, and owner disposal removes the exact opaque-symbol registration before another emit."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/events.spec.ts:35",
+      "source_file": "local/cordis/packages/core/tests/events.spec.ts",
+      "source_line": 35,
+      "source_end_line": 45,
+      "title": "supports symbol event names with ctx.once()",
+      "suite": [
+        "Events"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/events.spec.ts:35/default/a43",
+              "behavior": "A once listener registered on a symbol event is invoked exactly once across repeated emits.",
+              "source_assertion_lines": [
+                43
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/events.rs",
+                  "symbol": "once_is_removed_before_recursive_invocation_and_manual_remove_is_exact",
+                  "lines": [
+                    152,
+                    154,
+                    155,
+                    158,
+                    160,
+                    161,
+                    162,
+                    168,
+                    172,
+                    176,
+                    177,
+                    178
+                  ],
+                  "assertion": "An Event::symbol once listener recursively emits during its first callback; a second top-level emit follows, calls remains exactly one, the original registration is already removed, and drain has no cleanup left to attempt.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m2.md",
+                "anchor": "event-contracts-registration-and-selection",
+                "reason": "Rust represents a JavaScript Symbol with an opaque typed Event key and returns an inert ListenerRegistration control. Once claims removal before callback invocation, including recursive dispatch."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The Rust assertion covers the source's two-emission boundary and the stricter recursive case, proving removal occurs before the first callback can redispatch."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "tools": {
+    "rustc": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/rustc",
+    "cargo": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/cargo",
+    "rustdoc": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/rustdoc",
+    "cargo-clippy": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/cargo-clippy",
+    "clippy-driver": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/clippy-driver"
+  },
+  "environment": {
+    "PATH": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Applications/Privileges.app/Contents/MacOS:/opt/podman/bin:/Users/I756434/.codex/tmp/arg0-macos/codex-arg0j4Txj8:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/codex-path:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/Users/I756434/.asdf/shims:/opt/homebrew/opt/curl/bin:/Users/I756434/.nvm/versions/node/v22.23.3/bin:/Users/I756434/.bun/bin:/Applications/Sublime Merge.app/Contents/SharedSupport/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/I756434/.sdkman/candidates/mvnd/current/bin:/Users/I756434/.sdkman/candidates/maven/current/bin:/Users/I756434/.sdkman/candidates/gradle/current/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/I756434/.local/bin:/Users/I756434/.cargo/bin:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/opt/homebrew/opt/fzf/bin:/Users/I756434/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/Users/I756434/Applications/ChatGPT.app/Contents/Resources:/Users/I756434/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS:/opt/homebrew/opt/python@3.13/libexec/bin:/Users/I756434/Library/Application Support/JetBrains/Toolbox/scripts:/Users/I756434/Projects/sap/scripts:/Users/I756434/.lmstudio/bin:/Users/I756434/.lmstudio/bin",
+    "RUSTC": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/rustc",
+    "RUSTDOC": "/Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/rustdoc",
+    "CARGO_TARGET_DIR": "/Users/I756434/Projects/private/cordis-rust/target/acceptance-1.85.0",
+    "RUSTDOCFLAGS": "-D warnings"
+  }
+}

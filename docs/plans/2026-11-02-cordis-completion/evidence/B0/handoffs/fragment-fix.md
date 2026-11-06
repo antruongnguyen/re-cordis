@@ -1,0 +1,8 @@
+# B0 five-record scheduling metadata correction
+
+Repository /Users/I756434/Projects/private/cordis-rust; feat/cordis-completion. This resumes the healthy decorator/reflect executor gpt-6.1-sol/high for one bounded correction. Read AGENTS.md, B0 plan, core.md B2 entry condition, and fragment-review.md if available. Do not begin the prepared associate/invoke task. No production edits, tests added, Cargo/docs/parity reruns, commits, agents or progress.md edits.
+
+The independent reviewer found all 23 assertion dispositions and both-toolchain joins valid, but all seven honest missing-evidence gaps route directly to B2, whose entry requires a failing public-API reproducer. Correct only ledger-inputs/decorator-reflect.json and report-decorator-reflect.md so evidence/regression follow-up is explicitly distinct from conditional B2. State that first the evidence owner writes/runs the named regression; a passing result closes missing evidence without production change, and only a demonstrated public-API failure can admit B2. Do not mark any gap resolved or change its substantive source assertion classification. Preserve stable gap IDs, original next actions and owner. Use existing schema fields where possible; ensure any work-package ID remains one of the 35 known IDs. Keep B2 as a conditional escalation, not unconditional evidence work assignment.
+
+Run a small structural check that exactly the seven gaps have this gate and all other declarations/variants/obligations/evidence remain unchanged. Append actual validation command/result and the correction to the owned report. Save promptly; return a short summary, files and unresolved concerns. Independent re-review follows; no further tasks.
+

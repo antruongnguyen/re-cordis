@@ -2,95 +2,108 @@
 
 [English](../../en/api/timer.md) | [Mục lục API](README.md)
 
-Mã nguồn: [re-cordis-timer/src/lib.rs](../../../crates/re-cordis-timer/src/lib.rs).
-Hướng dẫn có mã chạy: [timer](../guides/timers.md).
-Ví dụ có thể chạy:
-[timer_lifecycle.rs](../../../crates/re-cordis-timer/examples/timer_lifecycle.rs).
+Mã nguồn: [timer lib.rs](../../../crates/re-cordis-timer/src/lib.rs).
+Hướng dẫn: [timer](../guides/timers.md).
+Ví dụ chạy được: [timer_lifecycle.rs](../../../crates/re-cordis-timer/examples/timer_lifecycle.rs).
 
-`re-cordis-timer` là crate vệ tinh chưa phát hành (`0.0.0`, Rust 2024, MSRV
-1.85) cung cấp các timer thuộc phạm vi chủ sở hữu, xây trên hệ thống effect sẵn
-có của lõi. Nó không thêm một lõi định thời: mỗi thao tác lên lịch một task
-`tokio::time` trên local task set của runtime và đăng ký một cleanup
-`Context::on_dispose_sync`, nên dispose context sở hữu sẽ hủy thao tác và không
-callback nào chạy sau đó.
+`re-cordis-timer` chưa phát hành (`0.0.0`, Rust 2024, MSRV 1.85).
+Import trait kín `TimerExt` trên `Context`; không cần cài dịch vụ.
+Task timer dùng host Cordis gốc thông qua
+[`Context::task`](effects.md#task-có-host-và-callback-đồng-bộ).
+Callback có thể đăng ký timer/effect lồng nhau. Task Tokio tự tạo không thừa
+kế quyền tiếp nhận. Dispose chủ sở hữu chờ việc hủy timer hoàn tất.
 
-Các thao tác được truy cập qua trait kín [`TimerExt`](#timerext), chỉ được
-triển khai cho `Context`. Không cần đăng ký dịch vụ hay bước cài đặt nào —
-import trait là đủ.
+## TimerExt
 
-## `TimerExt`
-
-Trait mở rộng kín trên `Context`. Import nó để gọi các phương thức.
-
-| Phương thức | Kết quả | Hành vi |
+| Phương thức | Kết quả | Hợp đồng |
 |---|---|---|
-| `timeout` | `Result<Effect, TimerError>` | Chạy `callback` một lần sau `delay`, rồi tự dispose. Dispose `Effect` để hủy sớm. Tối đa một lần gọi. |
-| `sleep` | [`Sleep`](#sleep) | Dạng await: giải quyết `Ok(())` một lần tại thời điểm đến hạn, hoặc `Err(TimerError::Disposed)` nếu chủ sở hữu bị dispose trước. |
-| `interval` | `Result<Effect, TimerError>` | Chạy `callback` mỗi `delay`; tick đầu tại `delay`. Dispose `Effect` để dừng. Tick bị bỏ lỡ sẽ gộp (bỏ qua). |
-| `interval_stream` | `Result<IntervalStream, TimerError>` | Một [`Stream`](#intervalstream) các tick; xem hợp đồng kết thúc của nó. |
-| `throttle` | `Result<Scheduled, TimerError>` | Giới hạn tần suất theo cạnh trước với một lần gọi cuối tùy chọn; cửa sổ đơn điệu. |
-| `debounce` | `Result<Scheduled, TimerError>` | Gộp theo cạnh sau; mỗi lần gọi khởi động lại cửa sổ. |
+| `timeout` | `Result<Effect, TimerError>` | Một callback; xóa đúng đăng ký trước khi gọi |
+| `sleep` | `Sleep` | Tiếp nhận ngay; await `Ok(())` hoặc `Disposed` |
+| `interval` | `Result<Effect, TimerError>` | Tick đầu sau một chu kỳ; bỏ tick lỡ mà không đổi pha |
+| `interval_stream` | `Result<IntervalStream, TimerError>` | Stream một consumer; tối đa một tick chờ được gộp |
+| `throttle` | `Result<Scheduled, TimerError>` | Gọi đầu ngay, tùy chọn gọi cuối tại ranh giới cửa sổ |
+| `debounce` | `Result<Scheduled, TimerError>` | Lần gọi thay deadline chờ; chạy sau cửa sổ yên lặng |
 
-Dạng callback nhận `FnOnce` (`timeout`) hoặc `FnMut` (`interval`,
-`throttle`, `debounce`) với ràng buộc `'static`. `delay` bằng không được chấp
-nhận và chạy ở lượt runtime kế tiếp.
+Callback là `FnOnce` sở hữu (timeout) hoặc `FnMut` (các dạng callback khác),
+capture `'static`, không cần `Send`. Hàm tạo kiểm tra host/chủ sở hữu trước
+khi dùng thời gian Tokio hay tạo task. Từ chối giải phóng capture.
 
-## `Sleep`
+Deadline được kiểm tra và cố định tại lúc tạo thành công; Sleep được tiếp nhận
+ngay cả khi poll đầu muộn. Deadline cuối của Scheduled được cố định tại mỗi lần
+gọi thành công. Timeout/sleep/debounce bằng không chạy bất đồng bộ; throttle
+bằng không gọi đầu ngay. Interval/stream có chu kỳ không và deadline không
+biểu diễn được trả `InvalidDelay`. Chu kỳ dương dưới mili giây được nhận,
+với độ chính xác mili giây của Tokio.
 
-Future trả về bởi `TimerExt::sleep`. Cho ra `Result<(), TimerError>`: `Ok(())`
-đúng một lần tại thời điểm đến hạn, hoặc `Err(TimerError::Disposed)` nếu context
-sở hữu bị dispose trước thời điểm đó. Nó giữ đăng ký dispose của mình sống suốt
-vòng đời, nên hệ thống dây nối hủy vẫn kết nối cho đến khi cuộc đua kết thúc.
+## Sleep
 
-## `IntervalStream`
+Future cho ra `Result<(), TimerError>`. Thành công xóa đăng ký trước khi phát
+kết quả; chủ sở hữu hủy cho `Disposed`. Lỗi tạo được lưu và trả tại poll đầu.
+Poll sau hoàn tất gây panic. Drop yêu cầu hủy. Hủy task và xóa đăng ký hoàn tất
+khi host gốc được điều khiển hoặc barrier của chủ sở hữu được await.
 
-Triển khai `futures_util::Stream<Item = Result<(), TimerError>>`. Mỗi tick cho
-ra `Ok(())`. Kết thúc:
+## IntervalStream
 
-- [`control().stop()`](#intervalcontrol) — kết thúc stream sạch sẽ (`None`),
-  không có item cuối.
-- `control().fail(reason)` — phát một `Err(reason)` cuối, rồi `None`.
-- Dispose chủ sở hữu — phát một `Err(TimerError::Disposed)` cuối, rồi `None`.
+Triển khai `futures_util::Stream<Item = Result<(), TimerError>>`.
+Giữ tối đa một tick gộp, không lưu lịch sử tick chưa đọc không giới hạn.
+Trạng thái kết thúc bỏ tick chờ và ưu tiên trước việc phát tick:
 
-Một `Stream` có một consumer logic duy nhất. Giao thức
-`return(value)`/`throw(reason)` đa độc giả đồng thời của async iterator
-TypeScript **không** được tái tạo; dùng `interval` với callback khi cần fan-out.
-Xem [giới hạn](../../limitation.md#timer-satellite).
+- `control().stop()`: kết thúc sạch `None`.
+- `control().fail(reason)`: một `Err(reason)` cuối, rồi `None` ổn định.
+- Chủ sở hữu hủy: một `Err(TimerError::Disposed)` cuối, rồi `None` ổn định.
 
-## `IntervalControl`
+Trạng thái kết thúc được ghi nhận đầu tiên thắng; yêu cầu dispose lifecycle
+có trước lúc cleanup chủ sở hữu phát tín hiệu hủy. Drop tương đương stop. Hủy producer không
+chờ tick kế tiếp; hoàn tất hủy cần host gốc tiến triển.
+Giao thức đa độc giả return-value/throw của JS được bỏ; xem
+[giới hạn](../../limitation.md#timer-satellite).
 
-Handle nhân bản được từ `IntervalStream::control()` với `stop()` và
-`fail(reason)`, như mô tả ở trên.
+## IntervalControl
 
-## `Scheduled`
+Quyền `stop()`/`fail(reason)` nhân bản được từ `control()`.
+Yêu cầu kết thúc an toàn ngoài host và không tiếp nhận việc mới.
 
-Handle gọi được và hủy được từ `throttle` và `debounce`.
+## Scheduled
 
-| Phương thức | Hành vi |
+Handle sở hữu cho throttle/debounce.
+
+| Phương thức | Hợp đồng |
 |---|---|
-| `call()` | Gọi thao tác. Throttle chạy ở cạnh trước và (trừ khi `no_trailing`) một lần tại cuối cửa sổ; debounce chạy một lần khi các lần gọi im lặng suốt trọn `delay`. Handle đã dispose không làm gì. |
-| `dispose()` | Hủy: bỏ mọi lần chạy cuối đang chờ và bỏ qua các lần gọi về sau. Dispose chủ sở hữu cũng vậy. |
+| `call() -> Result<(), TimerError>` | Lần gọi đang hoạt động cần host gốc còn sống; gọi sau dispose không làm gì |
+| `dispose() -> Result<(), TimerError>` | Hủy bằng quyền đã cấp, an toàn ngoài host; gọi về sau không làm gì |
 
-## `TimerError`
+Callback chạy ngoài các borrow mutable của framework. Hỗ trợ tự dispose,
+dispose thao tác khác và đăng ký timer lồng nhau. Gọi đệ quy với delay dương
+gộp qua cửa sổ cuối thông thường; gọi đệ quy với delay bằng không bị bỏ để chặn
+đệ quy và vòng lặp delay không. Panic dừng thao tác bị lỗi. Throttle cạnh đầu
+trả lỗi callback đã giữ; lỗi callback bất đồng bộ đi vào chẩn đoán lõi đúng
+một lần. Thao tác khác và host vẫn dùng được.
 
-Lỗi `#[derive(Debug)]` với các variant:
+Drop yêu cầu hủy và giải phóng capture callback rảnh đồng bộ; callback đang
+chạy giải phóng khi trả về. Barrier chủ sở hữu chờ hủy task và xóa đăng ký.
+Điều này không đổi Drop thụ động của Effect lõi. Completion của Effect đã được
+claim thủ công riêng vẫn là waiter riêng.
 
-- `Disposed` — context sở hữu bị dispose trước khi thao tác hoàn tất.
-- `InvalidDelay` — delay yêu cầu vượt quá phạm vi hỗ trợ.
-- `Admission(AdmissionError)` — context không thể tiếp nhận đăng ký.
+## TimerError
+
+- `Disposed`: chủ sở hữu hủy trước khi phát kết quả.
+- `InvalidDelay`: chu kỳ lặp không hoặc deadline đơn điệu không biểu diễn được.
+- `TimeDriverUnavailable`: executor không bật time driver của Tokio.
+- `Admission(AdmissionError)`: host sai/chưa chạy, chủ sở hữu cũ hoặc từ chối khác.
+- `Callback(CleanupFailure)`: panic callback Scheduled gốc đã được báo.
+
+Variant admission/callback giữ nguồn lỗi. Phát hiện thiếu driver bắt panic
+tạo đồng bộ của Tokio; panic hook thông thường vẫn chạy. Không tạo task timer
+tách rời hay chẩn đoán callback lõi được giữ lại.
 
 ## Đồng hồ và kiểm thử
 
-Timer dùng đồng hồ đơn điệu `tokio::time` mà runtime cục bộ điều khiển, không
-phải thời gian đồng hồ treo tường. Điều này khác với cửa sổ throttle/debounce
-dựa trên `Date.now()` của TypeScript; xem [quyết định](../../decision.md#timer-satellite).
-Chạy kiểm thử tất định với runtime tạm dừng (`start_paused`) và
-`tokio::time::advance`, poll một lần (`tokio::task::yield_now().await`) sau khi
-tạo hoặc gọi một thao tác để task của nó đăng ký trước khi đồng hồ dịch chuyển.
+Dùng `tokio::time` đơn điệu thay cho `Date.now()` theo đồng hồ tường của TS.
+Hàm tạo đặt deadline trước khi trả; không cần yield trước advance để đặt hạn.
+Sau khi dịch đồng hồ tạm dừng, yield để điều khiển phát kết quả/hủy task trước
+khi kiểm tra. Guard lõi từ chối callback/task chờ lifecycle của chính mình/tổ tiên.
 
 ## Ví dụ
-
-Một chương trình hoàn chỉnh chờ (await) một khoảng trễ thực ngắn qua `sleep`:
 
 ```rust
 use std::time::Duration;
@@ -108,6 +121,11 @@ fn main() -> Result<(), BoxError> {
             .run(async {
                 let root = runtime.context();
                 root.sleep(Duration::from_millis(1)).await?;
+                let debounced = root.debounce(Duration::ZERO, || println!("quiet"))?;
+                debounced.call()?;
+                root.sleep(Duration::from_millis(1)).await?;
+                debounced.dispose()?;
+                root.drain()?.await?;
                 Ok::<_, BoxError>(())
             })
             .await??;
@@ -115,7 +133,3 @@ fn main() -> Result<(), BoxError> {
     })
 }
 ```
-
-Để kiểm thử tất định, dùng runtime tạm dừng (`start_paused(true)`, vốn cần
-feature `test-util` của tokio) và `tokio::time::advance`; xem
-[hướng dẫn timer](../guides/timers.md).

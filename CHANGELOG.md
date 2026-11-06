@@ -7,7 +7,148 @@ This project does not yet follow semantic versioning — the API is unstable.
 
 ## [Unreleased]
 
+### Changed
+
+- Refocused the root README on project purpose, packages, getting started and
+  supported contracts; removed third-party Rust-project comparisons and
+  reference-only commentary from documentation and agent guidance.
+- Expanded the documentation layout to a full-width frame with a desktop header,
+  fixed sidebar and right-hand table of contents, following shadcn/AI SDK layouts.
+- GitHub Actions now use major-version tags instead of commit SHA pins;
+  retired macos-14 was replaced with supported macos-26, preserving checks
+  and Pages gates.
+- Public documentation now removes links/images/reference definitions targeting
+  internal plans/design records before generating HTML, search and Markdown;
+  exported artifact and package/Rustdoc visibility checks guard that boundary.
+
+### Fixed
+
+- The site checker accepts the verified Rustdoc 1.99.1 plain-text rendering of
+  two hidden `syn::parse::Peek::Token` uses, alongside the older 1.97.1 linked
+  rendering. Other dependency omissions/count changes remain errors; compiler
+  output stays byte-identical and framework/site links and assets stay strict.
+
+- Documentation code blocks use native Fumadocs rendering instead of inheriting
+  inline-code borders/backgrounds; each block now has a localized copy button,
+  with whitespace and blank lines preserved in both themes.
+
+- Create archive scaffold tests accept an explicit compatible checkout through
+  test-only `CORDIS_CREATE_TEST_CHECKOUT`, retaining ordinary repository behavior.
+  Actual archive suites and generated applications pass on stable/1.85.0;
+  the offline tool still requires a separate checkout.
+
+- B1 status/checklists distinguish accepted deliveries, recurring requirements
+  and deferred CI/release decisions. Documentation checks now cover nested
+  planning/evidence links, with a broken-file/heading regression.
+
+- Orderly R0 application shutdown joins admitted watcher refresh work before
+  disposing Include/its owner, avoiding a reproduced cancellation race while
+  retaining failure inspection and forced-ancestor cancellation coverage.
+
+- R0's gated shutdown reproducer exposed a canceled loader worker leaving a
+  structural group snapshot at Unloading after joined resource release. Owner
+  cleanup now clears the stale running flag; a focused regression distinguishes
+  the cancellation request, actual resource join and final Disposed snapshot.
+
+- Watcher read failures retry after ingress overflow and coalesce only after
+  successful queue admission, preserving original errors when capacity recovers.
+
+- Linked replacement settlement preserves distinct apply and commit-observer
+  failures for the same entry. Exact batch waiters retain every scheduling cause;
+  abandoned waiters keep the bounded first-unobserved scheduling failure. An
+  older retained slot also accompanies current exact-batch lifecycle errors.
+  A direct-update occurrence shared by both paths is reported once.
+
+- Loader settlement and teardown retain overlapping direct-update barriers, with
+  bounded admission and error retention even when waiters are dropped. Final
+  loader review corrections also preserve reentrant group membership, independent
+  source siblings, source locations, cycle preflight and bounded realm metadata.
+
 ### Added
+
+- Bilingual Fumadocs/Next.js development documentation over the canonical EN/VI
+  Markdown, static browser search, revision-pinned source/Rustdoc links, public
+  llms.txt and page Markdown, with project-subpath export checks and preview.
+- Separate documentation CI preparation with restored dependencies and macOS
+  stable/1.85.0 guide checks, plus a gated manual GitHub Pages workflow. Existing
+  Rust CI is preserved; no hosted run or deployment is claimed.
+- Documentation-channel guides and minimal HMR docs.rs metadata including its
+  optional Include API. All crates remain 0.0.0/publish=false; docs.rs hosting
+  still requires an approved actual registry release.
+
+- Revised the compact AI-agent reading index with the complete package map,
+  feature/distribution prerequisites, lifecycle pitfalls, Create archive-test
+  boundary and upstream notices, retaining paired guide links below 8 KiB.
+
+- Scoped root/core upstream MIT notices for identified Cordis/cosmokit-derived
+  logger material and literal source-evidence excerpts; existing repository and
+  generated-template notices are preserved.
+
+- R1 API/package readiness assessment and a concrete proposal requiring a separate
+  release decision: seven experimental packages, actual dependency order, explicit
+  local/Git-only current verdict and macOS/MSRV evidence boundaries. Package
+  READMEs and exact MIT notices now accompany all seven crates; generated
+  starter documentation retains the same MIT notice within its five-file layout.
+
+- R0 whole-program reference application and shared deterministic integration tests:
+  typed provider retention across isolated group moves, scoped console/timers,
+  Include edits/persistence, linked replacement, explicit recovery and joined shutdown.
+  The documentation checker extends a real Create-generated external fixture with
+  the exact same application/tests on stable and 1.85.0; the production template
+  remains unchanged. Paired English/Vietnamese integration guidance accompanies it.
+
+- Selected Create S0–S2: unpublished stdlib-only `re-cordis-create` crate/binary
+  generates a minimal offline application from local core/logger/loader paths.
+  Names, checkout inputs and destinations are validated; complete sibling staging
+  precedes a single rename with visible I/O/cleanup failures. The application
+  includes hosted typed services/plugins, programmatic configuration, scoped
+  console output, updates and joined shutdown. Paired guide/API and the real
+  generator/external-application documentation checks accompany delivery.
+  Independent review and the complete stable/1.85.0 matrix pass; Git/install/launch,
+  remote templates and Include/HMR variants are outside the selected scope.
+
+- Unpublished `re-cordis-hmr`: bounded explicit file watching with a joined polling
+  producer, local debounced callbacks, exact tokens, overflow rescans and visible
+  failures; explicit dependency plans select already-linked factory batches.
+  Optional Include integration retains admitted refresh completion through callback
+  cancellation and joins it during watcher/ancestor shutdown; compiled replacement
+  uses the same Include-managed instances. Rust source changes report restart-required.
+  An offline example and paired guides/API describe the delivered Rust boundary.
+  H0–H3 is independently accepted, with the full stable/1.85.0 shared matrix passing.
+
+- Loader `FactoryReplacement` and `replace_factories` preflight a complete linked
+  batch before teardown, refuse same-loader mutation during optional validation,
+  preserve current per-entry intent and report independent replacement failures.
+
+- Unpublished `re-cordis-include`: bounded JSON/restricted YAML source parsing,
+  nested includes, canonical source identity/cycle limits, actual source locations,
+  missing-only initial data and explicit refresh/recovery over accepted loader.
+  Ordered patches retain per-entry/per-key provenance; bounded runtime journals
+  reconcile file conflicts, route changes to owners and recover partial multi-file
+  writes. Sibling staging preserves pending edits on failure and never replaces
+  unparseable current data. Canonical value output does not preserve YAML
+  comments/style. Paired English/Vietnamese guide/API pages and include
+  export/snippet documentation checks. Joined disposal flushes before child
+  cleanup and retains final write errors; an offline read/change/flush/shutdown
+  example demonstrates the full flow. Patch `unset` preserves effective field
+  absence without revealing hidden base values or conflating absence with null.
+
+- Added unpublished `re-cordis-loader`: reusable typed factory catalog, parent-owned source entries, latest-intent rebuilds, structural groups/moves, typed isolation/evaluation, bounded JSON and source-location errors, immutable snapshots, runtime commit events, read-only in-memory reconciliation and typed factory replacement seams. Includes deterministic cleanup/failure fixtures, a runnable boot/reconfigure/recover/shutdown example and matching English/Vietnamese loader/group guides and API references.
+- Unpublished `re-cordis-logger` console satellite over existing core exporters:
+  owned local writers, deterministic rendering, stdout routing, explicit/Auto
+  color policy, fixed record-time UTC and committed elapsed timing, visible
+  write/flush and recursive-export errors, exact removal and owner teardown.
+  21 deterministic tests include failure/capture release and 100 lifecycle
+  cycles; runnable console example and paired English/Vietnamese guide/API.
+  Logger-only `time = 0.3.36` formats calendars; core/timer behavior and accepted
+  B0 evidence are unchanged. Final review/acceptance is tracked in the logger
+  work package; no publication or stable API is promised.
+- Source-backed completion planning for core evidence/targeted fixes and all seven
+  upstream satellites under `docs/plans/2026-11-02-cordis-completion/`: timer
+  repair findings, per-satellite work packages, API/dependency decision gates,
+  shared acceptance, and a dependency-based scheduling worksheet. The pinned
+  satellite inventory records 323 syntactic test declarations, not executed
+  parity coverage. Future APIs, dates and releases remain proposals.
 - First satellite crate `re-cordis-timer` (unpublished, Rust 2024, MSRV 1.85):
   owner-scoped `timeout`/`sleep`/`interval`/`interval_stream`/`throttle`/
   `debounce` over existing core effects, reached through a sealed `TimerExt`
@@ -23,11 +164,6 @@ This project does not yet follow semantic versioning — the API is unstable.
   source-case inventories, per-slice API/dependency gates, measurable acceptance,
   paired language documentation, and later group/include/HMR/create assessment.
   No satellite implementation or production-core change is included.
-- README matrices compare benefits/tradeoffs and delivered core concepts against
-  pinned TypeScript Cordis and independent cordis-rs, distinguishing explicit
-  Rust adapters, intentional redesigns, deferred satellites and evidence limits.
-  Row-specific star ratings and a quick-choice summary clarify fit without
-  implying benchmark results or an overall winner.
 - Parallel English/Vietnamese user guides and API reference under `docs/en`
   and `docs/vi`, with local dependency setup, executable examples, lifecycle/
   resource contracts, troubleshooting, and a shared glossary.
@@ -128,7 +264,7 @@ This project does not yet follow semantic versioning — the API is unstable.
   validation; executable on Rust 1.85.0 and current stable.
 - M0 results, explicit API restrictions, and a complete pinned core case checklist.
 - Source-backed core implementation plan in `docs/implementation-plan.md`,
-  with pinned TypeScript/prior Rust references, independent agent reviews,
+  with a pinned TypeScript specification, independent agent reviews,
   design gates, staged delivery, and behavioral acceptance criteria; aligned
   roadmap and known limitations.
 - Rust edition 2024 baseline for the planned Cargo workspace.
@@ -136,6 +272,14 @@ This project does not yet follow semantic versioning — the API is unstable.
   `docs/{todo,decision,limitation}.md`.
 
 ### Fixed
+- Timer T0–T5 contract repair: admission before clock/task creation, checked eager
+  deadlines, exact pre-callback retirement, hosted nested callbacks and one
+  diagnostic per panic, joined owner cancellation, bounded single-tick streams,
+  reentry-safe scheduled callbacks and prompt capture release. Scheduled::call
+  now returns Result. Zero repeat periods are rejected; one-shot zero stays async.
+  A minimal core TaskControl/CallbackError task/callback bridge preserves inert
+  Effect Drop and composition. 48 timer tests, three Rustdoc checks and six
+  focused core tests; all-six lifecycle example and paired guide/API.
 - Documentation rereview clarifies source/resolved types, initialization's
   injection barrier, and event snapshot/filter ordering in both languages.
   The documentation checker rejects unchecked Rust blocks in either language

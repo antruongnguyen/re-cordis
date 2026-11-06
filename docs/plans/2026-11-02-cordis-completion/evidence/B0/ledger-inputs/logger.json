@@ -1,0 +1,1030 @@
+{
+  "schema_version": 1,
+  "rust_revision": "9a7633c0b3b98e5f37e9f2211f3ffa67fdac5edc",
+  "typescript_revision": "35fdc969e4b6c48c48ed44717c7a018324e4dd88",
+  "implementation_revision": "808c9f573dd96c56fa2ec43e0b1bfb9ed39b2f3f",
+  "status": "logger family reconciliation complete; exact source assertions and accepted stable/MSRV logs joined; independent integration review pending",
+  "declarations": [
+    {
+      "id": "core/logger.spec.ts:18",
+      "source_file": "local/cordis/packages/core/tests/logger.spec.ts",
+      "source_line": 18,
+      "source_end_line": 36,
+      "title": "keeps the bounded buffer in place and chronological",
+      "suite": [
+        "Logger"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/logger.spec.ts:18/default/a25",
+              "behavior": "expect(ctx.logger.buffer).toBe(buffer)",
+              "source_assertion_lines": [
+                25
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/logger.rs",
+                  "symbol": "default_buffer_has_exact_capacity_chronological_order_and_root_attribution",
+                  "lines": [
+                    264,
+                    265,
+                    266,
+                    267,
+                    268,
+                    269,
+                    270,
+                    271,
+                    272,
+                    273,
+                    274,
+                    275,
+                    276,
+                    277,
+                    283,
+                    284,
+                    285,
+                    286,
+                    287
+                  ],
+                  "assertion": "The Rust substitute directly asserts a fixed 1000-entry chronological buffer and exact retained range.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "logger-contract",
+                "reason": "Rust exposes value snapshots of one fixed 1000-record chronological buffer. It does not expose the mutable JavaScript buffer object or runtime bufferSize mutation; the fixed-capacity substitute is tested directly."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The Rust substitute directly asserts a fixed 1000-entry chronological buffer and exact retained range. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/logger.spec.ts:18/default/a26",
+              "behavior": "expect(buffer.map(message => message.args[0])).toEqual(['two', 'three'])",
+              "source_assertion_lines": [
+                26
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/logger.rs",
+                  "symbol": "default_buffer_has_exact_capacity_chronological_order_and_root_attribution",
+                  "lines": [
+                    264,
+                    265,
+                    266,
+                    267,
+                    268,
+                    269,
+                    270,
+                    271,
+                    272,
+                    273,
+                    274,
+                    275,
+                    276,
+                    277,
+                    283,
+                    284,
+                    285,
+                    286,
+                    287
+                  ],
+                  "assertion": "The Rust substitute directly asserts a fixed 1000-entry chronological buffer and exact retained range.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "logger-contract",
+                "reason": "Rust exposes value snapshots of one fixed 1000-record chronological buffer. It does not expose the mutable JavaScript buffer object or runtime bufferSize mutation; the fixed-capacity substitute is tested directly."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The Rust substitute directly asserts a fixed 1000-entry chronological buffer and exact retained range. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/logger.spec.ts:18/default/a30",
+              "behavior": "expect(buffer.map(message => message.args[0])).toEqual(['four'])",
+              "source_assertion_lines": [
+                30
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/logger.rs",
+                  "symbol": "default_buffer_has_exact_capacity_chronological_order_and_root_attribution",
+                  "lines": [
+                    264,
+                    265,
+                    266,
+                    267,
+                    268,
+                    269,
+                    270,
+                    271,
+                    272,
+                    273,
+                    274,
+                    275,
+                    276,
+                    277,
+                    283,
+                    284,
+                    285,
+                    286,
+                    287
+                  ],
+                  "assertion": "The Rust substitute directly asserts a fixed 1000-entry chronological buffer and exact retained range.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "logger-contract",
+                "reason": "Rust exposes value snapshots of one fixed 1000-record chronological buffer. It does not expose the mutable JavaScript buffer object or runtime bufferSize mutation; the fixed-capacity substitute is tested directly."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The Rust substitute directly asserts a fixed 1000-entry chronological buffer and exact retained range. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/logger.spec.ts:18/default/a34",
+              "behavior": "expect(buffer).toEqual([])",
+              "source_assertion_lines": [
+                34
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/logger.rs",
+                  "symbol": "default_buffer_has_exact_capacity_chronological_order_and_root_attribution",
+                  "lines": [
+                    264,
+                    265,
+                    266,
+                    267,
+                    268,
+                    269,
+                    270,
+                    271,
+                    272,
+                    273,
+                    274,
+                    275,
+                    276,
+                    277,
+                    283,
+                    284,
+                    285,
+                    286,
+                    287
+                  ],
+                  "assertion": "The Rust substitute directly asserts a fixed 1000-entry chronological buffer and exact retained range.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "logger-contract",
+                "reason": "Rust exposes value snapshots of one fixed 1000-record chronological buffer. It does not expose the mutable JavaScript buffer object or runtime bufferSize mutation; the fixed-capacity substitute is tested directly."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The Rust substitute directly asserts a fixed 1000-entry chronological buffer and exact retained range. Both accepted workspace-test command logs list this test as ok."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/logger.spec.ts:37",
+      "source_file": "local/cordis/packages/core/tests/logger.spec.ts",
+      "source_line": 37,
+      "source_end_line": 54,
+      "title": "disposes the exporter that registered the disposer",
+      "suite": [
+        "Logger"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/logger.spec.ts:37/default/a47",
+              "behavior": "expect(first).toEqual([])",
+              "source_assertion_lines": [
+                47
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-logger-37-a47",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/logger.rs::exporter_removal_is_exact_and_buffer_survives_reusable_root_drains at 299\u2013325 with distinct first/second destinations and retain both removal handles. After removing the first handle, log and assert the first destination remains empty. Match TS logger.spec.ts:47; keep aggregate-count/root-drain assertions separate.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 47 proves the first exporter destination stops receiving after its exact handle is removed. logger.rs::exporter_removal_is_exact_and_buffer_survives_reusable_root_drains at 299\u2013325 routes both registrations to the same counter; 2 then 3 proves only one survivor, not which one. The remaining registration is removed through root drain at 323, not its own second handle. The aggregate counts and post-drain silence remain valid scoped evidence in the report, not witnesses for exporter identity or second-token removal."
+            },
+            {
+              "id": "core/logger.spec.ts:37/default/a48",
+              "behavior": "expect(second).toHaveLength(1)",
+              "source_assertion_lines": [
+                48
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-logger-37-a48",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/logger.rs::exporter_removal_is_exact_and_buffer_survives_reusable_root_drains at 299\u2013325 with distinct first/second destinations and retain both removal handles. After removing the first handle, log and assert the distinct second destination receives one record. Match TS logger.spec.ts:48; keep aggregate-count/root-drain assertions separate.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 48 proves the second exporter destination alone receives after removal of the first handle. logger.rs::exporter_removal_is_exact_and_buffer_survives_reusable_root_drains at 299\u2013325 routes both registrations to the same counter; 2 then 3 proves only one survivor, not which one. The remaining registration is removed through root drain at 323, not its own second handle. The aggregate counts and post-drain silence remain valid scoped evidence in the report, not witnesses for exporter identity or second-token removal."
+            },
+            {
+              "id": "core/logger.spec.ts:37/default/a52",
+              "behavior": "expect(second).toHaveLength(1)",
+              "source_assertion_lines": [
+                52
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-logger-37-a52",
+                "kind": "missing-evidence",
+                "next_action": "Extend crates/re-cordis-core/tests/logger.rs::exporter_removal_is_exact_and_buffer_survives_reusable_root_drains at 299\u2013325 with distinct first/second destinations and retain both removal handles. Remove the second exporter with its own handle, log again and assert its distinct destination count stays one, before any root drain. Match TS logger.spec.ts:52; keep aggregate-count/root-drain assertions separate.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "TS line 52 proves the explicit second removal handle stops that surviving exporter. logger.rs::exporter_removal_is_exact_and_buffer_survives_reusable_root_drains at 299\u2013325 routes both registrations to the same counter; 2 then 3 proves only one survivor, not which one. The remaining registration is removed through root drain at 323, not its own second handle. The aggregate counts and post-drain silence remain valid scoped evidence in the report, not witnesses for exporter identity or second-token removal."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence"
+      ]
+    },
+    {
+      "id": "core/logger.spec.ts:55",
+      "source_file": "local/cordis/packages/core/tests/logger.spec.ts",
+      "source_line": 55,
+      "source_end_line": 60,
+      "title": "uses fiber name when called from outside any service",
+      "suite": [
+        "Logger"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/logger.spec.ts:55/default/a58",
+              "behavior": "expect(captured.map(m => m.name)).toEqual(['root'])",
+              "source_assertion_lines": [
+                58
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/logger.rs",
+                  "symbol": "default_buffer_has_exact_capacity_chronological_order_and_root_attribution",
+                  "lines": [
+                    272,
+                    278,
+                    279,
+                    280,
+                    281
+                  ],
+                  "assertion": "Every default-buffer record is attributed to the root channel and root Fiber.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Every default-buffer record is attributed to the root channel and root Fiber. Both accepted workspace-test command logs list this test as ok."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/logger.spec.ts:61",
+      "source_file": "local/cordis/packages/core/tests/logger.spec.ts",
+      "source_line": 61,
+      "source_end_line": 66,
+      "title": "honours explicit name argument",
+      "suite": [
+        "Logger"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/logger.spec.ts:61/default/a64",
+              "behavior": "expect(captured.map(m => m.name)).toEqual(['custom'])",
+              "source_assertion_lines": [
+                64
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/logger.rs",
+                  "symbol": "nested_service_names_restore_and_explicit_and_intercept_names_have_correct_precedence",
+                  "lines": [
+                    101,
+                    102,
+                    103,
+                    104
+                  ],
+                  "assertion": "An explicit logger name wins and is recorded exactly.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "An explicit logger name wins and is recorded exactly. Both accepted workspace-test command logs list this test as ok."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/logger.spec.ts:67",
+      "source_file": "local/cordis/packages/core/tests/logger.spec.ts",
+      "source_line": 67,
+      "source_end_line": 72,
+      "title": "honours intercept name",
+      "suite": [
+        "Logger"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/logger.spec.ts:67/default/a70",
+              "behavior": "expect(captured.map(m => m.name)).toEqual(['intercepted'])",
+              "source_assertion_lines": [
+                70
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/logger.rs",
+                  "symbol": "nested_service_names_restore_and_explicit_and_intercept_names_have_correct_precedence",
+                  "lines": [
+                    90,
+                    91,
+                    92,
+                    93,
+                    94,
+                    95,
+                    97,
+                    98,
+                    99,
+                    100,
+                    106
+                  ],
+                  "assertion": "The caller intercept supplies the recorded logger name.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The caller intercept supplies the recorded logger name. Both accepted workspace-test command logs list this test as ok."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/logger.spec.ts:73",
+      "source_file": "local/cordis/packages/core/tests/logger.spec.ts",
+      "source_line": 73,
+      "source_end_line": 90,
+      "title": "uses service name when called from inside a Service method (regression)",
+      "suite": [
+        "Logger"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/logger.spec.ts:73/default/a87",
+              "behavior": "expect(captured.map(m => m.name)).toContain('foo:driver')",
+              "source_assertion_lines": [
+                87
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/logger.rs",
+                  "symbol": "nested_service_names_restore_and_explicit_and_intercept_names_have_correct_precedence",
+                  "lines": [
+                    73,
+                    74,
+                    75,
+                    76,
+                    77,
+                    78,
+                    79,
+                    80,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85,
+                    86,
+                    88,
+                    89
+                  ],
+                  "assertion": "A bound service call records the normalized service Fiber name and exact Fiber rather than root.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "logger-contract",
+                "reason": "Explicit bound calls carry service-derived logger context and Rust normalizes definition Fiber names; it does not reproduce callable Logger/Proxy tracing syntax or preserve the source colon spelling."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "A bound service call records the normalized service Fiber name and exact Fiber rather than root. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/logger.spec.ts:73/default/a88",
+              "behavior": "expect(captured.map(m => m.name)).not.toContain('root')",
+              "source_assertion_lines": [
+                88
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/logger.rs",
+                  "symbol": "nested_service_names_restore_and_explicit_and_intercept_names_have_correct_precedence",
+                  "lines": [
+                    73,
+                    74,
+                    75,
+                    76,
+                    77,
+                    78,
+                    79,
+                    80,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85,
+                    86,
+                    88,
+                    89
+                  ],
+                  "assertion": "A bound service call records the normalized service Fiber name and exact Fiber rather than root.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "logger-contract",
+                "reason": "Explicit bound calls carry service-derived logger context and Rust normalizes definition Fiber names; it does not reproduce callable Logger/Proxy tracing syntax or preserve the source colon spelling."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "A bound service call records the normalized service Fiber name and exact Fiber rather than root. Both accepted workspace-test command logs list this test as ok."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/logger.spec.ts:91",
+      "source_file": "local/cordis/packages/core/tests/logger.spec.ts",
+      "source_line": 91,
+      "source_end_line": 108,
+      "title": "still lets outer caller intercept override the service-derived name",
+      "suite": [
+        "Logger"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/logger.spec.ts:91/default/a105",
+              "behavior": "expect(captured.map(m => m.name)).toContain('caller-override')",
+              "source_assertion_lines": [
+                105
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/logger.rs",
+                  "symbol": "nested_service_names_restore_and_explicit_and_intercept_names_have_correct_precedence",
+                  "lines": [
+                    90,
+                    91,
+                    92,
+                    93,
+                    94,
+                    95,
+                    97,
+                    98,
+                    99,
+                    100,
+                    106
+                  ],
+                  "assertion": "A use-site logger intercept overrides the service-derived name.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "logger-contract",
+                "reason": "Explicit bound calls carry service-derived logger context and Rust normalizes definition Fiber names; it does not reproduce callable Logger/Proxy tracing syntax or preserve the source colon spelling."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "A use-site logger intercept overrides the service-derived name. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/logger.spec.ts:91/default/a106",
+              "behavior": "expect(captured.map(m => m.name)).not.toContain('foo:driver')",
+              "source_assertion_lines": [
+                106
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/logger.rs",
+                  "symbol": "nested_service_names_restore_and_explicit_and_intercept_names_have_correct_precedence",
+                  "lines": [
+                    90,
+                    91,
+                    92,
+                    93,
+                    94,
+                    95,
+                    97,
+                    98,
+                    99,
+                    100,
+                    106
+                  ],
+                  "assertion": "A use-site logger intercept overrides the service-derived name.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "logger-contract",
+                "reason": "Explicit bound calls carry service-derived logger context and Rust normalizes definition Fiber names; it does not reproduce callable Logger/Proxy tracing syntax or preserve the source colon spelling."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "A use-site logger intercept overrides the service-derived name. Both accepted workspace-test command logs list this test as ok."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/logger.spec.ts:109",
+      "source_file": "local/cordis/packages/core/tests/logger.spec.ts",
+      "source_line": 109,
+      "source_end_line": 139,
+      "title": "uses the innermost service name and restores the outer service",
+      "suite": [
+        "Logger"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/logger.spec.ts:109/default/a134",
+              "behavior": "expect(captured.map(m => [m.name, m.args[0]])).toEqual([\n['bar:driver', 'from bar'],\n['foo:driver', 'from foo'],\n])",
+              "source_assertion_lines": [
+                134,
+                135,
+                136,
+                137
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/logger.rs",
+                  "symbol": "nested_service_names_restore_and_explicit_and_intercept_names_have_correct_precedence",
+                  "lines": [
+                    74,
+                    75,
+                    76,
+                    77,
+                    78,
+                    79,
+                    80,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85,
+                    86,
+                    87
+                  ],
+                  "assertion": "Nested bound calls record inner then restored outer service names and messages.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "logger-contract",
+                "reason": "Explicit bound calls carry service-derived logger context and Rust normalizes definition Fiber names; it does not reproduce callable Logger/Proxy tracing syntax or preserve the source colon spelling."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Nested bound calls record inner then restored outer service names and messages. Both accepted workspace-test command logs list this test as ok."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/logger.spec.ts:140",
+      "source_file": "local/cordis/packages/core/tests/logger.spec.ts",
+      "source_line": 140,
+      "source_end_line": 155,
+      "title": "uses service name when called from inside [Service.init] (unchanged behaviour)",
+      "suite": [
+        "Logger"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/logger.spec.ts:140/default/a153",
+              "behavior": "expect(captured.map(m => m.name)).toContain('foo:driver')",
+              "source_assertion_lines": [
+                153
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/logger.rs",
+                  "symbol": "nested_service_names_restore_and_explicit_and_intercept_names_have_correct_precedence",
+                  "lines": [
+                    36,
+                    37,
+                    38,
+                    39,
+                    40,
+                    41,
+                    42,
+                    43,
+                    44,
+                    54,
+                    55
+                  ],
+                  "assertion": "Plugin::initialized logs through the initializing Fiber and records its normalized service name.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "logger-contract",
+                "reason": "Explicit bound calls carry service-derived logger context and Rust normalizes definition Fiber names; it does not reproduce callable Logger/Proxy tracing syntax or preserve the source colon spelling."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Plugin::initialized logs through the initializing Fiber and records its normalized service name. Both accepted workspace-test command logs list this test as ok."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/logger.spec.ts:156",
+      "source_file": "local/cordis/packages/core/tests/logger.spec.ts",
+      "source_line": 156,
+      "source_end_line": 164,
+      "title": "logs an error whose errors array is empty",
+      "suite": [
+        "Logger"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/logger.spec.ts:156/default/a161",
+              "behavior": "expect(captured).toHaveLength(1)",
+              "source_assertion_lines": [
+                161
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/logger.rs",
+                  "symbol": "error_causes_and_aggregates_preserve_empty_aggregates_exact_sources_and_order",
+                  "lines": [
+                    134,
+                    135,
+                    136,
+                    137,
+                    138,
+                    139,
+                    140,
+                    141
+                  ],
+                  "assertion": "An ErrorValue with an empty member list emits one record for the aggregate itself.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "logger-contract",
+                "reason": "ErrorValue explicitly owns cause/member metadata and retains Rust error sources; arbitrary dynamic Error.errors inspection is not a Rust API."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "An ErrorValue with an empty member list emits one record for the aggregate itself. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/logger.spec.ts:156/default/a162",
+              "behavior": "expect(captured[0].args[0]).toBe(error)",
+              "source_assertion_lines": [
+                162
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "logger-contract",
+                "reason": "ErrorValue explicitly owns cause/member metadata and retains Rust error sources; arbitrary dynamic Error.errors inspection is not a Rust API."
+              },
+              "gap": {
+                "id": "G-B0-logger-156-a162",
+                "kind": "missing-evidence",
+                "next_action": "Extend error_causes_and_aggregates_preserve_empty_aggregates_exact_sources_and_order to compare the retained failure source with the exact empty-aggregate ErrorValue allocation for core/logger.spec.ts:156 line 162: expect(captured[0].args[0]).toBe(error).",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first run the named regression. A passing result closes evidence without production change. A dependent satellite must establish its gate and a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The reviewed candidate fixture does not assert this exact intermediate value, count, identity, or composition boundary; a related final-state assertion is not substituted for it."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/logger.spec.ts:165",
+      "source_file": "local/cordis/packages/core/tests/logger.spec.ts",
+      "source_line": 165,
+      "source_end_line": 174,
+      "title": "flattens an aggregate error into its members",
+      "suite": [
+        "Logger"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/logger.spec.ts:165/default/a171",
+              "behavior": "expect(captured).toHaveLength(1)",
+              "source_assertion_lines": [
+                171
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/logger.rs",
+                  "symbol": "error_causes_and_aggregates_preserve_empty_aggregates_exact_sources_and_order",
+                  "lines": [
+                    142,
+                    143,
+                    144,
+                    145,
+                    146,
+                    147,
+                    148,
+                    149,
+                    150
+                  ],
+                  "assertion": "A nonempty ErrorValue aggregate flattens to one member record.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "logger-contract",
+                "reason": "ErrorValue explicitly owns cause/member metadata and retains Rust error sources; arbitrary dynamic Error.errors inspection is not a Rust API."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "A nonempty ErrorValue aggregate flattens to one member record. Both accepted workspace-test command logs list this test as ok."
+            },
+            {
+              "id": "core/logger.spec.ts:165/default/a172",
+              "behavior": "expect(captured[0].args[0]).toBe(inner)",
+              "source_assertion_lines": [
+                172
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/logger.rs",
+                  "symbol": "error_causes_and_aggregates_preserve_empty_aggregates_exact_sources_and_order",
+                  "lines": [
+                    142,
+                    146,
+                    149,
+                    150,
+                    151,
+                    152,
+                    153,
+                    154,
+                    155
+                  ],
+                  "assertion": "The flattened record retains the exact Rc allocation of the member error.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "logger-contract",
+                "reason": "ErrorValue explicitly owns cause/member metadata and retains Rust error sources; arbitrary dynamic Error.errors inspection is not a Rust API."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The flattened record retains the exact Rc allocation of the member error. Both accepted workspace-test command logs list this test as ok."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    }
+  ]
+}

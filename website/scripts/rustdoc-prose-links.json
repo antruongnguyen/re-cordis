@@ -1,0 +1,584 @@
+[
+  {
+    "file": "futures_util/future/trait.TryFutureExt.html",
+    "target": "crate::select",
+    "count": 2,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "futures_util/future/trait.TryFutureExt.html",
+    "target": "crate::join",
+    "count": 2,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "futures_util/task/trait.SpawnExt.html",
+    "target": "SpawnExt::spawn_with_handle",
+    "count": 1,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "futures_util/task/trait.LocalSpawnExt.html",
+    "target": "SpawnExt::spawn_with_handle",
+    "count": 1,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "futures_util/stream/trait.StreamExt.html",
+    "target": "crate::select",
+    "count": 2,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "serde_json/map/index.html",
+    "target": "indexmap::IndexMap",
+    "count": 1,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/index.html",
+    "target": "crate::fs",
+    "count": 2,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/index.html",
+    "target": "crate::process",
+    "count": 2,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/index.html",
+    "target": "crate::signal",
+    "count": 2,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/index.html",
+    "target": "crate::net::tcp",
+    "count": 1,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/index.html",
+    "target": "crate::net::UdpSocket",
+    "count": 1,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/index.html",
+    "target": "crate::net::unix",
+    "count": 1,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/macro.select.html",
+    "target": "crate::net::TcpListener::accept",
+    "count": 1,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/macro.select.html",
+    "target": "crate::net::UnixListener::accept",
+    "count": 1,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/macro.select.html",
+    "target": "crate::signal::unix::Signal::recv",
+    "count": 1,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/macro.select.html",
+    "target": "crate::io::AsyncReadExt::read",
+    "count": 1,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/macro.select.html",
+    "target": "crate::io::AsyncReadExt::read_buf",
+    "count": 1,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/macro.select.html",
+    "target": "crate::io::AsyncWriteExt::write",
+    "count": 1,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/macro.select.html",
+    "target": "crate::io::AsyncWriteExt::write_buf",
+    "count": 1,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/macro.select.html",
+    "target": "crate::io::AsyncReadExt::read_exact",
+    "count": 1,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/macro.select.html",
+    "target": "crate::io::AsyncReadExt::read_to_end",
+    "count": 1,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/macro.select.html",
+    "target": "crate::io::AsyncReadExt::read_to_string",
+    "count": 1,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/macro.select.html",
+    "target": "crate::io::AsyncWriteExt::write_all",
+    "count": 1,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/task/index.html",
+    "target": "crate::task::block_in_place",
+    "count": 2,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/runtime/index.html",
+    "target": "crate::runtime::Builder::new_multi_thread",
+    "count": 1,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/runtime/index.html",
+    "target": "crate::runtime::RuntimeMetrics::worker_mean_poll_time",
+    "count": 1,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/runtime/struct.Handle.html",
+    "target": "crate::task::block_in_place",
+    "count": 1,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/runtime/struct.Builder.html",
+    "target": "Builder::new_multi_thread",
+    "count": 1,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/io/trait.AsyncBufRead.html",
+    "target": "crate::io::AsyncBufReadExt",
+    "count": 1,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/io/index.html",
+    "target": "crate::fs::File",
+    "count": 2,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/io/index.html",
+    "target": "crate::net::TcpStream",
+    "count": 1,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/io/index.html",
+    "target": "crate::io::BufReader",
+    "count": 2,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/io/index.html",
+    "target": "crate::io::BufWriter",
+    "count": 3,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/io/index.html",
+    "target": "crate::io::AsyncWriteExt::write",
+    "count": 1,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/io/trait.AsyncWrite.html",
+    "target": "crate::io::AsyncWriteExt",
+    "count": 1,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/io/trait.AsyncSeek.html",
+    "target": "crate::io::AsyncSeekExt",
+    "count": 1,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/io/trait.AsyncRead.html",
+    "target": "crate::io::AsyncReadExt",
+    "count": 1,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/net/index.html",
+    "target": "unix::pipe",
+    "count": 1,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/net/index.html",
+    "target": "windows::named_pipe",
+    "count": 1,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/net/index.html",
+    "target": "crate::io::unix::AsyncFd",
+    "count": 1,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "tokio/net/trait.ToSocketAddrs.html",
+    "target": "super::lookup_host()",
+    "count": 1,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "time/format_description/index.html",
+    "target": "crate::macros::format_description",
+    "count": 1,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "foldhash/index.html",
+    "target": "std::hash::BuildHasher",
+    "count": 1,
+    "kind": "unresolved-rust-path"
+  },
+  {
+    "file": "serde_json/struct.Serializer.html",
+    "target": "#tymethod.serialize_seq",
+    "count": 1,
+    "kind": "inherited-anchor"
+  },
+  {
+    "file": "serde_json/struct.Serializer.html",
+    "target": "#tymethod.serialize_tuple",
+    "count": 1,
+    "kind": "inherited-anchor"
+  },
+  {
+    "file": "serde_json/struct.Serializer.html",
+    "target": "#tymethod.serialize_tuple_struct",
+    "count": 1,
+    "kind": "inherited-anchor"
+  },
+  {
+    "file": "serde_json/struct.Serializer.html",
+    "target": "#tymethod.serialize_tuple_variant",
+    "count": 1,
+    "kind": "inherited-anchor"
+  },
+  {
+    "file": "serde_json/struct.Serializer.html",
+    "target": "#tymethod.serialize_map",
+    "count": 1,
+    "kind": "inherited-anchor"
+  },
+  {
+    "file": "serde_json/struct.Serializer.html",
+    "target": "#tymethod.serialize_struct",
+    "count": 1,
+    "kind": "inherited-anchor"
+  },
+  {
+    "file": "serde_json/struct.Serializer.html",
+    "target": "#tymethod.serialize_struct_variant",
+    "count": 1,
+    "kind": "inherited-anchor"
+  },
+  {
+    "file": "serde_json/ser/struct.Serializer.html",
+    "target": "#tymethod.serialize_seq",
+    "count": 1,
+    "kind": "inherited-anchor"
+  },
+  {
+    "file": "serde_json/ser/struct.Serializer.html",
+    "target": "#tymethod.serialize_tuple",
+    "count": 1,
+    "kind": "inherited-anchor"
+  },
+  {
+    "file": "serde_json/ser/struct.Serializer.html",
+    "target": "#tymethod.serialize_tuple_struct",
+    "count": 1,
+    "kind": "inherited-anchor"
+  },
+  {
+    "file": "serde_json/ser/struct.Serializer.html",
+    "target": "#tymethod.serialize_tuple_variant",
+    "count": 1,
+    "kind": "inherited-anchor"
+  },
+  {
+    "file": "serde_json/ser/struct.Serializer.html",
+    "target": "#tymethod.serialize_map",
+    "count": 1,
+    "kind": "inherited-anchor"
+  },
+  {
+    "file": "serde_json/ser/struct.Serializer.html",
+    "target": "#tymethod.serialize_struct",
+    "count": 1,
+    "kind": "inherited-anchor"
+  },
+  {
+    "file": "serde_json/ser/struct.Serializer.html",
+    "target": "#tymethod.serialize_struct_variant",
+    "count": 1,
+    "kind": "inherited-anchor"
+  },
+  {
+    "file": "serde_json/value/struct.Serializer.html",
+    "target": "#tymethod.serialize_seq",
+    "count": 1,
+    "kind": "inherited-anchor"
+  },
+  {
+    "file": "serde_json/value/struct.Serializer.html",
+    "target": "#tymethod.serialize_tuple",
+    "count": 1,
+    "kind": "inherited-anchor"
+  },
+  {
+    "file": "serde_json/value/struct.Serializer.html",
+    "target": "#tymethod.serialize_tuple_struct",
+    "count": 1,
+    "kind": "inherited-anchor"
+  },
+  {
+    "file": "serde_json/value/struct.Serializer.html",
+    "target": "#tymethod.serialize_tuple_variant",
+    "count": 1,
+    "kind": "inherited-anchor"
+  },
+  {
+    "file": "serde_json/value/struct.Serializer.html",
+    "target": "#tymethod.serialize_map",
+    "count": 1,
+    "kind": "inherited-anchor"
+  },
+  {
+    "file": "serde_json/value/struct.Serializer.html",
+    "target": "#tymethod.serialize_struct",
+    "count": 1,
+    "kind": "inherited-anchor"
+  },
+  {
+    "file": "serde_json/value/struct.Serializer.html",
+    "target": "#tymethod.serialize_struct_variant",
+    "count": 1,
+    "kind": "inherited-anchor"
+  },
+  {
+    "file": "syn/parse/struct.ParseBuffer.html",
+    "target": "trait.Peek.html#associatedtype.Token",
+    "count": 2,
+    "kind": "inherited-anchor"
+  },
+  {
+    "file": "syn/parse/struct.End.html",
+    "target": "../token/trait.Token.html#tymethod.peek",
+    "count": 1,
+    "kind": "inherited-anchor"
+  },
+  {
+    "file": "syn/parse/struct.End.html",
+    "target": "../token/trait.Token.html#tymethod.display",
+    "count": 1,
+    "kind": "inherited-anchor"
+  },
+  {
+    "file": "tokio/index.html",
+    "target": "runtime/index.html#runtime-scheduler",
+    "count": 1,
+    "kind": "inherited-anchor"
+  },
+  {
+    "file": "tokio/task/index.html",
+    "target": "../runtime/index.html#threaded-scheduler",
+    "count": 1,
+    "kind": "inherited-anchor"
+  },
+  {
+    "file": "tokio/task/struct.LocalSet.html",
+    "target": "fn@crate::task::block_in_place",
+    "count": 1,
+    "kind": "inactive-or-incorrect-prose-target"
+  },
+  {
+    "file": "tokio/runtime/struct.Runtime.html",
+    "target": "method@Self::new",
+    "count": 1,
+    "kind": "inactive-or-incorrect-prose-target"
+  },
+  {
+    "file": "tokio/runtime/struct.Runtime.html",
+    "target": "struct@Builder",
+    "count": 1,
+    "kind": "inactive-or-incorrect-prose-target"
+  },
+  {
+    "file": "tokio/runtime/struct.Runtime.html",
+    "target": "struct@crate::net::TcpStream",
+    "count": 1,
+    "kind": "inactive-or-incorrect-prose-target"
+  },
+  {
+    "file": "tokio/runtime/index.html",
+    "target": "struct.Builder.html#structfield.disable_lifo_slot",
+    "count": 3,
+    "kind": "inherited-anchor"
+  },
+  {
+    "file": "tokio/runtime/struct.Handle.html",
+    "target": "struct@crate::net::TcpStream",
+    "count": 1,
+    "kind": "inactive-or-incorrect-prose-target"
+  },
+  {
+    "file": "tokio/runtime/struct.LocalRuntime.html",
+    "target": "struct@crate::net::TcpStream",
+    "count": 1,
+    "kind": "inactive-or-incorrect-prose-target"
+  },
+  {
+    "file": "tokio/runtime/struct.LocalRuntime.html",
+    "target": "struct.LocalRuntime.html#shutdown",
+    "count": 2,
+    "kind": "inherited-anchor"
+  },
+  {
+    "file": "tokio/runtime/struct.Builder.html",
+    "target": "method@Self::new_multi_thread",
+    "count": 1,
+    "kind": "inactive-or-incorrect-prose-target"
+  },
+  {
+    "file": "tokio/runtime/struct.Builder.html",
+    "target": "mod@crate::fs",
+    "count": 1,
+    "kind": "inactive-or-incorrect-prose-target"
+  },
+  {
+    "file": "tokio/runtime/struct.Builder.html",
+    "target": "struct@crate::io::Stdout",
+    "count": 1,
+    "kind": "inactive-or-incorrect-prose-target"
+  },
+  {
+    "file": "tokio/runtime/struct.Builder.html",
+    "target": "struct@crate::io::Stderr",
+    "count": 1,
+    "kind": "inactive-or-incorrect-prose-target"
+  },
+  {
+    "file": "tokio/runtime/struct.Builder.html",
+    "target": "struct@crate::io::Stdin",
+    "count": 1,
+    "kind": "inactive-or-incorrect-prose-target"
+  },
+  {
+    "file": "tokio/io/index.html",
+    "target": "trait@AsyncReadExt",
+    "count": 1,
+    "kind": "inactive-or-incorrect-prose-target"
+  },
+  {
+    "file": "tokio/io/index.html",
+    "target": "trait@AsyncWriteExt",
+    "count": 1,
+    "kind": "inactive-or-incorrect-prose-target"
+  },
+  {
+    "file": "tokio/io/index.html",
+    "target": "fn@stdin",
+    "count": 1,
+    "kind": "inactive-or-incorrect-prose-target"
+  },
+  {
+    "file": "tokio/io/index.html",
+    "target": "fn@stdout",
+    "count": 1,
+    "kind": "inactive-or-incorrect-prose-target"
+  },
+  {
+    "file": "tokio/io/index.html",
+    "target": "fn@stderr",
+    "count": 1,
+    "kind": "inactive-or-incorrect-prose-target"
+  },
+  {
+    "file": "tokio/net/index.html",
+    "target": "TcpListener",
+    "count": 1,
+    "kind": "inactive-or-incorrect-prose-target"
+  },
+  {
+    "file": "tokio/net/index.html",
+    "target": "TcpStream",
+    "count": 1,
+    "kind": "inactive-or-incorrect-prose-target"
+  },
+  {
+    "file": "tokio/net/index.html",
+    "target": "UdpSocket",
+    "count": 1,
+    "kind": "inactive-or-incorrect-prose-target"
+  },
+  {
+    "file": "tokio/net/index.html",
+    "target": "UnixListener",
+    "count": 1,
+    "kind": "inactive-or-incorrect-prose-target"
+  },
+  {
+    "file": "tokio/net/index.html",
+    "target": "UnixStream",
+    "count": 1,
+    "kind": "inactive-or-incorrect-prose-target"
+  },
+  {
+    "file": "tokio/net/index.html",
+    "target": "UnixDatagram",
+    "count": 1,
+    "kind": "inactive-or-incorrect-prose-target"
+  },
+  {
+    "file": "tokio_macros/attr.test.html",
+    "target": "../tokio/runtime/struct.Builder.html#method.unhandled_panic",
+    "count": 1,
+    "kind": "inherited-anchor"
+  },
+  {
+    "file": "tokio_macros/attr.main.html",
+    "target": "../tokio/runtime/struct.Builder.html#method.unhandled_panic",
+    "count": 1,
+    "kind": "inherited-anchor"
+  },
+  {
+    "file": "hashbrown/hash_set/struct.HashSet.html",
+    "target": "struct.HashMap.html",
+    "count": 1,
+    "kind": "inactive-or-incorrect-prose-target"
+  },
+  {
+    "file": "slab/index.html",
+    "target": "struct.Slab.html#with_capacity",
+    "count": 1,
+    "kind": "inherited-anchor"
+  }
+]

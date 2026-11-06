@@ -1,0 +1,40 @@
+COMMAND: python3 tests/parity/run.py
+CWD: /Users/I756434/Projects/private/cordis-rust
+START_UTC: 2026-11-02T08:36:13.193471+00:00
+
+rustc 1.97.1 (8bab26f4f 2026-07-14)
+rustdoc 1.97.1 (8bab26f4f 2026-07-14)
+cargo 1.97.1 (c980f4866 2026-06-30)
+v22.23.3
+4.14.1
+
+ RUN  v4.1.12 /Users/I756434/Projects/private/cordis-rust/local/cordis
+
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  15:36:27
+   Duration  460ms (transform 74ms, setup 0ms, import 132ms, tests 20ms, environment 0ms)
+
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.23s
+     Running tests/lifecycle_parity.rs (target/stable/debug/deps/lifecycle_parity-bc5ec0c32f2f2fb5)
+
+running 6 tests
+test latest_failure_reaches_waiters_after_rollback_despite_abandoned_update ... ok
+test combined_provider_and_consumer_update ... ok
+test failed_consumer_ignores_provider_refresh_and_update_awaits_recovery ... ok
+test registry_removed_consumer_retains_provider_and_cannot_reload ... ok
+test superseded_failure_rolls_back_without_poisoning_latest_target ... ok
+test latest_target_during_gated_cleanup ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+combined: Rust == TypeScript (11 observations)
+coalesced: Rust == TypeScript (14 observations)
+removed: Rust == TypeScript (12 observations)
+superseded-failure: Rust == TypeScript (10 observations)
+latest-failure: Rust == TypeScript (13 observations)
+explicit-recovery: Rust == TypeScript (13 observations)
+
+END_UTC: 2026-11-02T08:36:27.939101+00:00
+EXIT_CODE: 0

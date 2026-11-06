@@ -1,0 +1,12 @@
+COMMAND: corepack yarn node -e 'const fs=require('"'"'fs'"'"'),path=require('"'"'path'"'"');for(const p of ['"'"'typescript'"'"','"'"'eslint'"'"','"'"'vitest'"'"','"'"'cosmokit'"'"','"'"'tsx'"'"','"'"'yakumo'"'"']){try{let d=path.dirname(require.resolve(p));while(d!==path.dirname(d)){const f=path.join(d,'"'"'package.json'"'"');if(fs.existsSync(f)){const j=JSON.parse(fs.readFileSync(f,'"'"'utf8'"'"'));if(j.name===p){console.log(p+'"'"' '"'"'+j.version+'"'"' '"'"'+f);break}}d=path.dirname(d)}}catch(e){console.log(p+'"'"' MISSING '"'"'+e.message);process.exitCode=1}}'
+CWD: /Users/I756434/Projects/private/cordis-rust/local/cordis
+START_UTC: 2026-11-02T08:34:02.779216+00:00
+
+typescript 5.9.3 /Users/I756434/Projects/private/cordis-rust/local/cordis/node_modules/typescript/package.json
+eslint 8.57.1 /Users/I756434/Projects/private/cordis-rust/local/cordis/node_modules/eslint/package.json
+vitest 4.1.12 /Users/I756434/Projects/private/cordis-rust/local/cordis/node_modules/vitest/package.json
+cosmokit 1.8.1 /Users/I756434/Projects/private/cordis-rust/local/cordis/node_modules/cosmokit/package.json
+yakumo 3.2.1 /Users/I756434/Projects/private/cordis-rust/local/cordis/node_modules/yakumo/package.json
+
+END_UTC: 2026-11-02T08:34:03.758571+00:00
+EXIT_CODE: 0

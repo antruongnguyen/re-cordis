@@ -2,18 +2,65 @@
 
 [Tiếng Việt](../../vi/guides/timers.md) | [English home](../README.md)
 
-The `re-cordis-timer` satellite adds owner-scoped timers over the core effect
-system. Every operation is cancelled when its owning context is disposed, so
-timers never outlive the component that created them. Reach the operations
-through the sealed `TimerExt` trait — import it and call methods on any live
-`Context`. No service installation is needed. See the
-[timer API reference](../api/timer.md) for the full surface.
+Import `re_cordis_timer::TimerExt` and call methods on a live Context under
+its original `Runtime::run`. The six operations use owned local callbacks;
+no timer service installation or Send bound is required.
 
-## One-shot and repeating callbacks
+## One-shot and repeating work
 
-`timeout` fires once; `interval` fires every period (first tick at the period,
-not zero). Both return an `Effect` — dispose it to cancel. Owner disposal
-cancels them too. This complete program awaits a one-shot `sleep`:
+`timeout(delay, callback)` returns an inert-drop Effect; use
+`effect.dispose()?.await?` to cancel and join that exact manual cleanup.
+A completed timeout retires its registration before invoking its callback.
+`sleep(delay)` admits immediately and returns an awaited result. Its first
+poll can be delayed without restarting the declared delay. Owner cancellation
+returns `Disposed`.
+
+`interval(period, callback)` first fires after one period; missed ticks skip
+without shifting phase. Owner disposal joins callback capture release.
+Callbacks can register nested Context effects/timers.
+
+## Stream ticks and cancellation
+
+`interval_stream(period)` is a single-consumer Stream with at most one pending
+coalesced tick. `control().stop()` ends cleanly; `fail(reason)` emits one error
+then stable None. Delivered owner cancellation emits Disposed once. The first
+committed terminal gate wins and discards pending ticks; the earlier lifecycle
+request has not itself committed that gate.
+
+Drop of Sleep, IntervalStream and Scheduled requests cancellation. Their
+task destruction and effect retirement need original host progress; await the
+owner disposal/drain barrier to join owner cancellation. Core Effect Drop stays
+inert. Keep separately claimed manual completion waiters when their barrier matters.
+
+## Throttle and debounce
+
+`throttle(delay, no_trailing, callback)` fires immediately on the leading edge;
+suppressed calls optionally coalesce at the fixed window boundary.
+`debounce(delay, callback)` replaces the trailing deadline on each call.
+Use `scheduled.call()?` and `scheduled.dispose()?`. Active calls validate their
+original live host. Disposed calls are inert; cancellation is safe outside the host.
+
+Self-disposal and positive-delay recursive calls are supported without borrowing
+framework mutable state during user code. Recursive zero-delay calls are ignored.
+A callback panic stops its operation, reports once through core diagnostics, and
+leaves siblings usable. Self/ancestor lifecycle waits are refused.
+
+## Clock boundaries and deterministic checks
+
+Deadline validation happens at admission. Zero timeout/sleep/debounce run on a
+later host turn; zero throttle leading calls are immediate. Interval/stream zero
+periods and unrepresentable deadlines are rejected. Positive sub-millisecond
+periods use Tokio millisecond precision. Enable Tokio time on the executor;
+disabled-driver construction returns TimeDriverUnavailable, with Tokio's normal
+synchronous panic hook still visible and no detached task.
+
+Use `start_paused(true)` and `tokio::time::advance` for deterministic tests.
+Deadlines are already armed when construction returns. Yield after advance to
+drive delivery; yield after cancellation to drive retirement.
+See [timer API](../api/timer.md) and the all-six-operation
+[plugin lifecycle example](../../../crates/re-cordis-timer/examples/timer_lifecycle.rs).
+
+## Complete example
 
 ```rust
 use std::time::Duration;
@@ -30,9 +77,12 @@ fn main() -> Result<(), BoxError> {
         runtime
             .run(async {
                 let root = runtime.context();
-                // Resolves at the deadline; Err(Disposed) if the owner is
-                // disposed first.
                 root.sleep(Duration::from_millis(1)).await?;
+                let debounced = root.debounce(Duration::ZERO, || println!("quiet"))?;
+                debounced.call()?;
+                root.sleep(Duration::from_millis(1)).await?;
+                debounced.dispose()?;
+                root.drain()?.await?;
                 Ok::<_, BoxError>(())
             })
             .await??;
@@ -40,37 +90,3 @@ fn main() -> Result<(), BoxError> {
     })
 }
 ```
-
-For a repeating callback, `root.interval(period, || { ... })?` returns an
-`Effect`; dispose it to stop. The first tick is at `period`, and missed ticks
-coalesce.
-
-## Awaiting a delay
-
-`sleep` is the awaited form of `timeout`. It resolves `Ok(())` at the deadline,
-or `Err(TimerError::Disposed)` if the owning context is disposed first — so a
-component shutting down mid-wait observes the cancellation rather than hanging.
-
-## Streaming ticks
-
-When you want to pull ticks instead of pushing to a callback, `interval_stream`
-returns a `futures_util::Stream` of `Result<(), TimerError>`. Its `control()`
-handle ends the stream with `stop()` (clean) or `fail(reason)` (one final
-error); owner disposal ends it with `Err(TimerError::Disposed)`. Unlike the
-TypeScript async iterator, a stream has one logical consumer — for fan-out, use
-the `interval` callback form.
-
-## Rate limiting: throttle and debounce
-
-`throttle` fires on the leading edge and, unless `no_trailing` is set, once more
-at the end of the window. `debounce` fires once calls go quiet for the full
-delay. Both return a `Scheduled` handle you invoke with `call()` and cancel with
-`dispose()`. The windows are monotonic (`tokio::time`), not wall-clock.
-
-## Testing timers deterministically
-
-Build the runtime with `start_paused(true)` and advance the clock explicitly
-with `tokio::time::advance`. Poll once with `tokio::task::yield_now().await`
-after creating or calling an operation, so its task registers on the paused
-timer driver before you advance — otherwise the advance moves past a deadline
-the task has not yet armed. The example above follows this pattern.

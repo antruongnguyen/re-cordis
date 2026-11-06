@@ -4,7 +4,14 @@
 
 Chạy các lệnh từ thư mục gốc repository. Ví dụ dùng cùng production core như
 ứng dụng; JSON, HTTP, mật mã và feature Tokio mở rộng trong ví dụ là
-**dev-dependencies**, không phải API core.
+**dev-dependencies** của ví dụ trong crate, không phải API core.
+Ứng dụng được sinh khai báo dependency riêng.
+
+## Tích hợp toàn ứng dụng
+
+Chạy `cargo run -p re-cordis-hmr --example system_lifecycle --features include --locked --offline`.
+[Hướng dẫn tích hợp](system-lifecycle.md) giải thích ứng dụng dùng chung,
+chuyển provider, persistence, phục hồi, công việc đang chờ và dự án được sinh thật.
 
 ## Lifecycle: tổng quan framework
 
@@ -72,3 +79,42 @@ thành `antruongnguyen/re-cordis`) và snapshot có dữ liệu từ
 Đó là bằng chứng ứng dụng tại một thời điểm, không phải fixture được commit,
 toàn bộ inventory repository, bằng chứng parity core mới hay delivery webhook
 thật. Tài liệu không phụ thuộc artifact riêng của phiên làm việc.
+
+## Đầu ra console
+
+[console.rs](../../../crates/re-cordis-logger/examples/console.rs) minh họa stdout
+thuộc plugin, định dạng rõ ràng, disposal chủ sở hữu, gỡ thủ công và drain root.
+Chạy `cargo run -p re-cordis-logger --example console --locked`.
+Xem [ghi log ra console](console-logging.md) để đọc cùng chương trình hoàn chỉnh.
+
+## Khởi động và cấu hình lại loader
+
+Chạy `cargo run -p re-cordis-loader --example boot_reconfigure --locked`.
+[Ví dụ](../../../crates/re-cordis-loader/examples/boot_reconfigure.rs) khởi động
+group cấu trúc, chờ Pending, nhận provider, cập nhật nguồn, thất bại/phục hồi
+tường minh và join shutdown. Không dùng file hay mạng.
+
+## Include: đọc, sửa và lưu cấu hình
+
+Chạy `cargo run -p re-cordis-include --example config_file --locked --offline`.
+[Ví dụ](../../../crates/re-cordis-include/examples/config_file.rs) đọc tệp tạm,
+sửa cấu hình plugin có kiểu, flush và chờ shutdown.
+Xem [tệp cấu hình](include.md) để đọc cùng chương trình thực thi.
+
+## HMR: cấu hình và thay factory đã biên dịch
+
+Chạy `cargo run -p re-cordis-hmr --example reload --features include --locked --offline`.
+[Ví dụ](../../../crates/re-cordis-hmr/examples/reload.rs) theo dõi cấu hình tạm qua
+Include, thay factory đã biên dịch trên cùng EntryId, xác nhận refresh cấu hình
+sau đó, báo RestartRequired cho mã nguồn rồi chờ shutdown.
+Xem [HMR](hmr.md#ví-dụ-offline) về các lớp hỗ trợ và kênh lỗi.
+
+## Create: sinh ứng dụng cục bộ
+
+Dùng [Create](create.md) để sinh ứng dụng core/logger/loader ngoại tuyến cố định
+từ checkout này, rồi chạy kiểm thử và executable của ứng dụng tường minh.
+[Generator](../../../crates/re-cordis-create/src/lib.rs) gồm service/plugin
+có kiểu, console theo phạm vi, cấu hình lập trình, cập nhật và shutdown có join.
+Kiểm thử được sinh bao phủ giải phóng tài nguyên và các kênh lỗi.
+Đây là sinh khung ứng dụng; biến thể Include/HMR và tự động Git/cài đặt/khởi chạy
+nằm ngoài phạm vi S0–S2 đã chọn.

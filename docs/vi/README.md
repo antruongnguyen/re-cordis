@@ -6,27 +6,49 @@ Cordis là framework dành cho ứng dụng có plugin, dịch vụ, cấu hình
 thay đổi theo thời gian. `re-cordis` biểu diễn ngữ nghĩa của lõi Cordis
 TypeScript bằng API Rust tường minh, có kiểu.
 
-Sản phẩm hiện tại là **`re-cordis-core` chưa phát hành**, phiên bản `0.0.0`, dùng
-Rust 2024 và yêu cầu Rust 1.85 trở lên, cùng crate vệ tinh đầu tiên
-**`re-cordis-timer`**. API chưa ổn định. Các vệ tinh console logger và loader
-chưa được triển khai. Đây không phải lớp tương thích
-trong suốt với Proxy hay decorator của JavaScript.
-[Lộ trình mục tiêu tiếp theo](../todo.md#next-implementation-targets-satellites)
-đã giao timer trước và tiếp theo xếp console logger, rồi loader; mỗi phần cần
-rà soát mã nguồn/API/phụ thuộc và cập nhật tài liệu tương ứng. Crate dự kiến
-chưa phải API sử dụng được.
+Sản phẩm hiện tại gồm `re-cordis-core`, `re-cordis-timer`, `re-cordis-logger`
+cùng `re-cordis-loader`, `re-cordis-include`, `re-cordis-hmr` và `re-cordis-create`
+ngoại tuyến đã chọn chưa phát hành, phiên bản 0.0.0, Rust 2024/MSRV 1.85.
+API chưa ổn định. Loader sở hữu nguồn entry có kiểu và group cấu trúc;
+Include có đọc/refresh tệp, patch có thứ tự và persistence có hòa giải đã nghiệm thu.
+HMR đã triển khai theo dõi tệp, refresh Include tùy chọn và thay factory đã liên kết.
+H0–H3 đã được nghiệm thu độc lập và qua đầy đủ ma trận chung stable/1.85.0.
+Create S0–S2 sinh ứng dụng từ checkout cục bộ và đã được nghiệm thu độc lập
+trên stable/1.85.0. Review và nghiệm thu toolchain
+tường minh được ghi trong [lộ trình](../todo.md#next-implementation-targets-satellites).
+Đây là API Rust tường minh, không phải lớp tương thích JavaScript trong suốt.
+
+Đọc [đánh giá mức sẵn sàng phát hành](../release-readiness.md) trước khi chọn
+cách phân phối: hiện dùng checkout đầy đủ từ máy cục bộ/Git.
+Đề xuất alpha gồm bảy package chưa phải bản phát hành có thể cài đặt;
+bằng chứng thực thi filesystem và watcher vẫn chỉ có trên macOS.
+[Bản bổ sung B1](../plans/2026-11-02-cordis-completion/evidence/2026-11-05-b1-closure.md)
+ghi bản sửa test archive/notice cục bộ và quyết định CI tại mốc đó.
+CI tài liệu và workflow Pages có cổng kiểm soát hiện đã được triển khai cục bộ;
+chạy trên GitHub và triển khai vẫn cần chủ repository thực hiện.
+Giữ [notice upstream](../../UPSTREAM-NOTICES.md) áp dụng khi phân phối lại
+các phần được xác định là có chuyển thể.
+
+[Hướng dẫn các kênh tài liệu](guides/documentation.md) giải thích cách xem
+Fumadocs cục bộ, Rustdoc cùng revision và các bước Pages/docs.rs còn cần quyết
+định triển khai/phát hành. Đây là tài liệu phát triển cho các crate chưa phát hành.
 
 ## Chọn lộ trình đọc
 
 | Mục tiêu | Bắt đầu tại |
 |---|---|
+| Ghép và kiểm tra ứng dụng hoàn chỉnh | [Vòng đời tích hợp](guides/system-lifecycle.md) |
+| Sinh ứng dụng ngoại tuyến tối thiểu | [Create](guides/create.md) |
+| Theo dõi tệp và thay plugin đã liên kết | [HMR](guides/hmr.md) |
+| Đọc và refresh tệp cấu hình | [Include](guides/include.md) |
 | Xây dựng ứng dụng đầu tiên | [Bắt đầu sử dụng](getting-started.md), sau đó đọc [khái niệm](concepts.md) |
+| Nạp và cấu hình lại entry theo tên | [Loader](guides/loader.md), [group](guides/groups.md) |
 | Tạo thành phần có thể nạp lại | [Plugin và cập nhật](guides/plugins-and-updates.md) |
 | Kết nối các thành phần an toàn | [Dịch vụ và phạm vi](guides/services-and-scoping.md) |
 | Sở hữu tài nguyên và dừng ứng dụng | [Effect và dọn dẹp](guides/effects-and-cleanup.md) |
 | Lên lịch timer theo phạm vi chủ sở hữu | [Timer](guides/timers.md) |
 | Phát thông báo và chạy middleware | [Sự kiện](guides/events.md) |
-| Xuất thông tin chẩn đoán | [Ghi log](guides/logging.md) |
+| Xuất thông tin chẩn đoán | [Ghi log](guides/logging.md), [console](guides/console-logging.md) |
 | Tìm nguyên nhân plugin Pending hoặc Failed | [Kiểm thử và xử lý sự cố](guides/testing-and-troubleshooting.md) |
 | Xem ứng dụng hoàn chỉnh | [Ví dụ](guides/examples.md) |
 | Tra cứu kiểu hoặc thao tác | [Tài liệu API](api/README.md) |

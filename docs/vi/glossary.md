@@ -28,3 +28,13 @@ Giữ nguyên định danh API trong cả hai ngôn ngữ.
 | Exporter | bộ xuất log | Callback có phạm vi nhận bản ghi log đã chọn |
 | Cancellation | hủy thực thi | Dừng công việc còn lại, không phải dọn dẹp async thành công |
 | Lease | quyền giữ tài nguyên còn sống | Bảo đảm vòng đời mà việc đọc `Rc<T>` đơn thuần không cung cấp |
+| Loader entry | entry của loader | Identity logic ổn định và options nguồn, khác Fiber có thể thay thế |
+| Structural group | nhóm cấu trúc | Cha có danh sách con có thứ tự, vẫn tồn tại khi con bị vô hiệu hóa |
+| Source reconciliation | đồng bộ nguồn cấu hình | Áp dụng snapshot nguồn của bên gọi mà không phát commit ghi ngược |
+| Console exporter | bộ xuất log ra console | Writer native theo phạm vi chủ sở hữu, render các bản ghi core được chọn |
+| Include source | nguồn include | Tệp hữu hạn cung cấp entry và patch cho loader có owner |
+| Patch ownership | quyền sở hữu của patch | Vị trí file/patch thực sự cung cấp entry hoặc một khóa |
+| Pending journal | nhật ký thay đổi chờ ghi | Thay đổi runtime đã gộp, có giới hạn và đang chờ lưu |
+| Three-way reconciliation | hòa giải ba phía | So sánh nguồn trước đó, tệp hiện tại và thay đổi runtime; báo xung đột |
+| Scaffolding | sinh khung dự án | Sinh ứng dụng cố định có thể chỉnh sửa từ checkout cục bộ |
+| Staging directory | thư mục staging | Thư mục cùng cha thuộc generator, ghi đủ trước rename cuối |

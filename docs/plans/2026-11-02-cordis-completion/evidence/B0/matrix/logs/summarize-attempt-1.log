@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/Users/I756434/Projects/private/cordis-rust/docs/plans/2026-11-02-cordis-completion/evidence/B0/matrix/summarize.py", line 47, in <module>
+    assert before['head']==after['head']
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

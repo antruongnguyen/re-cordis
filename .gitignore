@@ -233,3 +233,12 @@ __pycache__/
 # Keep workspace CI and the independent spike reproducible.
 !/Cargo.lock
 !spikes/m0/Cargo.lock
+
+# Standalone documentation website build and dependencies.
+/website/node_modules/
+/website/.next/
+/website/.source/
+/website/.generated/
+/website/tsconfig.tsbuildinfo
+/website/public/
+/website/next-env.d.ts

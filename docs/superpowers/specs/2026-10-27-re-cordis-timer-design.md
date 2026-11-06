@@ -1,6 +1,10 @@
 # re-cordis-timer — Design
 
 Date: 2026-10-27
+
+Historical design. T0–T5 on 2026-11-03 supersedes its zero-repeat, first-poll
+clock, stream retention and cancellation claims; see
+[the current repair contract](../../plans/2026-11-02-cordis-completion/timer.md).
 Status: Approved for implementation (bounded design gate passed)
 Scope: First satellite crate. Timer only. Not logger, not loader, not M7.
 
@@ -12,16 +16,15 @@ Port the TypeScript `cordis` **timer** satellite
 `crates/re-cordis-timer`, mirroring its **semantics** on top of existing
 `re-cordis-core` effects and lifecycle.
 
-The TypeScript project is the specification. The independent
-`local/cordis-rs` port is **reference only** — its contracts are not our spec,
-though we use it as evidence of what is workable in Rust.
+The TypeScript project is the semantic specification. Rust contracts follow
+this project's ownership model, runtime requirements and documented adaptations.
 
 ## 2. Source review (what the spec actually requires)
 
 `TimerService extends Service` mixes six methods onto `Context`. Every
 operation wraps a JS `setTimeout`/`setInterval` inside
 `ctx.effect(() => { …; return () => clearTimeout(timer) })`, so **owner
-disposal cancels the timer**. The 20 test cases
+disposal cancels the timer**. The 22 pinned test declarations
 (`packages/timer/tests/index.spec.ts`) are the behavioral source of truth.
 
 | TS API | Behavior established by tests |
@@ -108,8 +111,10 @@ pub trait TimerExt: sealed::Sealed {
 
 ## 5. Ownership and cancellation
 
-Every operation registers an `on_dispose_sync` cleanup that aborts its Tokio
-timer task. Therefore:
+The repaired implementation uses `Context::task`: owner cleanup requests
+abort in its synchronous prefix, then joins task destruction asynchronously.
+Core Effect Drop remains inert; Sleep/Stream/Scheduled Drop requests cancellation
+without promising a synchronous join. Therefore:
 
 - **Owner/context disposal** cancels every outstanding timer (matches TS
   `ctx.effect` teardown). No callback fires after joined disposal.
@@ -129,7 +134,8 @@ wall-clock sleeps**. Throttle/debounce windows are therefore monotonic, not
 wall-clock. Documented in `limitation.md` as a deliberate, more-correct fork.
 
 ### Behavior definitions (resolve before coding)
-- **Zero delay:** admitted; fires on the next runtime turn (does not reject).
+- **Zero delay:** one-shots/debounce run asynchronously, throttle leads immediately;
+  zero interval/stream periods are rejected. Recursive zero scheduled calls are ignored.
 - **Overflow:** delays beyond `Duration`/Tokio range are rejected at
   construction with `TimerError::InvalidDelay`, not silently clamped.
 - **First vs subsequent interval tick:** first tick at `delay` (not at 0),
@@ -183,7 +189,7 @@ minus the excluded alias/iterator-exact ones (~15–18 tests):
 - Runnable `crates/re-cordis-timer/examples/timer_lifecycle.rs`.
 - English + Vietnamese guide/API pages; `docs/llms.txt`; extend
   `tests/docs/check.py` for the new crate's exports/snippets.
-- Update `README.md` status/layout/star matrices, `CHANGELOG.md`,
+- Update `README.md` overview/package map, `CHANGELOG.md`,
   `docs/todo.md`, `docs/decision.md`, `docs/limitation.md`, `AGENTS.md`.
 - Add only `crates/re-cordis-timer` to the workspace; keep MSRV 1.85 and
   `publish = false`.

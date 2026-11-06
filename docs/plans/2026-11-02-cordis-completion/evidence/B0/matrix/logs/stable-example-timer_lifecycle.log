@@ -1,0 +1,18 @@
+COMMAND: /Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo run -p re-cordis-timer --example timer_lifecycle --locked
+CWD: /Users/I756434/Projects/private/cordis-rust
+START_UTC: 2026-11-02T08:34:57.801316+00:00
+
+   Compiling futures-util v0.3.34
+   Compiling tokio v1.54.1
+   Compiling re-cordis-core v0.0.0 (/Users/I756434/Projects/private/cordis-rust/crates/re-cordis-core)
+   Compiling re-cordis-timer v0.0.0 (/Users/I756434/Projects/private/cordis-rust/crates/re-cordis-timer)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 2.98s
+     Running `target/acceptance-stable/debug/examples/timer_lifecycle`
+timeout fired
+interval tick 1
+interval tick 2
+interval tick 3
+done: 1 immediate callback(s), interval + child cancelled cleanly
+
+END_UTC: 2026-11-02T08:35:01.353412+00:00
+EXIT_CODE: 0

@@ -58,7 +58,7 @@ No isolated slot falls back to a parent slot. See
 | Concern | Methods |
 |---|---|
 | [Plugins](plugins-registry.md) | `plugin`, `inject`, `inject_method`, `registry`, `on_update`, `on_update_sync` |
-| [Resources](effects.md) | `on_dispose`, `on_dispose_sync`, `effect`, `effect_iter`, `effect_async`, `effect_stream`, `get_effects`, `drain` |
+| [Resources](effects.md) | `on_dispose`, `on_dispose_sync`, `effect`, `effect_iter`, `effect_async`, `effect_stream`, `get_effects`, `drain`, `task`, `invoke_callback` |
 | [Services](services-reflection.md) | `provide`, `provide_checked`, `set`, `get`, `get_direct`, `get_unchecked`, `bind`, `bind_direct`, `service_filter`, `accessor`, `read_accessor`, `write_accessor` |
 | [Events](events.md) | `on`, `on_with`, `once`, `emit`, `parallel`, `serial`, `bail`, `waterfall`, `waterfall_async` |
 | [Logging](logging.md) | `logger`, `log_buffer`, `add_exporter` |

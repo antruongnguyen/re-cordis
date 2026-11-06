@@ -7,7 +7,28 @@ Instructions for agents (and humans) working in this repository.
 `re-cordis` is a from-scratch Rust reimplementation of the
 [Cordis](https://github.com/cordiverse/cordis) meta-framework.
 
-**Status: M0-M6 Rust core delivery and acceptance implemented.**
+**Status: core, selected satellites and offline R0 integration independently accepted.**
+R1 API/package readiness is complete and independently accepted; its verdict
+is local/Git checkout consumption only. See `docs/release-readiness.md` for the
+seven-package experimental alpha proposal and
+`docs/plans/2026-11-02-cordis-completion/evidence/r1-acceptance.md` for evidence. Version/dependency/publication changes require a subsequent
+release decision; keep `0.0.0`/`publish=false`. Each crate carries its MIT notice;
+the generated starter retains that notice in its existing README.
+Bounded B1/local release preparation is independently accepted; all 35 work
+packages are done within scope. See
+docs/plans/2026-11-02-cordis-completion/evidence/2026-11-05-b1-closure.md.
+Create archive tests use test-only CORDIS_CREATE_TEST_CHECKOUT when outside
+the repository; the CLI still requires --cordis-path and a separate complete
+checkout. Planning/evidence links remain checked locally. The documentation
+site is implemented and independently accepted locally; see website/README.md
+and docs/plans/2026-11-05-documentation-site/delivery.md. It uses a full-width
+Fumadocs layout and excludes docs/plans and docs/superpowers from published
+pages, links, search and Markdown/LLM output. Those trees are outside all crate
+package roots and must not be imported into crate READMEs or Rustdoc.
+All workflow actions use major-version tags; documentation CI uses the
+supported macos-26 runner. Preserve explicit stable/1.85.0 checks and manual
+Pages gates. Hosted execution/deployment, registry/docs.rs publication and
+platform expansion remain separate gates.
 The completed post-M6 lifecycle-parity slices add six executed Rust/TypeScript
 scenarios (152 Rust integration tests, 17 Rustdoc checks), including bounded
 failure/recovery evidence. See `docs/lifecycle-parity.md` for reproduction and
@@ -15,17 +36,56 @@ evidence boundaries.
 The approved first-consumer scope is implemented: snapshot digest, bounded `gh`
 collector and signed loopback webhook journal (12 additional application tests
 on Unix). See `docs/github-activity.md`. Application dependencies are dev-only.
-The selected next-target order is timer, console logger, then loader, followed
-by assessment of other satellites. The **`re-cordis-timer`** satellite is
+Timer, console logger, loader/structural groups and include I0–I4 are
+implemented and independently accepted. Include delivers bounded files, patches,
+provenance, persistence and joined flush/shutdown; 75 Rust tests and two Rustdoc
+checks pass on stable and 1.85.0. See
+`docs/plans/2026-11-02-cordis-completion/evidence/include-acceptance.md`.
+HMR H0–H3 is implemented and independently accepted: bounded file watching,
+linked replacement, retained Include refresh and joined shutdown. The explicit
+stable/1.85.0 shared matrix passes; see
+`docs/plans/2026-11-02-cordis-completion/evidence/hmr-acceptance.md`.
+Create S0–S2 is independently accepted: the unpublished stdlib-only
+`re-cordis-create` crate/binary generates one offline local-checkout application.
+Its Create acceptance matrix passed 508 workspace checks per toolchain,
+including 22 Create tests; generated apps pass five tests with 100 lifecycle cycles.
+See `docs/plans/2026-11-02-cordis-completion/evidence/create-acceptance.md`
+and `docs/en/guides/create.md`.
+R0 whole-program integration is independently accepted, using one example-private
+application shared by
+`crates/re-cordis-hmr/examples/system_lifecycle.rs`, its deterministic integration
+tests, and an actual Create-generated external fixture. The basic distributed
+template stays unchanged. The final shared matrix passes 40 stages, 517 workspace
+checks per stable/1.85.0 toolchain and eight R0 tests per actual generated external
+application, including 100 complete lifecycle cycles. See
+`docs/plans/2026-11-02-cordis-completion/evidence/r0-acceptance.md` and
+`docs/en/guides/system-lifecycle.md` for review, reproduction and boundaries.
+The **`re-cordis-timer`** satellite is
 delivered (unpublished `crates/re-cordis-timer`: owner-scoped timeout, sleep,
 interval/stream, throttle and debounce over core effects, via a sealed
 `TimerExt` trait; the `tokio` `time`/`macros` features live in the timer crate,
-not the core; 15 deterministic tests over a paused clock). The console logger
-and loader are not implemented yet. See `docs/todo.md` for source review,
+not the core; 48 deterministic integration tests and three Rustdoc checks).
+The T0–T5 repair adds eager checked deadlines, hosted callbacks, bounded stream
+state and joined owner cancellation; six focused core task-bridge tests cover
+the minimal Context::task/TaskControl/Context::invoke_callback seam. The unpublished
+**`re-cordis-logger`** console adapter is implemented (owned scoped writers,
+plain/ANSI/Auto policy, UTC record rendering, visible I/O errors; 21 tests).
+Console C0–C3 is independently accepted; see its logger work package. The
+unpublished `re-cordis-loader` owns typed catalogs, structural groups, bounded
+JSON transport, source reconciliation and joined rebuilds; it performs no file
+persistence, JavaScript imports/eval or watching.
+Loader L0–L5 and structural groups G0–G1 are independently accepted; see
+`docs/plans/2026-11-02-cordis-completion/evidence/loader-acceptance.md`.
+Timer repair verification is recorded in
+`docs/plans/2026-11-02-cordis-completion/evidence/timer-acceptance.md`; see
+`docs/plans/2026-11-02-cordis-completion/README.md` for the proposed core/all-satellite
+work packages and scheduling gates. See `docs/todo.md` for source review,
 per-slice design gates and documentation acceptance, and
 `docs/superpowers/specs`/`docs/superpowers/plans` for the timer design and plan.
-The root Rust 2024 workspace contains the unpublished `crates/re-cordis-core`
-and `crates/re-cordis-timer` (Rust 1.85 minimum). Use `cargo test --workspace`.
+The root Rust 2024 workspace contains the unpublished `crates/re-cordis-core`,
+`crates/re-cordis-timer`, `crates/re-cordis-logger`, `crates/re-cordis-loader`, `crates/re-cordis-include`, `crates/re-cordis-hmr`
+and `crates/re-cordis-create` (Rust 1.85 minimum).
+Use `cargo test --workspace`.
 Acceptance, logging, examples and compatibility restrictions are in `docs/m6.md`.
 Isolation/bound-call/update contracts are in `docs/m5.md`;
 publication/access/dependency-retention contracts are in `docs/m4.md`;
@@ -36,27 +96,45 @@ package remains research evidence; run it with its own `--manifest-path`.
 
 ## Source of truth
 
-The **TypeScript `cordis`** project is the specification. When behavior is
-ambiguous or two references disagree, the TS implementation wins.
+The **TypeScript `cordis`** project is the reference for Cordis concepts and
+intended behavior. Its implementation defines upstream semantics.
+Rust API and execution choices follow the
+documented Rust contracts and deliberate adaptations in `docs/decision.md`.
 
-Two reference checkouts live under `local/` (git-ignored, cloned locally):
+The reference checkout lives under `local/` (git-ignored, cloned locally):
 
 - `local/cordis` — the original TypeScript Cordis. **This is the spec.**
   Core concepts live in `local/cordis/packages/core/src/`.
-- `local/cordis-rs` — an independent prior Rust port
-  ([dshbox/cordis-rs](https://github.com/dshbox/cordis-rs)). **Reference only.**
-  Useful for seeing how others solved a problem in Rust; it is not a target and
-  may diverge from upstream. Do not treat its decisions as authoritative.
 
 We mirror the *semantics* of TS Cordis, not its mechanisms. The original relies
 on JavaScript-only features (Proxy-based reflection, prototype-chain
 inheritance, callable objects) that have no direct Rust equivalent. See
 `docs/limitation.md`.
 
+## Implementation priorities
+
+The user's 2026-11-03 direction is to deliver a useful, idiomatic Rust Cordis.
+Prioritize working features, application usability and language suitability.
+Do not translate TypeScript byte-for-byte or recreate JS machinery for syntax
+parity. Use ownership/borrowing, typed keys, enums, Result, traits/generics and
+compile-time constraints where they simplify the feature. Use RAII for
+synchronous release; asynchronous teardown still needs explicit completion.
+Preserve current hosting contracts unless a concrete feature requires change.
+
+For each selected feature, briefly establish its Rust contract, implement it
+with meaningful tests and a usable example, then review the working result.
+Keep review effort proportional to risk; do not make exhaustive upstream
+assertion accounting a prerequisite for every feature. Reuse accepted B0
+evidence and investigate gaps only when relevant to the feature being built.
+Record deliberate adaptations, unavailable capabilities and their user impact
+in both `docs/decision.md` and `docs/limitation.md`. Distinguish language/runtime
+constraints, unsuitable emulation, deferred work and missing evidence.
+
 ## Keep the docs current
 
-This repository front-loads documentation. Whenever you make a meaningful
-change, update the relevant doc in the same change:
+Document the decisions needed to implement a feature, and keep documentation
+with delivery. Whenever you make a meaningful change, update the relevant doc
+in the same change:
 
 - `README.md` — project front door: intent, concept map, planned layout.
 - `CHANGELOG.md` — notable changes (Keep a Changelog style).
@@ -68,14 +146,21 @@ change, update the relevant doc in the same change:
 
 Run `python3 -B tests/docs/test_check.py` and the documentation checker for
 explicit stable/1.85.0 toolchains after guide/API changes; see `docs/README.md`.
-Its current export/snippet checks target core and need extension when a
-satellite is delivered.
+Its current export/snippet checks cover core, timer, logger, loader, include, HMR
+and Create; Create also runs the real generator and external application.
+Extend them for each new delivered satellite.
 
 ## Tooling conventions
 
+- Write session and handoff prompts for this project in English unless explicitly
+  requested otherwise. Conversational updates follow the user's requested language.
 - After implementing and verifying each milestone, commit its code and related
   documentation on the current branch. Do not push unless explicitly requested.
 - Never include a `Co-authored-by` trailer in git commit messages.
+- Use action major-version tags and review official releases and migration notes
+  when updating majors. Keep runner images supported.
+- Keep docs/plans and docs/superpowers repository-only. Public exports must not
+  contain their routes, URLs or content; retain canonical local evidence links.
 - Use `rg` (ripgrep) instead of `grep` for searching.
 - If a `.codegraph/` directory appears at the repo root, prefer CodeGraph
   (`codegraph explore ...`) over grep/find for understanding code. Indexing is

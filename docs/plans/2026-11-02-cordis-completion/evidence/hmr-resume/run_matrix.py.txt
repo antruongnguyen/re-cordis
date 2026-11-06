@@ -1,0 +1,67 @@
+#!/usr/bin/env python3
+"""Explicit-toolchain HMR shared acceptance. Full output stays under target."""
+import hashlib
+import json
+import os
+from pathlib import Path
+import subprocess
+import time
+
+ROOT = Path(__file__).resolve().parents[2]
+OUT = Path(__file__).resolve().parent
+TOOLS = json.loads((OUT / 'tools.json').read_text())
+results = []
+
+def run(label, command, env, timeout=300):
+    start = time.monotonic()
+    log = OUT / (label + '.log')
+    with log.open('w') as stream:
+        try:
+            result = subprocess.run(command, cwd=ROOT, env=env, stdout=stream,
+                                    stderr=subprocess.STDOUT, timeout=timeout)
+            code = result.returncode
+        except subprocess.TimeoutExpired:
+            code = 124
+            stream.write('\nAcceptance stage timed out.\n')
+    record = dict(stage=label, command=command, exit=code,
+                  seconds=round(time.monotonic() - start, 2), log=str(log))
+    results.append(record)
+    (OUT / 'matrix.json').write_text(json.dumps(results, indent=2) + '\n')
+    print(label + ': ' + ('PASS' if code == 0 else 'FAIL') +
+          ' (' + str(record['seconds']) + 's)', flush=True)
+    return code == 0
+
+for tc in ('stable', '1.85.0'):
+    paths = TOOLS[tc]['paths']
+    env = os.environ.copy()
+    bindir = str(Path(paths['rustc']).parent)
+    assert all(str(Path(path).parent) == bindir for path in paths.values())
+    env.update(RUSTUP_TOOLCHAIN=tc, RUSTC=paths['rustc'], RUSTDOC=paths['rustdoc'],
+               PATH=bindir + os.pathsep + env['PATH'], RUSTDOCFLAGS='-D warnings',
+               CARGO_TARGET_DIR=str(ROOT / 'target' / ('hmr-acceptance-' + tc)))
+    cargo = paths['cargo']
+    common = ['--workspace', '--all-features', '--locked', '--offline']
+    stages = [
+        ('check', [cargo, 'check', *common, '--all-targets']),
+        ('test', [cargo, 'test', *common]),
+        ('clippy', [cargo, 'clippy', *common, '--all-targets', '--', '-D', 'warnings']),
+        ('rustdoc', [cargo, 'doc', *common, '--no-deps']),
+        ('hmr-no-default', [cargo, 'test', '-p', 're-cordis-hmr', '--no-default-features', '--locked', '--offline']),
+        ('m0-test', [cargo, 'test', '--manifest-path', 'spikes/m0/Cargo.toml', '--locked', '--offline']),
+        ('m0-clippy', [cargo, 'clippy', '--manifest-path', 'spikes/m0/Cargo.toml', '--all-targets', '--locked', '--offline', '--', '-D', 'warnings']),
+    ]
+    for example in ('lifecycle', 'timer_lifecycle', 'console', 'boot_reconfigure', 'config_file', 'reload'):
+        stages.append(('example-' + example, [cargo, 'run', '--example', example,
+                         '--all-features', '--locked', '--offline']))
+    if tc == 'stable':
+        stages += [('fmt', [cargo, 'fmt', '--all', '--check']),
+                   ('m0-fmt', [cargo, 'fmt', '--manifest-path', 'spikes/m0/Cargo.toml', '--check'])]
+    stages += [('docs', ['python3', '-B', 'tests/docs/check.py', '--toolchain', tc]),
+               ('loader-parity', ['python3', '-B', 'tests/loader_parity/run.py', '--toolchain', tc])]
+    if tc == 'stable':
+        stages += [('docs-regression', ['python3', '-B', 'tests/docs/test_check.py']),
+                   ('core-parity', ['python3', '-B', 'tests/parity/run.py'])]
+    for label, command in stages:
+        run(tc + '-' + label, command, env)
+print('SUMMARY: ' + str(sum(r['exit'] == 0 for r in results)) + '/' + str(len(results)) + ' stages passed', flush=True)
+raise SystemExit(0 if all(r['exit'] == 0 for r in results) else 1)

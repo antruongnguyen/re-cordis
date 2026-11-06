@@ -1,0 +1,806 @@
+{
+  "schema_version": 1,
+  "rust_revision": "9a7633c0b3b98e5f37e9f2211f3ffa67fdac5edc",
+  "typescript_revision": "35fdc969e4b6c48c48ed44717c7a018324e4dd88",
+  "implementation_revision": "808c9f573dd96c56fa2ec43e0b1bfb9ed39b2f3f",
+  "status": "five-declaration fragment complete; source assertions reviewed and existing matrix Rust results joined; independent review pending",
+  "declarations": [
+    {
+      "id": "core/decorator.spec.ts:7",
+      "source_file": "local/cordis/packages/core/tests/decorator.spec.ts",
+      "source_line": 7,
+      "source_end_line": 40,
+      "title": "@Inject on class method",
+      "suite": [
+        "Decorator"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/decorator.spec.ts:7/default/a31",
+              "behavior": "After installing the Bar owner with its foo-dependent method child, the method callback has not run while foo is unavailable.",
+              "source_assertion_lines": [
+                31
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "method_injection_owns_cleanup_and_reloads_without_macros_or_constructor_reflection",
+                  "lines": [
+                    257,
+                    258,
+                    260,
+                    269,
+                    270,
+                    271
+                  ],
+                  "assertion": "inject_method is installed and owner.ready is joined; assert_eq!(target.calls.get(), 0) precedes foo publication.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "initialization-and-method-injection",
+                "reason": "inject_method uses an explicit Rc target and child Context; native @Inject and automatic constructor/method discovery are outside the supported Rust surface. This is lifecycle-substitute evidence, not decorator syntax compatibility."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The explicit child is the documented decorator substitute. The zero-call assertion covers delayed activation before provider arrival."
+            },
+            {
+              "id": "core/decorator.spec.ts:7/default/a32",
+              "behavior": "Before foo arrives, the injected method cleanup count remains zero.",
+              "source_assertion_lines": [
+                32
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "initialization-and-method-injection",
+                "reason": "inject_method uses an explicit Rc target and child Context; native @Inject and automatic constructor/method discovery are outside the supported Rust surface. This is lifecycle-substitute evidence, not decorator syntax compatibility."
+              },
+              "gap": {
+                "id": "G-B0-decorator.spec.ts:7/default/a32",
+                "kind": "missing-evidence",
+                "next_action": "Extend the existing method_injection_owns_cleanup_and_reloads_without_macros_or_constructor_reflection regression with assert_eq!(target.stops.get(), 0) immediately after owner.ready and the zero-callback assertion.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first the core evidence maintainer writes/runs the named regression. A passing result closes missing evidence without production change. The relevant satellite gate must establish dependency and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The candidate method fixture asserts callback count at lines 271/274 and cleanup count at 276, then activates a replacement at 277\u2013279. It does not assert this intermediate count. Final calls==stops does not replace the missing boundary assertion."
+            },
+            {
+              "id": "core/decorator.spec.ts:7/default/a34",
+              "behavior": "The first foo provider arrival activates the method exactly once.",
+              "source_assertion_lines": [
+                34
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "method_injection_owns_cleanup_and_reloads_without_macros_or_constructor_reflection",
+                  "lines": [
+                    272,
+                    273,
+                    274
+                  ],
+                  "assertion": "After root.provide(foo, 1) and child.ready, assert_eq!(target.calls.get(), 1).",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "initialization-and-method-injection",
+                "reason": "inject_method uses an explicit Rc target and child Context; native @Inject and automatic constructor/method discovery are outside the supported Rust surface. This is lifecycle-substitute evidence, not decorator syntax compatibility."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The Rust fixture executes the same first-arrival callback-count boundary through the approved method adapter."
+            },
+            {
+              "id": "core/decorator.spec.ts:7/default/a35",
+              "behavior": "After the first foo activation, the method cleanup count is still zero.",
+              "source_assertion_lines": [
+                35
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "initialization-and-method-injection",
+                "reason": "inject_method uses an explicit Rc target and child Context; native @Inject and automatic constructor/method discovery are outside the supported Rust surface. This is lifecycle-substitute evidence, not decorator syntax compatibility."
+              },
+              "gap": {
+                "id": "G-B0-decorator.spec.ts:7/default/a35",
+                "kind": "missing-evidence",
+                "next_action": "Add assert_eq!(target.stops.get(), 0) immediately after child.ready for the first publication in the existing method-injection acceptance regression.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first the core evidence maintainer writes/runs the named regression. A passing result closes missing evidence without production change. The relevant satellite gate must establish dependency and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The candidate method fixture asserts callback count at lines 271/274 and cleanup count at 276, then activates a replacement at 277\u2013279. It does not assert this intermediate count. Final calls==stops does not replace the missing boundary assertion."
+            },
+            {
+              "id": "core/decorator.spec.ts:7/default/a37",
+              "behavior": "After the first foo withdrawal, the method callback count remains one; withdrawal must not invoke or reload the method.",
+              "source_assertion_lines": [
+                37
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "initialization-and-method-injection",
+                "reason": "inject_method uses an explicit Rc target and child Context; native @Inject and automatic constructor/method discovery are outside the supported Rust surface. This is lifecycle-substitute evidence, not decorator syntax compatibility."
+              },
+              "gap": {
+                "id": "G-B0-decorator.spec.ts:7/default/a37",
+                "kind": "missing-evidence",
+                "next_action": "Add assert_eq!(target.calls.get(), 1) immediately after first.withdraw in the existing method-injection acceptance regression, before publishing the replacement.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first the core evidence maintainer writes/runs the named regression. A passing result closes missing evidence without production change. The relevant satellite gate must establish dependency and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The candidate method fixture asserts callback count at lines 271/274 and cleanup count at 276, then activates a replacement at 277\u2013279. It does not assert this intermediate count. Final calls==stops does not replace the missing boundary assertion."
+            },
+            {
+              "id": "core/decorator.spec.ts:7/default/a38",
+              "behavior": "Withdrawal of the first foo provider runs the method-returned cleanup once.",
+              "source_assertion_lines": [
+                38
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "method_injection_owns_cleanup_and_reloads_without_macros_or_constructor_reflection",
+                  "lines": [
+                    220,
+                    221,
+                    223,
+                    275,
+                    276
+                  ],
+                  "assertion": "Method::run registers on_dispose_sync; first.withdraw is joined and assert_eq!(target.stops.get(), 1).",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "initialization-and-method-injection",
+                "reason": "inject_method uses an explicit Rc target and child Context; native @Inject and automatic constructor/method discovery are outside the supported Rust surface. This is lifecycle-substitute evidence, not decorator syntax compatibility."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The TS callback returns a disposer; the Rust method registers its disposer explicitly. First-publication withdrawal gives one cleanup invocation."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/reflect.spec.ts:6",
+      "source_file": "local/cordis/packages/core/tests/reflect.spec.ts",
+      "source_line": 6,
+      "source_end_line": 11,
+      "title": "Context.is()",
+      "suite": [
+        "Reflect"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/reflect.spec.ts:6/default/a9",
+              "behavior": "Context.is recognizes an instance of a JavaScript subclass of Context.",
+              "source_assertion_lines": [
+                9
+              ],
+              "class": "unsupported",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "typed_rooted_values_dynamic_events_and_context_type_guards_need_no_proxy_reflection",
+                  "lines": [
+                    703,
+                    704,
+                    705
+                  ],
+                  "assertion": "The approved concrete-type substitute erases a Context into Box<dyn Any>, asserts is::<Context>(), and rejects is::<String>(). This test does not recognize a subclass or wrapper.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "source-map-audit",
+                "reason": "Static Context members and Any::is::<Context> replace JS subclass branding; no automatic wrapper/subclass brand discovery. See also remaining-restrictions-and-safety-deviations: no transparent class/prototype reflection."
+              },
+              "gap": null,
+              "execution_status": "not-applicable",
+              "rationale": "The pinned assertion specifically constructs SubContext. Rust concrete Context/Any recognition is tested, but subclass branding is explicitly outside the existing supported contract. The related substitute test is recorded without claiming it proves the subclass assertion."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "unsupported"
+      ]
+    },
+    {
+      "id": "core/reflect.spec.ts:12",
+      "source_file": "local/cordis/packages/core/tests/reflect.spec.ts",
+      "source_line": 12,
+      "source_end_line": 29,
+      "title": "access check",
+      "suite": [
+        "Reflect"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/reflect.spec.ts:12/default/a16",
+              "behavior": "Reading the reserved prototype property through a plugin Context does not trigger an injection error.",
+              "source_assertion_lines": [
+                16
+              ],
+              "class": "unsupported",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "remaining-restrictions-and-safety-deviations",
+                "reason": "No transparent Proxy/prototype/class/decorator reflection. Context has explicit Rust members and typed access methods; dynamic reserved-property/prototype traversal is not supported."
+              },
+              "gap": null,
+              "execution_status": "not-applicable",
+              "rationale": "Pinned ReflectService.handler bypasses injection for special properties or Reflect.has(target, prop), at reflect.ts:95\u2013100. Rust has no dynamic property interceptor/prototype and no equivalent prototype or constructor property operation."
+            },
+            {
+              "id": "core/reflect.spec.ts:12/default/a17",
+              "behavior": "Reading inherited constructor through a plugin Context does not trigger an injection error.",
+              "source_assertion_lines": [
+                17
+              ],
+              "class": "unsupported",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m6.md",
+                "anchor": "remaining-restrictions-and-safety-deviations",
+                "reason": "No transparent Proxy/prototype/class/decorator reflection. Context has explicit Rust members and typed access methods; dynamic reserved-property/prototype traversal is not supported."
+              },
+              "gap": null,
+              "execution_status": "not-applicable",
+              "rationale": "Pinned ReflectService.handler bypasses injection for special properties or Reflect.has(target, prop), at reflect.ts:95\u2013100. Rust has no dynamic property interceptor/prototype and no equivalent prototype or constructor property operation."
+            },
+            {
+              "id": "core/reflect.spec.ts:12/default/a18",
+              "behavior": "A non-root plugin Context without injection authority rejects checked service reads.",
+              "source_assertion_lines": [
+                18
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/services.rs",
+                  "symbol": "checked_access_distinguishes_undeclared_inactive_and_direct_paths",
+                  "lines": [
+                    120,
+                    126,
+                    127,
+                    128,
+                    129,
+                    130
+                  ],
+                  "assertion": "A ready stranger plugin calling get(foo) receives ServiceError::Undeclared; get_direct(foo) is separately permitted at 131.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m4.md",
+                "anchor": "checked-access-and-value-changes",
+                "reason": "Checked service access is explicit and typed; ServiceError distinguishes Undeclared, Inactive, NotProvided, NotOwner and DuplicateProvider (M4 public API, lines 42\u201343). Rust tests assert error variants, not literal JavaScript exception text."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The TS unknown bar and Rust published sibling foo both lack a declaring/own ancestor in their accessing plugin. locate rejects authority in both. The typed error variant represents the JS exception; the exact string is not tested."
+            },
+            {
+              "id": "core/reflect.spec.ts:12/default/a19",
+              "behavior": "Setting a service without a live provision is refused.",
+              "source_assertion_lines": [
+                19
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/services.rs",
+                  "symbol": "checked_access_distinguishes_undeclared_inactive_and_direct_paths",
+                  "lines": [
+                    97,
+                    99,
+                    100,
+                    101,
+                    102
+                  ],
+                  "assertion": "root.set(missing, 1) receives ServiceError::NotProvided for an absent publication.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m4.md",
+                "anchor": "checked-access-and-value-changes",
+                "reason": "Checked service access is explicit and typed; ServiceError distinguishes Undeclared, Inactive, NotProvided, NotOwner and DuplicateProvider (M4 public API, lines 42\u201343). Rust tests assert error variants, not literal JavaScript exception text."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The TS handler refuses assignment to undeclared bar/foo from a plugin. Rust set always requires a live publication, including at root; the test covers the absent-publication refusal through that deliberately explicit API. It does not execute JS property assignment or compare the JS message."
+            },
+            {
+              "id": "core/reflect.spec.ts:12/default/a23",
+              "behavior": "Setting a service without a live provision is refused.",
+              "source_assertion_lines": [
+                23
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/services.rs",
+                  "symbol": "checked_access_distinguishes_undeclared_inactive_and_direct_paths",
+                  "lines": [
+                    97,
+                    99,
+                    100,
+                    101,
+                    102
+                  ],
+                  "assertion": "root.set(missing, 1) receives ServiceError::NotProvided for an absent publication.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m4.md",
+                "anchor": "checked-access-and-value-changes",
+                "reason": "Checked service access is explicit and typed; ServiceError distinguishes Undeclared, Inactive, NotProvided, NotOwner and DuplicateProvider (M4 public API, lines 42\u201343). Rust tests assert error variants, not literal JavaScript exception text."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The TS handler refuses assignment to undeclared bar/foo from a plugin. Rust set always requires a live publication, including at root; the test covers the absent-publication refusal through that deliberately explicit API. It does not execute JS property assignment or compare the JS message."
+            },
+            {
+              "id": "core/reflect.spec.ts:12/default/a24",
+              "behavior": "A plugin can create its own service provision.",
+              "source_assertion_lines": [
+                24
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/services.rs",
+                  "symbol": "checked_access_distinguishes_undeclared_inactive_and_direct_paths",
+                  "lines": [
+                    103,
+                    105,
+                    107,
+                    110,
+                    111,
+                    119
+                  ],
+                  "assertion": "The provider plugin calls ctx.provide(foo, 1) successfully and asserts its own subsequent get(foo)==1; provider.ready completes successfully.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m4.md",
+                "anchor": "checked-access-and-value-changes",
+                "reason": "Checked service access is explicit and typed; ServiceError distinguishes Undeclared, Inactive, NotProvided, NotOwner and DuplicateProvider (M4 public API, lines 42\u201343). Rust tests assert error variants, not literal JavaScript exception text."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The TS provision has an undefined initial value; the Rust test supplies a u32 value. This assertion maps successful owner-scoped provision admission, not undefined-value compatibility."
+            },
+            {
+              "id": "core/reflect.spec.ts:12/default/a25",
+              "behavior": "Providing an already occupied service name is rejected.",
+              "source_assertion_lines": [
+                25
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/services.rs",
+                  "symbol": "publication_ownership_type_contracts_and_set_are_not_replacement",
+                  "lines": [
+                    34,
+                    36,
+                    37,
+                    38,
+                    39
+                  ],
+                  "assertion": "After provider publishes counter, a second root.provide(counter, 2) receives ServiceError::DuplicateProvider.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m4.md",
+                "anchor": "checked-access-and-value-changes",
+                "reason": "Checked service access is explicit and typed; ServiceError distinguishes Undeclared, Inactive, NotProvided, NotOwner and DuplicateProvider (M4 public API, lines 42\u201343). Rust tests assert error variants, not literal JavaScript exception text."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The occupied slot duplicate check is tested. The TS repeats provide from the same plugin and formats the unnamed provider as <root>; the Rust fixture uses another Context and asserts the structured duplicate variant. No exact provider-label/message equivalence is claimed."
+            },
+            {
+              "id": "core/reflect.spec.ts:12/default/a26",
+              "behavior": "The exact providing plugin can set its publication, and subsequent reads observe the new value.",
+              "source_assertion_lines": [
+                26
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/services.rs",
+                  "symbol": "publication_ownership_type_contracts_and_set_are_not_replacement",
+                  "lines": [
+                    34,
+                    69,
+                    70,
+                    71
+                  ],
+                  "assertion": "provider.context().set(counter, 2) succeeds; publication identity is unchanged and consumer get(counter)==2.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m4.md",
+                "anchor": "checked-access-and-value-changes",
+                "reason": "Checked service access is explicit and typed; ServiceError distinguishes Undeclared, Inactive, NotProvided, NotOwner and DuplicateProvider (M4 public API, lines 42\u201343). Rust tests assert error variants, not literal JavaScript exception text."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The Rust assertion verifies the successful same-provider set path corresponding to ctx.foo=0 after provide. Typed methods replace property writes."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test",
+        "unsupported"
+      ]
+    },
+    {
+      "id": "core/reflect.spec.ts:30",
+      "source_file": "local/cordis/packages/core/tests/reflect.spec.ts",
+      "source_line": 30,
+      "source_end_line": 56,
+      "title": "service injection",
+      "suite": [
+        "Reflect"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/reflect.spec.ts:30/default/a39",
+              "behavior": "Root direct service lookup returns the published foo service.",
+              "source_assertion_lines": [
+                39
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "associated_service_and_accessor_adapters_use_original_authority_and_receiver_identity",
+                  "lines": [
+                    509,
+                    548,
+                    549
+                  ],
+                  "assertion": "root.provide(foo, Base{...}) succeeds; root.get(foo) unwraps a value and Rc::ptr_eq compares it with the accessor result.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Root get successfully resolves the foo publication. The assertion proves presence and the retained value identity, without claiming the TS object layout is reproduced."
+            },
+            {
+              "id": "core/reflect.spec.ts:30/default/a41",
+              "behavior": "A mixin/accessor property is not itself a direct service slot.",
+              "source_assertion_lines": [
+                41
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "associated_service_and_accessor_adapters_use_original_authority_and_receiver_identity",
+                  "lines": [
+                    542,
+                    543,
+                    548,
+                    549,
+                    550,
+                    551,
+                    552,
+                    553,
+                    554
+                  ],
+                  "assertion": "A registered foo.self accessor resolves the Base receiver, while root.get(ServiceKey<Rc<Base>>(foo.self)) is None.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "explicit-reflection",
+                "reason": "Accessor::from_service is the typed mixin adapter; ordinary Rust methods/structs replace arbitrary prototype/property mutation. The direct-slot assertion uses an explicit accessor rather than transparent ctx.bar access."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The TS bar property is installed by mixin(foo, [bar]); Rust uses explicit AccessorKey and Accessor. The fixture explicitly distinguishes a working accessor from direct service lookup."
+            },
+            {
+              "id": "core/reflect.spec.ts:30/default/a43",
+              "behavior": "An ordinary Context property such as baseUrl is excluded from direct service lookup.",
+              "source_assertion_lines": [
+                43
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-reflect.spec.ts:30/default/a43",
+                "kind": "missing-evidence",
+                "next_action": "Add a core acceptance regression that extends Context with a concrete typed metadata value, asserts metadata<T>() returns that value, and asserts get(ServiceKey<T> with the corresponding name) is None; retain the distinction from explicit accessors and publications.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first the core evidence maintainer writes/runs the named regression. A passing result closes missing evidence without production change. The relevant satellite gate must establish dependency and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "Foundations verifies typed metadata at lines 31\u201335; the accessor acceptance verifies accessor-versus-service at lines 550\u2013554. No reviewed test simultaneously asserts an ordinary metadata value and its absence from the service namespace. Merely absent generic service lookup is insufficient for this distinction."
+            },
+            {
+              "id": "core/reflect.spec.ts:30/default/a47",
+              "behavior": "Inside a foo injection callback, the reset warning spy has zero calls before further operations.",
+              "source_assertion_lines": [
+                47
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-reflect.spec.ts:30/default/a47",
+                "kind": "missing-evidence",
+                "next_action": "Add an exporter-backed warning spy around the foo injection fixture, reset the spy inside the injection callback, and assert it is empty at this source boundary. Keep the reset-only assertion distinct from post-metadata warning checks.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first the core evidence maintainer writes/runs the named regression. A passing result closes missing evidence without production change. The relevant satellite gate must establish dependency and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The TS spy is reset immediately before this assertion, so this is a reset-baseline obligation. Existing injection tests have no warning-spy baseline assertion at this point."
+            },
+            {
+              "id": "core/reflect.spec.ts:30/default/a51",
+              "behavior": "Metadata baz=2 added to an injected Context survives into a plugin child and reads as 2.",
+              "source_assertion_lines": [
+                51
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-reflect.spec.ts:30/default/a51",
+                "kind": "missing-evidence",
+                "next_action": "Extend a foo-dependent Context with typed Baz(2), create a plugin from that derived view, and assert Baz metadata equals 2 inside that plugin. Generic context-extension and traced-service metadata tests do not cover this child creation path.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first the core evidence maintainer writes/runs the named regression. A passing result closes missing evidence without production change. The relevant satellite gate must establish dependency and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "Foundations independent_runtime_identities_and_layered_metadata checks direct typed extension layers; scoping checks metadata through bound/rebound services. The reviewed fixtures do not assert metadata inside a plugin created from an extended injecting Context."
+            },
+            {
+              "id": "core/reflect.spec.ts:30/default/a52",
+              "behavior": "Reading inherited ordinary metadata inside that plugin child emits no warnings.",
+              "source_assertion_lines": [
+                52
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-reflect.spec.ts:30/default/a52",
+                "kind": "missing-evidence",
+                "next_action": "In the metadata-child regression for reflect.spec.ts:30 line 51, capture warnings through an exporter, reset immediately before reading metadata, then assert the warning list remains empty after the read.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage: first the core evidence maintainer writes/runs the named regression. A passing result closes missing evidence without production change. The relevant satellite gate must establish dependency and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "Current mapped metadata/injection fixtures do not assert warning silence after the nested-plugin metadata read. Passing unrelated logger or metadata tests does not prove this boundary."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "rust-representation",
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/reflect.spec.ts:57",
+      "source_file": "local/cordis/packages/core/tests/reflect.spec.ts",
+      "source_line": 57,
+      "source_end_line": 66,
+      "title": "service inject leak",
+      "suite": [
+        "Reflect"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/reflect.spec.ts:57/default/a62",
+              "behavior": "An active foo-injected Fiber Context can read the required foo service.",
+              "source_assertion_lines": [
+                62
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/services.rs",
+                  "symbol": "publication_ownership_type_contracts_and_set_are_not_replacement",
+                  "lines": [
+                    54,
+                    61,
+                    68,
+                    71
+                  ],
+                  "assertion": "The injecting callback asserts get(counter).is_some(); after ready, consumer.context().get(counter) successfully returns the publication value.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The same named required injection makes checked service access usable in an active committed consumer. Source foo object and Rust counter u32 are distinct value representations, irrelevant to required access admission."
+            },
+            {
+              "id": "core/reflect.spec.ts:57/default/a64",
+              "behavior": "A retained injected Context rejects its required service after its Fiber is disposed.",
+              "source_assertion_lines": [
+                64
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/services.rs",
+                  "symbol": "checked_access_distinguishes_undeclared_inactive_and_direct_paths",
+                  "lines": [
+                    132,
+                    133,
+                    135,
+                    136,
+                    137,
+                    138,
+                    139,
+                    140,
+                    141
+                  ],
+                  "assertion": "The test retains consumer.context(), joins consumer.dispose(), then get(foo) receives ServiceError::Inactive; get_direct(foo) still returns the live provider at 142.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m4.md",
+                "anchor": "checked-access-and-value-changes",
+                "reason": "Checked service access is explicit and typed; ServiceError distinguishes Undeclared, Inactive, NotProvided, NotOwner and DuplicateProvider (M4 public API, lines 42\u201343). Rust tests assert error variants, not literal JavaScript exception text."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "This is the exact retained-context leak/refusal boundary: disposal invalidates committed injection authority although the provider still exists. Rust asserts the typed Inactive variant instead of the literal TS exception message."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    }
+  ]
+}

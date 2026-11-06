@@ -6,27 +6,48 @@ Cordis is a framework for applications whose plugins, services, configuration,
 and resources change over time. `re-cordis` expresses the TypeScript Cordis
 core's semantics through explicit, typed Rust APIs.
 
-The current deliverable is **unpublished `re-cordis-core`**, version `0.0.0`, Rust
-2024, requiring Rust 1.85 or newer, plus the first satellite crate
-**`re-cordis-timer`**. The API is unstable. The console-logger and loader
-satellites are not implemented. This is not transparent JavaScript Proxy or
-decorator compatibility.
-The [next-target roadmap](../todo.md#next-implementation-targets-satellites)
-delivered timer first and next orders the console logger, then loader, with
-per-slice source/API/dependency review and matching documentation. Planned
-crates are not usable APIs yet.
+The current deliverable is unpublished `re-cordis-core`, `re-cordis-timer`,
+`re-cordis-logger`, `re-cordis-loader`, `re-cordis-include`, `re-cordis-hmr`
+and selected offline `re-cordis-create`, version 0.0.0, Rust 2024/MSRV 1.85.
+The API is unstable. Loader owns typed source entries and structural groups;
+Include supplies accepted file reads/refresh, ordered patches and reconciled persistence.
+HMR file watching, optional Include refresh and linked replacement are implemented.
+H0–H3 is independently accepted with the full stable/1.85.0 shared matrix.
+Create S0–S2 generates a local-checkout application and is independently accepted
+on stable/1.85.0. Review and explicit toolchain
+acceptance are tracked in the [roadmap](../todo.md#next-implementation-targets-satellites).
+This is an explicit Rust API, not transparent JavaScript compatibility.
+
+Read the [release readiness assessment](../release-readiness.md) before choosing
+a distribution channel: current consumption uses a complete local/Git checkout.
+The proposed seven-package alpha is not an available release; runtime filesystem
+and watcher evidence remains macOS-only. The [B1 follow-up](../plans/2026-11-02-cordis-completion/evidence/2026-11-05-b1-closure.md)
+records local archive-test/notice corrections and the CI decision at that checkpoint.
+Documentation CI and the gated Pages workflow are now implemented locally; hosted
+execution and deployment still require owner action.
+Preserve the applicable [upstream notices](../../UPSTREAM-NOTICES.md) when
+redistributing identified adapted material.
+
+The [documentation-channel guide](guides/documentation.md) explains local
+Fumadocs preview, matching-revision Rustdoc and the remaining Pages/docs.rs
+release gates. This is development documentation for unpublished crates.
 
 ## Choose a reading path
 
 | Your goal | Start here |
 |---|---|
+| Compose and verify a whole application | [Whole-program lifecycle](guides/system-lifecycle.md) |
+| Generate a minimal offline application | [Create](guides/create.md) |
 | Build your first application | [Getting started](getting-started.md), then [concepts](concepts.md) |
+| Watch files and replace linked plugins | [HMR](guides/hmr.md) |
+| Read and refresh configuration files | [Include](guides/include.md) |
+| Load and reconfigure named entries | [Loader](guides/loader.md), [groups](guides/groups.md) |
 | Create reloadable components | [Plugins and updates](guides/plugins-and-updates.md) |
 | Connect components safely | [Services and scoping](guides/services-and-scoping.md) |
 | Own resources and shut down | [Effects and cleanup](guides/effects-and-cleanup.md) |
 | Schedule owner-scoped timers | [Timers](guides/timers.md) |
 | Dispatch notifications and middleware | [Events](guides/events.md) |
-| Export application diagnostics | [Logging](guides/logging.md) |
+| Export application diagnostics | [Logging](guides/logging.md), [console output](guides/console-logging.md) |
 | Debug a Pending or Failed plugin | [Testing and troubleshooting](guides/testing-and-troubleshooting.md) |
 | Study complete applications | [Examples](guides/examples.md) |
 | Look up a type or operation | [API reference](api/README.md) |

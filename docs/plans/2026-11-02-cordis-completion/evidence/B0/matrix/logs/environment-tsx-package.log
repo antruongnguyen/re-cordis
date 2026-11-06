@@ -1,0 +1,8 @@
+COMMAND: corepack yarn node -e 'const fs=require('"'"'fs'"'"');const f='"'"'node_modules/tsx/package.json'"'"';const j=JSON.parse(fs.readFileSync(f,'"'"'utf8'"'"'));console.log('"'"'tsx alias resolves to '"'"'+j.name+'"'"' '"'"'+j.version+'"'"' '"'"'+fs.realpathSync(f));'
+CWD: /Users/I756434/Projects/private/cordis-rust/local/cordis
+START_UTC: 2026-11-02T08:36:43.150030+00:00
+
+tsx alias resolves to @cordiverse/tsx 4.19.3-fix.3 /Users/I756434/Projects/private/cordis-rust/local/cordis/node_modules/tsx/package.json
+
+END_UTC: 2026-11-02T08:36:43.545448+00:00
+EXIT_CODE: 0

@@ -1,0 +1,7 @@
+419a840d0210223f5d813cc5b6fe46955b7a63585753893f882dc6b4e9e4b1c0  crates/re-cordis-hmr/Cargo.toml
+78171410b9d8e8ce9d240429515458362d5be17f013bede094b4da5474478533  crates/re-cordis-hmr/src/lib.rs
+8dcdabd2f4559487beedd9d70457e7215d4640ac34c2860ffa5aaeeff2f8ec17  crates/re-cordis-hmr/src/watch.rs
+784f5be0d766cf2ec972aa56b3aa02ff1bbaa1292458b2d86d7ef42f467441c7  crates/re-cordis-hmr/src/paths.rs
+a540a4e6f942f6ca48f9b9615c080cb02c17a72821eb8bb6023bbdd7dbf84545  crates/re-cordis-hmr/tests/watch.rs
+bcab1600e50aa633e51ae06bfff6b8ddfa6649587b486ec8bb0bfd39d7e289d1  crates/re-cordis-hmr/tests/paths.rs
+d12659f731340305167e66539aba09b374672e8a6ded778afa070897aa742bb7  crates/re-cordis-hmr/tests/filesystem.rs

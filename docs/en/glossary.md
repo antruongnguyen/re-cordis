@@ -28,3 +28,13 @@ API identifiers remain unchanged in both languages.
 | Exporter | bộ xuất log | Scoped callback receiving selected log records |
 | Cancellation | hủy thực thi | Stopping outstanding work, not successful async cleanup |
 | Lease | quyền giữ tài nguyên còn sống | A lifetime guarantee that plain `Rc<T>` reads do not provide |
+| Loader entry | entry của loader | Stable logical identity and source options, distinct from a replaceable Fiber |
+| Structural group | nhóm cấu trúc | Ordered entry parent retained while descendants are disabled |
+| Source reconciliation | đồng bộ nguồn cấu hình | Apply a caller-owned source snapshot without write-back commits |
+| Console exporter | bộ xuất log ra console | An owner-scoped native writer rendering selected core records |
+| Include source | nguồn include | A bounded file whose entries and patches feed an owned loader |
+| Patch ownership | quyền sở hữu của patch | The actual file/patch location supplying an entry or one key |
+| Pending journal | nhật ký thay đổi chờ ghi | Bounded coalesced runtime changes awaiting persistence |
+| Three-way reconciliation | hòa giải ba phía | Compare the previous source, current file and runtime changes; report conflicts |
+| Scaffolding | sinh khung dự án | Generate a fixed editable application from a local checkout |
+| Staging directory | thư mục staging | Owned sibling directory rendered completely before final rename |

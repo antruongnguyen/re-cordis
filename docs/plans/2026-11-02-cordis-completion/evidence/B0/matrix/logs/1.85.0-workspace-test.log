@@ -1,0 +1,408 @@
+COMMAND: /Users/I756434/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin/cargo test --workspace --locked
+CWD: /Users/I756434/Projects/private/cordis-rust
+START_UTC: 2026-11-02T08:35:10.438054+00:00
+
+   Compiling bytes v1.12.1
+   Compiling pin-project-lite v0.2.17
+   Compiling futures-core v0.3.34
+   Compiling futures-task v0.3.34
+   Compiling slab v0.4.12
+   Compiling itoa v1.0.18
+   Compiling typenum v1.20.1
+   Compiling libc v0.2.191
+   Compiling tower-service v0.3.3
+   Compiling serde_core v1.0.229
+   Compiling httparse v1.10.1
+   Compiling sync_wrapper v1.0.2
+   Compiling tower-layer v0.3.3
+   Compiling subtle v2.6.1
+   Compiling atomic-waker v1.1.2
+   Compiling futures-util v0.3.34
+   Compiling smallvec v1.16.3
+   Compiling httpdate v1.0.3
+   Compiling memchr v2.8.3
+   Compiling mime v0.3.17
+   Compiling zmij v1.0.23
+   Compiling matchit v0.8.4
+   Compiling http v1.5.0
+   Compiling percent-encoding v2.3.2
+   Compiling generic-array v0.14.7
+   Compiling cfg-if v1.0.5
+   Compiling errno v0.3.14
+   Compiling socket2 v0.6.5
+   Compiling mio v1.2.4
+   Compiling cpufeatures v0.2.17
+   Compiling signal-hook-registry v1.4.8
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling http-body v1.1.0
+   Compiling tokio v1.54.1
+   Compiling digest v0.10.7
+   Compiling http-body-util v0.1.5
+   Compiling sha2 v0.10.9
+   Compiling hmac v0.12.1
+   Compiling axum-core v0.5.6
+   Compiling serde v1.0.229
+   Compiling serde_json v1.0.154
+   Compiling re-cordis-core v0.0.0 (/Users/I756434/Projects/private/cordis-rust/crates/re-cordis-core)
+   Compiling hyper v1.12.0
+   Compiling tower v0.5.3
+   Compiling hyper-util v0.1.21
+   Compiling axum v0.8.9
+   Compiling re-cordis-timer v0.0.0 (/Users/I756434/Projects/private/cordis-rust/crates/re-cordis-timer)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 14.16s
+     Running unittests src/lib.rs (target/acceptance-1.85.0/debug/deps/re_cordis_core-43afcb6be8a3efa2)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/acceptance.rs (target/acceptance-1.85.0/debug/deps/acceptance-e1a8f5577ef78dfe)
+
+running 12 tests
+test service_filters_retain_only_identity_and_use_each_listener_runtime_after_origin_drop ... ok
+test typed_rooted_values_dynamic_events_and_context_type_guards_need_no_proxy_reflection ... ok
+test failed_status_observers_are_diagnosed_without_stranding_owned_cleanup ... ok
+test executable_example_proves_isolated_reconfigure_and_final_read_before_provider_close ... ok
+test callable_adapters_expose_the_accessing_definition_not_the_outermost_consumer ... ok
+test associated_service_and_accessor_adapters_use_original_authority_and_receiver_identity ... ok
+test method_injection_owns_cleanup_and_reloads_without_macros_or_constructor_reflection ... ok
+test optional_publication_presence_and_shared_updated_handles_are_explicit_typed_contracts ... ok
+test explicit_initialization_is_an_availability_barrier_and_failure_is_diagnosed_once ... ok
+test explicit_bound_effects_keep_root_provisions_accessible_with_and_without_injection ... ok
+test injection_inertia_preserves_loading_and_unloading_until_gated_work_finishes ... ok
+test repeated_initialized_services_restore_registry_effect_and_listener_baselines ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/effect_metadata.rs (target/acceptance-1.85.0/debug/deps/effect_metadata-53ba56c982315dd5)
+
+running 12 tests
+test transferred_exporter_is_labeled_and_removed_before_sync_group_disposal_returns ... ok
+test synchronous_manual_disposal_and_value_only_snapshots_do_not_retain_resources ... ok
+test labels_do_not_create_cross_runtime_ownership_and_wrong_host_transfers_leave_roots_unchanged ... ok
+test nested_labels_track_only_yielded_effects_and_sync_children_run_before_return ... ok
+test sync_cleanup_can_reenter_metadata_and_register_the_next_root_snapshot ... ok
+test nested_setup_keeps_the_outer_acquisition_guard_until_its_poll_finishes ... ok
+test mixed_composition_runs_sync_prefix_now_and_never_advances_past_pending_child ... ok
+test synchronous_iterator_error_and_panic_finish_partial_rollback_before_return ... ok
+test async_acquisition_updates_child_metadata_and_ready_cleanup_remains_an_async_barrier ... ok
+test active_setup_cannot_transfer_itself_or_an_ancestor_into_its_own_tree ... ok
+test failed_composed_cleanup_stops_its_chain_but_independent_root_effects_are_attempted ... ok
+test failed_stream_reports_cleanup_panic_and_setup_error_after_rollback ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/effects.rs (target/acceptance-1.85.0/debug/deps/effects-636d9b30e3c1e24f)
+
+running 8 tests
+test composed_async_cleanup_waits_in_reverse_order_and_root_siblings_progress ... ok
+test async_return_is_not_cancelled_by_immediate_disposal_and_dropped_waiter ... ok
+test effect_readiness_does_not_dispose_successful_acquisitions ... ok
+test stream_failure_rolls_back_before_ready_rejects_and_preserves_source ... ok
+test sync_setup_is_immediate_and_nested_effects_and_listeners_transfer_ownership ... ok
+test async_stream_stops_before_next_step_but_collects_in_flight_final_yield ... ok
+test finite_stream_readiness_preserves_all_resources_and_async_failure_is_explicit ... ok
+test synchronous_iterator_failure_starts_partial_rollback_and_setup_panics_are_explicit ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/events.rs (target/acceptance-1.85.0/debug/deps/events-2ee821200ba46de2)
+
+running 12 tests
+test host_destruction_cancels_dispatch_and_setup_without_context_reference_cycles ... ok
+test once_is_removed_before_recursive_invocation_and_manual_remove_is_exact ... ok
+test removal_after_selection_does_not_cancel_in_flight_snapshots ... ok
+test root_removal_does_not_cancel_an_already_started_listener ... ok
+test synchronous_emit_failure_stops_later_callbacks ... ok
+test emitted_async_failure_is_diagnosed_when_waiter_is_dropped ... ok
+test waterfall_is_around_middleware_with_veto_and_nested_async_calls ... ok
+test parallel_invokes_prefixes_immediately_and_aggregates_all_failures ... ok
+test serial_has_an_immediate_first_prefix_and_stops_on_zero_or_empty_answers ... ok
+test symbols_named_contracts_prototype_names_and_empty_bucket_removal ... ok
+test snapshots_survive_removal_in_serial_parallel_bail_and_waterfall ... ok
+test prepend_and_global_filters_apply_to_each_dispatch_shape ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/foundations.rs (target/acceptance-1.85.0/debug/deps/foundations-e661290ece1361f3)
+
+running 15 tests
+test independent_runtime_identities_and_layered_metadata ... ok
+test missing_executor_and_unhosted_registration_are_explicit_and_inert ... ok
+test destroying_host_reports_cancelled_completion_not_success ... ok
+test cancelled_run_scope_releases_the_host_for_later_progress ... ok
+test refused_manual_claim_remains_root_owned ... ok
+test cleanup_of_one_runtime_cannot_acquire_another_hosts_admission ... ok
+test captured_context_ancestry_and_reentrant_requests_do_not_create_cycles ... ok
+test callback_destructors_can_reenter_without_a_journal_borrow ... ok
+test eager_snapshot_drain_is_concurrent_shared_and_root_remains_usable ... ok
+test dropping_tokens_keeps_root_ownership_and_manual_claims_run_once ... ok
+test running_operations_pause_resume_and_survive_dropped_waiters ... ok
+test wrong_host_nested_host_and_raw_task_admission_are_refused ... ok
+test panicking_error_formatter_does_not_erase_the_failure_or_stall_the_barrier ... ok
+test user_failure_sources_survive_and_panics_do_not_skip_other_cleanup ... ok
+test panicking_panic_payload_destructor_is_a_supervised_driver_failure ... ok
+
+test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/github_collect.rs (target/acceptance-1.85.0/debug/deps/github_collect-7d01d13da40528ca)
+
+running 3 tests
+test executable_collects_complete_snapshot_and_preserves_last_good_on_query_failure ... ok
+test timed_out_and_oversized_subprocesses_are_reaped_without_publishing ... ok
+test periodic_work_finishes_before_reconfiguration_and_shutdown_and_failed_loads_recover_explicitly ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.15s
+
+     Running tests/github_digest.rs (target/acceptance-1.85.0/debug/deps/github_digest-cebbd9f5da399c04)
+
+running 3 tests
+test destination_reconfiguration_and_explicit_recovery_use_existing_lifecycle ... ok
+test executable_writes_exact_markdown_and_preserves_output_on_invalid_input ... ok
+test bounded_input_and_failed_rename_do_not_publish_partial_reports ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+
+     Running tests/github_webhook.rs (target/acceptance-1.85.0/debug/deps/github_webhook-e1df6152fe0bbcd5)
+
+running 6 tests
+test signature_verification_matches_rfc4231_and_rejects_modified_or_malformed_input ... ok
+test failed_bind_requires_explicit_recovery_and_invalid_config_cannot_open_output ... ok
+test journal_write_failure_returns_error_and_poisoned_sink_never_acknowledges_success ... ok
+test held_requests_retain_old_journal_through_reconfiguration_and_shutdown ... ok
+test body_deadline_and_connection_limit_are_measured_without_sleeps ... ok
+test authenticated_events_append_before_ack_and_invalid_requests_do_not_write ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+     Running tests/hooks.rs (target/acceptance-1.85.0/debug/deps/hooks-55cdc966899a9159)
+
+running 5 tests
+test listener_interception_replaces_the_exact_typed_callback_without_recursion ... ok
+test dispatch_observation_has_typed_args_and_omits_all_internal_protocol_events ... ok
+test status_and_plugin_snapshots_do_not_retain_fibers_and_terminal_sequences_are_stable ... ok
+test provider_transitions_notify_current_publications_once_not_retired_bindings_or_drain_pauses ... ok
+test get_set_and_realm_service_hooks_preserve_contracts_and_set_does_not_notify ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/lifecycle_parity.rs (target/acceptance-1.85.0/debug/deps/lifecycle_parity-f0ef913ad90eba09)
+
+running 6 tests
+test superseded_failure_rolls_back_without_poisoning_latest_target ... ok
+test latest_failure_reaches_waiters_after_rollback_despite_abandoned_update ... ok
+test failed_consumer_ignores_provider_refresh_and_update_awaits_recovery ... ok
+test registry_removed_consumer_retains_provider_and_cannot_reload ... ok
+test combined_provider_and_consumer_update ... ok
+test latest_target_during_gated_cleanup ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/logger.rs (target/acceptance-1.85.0/debug/deps/logger-6e064f27eb0d07e9)
+
+running 8 tests
+test error_causes_and_aggregates_preserve_empty_aggregates_exact_sources_and_order ... ok
+test exporter_removal_is_exact_and_buffer_survives_reusable_root_drains ... ok
+test named_level_overrides_win_and_exporters_select_independently ... ok
+test formatting_obeys_per_line_utf16_budgets_crlf_and_exact_palette_shapes ... ok
+test callback_diagnostics_use_logger_and_failing_exporters_cannot_skip_others ... ok
+test nested_service_names_restore_and_explicit_and_intercept_names_have_correct_precedence ... ok
+test normalized_diagnostic_names_keep_acronyms_delimiters_and_nonowning_attribution ... ok
+test default_buffer_has_exact_capacity_chronological_order_and_root_attribution ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/plugins.rs (target/acceptance-1.85.0/debug/deps/plugins-ae3aec53511f3302)
+
+running 21 tests
+test host_destruction_cancels_loading_and_contexts_do_not_keep_runtime_alive ... ok
+test immediate_disposal_skips_queued_validation_and_apply ... ok
+test registration_tokens_remain_inert_after_the_disposed_owner_is_released ... ok
+test dropping_handles_is_inert_and_explicit_disposal_unlinks_parent_ownership ... ok
+test child_effect_streams_and_exporters_follow_child_ownership_not_the_root ... ok
+test lifecycle_self_and_ancestor_waits_are_refused_without_detaching_registry_groups ... ok
+test initial_failure_waits_for_partial_cleanup_and_failed_fiber_stays_resident ... ok
+test disposing_child_rejects_new_work_but_final_cleanup_can_dispatch ... ok
+test cloned_declarations_group_distinct_instances_and_empty_groups_are_pruned ... ok
+test cleanup_failures_are_attempted_and_reported_without_blocking_disposal ... ok
+test terminal_disposal_during_apply_wins_over_a_queued_restart_and_dropped_waiters ... ok
+test restart_preserves_identity_and_waits_for_cleanup_while_requests_coalesce ... ok
+test parent_cleanup_cascades_to_nested_plugins_and_preserves_root_listeners ... ok
+test retired_registry_group_cannot_remove_a_new_group_of_the_same_plugin ... ok
+test superseded_load_failure_rolls_back_without_failing_a_later_restart ... ok
+test typed_object_method_adapter_keeps_config_and_cleanup_with_its_instance ... ok
+test root_drain_waits_for_children_and_remains_usable_after_an_abandoned_waiter ... ok
+test validation_runs_per_load_and_source_remains_distinct_from_resolved_input ... ok
+test validation_and_apply_factory_panics_fail_only_their_instances ... ok
+test repeated_registry_removal_and_recreation_restore_listener_and_effect_baselines ... ok
+test idle_disposed_handles_do_not_retain_cleanup_captures_or_parent_journal_entries ... ok
+
+test result: ok. 21 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/scoping.rs (target/acceptance-1.85.0/debug/deps/scoping-237de35a2f66d691)
+
+running 8 tests
+test realm_filtered_events_still_admit_global_listeners ... ok
+test shared_labels_and_cross_name_alias_contracts_use_the_slot_not_the_value_type ... ok
+test intercepts_merge_nearest_injection_then_outer_to_inner_and_own_provisions_do_not_borrow_it ... ok
+test bound_nested_calls_keep_definition_authority_but_use_caller_realm_metadata_and_effects ... ok
+test fresh_and_same_label_boundaries_stop_inherited_authority_without_parent_fallback ... ok
+test explicit_accessors_mixins_associations_and_callable_extensions_preserve_authority ... ok
+test same_name_publications_in_two_realms_keep_resources_until_the_exact_consumer_finishes ... ok
+test an_injected_publication_is_released_even_after_providing_the_same_name_in_another_realm ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/service_dispose.rs (target/acceptance-1.85.0/debug/deps/service_dispose-99ff6f729417dfa4)
+
+running 18 tests
+test host_destruction_cancels_a_provider_waiting_for_removed_consumer_cleanup ... ok
+test inherited_own_provision_survives_a_composed_child_disposal ... ok
+test a_child_explicitly_injecting_its_parent_service_does_not_deadlock_parent_unload ... ok
+test cleanup_errors_release_dependencies_and_keep_final_provider_listeners_alive ... ok
+test equal_value_replacement_during_initialization_rolls_back_the_exact_old_snapshot ... ok
+test old_withdrawal_does_not_wait_for_a_replacement_load ... ok
+test lifecycle_disposal_joins_a_prior_journal_drain_then_cleans_later_effects_before_releasing_providers ... ok
+test ancestor_injection_is_retained_until_a_child_finishes_inherited_cleanup ... ok
+test pending_effect_acquisition_and_its_final_cleanup_keep_the_committed_injection ... ok
+test one_withdrawal_does_not_wait_for_another_publication_from_the_same_provider ... ok
+test withdrawal_waits_for_a_consumer_already_removed_from_the_registry ... ok
+test root_owned_resources_wait_for_consumers_and_root_remains_reusable ... ok
+test composed_publication_cleanup_retains_resources_on_manual_and_owner_disposal ... ok
+test replacement_intent_coalesces_during_unload_without_loading_the_middle_publication ... ok
+test transitive_cleanup_retains_providers_while_unrelated_owners_and_siblings_progress ... ok
+test snapshots_survive_in_flight_apply_and_partial_failure_rollback ... ok
+test provider_shutdown_waits_for_current_and_already_withdrawn_publications ... ok
+test provider_resources_survive_all_disposal_orders_and_restart ... ok
+
+test result: ok. 18 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/services.rs (target/acceptance-1.85.0/debug/deps/services-84f6312e77ade308)
+
+running 11 tests
+test publication_requires_host_admission_and_values_do_not_keep_runtime_alive ... ok
+test failed_resident_fibers_release_dependency_values_after_rollback ... ok
+test injection_lists_are_per_fiber_but_plugin_identity_is_shared ... ok
+test restart_and_other_service_notifications_do_not_recheck_an_unaffected_readiness_check ... ok
+test failed_consumers_ignore_dependency_refresh_and_mismatches_fail_explicitly ... ok
+test loading_provider_blocks_consumers_and_pending_defers_validation ... ok
+test checked_access_distinguishes_undeclared_inactive_and_direct_paths ... ok
+test publication_ownership_type_contracts_and_set_are_not_replacement ... ok
+test root_invocation_does_not_grant_a_captured_plugin_context_root_authority ... ok
+test readiness_checks_block_and_report_without_running_under_store_borrows ... ok
+test repeated_republication_restores_baselines_and_disposed_handles_release_snapshot_values ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/updates.rs (target/acceptance-1.85.0/debug/deps/updates-67c8d33421f8a30c)
+
+running 16 tests
+test disposal_beats_queued_updates_and_dropped_waiters_do_not_cancel_cleanup ... ok
+test an_obsolete_apply_failure_does_not_poison_the_new_config ... ok
+test accepted_update_during_loading_keeps_the_current_apply_and_new_source ... ok
+test invalid_loaded_update_cannot_commit_or_reach_resolved_middleware_and_no_save_only_skips_commit ... ok
+test outdated_effect_stream_stops_after_its_in_flight_final_yield ... ok
+test explicit_update_hook_removal_and_local_before_global_order_match_the_router ... ok
+test validation_issues_retain_structured_paths_and_format_like_the_pinned_contract ... ok
+test config_aba_and_explicit_restart_force_a_new_load_even_with_equal_final_source ... ok
+test asynchronous_recovery_is_awaited_and_dropped_failed_recovery_is_still_diagnosed ... ok
+test failed_loads_recover_only_on_update_and_latest_failure_reaches_every_waiter_once ... ok
+test provider_update_and_consumer_update_converge_without_an_old_provider_new_config_load ... ok
+test updates_during_unloading_never_interrupt_cleanup_or_load_the_middle_source ... ok
+test source_transformation_hooks_run_before_validation_and_schema_contract_mismatches_are_errors ... ok
+test queued_initial_sources_are_skipped_and_pending_loads_validate_only_the_latest_source ... ok
+test local_update_hooks_do_not_accumulate_and_global_hooks_survive_child_reload ... ok
+test all_concurrent_waiters_follow_latest_config_with_and_without_dependencies ... ok
+
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running unittests src/lib.rs (target/acceptance-1.85.0/debug/deps/re_cordis_timer-123f801f32d80556)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/debounce.rs (target/acceptance-1.85.0/debug/deps/debounce-21d0698b20ac370c)
+
+running 3 tests
+test debounce_coalesces_to_trailing_edge ... ok
+test debounce_manual_dispose_prevents_fire ... ok
+test debounce_owner_dispose_prevents_fire ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/interval_callback.rs (target/acceptance-1.85.0/debug/deps/interval_callback-64bdcf907dd1adbd)
+
+running 1 test
+test interval_fires_each_period_and_stops_on_dispose ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/interval_stream.rs (target/acceptance-1.85.0/debug/deps/interval_stream-a88222db548478d9)
+
+running 3 tests
+test stream_yields_ticks_then_ends_on_stop ... ok
+test stream_fail_delivers_terminal_error ... ok
+test stream_ends_with_disposed_on_owner_dispose ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/sleep.rs (target/acceptance-1.85.0/debug/deps/sleep-3e9a01425fd387ad)
+
+running 2 tests
+test sleep_resolves_once_at_deadline ... ok
+test sleep_rejects_on_owner_dispose ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/throttle.rs (target/acceptance-1.85.0/debug/deps/throttle-16cb775bc26740ba)
+
+running 4 tests
+test throttle_manual_dispose_prevents_all ... ok
+test throttle_no_trailing_suppresses_trailing_call ... ok
+test throttle_leading_and_trailing ... ok
+test throttle_owner_dispose_stops ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/timeout.rs (target/acceptance-1.85.0/debug/deps/timeout-5421a33c84264b99)
+
+running 2 tests
+test timeout_fires_once_at_deadline ... ok
+test timeout_manual_dispose_prevents_fire ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests re_cordis_core
+
+running 17 tests
+test crates/re-cordis-core/src/context.rs - context::Context (line 37) - compile fail ... ok
+test crates/re-cordis-core/src/events.rs - events::AsyncNext (line 263) - compile fail ... ok
+test crates/re-cordis-core/src/plugin.rs - plugin::Plugin (line 78) - compile fail ... ok
+test crates/re-cordis-core/src/events.rs - events::Event (line 55) - compile fail ... ok
+test crates/re-cordis-core/src/events.rs - events::Next (line 250) - compile fail ... ok
+test crates/re-cordis-core/src/events.rs - events::Listener (line 171) - compile fail ... ok
+test crates/re-cordis-core/src/events.rs - events::Listener (line 162) - compile fail ... ok
+test crates/re-cordis-core/src/plugin.rs - plugin::FiberHandle<C>::update (line 810) - compile fail ... ok
+test crates/re-cordis-core/src/plugin.rs - plugin::Plugin (line 85) - compile fail ... ok
+test crates/re-cordis-core/src/plugin.rs - plugin::Plugin<C,R>::validated (line 143) - compile fail ... ok
+test crates/re-cordis-core/src/service.rs - service::ServiceKey (line 21) - compile fail ... ok
+test crates/re-cordis-core/src/reflect.rs - reflect::AccessorKey (line 14) - compile fail ... ok
+test crates/re-cordis-core/src/service.rs - service::ServiceInvoke (line 966) - compile fail ... ok
+test crates/re-cordis-core/src/lib.rs - (line 10) ... ok
+test crates/re-cordis-core/src/plugin.rs - plugin::Plugin (line 52) ... ok
+test crates/re-cordis-core/src/events.rs - events::Event (line 62) ... ok
+test crates/re-cordis-core/src/service.rs - service::ServiceKey (line 27) ... ok
+
+test result: ok. 17 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.19s
+
+   Doc-tests re_cordis_timer
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+END_UTC: 2026-11-02T08:35:41.809050+00:00
+EXIT_CODE: 0

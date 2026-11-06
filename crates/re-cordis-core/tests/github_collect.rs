@@ -15,6 +15,10 @@ use std::{
 };
 use support::Directory;
 
+// Linux fork can inherit a concurrent fixture writer until exec, causing ETXTBSY.
+// Keep fixture writes and subprocess creation in separate tests from overlapping.
+static SUBPROCESS_FIXTURES: tokio::sync::Mutex<()> = tokio::sync::Mutex::const_new(());
+
 fn quoted(value: &str) -> String {
     format!("'{}'", value.replace('\'', "'\\''"))
 }
@@ -56,6 +60,7 @@ fn config(dir: &Directory, prefix: &str, pr: &str) -> Config {
 
 #[tokio::test(flavor = "current_thread")]
 async fn executable_collects_complete_snapshot_and_preserves_last_good_on_query_failure() {
+    let _fixtures = SUBPROCESS_FIXTURES.lock().await;
     let dir = Directory::new("collector");
     let config = config(&dir, "", ":");
     collector::run(config.clone()).await.unwrap();
@@ -109,18 +114,14 @@ async fn executable_collects_complete_snapshot_and_preserves_last_good_on_query_
     );
     items.push(items[0].clone());
     script(&dir, &prefix(&items), ":");
-    assert!(
-        collector::collect_once(&config)
-            .await
-            .unwrap_err()
-            .to_string()
-            .contains("more than 100")
-    );
+    let error = collector::collect_once(&config).await.unwrap_err();
+    assert!(error.to_string().contains("more than 100"), "{error}");
     assert_eq!(tokio::fs::read(&config.output).await.unwrap(), bounded);
 }
 
 #[tokio::test(flavor = "current_thread")]
 async fn timed_out_and_oversized_subprocesses_are_reaped_without_publishing() {
+    let _fixtures = SUBPROCESS_FIXTURES.lock().await;
     let dir = Directory::new("collector-timeout");
     let blocked = dir.path("blocked");
     assert!(
@@ -170,6 +171,7 @@ async fn timed_out_and_oversized_subprocesses_are_reaped_without_publishing() {
 #[tokio::test(flavor = "current_thread")]
 async fn periodic_work_finishes_before_reconfiguration_and_shutdown_and_failed_loads_recover_explicitly()
  {
+    let _fixtures = SUBPROCESS_FIXTURES.lock().await;
     tokio::time::timeout(Duration::from_secs(10), async {
         let dir = Directory::new("collector-lifecycle");
         let entered = dir.path("entered");

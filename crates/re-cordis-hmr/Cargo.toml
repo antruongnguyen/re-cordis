@@ -1,0 +1,40 @@
+[package]
+name = "re-cordis-hmr"
+description = "Bounded owner-scoped file watching and explicit Cordis reload coordination"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+publish = false
+
+[features]
+default = []
+include = ["dep:re-cordis-include"]
+
+[package.metadata.docs.rs]
+features = ["include"]
+
+[dependencies]
+re-cordis-core = { path = "../re-cordis-core" }
+re-cordis-timer = { path = "../re-cordis-timer" }
+re-cordis-loader = { path = "../re-cordis-loader" }
+re-cordis-include = { path = "../re-cordis-include", optional = true }
+futures-util.workspace = true
+tokio = { workspace = true, features = ["rt", "sync", "macros"] }
+
+[[example]]
+name = "reload"
+required-features = ["include"]
+
+[[example]]
+name = "system_lifecycle"
+required-features = ["include"]
+
+[dev-dependencies]
+re-cordis-logger = { path = "../re-cordis-logger" }
+serde_json = "1"
+tokio = { workspace = true, features = ["rt", "time", "macros", "test-util"] }
+
+[lints]
+workspace = true

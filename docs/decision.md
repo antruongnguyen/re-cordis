@@ -4,6 +4,251 @@ A lightweight log of decisions made for this project and the reasoning behind
 them. Newest first. This is intentionally not a heavy ADR process; it records
 *what we chose and why* so the choices aren't re-litigated silently.
 
+## 2026-11-06 — Recognize the verified hidden-associated-type Rustdoc rendering
+
+Compare the actual hosted macOS artifact with the accepted local compiler
+artifact before changing the dependency link inventory. Rustdoc 1.97.1 emits
+two `Peek::Token` links in `syn::parse::ParseBuffer::parse_terminated`, although
+the associated type is hidden and its anchor is absent. Hosted Rustdoc 1.99.1
+renders the identical two source uses as plain `P::Token` text.
+
+Keep the original 97-entry inventory. Select its exact 96-entry variant only
+when the complete method signature matches, both token uses are plain text and
+the old link target is absent. Preserve strict set/count checks for every
+other entry and all framework/site links and assets. Compiler-emitted files
+remain byte-identical; no toolchain, dependency or workflow change is needed.
+See the [repair evidence](plans/2026-11-06-public-delivery/hosted-link-fix.md).
+Fresh hosted revalidation remains outstanding.
+
+## 2026-11-06 — Focus documentation on this project's contracts
+
+The project documentation uses pinned TypeScript Cordis as the behavioral
+specification and this repository's Rust contracts as the implementation guide.
+Remove third-party Rust-project comparisons, ratings and reference-only
+commentary from current documentation, historical planning prose and agent
+instructions. Exclude unused reference inputs from CodeGraph's configuration.
+
+The root README presents purpose, package capabilities, a runnable example,
+availability, supported contracts and contributor links. Detailed acceptance
+and delivery records belong in the engineering documentation.
+
+This is a documentation correction requested by the maintainer. Earlier
+wording remains in Git history; accepted test data/results, Rust behavior and
+the applicable Cordis/cosmokit MIT notices remain unchanged.
+
+## 2026-11-05 — Separate reader documentation from internal records
+
+The user selected a full-width layout following shadcn/AI SDK documentation.
+Reuse Fumadocs slots and grid variables for a desktop header, fixed sidebar,
+wide reading column and TOC; retain the existing mobile drawer and keyboard
+behavior. No framework or package dependency changes are needed.
+
+Compile the same canonical EN/VI Markdown, but remove internal planning/design
+links, images and reference definitions before rendering or indexing. Keep
+local source evidence intact. Scan every exported text format, including RSC,
+search, Markdown/LLM and Rustdoc; no internal paths may be published. The seven
+crate roots already exclude these repository-level directories structurally,
+so redundant Cargo exclude metadata would add no protection.
+
+Refresh every workflow action against official releases and migration notes,
+pin full SHAs with exact version comments, and select maintained macos-26 after
+macos-14 retirement. Preserve explicit Rust toolchains, artifact transfer and
+manual deployment gates. Local validation is distinct from hosted execution.
+
+## 2026-11-05 — Prepare static bilingual guides and a separate API channel
+
+Use a standalone Bun/Fumadocs/Next.js application over the canonical docs/en
+and docs/vi Markdown. Keep Rust/TOML/shell examples and checker paths intact.
+Use the standard documentation layout and explicit locale routes; GitHub Pages
+cannot run locale middleware or server search. Browser search consumes static
+locale indexes. Build public llms.txt and per-page Markdown from the same routes
+while retaining the reviewed checkout-relative index.
+
+The actual remote is antruongnguyen/re-cordis, so the project path is /re-cordis.
+README/relative Markdown links map to pages; explicit source/evidence links use
+the build Git revision. Bundle all-feature Rustdoc from the same revision so
+exact signatures remain available before a registry release. Future release
+guides must select exact-version APIs; development guides must not silently
+select latest released docs.rs content.
+
+Prepare independent documentation CI with explicit dependency restoration,
+macOS guide execution and a Linux-only static build. Keep existing Rust CI.
+Pages deployment is a separate manual owner opt-in with a protected environment;
+this delivery makes no hosted CI, Pages, docs.rs or Linux runtime claim.
+
+docs.rs generates Rustdoc after actual crates.io publication. Only HMR needs
+metadata selecting its optional include feature; do not change runtime defaults,
+targets, versions, path dependencies or publish flags. Local/nightly/container
+availability and executed checks are recorded with the
+[delivery plan](plans/2026-11-05-documentation-site/plan.md) and
+[docs.rs assessment](plans/2026-11-05-documentation-site/docs-rs-assessment.md).
+The separate coordinated alpha release decision remains outstanding.
+
+## 2026-11-05 — Close bounded B1 and make Create archive tests checkout-aware
+
+Reconcile B1 against later accepted deliveries. Timer T0–T5 supersedes the
+old instruction to leave repair open; its 22-declaration correction is already
+present. Preserve historical reports and B0's 147 evidence gaps, separating
+recurring acceptance rules from remaining work. Extend existing local link
+discovery to nested planning/evidence pages with a demonstrated regression.
+
+Create's archived scaffold tests assumed a full repository two directories
+above CARGO_MANIFEST_DIR. Choose the smallest test-only correction:
+CORDIS_CREATE_TEST_CHECKOUT supplies an explicit compatible checkout using
+native OS paths; absence keeps ordinary repository behavior. Do not add a
+production option or bundle framework crates. Actual archive tests and CLI
+applications use a separate complete checkout pinned to accepted R1 03d2550;
+both toolchains verify the unchanged extracted archive files. This is offline
+tool validation, not a self-contained framework distribution.
+
+The existing Ubuntu Rust CI omits Python docs regressions and guide execution.
+Recommend adding both with explicit dependency restoration and recorded
+per-toolchain results in a separately selected CI change. This session defers
+CI/platform expansion. Local checks do not establish new platform coverage.
+
+See [follow-up evidence](plans/2026-11-02-cordis-completion/evidence/2026-11-05-b1-closure.md)
+and [distribution limits](limitation.md#distribution-readiness).
+Publication authority, final names, actual registry dependencies, reachable
+release docs/checkout and final release approval remain separate gates.
+
+Focused provenance review identifies Cordis logger palettes/channel hash,
+cosmokit default-name tokenization and literal upstream assertion excerpts.
+Preserve the exact applicable Shigma MIT text in root/core UPSTREAM-NOTICES.md;
+keep original project/package/template notices and historical evidence bytes.
+This is a demonstrated notice correction, not a legal certification or a claim
+that every source/dependency distribution has been exhaustively audited.
+
+## 2026-11-05 — Separate accepted behavior from distribution readiness
+
+R1 recommends local/Git checkout consumption only while preparing a concrete
+seven-package 0.1.0-alpha.1 proposal. These versions and registry changes are
+proposals, not releases or approval to publish. Keep 0.0.0/publish=false.
+The [readiness report](release-readiness.md) derives order from actual Cargo
+normal dependencies and distinguishes HMR's dev-only logger edge.
+
+Package inspection found omitted MIT notices and six absent crate READMEs.
+Add exact root notices and minimal package-specific onboarding. Preserve the
+same MIT text in the generated starter's existing README, retaining its five
+files, source and manifest. This corrects redistribution documentation without
+changing API/feature/dependency behavior or adding a template variant.
+
+No facade has a demonstrated consumer benefit: accepted Create/R0 applications
+already compose explicit crates, and Group belongs to loader. The proposed
+Create release remains an offline tool requiring a compatible complete checkout.
+Path sources are mutable despite Cargo.lock; preserve checkout revision and
+location. A registry-backed template requires its own post-publication decision.
+
+Use explicit stable/1.85.0 package/docs checks and reuse R0 execution where
+source/manifest/lock inputs are unchanged. Proposed runtime support is limited
+to the tested Apple Silicon macOS host; broader platform support, semver
+stability and fresh registry dependency resolution are separate gates.
+See [limitations](limitation.md#distribution-readiness).
+
+## 2026-11-04 — Verify the complete offline application through shared code
+
+R0 composes accepted core, timer, console logger, loader/groups, Include, HMR
+and offline Create without redesigning their production APIs. One application
+module under the HMR example is imported by its integration tests and copied
+unchanged into the actual Create-generated external test fixture. The HMR crate
+gains only the necessary application dev dependency; no facade crate is needed.
+
+Include's explicit JSON edits and move_entry are the persistence boundary.
+Moving a provider across isolated groups rebuilds its Fiber while preserving
+EntryId. The old consumer's committed dependency retains that exact provider
+through gated cleanup. Moving the consumer afterward establishes a new binding
+in the destination realm; it does not mutate an old Context's scope.
+
+Use a synthetic watcher and paused time for deterministic admission/cancellation
+oracles; real registered-file polling remains bounded supplemental evidence.
+ReloadPlan replaces already-linked candidates through the same Include-managed
+instances. Error observations follow the operation/report/watcher-history/Runtime
+contracts, and are not added together as distinct failures.
+
+Independent R0-R1 review reproduced an application shutdown race on both
+toolchains: canceling Include before the watcher joins can stop workers of an
+admitted valid refresh. Orderly shutdown must join the watcher while Include
+remains live, then dispose/join Include and the application owner. Forced
+ancestor cancellation remains separately supported and tested with its original
+retained cancellation cause. No framework change is needed for this ordering.
+
+The documentation checker first verifies the unmodified generated basic app,
+then extends only its temporary output with explicit local dependencies and
+the shared R0 program/tests. Keep production templates unchanged: acceptance
+does not introduce a new supported template product. Process execution uses
+argument arrays; both explicit stable/1.85.0 toolchains build, test and run the
+external Cargo application offline.
+
+R0's concrete gated shutdown reproducer also found a stale loader group snapshot:
+Context::task cancellation skipped the convergence worker's running=false tail.
+Owner cleanup now clears that bookkeeping flag when closing entries; the native
+regression separately verifies request versus join and actual resource release.
+See [the narrow correction](plans/2026-11-02-cordis-completion/evidence/r0-loader-correction.md).
+No core or public API redesign is involved.
+
+Source reconciliation carries accepted prerequisite ledgers and preserves B0's
+remaining gaps. New native composition evidence does not imply a new whole-program
+TypeScript trace or Windows/Linux runtime evidence. See the
+[integration guide](en/guides/system-lifecycle.md), [execution plan](plans/2026-11-02-cordis-completion/evidence/r0-plan.md)
+and [source dispositions](plans/2026-11-02-cordis-completion/evidence/r0-source-map.md).
+
+## 2026-11-03 — Deliver Cordis features through idiomatic Rust contracts
+
+The user reaffirmed that this project implements Cordis in Rust, prioritizing
+features, usability and feasibility in the target language. TypeScript remains
+the reference for upstream intent and behavior; its syntax, object model and
+every incidental runtime observation are not mandatory Rust designs. Choose
+equivalent useful capabilities and document deliberate differences explicitly.
+
+Use Rust's ownership and borrowing, typed keys, traits/generics, enums, Result
+and compile-time constraints where they make the implementation simpler and
+safer. A one-use continuation rejected at compile time is a valid Rust contract;
+it need not reproduce a JavaScript runtime exception. Standard Rust interfaces
+such as Write, Iterator and Stream are candidates when they fit the feature.
+RAII can release synchronous resources; it does not replace joined async cleanup.
+This direction does not itself promise Send/Sync hosting or measured performance.
+
+Implement one usable feature or satellite slice with its necessary tests and
+example, then review the working result for behavior, ergonomics, resource
+safety and integration. Upfront design should settle the contracts needed for
+that implementation, rather than expand into another exhaustive evidence audit.
+Judge delivery against the documented Rust feature contract, with targeted TS
+comparisons where they resolve meaningful uncertainty. Preserve relevant
+regression and toolchain checks. B0 stays accepted; its 147 evidence gaps are
+not an automatic implementation queue or a blanket satellite prerequisite.
+
+For an adaptation or unavailable capability, record the upstream purpose,
+chosen Rust approach, user-visible difference, reason and supported alternative
+in this file and [limitations](limitation.md#how-to-classify-rust-differences).
+Distinguish an inherent constraint from costly/unsuitable emulation, deferred
+implementation and missing evidence. A lost feature must remain visible;
+calling an API idiomatic does not prove equivalent behavior.
+
+**Why:** Progress means useful Cordis capabilities delivered with clear Rust
+contracts. This direction governs future execution of the existing plans and
+supersedes interpretations requiring mechanical translation or B0-style
+accounting before each feature. Accepted historical evidence remains intact.
+
+## 2026-11-02 — Plan complete coverage before scheduling implementation
+
+The user requested careful planning for remaining core fixes and all upstream
+satellites, saved under docs, with implementation scheduling afterward. The
+[completion program](plans/2026-11-02-cordis-completion/README.md) separates core
+evidence, timer repair, console logger, loader, group, include, HMR and create.
+It supplies decision gates, file boundaries, behavioral acceptance and a
+schedule dependency graph. These are proposed work packages; this planning
+change does not approve their future APIs, dependencies, exclusions or releases.
+
+Source inspection found timer admission/ownership/terminal-state gaps that
+need executable regressions before fixes. The recommended first sequence is
+baseline, timer hardening, console logger, then loader. Upstream group is a
+loader re-export; group behavior belongs in loader even if packaging later
+adds a facade. Include reconciliation and HMR replacement need distinct slices.
+
+**Why:** Cover every package without equating a minimal slice with full parity,
+freezing unknown contracts, or assigning dates before prerequisites are known.
+The seven satellite packages contain 323 syntactic test declaration lines;
+parameter variants and supported Rust dispositions remain gate responsibilities.
+
 ## 2026-10-27 — Order satellite targets without claiming implementation
 
 The user selected roadmap planning for `re-cordis-timer`, `re-cordis-logger`,
@@ -22,11 +267,10 @@ with explicit Rust registration/configuration contracts, not assumed native
 hot reload. Logger/timer are not automatic loader dependencies.
 
 Each delivered satellite updates both language trees, the AI-agent index,
-README status/comparison ratings and its executable documentation checks.
+README package/status information and its executable documentation checks.
 Existing local/non-Send hosting, parent ownership, exact provider retention,
 explicit recovery and cancellation boundaries remain unless a demonstrated
-requirement justifies a separately reviewed change. Do not adopt independent
-cordis-rs redesigns as TypeScript parity.
+requirement justifies a separately reviewed change.
 
 **Why:** Core delivery and the first consumers are complete; the next framework
 work should progress through bounded satellites rather than more application
@@ -298,8 +542,8 @@ and recovery remain M5. Self/owning-ancestor lifecycle waits are refused from
 attributed callbacks instead of deadlocking their subtree.
 
 **Why:** This preserves the TS parent/resource ownership, validation timing,
-and observable failure semantics without JavaScript callable-object discovery
-or the prior port's parent-unowned spawn model. Callback definitions are
+and observable failure semantics without JavaScript callable-object discovery.
+Callback definitions are
 immutable, so the TS first-spawn metadata snapshot has no mutable counterpart.
 Runtime host lifetime remains explicit; Drop is not successful async teardown.
 See [M3 contracts and evidence](m3.md).
@@ -447,21 +691,19 @@ an older edition does not satisfy the project requirement.
 **Why:** This is a new implementation with no legacy-edition compatibility
 obligation. Edition 2024 requires Rust 1.85 or later, but the exact supported
 compiler minimum will be selected and tested when dependencies and language
-features are chosen. The prior port's Rust 1.88 minimum is not ours by default.
+features are chosen.
 
-## 2026-10-22 — Plan from pinned behavior, not the prior port's architecture
+## 2026-10-22 — Plan from pinned TypeScript behavior
 
 The initial [implementation plan](implementation-plan.md) reviews TypeScript
-Cordis at `35fdc969e4b6c48c48ed44717c7a018324e4dd88` and the independent Rust
-port at `1754062cef67cfc119fc7a2084c0321a231b9092`. Preserve the TS behavior
+Cordis at `35fdc969e4b6c48c48ed44717c7a018324e4dd88`. Preserve the TS behavior
 of parent-owned children, reusable-root disposal, exact binding retention,
 concurrent top-level cleanup, and the five dispatch modes. Runtime ownership,
 typed tracing, and callback/config API choices require design spikes before
 their public contracts are fixed.
 
-**Why:** The prior port intentionally diverges in these areas and its parity
-ledger uses an older TS revision. Its implementation is useful evidence for
-Rust engineering, not authority to silently narrow this project's semantics.
+**Why:** Pinning the behavioral source makes each Rust adaptation and its
+verification criteria explicit.
 
 ## 2026-10-22 — TypeScript `cordis` is the source of truth
 
@@ -469,19 +711,8 @@ The original [cordiverse/cordis](https://github.com/cordiverse/cordis)
 (TypeScript) is the specification. When references disagree or behavior is
 ambiguous, the TS implementation wins.
 
-**Why:** The goal is a faithful reimplementation of the original framework, not
-a variation on an existing Rust port.
-
-## 2026-10-22 — `dshbox/cordis-rs` is reference-only
-
-The existing Rust port [dshbox/cordis-rs](https://github.com/dshbox/cordis-rs)
-is kept locally for comparison and inspiration but is not a target. Its API
-shape and architectural decisions are not authoritative and may be diverged
-from freely.
-
-**Why:** It is an independent effort whose distance from the upstream semantics
-is unknown; adopting its decisions wholesale would undermine the goal of
-verifying the port against the original.
+**Why:** The goal is to re-express the original framework's semantics through
+idiomatic Rust contracts.
 
 ## 2026-10-22 — Mirror semantics, not mechanisms
 
@@ -502,57 +733,354 @@ and lets satellite capabilities stay optional, as they are upstream.
 
 ## Timer satellite
 
-Decisions made delivering the first satellite, `re-cordis-timer` (2026-10-27).
-The TypeScript `packages/timer` remains the semantic specification; the
-independent `cordis-rs` port is engineering evidence only.
+The original 2026-10-27 delivery uses a sealed TimerExt extension on Context,
+with no TimerService/install step and no deprecated setTimeout/setInterval
+aliases. The 2026-11-03 T0–T5 repair keeps these Rust representations and the
+pinned TypeScript timer implementation as the semantic reference. The pinned
+spec has 22 declaration lines, not the earlier reported 20; this is an
+inventory count, not a parity or Rust-test count.
 
-### `interval(delay)` without a callback is a `Stream`, not an async iterator
+### Hosted ownership and admission-time clocks
 
-The callback-less `interval` returns a type implementing `futures_util::Stream`
-(plus a control handle with `stop`/`fail`), not a faithful reimplementation of
-the JavaScript `next`/`return(value)`/`throw(reason)` async-iterator protocol.
+Concrete regressions showed raw spawned callbacks lacked HOST authority,
+refused work retained callbacks, and completed timers retained effects.
+The smallest required core bridge is Context::task: a local future returns its
+terminal synchronous callback; core hosts and contains the future, retires its
+exact registration, then invokes the callback without another await.
+TaskControl only marks cancellation and requests abort. The existing owner
+cleanup starts cancellation synchronously and awaits the supervisor's join.
+Effect Drop and transfer/composition contracts remain unchanged.
+Context::invoke_callback validates the actual host/owner and preserves one
+original CallbackError diagnostic, without granting authority to raw Tokio tasks.
 
-**Why:** `Stream` is the idiomatic Rust async-sequence type, composes with
-`StreamExt`, and is what the independent `cordis-rs` port also chose. The JS
-iterator's concurrent-reader behavior — `return(value)` resolving *all* pending
-reads with one value, `throw(reason)` rejecting all — is an iterator-protocol
-artifact with no natural single-consumer `Stream` analogue. A Rust consumer who
-needs "stop and notify waiters" is better served by owner disposal plus the
-callback form. The dropped cases are documented in `docs/limitation.md`.
+Check host/owner admission before constructing Tokio time or spawning work.
+Deadlines use checked monotonic Instant arithmetic and are pinned eagerly at
+successful construction, including Sleep whose polling is delayed. Scheduled
+calls pin their trailing deadline at successful call admission. Constructors
+return InvalidDelay for unrepresentable deadlines and zero repeat periods.
+Positive periods below a millisecond are accepted with Tokio millisecond precision.
+Zero timeout/sleep/debounce remain asynchronous; zero throttle leads immediately.
+Tokio's ordinary Skip behavior still bursts for lags below 5ms, so repeat delivery
+explicitly resets to the next original phase after each tick. If the next phase
+cannot be represented, callback repetition stops and a stream ends with InvalidDelay.
 
-### Operations are reached through a sealed `TimerExt` trait, with no service
+### Owned wrappers, bounded streams, and callbacks
 
-Timer methods are an extension trait on `Context`, sealed so only `Context`
-implements it. There is **no** published `TimerService` and no installation
-step; importing the trait is sufficient.
+Core Effect/TaskControl Drop remains inert. Sleep, IntervalStream and Scheduled
+Drop explicitly request cancellation; destruction and effect retirement require
+the original host to be driven or the owner's cancellation barrier awaited.
+Idle Scheduled captures release synchronously; captures in an executing callback
+release when it returns. Separately claimed manual Effect completions remain
+independent waiters under the existing core contract.
 
-**Why:** The sealed trait is the closest honest Rust analogue to the upstream
-`ctx.mixin(...)` that exposes `ctx.timeout()` etc., and matches the one existing
-Rust precedent (`cordis-rs`). In the TypeScript core the `timer` service is
-load-bearing because mixin and `inject: ['timer']` gating depend on it; in our
-design the methods come from the trait, so a service would only be a presence
-check — surface and an install step for no behavioral gain (CLAUDE.md
-simplicity-first). This revises an initial lean toward an explicit
-`Timer::of(&ctx)` handle, changed after reviewing `cordis-rs`.
+IntervalStream is a single-consumer Stream with one coalesced pending tick.
+This intentionally differs from TS, which only serves pending next() calls.
+A committed terminal gate discards stale ticks: stop produces clean None,
+fail/error produces one Err then stable None. The first committed gate wins;
+owner disposal requests and delivered owner cancellation are distinct moments.
+Concurrent JS return(value)/throw(reason) multi-reader semantics remain omitted.
 
-### Deprecated `setTimeout`/`setInterval` aliases are omitted
+Callbacks execute outside framework mutable borrows. Positive-delay recursive
+calls coalesce through the ordinary trailing window; recursive zero-delay calls
+are ignored to bound recursion/zero loops. Self-disposal and nested Context
+work are supported. Panics stop only the affected repeating/scheduled operation
+and retain one core diagnostic; leading throttle returns its original failure.
+Existing self/ancestor lifecycle waits are refused during task/callback scopes.
 
-The upstream deprecated aliases are not ported.
+Tokio exposes no public driver-presence query. Catch its synchronous timer
+construction panic as TimeDriverUnavailable; the standard panic hook still runs.
+Do not replace the global hook or create a detached panic/retained callback
+diagnostic for this ordinary construction refusal. See
+[repair evidence](plans/2026-11-02-cordis-completion/timer.md#executed-repair-evidence)
+and [acceptance](plans/2026-11-02-cordis-completion/evidence/timer-acceptance.md).
 
-**Why:** They are deprecated upstream and forward to `timeout`/`interval`.
-Porting deprecated surface adds maintenance and documentation cost with no
-value. Documented in `docs/limitation.md`.
+## Console logger satellite
 
-### Timers use the monotonic `tokio::time` clock
+C0–C3 implement `re-cordis-logger` on 2026-11-03, corresponding to pinned
+TypeScript `packages/logger-console` at
+`35fdc969e4b6c48c48ed44717c7a018324e4dd88`. The shorter Rust crate name follows
+the planned satellite layout; the existing core Logger remains the logging system.
+The [console contract](plans/2026-11-02-cordis-completion/logger.md) records the
+selected scope, targeted results and final review/acceptance status.
 
-Throttle/debounce windows and all delays use the monotonic clock the local
-runtime drives, not wall-clock time. Deterministic tests use a paused runtime
-with `tokio::time::advance`, never wall-clock sleeps.
+- Free `register`/`register_stdout` functions take existing `ExporterOptions`
+  and return the existing `ExporterRegistration`. An owned `Write + 'static`
+  has no Send bound. Reuse core host/owner admission, removal, filtering,
+  buffering, error trees and snapshot lifetime; add no service or global logger.
+- All severities use stdout by default, following the Node exporter. Each
+  record uses `write_all` then one `flush`; I/O is synchronous backpressure,
+  with no queue or hidden task. Partial bytes cannot be rolled back. Writer
+  failures propagate through core's attempt-all `LogError::Exporters`.
+  Recursive export uses `try_borrow_mut` and returns an I/O error; destructor
+  release stays in core's established callback snapshot/removal path.
+- Default Auto samples stdout once. Explicit Plain/ANSI16/ANSI256 wins;
+  Auto precedence is FORCE_COLOR (0/1/2/3; other present values mean ANSI16),
+  nonempty NO_COLOR, terminal/TERM=dumb refusal, TERM containing 256color,
+  then terminal ANSI16. Depth 3 caps at ANSI256. Non-Unicode facts are ignored.
+  Custom writers and pure render use plain Auto; caller-supplied facts can be
+  resolved explicitly. Plain adds no escapes and does not sanitize message text.
+- Fixed record-time UTC RFC3339 milliseconds replaces local render-time
+  templates. `time = 0.3.36` is pinned, with std/formatting only, to use a
+  maintained calendar formatter compatible with Rust 1.85; core dependencies
+  stay unchanged. Timestamp can be disabled. Invalid UTC year/layout returns
+  an I/O InvalidInput error. No timezone/template API is introduced.
+- Elapsed output is integer milliseconds. First and backward deltas are zero,
+  with no registration-time clock read. Only successful write+flush advances
+  the baseline; a successful backward record becomes the next baseline.
+  This deliberately differs from constructor/render-time state and humanized
+  upstream durations, making record output reproducible and failures visible.
+- Core `LogRecord::format/color` supplies UTF-16 line limits and channel
+  palettes. Default max length 10240, width 0, margin 1 and left alignment
+  follow upstream. Preserve the asymmetric continuation indentation and longer
+  labels. Label width counts UTF-16 units, not terminal cells; no surrogate
+  splitting. ANSI256 alone adds upstream bold decoration. ANSI16 timestamp
+  gray uses SGR90 rather than upstream's 256-color gray escape.
+- Rust Display/Debug/format! replaces JS `util.inspect`, custom printf
+  placeholders and browser argument rendering: core records no longer contain
+  original JS arguments. These are deliberate language/API representations,
+  not output equivalence. The browser console's error/warn method dispatch is
+  unavailable in this native writer adapter.
 
-**Why:** It is the clock the `LocalSet` host already drives, so timers stay on
-the runtime's own time source. Monotonic timing is also more correct than the
-upstream `Date.now()`-based windows, which can skew under wall-clock
-adjustments. Pausing the clock makes the tests fast and reproducible. One
-consequence recorded during delivery: a timer task must be polled once (a
-`yield_now().await`) after it is created or called so its `sleep` registers on
-the paused driver before the test advances the clock.
+The five pinned source declarations are covered proportionally: aggregate
+error output and exact identity through `tests/exporter.rs`; object/custom
+formatter purpose through explicit Display/Debug in `tests/render.rs`;
+levels through independent core exporter filtering; label style through the
+exact two-line right-aligned oracle (17 continuation spaces).
+The 8 existing core logger tests remain carried evidence for buffer capacity,
+source identities, normalization and core palettes. They are not reopened.
+
+## Loader and structural groups
+
+L0–L5/G0–G1 deliver `re-cordis-loader` as an unpublished Rust 2024/MSRV 1.85
+crate. The semantic reference is pinned TypeScript
+`35fdc969e4b6c48c48ed44717c7a018324e4dd88`.
+A private checked adapter retains each original `Plugin<C,R>` and its core
+allocation identity. Native C needs Clone for replay, not Serialize/Send.
+Core `hooks::Value` is reused as Config; decoder contract checks stay separate
+from the plugin validator's dependency-ready timing.
+
+One dedicated loader owner Fiber owns current entries and hosted convergence
+workers. Entry-level injection uses a reusable outer Plugin; the original
+catalog Plugin is its inner child and keeps its own requirements. Conditions
+and evaluated intercepts use entry authority; config mapping uses the exact
+stored inner Context after plugin requirements commit. User callbacks,
+clones and resource destruction run outside mutable loader borrows and reuse
+core admission/panic containment.
+
+Same-factory loaded config reaches `update_with(no_save:true)` before the
+loader source commit. A single bounded rebuild worker follows the latest
+accepted revision while joining old cleanup; remove/disable wins. Every
+manually detached lifecycle barrier is retained independently of driver tasks,
+and removed-but-retiring entries count against 1024 admission capacity.
+Only the first completed retirement-task error is retained, bounding that
+failure memory; all barriers are still joined. Ordinary callback cleanup
+errors follow core Runtime::take_failures diagnostics, not a new loader
+cleanup report or a changed core disposal result.
+Direct updates retain separate barriers in a loader-wide queue of at most 1024
+outstanding operations, including reentrant admission reservations. Later
+completion cannot replace an older barrier. Subtree removal joins its own
+updates; settlement and owner disposal join all. Completed original waiters or
+successful settlement delivery acknowledge results, as does completed subtree
+removal for its updates; dropping a waiter does not. Disposal may report the
+same retained failure again. The first
+unobserved direct-update failure is retained globally, bounding failure history.
+Parent disposal joins those barriers even after Loader/waiter Drop. Entry/Fiber
+source cycles are broken during retirement/owner cleanup.
+
+Groups are structural loader nodes, including when their verdict disables
+descendants; no facade crate or duplicate registry is added. Global EntryId
+survives adoption, while mutable group addresses aid navigation. Crossing
+groups/scopes rebuilds core Fibers after joined cleanup; same-group reorder is
+inert. Groups carrying condition/intercept callbacks reevaluate through an
+outer lifecycle rebuild, so their descendant Fiber IDs may change while
+logical EntryIds remain stable; pure structural groups retain the incremental
+path. This deliberately replaces JS mutable-prototype reparenting.
+Upstream ':' denotes nested source trees, not ordinary group ownership;
+Rust globally unique IDs across source documents are a namespace adaptation.
+
+Programmatic mutations preflight complete entry-option structure before commit.
+This is not a transaction over arbitrary plugin validators: operational child
+failures are reported independently and healthy siblings proceed. A loaded
+validation rejection retains that child's accepted source; an apply failure
+after acceptance retains the new source and Failed state. Retaining the rejected
+child snapshot is a Rust adaptation of TS's earlier entry.options mutation.
+Read-only source reconciliation preserves valid siblings independently,
+including nested JSON children, and emits no write-back. A per-loader core
+event reports accepted runtime CommitRecord values with old/new/target/origin;
+there is no unbounded history. SourceId/SourceDocument, optional span locators
+and typed replacement provide useful in-memory include/HMR integration seams,
+without file I/O/watchers or JS module execution.
+
+JSON uses serde_json with explicit limits: 1 MiB, depth 32,
+65536 nodes/string bytes, group depth 32, 1024 resident/retiring entries,
+128-byte nonempty IDs without ':', 256-byte nonempty factory names.
+Absent/null config reaches an explicit decoder unchanged. Unknown fields,
+factories and service contracts reject explicitly. Disabled expressions are rejected;
+config/inject/intercept values belong to explicit typed decoders and are never
+executed as JavaScript. A permissive decoder may accept expression-shaped data.
+Typed service registrations map serialized inject/isolate/intercept to core
+keys/configs. FieldPatch Keep/Set/Clear distinguishes retention and removal.
+Named JSON realms are shared while their defining Scope tokens live (including
+snapshots); the loader keeps weak entries, prunes dead labels and permits at
+most 1024 simultaneously live named realms. Rejected decodes release their
+tokens. Reusing a label after its last defining scope drops may create a fresh
+identity; old committed Contexts keep their exact old views. Empty/obsolete
+source records are pruned. Anonymous positional reuse requires current source
+ownership and root position, so it cannot reclaim an entry adopted elsewhere.
+Duplicate IDs within a source are reported per colliding definition; the first
+valid identity and healthy siblings survive across nested groups.
+
+Snapshots separate retained native source/options, optional original JSON
+transport and last evaluated C. Initial resolved R is not exposed by core's
+original Plugin; it stays plugin-owned rather than being fabricated.
+Typed condition/intercept failures are Failed and require explicit update,
+instead of JavaScript truthiness/evaluation failure becoming a disabled verdict.
+All entries use an outer owner, including empty injection; this simplifies
+consistent teardown at the cost of an extra core Fiber. Entry injection values
+are typed static Dependency configs; no dynamic JS inject-value evaluator is
+provided. Explicit settle replaces the implicit loader service's await intercept.
+Self/ancestor lifecycle requests keep core's reentrant refusal. See the
+[loader API](en/api/loader.md), [group API](en/api/groups.md) and
+[work package](plans/2026-11-02-cordis-completion/loader.md).
+
+## Include files and persistence
+
+The 2026-11-03 include I0–I4 delivery is selected over accepted loader
+101f37b. Include owns file snapshots, locations, ordered patches, a bounded
+journal and explicit refresh/flush; loader/core continue owning plugin
+lifecycle. A dedicated include owner serializes local operations. Standard
+synchronous file I/O keeps accepted writes bounded in count without detached
+background writers; it can block the local executor on slow storage.
+
+JSON is the first format. YAML is selected as a canonical value format,
+subject to the executed parser capability gate in the
+[include contract](plans/2026-11-02-cordis-completion/evidence/include-contract.md).
+Comment/style retention is not claimed. Unsupported aliases, anchors and custom
+or executable tags must fail with source diagnostics before expansion or
+execution. Structured locations distinguish persisted source from runtime data.
+
+File precedence applies only to conflicting runtime changes in a three-way
+comparison of the prior snapshot, current file and pending journal. Unrelated
+keys survive. Patch-owned keys and embedded entries write to their actual owner.
+Sibling temporary files and replacement isolate individual file writes;
+atomic visibility, power-loss durability, multi-file transactions and races
+with uncooperative external writers are separate guarantees. Every retry
+rereads and reconciles; an invalid current file is never overwritten.
+Pending work remains available after a write failure, and joined shutdown
+must expose the final write result as well as loader cleanup.
+
+Arbitrary typed loader Config values are not implicitly serializable. Include's
+persistable mutation boundary uses explicit JSON values rather than imposing
+Serialize on accepted native loader plugins. Exact signatures, limits and
+platform boundaries are recorded with the contract and acceptance evidence.
+
+I3 adds bounded immutable pending snapshots and original placement so partial
+multi-file success does not turn an already-written removal into accidental
+loss of a pending move. Permission bits are retained on replacement; absent
+roots are installed exclusively with a hard link to the complete sibling temp.
+Include descriptors in moved subtrees are rebased to canonical absolute paths.
+Operation errors retain their original sources and write-failure conflicts.
+
+The IR5 correction adds explicit patch `unset` field names, applied after
+overrides, to preserve effective absence without changing hidden base values.
+It keeps absent config distinct from JSON null. Runtime removal routes this
+marker to the actual patch owner; a later set removes the marker. Structural
+control keys cannot be unset. This is a necessary Rust/JSON representation
+for field deletion, not JavaScript undefined serialization.
+
+## HMR watching and linked replacement
+
+The selected H0–H3 scope starts at 47042d9 and reuses accepted include 0a2df1e,
+loader 101f37b and timer/core task ownership. Exact APIs and execution gates
+live in the [HMR contract](plans/2026-11-02-cordis-completion/evidence/hmr-contract.md).
+
+Watch explicitly registered file paths with a standard-library polling thread
+whose JoinHandle belongs to the watcher. Reviewed notify 8.2.0/8.2.1 compile on
+1.85.0, but PollWatcher does not expose a joined producer shutdown. Keeping our
+own bounded registered-file poller avoids a detached producer or platform-specific
+join claim. Accepted timer debounce and core hosted tasks handle local dispatch.
+Only owned paths, numeric generations, I/O errors and synchronization state
+cross threads. There is no directory traversal or inferred source graph.
+
+Use bounded queue overflow to request a rescan of all active registered paths;
+logical path generations and exact registration tokens reject obsolete delivery.
+File inode replacement does not change the registered path. Missing files can
+recover; symlinks are refused under the documented ordinary-filesystem policy.
+Cancellation requests are distinct from joined watcher/owner disposal, which
+waits for producer termination and local task/capture release.
+
+Factory replacement takes an explicit dependency graph plus already-compiled
+typed candidates. A minimal loader batch seam checks every declaration and
+retained source contract before catalog publication or reload teardown. Optional
+raw-source preflight runs with same-loader mutation admission guarded; core
+Plugin validation stays on the actual dependency-ready replacement Context.
+Loader retains each instance's configuration and exact providers through old
+cleanup, then follows current identity/intent. It owns admitted work even after
+a replacement waiter is dropped. External effects cannot be rolled back after
+unload; Failed results and explicit recovery remain visible.
+
+The optional HMR-side `watch_include(path, include)` registers one explicit
+trigger path and invokes refresh on the supplied Include, including its source
+graph. It retains the admitted IncludeTask outside the cancellable callback;
+stop suppresses follow-up and watcher/ancestor cleanup joins that same task
+without new Include admission. Active and unfinished retired registrations share
+one quota. Returned Include errors and every Report failure retain their original
+causes in bounded WatchEvent history; ordinary core cleanup failures retain their
+existing Runtime diagnostics channel.
+
+`ReloadPlan::replace_include` forwards the exact linked factory batch through
+that same Include's private loader. It preserves journal, data, provenance and
+file bytes and does not flush. The offline reload example demonstrates watched
+config updates before and after compiled replacement on one stable EntryId.
+Include has no dependency on HMR. Changed Rust source produces restart-required;
+the application owns any build/restart process. Node caches, JS execution and
+native ABI loading are outside H0–H3. H0–H3 is independently accepted with
+[full shared verification](plans/2026-11-02-cordis-completion/evidence/hmr-acceptance.md)
+on stable and 1.85.0. Exact replacement failures preserve distinct occurrences;
+read-error coalescing begins only after successful ingress admission.
+
+## Create offline scaffolding
+
+The user's 2026-11-04 selection is minimal offline S0–S2. The unpublished
+`re-cordis-create` library/binary generates one useful Rust application from
+a local checkout, using the accepted core, console logger and loader.
+The [work package](plans/2026-11-02-cordis-completion/create.md) records the
+selected slice and acceptance progress; the
+[source map](plans/2026-11-02-cordis-completion/evidence/create-source-map.md)
+records upstream dispositions. No core hosting contracts are reopened.
+
+- **Rust representation:** a synchronous `create` function with `Path` inputs,
+  contextual `CreateError` and a small native-argument CLI replaces interactive
+  JavaScript/package-manager scaffolding. The generator uses only std, runs
+  no subprocess and requires no framework host.
+- **Name admission:** reject the three bundled Cordis dependency package names
+  before staging. Reusing one at version `0.0.0` creates a Cargo lockfile identity
+  collision at different paths; accepting it would generate an unusable project.
+- **Dependency choice:** unpublished `0.0.0` Cordis crates use validated canonical
+  absolute Unicode checkout paths with TOML escaping. Validation checks this
+  repository's literal manifest/layout spelling, not arbitrary Cargo TOML or source. An application `[workspace]` with resolver 3
+  prevents accidental membership in an enclosing workspace. Rust 2024/MSRV 1.85
+  and unpublished status remain explicit. Dependency installation and lockfile
+  creation happen only through the user's subsequent Cargo commands.
+- **Application contract:** a current-thread Tokio entry point drives the existing
+  local Runtime, typed service/plugin configuration, scoped console output,
+  loader updates and explicit joined shutdown. The generated program checks
+  operation errors, cleanup reports and runtime diagnostics; meaningful tests
+  verify resource release and error channels.
+- **Filesystem choice:** validate name/checkout/destination before rendering all
+  five files in an owned sibling staging directory, recheck destination and
+  commit through one rename. Destinations are absent or empty ordinary
+  directories, their parents already exist, and failed staging cleanup is visible.
+  This is a narrow local operation, not a hostile-filesystem confinement or
+  power-loss durability protocol; empty-directory rename behavior is platform-dependent.
+- **Deferred scope:** remote templates, downloaders, archives/cache, Git/install/
+  launch options and Include/HMR templates are unselected. They are separate
+  product choices, not inherent Rust limitations.
+- **Evidence:** paired guides/API and documentation checks execute the actual
+  generator and generated application offline using both explicit toolchains.
+  Runtime filesystem evidence is macOS only. Independent S0–S2 acceptance is complete;
+  existing core and satellite acceptance retains its original scope.
+
+Offline S0–S2 is independently accepted at executable revision `8373fa3`;
+see [final verification](plans/2026-11-02-cordis-completion/evidence/create-acceptance.md).
+Publication and additional template capabilities remain separate decisions.

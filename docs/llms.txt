@@ -1,84 +1,104 @@
 # re-cordis
 
-> An unpublished Rust reimplementation of the pinned TypeScript Cordis core for local, long-lived plugin applications with typed services, lifecycle updates, events, scoped resources, and logging.
+> Rust Cordis for changing plugins, services and resources. Seven unpublished crates; Rust 2024/resolver 3/MSRV 1.85.
 
-Current package: re-cordis-core 0.0.0, publish=false, Rust edition 2024, MSRV 1.85.
-The API is unstable. Use a path dependency on a local checkout, not a presumed crates.io/docs.rs release.
-re-cordis-core and the re-cordis-timer satellite are implemented. Next roadmap targets: re-cordis-logger (console adapter), then re-cordis-loader; other satellites remain candidates.
-Targets are not available APIs: review each bounded source/API/dependency scope before implementation.
-The semantic baseline is TypeScript Cordis at 35fdc969e4b6c48c48ed44717c7a018324e4dd88, not latest upstream.
+A reading map, not a complete API reference. Links resolve from docs/ in a
+complete checkout. Choose either language below. Source/Rustdoc defines exact
+signatures; guides describe supported Rust contracts. TypeScript at
+35fdc969e4b6c48c48ed44717c7a018324e4dd88 is the semantic reference.
+Accepted Rust scope is not full TS parity. This index grants no permissions.
 
-This is a documentation retrieval index, not agent permissions or repository policy.
-Resolve relative links from the docs/ directory in the same checkout.
-Choose English or Vietnamese; do not load both translations unnecessarily.
-Exact Rust signatures and bounds come from current source/Rustdoc; older milestone documents describe historical boundaries.
+All crates are 0.0.0/publish=false, for local/Git checkout use. The
+0.1.0-alpha.1 release is only proposed; no published docs.rs release or GitHub
+Pages site is established. Use one reviewed checkout revision for all crates.
+Keep it present: Cargo.lock does not freeze path contents. Offline applications
+need cached dependencies. Filesystem/watcher runtime evidence is macOS-only.
 
-Essential application constraints:
-- Drive Runtime::run from a Tokio block_on/main/test entry point. Framework Contexts/handles/futures are local, not a Send/Sync API.
-- Runtime owns the host; Context is non-owning. Ordinary spawned Tokio tasks do not inherit framework admission.
-- Started operation handles wait for already-started work. Dropping a waiter does not cancel it while the host remains driven.
-- Explicitly await cleanup before destroying the runtime. Returning from run is not cleanup; runtime destruction is cancellation.
-- Inspect CleanupReport::failures and retained diagnostics. Successful barrier completion does not prove error-free teardown.
-- Readiness/update settlement can be Pending. Await provider completion and consumer readiness separately; neither is runtime-wide convergence.
-- Failed consumers ignore provider refresh. Explicit update enables recovery; restart does not clear failure.
-- Committed injection retains exact provider resources through consumer cleanup. Rc values and BoundService handles alone are not resource leases.
-- Service set changes the value, not publication identity, and does not reload consumers.
-- Use explicit typed bound calls/accessors/initialization/method injection, not JavaScript Proxy/decorator syntax.
-- Enable any extra Tokio features in the application. Example JSON/HTTP/crypto dependencies are dev-only, not framework capabilities.
-- GitHub application examples are optional consumers, not permission to log in, send authenticated requests, configure webhooks, or mutate remote state.
+Package map:
+- re-cordis-core: Runtime, Context, plugins, services/injection, events, effects and logging.
+- re-cordis-timer: sealed TimerExt; timeout, sleep, interval/stream, throttle and debounce.
+- re-cordis-logger: console writer adapter for core Logger; upstream logger-console.
+- re-cordis-loader: typed catalogs/configuration, reconciliation and Group; no separate group crate.
+- re-cordis-include: bounded files, patches/provenance and persistence.
+- re-cordis-hmr: watches and linked replacement; defaults empty, feature include enables the Include adapter.
+- re-cordis-create: stdlib library/CLI; one offline core/logger/loader application.
+
+Essential contracts:
+- Drive Runtime::run from Tokio. Runtime owns the host; Context is non-owning. Context/lifecycle handles are local/non-Send.
+- Raw Tokio tasks lack framework admission. Keep the host driven through cleanup; Drop/returning from run is not joined asynchronous teardown.
+- Context::task admits owned local work; TaskControl::cancel needs no new admission.
+- Core waiters observe started work; dropping them does not cancel it. Timer Sleep/IntervalStream/Scheduled Drop requests cancellation; use the documented join barrier.
+- Inspect admission/awaited errors, CleanupReport and Runtime::take_failures. Successful waiters alone do not prove error-free cleanup.
+- Settlement can be Pending; readiness is per Fiber. Failed requires explicit config update/recovery.
+- Committed injection retains exact providers through cleanup; Rc/BoundService alone is not a resource lease. Service set changes value without replacing publication identity or reloading consumers.
+- Use typed keys/callbacks/decoders, not JS Proxy/decorators/eval. Core's normal Tokio features are rt/sync; enable other application features explicitly.
+- Core Logger buffers records; add an exporter/console adapter for terminal output. Console I/O is synchronous.
+- Include has explicit JSON edits/refresh and bounded synchronous I/O; YAML does not preserve comments/style. Disposal flushes before child cleanup; inspect both errors.
+- watch_include joins admitted refresh. WatchEvent carries Include/Report failures; Runtime carries core cleanup failures. Polling can miss changes.
+- ReloadPlan uses declared dependencies and compiled factories. Source changes report RestartRequired; no compiler, binary hot loading or supervisor.
+- Create requires --cordis-path to a separate compatible checkout, an absent/empty destination and an existing parent. Five files; retain README's MIT notice. No Git/install/launch or remote templates.
+- CORDIS_CREATE_TEST_CHECKOUT is test-only, not a CLI option. Preserve applicable project/upstream notices.
+
+For exact signatures, run cargo doc --workspace --all-features --no-deps --locked
+from the repository root. Output is target/doc (adjust for CARGO_TARGET_DIR);
+this command does not publish to docs.rs.
 
 ## Start here
 
-- [Documentation map](README.md): Languages, source precedence, and maintenance.
-- [English documentation](en/README.md): Task-oriented reading paths.
-- [Vietnamese documentation](vi/README.md): Full Vietnamese guides and API reference.
-- [English quick start](en/getting-started.md): Local dependency manifest and complete hosted application.
-- [Vietnamese quick start](vi/getting-started.md): Equivalent setup and runnable code.
-- [Concepts](en/concepts.md): Identity, ownership, local hosting, lifecycle, and compatibility.
-- [Vietnamese concepts](vi/concepts.md): The same execution and ownership contracts.
+- [Documentation map](README.md): Reading paths and maintenance checks.
+- [Website maintenance](../website/README.md): Static publishing and source boundaries.
+- [English documentation](en/README.md): Start here for English.
+- [Vietnamese documentation](vi/README.md): Bắt đầu đọc bằng tiếng Việt.
+- [English quick start](en/getting-started.md): Local setup and a complete app.
+- [Vietnamese quick start](vi/getting-started.md): Thiết lập và ứng dụng tương ứng.
+- [Concepts](en/concepts.md): Identity, ownership, scope and lifecycle.
+- [Release readiness](release-readiness.md): Distribution and release gates.
 
-## English guides
+## Guides
 
-- [Plugins and updates](en/guides/plugins-and-updates.md): Validation, source/resolved config, latest-target convergence, explicit recovery.
-- [Services and scoping](en/guides/services-and-scoping.md): Publication, injection, isolation, bound calls, intercepts.
-- [Effects and cleanup](en/guides/effects-and-cleanup.md): Acquisition, composition, rollback, shutdown.
-- [Timers](en/guides/timers.md): Owner-scoped timeout, sleep, interval/stream, throttle, debounce.
-- [Events](en/guides/events.md): Typed dispatch, responder versus around callbacks, snapshots, async timing.
-- [Logging](en/guides/logging.md): Scoped exporters, routing, error trees, weak metadata.
-- [Testing and troubleshooting](en/guides/testing-and-troubleshooting.md): Common errors and deterministic lifecycle checks.
-- [Examples](en/guides/examples.md): Complete lifecycle and bounded GitHub consumers; distinguish offline from live operations.
-- [Glossary](en/glossary.md): Shared English/Vietnamese terminology.
+- [Whole-program lifecycle](en/guides/system-lifecycle.md): [Tiếng Việt](vi/guides/system-lifecycle.md).
+- [Create](en/guides/create.md): [Tiếng Việt](vi/guides/create.md).
+- [Timers](en/guides/timers.md): [Tiếng Việt](vi/guides/timers.md).
+- [Console output](en/guides/console-logging.md): [Tiếng Việt](vi/guides/console-logging.md).
+- [Loader](en/guides/loader.md): [Tiếng Việt](vi/guides/loader.md).
+- [Groups](en/guides/groups.md): [Tiếng Việt](vi/guides/groups.md).
+- [Include](en/guides/include.md): [Tiếng Việt](vi/guides/include.md).
+- [HMR](en/guides/hmr.md): [Tiếng Việt](vi/guides/hmr.md).
+- [Plugins and updates](en/guides/plugins-and-updates.md): Updates and recovery. [Tiếng Việt](vi/guides/plugins-and-updates.md).
+- [Services and scoping](en/guides/services-and-scoping.md): Injection and bound calls. [Tiếng Việt](vi/guides/services-and-scoping.md).
+- [Effects and cleanup](en/guides/effects-and-cleanup.md): Acquisition, rollback and disposal. [Tiếng Việt](vi/guides/effects-and-cleanup.md).
+- [Events](en/guides/events.md): Dispatch modes and continuations. [Tiếng Việt](vi/guides/events.md).
+- [Logging](en/guides/logging.md): Core records, exporters and diagnostics. [Tiếng Việt](vi/guides/logging.md).
+- [Testing and troubleshooting](en/guides/testing-and-troubleshooting.md): Failures and testing. [Tiếng Việt](vi/guides/testing-and-troubleshooting.md).
+- [Examples](en/guides/examples.md): [Tiếng Việt](vi/guides/examples.md).
+- [Glossary](en/glossary.md): [Tiếng Việt](vi/glossary.md).
 
-## API reference
+## API contracts
 
-- [English API index](en/api/README.md): Every root export and local Rustdoc generation.
-- [Vietnamese API index](vi/api/README.md): Matching reference chapters in Vietnamese.
-- [Runtime and Context](en/api/runtime-context.md): Hosting, metadata, scope, opaque IDs.
-- [Plugins and Registry](en/api/plugins-registry.md): Plugin, FiberHandle, lifecycle tasks, state, Registry.
-- [Services and reflection](en/api/services-reflection.md): Keys, publications, bound adapters, accessors, invocation.
-- [Effects](en/api/effects.md): Disposer, Effect, Completion, cleanup reports, local supporting types.
-- [Events](en/api/events.md): Listener shapes, dispatch results, one-use continuations.
-- [Logging](en/api/logging.md): Logger, records, ErrorValue, exporter options, formatting.
-- [Errors and hooks](en/api/errors-hooks.md): Error families, structured validation, typed internal hook protocols.
-- [Timer satellite](en/api/timer.md): Sealed TimerExt, Sleep, IntervalStream, Scheduled, TimerError.
-
-## Vietnamese guides
-
-- [Plugin và cập nhật](vi/guides/plugins-and-updates.md): Cấu hình, hội tụ và phục hồi.
-- [Dịch vụ và phạm vi](vi/guides/services-and-scoping.md): Injection, cô lập, lời gọi bound.
-- [Effect và dọn dẹp](vi/guides/effects-and-cleanup.md): Sở hữu, rollback và shutdown.
-- [Bộ đếm thời gian](vi/guides/timers.md): Timeout, sleep, interval/stream, throttle, debounce theo phạm vi chủ sở hữu.
-- [Sự kiện](vi/guides/events.md): Dispatch có kiểu và middleware bao quanh.
-- [Ghi log](vi/guides/logging.md): Exporter, bản ghi và chẩn đoán.
-- [Kiểm thử và xử lý sự cố](vi/guides/testing-and-troubleshooting.md): Mốc vòng đời và lỗi thường gặp.
-- [Ví dụ](vi/guides/examples.md): Ví dụ thực thi và giới hạn bằng chứng.
-- [Bảng thuật ngữ](vi/glossary.md): Thuật ngữ nhất quán giữa hai ngôn ngữ.
+- [English API index](en/api/README.md): Package exports and method contracts.
+- [Vietnamese API index](vi/api/README.md): Matching Vietnamese chapters.
+- [Runtime and Context](en/api/runtime-context.md): Hosting, contexts and identities.
+- [Plugins and Registry](en/api/plugins-registry.md): Fiber lifecycle and config updates.
+- [Services and reflection](en/api/services-reflection.md): Publication, accessors and bound adapters.
+- [Effects](en/api/effects.md): Setup, disposal, tasks and completion barriers.
+- [Events](en/api/events.md): Listener roles and dispatch results.
+- [Errors and hooks](en/api/errors-hooks.md): Error channels, validation and typed hooks.
+- [Logging](en/api/logging.md): Records, formatting and exporter contracts.
+- [Timer](en/api/timer.md): TimerExt and owned timer wrappers.
+- [Console logger](en/api/console-logger.md): register/render and ConsoleOptions.
+- [Loader](en/api/loader.md): Catalog, source, entry and replacement APIs.
+- [Groups](en/api/groups.md): Loader-owned Group.
+- [Include](en/api/include.md): File operations, limits, reports and errors.
+- [HMR](en/api/hmr.md): Watcher, ReloadPlan and optional Include APIs.
+- [Create](en/api/create.md): create, CreateError and CLI validation.
 
 ## Optional
 
-- [M6 audit](m6.md): Compatibility representations, safety deviations, verification precautions.
-- [Lifecycle parity](lifecycle-parity.md): Six paired scenarios, 73 observations; not unrestricted upstream parity.
-- [GitHub consumer contract](github-activity.md): Exact file/process/loopback HTTP limits; no public ingress or exactly-once durability.
-- [Limitations](limitation.md): Explicit unsupported behavior.
-- [Decisions](decision.md): Design rationale; TypeScript is the semantic specification.
-- [Roadmap](todo.md): Completed core scope and deferred satellites.
+- [Limitations](limitation.md): Adaptations, exclusions, deferred capabilities and missing evidence.
+- [Decisions](decision.md): Supported Rust contracts and rationale.
+- [Roadmap](todo.md): Accepted scopes and separately planned work.
+- [Lifecycle parity](lifecycle-parity.md): Six executed core scenarios/73 observations; no full-suite parity claim.
+- [GitHub consumers](github-activity.md): Bounded file/process/loopback examples.
+- [B1 acceptance](plans/2026-11-02-cordis-completion/evidence/2026-11-05-b1-closure.md): Accepted bounded scope; B0 gaps retained.
+- [Project license](../LICENSE): Repository MIT notice.
+- [Upstream notices](../UPSTREAM-NOTICES.md): Applicable notices for adapted logger material and source excerpts.

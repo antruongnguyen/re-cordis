@@ -4,7 +4,14 @@
 
 Run these commands from the repository root. Framework integration uses the
 same production core as applications; JSON, HTTP, cryptography, and expanded
-Tokio features in these examples are **dev-dependencies**, not core APIs.
+Tokio features in crate examples are **dev-dependencies**, not core APIs.
+A generated application declares its own dependencies.
+
+## Whole-program integration
+
+Run `cargo run -p re-cordis-hmr --example system_lifecycle --features include --locked --offline`.
+The [integration guide](system-lifecycle.md) covers the shared application,
+provider moves, persistence, recovery, pending work and generated-project checks.
 
 ## Lifecycle: the framework tour
 
@@ -72,3 +79,42 @@ renamed to `antruongnguyen/re-cordis`) and a nonempty snapshot from
 Those observations are point-in-time application evidence, not committed
 fixtures, complete repository inventory, new core parity evidence, or live
 webhook delivery. Private session artifacts are not documentation dependencies.
+
+## Console output
+
+[console.rs](../../../crates/re-cordis-logger/examples/console.rs) demonstrates
+plugin-owned stdout, explicit formatting, owner disposal, manual removal and
+root drain. Run `cargo run -p re-cordis-logger --example console --locked`.
+See [console logging](console-logging.md) for the same complete program.
+
+## Loader boot and reconfiguration
+
+Run `cargo run -p re-cordis-loader --example boot_reconfigure --locked`.
+The [example](../../../crates/re-cordis-loader/examples/boot_reconfigure.rs)
+boots a structural group, waits Pending, admits a provider, updates source,
+fails/recover explicitly and joins shutdown. No files or network are used.
+
+## Include read, change and persistence
+
+Run `cargo run -p re-cordis-include --example config_file --locked --offline`.
+The [example](../../../crates/re-cordis-include/examples/config_file.rs) reads
+a temporary file, changes a typed plugin config, flushes and joins shutdown.
+See [configuration files](include.md) for the identical executable program.
+
+## HMR configuration and compiled replacement
+
+Run `cargo run -p re-cordis-hmr --example reload --features include --locked --offline`.
+The [example](../../../crates/re-cordis-hmr/examples/reload.rs) watches a temporary
+configuration through Include, replaces its compiled factory on the same EntryId,
+verifies later config refresh, reports source RestartRequired and joins shutdown.
+See [HMR](hmr.md#offline-example) for the supported layers and failure channels.
+
+## Create a local application
+
+Use [Create](create.md) to generate the fixed offline core/logger/loader
+application from this checkout, then run its own tests and executable explicitly.
+The [generator](../../../crates/re-cordis-create/src/lib.rs) includes typed
+services/plugins, scoped console output, programmatic configuration, updates
+and joined shutdown. Its generated tests cover release and error channels.
+This is application scaffolding; Include/HMR variants and automatic Git/install/
+launch are outside the selected S0–S2 scope.

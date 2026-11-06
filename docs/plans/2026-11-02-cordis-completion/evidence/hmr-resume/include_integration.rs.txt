@@ -1,0 +1,241 @@
+#![cfg(feature = "include")]
+    #![allow(missing_docs)]
+
+    use futures_util::FutureExt;
+    use re_cordis_core::{BoxError, Context, Plugin, Runtime};
+    use re_cordis_hmr::{Change, ChangeKind, FileWatcher, SyntheticEvents, WatchError, WatchEvent, WatchOptions, WatchToken};
+    use re_cordis_include::{Include, IncludeError, IncludeOptions, JsonEdit};
+    use re_cordis_loader::Catalog;
+    use serde_json::json;
+    use std::{cell::{Cell, RefCell}, convert::Infallible, error::Error, fmt, path::PathBuf, rc::Rc, sync::atomic::{AtomicUsize, Ordering}, time::Duration};
+
+    static NEXT: AtomicUsize = AtomicUsize::new(0);
+    struct Dir(PathBuf);
+    impl Dir {
+        fn new() -> Self {
+            let path = std::fs::canonicalize(std::env::temp_dir()).unwrap().join(format!("cordis-hmr-include-{}-{}", std::process::id(), NEXT.fetch_add(1, Ordering::Relaxed)));
+            std::fs::create_dir(&path).unwrap();
+            Self(path)
+        }
+        fn path(&self, name: &str) -> PathBuf { self.0.join(name) }
+        fn put(&self, name: &str, value: u32) {
+            std::fs::write(self.path(name), format!(r#"[{{"id":"a","name":"worker","config":{value}}}]"#)).unwrap();
+        }
+    }
+    impl Drop for Dir { fn drop(&mut self) { let _ = std::fs::remove_dir_all(&self.0); } }
+    async fn pump() { for _ in 0..24 { tokio::task::yield_now().await; } }
+    async fn fire() { pump().await; tokio::time::advance(Duration::from_millis(50)).await; pump().await; }
+    fn emit(input: &SyntheticEvents, token: &WatchToken) { input.emit(Change { path: token.path().into(), kind: ChangeKind::Modified }).unwrap(); }
+    fn catalog(values: Rc<RefCell<Vec<u32>>>) -> Catalog {
+        let mut catalog = Catalog::new();
+        catalog.register_json("worker", Plugin::new("worker", move |_, value: u32| {
+            values.borrow_mut().push(value);
+            async { Ok::<_, Infallible>(()) }
+        }), |value| serde_json::from_value::<u32>(value.cloned().unwrap_or(json!(0)))).unwrap();
+        catalog
+    }
+    fn has_cause<E: Error + 'static>(mut error: &(dyn Error + 'static)) -> bool {
+        loop {
+            if error.is::<E>() { return true; }
+            let Some(source) = error.source() else { return false; };
+            error = source;
+        }
+    }
+
+    #[tokio::test(flavor = "current_thread", start_paused = true)]
+    async fn watched_include_recovers_invalid_bytes_and_self_writes_converge() -> Result<(), BoxError> {
+        let dir = Dir::new(); dir.put("config.json", 1);
+        let runtime = Runtime::new();
+        runtime.run(async {
+            let values = Rc::new(RefCell::new(Vec::new()));
+            let include = Include::new(&runtime.context(), catalog(values.clone()), IncludeOptions::new(dir.path("config.json")))?;
+            let (watcher, input) = FileWatcher::synthetic(&runtime.context(), WatchOptions::new(&dir.0))?;
+            let token = watcher.watch_include("config.json", include.clone())?;
+            emit(&input, &token); fire().await;
+            assert_eq!(*values.borrow(), [1]); let id = include.entries()[0].id.clone();
+            std::fs::write(dir.path("config.json"), b"{broken")?;
+            emit(&input, &token); fire().await;
+            assert_eq!(include.data()[0]["config"], 1); assert_eq!(include.entries()[0].id, id);
+            let events = watcher.take_events();
+            assert!(events.iter().any(|event| matches!(event, WatchEvent::Failure(error) if has_cause::<IncludeError>(error) && has_cause::<serde_json::Error>(error))));
+            dir.put("staging.json", 2); std::fs::rename(dir.path("staging.json"), dir.path("config.json"))?;
+            for _ in 0..100 { emit(&input, &token); } fire().await;
+            assert_eq!(*values.borrow(), [1, 2]); assert_eq!(include.entries()[0].id, id);
+            include.edit("a", JsonEdit::new().set("config", json!(3)))?.await?;
+            include.flush()?.await?;
+            let before = values.borrow().clone(); let bytes = std::fs::read(dir.path("config.json"))?;
+            for _ in 0..100 { emit(&input, &token); } fire().await;
+            assert_eq!(*values.borrow(), before); assert_eq!(include.data()[0]["config"], 3);
+            assert_eq!(std::fs::read(dir.path("config.json"))?, bytes);
+            assert_eq!(watcher.stats().pending, 0); assert_eq!(watcher.stats().callbacks_running, 0);
+            assert!(!watcher.take_events().iter().any(|event| matches!(event, WatchEvent::Failure(_))));
+            watcher.dispose()?.await?; include.dispose()?.await?;
+            assert!(runtime.context().registry().is_empty()?);
+            Ok::<_, BoxError>(())
+        }).await??; Ok(())
+    }
+
+    #[derive(Debug)]
+    struct OriginalFailure(usize);
+    impl fmt::Display for OriginalFailure { fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result { write!(f, "held cleanup {} failed", self.0) } }
+    impl Error for OriginalFailure {}
+    fn held_catalog(started: Rc<Cell<bool>>, released: Rc<Cell<bool>>, receiver: tokio::sync::oneshot::Receiver<()>, fail: bool) -> Catalog {
+        let receiver = Rc::new(RefCell::new(Some(receiver)));
+        let mut catalog = Catalog::new();
+        catalog.register_json("worker", Plugin::new("held worker", move |ctx: Context, value: u32| {
+            let receiver = receiver.clone(); let started = started.clone(); let released = released.clone();
+            async move {
+                if value == 1 {
+                    ctx.on_dispose(move || {
+                        started.set(true); let receiver = receiver.borrow_mut().take().unwrap();
+                        async move {
+                            receiver.await.unwrap(); released.set(true);
+                            if fail { Err(OriginalFailure(17)) } else { Ok(()) }
+                        }
+                    })?;
+                }
+                Ok::<_, BoxError>(())
+            }
+        }), |value| serde_json::from_value::<u32>(value.cloned().unwrap_or(json!(0)))).unwrap();
+        catalog
+    }
+    #[derive(Clone, Copy)]
+    enum Stop { Token, DropToken, Watcher, Ancestor }
+    async fn held_disposal(mode: Stop) -> Result<(), BoxError> {
+        let dir = Dir::new(); dir.put("config.json", 1);
+        let runtime = Runtime::new();
+        runtime.run(async {
+            let parent = runtime.context().plugin(&Plugin::new("parent", |_, ()| async { Ok::<_, Infallible>(()) }), ())?;
+            let started = Rc::new(Cell::new(false)); let released = Rc::new(Cell::new(false));
+            let (sender, receiver) = tokio::sync::oneshot::channel();
+            let include = Include::new(&parent.context(), held_catalog(started.clone(), released.clone(), receiver, true), IncludeOptions::new(dir.path("config.json")))?;
+            include.refresh()?.await?;
+            let (watcher, input) = FileWatcher::synthetic(&parent.context(), WatchOptions::new(&dir.0))?;
+            let token = watcher.watch_include("config.json", include.clone())?;
+            dir.put("config.json", 2); emit(&input, &token); fire().await;
+            assert!(started.get()); assert!(!released.get()); assert_eq!(watcher.stats().callbacks_running, 1);
+            dir.put("config.json", 3); emit(&input, &token); pump().await;
+            let mut joined = match mode {
+                Stop::Token => { token.stop(); watcher.dispose()? }
+                Stop::DropToken => { drop(token); watcher.dispose()? }
+                Stop::Watcher => watcher.dispose()?,
+                Stop::Ancestor => parent.dispose()?,
+            };
+            pump().await; assert!((&mut joined).now_or_never().is_none());
+            assert!(!released.get()); assert_eq!(watcher.stats().active, 0);
+            assert_eq!(watcher.stats().watches, 1); assert_eq!(watcher.stats().callbacks_running, 0);
+            sender.send(()).unwrap(); let result = joined.await;
+            if !matches!(mode, Stop::Ancestor) { result?; }
+            assert!(released.get()); assert_eq!(watcher.stats().watches, 0);
+            assert_eq!(include.data()[0]["config"], 2);
+            let failures = watcher.take_events().into_iter().filter_map(|event| if let WatchEvent::Failure(error) = event { Some(error) } else { None }).collect::<Vec<_>>();
+            assert_eq!(failures.iter().filter(|error| has_cause::<OriginalFailure>(*error)).count(), 1);
+            assert!(!failures.iter().any(|error| error.to_string().contains("disposed")));
+            tokio::time::advance(Duration::from_secs(1)).await; pump().await;
+            assert_eq!(include.data()[0]["config"], 2); assert_eq!(watcher.stats().pending, 0);
+            assert!(watcher.take_events().is_empty());
+            if !matches!(mode, Stop::Ancestor) { let _ = include.dispose()?.await; let _ = parent.dispose()?.await; }
+            Ok::<_, BoxError>(())
+        }).await??; Ok(())
+    }
+    #[tokio::test(flavor = "current_thread", start_paused = true)]
+    async fn token_stop_keeps_admitted_include_barrier_until_join() -> Result<(), BoxError> { held_disposal(Stop::Token).await }
+    #[tokio::test(flavor = "current_thread", start_paused = true)]
+    async fn token_drop_keeps_admitted_include_barrier_until_join() -> Result<(), BoxError> { held_disposal(Stop::DropToken).await }
+    #[tokio::test(flavor = "current_thread", start_paused = true)]
+    async fn watcher_disposal_joins_include_after_callback_abort() -> Result<(), BoxError> { held_disposal(Stop::Watcher).await }
+    #[tokio::test(flavor = "current_thread", start_paused = true)]
+    async fn ancestor_disposal_joins_include_without_new_admission() -> Result<(), BoxError> { held_disposal(Stop::Ancestor).await }
+
+    #[tokio::test(flavor = "current_thread", start_paused = true)]
+    async fn retired_include_work_counts_against_quota_and_reclaims_after_observation() -> Result<(), BoxError> {
+        let dir = Dir::new(); let runtime = Runtime::new();
+        runtime.run(async {
+            let mut options = WatchOptions::new(&dir.0); options.max_watches = 2;
+            let (watcher, input) = FileWatcher::synthetic(&runtime.context(), options)?;
+            let mut held = Vec::new();
+            for n in 0..2 {
+                let name = format!("{n}.json"); dir.put(&name, 1);
+                let started = Rc::new(Cell::new(false)); let released = Rc::new(Cell::new(false));
+                let (sender, receiver) = tokio::sync::oneshot::channel();
+                let include = Include::new(&runtime.context(), held_catalog(started.clone(), released.clone(), receiver, false), IncludeOptions::new(dir.path(&name)))?;
+                include.refresh()?.await?;
+                let token = watcher.watch_include(&name, include.clone())?;
+                dir.put(&name, 2); emit(&input, &token); fire().await;
+                assert!(started.get()); drop(token); pump().await;
+                held.push((include, sender, released));
+            }
+            assert_eq!(watcher.stats().active, 0); assert_eq!(watcher.stats().watches, 2);
+            assert!(matches!(watcher.watch_source("extra.rs"), Err(WatchError::LimitExceeded(_))));
+            let (include, sender, released) = held.remove(0); sender.send(()).unwrap(); pump().await;
+            assert!(released.get()); assert_eq!(watcher.stats().watches, 1);
+            let new = watcher.watch_source("extra.rs")?; drop(new); assert_eq!(watcher.stats().watches, 1);
+            let (other, sender, released) = held.remove(0); sender.send(()).unwrap(); pump().await;
+            assert!(released.get()); assert_eq!(watcher.stats().watches, 0);
+            watcher.dispose()?.await?; include.dispose()?.await?; other.dispose()?.await?;
+            assert!(runtime.context().registry().is_empty()?); Ok::<_, BoxError>(())
+        }).await??; Ok(())
+    }
+
+    #[tokio::test(flavor = "current_thread", start_paused = true)]
+    async fn repeated_include_registration_releases_callback_and_work_effects() -> Result<(), BoxError> {
+        let dir = Dir::new(); dir.put("config.json", 1); let runtime = Runtime::new();
+        runtime.run(async {
+            let values = Rc::new(RefCell::new(Vec::new()));
+            let include = Include::new(&runtime.context(), catalog(values.clone()), IncludeOptions::new(dir.path("config.json")))?;
+            include.refresh()?.await?;
+            let baseline = runtime.context().get_effects()?.len();
+            for _ in 0..100 {
+                let (watcher, input) = FileWatcher::synthetic(&runtime.context(), WatchOptions::new(&dir.0))?;
+                let token = watcher.watch_include("config.json", include.clone())?; emit(&input, &token); fire().await;
+                drop(token); pump().await; assert_eq!(watcher.stats().watches, 0);
+                assert_eq!(watcher.stats().callbacks_running, 0); watcher.dispose()?.await?;
+                assert_eq!(runtime.context().get_effects()?.len(), baseline);
+            }
+            assert_eq!(*values.borrow(), [1]); include.dispose()?.await?;
+            let weak = Rc::downgrade(&values); drop(include); drop(values); pump().await;
+            assert!(weak.upgrade().is_none());
+            assert!(runtime.context().registry().is_empty()?); Ok::<_, BoxError>(())
+        }).await??; Ok(())
+    }
+
+
+    async fn wait_until(mut ready: impl FnMut() -> bool) {
+        tokio::time::timeout(Duration::from_secs(5), async {
+            while !ready() { tokio::time::sleep(Duration::from_millis(5)).await; }
+        }).await.expect("bounded polling deadline");
+    }
+    #[tokio::test(flavor = "current_thread")]
+    async fn real_polling_refreshes_include_rename_and_invalid_file_recovery() -> Result<(), BoxError> {
+        let dir = Dir::new(); dir.put("config.json", 1); let runtime = Runtime::new();
+        runtime.run(async {
+            let values = Rc::new(RefCell::new(Vec::new()));
+            let include = Include::new(&runtime.context(), catalog(values.clone()), IncludeOptions::new(dir.path("config.json")))?;
+            let mut options = WatchOptions::new(&dir.0); options.poll_interval = Duration::from_millis(5); options.debounce = Duration::from_millis(5);
+            let watcher = FileWatcher::new(&runtime.context(), options)?;
+            let _token = watcher.watch_include("config.json", include.clone())?;
+            let scenario = async {
+                // The immediate write needs no producer readiness sleep.
+                dir.put("config.json", 2); wait_until(|| values.borrow().last() == Some(&2)).await;
+                let id = include.entries()[0].id.clone();
+                dir.put("stage.json", 3); std::fs::rename(dir.path("stage.json"), dir.path("config.json"))?;
+                wait_until(|| values.borrow().last() == Some(&3)).await; assert_eq!(include.entries()[0].id, id);
+                watcher.take_events(); std::fs::write(dir.path("config.json"), b"{broken")?;
+                let mut invalid = false;
+                wait_until(|| { invalid |= watcher.take_events().iter().any(|event| matches!(event, WatchEvent::Failure(error) if has_cause::<serde_json::Error>(error))); invalid }).await;
+                assert_eq!(include.data()[0]["config"], 3);
+                std::fs::remove_file(dir.path("config.json"))?;
+                let mut missing = false;
+                wait_until(|| { missing |= watcher.take_events().iter().any(|event| matches!(event, WatchEvent::Failure(error) if has_cause::<std::io::Error>(error))); missing }).await;
+                dir.put("config.json", 4); wait_until(|| values.borrow().last() == Some(&4)).await;
+                include.edit("a", JsonEdit::new().set("config", json!(5)))?.await?; include.flush()?.await?;
+                let applied = values.borrow().clone(); tokio::time::sleep(Duration::from_millis(80)).await;
+                assert_eq!(*values.borrow(), applied); assert_eq!(include.data()[0]["config"], 5);
+                Ok::<_, BoxError>(())
+            }.await;
+            let joined_watcher = watcher.dispose()?.await; let joined_include = include.dispose()?.await;
+            scenario?; joined_watcher?; joined_include?;
+            assert!(!watcher.stats().producer_running); assert!(runtime.context().registry().is_empty()?);
+            Ok::<_, BoxError>(())
+        }).await??; Ok(())
+    }

@@ -1,0 +1,109 @@
+#![cfg(test)]
+use re_cordis_core::{Listener, Plugin, Runtime};
+    use re_cordis_loader::{Catalog, Config, EntrySpec, Loader};
+    use std::{convert::Infallible, io, ops::ControlFlow};
+
+    fn inert() -> Plugin<u32> {
+        Plugin::new("old", |_, _: u32| async { Ok::<_, Infallible>(()) })
+    }
+
+    #[tokio::test(flavor = "current_thread")]
+    async fn every_original_batch_observer_error_survives_concurrent_apply_failure() {
+        let runtime = Runtime::new();
+        runtime.run(async {
+            let root = runtime.context();
+            let mut catalog = Catalog::new();
+            catalog.register("worker", inert()).unwrap();
+            let loader = Loader::new(&root, catalog).unwrap();
+            loader.create(EntrySpec::new("worker", Config::new(1u32)).id("a")).unwrap();
+            loader.create(EntrySpec::new("worker", Config::new(2u32)).id("b")).unwrap();
+            loader.settle().unwrap().await.unwrap();
+            root.on(&loader.commits(), Listener::sync(|_, commit: re_cordis_loader::CommitRecord| {
+                Err::<ControlFlow<()>, _>(io::Error::other(format!("observer-{}", commit.id.as_str())))
+            })).unwrap();
+            let failed = Plugin::new("failed", |_, v: u32| async move {
+                Err::<(), _>(io::Error::other(format!("apply-{v}")))
+            });
+            let report = loader.replace_factory("worker", failed).unwrap().await.unwrap();
+            let later = loader.settle().unwrap().await.unwrap();
+            let diagnostics = runtime.take_failures();
+            let visible = format!("{report:?} {later:?} {diagnostics:?}");
+            eprintln!("visible={visible}");
+            assert!(visible.contains("observer-a"));
+            assert!(visible.contains("observer-b"), "second admitted batch observer error disappeared");
+        }).await.unwrap();
+    }
+
+    #[tokio::test(flavor = "current_thread")]
+    async fn newer_batch_during_old_cleanup_applies_only_latest_candidate_and_config() {
+        use std::{cell::RefCell, rc::Rc};
+        use tokio::sync::oneshot;
+        let runtime=Runtime::new();
+        runtime.run(async {
+            let root=runtime.context();
+            let (entered_tx, entered)=oneshot::channel();
+            let (release, gate)=oneshot::channel();
+            let pause=Rc::new(RefCell::new(Some((entered_tx,gate))));
+            let old=Plugin::new("old", move |ctx, _:u32| {
+                let pause=pause.borrow_mut().take();
+                async move {
+                    ctx.on_dispose(move || async move {
+                        if let Some((tx,gate))=pause { tx.send(()).unwrap(); gate.await.unwrap(); }
+                        Ok::<_,Infallible>(())
+                    })?;
+                    Ok::<_,re_cordis_core::BoxError>(())
+                }
+            });
+            let mut catalog=Catalog::new(); catalog.register("worker",old).unwrap();
+            let loader=Loader::new(&root,catalog).unwrap();
+            let id=loader.create(EntrySpec::new("worker",Config::new(1u32))).unwrap();
+            loader.settle().unwrap().await.unwrap();
+            let seen=Rc::new(RefCell::new(Vec::new()));
+            let make=|tag| { let seen=seen.clone(); Plugin::new(tag,move |_,v:u32| {
+                seen.borrow_mut().push((tag,v)); async { Ok::<_,Infallible>(()) }
+            }) };
+            let first=loader.replace_factory("worker",make("first")).unwrap();
+            entered.await.unwrap();
+            drop(loader.update(&id,EntrySpec::new("worker",Config::new(9u32))).unwrap());
+            let second=loader.replace_factory("worker",make("second")).unwrap();
+            assert!(seen.borrow().is_empty());
+            release.send(()).unwrap();
+            assert!(first.await.unwrap().failures.is_empty());
+            assert!(second.await.unwrap().failures.is_empty());
+            assert_eq!(*seen.borrow(),[("second",9)]);
+            loader.dispose().unwrap().await.unwrap();
+            assert!(root.registry().is_empty().unwrap());
+            assert!(runtime.take_failures().is_empty());
+        }).await.unwrap();
+    }
+
+    #[tokio::test(flavor = "current_thread")]
+    async fn include_batch_maps_original_apply_error_and_preserves_data() {
+        use re_cordis_include::{Include,IncludeOptions};
+        use re_cordis_loader::FactoryReplacement;
+        let path=std::env::temp_dir().join(format!("hmr-review-{}-{}.json",std::process::id(),std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).unwrap().as_nanos()));
+        let bytes=r#"[{"id":"a","name":"worker","config":1}]"#;
+        std::fs::write(&path,bytes).unwrap();
+        let runtime=Runtime::new();
+        runtime.run(async {
+            let root=runtime.context();
+            let mut catalog=Catalog::new();
+            catalog.register_json("worker",inert(),|_| Ok::<_,Infallible>(1u32)).unwrap();
+            let include=Include::new(&root,catalog,IncludeOptions::new(&path)).unwrap();
+            include.refresh().unwrap().await.unwrap();
+            let data=include.data(); let before=include.entries();
+            let candidate=Plugin::new("failed",|_,_:u32|async {Err::<(),_>(io::Error::other("include-reload-apply"))});
+            let task=include.replace_factories(vec![FactoryReplacement::new("worker",candidate)]).unwrap();
+            let report=task.await.unwrap();
+            assert_eq!(report.failures.len(),1);
+            let mut cause: &dyn std::error::Error=&report.failures[0];
+            while let Some(source)=cause.source(){cause=source;}
+            assert_eq!(cause.downcast_ref::<io::Error>().unwrap().to_string(),"include-reload-apply");
+            assert!(!report.changed);
+            assert_eq!(include.data(),data); assert_eq!(include.pending(),0);
+            assert_eq!(include.entries()[0].origin,before[0].origin);
+            assert_eq!(std::fs::read_to_string(&path).unwrap(),bytes);
+            include.dispose().unwrap().await.unwrap();
+        }).await.unwrap();
+        std::fs::remove_file(path).unwrap();
+    }

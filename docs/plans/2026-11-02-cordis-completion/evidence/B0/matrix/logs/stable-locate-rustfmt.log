@@ -1,0 +1,8 @@
+COMMAND: rustup which --toolchain stable rustfmt
+CWD: /Users/I756434/Projects/private/cordis-rust
+START_UTC: 2026-11-02T08:34:56.582957+00:00
+
+/Users/I756434/.rustup/toolchains/stable-aarch64-apple-darwin/bin/rustfmt
+
+END_UTC: 2026-11-02T08:34:56.596803+00:00
+EXIT_CODE: 0

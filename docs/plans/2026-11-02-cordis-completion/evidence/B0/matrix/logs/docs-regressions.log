@@ -1,0 +1,12 @@
+COMMAND: python3 -B tests/docs/test_check.py
+CWD: /Users/I756434/Projects/private/cordis-rust
+START_UTC: 2026-11-02T08:35:55.975213+00:00
+
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 0.052s
+
+OK
+
+END_UTC: 2026-11-02T08:35:56.581783+00:00
+EXIT_CODE: 0

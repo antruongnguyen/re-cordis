@@ -52,6 +52,7 @@ mod reflect;
 mod runtime;
 mod service;
 mod setup;
+mod task;
 
 pub use context::Context;
 pub use effect::{
@@ -78,3 +79,5 @@ pub use service::{
     BoundService, Dependency, ServiceError, ServiceInvoke, ServiceKey, ServiceRegistration,
 };
 pub use setup::{Disposer, SetupError};
+
+pub use task::{CallbackError, TaskControl};

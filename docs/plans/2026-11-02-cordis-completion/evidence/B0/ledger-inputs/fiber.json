@@ -1,0 +1,4869 @@
+{
+  "schema_version": 1,
+  "rust_revision": "9a7633c0b3b98e5f37e9f2211f3ffa67fdac5edc",
+  "implementation_revision": "808c9f573dd96c56fa2ec43e0b1bfb9ed39b2f3f",
+  "typescript_revision": "35fdc969e4b6c48c48ed44717c7a018324e4dd88",
+  "status": "fiber family LR2-LR5 evidence corrections complete; exact stable/MSRV result/log joins retained; scoped independent re-review required; LR1 accounting reserved for integration",
+  "declarations": [
+    {
+      "id": "core/fiber.spec.ts:7",
+      "source_file": "local/cordis/packages/core/tests/fiber.spec.ts",
+      "source_line": 7,
+      "source_end_line": 26,
+      "title": "inertia lock 1",
+      "suite": [
+        "Fiber"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/fiber.spec.ts:7/default/a14",
+              "behavior": "The first injected load remains Loading while asynchronous setup is gated.",
+              "source_assertion_lines": [
+                14
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "injection_inertia_preserves_loading_and_unloading_until_gated_work_finishes",
+                  "lines": [
+                    377,
+                    378,
+                    402,
+                    403,
+                    419,
+                    420,
+                    423,
+                    431,
+                    441,
+                    442,
+                    443,
+                    444,
+                    445,
+                    446,
+                    447,
+                    452,
+                    453,
+                    454,
+                    455,
+                    457,
+                    462,
+                    463,
+                    464,
+                    465,
+                    467,
+                    469,
+                    470,
+                    471,
+                    472,
+                    473,
+                    474,
+                    475,
+                    477,
+                    478,
+                    479,
+                    480
+                  ],
+                  "assertion": "The channel-gated mode covering fiber.spec.ts:7 asserts the corresponding Loading/Unloading/Active/Pending state and replacement value at the cited boundary.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The deterministic channel-gated Rust regression preserves the source causal state sequence without claiming wall-clock timer equivalence."
+            },
+            {
+              "id": "core/fiber.spec.ts:7/default/a17",
+              "behavior": "With the old provider withdrawn during setup, the in-flight load remains Loading until setup finishes.",
+              "source_assertion_lines": [
+                17
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "injection_inertia_preserves_loading_and_unloading_until_gated_work_finishes",
+                  "lines": [
+                    377,
+                    378,
+                    402,
+                    403,
+                    419,
+                    420,
+                    423,
+                    431,
+                    441,
+                    442,
+                    443,
+                    444,
+                    445,
+                    446,
+                    447,
+                    452,
+                    453,
+                    454,
+                    455,
+                    457,
+                    462,
+                    463,
+                    464,
+                    465,
+                    467,
+                    469,
+                    470,
+                    471,
+                    472,
+                    473,
+                    474,
+                    475,
+                    477,
+                    478,
+                    479,
+                    480
+                  ],
+                  "assertion": "The channel-gated mode covering fiber.spec.ts:7 asserts the corresponding Loading/Unloading/Active/Pending state and replacement value at the cited boundary.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The deterministic channel-gated Rust regression preserves the source causal state sequence without claiming wall-clock timer equivalence."
+            },
+            {
+              "id": "core/fiber.spec.ts:7/default/a19",
+              "behavior": "After obsolete setup completes, cleanup starts and the consumer becomes Unloading.",
+              "source_assertion_lines": [
+                19
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "injection_inertia_preserves_loading_and_unloading_until_gated_work_finishes",
+                  "lines": [
+                    377,
+                    378,
+                    402,
+                    403,
+                    419,
+                    420,
+                    423,
+                    431,
+                    441,
+                    442,
+                    443,
+                    444,
+                    445,
+                    446,
+                    447,
+                    452,
+                    453,
+                    454,
+                    455,
+                    457,
+                    462,
+                    463,
+                    464,
+                    465,
+                    467,
+                    469,
+                    470,
+                    471,
+                    472,
+                    473,
+                    474,
+                    475,
+                    477,
+                    478,
+                    479,
+                    480
+                  ],
+                  "assertion": "The channel-gated mode covering fiber.spec.ts:7 asserts the corresponding Loading/Unloading/Active/Pending state and replacement value at the cited boundary.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The deterministic channel-gated Rust regression preserves the source causal state sequence without claiming wall-clock timer equivalence."
+            },
+            {
+              "id": "core/fiber.spec.ts:7/default/a22",
+              "behavior": "After cleanup and replacement provider arrival, the latest consumer load becomes Loading.",
+              "source_assertion_lines": [
+                22
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "injection_inertia_preserves_loading_and_unloading_until_gated_work_finishes",
+                  "lines": [
+                    377,
+                    378,
+                    402,
+                    403,
+                    419,
+                    420,
+                    423,
+                    431,
+                    441,
+                    442,
+                    443,
+                    444,
+                    445,
+                    446,
+                    447,
+                    452,
+                    453,
+                    454,
+                    455,
+                    457,
+                    462,
+                    463,
+                    464,
+                    465,
+                    467,
+                    469,
+                    470,
+                    471,
+                    472,
+                    473,
+                    474,
+                    475,
+                    477,
+                    478,
+                    479,
+                    480
+                  ],
+                  "assertion": "The channel-gated mode covering fiber.spec.ts:7 asserts the corresponding Loading/Unloading/Active/Pending state and replacement value at the cited boundary.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The deterministic channel-gated Rust regression preserves the source causal state sequence without claiming wall-clock timer equivalence."
+            },
+            {
+              "id": "core/fiber.spec.ts:7/default/a24",
+              "behavior": "After the latest setup completes, the consumer is Active.",
+              "source_assertion_lines": [
+                24
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "injection_inertia_preserves_loading_and_unloading_until_gated_work_finishes",
+                  "lines": [
+                    377,
+                    378,
+                    402,
+                    403,
+                    419,
+                    420,
+                    423,
+                    431,
+                    441,
+                    442,
+                    443,
+                    444,
+                    445,
+                    446,
+                    447,
+                    452,
+                    453,
+                    454,
+                    455,
+                    457,
+                    462,
+                    463,
+                    464,
+                    465,
+                    467,
+                    469,
+                    470,
+                    471,
+                    472,
+                    473,
+                    474,
+                    475,
+                    477,
+                    478,
+                    479,
+                    480
+                  ],
+                  "assertion": "The channel-gated mode covering fiber.spec.ts:7 asserts the corresponding Loading/Unloading/Active/Pending state and replacement value at the cited boundary.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The deterministic channel-gated Rust regression preserves the source causal state sequence without claiming wall-clock timer equivalence."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/fiber.spec.ts:27",
+      "source_file": "local/cordis/packages/core/tests/fiber.spec.ts",
+      "source_line": 27,
+      "source_end_line": 48,
+      "title": "inertia lock 2",
+      "suite": [
+        "Fiber"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/fiber.spec.ts:27/default/a34",
+              "behavior": "The initial load is Loading while setup is gated.",
+              "source_assertion_lines": [
+                34
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "injection_inertia_preserves_loading_and_unloading_until_gated_work_finishes",
+                  "lines": [
+                    377,
+                    378,
+                    402,
+                    403,
+                    419,
+                    420,
+                    423,
+                    431,
+                    441,
+                    442,
+                    443,
+                    444,
+                    445,
+                    446,
+                    447,
+                    452,
+                    453,
+                    454,
+                    455,
+                    457,
+                    462,
+                    463,
+                    464,
+                    465,
+                    467,
+                    469,
+                    470,
+                    471,
+                    472,
+                    473,
+                    474,
+                    475,
+                    477,
+                    478,
+                    479,
+                    480
+                  ],
+                  "assertion": "The channel-gated mode covering fiber.spec.ts:27 asserts the corresponding Loading/Unloading/Active/Pending state and replacement value at the cited boundary.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The deterministic channel-gated Rust regression preserves the source causal state sequence without claiming wall-clock timer equivalence."
+            },
+            {
+              "id": "core/fiber.spec.ts:27/default/a37",
+              "behavior": "With the old provider withdrawn during setup, the consumer remains Loading.",
+              "source_assertion_lines": [
+                37
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "injection_inertia_preserves_loading_and_unloading_until_gated_work_finishes",
+                  "lines": [
+                    377,
+                    378,
+                    402,
+                    403,
+                    419,
+                    420,
+                    423,
+                    431,
+                    441,
+                    442,
+                    443,
+                    444,
+                    445,
+                    446,
+                    447,
+                    452,
+                    453,
+                    454,
+                    455,
+                    457,
+                    462,
+                    463,
+                    464,
+                    465,
+                    467,
+                    469,
+                    470,
+                    471,
+                    472,
+                    473,
+                    474,
+                    475,
+                    477,
+                    478,
+                    479,
+                    480
+                  ],
+                  "assertion": "The channel-gated mode covering fiber.spec.ts:27 asserts the corresponding Loading/Unloading/Active/Pending state and replacement value at the cited boundary.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The deterministic channel-gated Rust regression preserves the source causal state sequence without claiming wall-clock timer equivalence."
+            },
+            {
+              "id": "core/fiber.spec.ts:27/default/a41",
+              "behavior": "A same-provider replacement supersedes the old load and transitions it to Unloading.",
+              "source_assertion_lines": [
+                41
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "injection_inertia_preserves_loading_and_unloading_until_gated_work_finishes",
+                  "lines": [
+                    377,
+                    378,
+                    402,
+                    403,
+                    419,
+                    420,
+                    423,
+                    431,
+                    441,
+                    442,
+                    443,
+                    444,
+                    445,
+                    446,
+                    447,
+                    452,
+                    453,
+                    454,
+                    455,
+                    457,
+                    462,
+                    463,
+                    464,
+                    465,
+                    467,
+                    469,
+                    470,
+                    471,
+                    472,
+                    473,
+                    474,
+                    475,
+                    477,
+                    478,
+                    479,
+                    480
+                  ],
+                  "assertion": "The channel-gated mode covering fiber.spec.ts:27 asserts the corresponding Loading/Unloading/Active/Pending state and replacement value at the cited boundary.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The deterministic channel-gated Rust regression preserves the source causal state sequence without claiming wall-clock timer equivalence."
+            },
+            {
+              "id": "core/fiber.spec.ts:27/default/a43",
+              "behavior": "After old cleanup, the replacement load becomes Loading.",
+              "source_assertion_lines": [
+                43
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "injection_inertia_preserves_loading_and_unloading_until_gated_work_finishes",
+                  "lines": [
+                    377,
+                    378,
+                    402,
+                    403,
+                    419,
+                    420,
+                    423,
+                    431,
+                    441,
+                    442,
+                    443,
+                    444,
+                    445,
+                    446,
+                    447,
+                    452,
+                    453,
+                    454,
+                    455,
+                    457,
+                    462,
+                    463,
+                    464,
+                    465,
+                    467,
+                    469,
+                    470,
+                    471,
+                    472,
+                    473,
+                    474,
+                    475,
+                    477,
+                    478,
+                    479,
+                    480
+                  ],
+                  "assertion": "The channel-gated mode covering fiber.spec.ts:27 asserts the corresponding Loading/Unloading/Active/Pending state and replacement value at the cited boundary.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The deterministic channel-gated Rust regression preserves the source causal state sequence without claiming wall-clock timer equivalence."
+            },
+            {
+              "id": "core/fiber.spec.ts:27/default/a45",
+              "behavior": "The replacement load completes Active.",
+              "source_assertion_lines": [
+                45
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "injection_inertia_preserves_loading_and_unloading_until_gated_work_finishes",
+                  "lines": [
+                    377,
+                    378,
+                    402,
+                    403,
+                    419,
+                    420,
+                    423,
+                    431,
+                    441,
+                    442,
+                    443,
+                    444,
+                    445,
+                    446,
+                    447,
+                    452,
+                    453,
+                    454,
+                    455,
+                    457,
+                    462,
+                    463,
+                    464,
+                    465,
+                    467,
+                    469,
+                    470,
+                    471,
+                    472,
+                    473,
+                    474,
+                    475,
+                    477,
+                    478,
+                    479,
+                    480
+                  ],
+                  "assertion": "The channel-gated mode covering fiber.spec.ts:27 asserts the corresponding Loading/Unloading/Active/Pending state and replacement value at the cited boundary.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The deterministic channel-gated Rust regression preserves the source causal state sequence without claiming wall-clock timer equivalence."
+            },
+            {
+              "id": "core/fiber.spec.ts:27/default/a46",
+              "behavior": "The Active consumer resolves the replacement provider value 2.",
+              "source_assertion_lines": [
+                46
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "injection_inertia_preserves_loading_and_unloading_until_gated_work_finishes",
+                  "lines": [
+                    377,
+                    378,
+                    402,
+                    403,
+                    419,
+                    420,
+                    423,
+                    431,
+                    441,
+                    442,
+                    443,
+                    444,
+                    445,
+                    446,
+                    447,
+                    452,
+                    453,
+                    454,
+                    455,
+                    457,
+                    462,
+                    463,
+                    464,
+                    465,
+                    467,
+                    469,
+                    470,
+                    471,
+                    472,
+                    473,
+                    474,
+                    475,
+                    477,
+                    478,
+                    479,
+                    480
+                  ],
+                  "assertion": "The channel-gated mode covering fiber.spec.ts:27 asserts the corresponding Loading/Unloading/Active/Pending state and replacement value at the cited boundary.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The deterministic channel-gated Rust regression preserves the source causal state sequence without claiming wall-clock timer equivalence."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/fiber.spec.ts:49",
+      "source_file": "local/cordis/packages/core/tests/fiber.spec.ts",
+      "source_line": 49,
+      "source_end_line": 70,
+      "title": "inertia lock 3",
+      "suite": [
+        "Fiber"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/fiber.spec.ts:49/default/a61",
+              "behavior": "The injecting consumer is Loading while its setup is gated.",
+              "source_assertion_lines": [
+                61
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "injection_inertia_preserves_loading_and_unloading_until_gated_work_finishes",
+                  "lines": [
+                    377,
+                    378,
+                    402,
+                    403,
+                    419,
+                    420,
+                    423,
+                    431,
+                    441,
+                    442,
+                    443,
+                    444,
+                    445,
+                    446,
+                    447,
+                    452,
+                    453,
+                    454,
+                    455,
+                    457,
+                    462,
+                    463,
+                    464,
+                    465,
+                    467,
+                    469,
+                    470,
+                    471,
+                    472,
+                    473,
+                    474,
+                    475,
+                    477,
+                    478,
+                    479,
+                    480
+                  ],
+                  "assertion": "The channel-gated mode covering fiber.spec.ts:49 asserts the corresponding Loading/Unloading/Active/Pending state and replacement value at the cited boundary.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The deterministic channel-gated Rust regression preserves the source causal state sequence without claiming wall-clock timer equivalence."
+            },
+            {
+              "id": "core/fiber.spec.ts:49/default/a63",
+              "behavior": "After setup completes, the consumer becomes Active.",
+              "source_assertion_lines": [
+                63
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "injection_inertia_preserves_loading_and_unloading_until_gated_work_finishes",
+                  "lines": [
+                    377,
+                    378,
+                    402,
+                    403,
+                    419,
+                    420,
+                    423,
+                    431,
+                    441,
+                    442,
+                    443,
+                    444,
+                    445,
+                    446,
+                    447,
+                    452,
+                    453,
+                    454,
+                    455,
+                    457,
+                    462,
+                    463,
+                    464,
+                    465,
+                    467,
+                    469,
+                    470,
+                    471,
+                    472,
+                    473,
+                    474,
+                    475,
+                    477,
+                    478,
+                    479,
+                    480
+                  ],
+                  "assertion": "The channel-gated mode covering fiber.spec.ts:49 asserts the corresponding Loading/Unloading/Active/Pending state and replacement value at the cited boundary.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The deterministic channel-gated Rust regression preserves the source causal state sequence without claiming wall-clock timer equivalence."
+            },
+            {
+              "id": "core/fiber.spec.ts:49/default/a68",
+              "behavior": "Disposing the Active provider converges the consumer to Pending after cleanup.",
+              "source_assertion_lines": [
+                68
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "injection_inertia_preserves_loading_and_unloading_until_gated_work_finishes",
+                  "lines": [
+                    377,
+                    378,
+                    402,
+                    403,
+                    419,
+                    420,
+                    423,
+                    431,
+                    441,
+                    442,
+                    443,
+                    444,
+                    445,
+                    446,
+                    447,
+                    452,
+                    453,
+                    454,
+                    455,
+                    457,
+                    462,
+                    463,
+                    464,
+                    465,
+                    467,
+                    469,
+                    470,
+                    471,
+                    472,
+                    473,
+                    474,
+                    475,
+                    477,
+                    478,
+                    479,
+                    480
+                  ],
+                  "assertion": "The channel-gated mode covering fiber.spec.ts:49 asserts the corresponding Loading/Unloading/Active/Pending state and replacement value at the cited boundary.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The deterministic channel-gated Rust regression preserves the source causal state sequence without claiming wall-clock timer equivalence."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/fiber.spec.ts:71",
+      "source_file": "local/cordis/packages/core/tests/fiber.spec.ts",
+      "source_line": 71,
+      "source_end_line": 92,
+      "title": "plugin error",
+      "suite": [
+        "Fiber"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/fiber.spec.ts:71/default/a84",
+              "behavior": "A plugin whose apply callback fails settles Failed.",
+              "source_assertion_lines": [
+                84
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "initial_failure_waits_for_partial_cleanup_and_failed_fiber_stays_resident",
+                  "lines": [
+                    214,
+                    223,
+                    231,
+                    238,
+                    243,
+                    249,
+                    250,
+                    251,
+                    261,
+                    262,
+                    263,
+                    264,
+                    269,
+                    270
+                  ],
+                  "assertion": "The callback error rolls back before ready returns error and state is asserted Failed.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Current plugin regressions isolate callback failure, rollback, one diagnostic, and healthy-instance progress."
+            },
+            {
+              "id": "core/fiber.spec.ts:71/default/a85",
+              "behavior": "A separately admitted healthy plugin remains Active despite its sibling failure.",
+              "source_assertion_lines": [
+                85
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "validation_and_apply_factory_panics_fail_only_their_instances",
+                  "lines": [
+                    956,
+                    972,
+                    973,
+                    974,
+                    975,
+                    976,
+                    980,
+                    981,
+                    983,
+                    984
+                  ],
+                  "assertion": "Two failed instances are joined while the independent healthy instance reaches readiness.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Current plugin regressions isolate callback failure, rollback, one diagnostic, and healthy-instance progress."
+            },
+            {
+              "id": "core/fiber.spec.ts:71/default/a86",
+              "behavior": "The source intentionally leaves the total apply-call count unasserted; this line is a commented-out expectation.",
+              "source_assertion_lines": [
+                86
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/fiber.spec.ts:71/default/a86",
+                "kind": "observed-source-gap",
+                "next_action": "During final ledger integration, retain line 86 as a commented non-assertion and correct the inventory extractor/control only after preserving this original provenance; no production regression is warranted.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The pinned source line is commented out, so treating it as a passing runtime assertion would fabricate evidence."
+            },
+            {
+              "id": "core/fiber.spec.ts:71/default/a87",
+              "behavior": "The failed apply is diagnosed exactly once.",
+              "source_assertion_lines": [
+                87
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "initial_failure_waits_for_partial_cleanup_and_failed_fiber_stays_resident",
+                  "lines": [
+                    214,
+                    223,
+                    231,
+                    238,
+                    243,
+                    249,
+                    250,
+                    251,
+                    261,
+                    262,
+                    263,
+                    264,
+                    269,
+                    270
+                  ],
+                  "assertion": "Exactly one runtime failure is taken after the failed apply and completed rollback.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Current plugin regressions isolate callback failure, rollback, one diagnostic, and healthy-instance progress."
+            },
+            {
+              "id": "core/fiber.spec.ts:71/default/a90",
+              "behavior": "After rollback of the failed instance, dispatch reaches exactly the healthy sibling listener.",
+              "source_assertion_lines": [
+                90
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/fiber.spec.ts:71/default/a90",
+                "kind": "missing-evidence",
+                "next_action": "Extend initial_failure_waits_for_partial_cleanup_and_failed_fiber_stays_resident with a healthy sibling listener, dispatch once after failed rollback, and assert exactly one delivery; run both workspace toolchains.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "Current tests separately prove failed-listener rollback and healthy sibling progress, but no single assertion joins them to the exact one-delivery boundary."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/fiber.spec.ts:93",
+      "source_file": "local/cordis/packages/core/tests/fiber.spec.ts",
+      "source_line": 93,
+      "source_end_line": 107,
+      "title": "failed fiber does not re-enter on dependency refresh",
+      "suite": [
+        "Fiber"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/fiber.spec.ts:93/default/a100",
+              "behavior": "The injected consumer is Failed after its initial apply error.",
+              "source_assertion_lines": [
+                100
+              ],
+              "class": "executed-comparison",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/lifecycle_parity.rs",
+                  "symbol": "failed_consumer_ignores_provider_refresh_and_update_awaits_recovery",
+                  "lines": [
+                    463,
+                    479,
+                    496,
+                    497,
+                    498,
+                    499,
+                    512,
+                    513,
+                    514,
+                    524,
+                    525,
+                    528,
+                    529,
+                    531,
+                    532,
+                    533,
+                    536,
+                    537,
+                    538,
+                    539,
+                    540,
+                    543,
+                    544,
+                    545,
+                    546,
+                    547,
+                    548,
+                    549
+                  ],
+                  "assertion": "The explicit-recovery test asserts and traces failed.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [
+                {
+                  "scenario": "explicit-recovery",
+                  "observation": "failed",
+                  "scope": "The paired TS/Rust recovery fixture exercises this exact Failed-refresh/explicit-update settlement boundary; it does not broaden beyond that scenario."
+                }
+              ],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The accepted parity run executes this bounded semantic path in both implementations, while the cited Rust assertions establish the current production API result."
+            },
+            {
+              "id": "core/fiber.spec.ts:93/default/a104",
+              "behavior": "Provider withdrawal and replacement do not rerun a Failed consumer apply callback.",
+              "source_assertion_lines": [
+                104
+              ],
+              "class": "executed-comparison",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/lifecycle_parity.rs",
+                  "symbol": "failed_consumer_ignores_provider_refresh_and_update_awaits_recovery",
+                  "lines": [
+                    463,
+                    479,
+                    496,
+                    497,
+                    498,
+                    499,
+                    512,
+                    513,
+                    514,
+                    524,
+                    525,
+                    528,
+                    529,
+                    531,
+                    532,
+                    533,
+                    536,
+                    537,
+                    538,
+                    539,
+                    540,
+                    543,
+                    544,
+                    545,
+                    546,
+                    547,
+                    548,
+                    549
+                  ],
+                  "assertion": "The explicit-recovery test asserts and traces refresh consumer=Failed attempts=1.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [
+                {
+                  "scenario": "explicit-recovery",
+                  "observation": "refresh consumer=Failed attempts=1",
+                  "scope": "The paired TS/Rust recovery fixture exercises this exact Failed-refresh/explicit-update settlement boundary; it does not broaden beyond that scenario."
+                }
+              ],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The accepted parity run executes this bounded semantic path in both implementations, while the cited Rust assertions establish the current production API result."
+            },
+            {
+              "id": "core/fiber.spec.ts:93/default/a105",
+              "behavior": "Dependency refresh leaves the consumer in Failed.",
+              "source_assertion_lines": [
+                105
+              ],
+              "class": "executed-comparison",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/lifecycle_parity.rs",
+                  "symbol": "failed_consumer_ignores_provider_refresh_and_update_awaits_recovery",
+                  "lines": [
+                    463,
+                    479,
+                    496,
+                    497,
+                    498,
+                    499,
+                    512,
+                    513,
+                    514,
+                    524,
+                    525,
+                    528,
+                    529,
+                    531,
+                    532,
+                    533,
+                    536,
+                    537,
+                    538,
+                    539,
+                    540,
+                    543,
+                    544,
+                    545,
+                    546,
+                    547,
+                    548,
+                    549
+                  ],
+                  "assertion": "The explicit-recovery test asserts and traces refresh consumer=Failed attempts=1.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [
+                {
+                  "scenario": "explicit-recovery",
+                  "observation": "refresh consumer=Failed attempts=1",
+                  "scope": "The paired TS/Rust recovery fixture exercises this exact Failed-refresh/explicit-update settlement boundary; it does not broaden beyond that scenario."
+                }
+              ],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The accepted parity run executes this bounded semantic path in both implementations, while the cited Rust assertions establish the current production API result."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "executed-comparison"
+      ]
+    },
+    {
+      "id": "core/fiber.spec.ts:108",
+      "source_file": "local/cordis/packages/core/tests/fiber.spec.ts",
+      "source_line": 108,
+      "source_end_line": 121,
+      "title": "update recovers a failed fiber",
+      "suite": [
+        "Fiber"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/fiber.spec.ts:108/default/a115",
+              "behavior": "The first failing load leaves the Fiber Failed.",
+              "source_assertion_lines": [
+                115
+              ],
+              "class": "executed-comparison",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/lifecycle_parity.rs",
+                  "symbol": "failed_consumer_ignores_provider_refresh_and_update_awaits_recovery",
+                  "lines": [
+                    463,
+                    479,
+                    496,
+                    497,
+                    498,
+                    499,
+                    512,
+                    513,
+                    514,
+                    524,
+                    525,
+                    528,
+                    529,
+                    531,
+                    532,
+                    533,
+                    536,
+                    537,
+                    538,
+                    539,
+                    540,
+                    543,
+                    544,
+                    545,
+                    546,
+                    547,
+                    548,
+                    549
+                  ],
+                  "assertion": "The explicit-recovery test asserts and traces failed.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [
+                {
+                  "scenario": "explicit-recovery",
+                  "observation": "failed",
+                  "scope": "The paired TS/Rust recovery fixture exercises this exact Failed-refresh/explicit-update settlement boundary; it does not broaden beyond that scenario."
+                }
+              ],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The accepted parity run executes this bounded semantic path in both implementations, while the cited Rust assertions establish the current production API result."
+            },
+            {
+              "id": "core/fiber.spec.ts:108/default/a118",
+              "behavior": "An explicit update invokes apply a second time to recover the Failed Fiber.",
+              "source_assertion_lines": [
+                118
+              ],
+              "class": "executed-comparison",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/lifecycle_parity.rs",
+                  "symbol": "failed_consumer_ignores_provider_refresh_and_update_awaits_recovery",
+                  "lines": [
+                    463,
+                    479,
+                    496,
+                    497,
+                    498,
+                    499,
+                    512,
+                    513,
+                    514,
+                    524,
+                    525,
+                    528,
+                    529,
+                    531,
+                    532,
+                    533,
+                    536,
+                    537,
+                    538,
+                    539,
+                    540,
+                    543,
+                    544,
+                    545,
+                    546,
+                    547,
+                    548,
+                    549
+                  ],
+                  "assertion": "The explicit-recovery test asserts and traces apply 2 1.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [
+                {
+                  "scenario": "explicit-recovery",
+                  "observation": "apply 2 1",
+                  "scope": "The paired TS/Rust recovery fixture exercises this exact Failed-refresh/explicit-update settlement boundary; it does not broaden beyond that scenario."
+                }
+              ],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The accepted parity run executes this bounded semantic path in both implementations, while the cited Rust assertions establish the current production API result."
+            },
+            {
+              "id": "core/fiber.spec.ts:108/default/a119",
+              "behavior": "The successful recovery update leaves the Fiber Active.",
+              "source_assertion_lines": [
+                119
+              ],
+              "class": "executed-comparison",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/lifecycle_parity.rs",
+                  "symbol": "failed_consumer_ignores_provider_refresh_and_update_awaits_recovery",
+                  "lines": [
+                    463,
+                    479,
+                    496,
+                    497,
+                    498,
+                    499,
+                    512,
+                    513,
+                    514,
+                    524,
+                    525,
+                    528,
+                    529,
+                    531,
+                    532,
+                    533,
+                    536,
+                    537,
+                    538,
+                    539,
+                    540,
+                    543,
+                    544,
+                    545,
+                    546,
+                    547,
+                    548,
+                    549
+                  ],
+                  "assertion": "The explicit-recovery test asserts and traces waiter=Active.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [
+                {
+                  "scenario": "explicit-recovery",
+                  "observation": "waiter=Active",
+                  "scope": "The paired TS/Rust recovery fixture exercises this exact Failed-refresh/explicit-update settlement boundary; it does not broaden beyond that scenario."
+                }
+              ],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The accepted parity run executes this bounded semantic path in both implementations, while the cited Rust assertions establish the current production API result."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "executed-comparison"
+      ]
+    },
+    {
+      "id": "core/fiber.spec.ts:122",
+      "source_file": "local/cordis/packages/core/tests/fiber.spec.ts",
+      "source_line": 122,
+      "source_end_line": 143,
+      "title": "update waits for asynchronous recovery",
+      "suite": [
+        "Fiber"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/fiber.spec.ts:122/default/a130",
+              "behavior": "The initial asynchronous plugin load failure is returned to its waiter.",
+              "source_assertion_lines": [
+                130
+              ],
+              "class": "executed-comparison",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/lifecycle_parity.rs",
+                  "symbol": "failed_consumer_ignores_provider_refresh_and_update_awaits_recovery",
+                  "lines": [
+                    463,
+                    479,
+                    496,
+                    497,
+                    498,
+                    499,
+                    512,
+                    513,
+                    514,
+                    524,
+                    525,
+                    528,
+                    529,
+                    531,
+                    532,
+                    533,
+                    536,
+                    537,
+                    538,
+                    539,
+                    540,
+                    543,
+                    544,
+                    545,
+                    546,
+                    547,
+                    548,
+                    549
+                  ],
+                  "assertion": "The explicit-recovery test asserts and traces failed.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [
+                {
+                  "scenario": "explicit-recovery",
+                  "observation": "failed",
+                  "scope": "The paired TS/Rust recovery fixture exercises this exact Failed-refresh/explicit-update settlement boundary; it does not broaden beyond that scenario."
+                }
+              ],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The accepted parity run executes this bounded semantic path in both implementations, while the cited Rust assertions establish the current production API result."
+            },
+            {
+              "id": "core/fiber.spec.ts:122/default/a136",
+              "behavior": "The recovery update waiter remains unsettled while the recovery apply is gated.",
+              "source_assertion_lines": [
+                136
+              ],
+              "class": "executed-comparison",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/lifecycle_parity.rs",
+                  "symbol": "failed_consumer_ignores_provider_refresh_and_update_awaits_recovery",
+                  "lines": [
+                    463,
+                    479,
+                    496,
+                    497,
+                    498,
+                    499,
+                    512,
+                    513,
+                    514,
+                    524,
+                    525,
+                    528,
+                    529,
+                    531,
+                    532,
+                    533,
+                    536,
+                    537,
+                    538,
+                    539,
+                    540,
+                    543,
+                    544,
+                    545,
+                    546,
+                    547,
+                    548,
+                    549
+                  ],
+                  "assertion": "The explicit-recovery test asserts and traces recovery consumer=Loading waiter=pending.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [
+                {
+                  "scenario": "explicit-recovery",
+                  "observation": "recovery consumer=Loading waiter=pending",
+                  "scope": "The paired TS/Rust recovery fixture exercises this exact Failed-refresh/explicit-update settlement boundary; it does not broaden beyond that scenario."
+                }
+              ],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The accepted parity run executes this bounded semantic path in both implementations, while the cited Rust assertions establish the current production API result."
+            },
+            {
+              "id": "core/fiber.spec.ts:122/default/a141",
+              "behavior": "After the recovery gate opens, the update settles with the Fiber Active.",
+              "source_assertion_lines": [
+                141
+              ],
+              "class": "executed-comparison",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/lifecycle_parity.rs",
+                  "symbol": "failed_consumer_ignores_provider_refresh_and_update_awaits_recovery",
+                  "lines": [
+                    463,
+                    479,
+                    496,
+                    497,
+                    498,
+                    499,
+                    512,
+                    513,
+                    514,
+                    524,
+                    525,
+                    528,
+                    529,
+                    531,
+                    532,
+                    533,
+                    536,
+                    537,
+                    538,
+                    539,
+                    540,
+                    543,
+                    544,
+                    545,
+                    546,
+                    547,
+                    548,
+                    549
+                  ],
+                  "assertion": "The explicit-recovery test asserts and traces waiter=Active.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [
+                {
+                  "scenario": "explicit-recovery",
+                  "observation": "waiter=Active",
+                  "scope": "The paired TS/Rust recovery fixture exercises this exact Failed-refresh/explicit-update settlement boundary; it does not broaden beyond that scenario."
+                }
+              ],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The accepted parity run executes this bounded semantic path in both implementations, while the cited Rust assertions establish the current production API result."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "executed-comparison"
+      ]
+    },
+    {
+      "id": "core/fiber.spec.ts:144",
+      "source_file": "local/cordis/packages/core/tests/fiber.spec.ts",
+      "source_line": 144,
+      "source_end_line": 155,
+      "title": "update surfaces a failed recovery to its caller",
+      "suite": [
+        "Fiber"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/fiber.spec.ts:144/default/a150",
+              "behavior": "The initial failed load is returned to its waiter.",
+              "source_assertion_lines": [
+                150
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "asynchronous_recovery_is_awaited_and_dropped_failed_recovery_is_still_diagnosed",
+                  "lines": [
+                    849,
+                    858,
+                    871,
+                    872,
+                    878,
+                    881,
+                    882,
+                    883,
+                    887,
+                    888,
+                    889,
+                    890,
+                    891,
+                    892,
+                    893
+                  ],
+                  "assertion": "The initial negative source returns an error and one diagnostic.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The asynchronous recovery regression returns the original initial/retry failures through their respective waiters."
+            },
+            {
+              "id": "core/fiber.spec.ts:144/default/a152",
+              "behavior": "A subsequent explicit recovery update surfaces its own callback failure to the update caller.",
+              "source_assertion_lines": [
+                152
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/fiber.spec.ts:144/default/a152",
+                "kind": "missing-evidence",
+                "next_action": "In asynchronous_recovery_is_awaited_and_dropped_failed_recovery_is_still_diagnosed, establish Failed after the -2 reload (or initial failure), then retain the subsequent failing recovery update task from that Failed state; assert its own callback error and the resulting Failed state. Preserve the separately tested dropped-recovery waiter. Run the relevant regression on stable and Rust 1.85.0 after the evidence follow-up.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "updates.rs:888 is Active before the awaited -2 reload at 889. The failing recovery -3 starts from Failed at 891 but its update waiter is dropped, and 892 joins ready(). No retained Failed-to-Failed update waiter observes its own retry failure."
+            },
+            {
+              "id": "core/fiber.spec.ts:144/default/a153",
+              "behavior": "After the failed recovery attempt, the Fiber remains Failed.",
+              "source_assertion_lines": [
+                153
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/fiber.spec.ts:144/default/a153",
+                "kind": "missing-evidence",
+                "next_action": "In asynchronous_recovery_is_awaited_and_dropped_failed_recovery_is_still_diagnosed, establish Failed after the -2 reload (or initial failure), then retain the subsequent failing recovery update task from that Failed state; assert its own callback error and the resulting Failed state. Preserve the separately tested dropped-recovery waiter. Run the relevant regression on stable and Rust 1.85.0 after the evidence follow-up.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "An Active-to-Failed reload error and a dropped Failed-recovery waiter are distinct tested paths. The source requires Failed after a retained failing recovery update from an already-Failed Fiber; a state assertion after -2 alone does not cover it."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/fiber.spec.ts:156",
+      "source_file": "local/cordis/packages/core/tests/fiber.spec.ts",
+      "source_line": 156,
+      "source_end_line": 170,
+      "title": "update surfaces a failed reload to its caller",
+      "suite": [
+        "Fiber"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/fiber.spec.ts:156/default/a165",
+              "behavior": "A reload failure is returned to the explicit update caller.",
+              "source_assertion_lines": [
+                165
+              ],
+              "class": "executed-comparison",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/lifecycle_parity.rs",
+                  "symbol": "latest_failure_reaches_waiters_after_rollback_despite_abandoned_update",
+                  "lines": [
+                    312,
+                    320,
+                    321,
+                    331,
+                    351,
+                    370,
+                    371,
+                    372,
+                    381,
+                    383,
+                    388,
+                    389,
+                    390,
+                    391,
+                    393,
+                    394,
+                    395,
+                    396,
+                    399,
+                    403,
+                    404,
+                    405,
+                    406,
+                    407,
+                    408,
+                    413,
+                    414,
+                    418,
+                    424,
+                    425,
+                    426,
+                    458,
+                    459
+                  ],
+                  "assertion": "Both current update tasks are awaited as the same callback failure after rollback and the Fiber is asserted Failed.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [
+                {
+                  "scenario": "latest-failure",
+                  "observation": "waiters=Failed",
+                  "scope": "The paired latest-failure fixture executes a current load failure reaching retained update waiters after rollback."
+                }
+              ],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "This exact latest-load failure/abandoned-waiter path is one of the six accepted paired scenarios; error-source identity is asserted inside each language, while the shared trace records settlement."
+            },
+            {
+              "id": "core/fiber.spec.ts:156/default/a166",
+              "behavior": "The failed reload leaves the Fiber Failed.",
+              "source_assertion_lines": [
+                166
+              ],
+              "class": "executed-comparison",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/lifecycle_parity.rs",
+                  "symbol": "latest_failure_reaches_waiters_after_rollback_despite_abandoned_update",
+                  "lines": [
+                    312,
+                    320,
+                    321,
+                    331,
+                    351,
+                    370,
+                    371,
+                    372,
+                    381,
+                    383,
+                    388,
+                    389,
+                    390,
+                    391,
+                    393,
+                    394,
+                    395,
+                    396,
+                    399,
+                    403,
+                    404,
+                    405,
+                    406,
+                    407,
+                    408,
+                    413,
+                    414,
+                    418,
+                    424,
+                    425,
+                    426,
+                    458,
+                    459
+                  ],
+                  "assertion": "Both current update tasks are awaited as the same callback failure after rollback and the Fiber is asserted Failed.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [
+                {
+                  "scenario": "latest-failure",
+                  "observation": "waiters=Failed",
+                  "scope": "The paired latest-failure fixture executes a current load failure reaching retained update waiters after rollback."
+                }
+              ],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "This exact latest-load failure/abandoned-waiter path is one of the six accepted paired scenarios; error-source identity is asserted inside each language, while the shared trace records settlement."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "executed-comparison"
+      ]
+    },
+    {
+      "id": "core/fiber.spec.ts:171",
+      "source_file": "local/cordis/packages/core/tests/fiber.spec.ts",
+      "source_line": 171,
+      "source_end_line": 184,
+      "title": "update does not leak a dropped failure",
+      "suite": [
+        "Fiber"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/fiber.spec.ts:171/default/a182",
+              "behavior": "Dropping the failed-update waiter does not hide lifecycle settlement; the Fiber becomes Failed.",
+              "source_assertion_lines": [
+                182
+              ],
+              "class": "executed-comparison",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/lifecycle_parity.rs",
+                  "symbol": "latest_failure_reaches_waiters_after_rollback_despite_abandoned_update",
+                  "lines": [
+                    312,
+                    320,
+                    321,
+                    331,
+                    351,
+                    370,
+                    371,
+                    372,
+                    381,
+                    383,
+                    388,
+                    389,
+                    390,
+                    391,
+                    393,
+                    394,
+                    395,
+                    396,
+                    399,
+                    403,
+                    404,
+                    405,
+                    406,
+                    407,
+                    408,
+                    413,
+                    414,
+                    418,
+                    424,
+                    425,
+                    426,
+                    458,
+                    459
+                  ],
+                  "assertion": "The latest-failure scenario drops a started update waiter, then asserts retained waiters receive the failure and final state is Failed.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [
+                {
+                  "scenario": "latest-failure",
+                  "observation": "waiters=Failed",
+                  "scope": "The paired latest-failure fixture executes a current load failure reaching retained update waiters after rollback."
+                },
+                {
+                  "scenario": "latest-failure",
+                  "observation": "update-waiter abandoned",
+                  "scope": "The paired fixture explicitly abandons one started update waiter before the same failure settles."
+                }
+              ],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "This exact latest-load failure/abandoned-waiter path is one of the six accepted paired scenarios; error-source identity is asserted inside each language, while the shared trace records settlement."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "executed-comparison"
+      ]
+    },
+    {
+      "id": "core/fiber.spec.ts:185",
+      "source_file": "local/cordis/packages/core/tests/fiber.spec.ts",
+      "source_line": 185,
+      "source_end_line": 203,
+      "title": "dispose error",
+      "suite": [
+        "Fiber"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/fiber.spec.ts:185/default/a197",
+              "behavior": "The cleanup callback has not run before explicit Fiber disposal.",
+              "source_assertion_lines": [
+                197
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/fiber.spec.ts:185/default/a197",
+                "kind": "missing-evidence",
+                "next_action": "In cleanup_failures_are_attempted_and_reported_without_blocking_disposal, give the throwing cleanup its own invocation counter and assert zero after readiness and before disposal; retain the separate successful-sibling counter. Run the relevant regression on stable and Rust 1.85.0 after the evidence follow-up.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "plugins.rs:917-953 reads cleaned only after disposal at 942, with no pre-disposal zero assertion."
+            },
+            {
+              "id": "core/fiber.spec.ts:185/default/a198",
+              "behavior": "A cleanup callback failure does not make the public disposal barrier fail.",
+              "source_assertion_lines": [
+                198
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "cleanup_failures_are_attempted_and_reported_without_blocking_disposal",
+                  "lines": [
+                    917,
+                    921,
+                    926,
+                    927,
+                    930,
+                    931,
+                    938,
+                    939,
+                    940,
+                    941,
+                    942,
+                    943,
+                    944,
+                    945,
+                    946,
+                    947,
+                    948
+                  ],
+                  "assertion": "fiber.dispose awaits successfully despite cleanup error and panic.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cleanup-failure regression strengthens the source by attempting independent cleanup and preserving diagnostic identity while disposal still completes."
+            },
+            {
+              "id": "core/fiber.spec.ts:185/default/a200",
+              "behavior": "The failing cleanup callback is attempted exactly once.",
+              "source_assertion_lines": [
+                200
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/fiber.spec.ts:185/default/a200",
+                "kind": "missing-evidence",
+                "next_action": "In cleanup_failures_are_attempted_and_reported_without_blocking_disposal, count entries into the throwing cleanup itself and assert exactly one after disposal and unchanged after repeated disposal; retain the successful-sibling and error/panic diagnostic assertions. Run the relevant regression on stable and Rust 1.85.0 after the evidence follow-up.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The counter at plugins.rs:942 belongs to the successful sibling cleanup registered at 926-929; the throwing disposer at 930 has no counter. The two failures and panic flags at 943-946 observe diagnostics, not an exact throwing-callback count."
+            },
+            {
+              "id": "core/fiber.spec.ts:185/default/a201",
+              "behavior": "The cleanup failure is diagnosed exactly once.",
+              "source_assertion_lines": [
+                201
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "cleanup_failures_are_attempted_and_reported_without_blocking_disposal",
+                  "lines": [
+                    917,
+                    921,
+                    926,
+                    927,
+                    930,
+                    931,
+                    938,
+                    939,
+                    940,
+                    941,
+                    942,
+                    943,
+                    944,
+                    945,
+                    946,
+                    947,
+                    948
+                  ],
+                  "assertion": "Two cleanup failures are retained with their panic/error identities and no later duplicate.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The cleanup-failure regression strengthens the source by attempting independent cleanup and preserving diagnostic identity while disposal still completes."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/fiber.spec.ts:204",
+      "source_file": "local/cordis/packages/core/tests/fiber.spec.ts",
+      "source_line": 204,
+      "source_end_line": 230,
+      "title": "settles a pending fiber to DISPOSED on dispose",
+      "suite": [
+        "Fiber"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/fiber.spec.ts:204/default/a216",
+              "behavior": "A consumer with a never-provided dependency begins Pending.",
+              "source_assertion_lines": [
+                216
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/hooks.rs",
+                  "symbol": "status_and_plugin_snapshots_do_not_retain_fibers_and_terminal_sequences_are_stable",
+                  "lines": [
+                    14,
+                    43,
+                    48,
+                    49,
+                    50,
+                    51,
+                    52,
+                    53,
+                    54,
+                    55,
+                    56,
+                    64,
+                    65,
+                    66,
+                    67,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    75,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85,
+                    86,
+                    87,
+                    88,
+                    89,
+                    90,
+                    91,
+                    92,
+                    93
+                  ],
+                  "assertion": "Pending disposal is joined and the exact Pending->Disposed observation is asserted.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The typed status hook regression directly asserts the same terminal state transition sequence."
+            },
+            {
+              "id": "core/fiber.spec.ts:204/default/a220",
+              "behavior": "After disposing a Pending Fiber, the JavaScript wrapper uid becomes null.",
+              "source_assertion_lines": [
+                220
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/hooks.rs",
+                  "symbol": "status_and_plugin_snapshots_do_not_retain_fibers_and_terminal_sequences_are_stable",
+                  "lines": [
+                    14,
+                    43,
+                    48,
+                    49,
+                    50,
+                    51,
+                    52,
+                    53,
+                    54,
+                    55,
+                    56,
+                    64,
+                    65,
+                    66,
+                    67,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    75,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85,
+                    86,
+                    87,
+                    88,
+                    89,
+                    90,
+                    91,
+                    92,
+                    93
+                  ],
+                  "assertion": "After disposal, typed status snapshots still identify the stable FiberId; Rust intentionally has no mutable uid/inertia wrapper fields.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "parent-ownership-registry-residency-and-weak-ancestry",
+                "reason": "Disposed Rust FiberHandle values retain stable identity/metadata and expose wait-only lifecycle barriers; there is no public JavaScript-style uid=null or inertia=undefined field mutation."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The Rust handle keeps opaque identity and exposes typed lifecycle methods; the tested status snapshot is the documented substitute for JavaScript wrapper-field invalidation."
+            },
+            {
+              "id": "core/fiber.spec.ts:204/default/a221",
+              "behavior": "After disposing a Pending Fiber, the JavaScript wrapper has no inertia field.",
+              "source_assertion_lines": [
+                221
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/hooks.rs",
+                  "symbol": "status_and_plugin_snapshots_do_not_retain_fibers_and_terminal_sequences_are_stable",
+                  "lines": [
+                    14,
+                    43,
+                    48,
+                    49,
+                    50,
+                    51,
+                    52,
+                    53,
+                    54,
+                    55,
+                    56,
+                    64,
+                    65,
+                    66,
+                    67,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    75,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85,
+                    86,
+                    87,
+                    88,
+                    89,
+                    90,
+                    91,
+                    92,
+                    93
+                  ],
+                  "assertion": "After disposal, typed status snapshots still identify the stable FiberId; Rust intentionally has no mutable uid/inertia wrapper fields.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "parent-ownership-registry-residency-and-weak-ancestry",
+                "reason": "Disposed Rust FiberHandle values retain stable identity/metadata and expose wait-only lifecycle barriers; there is no public JavaScript-style uid=null or inertia=undefined field mutation."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The Rust handle keeps opaque identity and exposes typed lifecycle methods; the tested status snapshot is the documented substitute for JavaScript wrapper-field invalidation."
+            },
+            {
+              "id": "core/fiber.spec.ts:204/default/a222",
+              "behavior": "Pending disposal settles the Fiber in Disposed.",
+              "source_assertion_lines": [
+                222
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/hooks.rs",
+                  "symbol": "status_and_plugin_snapshots_do_not_retain_fibers_and_terminal_sequences_are_stable",
+                  "lines": [
+                    14,
+                    43,
+                    48,
+                    49,
+                    50,
+                    51,
+                    52,
+                    53,
+                    54,
+                    55,
+                    56,
+                    64,
+                    65,
+                    66,
+                    67,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    75,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85,
+                    86,
+                    87,
+                    88,
+                    89,
+                    90,
+                    91,
+                    92,
+                    93
+                  ],
+                  "assertion": "Pending disposal is joined and the exact Pending->Disposed observation is asserted.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The typed status hook regression directly asserts the same terminal state transition sequence."
+            },
+            {
+              "id": "core/fiber.spec.ts:204/default/a223",
+              "behavior": "Pending disposal emits exactly Pending to Disposed.",
+              "source_assertion_lines": [
+                223,
+                224,
+                225
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/hooks.rs",
+                  "symbol": "status_and_plugin_snapshots_do_not_retain_fibers_and_terminal_sequences_are_stable",
+                  "lines": [
+                    14,
+                    43,
+                    48,
+                    49,
+                    50,
+                    51,
+                    52,
+                    53,
+                    54,
+                    55,
+                    56,
+                    64,
+                    65,
+                    66,
+                    67,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    75,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85,
+                    86,
+                    87,
+                    88,
+                    89,
+                    90,
+                    91,
+                    92,
+                    93
+                  ],
+                  "assertion": "Pending disposal is joined and the exact Pending->Disposed observation is asserted.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The typed status hook regression directly asserts the same terminal state transition sequence."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation",
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/fiber.spec.ts:231",
+      "source_file": "local/cordis/packages/core/tests/fiber.spec.ts",
+      "source_line": 231,
+      "source_end_line": 263,
+      "title": "settles a failed fiber to DISPOSED on dispose",
+      "suite": [
+        "Fiber"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/fiber.spec.ts:231/default/a241",
+              "behavior": "The initial callback failure is returned to the Fiber waiter.",
+              "source_assertion_lines": [
+                241
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/hooks.rs",
+                  "symbol": "status_and_plugin_snapshots_do_not_retain_fibers_and_terminal_sequences_are_stable",
+                  "lines": [
+                    14,
+                    43,
+                    48,
+                    49,
+                    50,
+                    51,
+                    52,
+                    53,
+                    54,
+                    55,
+                    56,
+                    64,
+                    65,
+                    66,
+                    67,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    75,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85,
+                    86,
+                    87,
+                    88,
+                    89,
+                    90,
+                    91,
+                    92,
+                    93
+                  ],
+                  "assertion": "The failed readiness error is joined, then disposal emits exactly Failed->Disposed.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The typed status hook regression directly asserts the same terminal state transition sequence."
+            },
+            {
+              "id": "core/fiber.spec.ts:231/default/a242",
+              "behavior": "The failed load leaves the Fiber Failed before disposal.",
+              "source_assertion_lines": [
+                242
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/hooks.rs",
+                  "symbol": "status_and_plugin_snapshots_do_not_retain_fibers_and_terminal_sequences_are_stable",
+                  "lines": [
+                    14,
+                    43,
+                    48,
+                    49,
+                    50,
+                    51,
+                    52,
+                    53,
+                    54,
+                    55,
+                    56,
+                    64,
+                    65,
+                    66,
+                    67,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    75,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85,
+                    86,
+                    87,
+                    88,
+                    89,
+                    90,
+                    91,
+                    92,
+                    93
+                  ],
+                  "assertion": "The failed readiness error is joined, then disposal emits exactly Failed->Disposed.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The typed status hook regression directly asserts the same terminal state transition sequence."
+            },
+            {
+              "id": "core/fiber.spec.ts:231/default/a253",
+              "behavior": "After disposing a Failed Fiber, the JavaScript wrapper uid becomes null.",
+              "source_assertion_lines": [
+                253
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/hooks.rs",
+                  "symbol": "status_and_plugin_snapshots_do_not_retain_fibers_and_terminal_sequences_are_stable",
+                  "lines": [
+                    14,
+                    43,
+                    48,
+                    49,
+                    50,
+                    51,
+                    52,
+                    53,
+                    54,
+                    55,
+                    56,
+                    64,
+                    65,
+                    66,
+                    67,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    75,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85,
+                    86,
+                    87,
+                    88,
+                    89,
+                    90,
+                    91,
+                    92,
+                    93
+                  ],
+                  "assertion": "After disposal, typed status snapshots still identify the stable FiberId; Rust intentionally has no mutable uid/inertia wrapper fields.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "parent-ownership-registry-residency-and-weak-ancestry",
+                "reason": "Disposed Rust FiberHandle values retain stable identity/metadata and expose wait-only lifecycle barriers; there is no public JavaScript-style uid=null or inertia=undefined field mutation."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The Rust handle keeps opaque identity and exposes typed lifecycle methods; the tested status snapshot is the documented substitute for JavaScript wrapper-field invalidation."
+            },
+            {
+              "id": "core/fiber.spec.ts:231/default/a254",
+              "behavior": "After disposing a Failed Fiber, the JavaScript wrapper has no inertia field.",
+              "source_assertion_lines": [
+                254
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/hooks.rs",
+                  "symbol": "status_and_plugin_snapshots_do_not_retain_fibers_and_terminal_sequences_are_stable",
+                  "lines": [
+                    14,
+                    43,
+                    48,
+                    49,
+                    50,
+                    51,
+                    52,
+                    53,
+                    54,
+                    55,
+                    56,
+                    64,
+                    65,
+                    66,
+                    67,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    75,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85,
+                    86,
+                    87,
+                    88,
+                    89,
+                    90,
+                    91,
+                    92,
+                    93
+                  ],
+                  "assertion": "After disposal, typed status snapshots still identify the stable FiberId; Rust intentionally has no mutable uid/inertia wrapper fields.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "parent-ownership-registry-residency-and-weak-ancestry",
+                "reason": "Disposed Rust FiberHandle values retain stable identity/metadata and expose wait-only lifecycle barriers; there is no public JavaScript-style uid=null or inertia=undefined field mutation."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The Rust handle keeps opaque identity and exposes typed lifecycle methods; the tested status snapshot is the documented substitute for JavaScript wrapper-field invalidation."
+            },
+            {
+              "id": "core/fiber.spec.ts:231/default/a255",
+              "behavior": "Failed disposal settles the Fiber in Disposed.",
+              "source_assertion_lines": [
+                255
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/hooks.rs",
+                  "symbol": "status_and_plugin_snapshots_do_not_retain_fibers_and_terminal_sequences_are_stable",
+                  "lines": [
+                    14,
+                    43,
+                    48,
+                    49,
+                    50,
+                    51,
+                    52,
+                    53,
+                    54,
+                    55,
+                    56,
+                    64,
+                    65,
+                    66,
+                    67,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    75,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85,
+                    86,
+                    87,
+                    88,
+                    89,
+                    90,
+                    91,
+                    92,
+                    93
+                  ],
+                  "assertion": "The failed readiness error is joined, then disposal emits exactly Failed->Disposed.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The typed status hook regression directly asserts the same terminal state transition sequence."
+            },
+            {
+              "id": "core/fiber.spec.ts:231/default/a256",
+              "behavior": "Failed disposal emits exactly Failed to Disposed.",
+              "source_assertion_lines": [
+                256,
+                257,
+                258
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/hooks.rs",
+                  "symbol": "status_and_plugin_snapshots_do_not_retain_fibers_and_terminal_sequences_are_stable",
+                  "lines": [
+                    14,
+                    43,
+                    48,
+                    49,
+                    50,
+                    51,
+                    52,
+                    53,
+                    54,
+                    55,
+                    56,
+                    64,
+                    65,
+                    66,
+                    67,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    75,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85,
+                    86,
+                    87,
+                    88,
+                    89,
+                    90,
+                    91,
+                    92,
+                    93
+                  ],
+                  "assertion": "The failed readiness error is joined, then disposal emits exactly Failed->Disposed.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The typed status hook regression directly asserts the same terminal state transition sequence."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation",
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/fiber.spec.ts:264",
+      "source_file": "local/cordis/packages/core/tests/fiber.spec.ts",
+      "source_line": 264,
+      "source_end_line": 291,
+      "title": "keeps the active dispose sequence stable",
+      "suite": [
+        "Fiber"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/fiber.spec.ts:264/default/a280",
+              "behavior": "After disposing an Active Fiber, the JavaScript wrapper uid becomes null.",
+              "source_assertion_lines": [
+                280
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/hooks.rs",
+                  "symbol": "status_and_plugin_snapshots_do_not_retain_fibers_and_terminal_sequences_are_stable",
+                  "lines": [
+                    14,
+                    43,
+                    48,
+                    49,
+                    50,
+                    51,
+                    52,
+                    53,
+                    54,
+                    55,
+                    56,
+                    64,
+                    65,
+                    66,
+                    67,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    75,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85,
+                    86,
+                    87,
+                    88,
+                    89,
+                    90,
+                    91,
+                    92,
+                    93
+                  ],
+                  "assertion": "After disposal, typed status snapshots still identify the stable FiberId; Rust intentionally has no mutable uid/inertia wrapper fields.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "parent-ownership-registry-residency-and-weak-ancestry",
+                "reason": "Disposed Rust FiberHandle values retain stable identity/metadata and expose wait-only lifecycle barriers; there is no public JavaScript-style uid=null or inertia=undefined field mutation."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The Rust handle keeps opaque identity and exposes typed lifecycle methods; the tested status snapshot is the documented substitute for JavaScript wrapper-field invalidation."
+            },
+            {
+              "id": "core/fiber.spec.ts:264/default/a281",
+              "behavior": "After disposing an Active Fiber, the JavaScript wrapper has no inertia field.",
+              "source_assertion_lines": [
+                281
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/hooks.rs",
+                  "symbol": "status_and_plugin_snapshots_do_not_retain_fibers_and_terminal_sequences_are_stable",
+                  "lines": [
+                    14,
+                    43,
+                    48,
+                    49,
+                    50,
+                    51,
+                    52,
+                    53,
+                    54,
+                    55,
+                    56,
+                    64,
+                    65,
+                    66,
+                    67,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    75,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85,
+                    86,
+                    87,
+                    88,
+                    89,
+                    90,
+                    91,
+                    92,
+                    93
+                  ],
+                  "assertion": "After disposal, typed status snapshots still identify the stable FiberId; Rust intentionally has no mutable uid/inertia wrapper fields.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "parent-ownership-registry-residency-and-weak-ancestry",
+                "reason": "Disposed Rust FiberHandle values retain stable identity/metadata and expose wait-only lifecycle barriers; there is no public JavaScript-style uid=null or inertia=undefined field mutation."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The Rust handle keeps opaque identity and exposes typed lifecycle methods; the tested status snapshot is the documented substitute for JavaScript wrapper-field invalidation."
+            },
+            {
+              "id": "core/fiber.spec.ts:264/default/a282",
+              "behavior": "Active disposal settles the Fiber in Disposed.",
+              "source_assertion_lines": [
+                282
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/hooks.rs",
+                  "symbol": "status_and_plugin_snapshots_do_not_retain_fibers_and_terminal_sequences_are_stable",
+                  "lines": [
+                    14,
+                    43,
+                    48,
+                    49,
+                    50,
+                    51,
+                    52,
+                    53,
+                    54,
+                    55,
+                    56,
+                    64,
+                    65,
+                    66,
+                    67,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    75,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85,
+                    86,
+                    87,
+                    88,
+                    89,
+                    90,
+                    91,
+                    92,
+                    93
+                  ],
+                  "assertion": "Active disposal emits exactly Active->Unloading->Disposed.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The typed status hook regression directly asserts the same terminal state transition sequence."
+            },
+            {
+              "id": "core/fiber.spec.ts:264/default/a283",
+              "behavior": "Active disposal emits Active to Unloading to Disposed in order.",
+              "source_assertion_lines": [
+                283,
+                284,
+                285,
+                286
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/hooks.rs",
+                  "symbol": "status_and_plugin_snapshots_do_not_retain_fibers_and_terminal_sequences_are_stable",
+                  "lines": [
+                    14,
+                    43,
+                    48,
+                    49,
+                    50,
+                    51,
+                    52,
+                    53,
+                    54,
+                    55,
+                    56,
+                    64,
+                    65,
+                    66,
+                    67,
+                    68,
+                    69,
+                    70,
+                    71,
+                    72,
+                    73,
+                    75,
+                    81,
+                    82,
+                    83,
+                    84,
+                    85,
+                    86,
+                    87,
+                    88,
+                    89,
+                    90,
+                    91,
+                    92,
+                    93
+                  ],
+                  "assertion": "Active disposal emits exactly Active->Unloading->Disposed.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The typed status hook regression directly asserts the same terminal state transition sequence."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation",
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/fiber.spec.ts:292",
+      "source_file": "local/cordis/packages/core/tests/fiber.spec.ts",
+      "source_line": 292,
+      "source_end_line": 311,
+      "title": "update config on wrapped fiber",
+      "suite": [
+        "Fiber"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/fiber.spec.ts:292/default/a298",
+              "behavior": "The wrapped Fiber invokes its callback once for the initial source.",
+              "source_assertion_lines": [
+                298
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "typed_object_method_adapter_keeps_config_and_cleanup_with_its_instance",
+                  "lines": [
+                    1143,
+                    1144,
+                    1161,
+                    1162,
+                    1166,
+                    1167,
+                    1168,
+                    1169,
+                    1170,
+                    1171,
+                    1172
+                  ],
+                  "assertion": "Plugin::new forwards each String input directly to Behavior::apply; its sorted complete recorded input vector is exactly [first, second] after both instances become ready, proving one invocation with each distinct admitted input.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The typed Plugin::new callback forwards its input unchanged to the explicit object method adapter. The complete sorted callback-input vector contains each distinct admission input exactly once; the original cloned-declaration witness only asserted handle configs and an aggregate length."
+            },
+            {
+              "id": "core/fiber.spec.ts:292/default/a299",
+              "behavior": "The initial callback receives source config hello.",
+              "source_assertion_lines": [
+                299
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "typed_object_method_adapter_keeps_config_and_cleanup_with_its_instance",
+                  "lines": [
+                    1143,
+                    1144,
+                    1161,
+                    1162,
+                    1166,
+                    1167,
+                    1168,
+                    1169,
+                    1170,
+                    1171,
+                    1172
+                  ],
+                  "assertion": "Plugin::new forwards each String input directly to Behavior::apply; its sorted complete recorded input vector is exactly [first, second] after both instances become ready, proving one invocation with each distinct admitted input.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The typed Plugin::new callback forwards its input unchanged to the explicit object method adapter. The complete sorted callback-input vector contains each distinct admission input exactly once; the original cloned-declaration witness only asserted handle configs and an aggregate length."
+            },
+            {
+              "id": "core/fiber.spec.ts:292/default/a303",
+              "behavior": "After the first update, the callback has run twice.",
+              "source_assertion_lines": [
+                303
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/fiber.spec.ts:292/default/a303",
+                "kind": "missing-evidence",
+                "next_action": "Extend optional_publication_presence_and_shared_updated_handles_are_explicit_typed_contracts with a callback-input journal: assert the initial input once, then the complete two-input vector/count after the first sequential update and the complete three-input vector/count after the second; keep the shared-handle identity/getter assertions. Run the relevant regression on stable and Rust 1.85.0 after the evidence follow-up.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The shared-handle callback ignores its u32 input at acceptance.rs:165. Config getters at 172-173/189 and shared identity at 174 do not observe callback inputs or sequential invocation counts."
+            },
+            {
+              "id": "core/fiber.spec.ts:292/default/a304",
+              "behavior": "The first update callback receives source config world.",
+              "source_assertion_lines": [
+                304
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/fiber.spec.ts:292/default/a304",
+                "kind": "missing-evidence",
+                "next_action": "Extend optional_publication_presence_and_shared_updated_handles_are_explicit_typed_contracts with a callback-input journal: assert the initial input once, then the complete two-input vector/count after the first sequential update and the complete three-input vector/count after the second; keep the shared-handle identity/getter assertions. Run the relevant regression on stable and Rust 1.85.0 after the evidence follow-up.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The shared-handle callback ignores its u32 input at acceptance.rs:165. Config getters at 172-173/189 and shared identity at 174 do not observe callback inputs or sequential invocation counts."
+            },
+            {
+              "id": "core/fiber.spec.ts:292/default/a308",
+              "behavior": "After the second update, the callback has run three times.",
+              "source_assertion_lines": [
+                308
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/fiber.spec.ts:292/default/a308",
+                "kind": "missing-evidence",
+                "next_action": "Extend optional_publication_presence_and_shared_updated_handles_are_explicit_typed_contracts with a callback-input journal: assert the initial input once, then the complete two-input vector/count after the first sequential update and the complete three-input vector/count after the second; keep the shared-handle identity/getter assertions. Run the relevant regression on stable and Rust 1.85.0 after the evidence follow-up.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The shared-handle witness observes config/identity, but its callback records neither input nor count. The initial, first-update and second-update callback boundaries need a single sequential input journal."
+            },
+            {
+              "id": "core/fiber.spec.ts:292/default/a309",
+              "behavior": "The second update leaves the latest source config !!! visible to apply.",
+              "source_assertion_lines": [
+                309
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/fiber.spec.ts:292/default/a309",
+                "kind": "missing-evidence",
+                "next_action": "Extend optional_publication_presence_and_shared_updated_handles_are_explicit_typed_contracts with a callback-input journal: assert the initial input once, then the complete two-input vector/count after the first sequential update and the complete three-input vector/count after the second; keep the shared-handle identity/getter assertions. Run the relevant regression on stable and Rust 1.85.0 after the evidence follow-up.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "The shared-handle callback ignores its u32 input at acceptance.rs:165. Config getters at 172-173/189 and shared identity at 174 do not observe callback inputs or sequential invocation counts."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/fiber.spec.ts:312",
+      "source_file": "local/cordis/packages/core/tests/fiber.spec.ts",
+      "source_line": 312,
+      "source_end_line": 325,
+      "title": "restart wrapped fiber",
+      "suite": [
+        "Fiber"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/fiber.spec.ts:312/default/a320",
+              "behavior": "Restarting a wrapped Fiber invokes its callback a second time.",
+              "source_assertion_lines": [
+                320
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "restart_preserves_identity_and_waits_for_cleanup_while_requests_coalesce",
+                  "lines": [
+                    531,
+                    540,
+                    543,
+                    545,
+                    564,
+                    565,
+                    566,
+                    567,
+                    568,
+                    569,
+                    570,
+                    571,
+                    572,
+                    573,
+                    574,
+                    575,
+                    576,
+                    577,
+                    579,
+                    580
+                  ],
+                  "assertion": "After initial readiness and coalesced restart, applied is asserted exactly two.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The current restart regression directly asserts the two applies and Active settlement."
+            },
+            {
+              "id": "core/fiber.spec.ts:312/default/a321",
+              "behavior": "The restarted Fiber returns to Active.",
+              "source_assertion_lines": [
+                321
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "restart_preserves_identity_and_waits_for_cleanup_while_requests_coalesce",
+                  "lines": [
+                    531,
+                    540,
+                    543,
+                    545,
+                    564,
+                    565,
+                    566,
+                    567,
+                    568,
+                    569,
+                    570,
+                    571,
+                    572,
+                    573,
+                    574,
+                    575,
+                    576,
+                    577,
+                    579,
+                    580
+                  ],
+                  "assertion": "The restart waiter resolves Active.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The current restart regression directly asserts the two applies and Active settlement."
+            },
+            {
+              "id": "core/fiber.spec.ts:312/default/a322",
+              "behavior": "The JavaScript wrapper delegates state rather than owning a state property.",
+              "source_assertion_lines": [
+                322
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "restart_preserves_identity_and_waits_for_cleanup_while_requests_coalesce",
+                  "lines": [
+                    531,
+                    540,
+                    543,
+                    545,
+                    564,
+                    565,
+                    566,
+                    567,
+                    568,
+                    569,
+                    570,
+                    571,
+                    572,
+                    573,
+                    574,
+                    575,
+                    576,
+                    577,
+                    579,
+                    580
+                  ],
+                  "assertion": "The same stable FiberHandle identity is asserted across restart and exposes state by method.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "public-surface",
+                "reason": "Rust exposes a typed FiberHandle with methods and stable opaque identity rather than a JavaScript callable wrapper delegating own/prototype properties such as state, config, inertia, and uid."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Typed handle methods replace JavaScript own/prototype delegation while preserving one lifecycle allocation."
+            },
+            {
+              "id": "core/fiber.spec.ts:312/default/a323",
+              "behavior": "The JavaScript wrapper delegates inertia rather than owning an inertia property.",
+              "source_assertion_lines": [
+                323
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "restart_preserves_identity_and_waits_for_cleanup_while_requests_coalesce",
+                  "lines": [
+                    531,
+                    540,
+                    543,
+                    545,
+                    564,
+                    565,
+                    566,
+                    567,
+                    568,
+                    569,
+                    570,
+                    571,
+                    572,
+                    573,
+                    574,
+                    575,
+                    576,
+                    577,
+                    579,
+                    580
+                  ],
+                  "assertion": "Restart uses wait-only task methods; Rust has no public inertia property and the stable handle/config are asserted.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "public-surface",
+                "reason": "Rust exposes a typed FiberHandle with methods and stable opaque identity rather than a JavaScript callable wrapper delegating own/prototype properties such as state, config, inertia, and uid."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Typed handle methods replace JavaScript own/prototype delegation while preserving one lifecycle allocation."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation",
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/fiber.spec.ts:326",
+      "source_file": "local/cordis/packages/core/tests/fiber.spec.ts",
+      "source_line": 326,
+      "source_end_line": 383,
+      "title": "update config while injected service reloads",
+      "suite": [
+        "Fiber"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/fiber.spec.ts:326/default/a358",
+              "behavior": "Concurrent provider and consumer updates apply only the old/old and new/new combinations.",
+              "source_assertion_lines": [
+                358,
+                359,
+                360,
+                361
+              ],
+              "class": "executed-comparison",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "provider_update_and_consumer_update_converge_without_an_old_provider_new_config_load",
+                  "lines": [
+                    643,
+                    648,
+                    649,
+                    664,
+                    665,
+                    666,
+                    671,
+                    675,
+                    680,
+                    681,
+                    684,
+                    685,
+                    686,
+                    687,
+                    688,
+                    689,
+                    690
+                  ],
+                  "assertion": "Concurrent provider/consumer updates are joined and the applied vector is asserted exactly [(1, old), (2, new)].",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [
+                {
+                  "scenario": "combined",
+                  "observation": "apply 1 old",
+                  "scope": "The paired combined scenario executes the old-provider/old-config application."
+                },
+                {
+                  "scenario": "combined",
+                  "observation": "apply 2 new",
+                  "scope": "The paired combined scenario executes the replacement-provider/new-config application without an old/new mix."
+                }
+              ],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The accepted combined trace executes this exact two-combination obligation in both implementations."
+            },
+            {
+              "id": "core/fiber.spec.ts:326/default/a362",
+              "behavior": "The JavaScript wrapper config getter delegates to its base Fiber.",
+              "source_assertion_lines": [
+                362
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "optional_publication_presence_and_shared_updated_handles_are_explicit_typed_contracts",
+                  "lines": [
+                    163,
+                    168,
+                    169,
+                    170,
+                    171,
+                    172,
+                    173,
+                    174,
+                    185,
+                    188,
+                    189
+                  ],
+                  "assertion": "FiberHandle clones share one identity and updated config; Rust methods replace JavaScript wrapper/base property delegation.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "public-surface",
+                "reason": "Rust exposes a typed FiberHandle with methods and stable opaque identity rather than a JavaScript callable wrapper delegating own/prototype properties such as state, config, inertia, and uid."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The supported Rust API has one typed shared handle allocation rather than a JavaScript wrapper prototype, and the test checks shared identity/config/state."
+            },
+            {
+              "id": "core/fiber.spec.ts:326/default/a363",
+              "behavior": "The JavaScript wrapper state getter delegates to its base Fiber.",
+              "source_assertion_lines": [
+                363
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "optional_publication_presence_and_shared_updated_handles_are_explicit_typed_contracts",
+                  "lines": [
+                    163,
+                    168,
+                    169,
+                    170,
+                    171,
+                    172,
+                    173,
+                    174,
+                    185,
+                    188,
+                    189
+                  ],
+                  "assertion": "FiberHandle clones share one identity and updated config; Rust methods replace JavaScript wrapper/base property delegation.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "public-surface",
+                "reason": "Rust exposes a typed FiberHandle with methods and stable opaque identity rather than a JavaScript callable wrapper delegating own/prototype properties such as state, config, inertia, and uid."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The supported Rust API has one typed shared handle allocation rather than a JavaScript wrapper prototype, and the test checks shared identity/config/state."
+            },
+            {
+              "id": "core/fiber.spec.ts:326/default/a364",
+              "behavior": "The updated consumer is Active.",
+              "source_assertion_lines": [
+                364
+              ],
+              "class": "executed-comparison",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/lifecycle_parity.rs",
+                  "symbol": "combined_provider_and_consumer_update",
+                  "lines": [
+                    233,
+                    236,
+                    238,
+                    239,
+                    251,
+                    260,
+                    269,
+                    270,
+                    271,
+                    272,
+                    281,
+                    282,
+                    292,
+                    293
+                  ],
+                  "assertion": "The combined mode joins provider update tasks and consumer readiness, compares both provider.state() and consumer.state() to Active, then emits the exact settled provider=Active consumer=Active observation.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [
+                {
+                  "scenario": "combined",
+                  "observation": "settled provider=Active consumer=Active",
+                  "scope": "The combined TS fixture at lifecycle.spec.ts:132-137 and Rust combined helper at lifecycle_parity.rs:260-273 observe both provider and consumer Active after readiness; this is distinct from the earlier consumer Pending update-waiter settlement."
+                }
+              ],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The accepted combined comparison supplies the exact concurrent provider/consumer final Active checkpoint in both languages. acceptance.rs:185 instead checks a middleware-error path on a different plugin and is removed from this obligation."
+            },
+            {
+              "id": "core/fiber.spec.ts:326/default/a365",
+              "behavior": "The JavaScript wrapper does not own config.",
+              "source_assertion_lines": [
+                365
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "optional_publication_presence_and_shared_updated_handles_are_explicit_typed_contracts",
+                  "lines": [
+                    163,
+                    168,
+                    169,
+                    170,
+                    171,
+                    172,
+                    173,
+                    174,
+                    185,
+                    188,
+                    189
+                  ],
+                  "assertion": "FiberHandle clones share one identity and updated config; Rust methods replace JavaScript wrapper/base property delegation.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "public-surface",
+                "reason": "Rust exposes a typed FiberHandle with methods and stable opaque identity rather than a JavaScript callable wrapper delegating own/prototype properties such as state, config, inertia, and uid."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The supported Rust API has one typed shared handle allocation rather than a JavaScript wrapper prototype, and the test checks shared identity/config/state."
+            },
+            {
+              "id": "core/fiber.spec.ts:326/default/a366",
+              "behavior": "The JavaScript wrapper does not own state.",
+              "source_assertion_lines": [
+                366
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "optional_publication_presence_and_shared_updated_handles_are_explicit_typed_contracts",
+                  "lines": [
+                    163,
+                    168,
+                    169,
+                    170,
+                    171,
+                    172,
+                    173,
+                    174,
+                    185,
+                    188,
+                    189
+                  ],
+                  "assertion": "FiberHandle clones share one identity and updated config; Rust methods replace JavaScript wrapper/base property delegation.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "public-surface",
+                "reason": "Rust exposes a typed FiberHandle with methods and stable opaque identity rather than a JavaScript callable wrapper delegating own/prototype properties such as state, config, inertia, and uid."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The supported Rust API has one typed shared handle allocation rather than a JavaScript wrapper prototype, and the test checks shared identity/config/state."
+            },
+            {
+              "id": "core/fiber.spec.ts:326/default/a367",
+              "behavior": "The JavaScript wrapper does not own inertia.",
+              "source_assertion_lines": [
+                367
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/acceptance.rs",
+                  "symbol": "optional_publication_presence_and_shared_updated_handles_are_explicit_typed_contracts",
+                  "lines": [
+                    163,
+                    168,
+                    169,
+                    170,
+                    171,
+                    172,
+                    173,
+                    174,
+                    185,
+                    188,
+                    189
+                  ],
+                  "assertion": "FiberHandle clones share one identity and updated config; Rust methods replace JavaScript wrapper/base property delegation.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m3.md",
+                "anchor": "public-surface",
+                "reason": "Rust exposes a typed FiberHandle with methods and stable opaque identity rather than a JavaScript callable wrapper delegating own/prototype properties such as state, config, inertia, and uid."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The supported Rust API has one typed shared handle allocation rather than a JavaScript wrapper prototype, and the test checks shared identity/config/state."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "executed-comparison",
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/fiber.spec.ts:384",
+      "source_file": "local/cordis/packages/core/tests/fiber.spec.ts",
+      "source_line": 384,
+      "source_end_line": 395,
+      "title": "fail on first load",
+      "suite": [
+        "Fiber: config validation"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/fiber.spec.ts:384/default/a392",
+              "behavior": "Invalid initial configuration prevents apply from running.",
+              "source_assertion_lines": [
+                392
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "validation_runs_per_load_and_source_remains_distinct_from_resolved_input",
+                  "lines": [
+                    132,
+                    137,
+                    141,
+                    143,
+                    148,
+                    154,
+                    162,
+                    163,
+                    169,
+                    170,
+                    183,
+                    184,
+                    185
+                  ],
+                  "assertion": "The valid input alone reaches apply; recorded resolved inputs equal [3], excluding the invalid -1 source.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The typed per-load validation test directly proves invalid initial source is rejected before apply and leaves a resident Failed Fiber."
+            },
+            {
+              "id": "core/fiber.spec.ts:384/default/a393",
+              "behavior": "Invalid initial configuration leaves the Fiber Failed.",
+              "source_assertion_lines": [
+                393
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/plugins.rs",
+                  "symbol": "validation_runs_per_load_and_source_remains_distinct_from_resolved_input",
+                  "lines": [
+                    132,
+                    137,
+                    141,
+                    143,
+                    148,
+                    154,
+                    162,
+                    163,
+                    169,
+                    170,
+                    183,
+                    184,
+                    185
+                  ],
+                  "assertion": "The invalid instance readiness fails and its state is asserted Failed.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The typed per-load validation test directly proves invalid initial source is rejected before apply and leaves a resident Failed Fiber."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/fiber.spec.ts:396",
+      "source_file": "local/cordis/packages/core/tests/fiber.spec.ts",
+      "source_line": 396,
+      "source_end_line": 412,
+      "title": "keep a running plugin on update",
+      "suite": [
+        "Fiber: config validation"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/fiber.spec.ts:396/default/a403",
+              "behavior": "A valid initial configuration runs apply once.",
+              "source_assertion_lines": [
+                403
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "invalid_loaded_update_cannot_commit_or_reach_resolved_middleware_and_no_save_only_skips_commit",
+                  "lines": [
+                    199,
+                    219,
+                    221,
+                    225,
+                    229,
+                    239,
+                    240,
+                    241,
+                    242,
+                    243,
+                    244,
+                    245,
+                    246,
+                    247,
+                    248
+                  ],
+                  "assertion": "Initial resolved apply is recorded once.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The loaded-update regression directly checks validation precedes source commit, middleware, and reload."
+            },
+            {
+              "id": "core/fiber.spec.ts:396/default/a405",
+              "behavior": "An invalid loaded update fails synchronously with invalid config.",
+              "source_assertion_lines": [
+                405
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "invalid_loaded_update_cannot_commit_or_reach_resolved_middleware_and_no_save_only_skips_commit",
+                  "lines": [
+                    199,
+                    219,
+                    221,
+                    225,
+                    229,
+                    239,
+                    240,
+                    241,
+                    242,
+                    243,
+                    244,
+                    245,
+                    246,
+                    247,
+                    248
+                  ],
+                  "assertion": "fiber.update(-1) is asserted to return LifecycleError::Callback synchronously.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The loaded-update regression directly checks validation precedes source commit, middleware, and reload."
+            },
+            {
+              "id": "core/fiber.spec.ts:396/default/a408",
+              "behavior": "The invalid update does not rerun apply.",
+              "source_assertion_lines": [
+                408
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "invalid_loaded_update_cannot_commit_or_reach_resolved_middleware_and_no_save_only_skips_commit",
+                  "lines": [
+                    199,
+                    219,
+                    221,
+                    225,
+                    229,
+                    239,
+                    240,
+                    241,
+                    242,
+                    243,
+                    244,
+                    245,
+                    246,
+                    247,
+                    248
+                  ],
+                  "assertion": "Applied remains only resolved 1 after the invalid update.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The loaded-update regression directly checks validation precedes source commit, middleware, and reload."
+            },
+            {
+              "id": "core/fiber.spec.ts:396/default/a409",
+              "behavior": "The invalid update leaves the existing Fiber Active.",
+              "source_assertion_lines": [
+                409
+              ],
+              "class": "missing-evidence",
+              "rust_evidence": [],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": {
+                "id": "G-B0-core/fiber.spec.ts:396/default/a409",
+                "kind": "missing-evidence",
+                "next_action": "In invalid_loaded_update_cannot_commit_or_reach_resolved_middleware_and_no_save_only_skips_commit, assert fiber.state()==FiberState::Active immediately after the rejected invalid loaded update and before any later valid update. Run the relevant regression on stable and Rust 1.85.0 after the evidence follow-up.",
+                "owner": "core evidence maintainer",
+                "work_package": "Core evidence follow-up and dependency triage. A dependent satellite gate must establish need and supply a failing public-API reproducer before conditional B2 entry."
+              },
+              "execution_status": "not-executed",
+              "rationale": "updates.rs:239-259 checks synchronous invalid-update rejection, unchanged source and apply/middleware observations, but contains no Active-state assertion at the rejected loaded-update checkpoint."
+            },
+            {
+              "id": "core/fiber.spec.ts:396/default/a410",
+              "behavior": "The invalid update preserves the old source config.",
+              "source_assertion_lines": [
+                410
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "invalid_loaded_update_cannot_commit_or_reach_resolved_middleware_and_no_save_only_skips_commit",
+                  "lines": [
+                    199,
+                    219,
+                    221,
+                    225,
+                    229,
+                    239,
+                    240,
+                    241,
+                    242,
+                    243,
+                    244,
+                    245,
+                    246,
+                    247,
+                    248
+                  ],
+                  "assertion": "The retained source remains 1 after rejected update.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The loaded-update regression directly checks validation precedes source commit, middleware, and reload."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "missing-evidence",
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/fiber.spec.ts:413",
+      "source_file": "local/cordis/packages/core/tests/fiber.spec.ts",
+      "source_line": 413,
+      "source_end_line": 425,
+      "title": "keep the issues and their paths",
+      "suite": [
+        "Fiber: config validation"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/fiber.spec.ts:413/default/a419",
+              "behavior": "ValidationError retains the supplied issues and typed paths.",
+              "source_assertion_lines": [
+                419
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "validation_issues_retain_structured_paths_and_format_like_the_pinned_contract",
+                  "lines": [
+                    767,
+                    768,
+                    769,
+                    770,
+                    771,
+                    772,
+                    774,
+                    775,
+                    776,
+                    778,
+                    779,
+                    780,
+                    781,
+                    782,
+                    783
+                  ],
+                  "assertion": "The concrete ValidationError owns both supplied ValidationIssue values and the indexed path is asserted.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "Rust uses a concrete ValidationError with typed ValidationIssue/PathSegment values and synchronous typed validators rather than Standard Schema discovery and JavaScript runtime brand checks."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Concrete Rust error typing replaces JavaScript brand predicates while retaining structured issues, paths, and exact formatted message."
+            },
+            {
+              "id": "core/fiber.spec.ts:413/default/a420",
+              "behavior": "ValidationError.is recognizes a ValidationError.",
+              "source_assertion_lines": [
+                420
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "validation_issues_retain_structured_paths_and_format_like_the_pinned_contract",
+                  "lines": [
+                    767,
+                    768,
+                    769,
+                    770,
+                    771,
+                    772,
+                    774,
+                    775,
+                    776,
+                    778,
+                    779,
+                    780,
+                    781,
+                    782,
+                    783
+                  ],
+                  "assertion": "Construction and typed field access use the concrete ValidationError type; unrelated TypeError values cannot satisfy this Rust contract.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "Rust uses a concrete ValidationError with typed ValidationIssue/PathSegment values and synchronous typed validators rather than Standard Schema discovery and JavaScript runtime brand checks."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Concrete Rust error typing replaces JavaScript brand predicates while retaining structured issues, paths, and exact formatted message."
+            },
+            {
+              "id": "core/fiber.spec.ts:413/default/a421",
+              "behavior": "ValidationError.is rejects an unrelated TypeError.",
+              "source_assertion_lines": [
+                421
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "validation_issues_retain_structured_paths_and_format_like_the_pinned_contract",
+                  "lines": [
+                    767,
+                    768,
+                    769,
+                    770,
+                    771,
+                    772,
+                    774,
+                    775,
+                    776,
+                    778,
+                    779,
+                    780,
+                    781,
+                    782,
+                    783
+                  ],
+                  "assertion": "Construction and typed field access use the concrete ValidationError type; unrelated TypeError values cannot satisfy this Rust contract.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "Rust uses a concrete ValidationError with typed ValidationIssue/PathSegment values and synchronous typed validators rather than Standard Schema discovery and JavaScript runtime brand checks."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Concrete Rust error typing replaces JavaScript brand predicates while retaining structured issues, paths, and exact formatted message."
+            },
+            {
+              "id": "core/fiber.spec.ts:413/default/a422",
+              "behavior": "ValidationError formats all messages and structured paths exactly.",
+              "source_assertion_lines": [
+                422
+              ],
+              "class": "rust-representation",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "validation_issues_retain_structured_paths_and_format_like_the_pinned_contract",
+                  "lines": [
+                    767,
+                    768,
+                    769,
+                    770,
+                    771,
+                    772,
+                    774,
+                    775,
+                    776,
+                    778,
+                    779,
+                    780,
+                    781,
+                    782,
+                    783
+                  ],
+                  "assertion": "Display output is asserted exactly with messages and items.0 path.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": {
+                "document": "docs/m5.md",
+                "anchor": "deliberate-representations-and-safety-deviations",
+                "reason": "Rust uses a concrete ValidationError with typed ValidationIssue/PathSegment values and synchronous typed validators rather than Standard Schema discovery and JavaScript runtime brand checks."
+              },
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "Concrete Rust error typing replaces JavaScript brand predicates while retaining structured issues, paths, and exact formatted message."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "rust-representation"
+      ]
+    },
+    {
+      "id": "core/fiber.spec.ts:426",
+      "source_file": "local/cordis/packages/core/tests/fiber.spec.ts",
+      "source_line": 426,
+      "source_end_line": 447,
+      "title": "pass the resolved config to listeners",
+      "suite": [
+        "Fiber: config validation"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/fiber.spec.ts:426/default/a440",
+              "behavior": "Initial apply receives resolved rather than source configuration.",
+              "source_assertion_lines": [
+                440
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "invalid_loaded_update_cannot_commit_or_reach_resolved_middleware_and_no_save_only_skips_commit",
+                  "lines": [
+                    219,
+                    221,
+                    225,
+                    229,
+                    230,
+                    231,
+                    239,
+                    240,
+                    245,
+                    246,
+                    247,
+                    248
+                  ],
+                  "assertion": "Initial apply records resolved 1.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The typed validator/update-middleware regression separates resolved callback input from retained source exactly as the source declaration requires."
+            },
+            {
+              "id": "core/fiber.spec.ts:426/default/a444",
+              "behavior": "Update middleware receives the resolved candidate configuration.",
+              "source_assertion_lines": [
+                444
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "invalid_loaded_update_cannot_commit_or_reach_resolved_middleware_and_no_save_only_skips_commit",
+                  "lines": [
+                    219,
+                    221,
+                    225,
+                    229,
+                    230,
+                    231,
+                    239,
+                    240,
+                    245,
+                    246,
+                    247,
+                    248
+                  ],
+                  "assertion": "Update middleware records resolved 2.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The typed validator/update-middleware regression separates resolved callback input from retained source exactly as the source declaration requires."
+            },
+            {
+              "id": "core/fiber.spec.ts:426/default/a445",
+              "behavior": "The Fiber stores the untransformed source configuration.",
+              "source_assertion_lines": [
+                445
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "invalid_loaded_update_cannot_commit_or_reach_resolved_middleware_and_no_save_only_skips_commit",
+                  "lines": [
+                    219,
+                    221,
+                    225,
+                    229,
+                    230,
+                    231,
+                    239,
+                    240,
+                    245,
+                    246,
+                    247,
+                    248
+                  ],
+                  "assertion": "Fiber config is asserted as source 2 rather than resolved String.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The typed validator/update-middleware regression separates resolved callback input from retained source exactly as the source declaration requires."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    },
+    {
+      "id": "core/fiber.spec.ts:448",
+      "source_file": "local/cordis/packages/core/tests/fiber.spec.ts",
+      "source_line": 448,
+      "source_end_line": 474,
+      "title": "keep the source config when a listener handles the update",
+      "suite": [
+        "Fiber: config validation"
+      ],
+      "historical_checklist": {
+        "file": "docs/m0-cases.md",
+        "checked": true
+      },
+      "variants": [
+        {
+          "parameters": {},
+          "obligations": [
+            {
+              "id": "core/fiber.spec.ts:448/default/a464",
+              "behavior": "An update listener that accepts without next receives the resolved candidate.",
+              "source_assertion_lines": [
+                464
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "invalid_loaded_update_cannot_commit_or_reach_resolved_middleware_and_no_save_only_skips_commit",
+                  "lines": [
+                    219,
+                    221,
+                    225,
+                    229,
+                    230,
+                    231,
+                    232,
+                    239,
+                    240,
+                    245,
+                    246,
+                    247,
+                    248,
+                    250,
+                    251,
+                    252,
+                    253,
+                    254,
+                    255,
+                    256,
+                    257,
+                    258
+                  ],
+                  "assertion": "The accepting local hook records resolved 2.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The current accepted-update/no-save/restart regression exercises the same resolved-hook/source-retention/later-reload contract with typed values."
+            },
+            {
+              "id": "core/fiber.spec.ts:448/default/a465",
+              "behavior": "Accepting the update without next does not rerun apply immediately.",
+              "source_assertion_lines": [
+                465
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "invalid_loaded_update_cannot_commit_or_reach_resolved_middleware_and_no_save_only_skips_commit",
+                  "lines": [
+                    219,
+                    221,
+                    225,
+                    229,
+                    230,
+                    231,
+                    232,
+                    239,
+                    240,
+                    245,
+                    246,
+                    247,
+                    248,
+                    250,
+                    251,
+                    252,
+                    253,
+                    254,
+                    255,
+                    256,
+                    257,
+                    258
+                  ],
+                  "assertion": "Applied remains only resolved 1 while the hook accepts without restart.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The current accepted-update/no-save/restart regression exercises the same resolved-hook/source-retention/later-reload contract with typed values."
+            },
+            {
+              "id": "core/fiber.spec.ts:448/default/a466",
+              "behavior": "The Fiber stores the exact new source object even when the listener suppresses restart.",
+              "source_assertion_lines": [
+                466
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "invalid_loaded_update_cannot_commit_or_reach_resolved_middleware_and_no_save_only_skips_commit",
+                  "lines": [
+                    219,
+                    221,
+                    225,
+                    229,
+                    230,
+                    231,
+                    232,
+                    239,
+                    240,
+                    245,
+                    246,
+                    247,
+                    248,
+                    250,
+                    251,
+                    252,
+                    253,
+                    254,
+                    255,
+                    256,
+                    257,
+                    258
+                  ],
+                  "assertion": "The handle config becomes source 2 after the accepted update.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The current accepted-update/no-save/restart regression exercises the same resolved-hook/source-retention/later-reload contract with typed values."
+            },
+            {
+              "id": "core/fiber.spec.ts:448/default/a469",
+              "behavior": "A later restart resolves the retained source and applies it as the second load.",
+              "source_assertion_lines": [
+                469,
+                470,
+                471,
+                472
+              ],
+              "class": "source-mapped-test",
+              "rust_evidence": [
+                {
+                  "file": "crates/re-cordis-core/tests/updates.rs",
+                  "symbol": "invalid_loaded_update_cannot_commit_or_reach_resolved_middleware_and_no_save_only_skips_commit",
+                  "lines": [
+                    219,
+                    221,
+                    225,
+                    229,
+                    230,
+                    231,
+                    232,
+                    239,
+                    240,
+                    245,
+                    246,
+                    247,
+                    248,
+                    250,
+                    251,
+                    252,
+                    253,
+                    254,
+                    255,
+                    256,
+                    257,
+                    258
+                  ],
+                  "assertion": "A later explicit restart applies the retained source, producing [resolved 1, resolved 3] in the no-save variant.",
+                  "command_ids": [
+                    "stable-workspace-test",
+                    "1.85.0-workspace-test"
+                  ]
+                }
+              ],
+              "paired_evidence": [],
+              "restriction": null,
+              "gap": null,
+              "execution_status": "passed",
+              "rationale": "The current accepted-update/no-save/restart regression exercises the same resolved-hook/source-retention/later-reload contract with typed values."
+            }
+          ]
+        }
+      ],
+      "classes": [
+        "source-mapped-test"
+      ]
+    }
+  ]
+}

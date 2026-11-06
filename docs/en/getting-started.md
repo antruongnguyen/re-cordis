@@ -36,6 +36,13 @@ underscore. If your application uses Tokio timers, I/O, signals, or macros,
 enable those features in **your application's** Tokio dependency; core's minimal
 feature set does not enable them for you.
 
+Pin the complete checkout to a reviewed Git revision and keep all Cordis crates
+on that source. Cargo.lock does not freeze local path contents: later checkout
+edits affect subsequent builds even at version 0.0.0. Moving it requires updating
+the dependency paths. Runtime filesystem/watcher evidence covers macOS only;
+see [release readiness](../release-readiness.md) for the current local/Git-only
+verdict and the separately proposed alpha policy.
+
 ## A complete first application
 
 Put this in `src/main.rs`, then run `cargo run` from `my-app`.
@@ -95,6 +102,7 @@ successful shutdown paths.
 
 ## Next
 
+To generate a complete local-checkout application, use [Create](guides/create.md).
 Read [concepts](concepts.md), then [plugins and updates](guides/plugins-and-updates.md).
 For a complete provider/consumer tree, run the repository's existing example:
 

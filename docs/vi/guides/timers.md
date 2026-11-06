@@ -2,19 +2,63 @@
 
 [English](../../en/guides/timers.md) | [Trang tiếng Việt](../README.md)
 
-Vệ tinh `re-cordis-timer` thêm các timer thuộc phạm vi chủ sở hữu, xây trên hệ
-thống effect của lõi. Mỗi thao tác bị hủy khi context sở hữu nó bị dispose, nên
-timer không bao giờ sống lâu hơn thành phần đã tạo ra nó. Truy cập các thao tác
-qua trait kín `TimerExt` — import nó và gọi phương thức trên bất kỳ `Context`
-nào còn sống. Không cần cài đặt dịch vụ. Xem
-[tài liệu API timer](../api/timer.md) để biết toàn bộ bề mặt.
+Import `re_cordis_timer::TimerExt`, gọi phương thức trên Context còn sống trong
+`Runtime::run` gốc. Sáu thao tác dùng callback cục bộ sở hữu; không cần cài
+dịch vụ timer hay ràng buộc Send.
 
-## Callback một lần và lặp lại
+## Công việc một lần và lặp lại
 
-`timeout` chạy một lần; `interval` chạy mỗi chu kỳ (tick đầu tại chu kỳ, không
-phải tại không). Cả hai đều trả về một `Effect` — dispose nó để hủy. Dispose
-chủ sở hữu cũng hủy chúng. Chương trình hoàn chỉnh này chờ (await) một `sleep`
-một lần:
+`timeout(delay, callback)` trả Effect có Drop thụ động; dùng
+`effect.dispose()?.await?` để hủy và chờ đúng cleanup thủ công đó.
+Timeout hoàn tất xóa đăng ký trước khi gọi callback.
+`sleep(delay)` tiếp nhận ngay và trả kết quả để await. Poll đầu có thể muộn
+mà không đặt lại delay đã khai báo. Chủ sở hữu hủy trả `Disposed`.
+
+`interval(period, callback)` chạy đầu sau một chu kỳ; bỏ tick lỡ mà không đổi
+pha. Dispose chủ sở hữu chờ giải phóng capture callback.
+Callback có thể đăng ký effect/timer Context lồng nhau.
+
+## Tick stream và hủy
+
+`interval_stream(period)` là Stream một consumer, tối đa một tick chờ gộp.
+`control().stop()` kết thúc sạch; `fail(reason)` phát một lỗi rồi None ổn định.
+Cleanup chủ sở hữu phát Disposed một lần. Trạng thái kết thúc được ghi nhận đầu
+tiên thắng và bỏ tick chờ; yêu cầu lifecycle trước đó chưa tự ghi trạng thái này.
+
+Drop của Sleep, IntervalStream và Scheduled yêu cầu hủy. Hủy task và xóa đăng
+ký cần host gốc tiến triển; await barrier dispose/drain chủ sở hữu để chờ hủy.
+Drop của Effect lõi vẫn thụ động. Giữ waiter completion đã claim thủ công
+riêng khi barrier đó cần thiết.
+
+## Throttle và debounce
+
+`throttle(delay, no_trailing, callback)` gọi đầu ngay; các lần bị chặn tùy chọn
+gộp tại ranh giới cửa sổ cố định.
+`debounce(delay, callback)` thay deadline cuối tại mỗi lần gọi.
+Dùng `scheduled.call()?` và `scheduled.dispose()?`. Lần gọi đang hoạt động
+kiểm tra host gốc còn sống. Gọi sau dispose không làm gì; hủy an toàn ngoài host.
+
+Hỗ trợ tự dispose và gọi đệ quy delay dương mà không borrow trạng thái mutable
+của framework trong lúc chạy mã người dùng. Bỏ gọi đệ quy delay không.
+Panic callback dừng thao tác đó, báo đúng một lần qua chẩn đoán lõi và vẫn cho
+phép dùng thao tác khác. Từ chối chờ lifecycle chính mình/tổ tiên.
+
+## Ranh giới đồng hồ và kiểm tra tất định
+
+Kiểm tra deadline tại lúc tiếp nhận. Với delay bằng không, timeout/sleep/debounce chạy ở lượt
+host sau; throttle gọi đầu ngay. Interval/stream chu kỳ không và deadline
+không biểu diễn được bị từ chối. Chu kỳ dương dưới mili giây dùng độ chính xác
+mili giây của Tokio. Bật thời gian Tokio trên executor; thiếu driver trả
+TimeDriverUnavailable khi tạo, panic hook đồng bộ thông thường của Tokio vẫn
+hiển thị và không có task tách rời.
+
+Dùng `start_paused(true)` và `tokio::time::advance` để kiểm thử tất định.
+Deadline đã được đặt khi hàm tạo trả về. Yield sau advance để phát kết quả;
+yield sau hủy để xóa đăng ký.
+Xem [API timer](../api/timer.md) và
+[ví dụ lifecycle plugin dùng cả sáu thao tác](../../../crates/re-cordis-timer/examples/timer_lifecycle.rs).
+
+## Ví dụ hoàn chỉnh
 
 ```rust
 use std::time::Duration;
@@ -31,9 +75,12 @@ fn main() -> Result<(), BoxError> {
         runtime
             .run(async {
                 let root = runtime.context();
-                // Resolves at the deadline; Err(Disposed) if the owner is
-                // disposed first.
                 root.sleep(Duration::from_millis(1)).await?;
+                let debounced = root.debounce(Duration::ZERO, || println!("quiet"))?;
+                debounced.call()?;
+                root.sleep(Duration::from_millis(1)).await?;
+                debounced.dispose()?;
+                root.drain()?.await?;
                 Ok::<_, BoxError>(())
             })
             .await??;
@@ -41,38 +88,3 @@ fn main() -> Result<(), BoxError> {
     })
 }
 ```
-
-Với callback lặp lại, `root.interval(period, || { ... })?` trả về một `Effect`;
-dispose nó để dừng. Tick đầu tại `period`, và các tick bị bỏ lỡ sẽ gộp lại.
-
-## Chờ một khoảng trễ
-
-`sleep` là dạng await của `timeout`. Nó giải quyết `Ok(())` tại thời điểm đến
-hạn, hoặc `Err(TimerError::Disposed)` nếu context sở hữu bị dispose trước — nên
-một thành phần đang dừng giữa lúc chờ sẽ quan sát được việc hủy thay vì treo.
-
-## Luồng tick
-
-Khi bạn muốn kéo (pull) tick thay vì đẩy (push) tới một callback,
-`interval_stream` trả về một `futures_util::Stream` của `Result<(), TimerError>`.
-Handle `control()` của nó kết thúc stream với `stop()` (sạch sẽ) hoặc
-`fail(reason)` (một lỗi cuối); dispose chủ sở hữu kết thúc nó với
-`Err(TimerError::Disposed)`. Khác với async iterator của TypeScript, một stream
-có một consumer logic duy nhất — để fan-out, dùng dạng callback `interval`.
-
-## Giới hạn tần suất: throttle và debounce
-
-`throttle` chạy ở cạnh trước và, trừ khi đặt `no_trailing`, thêm một lần nữa tại
-cuối cửa sổ. `debounce` chạy một lần khi các lần gọi im lặng suốt trọn `delay`.
-Cả hai đều trả về một handle `Scheduled` mà bạn gọi bằng `call()` và hủy bằng
-`dispose()`. Các cửa sổ là đơn điệu (`tokio::time`), không phải đồng hồ treo
-tường.
-
-## Kiểm thử timer một cách tất định
-
-Dựng runtime với `start_paused(true)` và dịch chuyển đồng hồ một cách tường minh
-bằng `tokio::time::advance`. Poll một lần với `tokio::task::yield_now().await`
-sau khi tạo hoặc gọi một thao tác, để task của nó đăng ký trên trình điều khiển
-timer đang tạm dừng trước khi bạn dịch chuyển — nếu không, lần dịch chuyển sẽ
-vượt qua một thời điểm đến hạn mà task chưa kịp đặt. Ví dụ ở trên tuân theo mẫu
-này.
