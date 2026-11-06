@@ -89,8 +89,9 @@ breaking changes require release notes and a new alpha version. Use exact pins.
   stable/1.85.0 guide checks, plus a gated manual GitHub Pages workflow. Existing
   Rust CI is preserved; no hosted run or deployment is claimed.
 - Documentation-channel guides and minimal HMR docs.rs metadata including its
-  optional Include API. All crates remain 0.0.0/publish=false; docs.rs hosting
-  still requires an approved actual registry release.
+  optional Include API. At the historical R1/B1 checkpoint, all crates remained
+  0.0.0/publish=false; docs.rs hosting still requires an approved actual registry
+  release.
 
 - Revised the compact AI-agent reading index with the complete package map,
   feature/distribution prerequisites, lifecycle pitfalls, Create archive-test
