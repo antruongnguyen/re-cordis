@@ -1,7 +1,7 @@
 # D1 integration progress
 
 Date: 2026-11-06 (Asia/Ho_Chi_Minh).
-Status: **in progress; hosted documentation correction required before merge**.
+Status: **in progress; collector MSRV diagnostic required before merge**.
 
 The maintainer requested execution of the [public delivery plan](../../superpowers/plans/2026-11-06-public-delivery.md) after the README/reference cleanup.
 This report records observed results; it does not declare deployment or release readiness.
@@ -57,10 +57,28 @@ Both events reproduce the failure. The exact compiler-artifact distinction must 
 a blanket subset/ignore rule is not acceptable. The original log is
 `target/public-delivery-20261106/documentation-failure.log`.
 
+## Corrected documentation candidate
+
+Correction `242db4c9d91d27dfd64a7b1d40627f8b975bf782` incorporates the
+[precise hidden-token rendering repair](hosted-link-fix.md), independently approved in scoped review.
+Both real compiler artifacts pass locally; unrelated omission/count negatives still fail.
+The hosted [push Documentation run](https://github.com/antruongnguyen/re-cordis/actions/runs/42199672203)
+and [PR Documentation run](https://github.com/antruongnguyen/re-cordis/actions/runs/42199681149)
+both pass on that exact candidate.
+
+The [Rust push run](https://github.com/antruongnguyen/re-cordis/actions/runs/42199672146)
+also passes both toolchains. The [Rust PR run](https://github.com/antruongnguyen/re-cordis/actions/runs/42199681145)
+passes stable but fails 1.85.0 in
+`executable_collects_complete_snapshot_and_preserves_last_good_on_query_failure`,
+at `crates/re-cordis-core/tests/github_collect.rs:112`. The expected item-limit
+error text was absent; the assertion did not print the actual error.
+This differing result on identical source requires diagnosis, not a blind rerun.
+The full failed log is `target/public-delivery-20261106/rust-msrv-failure.log`.
+
 ## Remaining D1 work
 
-- Diagnose and regression-test the exact hosted/compiler-output distinction.
-- Independently review the correction and pass Rust/Documentation at the corrected PR head.
+- Capture the collector's unexpected error with unchanged assertion semantics and a bounded hosted reproducer.
+- Apply only an evidence-backed correction, independently review it, and pass Rust/Documentation at the final PR head.
 - Merge with source/acceptance history preserved.
 - Verify both workflows at the merged main revision and record its SHA/run URLs.
 
