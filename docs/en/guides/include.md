@@ -2,7 +2,7 @@
 
 [Tiếng Việt](../../vi/guides/include.md) | [English home](../README.md)
 
-The unpublished `re-cordis-include` satellite reads local JSON and restricted
+The experimental `re-cordis-include` satellite reads local JSON and restricted
 YAML into the accepted typed loader. Register linked plugins and their JSON
 decoders in a `Catalog`, then construct `Include::new` inside `Runtime::run`.
 `IncludeOptions::new(path)` selects the root. Construction admits ownership;

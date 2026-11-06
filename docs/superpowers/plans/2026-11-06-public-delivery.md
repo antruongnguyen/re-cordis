@@ -1,6 +1,6 @@
 # Public Documentation and Experimental Alpha Delivery Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to execute this plan task-by-task. The user requested execution on 2026-11-06. D1 through D4 are complete; publication still requires approval of the frozen candidate.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to execute this plan task-by-task. The user requested execution on 2026-11-06. D1 through D5 are complete; D6 release documentation closure is in progress.
 
 **Goal:** Deliver the accepted framework through verified public documentation, then a separately approved seven-package experimental alpha.
 
@@ -165,6 +165,8 @@ For site checks, follow [website build instructions](../../../website/README.md#
 
 ## D5 — Publish sequentially and test real distribution
 
+**Execution:** Complete; seven published versions, registry/CLI consumers and docs.rs are verified in [publication evidence](../../plans/2026-11-06-public-delivery/publication.md).
+
 **Entry:** Explicit authorization for the exact D4 candidate, seven packages and registry. Configure authentication using the normal credential flow without printing or committing tokens.
 **Produces:** Registry versions/checksums, package/CLI consumer results and docs.rs URLs.
 
@@ -178,14 +180,14 @@ Publish in this order, one package at a time:
 6. `re-cordis-hmr`
 7. `re-cordis-create`
 
-- [ ] Before each package, confirm a clean unchanged candidate and exact expected package/version. Wait for predecessors to resolve from the real crates.io index; check HMR's optional/dev edges too.
-- [ ] Build/inspect the actual normalized archive, test its packaged examples/tests and run `cargo publish --dry-run` against those real prerequisites. Select explicit stable/1.85.0 tools for archive verification. Preserve Create's separate checkout fixture and no-default/include checks for HMR.
-- [ ] With that package's progressive checks passing, publish from the authorized candidate using normal verification. Do not add `--no-verify` or `--allow-dirty` to bypass failures.
-- [ ] Confirm the exact registry version, checksum and ownership before continuing. If the tool reports an ambiguous result, query the registry before retrying publication.
-- [ ] After all six libraries exist, build an external application using exact registry versions for all six, with HMR's `include` feature. Reuse the accepted R0 application/tests in a disposable fixture; only its six dependency sources change. Cargo metadata must show registry sources and no Cordis path/git/`[patch]` overrides. Pass build, tests, strict Clippy, normal run and real-watch run on stable/1.85.0.
-- [ ] Install the actual published Create version into a temporary root with `cargo install re-cordis-create --version '=0.1.0-alpha.1' --locked --root "$cordis_install_root"`. Define that task-specific temporary directory first. Use the installed binary and a separately obtained checkout at the recorded compatible SHA. Verify its five generated files and MIT notice, then the generated application's build, five tests/100 lifecycle cycles, run and strict Clippy on both toolchains.
-- [ ] Check actual docs.rs builds for all seven exact versions and HMR's optional Include methods. The [docs.rs assessment](../../plans/2026-11-05-documentation-site/docs-rs-assessment.md) is preparation, not hosted success; investigate failures without claiming Linux runtime support.
-- [ ] Record results in `docs/plans/2026-11-06-public-delivery/publication.md`. Keep candidate SHA, archive/checksum, toolchain, run/registry URL and observed result distinct.
+- [x] Before each package, confirm a clean unchanged candidate and exact expected package/version. Wait for predecessors to resolve from the real crates.io index; check HMR's optional/dev edges too.
+- [x] Build/inspect the actual normalized archive, test its packaged examples/tests and run `cargo publish --dry-run` against those real prerequisites. Select explicit stable/1.85.0 tools for archive verification. Preserve Create's separate checkout fixture and no-default/include checks for HMR.
+- [x] With that package's progressive checks passing, publish from the authorized candidate using normal verification. Do not add `--no-verify` or `--allow-dirty` to bypass failures.
+- [x] Confirm the exact registry version, checksum and ownership before continuing. If the tool reports an ambiguous result, query the registry before retrying publication.
+- [x] After all six libraries exist, build an external application using exact registry versions for all six, with HMR's `include` feature. Reuse the accepted R0 application/tests in a disposable fixture; only its six dependency sources change. Cargo metadata must show registry sources and no Cordis path/git/`[patch]` overrides. Pass build, tests, strict Clippy, normal run and real-watch run on stable/1.85.0.
+- [x] Install the actual published Create version into a temporary root with `cargo install re-cordis-create --version '=0.1.0-alpha.1' --locked --root "$cordis_install_root"`. Define that task-specific temporary directory first. Use the installed binary and a separately obtained checkout at the recorded compatible SHA. Verify its five generated files and MIT notice, then the generated application's build, five tests/100 lifecycle cycles, run and strict Clippy on both toolchains.
+- [x] Check actual docs.rs builds for all seven exact versions and HMR's optional Include methods. The [docs.rs assessment](../../plans/2026-11-05-documentation-site/docs-rs-assessment.md) is preparation, not hosted success; investigate failures without claiming Linux runtime support.
+- [x] Record results in `docs/plans/2026-11-06-public-delivery/publication.md`. Keep candidate SHA, archive/checksum, toolchain, run/registry URL and observed result distinct.
 
 **Failure/recovery:** Stop on a real package, registry-consumer or docs.rs failure. Report exactly which versions are already published. Published bytes are immutable; do not automatically yank or claim rollback. Transient index/network failure may be retried against the same candidate after checking state. Any source/dependency correction requires review and an explicit version/partial-release decision before continuing.
 

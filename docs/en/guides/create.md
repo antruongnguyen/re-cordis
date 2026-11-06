@@ -2,13 +2,35 @@
 
 [Tiếng Việt](../../vi/guides/create.md) | [English home](../README.md)
 
-`re-cordis-create` generates one small application using the local unpublished
-core, console logger and loader. Offline S0–S2 is independently accepted on
+`re-cordis-create` is published at experimental `0.1.0-alpha.1`. It generates
+one small application using core, console logger and loader from a compatible
+local checkout. Offline S0–S2 is independently accepted on
 stable/1.85.0; see the [acceptance report](../../plans/2026-11-02-cordis-completion/evidence/create-acceptance.md).
 
-## Generate and run
+## Install the published CLI
 
-Use Rust 1.85 or newer and a checkout of this repository. Run the following
+Use Rust 1.85 or newer. Install the CLI and obtain the complete compatible
+checkout; the destination parent must already exist and the destination must
+be absent or empty:
+
+```sh
+cargo install re-cordis-create --version '=0.1.0-alpha.1' --locked
+git clone https://github.com/antruongnguyen/re-cordis.git ../re-cordis-alpha
+git -C ../re-cordis-alpha checkout 84fa9bdf0eb4e631fce792bf163494b0a61aeba8
+re-cordis-create my-app --path '../my app' --cordis-path ../re-cordis-alpha
+cargo fetch --manifest-path '../my app/Cargo.toml'
+cargo test --manifest-path '../my app/Cargo.toml' --offline --locked
+cargo run --manifest-path '../my app/Cargo.toml' --offline --locked
+```
+
+Installation, cloning and dependency restoration require network access unless
+already cached. The generator itself performs no network access. `cargo fetch`
+creates the application's lockfile; keep it and the compatible checkout.
+For installed command help, run `re-cordis-create --help`.
+
+## Run from a local checkout
+
+Use Rust 1.85 or newer and a compatible checkout of this repository. Run the following
 from its root; the parent directory of the destination must already exist,
 and `../my app` must be absent or an empty ordinary directory.
 
@@ -51,7 +73,8 @@ The [generator source](../../../crates/re-cordis-create/src/lib.rs) renders the
 The manifest has its own `[workspace]` with resolver 3 so the application is independent of
 an enclosing workspace. It uses Rust 2024/MSRV 1.85, is unpublished, and records
 canonical absolute path dependencies to the three local Cordis crates.
-It references no fictional crates.io release of `re-cordis`.
+The generated application remains `0.0.0` with `publish=false`; it uses path
+dependencies even when the CLI is installed from crates.io.
 The checkout must retain this repository's manifest/layout spelling; validation
 is not a general Cargo TOML parser or source audit. Canonical dependency paths
 must be Unicode to fit Cargo TOML. Moving the checkout requires updating them.
@@ -72,11 +95,11 @@ the template or substantial portions. Your additions can carry their own notices
 Cargo.lock does not pin the contents of the absolute path dependencies. Use a
 reviewed checkout revision; changing it can change the next application build.
 The approved [alpha contract](../../release-readiness.md) retains this
-explicit-checkout tool. The `0.1.0-alpha.1` candidate remains unpublished.
-A registry-backed generator mode remains a separate future decision. The
-released tool will still need a separate complete checkout at the compatible
-revision recorded with the release; package version/layout checks do not prove
-source compatibility. The generated application's `0.0.0`/`publish=false` stays intentional.
+explicit-checkout tool. Installing the published CLI does not bundle the
+framework checkout or switch generated dependencies to crates.io. The compatible
+release checkout is `84fa9bdf0eb4e631fce792bf163494b0a61aeba8`.
+Package version/layout checks do not prove source compatibility. A registry-backed
+generator mode remains a separate future decision.
 
 ## Testing a Cargo archive
 

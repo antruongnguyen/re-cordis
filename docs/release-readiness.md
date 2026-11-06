@@ -1,4 +1,4 @@
-# Release readiness and experimental alpha candidate
+# Release availability and experimental alpha contract
 
 Assessment date: 2026-11-05; candidate preparation updated 2026-11-06 (Asia/Ho_Chi_Minh).
 The historical R1/B1 package results below retain their original scope and versions.
@@ -7,26 +7,29 @@ The [dated follow-up](plans/2026-11-02-cordis-completion/evidence/2026-11-05-b1-
 records the Create fixture correction, provenance notices and current verification.
 The assessment and proposal are independently reviewed and accepted; see
 [R1 acceptance](plans/2026-11-02-cordis-completion/evidence/r1-acceptance.md).
-This does not approve publication. The subsequent
+This historical assessment did not approve publication. The subsequent
 [documentation delivery](plans/2026-11-05-documentation-site/plan.md) prepared
 Fumadocs/Rustdoc output, documentation CI and manual Pages deployment.
 The [development site](https://antruongnguyen.github.io/re-cordis/) is now public
 after successful main CI and the initial manual deployment at revision
 `3718217aac6f8f11f1f11c221bf2730cbe169bd6`; see
 [website verification](../website/README.md#verification-and-deployment).
-This does not establish a registry release or hosted docs.rs release.
+That initial deployment did not establish a registry release or hosted docs.rs release.
 
-**Current availability: local/Git checkout consumption only.**
-The maintainer approved preparation of seven unpublished `0.1.0-alpha.1`
-experimental candidates on 2026-11-06 and designated crates.io account
-[antruongnguyen](https://crates.io/users/antruongnguyen). The workspace version,
-all ten exact internal dependency requirements and crates.io-only publish policies
-now reflect that contract. No upload, release tag or hosted docs.rs release has
-occurred. Candidate verification and review remain distinct from registry readiness.
-A focused [D4 fixture correction](plans/2026-11-06-public-delivery/core-archive-fixtures.md)
-makes Rust parity tests/examples use exact package-local trace copies while
-retaining root comparison fixtures. Clean integrated and registry package
-validation remain separate gates.
+**Current availability: seven experimental `0.1.0-alpha.1` packages on crates.io.**
+The maintainer explicitly approved staged publication on 2026-11-06 under
+[antruongnguyen](https://crates.io/users/antruongnguyen). All seven uploads,
+exact checksums and ownership were confirmed. Exact-version docs.rs Rustdoc
+was verified for all seven; HMR includes the optional Include API.
+
+Published source and the compatible complete Create checkout are frozen at
+`84fa9bdf0eb4e631fce792bf163494b0a61aeba8`. The six-library registry consumer
+and installed registry Create CLI were exercised on stable and 1.85.0.
+Current main documentation includes subsequent updates; candidate-preparation
+statements in the frozen source are historical. Package source, manifests,
+Cargo.lock and the bundled template are unchanged by these guide updates.
+The [D4 fixture correction](plans/2026-11-06-public-delivery/core-archive-fixtures.md)
+made parity tests/examples self-contained before publication.
 
 The approved scope is six runtime libraries and the explicitly offline Create
 library/CLI below, Rust 1.85 minimum and the tested Apple Silicon macOS runtime
@@ -35,8 +38,11 @@ require release notes and a new coordinated alpha version. A stable API, facade,
 remote generator and new platform promise are outside this release.
 See the [preparation decision](plans/2026-11-06-public-delivery/release-decision.md)
 and [draft release notes](plans/2026-11-06-public-delivery/release-notes-draft.md).
-The proposed tag is `v0.1.0-alpha.1`; tag-pinned guides and exact-version docs.rs
-links in the draft are planned destinations, not verified availability.
+The pushed annotated [release tag `v0.1.0-alpha.1`](https://github.com/antruongnguyen/re-cordis/tree/v0.1.0-alpha.1)
+resolves to the frozen source above.
+The source snapshot retains preparation-era documentation; use the current
+[quick start](en/getting-started.md), [Create guide](en/guides/create.md) and
+[documentation channels](en/guides/documentation.md) for current availability.
 
 See [R1 package evidence](plans/2026-11-02-cordis-completion/evidence/r1-package-audit.md)
 for commands and stage-specific results, [R1 execution plan](plans/2026-11-02-cordis-completion/evidence/r1-plan.md)
@@ -45,13 +51,13 @@ for the carried runtime baseline.
 
 ## Current consumption and compatibility
 
-Use a complete checkout at a reviewed commit and the documented local Cargo
-paths. “Git consumption” here means obtaining and pinning that complete
-checkout, then following the [quick start](en/getting-started.md) or
-[Create guide](en/guides/create.md). R1 does not establish a remote Cargo Git
-installation workflow or repository access rights. The public repository and
-development site now provide the deployed revision; later checkout changes
-require their own review and documentation refresh. Keep all Cordis crates from the same revision/source;
+Handwritten applications can use exact crates.io dependencies such as
+`re-cordis-core = "=0.1.0-alpha.1"`; follow the [quick start](en/getting-started.md).
+Create can be installed from crates.io but still needs a complete compatible
+checkout at the frozen release SHA; follow the [Create guide](en/guides/create.md).
+Local development remains supported with the documented Cargo paths. “Git
+consumption” means obtaining and pinning the full checkout, not a new remote
+Cargo Git installation workflow. Keep all Cordis crates from the same source;
 mixing core package identities can produce incompatible public Rust types.
 
 Cargo.lock pins registry resolution; it does not freeze the contents of a
@@ -75,7 +81,7 @@ scenarios/nine observations remain bounded comparisons. B0's 147 evidence
 gaps and the loader map's narrower gaps are neither proven defects nor an
 automatic R1 implementation queue. See [limitations](limitation.md).
 
-## Approved candidate scope
+## Published experimental scope
 
 | Cargo package / Rust import | Selected capability | Important boundary |
 |---|---|---|
@@ -262,7 +268,7 @@ arbitrary concurrent-writer or hard shutdown-latency guarantee is established.
 
 ## Release blockers, limits and remaining decisions
 
-**Remaining gates for registry publication of the approved candidate:**
+**Historical prepublication checklist (completed for `0.1.0-alpha.1`):**
 
 - Complete full stable/1.85.0 candidate verification, package inventory, actual
   core/Create archive checks and independent review at the final candidate SHA.
@@ -292,9 +298,9 @@ follow-up. Rust and documentation checks run on pull requests and pushes to main
 main CI and the initial gated manual Pages deployment have succeeded.
 Platform expansion remains a separate gate.
 
-Preparation approval covers the seven-package version/dependency/publish-policy
-change. Publication still requires approval of the exact reviewed candidate,
-fresh publisher/name checks, progressive package validation, release documentation
-and the exact complete checkout supported by offline Create. R1/B1 remain
-historical local evidence; neither their acceptance nor candidate preparation
-grants upload, tag creation or deployment permission.
+The separately approved staged publication completed this version's registry
+gates. R1/B1 and preparation records remain historical local evidence; their
+acceptance did not itself authorize upload. Future package publication requires
+its own exact-source decision and fresh checks. Pages refresh and live browser
+QA remain separate; registry/docs.rs availability does not establish deployment
+or broader runtime-platform acceptance.

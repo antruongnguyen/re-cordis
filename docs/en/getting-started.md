@@ -4,17 +4,16 @@
 
 ## Requirements and dependency setup
 
-Use Rust 1.85 or newer. The `0.1.0-alpha.1` candidate remains unpublished;
-use a complete checkout. Registry installation will require separate verification.
+Use Rust 1.85 or newer. The experimental `0.1.0-alpha.1` packages are published
+on crates.io. This handwritten application uses the registry package with an
+exact pin; it does not need a Cordis checkout.
 
-For an application next to a local `re-cordis` checkout:
+Create this application layout:
 
 ```text
-workspace/
-  re-cordis/
-  my-app/
-    Cargo.toml
-    src/main.rs
+my-app/
+  Cargo.toml
+  src/main.rs
 ```
 
 Use this application manifest:
@@ -27,22 +26,26 @@ edition = "2024"
 rust-version = "1.85"
 
 [dependencies]
-re-cordis-core = { path = "../re-cordis/crates/re-cordis-core", version = "=0.1.0-alpha.1" }
+re-cordis-core = "=0.1.0-alpha.1"
 tokio = { version = "1.48", default-features = false, features = ["rt", "sync"] }
 ```
 
-Adjust the path to your checkout. The crate import is `re_cordis_core`, with an
+The crate import is `re_cordis_core`, with an
 underscore. If your application uses Tokio timers, I/O, signals, or macros,
 enable those features in **your application's** Tokio dependency; core's minimal
 feature set does not enable them for you.
 
-Pin the complete checkout to a reviewed Git revision and keep all Cordis crates
-on that source. Cargo.lock does not freeze local path contents: later checkout
-edits affect subsequent builds without a version change. Moving it requires updating
-the dependency paths. Runtime filesystem/watcher evidence covers macOS only;
-see [release readiness](../release-readiness.md) for the current local/Git-only
-verdict and the approved alpha policy. Keep exact pins; breaking changes require
-release notes and a new coordinated alpha version.
+Commit the application's Cargo.lock. Use exact `=0.1.0-alpha.1` pins for any
+additional Cordis packages; HMR's `include` feature is opt-in. Runtime filesystem
+and watcher evidence covers the tested Apple Silicon macOS environment.
+See [release readiness](../release-readiness.md) for the alpha contract.
+Breaking changes require release notes and a new coordinated alpha version.
+
+For local development, replace the core dependency with
+`{ path = "../re-cordis/crates/re-cordis-core", version = "=0.1.0-alpha.1" }`
+and keep every Cordis crate on one complete checkout. Release source is
+`84fa9bdf0eb4e631fce792bf163494b0a61aeba8`. Cargo.lock does not freeze local path
+contents; editing or moving the checkout affects builds.
 
 ## A complete first application
 

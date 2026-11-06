@@ -2,13 +2,33 @@
 
 [English](../../en/guides/create.md) | [Trang tiếng Việt](../README.md)
 
-`re-cordis-create` sinh một ứng dụng nhỏ dùng core, console logger và loader
-chưa phát hành từ checkout cục bộ. S0–S2 ngoại tuyến đã được nghiệm thu độc lập
+`re-cordis-create` đã phát hành bản thử nghiệm `0.1.0-alpha.1`. Công cụ sinh
+một ứng dụng nhỏ dùng core, console logger và loader từ checkout cục bộ tương thích. S0–S2 ngoại tuyến đã được nghiệm thu độc lập
 trên stable/1.85.0; xem [báo cáo nghiệm thu](../../plans/2026-11-02-cordis-completion/evidence/create-acceptance.md).
 
-## Sinh và chạy ứng dụng
+## Cài CLI đã phát hành
 
-Dùng Rust 1.85 trở lên và checkout repository này. Chạy các lệnh sau từ thư mục
+Dùng Rust 1.85 trở lên. Cài CLI và lấy checkout tương thích đầy đủ;
+thư mục cha của đích phải tồn tại và đích phải chưa tồn tại hoặc rỗng:
+
+```sh
+cargo install re-cordis-create --version '=0.1.0-alpha.1' --locked
+git clone https://github.com/antruongnguyen/re-cordis.git ../re-cordis-alpha
+git -C ../re-cordis-alpha checkout 84fa9bdf0eb4e631fce792bf163494b0a61aeba8
+re-cordis-create my-app --path '../my app' --cordis-path ../re-cordis-alpha
+cargo fetch --manifest-path '../my app/Cargo.toml'
+cargo test --manifest-path '../my app/Cargo.toml' --offline --locked
+cargo run --manifest-path '../my app/Cargo.toml' --offline --locked
+```
+
+Cài đặt, clone và khôi phục dependency cần mạng nếu chưa có trong cache.
+Generator không truy cập mạng. `cargo fetch` tạo lockfile của ứng dụng;
+giữ lockfile và checkout tương thích. Xem trợ giúp CLI đã cài bằng
+`re-cordis-create --help`.
+
+## Chạy từ checkout cục bộ
+
+Dùng Rust 1.85 trở lên và checkout tương thích của repository này. Chạy các lệnh sau từ thư mục
 gốc; thư mục cha của đích phải tồn tại, còn `../my app` phải chưa tồn tại hoặc
 là thư mục thông thường rỗng.
 
@@ -51,7 +71,8 @@ và `.gitignore`. Đọc README được sinh và `src/app.rs` để tùy chỉn
 Manifest có `[workspace]` riêng với resolver 3 để ứng dụng độc lập với workspace bao quanh.
 Ứng dụng dùng Rust 2024/MSRV 1.85, chưa phát hành, và lưu dependency theo đường
 dẫn tuyệt đối canonical đến ba crate Cordis cục bộ.
-Không tham chiếu bản phát hành `re-cordis` giả định trên crates.io.
+Ứng dụng được sinh vẫn là `0.0.0` với `publish=false`; dùng dependency path
+ngay cả khi CLI được cài từ crates.io.
 Checkout phải giữ cách viết manifest/layout của repository này; validation
 không phải parser Cargo TOML tổng quát hay kiểm tra mã nguồn. Đường dẫn dependency
 canonical phải là Unicode để ghi vào Cargo TOML. Nếu chuyển checkout, cần sửa chúng.
@@ -72,11 +93,11 @@ README được sinh giữ nguyên thông báo MIT của mã khởi đầu;
 Cargo.lock không chốt nội dung phụ thuộc path tuyệt đối. Hãy dùng checkout tại
 revision đã review; thay đổi checkout có thể đổi lần build ứng dụng tiếp theo.
 [Hợp đồng alpha](../../release-readiness.md) đã duyệt giữ công cụ yêu cầu
-checkout tường minh này. Bản ứng viên `0.1.0-alpha.1` vẫn chưa phát hành.
-Chế độ sinh phụ thuộc registry cần quyết định riêng trong tương lai. Công cụ
-sau khi phát hành vẫn cần checkout đầy đủ riêng tại revision tương thích được
-ghi cùng bản phát hành; kiểm tra version/bố cục không chứng minh tương thích
-mã nguồn. `0.0.0`/`publish=false` của ứng dụng được sinh vẫn có chủ ý.
+checkout tường minh này. Cài CLI đã phát hành không kèm checkout framework
+hay đổi dependency được sinh sang crates.io. Checkout phát hành tương thích là
+`84fa9bdf0eb4e631fce792bf163494b0a61aeba8`.
+Kiểm tra version/bố cục không chứng minh tương thích mã nguồn. Chế độ sinh
+phụ thuộc registry cần quyết định riêng trong tương lai.
 
 ## Kiểm thử archive Cargo
 

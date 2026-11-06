@@ -1,7 +1,7 @@
 # D4 experimental alpha candidate
 
 Date: 2026-11-06 (Asia/Ho_Chi_Minh).
-Status: **D4 prepared and independently reviewed; awaiting owner publication approval**.
+Status: **D4 candidate accepted; subsequent authorized publication is recorded in [D5 evidence](publication.md)**.
 
 ## Frozen release source
 

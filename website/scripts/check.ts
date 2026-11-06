@@ -37,7 +37,8 @@ const head = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: '
 assert.equal(revision, head, 'Export revision is stale; rebuild after commit.');
 assert.match(revision, /^[a-f0-9]{40}$/);
 assert.equal(basePath, '/re-cordis', 'This repository publishes at its actual project subpath.');
-assert.equal(provenance.status, 'development-unpublished');
+assert.equal(provenance.status, 'experimental-alpha-published');
+assert.equal(provenance.releaseRevision, '84fa9bdf0eb4e631fce792bf163494b0a61aeba8');
 for (const [source, expected] of Object.entries(provenance.sources)) {
   assert.equal(createHash('sha256').update(await readFile(path.join(root, source))).digest('hex'), expected, `Source changed after build: ${source}`);
 }
@@ -165,11 +166,11 @@ for (const page of pages) {
   assert.equal(html('html').attr('lang'), page.locale, 'Missing static document language.');
   assert(html('[id]').toArray().some((el) => html(el).attr('id') === page.titleId));
   assert(html('#main-content').length, 'Missing keyboard skip destination.');
-  assert.equal(html('.site-brand span').text(), version, 'Header must show the workspace candidate version.');
+  assert.equal(html('.site-brand span').text(), version, 'Header must show the workspace version.');
   assert(html('a').toArray().some((el) => html(el).attr('href') === page.sourceUrl));
   for (const heading of page.toc) await checkUrl(heading.url, page.url);
   const markdown = await readFile(exportedFile(new URL(origin + page.markdownUrl)), 'utf8');
-  assert(markdown.startsWith(`<!-- Development documentation; unpublished ${version} candidate. Build revision ${revision}. -->`), 'Markdown must identify the matching unpublished candidate.');
+  assert(markdown.startsWith(`<!-- Current documentation; published experimental ${version}. Release source ${provenance.releaseRevision}. Build revision ${revision}. -->`), 'Markdown must identify the published alpha, release source and current build.');
   assert(markdown.includes(`Build revision ${revision}`));
   const actual = markdownParser.parse(markdown) as MdRoot;
   const raw = markdownParser.parse(await readFile(path.join(root, page.source), 'utf8')) as MdRoot;
@@ -208,9 +209,9 @@ const missing = await checkHtml(path.join(output, '404.html'), `${basePath}/404.
 assert(missing('h1').text().includes('Không tìm thấy trang'));
 await stat(path.join(output, '.nojekyll'));
 const llms = await readFile('out/llms.txt', 'utf8');
-assert(llms.includes(version) && llms.includes('unpublished'), 'Public index must identify the unpublished candidate.');
-assert(llms.includes('local/Git checkout'));
-assert(llms.includes('no published') || llms.includes('No crates.io or hosted docs.rs'));
+assert(llms.includes(version) && llms.includes('published experimental'), 'Public index must identify the published experimental alpha.');
+assert(llms.includes('Use exact pins') && llms.includes('Create requires a compatible complete checkout'));
+assert(llms.includes(provenance.releaseRevision) && llms.includes(`https://docs.rs/re-cordis-core/${version}/re_cordis_core/`));
 assert(llms.includes('Essential contracts:'));
 const localLlms = await readFile(path.join(root, 'docs/llms.txt'), 'utf8');
 const essential = localLlms.slice(localLlms.indexOf('Package map:'), localLlms.indexOf('For exact signatures,')).trim();

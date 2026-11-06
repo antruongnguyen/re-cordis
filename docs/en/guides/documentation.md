@@ -6,14 +6,15 @@ Use the guides for application contracts and Rustdoc for exact signatures,
 generic bounds, trait implementations and public fields. Both must describe
 the same source revision and feature configuration.
 
-All seven crates are unpublished, experimental `0.1.0-alpha.1` candidates.
-Preparation is approved; registry publication remains separately gated.
+All seven experimental `0.1.0-alpha.1` packages are published on crates.io;
+exact-version docs.rs Rustdoc is verified. Release source and Create's compatible
+checkout are `84fa9bdf0eb4e631fce792bf163494b0a61aeba8`.
 The development documentation site is public on GitHub Pages,
 with [English](https://antruongnguyen.github.io/re-cordis/en/docs/) and
 [Vietnamese](https://antruongnguyen.github.io/re-cordis/vi/docs/) guides and
-same-revision Rustdoc. This is not a released docs.rs build. Continue
-using the local-checkout instructions in [getting started](../getting-started.md)
-and [Create](create.md).
+same-revision Rustdoc. Its deployed build revision can differ from frozen
+release source. Use the registry instructions in [getting started](../getting-started.md)
+or the installed explicit-checkout CLI in [Create](create.md).
 
 ## Development guides
 
@@ -81,25 +82,24 @@ still need to enable that feature explicitly for `watch_include` and
 `replace_include`; HMR's default features remain empty. See the
 [HMR API contract](../api/hmr.md) for the feature-dependent methods.
 
-## Future released documentation
+## Published release documentation
 
-[docs.rs builds](https://docs.rs/about/builds) automatically generate Rustdoc
-from packages released on crates.io. The Fumadocs site is a separate artifact;
-it is not uploaded to docs.rs. The
-[coordinated alpha candidate](../../release-readiness.md) is approved for preparation;
-its crates.io-only manifest policy does not authorize an upload.
-There is no current re-cordis docs.rs release to link to.
+[docs.rs builds](https://docs.rs/about/builds) generate Rustdoc from packages
+released on crates.io. All seven exact `0.1.0-alpha.1` pages are verified;
+use the [package links](../api/README.md#published-rustdoc) for released signatures.
+HMR's [docs.rs metadata](https://docs.rs/about/metadata) exposes `watch_include`
+and `replace_include` without changing its empty application defaults.
+Hosted documentation does not expand tested Apple Silicon macOS runtime scope.
 
-Before a release, prepare an immutable guide snapshot from the same source
-revision as its package set. Link that snapshot to each package's exact
-released version on docs.rs only after its hosted build succeeds. Retain an
-explicit route back to development documentation, with both channels labelled.
-A moving development page or docs.rs `latest` URL cannot identify the API of
-an older application reliably.
+The [frozen source snapshot](https://github.com/antruongnguyen/re-cordis/tree/84fa9bdf0eb4e631fce792bf163494b0a61aeba8)
+identifies the published package set and compatible Create checkout. Its guides
+and package READMEs retain candidate-preparation statements from before upload;
+those statements describe historical state. Current main guides add registry
+installation and current availability after that frozen source. They do not
+alter published packages. Use exact docs.rs versions rather than `latest` when
+looking up an older application's API.
 
-HMR's prepared [docs.rs metadata](https://docs.rs/about/metadata) selects
-`include` for documentation visibility, without changing application defaults.
-Local stable/MSRV Rustdoc checks establish local documentation compatibility.
-They do not establish a hosted docs.rs build or Linux/nightly sandbox success.
-Likewise, a website build or cross-platform documentation compilation does not
-expand the existing macOS-only runtime filesystem/watcher evidence.
+The Fumadocs site is a separate artifact, with guides and bundled Rustdoc from
+its recorded build revision. A documentation commit, website build or registry
+upload does not deploy Pages. Read public build provenance to identify the live
+snapshot; subsequent refreshes retain the manual deployment gate.

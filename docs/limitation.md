@@ -6,24 +6,25 @@ TypeScript original to Rust.
 
 ## Distribution readiness
 
-Current availability remains local/Git checkout consumption. The approved
-[alpha candidate](release-readiness.md) coordinates seven unpublished
-`0.1.0-alpha.1` crates with exact internal requirements and crates.io-only
-publish policies. These metadata changes do not authorize uploads or establish
-registry resolution. Historical R1/B1 archive checks do not prove the versioned
-candidate or the whole dependency set can be published.
+All seven experimental `0.1.0-alpha.1` packages are published on crates.io;
+exact checksums/ownership, registry consumption and docs.rs output are verified.
+The [alpha contract](release-readiness.md) retains exact internal pins, Rust 1.85,
+local/non-Send hosting, joined cleanup and tested Apple Silicon macOS scope.
+The pushed `v0.1.0-alpha.1` tag and compatible complete Create checkout identify
+`84fa9bdf0eb4e631fce792bf163494b0a61aeba8`. Current guides follow that frozen
+source; its candidate-preparation text remains historical. Publication does not
+establish stable API compatibility or new runtime-platform acceptance.
 
-Exact crates.io API 404 responses are only time-stamped absence evidence,
+Historical crates.io API 404 responses are only time-stamped absence evidence,
 not name reservation or publisher authority. The public development site follows
 its deployed revision; new local documentation needs a separate manual refresh.
 Package/readme and generated-template MIT notice omissions
 are corrected. The focused follow-up additionally preserves applicable Shigma
 notices for identified derived logger code and literal source excerpts; this
-is not legal certification or a binary/vendor dependency-notice audit. Actual
-release versions, registry resolution, normalized
-dev/example dependencies, documentation URLs and compatible Create checkout
-still need final candidate and progressive registry validation before separately
-approved publication.
+is not legal certification or a binary/vendor dependency-notice audit. The
+separately approved publication verified actual registry dependencies and
+normalized package examples/tests. Create remains an offline explicit-checkout
+tool; registry installation does not bundle its framework dependencies.
 
 The six Create archive scaffold failures recorded by R1 are corrected by a
 test-only explicit checkout fixture; both archive suites pass on stable/1.85.0.
@@ -37,15 +38,15 @@ The subsequent [documentation delivery](plans/2026-11-05-documentation-site/plan
 prepared separate macOS guide checks and a static-site build workflow. Rust and
 documentation CI now run on pull requests and pushes to main; main checks and
 the initial manual Pages deployment have succeeded. The
-[public site](https://antruongnguyen.github.io/re-cordis/) is development/local-checkout
-documentation for unpublished crates. The Linux build job and Rustdoc compilation establish
+[public site](https://antruongnguyen.github.io/re-cordis/) follows its deployed
+build revision, separate from package publication. The Linux build job and Rustdoc compilation establish
 no new Linux/Windows filesystem/watcher acceptance.
 
 HMR docs.rs metadata selects the optional Include API without changing default
-features. No hosted docs.rs build has occurred; local stable/MSRV Rustdoc does
-not substitute for docs.rs Linux/nightly execution on actual published crates.
-Development guides bundle matching-revision Rustdoc. Future release snapshots
-must use exact-version docs.rs links and verified registry dependencies; see
+features. All seven exact-version docs.rs pages are verified, including HMR's
+Include anchors. Hosted Rustdoc does not establish runtime behavior on Linux.
+Current guides bundle matching-build-revision Rustdoc and link exact-version
+released Rustdoc; see
 [documentation channels](en/guides/documentation.md).
 
 The site includes dependency Rustdoc to resolve inherited trait links in the
@@ -132,7 +133,7 @@ not have. These require real design, not translation:
 
 ## M6 current boundary
 
-The unpublished core includes [M6 logging/injection/type/example acceptance](m6.md),
+The core includes [M6 logging/injection/type/example acceptance](m6.md),
 [M5 scoped reflection/config updates](m5.md),
 [M4 typed services/injection](m4.md),
 [M3 base plugin lifecycle/Registry](m3.md), and Fiber-scoped
@@ -276,7 +277,7 @@ integrated framework or resolve every behavioral gap.
 ## Scope limitations (current)
 
 - [English](en/README.md) and [Vietnamese](vi/README.md) user documentation
-  covers the current unpublished core and delivered satellites. The API reference
+  covers the current experimental core and delivered satellites. The API reference
   complements generated Rustdoc; it does not establish a stable release,
   translated Rust identifiers or full upstream compatibility. `llms.txt` is a local
   retrieval index, not a published documentation service or agent permissions.
@@ -299,7 +300,7 @@ integrated framework or resolve every behavioral gap.
   accepted with shared stable/1.85.0 verification. Selected offline Create S0–S2
   is independently accepted; remote scaffolding remains unselected.
   See [the roadmap](todo.md).
-- The experimental `0.1.0-alpha.1` candidate does not promise stable APIs.
+- The experimental `0.1.0-alpha.1` release does not promise stable APIs.
   Intentional breaking changes require release notes and a new coordinated alpha
   version; use exact pins. Core/satellite acceptance does not establish 1.0
   stability; see [release readiness](release-readiness.md).
@@ -363,7 +364,7 @@ below. Timer acceptance does not settle unrelated B0 evidence gaps.
 
 ## Console logger satellite
 
-`re-cordis-logger` is implemented as an unpublished synchronous native writer
+`re-cordis-logger` is implemented as an experimental synchronous native writer
 adapter. See [the paired console API](en/api/console-logger.md) and
 [decisions](decision.md#console-logger-satellite) for its full supported contract.
 
@@ -405,7 +406,7 @@ adapter. See [the paired console API](en/api/console-logger.md) and
 
 ## Loader and structural groups
 
-The unpublished loader/group delivery is useful native Rust loading and
+The experimental loader/group delivery is useful native Rust loading and
 reconfiguration, not unrestricted execution of the eleven upstream JS suites.
 See [loader API](en/api/loader.md), [groups](en/api/groups.md) and the
 [source dispositions](plans/2026-11-02-cordis-completion/loader.md#source-case-dispositions).
@@ -555,8 +556,8 @@ the [guide](en/guides/create.md) and
   synchronous Result-based API replace interactive JS/package-manager flows.
   A fixed core/logger/loader template supplies an application the user edits;
   this does not emulate every upstream Create option.
-- **Publication boundary:** Cordis crates remain unpublished. Generated canonical
-  absolute path dependencies require the checkout to remain available; moving it
+- **Checkout boundary:** The published Create CLI still generates canonical
+  absolute path dependencies. They require the checkout to remain available; moving it
   requires manifest edits. Canonical dependency paths must be Unicode; destination
   arguments preserve native OS bytes but the filesystem may reject them
   (macOS EILSEQ was exercised). The three bundled Cordis dependency names are

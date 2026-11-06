@@ -6,7 +6,7 @@ Mã nguồn: [timer lib.rs](../../../crates/re-cordis-timer/src/lib.rs).
 Hướng dẫn: [timer](../guides/timers.md).
 Ví dụ chạy được: [timer_lifecycle.rs](../../../crates/re-cordis-timer/examples/timer_lifecycle.rs).
 
-`re-cordis-timer` chưa phát hành (`0.1.0-alpha.1`, Rust 2024, MSRV 1.85).
+`re-cordis-timer` đã phát hành, còn thử nghiệm (`0.1.0-alpha.1`, Rust 2024, MSRV 1.85).
 Import trait kín `TimerExt` trên `Context`; không cần cài dịch vụ.
 Task timer dùng host Cordis gốc thông qua
 [`Context::task`](effects.md#task-có-host-và-callback-đồng-bộ).

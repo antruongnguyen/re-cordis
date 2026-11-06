@@ -8,7 +8,8 @@ TypeScript bằng API Rust tường minh, có kiểu.
 
 Sản phẩm hiện tại gồm `re-cordis-core`, `re-cordis-timer`, `re-cordis-logger`
 cùng `re-cordis-loader`, `re-cordis-include`, `re-cordis-hmr` và `re-cordis-create`
-ngoại tuyến đã chọn chưa phát hành, bản ứng viên `0.1.0-alpha.1`, Rust 2024/MSRV 1.85.
+ngoại tuyến đã chọn, bản alpha thử nghiệm `0.1.0-alpha.1` đã phát hành trên crates.io,
+Rust 2024/MSRV 1.85.
 API chưa ổn định. Loader sở hữu nguồn entry có kiểu và group cấu trúc;
 Include có đọc/refresh tệp, patch có thứ tự và persistence có hòa giải đã nghiệm thu.
 HMR đã triển khai theo dõi tệp, refresh Include tùy chọn và thay factory đã liên kết.
@@ -19,8 +20,9 @@ tường minh được ghi trong [lộ trình](../todo.md#next-implementation-ta
 Đây là API Rust tường minh, không phải lớp tương thích JavaScript trong suốt.
 
 Đọc [đánh giá mức sẵn sàng phát hành](../release-readiness.md) trước khi chọn
-cách phân phối: hiện dùng checkout đầy đủ từ máy cục bộ/Git.
-Việc chuẩn bị alpha gồm bảy package đã được duyệt; bản ứng viên vẫn chưa phát hành.
+cách phân phối: ứng dụng viết tay có thể dùng dependency registry chính xác;
+Create vẫn cần checkout đầy đủ tương thích tại mã nguồn phát hành
+`84fa9bdf0eb4e631fce792bf163494b0a61aeba8`.
 Dùng pin phiên bản chính xác. Thay đổi phá vỡ tương thích cần ghi chú phát hành
 và phiên bản alpha đồng bộ mới. Bằng chứng filesystem và watcher chỉ bao phủ
 môi trường Apple Silicon macOS đã kiểm thử.
@@ -35,7 +37,8 @@ các phần được xác định là có chuyển thể.
 
 [Hướng dẫn các kênh tài liệu](guides/documentation.md) giải thích
 site Fumadocs công khai, bản xem trước cục bộ, Rustdoc cùng revision và cổng
-phát hành docs.rs riêng. Đây là tài liệu phát triển cho các crate chưa phát hành.
+docs.rs theo phiên bản chính xác. Hướng dẫn hiện tại có cập nhật tài liệu sau
+mã nguồn phát hành đã chốt; nội dung chuẩn bị ứng viên trong snapshot đó là lịch sử.
 
 ## Chọn lộ trình đọc
 

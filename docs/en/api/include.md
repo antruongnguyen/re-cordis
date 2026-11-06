@@ -4,7 +4,7 @@
 
 Generate exact signatures with `cargo doc --workspace --no-deps --locked`;
 open `target/doc/re_cordis_include/index.html`. The API is local, unstable
-and unpublished. [File guide](../guides/include.md).
+and published as experimental alpha. [File guide](../guides/include.md).
 
 | Export | Contract |
 |---|---|

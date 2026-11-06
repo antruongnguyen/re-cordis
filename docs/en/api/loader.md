@@ -4,7 +4,7 @@
 
 Generate exact signatures with `cargo doc --workspace --no-deps --locked`;
 open `target/doc/re_cordis_loader/index.html`. All exports are local/non-Send,
-unstable and unpublished. [Runnable guide](../guides/loader.md).
+experimental and published. [Runnable guide](../guides/loader.md).
 
 ## Catalog, entries and snapshots
 

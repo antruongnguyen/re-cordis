@@ -2,7 +2,7 @@
 
 [English](../../en/guides/hmr.md) | [Trang chủ tiếng Việt](../README.md)
 
-Crate chưa phát hành `re-cordis-hmr` điều phối các tệp đăng ký rõ ràng và
+Crate thử nghiệm đã phát hành `re-cordis-hmr` điều phối các tệp đăng ký rõ ràng và
 thay thế plugin Rust đã được liên kết vào tiến trình, với tích hợp Include tùy chọn.
 H0–H3 đã được nghiệm thu độc lập và qua đầy đủ ma trận chung stable/1.85.0. Xem [API](../api/hmr.md) và
 [bản đồ nguồn](../../plans/2026-11-02-cordis-completion/evidence/hmr-source-map.md)

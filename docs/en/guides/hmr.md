@@ -2,7 +2,7 @@
 
 [Tiếng Việt](../../vi/guides/hmr.md) | [English home](../README.md)
 
-The unpublished `re-cordis-hmr` crate coordinates explicit file watches and
+The experimental `re-cordis-hmr` crate coordinates explicit file watches and
 replacement of already-linked Rust plugins, with optional Include integration.
 H0–H3 is independently accepted with the full stable/1.85.0 shared matrix. See the [API](../api/hmr.md)
 and [source disposition map](../../plans/2026-11-02-cordis-completion/evidence/hmr-source-map.md)

@@ -4,6 +4,34 @@ A lightweight log of decisions made for this project and the reasoning behind
 them. Newest first. This is intentionally not a heavy ADR process; it records
 *what we chose and why* so the choices aren't re-litigated silently.
 
+## 2026-11-06 — Publish the frozen experimental alpha and update current guides
+
+Following explicit maintainer approval, all seven `0.1.0-alpha.1` packages were
+published on crates.io under antruongnguyen. Exact checksums/ownership and hosted
+exact-version Rustdoc were verified. Release source and Create's compatible
+complete checkout are `84fa9bdf0eb4e631fce792bf163494b0a61aeba8`; package
+source, manifests, lockfile and bundled template remain frozen.
+
+Current main guides now document exact registry dependencies for handwritten
+applications and `cargo install re-cordis-create --version '=0.1.0-alpha.1' --locked`.
+Create still requires `--cordis-path` to the compatible checkout and generates
+five files with absolute path dependencies and `0.0.0`/`publish=false`.
+No registry-backed template mode is added. The existing dependency-restoration
+helper fetches the published quick-start package before documentation checks;
+the checker resolves and executes the actual guide manifest offline, with a
+locked run. Workflow triggers, toolchain checks and Pages gates are unchanged.
+Exact pins, Rust 1.85, local/non-Send
+hosting, joined cleanup and tested Apple Silicon macOS scope are unchanged.
+
+Current documentation commits follow the release source. Its candidate-preparation
+text is historical, not current availability. Website version still derives from
+Cargo.toml; published status and release revision are explicit verified facts in
+the existing generated settings/provenance, never inferred from a Cargo publish
+allowlist. Same-build guide/Rustdoc byte and visibility guards remain intact.
+A new Pages build/deployment and live QA remain separate from package publication.
+See [current availability](release-readiness.md); earlier decisions below retain
+their dated scope.
+
 ## 2026-11-06 — Prepare the approved experimental alpha candidate
 
 The maintainer approved preparation of seven coordinated `0.1.0-alpha.1`

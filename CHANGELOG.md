@@ -10,23 +10,40 @@ breaking changes require release notes and a new alpha version. Use exact pins.
 
 ### Changed
 
+- Updated current EN/VI guides for exact crates.io dependencies and the installed
+  Create CLI, and labelled site exports/provenance as published experimental alpha.
+  Published source remains frozen at `84fa9bdf0eb4e631fce792bf163494b0a61aeba8`;
+  current documentation commits and manual Pages builds are separate.
+
+## [0.1.0-alpha.1] - 2026-11-06
+
+### Added
+
+- Published all seven experimental alpha packages on crates.io under
+  antruongnguyen, with exact internal pins and verified exact-version docs.rs
+  output. The six-library registry consumer and installed Create CLI were
+  exercised on stable and Rust 1.85.0 using the compatible frozen checkout.
+  Runtime filesystem/watcher scope remains tested Apple Silicon macOS.
+
+### Changed
+
 - Made core/loader parity tests and the timer parity example self-contained in
   Cargo packages using twelve exact package-local trace copies. Root comparison
   fixtures, expected bytes and runtime behavior remain unchanged.
 
 - Prepared the approved seven-package `0.1.0-alpha.1` experimental candidate,
   restricted manifests to crates.io and added exact internal version requirements
-  while retaining local paths. No registry upload or release tag is included.
+  while retaining local paths. This preparation preceded the separately approved publication.
 - Kept Rust 1.85, tested Apple Silicon macOS support, local hosting and explicit
   joined cleanup. Create remains offline with a compatible complete checkout;
   its five-file template and application `0.0.0`/`publish=false` are unchanged.
 - Derived development website version labels and public metadata from the
-  workspace manifest. Candidate guides identify unpublished status; release
-  guide/docs.rs destinations remain planned until separately verified.
+  workspace manifest. The frozen source's candidate labels record preparation state;
+  current availability is documented in subsequent guide updates.
 
 - Published development documentation on GitHub Pages with English/Vietnamese
   guides, API contracts, same-revision Rustdoc and public build provenance.
-  Site refreshes remain manual; crates remain unpublished and experimental.
+  Site refreshes remain manual; the initial site predates alpha publication.
 - CI and documentation workflows now run on pull requests and pushes to `main`,
   avoiding duplicate feature-branch push runs.
 - Refocused the root README on project purpose, packages, getting started and

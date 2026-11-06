@@ -27,7 +27,8 @@ if (process.env.CORDIS_REVISION && process.env.CORDIS_REVISION !== revision) {
 }
 const manifest = await readFile(path.join(root, 'Cargo.toml'), 'utf8');
 const version = (TOML.parse(manifest) as { workspace: { package: { version: string } } }).workspace.package.version;
-const settings = { ...repository(git('remote', 'get-url', 'origin')), revision, version };
+if (version !== '0.1.0-alpha.1') throw new Error('Verify and update published release facts before documenting another version.');
+const settings = { ...repository(git('remote', 'get-url', 'origin')), revision, version, status: 'experimental-alpha-published', releaseRevision: '84fa9bdf0eb4e631fce792bf163494b0a61aeba8' };
 const rustdocDir = process.env.CORDIS_RUSTDOC_DIR;
 if (!rustdocDir) throw new Error('Set CORDIS_RUSTDOC_DIR to freshly generated workspace --all-features Rustdoc including dependencies. See README.md.');
 const crates = ['core', 'timer', 'logger', 'loader', 'include', 'hmr', 'create'];
@@ -86,7 +87,7 @@ for (const source of [...canonical].sort()) {
   const mdUrl = markdownUrl(settings.basePath, locale, file);
   const output = path.join('public', mdUrl.slice(settings.basePath.length + 1));
   await mkdir(path.dirname(output), { recursive: true });
-  await writeFile(output, `<!-- Development documentation; unpublished ${version} candidate. Build revision ${revision}. -->\n<!-- Page: ${settings.origin}${url} -->\n\n${markdown}`);
+  await writeFile(output, `<!-- Current documentation; published experimental ${version}. Release source ${settings.releaseRevision}. Build revision ${revision}. -->\n<!-- Page: ${settings.origin}${url} -->\n\n${markdown}`);
   pages.push({ locale, file, source, title, titleId, body: htmlTree, toc, url, markdownUrl: mdUrl, content: toText(htmlTree), sourceUrl: `${settings.github}/blob/${revision}/${source}` });
 }
 for (const source of linkSources) {
@@ -104,7 +105,7 @@ const start = constraints.indexOf('Package map:');
     const constraintText = start >= 0 && end > start ? constraints.slice(start, end).trim() : '';
     if (!constraintText) throw new Error('Local docs/llms.txt must expose its essential contracts.');
     const publicConstraints = (preamble + '\n\n' + constraintText).replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, label: string, href: string) => `[${label}](${mapLink(href, 'docs/llms.txt', canonical, settings).url})`);
-let llms = `# re-cordis\n\n> Development documentation for unpublished ${version} candidate crates; local/Git checkout consumption only. Rust 1.85 minimum; macOS runtime filesystem/watcher evidence only. No crates.io or hosted docs.rs release is available.\n\nBuild revision: ${revision}. Exact local Rustdoc: ${settings.origin}${settings.basePath}/rustdoc/${revision}/re_cordis_core/index.html\n\n${publicConstraints}\n`;
+let llms = `# re-cordis\n\n> Current documentation for published experimental ${version} packages on crates.io. Use exact pins. Rust 1.85 minimum; runtime filesystem/watcher evidence on tested Apple Silicon macOS only. Create requires a compatible complete checkout.\n\nRelease source: ${settings.releaseRevision}. Current guides include later documentation updates; frozen preparation statements are historical. Exact-version Rustdoc: https://docs.rs/re-cordis-core/${version}/re_cordis_core/\n\nBuild revision: ${revision}. Exact local Rustdoc: ${settings.origin}${settings.basePath}/rustdoc/${revision}/re_cordis_core/index.html\n\n${publicConstraints}\n`;
 for (const locale of locales) {
   llms += `\n## ${locale === 'en' ? 'English' : 'Tiếng Việt'}\n\n`;
   for (const page of pages.filter((page) => page.locale === locale)) llms += `- [${page.title}](${settings.origin}${page.markdownUrl}): ${settings.origin}${page.url}\n`;
@@ -113,5 +114,5 @@ await writeFile('public/llms.txt', llms);
 await writeFile('public/.nojekyll', '');
 await writeFile('.generated/settings.json', JSON.stringify(settings, null, 2));
 await writeFile('.generated/pages.json', JSON.stringify(pages));
-await writeFile('.generated/provenance.json', JSON.stringify({ ...settings, status: 'development-unpublished', dirty: Boolean(git('status', '--porcelain')), sources, rustdocInput: path.resolve(rustdocDir), crates }, null, 2));
+await writeFile('.generated/provenance.json', JSON.stringify({ ...settings, dirty: Boolean(git('status', '--porcelain')), sources, rustdocInput: path.resolve(rustdocDir), crates }, null, 2));
 console.log(`Prepared ${pages.length} canonical pages (${english.length} pairs), two static search indexes, Markdown and llms.txt at ${settings.basePath}; revision ${revision}.`);

@@ -22,8 +22,9 @@ delivery tasks; the 35 accepted implementation work packages remain closed.
   [Release decision and publisher designation](plans/2026-11-06-public-delivery/release-decision.md) are recorded.
 - [x] D4: Prepare and independently review frozen candidate `84fa9bd`.
   [Verification, archive checksums and remaining registry gates](plans/2026-11-06-public-delivery/release-candidate.md) are recorded.
-- [ ] D5–D6: After approval of the exact candidate, publish and verify actual
-  registry/CLI consumers, then close release documentation.
+- [x] D5: Publish the seven `0.1.0-alpha.1` packages and verify registry/CLI
+  consumers and docs.rs. [Publication evidence](plans/2026-11-06-public-delivery/publication.md) is recorded.
+- [ ] D6: Finish current release notes/documentation and the public site refresh.
 
 The initial D1 push/PR documentation runs passed macOS stable/1.85.0 guide checks
 but failed the site inventory on two hidden associated-type links that newer
