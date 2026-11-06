@@ -98,15 +98,17 @@ If deployment fails before publication, retain the last successful site and repo
 
 ## D3 — Record the release decision
 
+**Execution:** Candidate preparation approved by the maintainer; [decision and publisher designation](../../plans/2026-11-06-public-delivery/release-decision.md). Publication remains separately gated.
+
 **Files:** `docs/release-readiness.md`; create `docs/plans/2026-11-06-public-delivery/release-decision.md` when the decision is made.
 **Produces:** A concrete approved or deferred release contract consumed by D4.
 
-- [ ] Present the existing seven-package proposal, with no expanded API/platform/template scope.
-- [ ] Confirm coordinated `0.1.0-alpha.1`, exact consumer pins and an alpha policy permitting documented breaking changes only in a new coordinated alpha version.
-- [ ] Confirm publisher account/authority and recheck exact normalized crate names at release time. Inspect an existing package's ownership if present; absence is not a reservation.
-- [ ] Confirm the support statement, actual documentation URL, proposed tag `v0.1.0-alpha.1` and the compatible complete checkout for offline Create. Record the final candidate SHA as the intended target of that tag in release evidence before publication.
-- [ ] State clearly that the published Create CLI still requires `--cordis-path`; publishing it does not produce a registry-backed template.
-- [ ] Record approval to prepare version/dependency/publication-policy changes, or record deferral and stop at the completed D2 outcome.
+- [x] Present the existing seven-package proposal, with no expanded API/platform/template scope.
+- [x] Confirm coordinated `0.1.0-alpha.1`, exact consumer pins and an alpha policy permitting documented breaking changes only in a new coordinated alpha version.
+- [x] Confirm publisher account/authority and recheck exact normalized crate names at release time. Inspect an existing package's ownership if present; absence is not a reservation.
+- [x] Confirm the support statement, actual documentation URL, proposed tag `v0.1.0-alpha.1` and the compatible complete checkout for offline Create. Record the final candidate SHA as the intended target of that tag in release evidence before publication.
+- [x] State clearly that the published Create CLI still requires `--cordis-path`; publishing it does not produce a registry-backed template.
+- [x] Record approval to prepare version/dependency/publication-policy changes, or record deferral and stop at the completed D2 outcome.
 
 **Exit:** One explicit release contract. Choosing this planning sequence is not that release approval.
 
