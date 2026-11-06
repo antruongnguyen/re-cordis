@@ -1,7 +1,7 @@
 # D1 integration progress
 
 Date: 2026-11-06 (Asia/Ho_Chi_Minh).
-Status: **in progress; collector MSRV diagnostic required before merge**.
+Status: **D1 complete; PR #1 merged and exact-main hosted checks passed**.
 
 The maintainer requested execution of the [public delivery plan](../../superpowers/plans/2026-11-06-public-delivery.md) after the README/reference cleanup.
 This report records observed results; it does not declare deployment or release readiness.
@@ -75,12 +75,42 @@ error text was absent; the assertion did not print the actual error.
 This differing result on identical source requires diagnosis, not a blind rerun.
 The full failed log is `target/public-delivery-20261106/rust-msrv-failure.log`.
 
-## Remaining D1 work
+## Completion at the merged revision
 
-- Capture the collector's unexpected error with unchanged assertion semantics and a bounded hosted reproducer.
-- Apply only an evidence-backed correction, independently review it, and pass Rust/Documentation at the final PR head.
-- Merge with source/acceptance history preserved.
-- Verify both workflows at the merged main revision and record its SHA/run URLs.
+The [collector fixture correction](collector-ci-repair.md) preserves production code and all test
+assertions/internal concurrency, while preventing executable writes and process launches from
+overlapping across the three tests. Independent scoped review approved it; the temporary diagnostic
+step was removed and the final Rust workflow matched its prediagnostic contents.
+
+Controller verification at final candidate `e83a2575b1bd5e8d609311a138a9b1f93a7700da` captured
+three passing collector tests on each explicit stable/1.85.0 toolchain and successful strict stable
+Clippy. Logs are `target/public-delivery-20261106/collector-repair/final-*.log`.
+These later controller logs supplement the worker-reported results that were not log-confirmed
+during scoped review.
+
+All four final-candidate runs passed:
+
+| Event | Rust | Documentation |
+|---|---|---|
+| push | [42202050725](https://github.com/antruongnguyen/re-cordis/actions/runs/42202050725) | [42202050730](https://github.com/antruongnguyen/re-cordis/actions/runs/42202050730) |
+| pull request | [42202059076](https://github.com/antruongnguyen/re-cordis/actions/runs/42202059076) | [42202059020](https://github.com/antruongnguyen/re-cordis/actions/runs/42202059020) |
+
+PR #1 merged using a merge commit on 2026-11-06 at 17:26 Asia/Ho_Chi_Minh:
+`eb5d6897353079b1278687306e4de2b451ffc94c`.
+Git confirms the reviewed candidate is its ancestor and their tracked trees are identical.
+
+Fresh main verification passed at that exact merge SHA:
+
+- [Rust main run 42202655467](https://github.com/antruongnguyen/re-cordis/actions/runs/42202655467): stable and 1.85.0 pass.
+- [Documentation main run 42202655477](https://github.com/antruongnguyen/re-cordis/actions/runs/42202655477): both macOS guide/API jobs and the Linux static-site job pass.
+
+**D1 is complete.** Earlier failures remain above as historical evidence, not open blockers.
+The seven packages remain `0.0.0`/`publish=false`; this completion is hosted integration,
+not registry publication, wider platform acceptance or Pages deployment.
+
+The maintainer subsequently requested removal of duplicate feature-branch push/PR runs.
+That small trigger refinement keeps PR checks and main push checks and preserves manual workflows.
+Its own reviewed change and hosted results precede D2 activation.
 
 Pages, its deployment environment and its opt-in variable were absent at initial inspection.
 Their setup belongs to D2 after successful integration. Alpha/version/publication decisions remain later stages.

@@ -14,7 +14,8 @@ The [delivery plan](superpowers/plans/2026-11-06-public-delivery.md) defines the
 sequence, verification and separate execution/release decisions. These are new
 delivery tasks; the 35 accepted implementation work packages remain closed.
 
-- [ ] D1: Integrate the accepted branch and verify hosted Rust/documentation CI.
+- [x] D1: Integrate the accepted branch and verify hosted Rust/documentation CI.
+  [PR #1 and exact-main verification](plans/2026-11-06-public-delivery/integration.md) are complete.
 - [ ] D2: Deploy and verify public EN/VI documentation and exact-revision Rustdoc.
 - [ ] D3–D6: Decide the alpha contract, prepare/review the candidate, then publish,
   verify actual registry/CLI consumers and close release documentation.
