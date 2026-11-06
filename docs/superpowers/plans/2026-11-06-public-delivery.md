@@ -1,6 +1,6 @@
 # Public Documentation and Experimental Alpha Delivery Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to execute this plan task-by-task. The user requested execution on 2026-11-06. D1 is complete; preserve the subsequent release decision gates.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to execute this plan task-by-task. The user requested execution on 2026-11-06. D1 and D2 are complete; preserve the subsequent release decision gates.
 
 **Goal:** Deliver the accepted framework through verified public documentation, then a separately approved seven-package experimental alpha.
 
@@ -77,7 +77,7 @@ After push authorization, use `git push -u origin feat/cordis-completion`. For a
 
 ## D2 — Deploy and verify public documentation
 
-**Execution:** Initial deployment and live checks passed; [documentation evidence](../../plans/2026-11-06-public-delivery/documentation.md). Final status refresh remains in progress.
+**Execution:** Complete; final public revision 638ae03 and its live checks are recorded in [documentation evidence](../../plans/2026-11-06-public-delivery/documentation.md).
 
 **Files:** Existing `pages.yml`/`documentation.yml`, `website/**`; afterwards update actual availability claims in `README.md`, `docs/{README,release-readiness,limitation,todo}.md`, `AGENTS.md` and matching `docs/{en,vi}/guides/documentation.md` only where needed.
 **Produces:** Actual site URL, deployment/run SHA and smoke-test evidence in `docs/plans/2026-11-06-public-delivery/documentation.md`.
@@ -90,7 +90,7 @@ After push authorization, use `git push -u origin feat/cordis-completion`. For a
 - [x] Exercise EN/VI entry pages, deep-link reload, language preservation, EN “cleanup” and VI “dọn dẹp” search, keyboard selection/Escape, mobile navigation, copy controls and a real 404 recovery.
 - [x] Open HMR's optional Include API in Rustdoc. Confirm revision directories and public provenance identify the deployed source; check source links resolve on GitHub. Inspect public Markdown and llms.txt. Require the static checker to preserve internal-tree exclusion across all public outputs.
 - [x] Confirm the known dependency-owned Rustdoc link boundary is unchanged or specifically reviewed; do not widen exceptions to silence a hosted failure.
-- [ ] Update availability/status documentation only after observing the live result. Run documentation regressions and both full guide checks for changed guides. Commit/review/integrate those edits, then deploy the final documentation revision and record its result.
+- [x] Update availability/status documentation only after observing the live result. Run documentation regressions and both full guide checks for changed guides. Commit/review/integrate those edits, then deploy the final documentation revision and record its result.
 
 If deployment fails before publication, retain the last successful site and report the failing job. If a deployed revision is defective, deploy a previously verified source revision through the same checks, or a reviewed corrective revision; do not force-move source history.
 

@@ -1,7 +1,7 @@
 # D2 public documentation delivery
 
 Date: 2026-11-06 (Asia/Ho_Chi_Minh).
-Status: **initial deployment and live smoke checks passed; documentation refresh in progress**.
+Status: **D2 complete; final public documentation revision 638ae03 verified**.
 
 ## Published revision and gates
 
@@ -75,16 +75,40 @@ A new-tab navigation initially exceeded the tool's ten-second limit; reuse of
 the existing tab with a thirty-second navigation bound loaded Rustdoc successfully.
 This is a Chrome desktop/mobile smoke check, not all-browser or platform acceptance.
 
-## Documentation refresh
+## Final documentation refresh and D2 closure
 
-Current availability text and root README links are updated separately from
-the already published initial artifact. The [public delivery plan](../../superpowers/plans/2026-11-06-public-delivery.md)
-still requires the reviewed status update to reach main, its hosted checks to
-pass, and the manual Pages workflow to publish that documentation revision.
-Final provenance/HTTP checks and the refresh run belong in the closing record.
+The availability update was independently approved without findings and merged
+through [PR #3](https://github.com/antruongnguyen/re-cordis/pull/3).
+Its candidate `a97da55` passed [Rust](https://github.com/antruongnguyen/re-cordis/actions/runs/42208668385)
+and [Documentation](https://github.com/antruongnguyen/re-cordis/actions/runs/42208668431)
+as PR-only runs. The merged main revision
+`638ae03a4b7cb1d2b1b646e016eece7ca4a0bdd8` then passed
+[Rust](https://github.com/antruongnguyen/re-cordis/actions/runs/42209256459)
+and [Documentation](https://github.com/antruongnguyen/re-cordis/actions/runs/42209256545).
 
-The update preserves seven `0.0.0`/`publish=false` packages, local-checkout
-consumption, all notices, Rust contracts and the existing platform limits.
+The [final manual Pages refresh](https://github.com/antruongnguyen/re-cordis/actions/runs/42209716004)
+succeeded at that exact merged revision. Fresh live checks confirmed:
+
+- `build-provenance.json` returns HTTP 200 and revision `638ae03a4b7cb1d2b1b646e016eece7ca4a0bdd8`.
+- The English home source link identifies that revision, and its stale hosting-pending sentence is absent.
+- The Vietnamese home has the correct title/language, displays the new revision and has no document overflow at 390×844.
+- The English API index, public llms.txt and the new revision's HMR FileWatcher page return HTTP 200.
+- `watch_include` remains present; the public agent index has no internal planning routes.
+- The normal refreshed English page has no browser errors or warnings.
+
+Git confirms that the Rust implementation/manifests, website application,
+components, libraries, scripts and dependency inputs are unchanged between
+the initial and final deployed revisions. The detailed initial interaction
+checks therefore remain applicable; the final checks specifically cover the
+changed availability wording, links and new provenance.
+
+**D2 is complete.** The accepted public documentation revision is `638ae03`.
+Later repository-only plan, roadmap and evidence bookkeeping records this
+already completed deployment; it does not change the published guides, website
+code or Rustdoc inputs and does not require another deployment.
+
+Seven packages remain `0.0.0`/`publish=false`, with local-checkout consumption,
+existing notices and current Rust/platform contracts preserved.
 Crates.io/docs.rs publication and the alpha decision remain separate.
 No registry version or release tag was created.
 
