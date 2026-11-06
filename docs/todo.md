@@ -24,7 +24,8 @@ delivery tasks; the 35 accepted implementation work packages remain closed.
   [Verification, archive checksums and remaining registry gates](plans/2026-11-06-public-delivery/release-candidate.md) are recorded.
 - [x] D5: Publish the seven `0.1.0-alpha.1` packages and verify registry/CLI
   consumers and docs.rs. [Publication evidence](plans/2026-11-06-public-delivery/publication.md) is recorded.
-- [ ] D6: Finish current release notes/documentation and the public site refresh.
+- [x] D6: Publish the release notes and current documentation/site refresh.
+  [Experimental alpha delivery closure](plans/2026-11-06-public-delivery/closure.md) records the verified public result and next decisions.
 
 The initial D1 push/PR documentation runs passed macOS stable/1.85.0 guide checks
 but failed the site inventory on two hidden associated-type links that newer

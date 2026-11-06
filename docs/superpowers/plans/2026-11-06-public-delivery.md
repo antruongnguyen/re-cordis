@@ -1,6 +1,6 @@
 # Public Documentation and Experimental Alpha Delivery Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to execute this plan task-by-task. The user requested execution on 2026-11-06. D1 through D5 are complete; D6 release documentation closure is in progress.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to execute this plan task-by-task. The user requested execution on 2026-11-06. D1 through D6 are complete within the approved experimental scope; see the release closure record.
 
 **Goal:** Deliver the accepted framework through verified public documentation, then a separately approved seven-package experimental alpha.
 
@@ -195,15 +195,17 @@ Publish in this order, one package at a time:
 
 ## D6 — Close delivery and choose the next consumer improvement
 
+**Execution:** Complete; [public release and documentation closure](../../plans/2026-11-06-public-delivery/closure.md). No new implementation work is automatically selected.
+
 **Files:** `CHANGELOG.md`, current README/status/readiness/decision/limitation docs and paired user guides; new `docs/plans/2026-11-06-public-delivery/closure.md`.
 **Produces:** Coherent published release and a small evidence-driven next backlog.
 
-- [ ] Create the authorized annotated release tag `v0.1.0-alpha.1` at the exact published source SHA; verify no conflicting tag exists and never overwrite one. Publish release notes with package scope, install paths, compatibility limits and known limitations.
-- [ ] Verify tag-pinned EN/VI guide links, source links, package links and docs.rs URLs. Preserve immutable release references even as development docs move.
-- [ ] Update claims to observed results, integrate documentation corrections with their required checks, and deploy the final public docs revision. Record the release source SHA and later documentation SHA separately.
-- [ ] Mark D1–D6 done only with their evidence links. Keep the 35 implementation packages closed and historical evidence intact.
-- [ ] Use one actual consumer to identify the next priority: onboarding friction, a reproduced lifecycle issue, or a specifically required platform. Reuse the existing GitHub activity application if useful; no live collection, public webhook or notifications are implied by this plan.
-- [ ] Create only a short ranked backlog with a concrete reproduction or consumer requirement for each item. Broader platform acceptance and registry-backed Create remain optional follow-ups.
+- [x] Create the authorized annotated release tag `v0.1.0-alpha.1` at the exact published source SHA; verify no conflicting tag exists and never overwrite one. Publish release notes with package scope, install paths, compatibility limits and known limitations.
+- [x] Verify tag-pinned EN/VI guide links, source links, package links and docs.rs URLs. Preserve immutable release references even as development docs move.
+- [x] Update claims to observed results, integrate documentation corrections with their required checks, and deploy the final public docs revision. Record the release source SHA and later documentation SHA separately.
+- [x] Mark D1–D6 done only with their evidence links. Keep the 35 implementation packages closed and historical evidence intact.
+- [x] Use one actual consumer to identify the next priority: onboarding friction, a reproduced lifecycle issue, or a specifically required platform. Reuse the existing GitHub activity application if useful; no live collection, public webhook or notifications are implied by this plan.
+- [x] Create only a short ranked backlog with a concrete reproduction or consumer requirement for each item. Broader platform acceptance and registry-backed Create remain optional follow-ups.
 
 ## Plan review and execution handoff
 

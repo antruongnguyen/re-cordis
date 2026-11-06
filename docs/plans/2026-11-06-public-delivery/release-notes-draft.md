@@ -1,5 +1,7 @@
 # Draft release notes — re-cordis 0.1.0-alpha.1
 
+Historical D4 preparation draft. The [final public release](https://github.com/antruongnguyen/re-cordis/releases/tag/v0.1.0-alpha.1) and [closure record](closure.md) supersede its preparation-time availability statements.
+
 Status: **unpublished candidate; preparation approved, publication not authorized**.
 Proposed release tag: `v0.1.0-alpha.1`. No tag has been created.
 Frozen release source and compatible complete Create checkout:
