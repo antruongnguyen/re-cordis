@@ -1,52 +1,64 @@
-# D1 collector CI investigation
+# D1 collector CI repair
 
-Status: diagnostic prepared; root cause and correction remain pending Ubuntu evidence.
+Status: test-only correction verified locally; fresh hosted CI and independent
+review remain the controller's gates.
 
-The Rust pull-request run 42199681145 failed on Ubuntu with Rust 1.85.0 at
-`crates/re-cordis-core/tests/github_collect.rs:112`. The 101-item rejection
-assertion received an error whose text did not contain `more than 100`, but the
-original assertion discarded that error. The push run 42199672146 on identical
-head `242db4c9d91d27dfd64a7b1d40627f8b975bf782` passed both toolchains.
+## Hosted failure evidence
 
-## Findings
+The original pull-request Rust run 42199681145 failed on Ubuntu with 1.85.0 at
+`github_collect.rs:112`: the 101-item rejection received an unexpected error
+whose text the assertion discarded. Push run 42199672146 passed on identical
+head `242db4c9d91d27dfd64a7b1d40627f8b975bf782`.
 
-- The collector fixture is a shell script written in place to one `gh` path.
-  Each test owns a distinct PID/counter temporary directory, so parallel tests
-  do not intentionally share paths.
-- The preceding 100-item snapshot succeeded. The 101-item fixture contains
-  valid JSON and must be rejected before snapshot publication; duplicate-item
-  validation is later in the pipeline and cannot explain the asserted error.
-- Query spawning, bounded pipe reads, child exit, JSON parsing and item-count
-  validation can each return errors before the expected item-count error.
-  No actual unexpected error is available in the failed log.
-- Linux `ETXTBSY` from a writable executable fixture descriptor inherited by a
-  concurrently spawned process is a hypothesis, not an established cause.
-- The diagnostic preserves the same 101-item expectation and last-good snapshot
-  check while printing the actual error if the expectation fails. It adds no
-  accepted errors, sleeps or retries, and changes no application/framework API.
+Diagnostic commit `ab982f9`, integrated by the controller as `2d77092`, printed
+the actual assertion error and temporarily sampled the complete three-test
+collector binary up to 100 times with normal parallel test execution, stopping
+on its first failure. Two independent Ubuntu 1.85.0 runs reproduced fixture
+execution contention:
+
+| Run | First failing invocation | Location | Actual error |
+| --- | --- | --- | --- |
+| [Push 42201029103](https://github.com/antruongnguyen/re-cordis/actions/runs/42201029103) | 33/100 | Timeout/output-limit test, line 135 | `Text file busy (os error 26)` |
+| [PR 42201037491](https://github.com/antruongnguyen/re-cordis/actions/runs/42201037491) | 92/100 | Snapshot/last-good test, line 101 | `Os { code: 26, kind: ExecutableFileBusy, message: "Text file busy" }` |
+
+The controller retained the full logs as `collector-diagnostic-failure.log`
+and `collector-diagnostic-pr-failure.log` under
+`target/public-delivery-20261106` in the integration checkout.
+The PR reproducer failed at the earlier 100-item collection call in the same
+test; it did not recover the hidden error from the original line 112 failure.
+
+## Cause and correction
+
+Each test writes its own shell executable in place. Temporary directories are
+unique, but parallel process creation can fork while another test holds its
+script open for writing. The child inherits that writable descriptor until
+exec closes it; Linux rejects executing the script during that interval with
+`ETXTBSY`. The hosted errors identify fixture execution rather than JSON/item
+validation as the failure boundary.
+
+One test-local Tokio mutex now covers the full lifetime of each of the three
+fixture-owning tests. This prevents executable writes and subprocess creation
+in separate tests from overlapping, without blocking a runtime worker thread.
+The lifecycle test acquires the mutex before its existing ten-second timeout.
+Its FIFO barriers, in-flight updates and shutdown concurrency remain intact.
+All assertions, child reaping, timeout and byte/item limits remain unchanged.
+The useful actual-error diagnostic stays; the temporary CI sample is removed.
+The final Rust workflow is identical to the workflow before the diagnostic.
 
 ## Local verification and limits
 
-On macOS aarch64, `rustup run 1.85.0 cargo test -p re-cordis-core --test github_collect`
-and the same command with `stable` passed all three tests.
-`rustup run stable cargo fmt --all --check` and `git diff --check` passed.
-The workflow parsed with Ruby YAML; its extracted diagnostic passed `bash -n`,
-and its MSRV condition and 100-invocation bound were checked.
-The available Podman Linux VM could not start: its `vfkit` helper exited with
-code 2. Repairing that unrelated host installation is outside this slice.
-A macOS pass cannot establish the cause or correction of the Ubuntu failure.
+On macOS aarch64:
 
-## Bounded hosted next step
+- `rustup run 1.85.0 cargo test -p re-cordis-core --test github_collect --locked`: 3 passed.
+- The same focused command with `stable`: 3 passed.
+- `rustup run stable cargo clippy -p re-cordis-core --test github_collect --locked -- -D warnings`: passed.
+- `rustup run stable cargo fmt --all --check` and `git diff --check`: passed.
+- `python3 -B tests/docs/test_check.py`: 9 regressions passed, including the
+  current documentation structure and local-link checks.
 
-The temporary, clearly labeled MSRV-only step in `.github/workflows/ci.yml`
-runs the full collector integration binary up to 100 times with normal parallel
-test execution, prints each attempt, and stops immediately on the first failure.
-It runs after the existing workspace test even if that test fails; all existing
-CI gates are preserved. The controller will push this diagnostic candidate and
-retain the actual Ubuntu error before choosing a correction. Remove this step
-in the subsequent correction commit. This is evidence collection; a later pass
-does not clear the original failed run or establish a fix. Do not merge until
-the returned error supports a concrete correction and fresh CI verifies it.
-If all 100 invocations pass, retain the unresolved status and use a bounded
-process/file-descriptor trace rather than accepting additional errors or
-introducing timing workarounds.
+Production collector/framework code, APIs, dependencies, version/publication
+settings and release/Pages gates are unchanged. This host's available Podman VM
+could not start because `vfkit` exited with code 2; repairing it is outside this
+slice. Local passes do not prove absence of the Linux race. The controller must
+run fresh complete hosted CI and obtain the scoped independent review before
+merging the correction.

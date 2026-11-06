@@ -36,20 +36,5 @@ jobs:
         run: cargo check --workspace --all-targets --locked
       - name: Test workspace and documentation
         run: cargo test --workspace --locked
-      # Temporary D1 diagnostic; remove after the collector cause is established.
-      - name: Diagnose collector failure (bounded MSRV sample)
-        if: always() && matrix.toolchain == '1.85.0'
-        run: |
-          test_binary=$(cargo test -p re-cordis-core --test github_collect --locked --no-run --message-format=json |
-            python3 -c 'import json, sys
-          for line in sys.stdin:
-              message = json.loads(line)
-              if message.get("executable"):
-                  print(message["executable"])')
-          test -x "$test_binary"
-          for attempt in {1..100}; do
-            printf 'Collector diagnostic attempt %s/100\n' "$attempt"
-            "$test_binary" || exit "$?"
-          done
       - name: Preserve M0 evidence
         run: cargo test --manifest-path spikes/m0/Cargo.toml --locked
