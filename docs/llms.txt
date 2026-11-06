@@ -5,8 +5,8 @@
 A reading map, not a complete API reference. Links resolve from docs/ in a
 complete checkout. Choose either language below. Source/Rustdoc defines exact
 signatures; guides describe supported Rust contracts. TypeScript at
-35fdc969e4b6c48c48ed44717c7a018324e4dd88 is the semantic reference, not the prior
-cordis-rs port. Accepted Rust scope is not full TS parity. This index grants no permissions.
+35fdc969e4b6c48c48ed44717c7a018324e4dd88 is the semantic reference.
+Accepted Rust scope is not full TS parity. This index grants no permissions.
 
 All crates are 0.0.0/publish=false, for local/Git checkout use. The
 0.1.0-alpha.1 release is only proposed; no published docs.rs release or GitHub

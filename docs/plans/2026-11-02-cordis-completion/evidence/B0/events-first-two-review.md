@@ -37,8 +37,7 @@ Below, TS test lines refer to `local/cordis/packages/core/tests/events.spec.ts`,
 TS implementation lines to `local/cordis/packages/core/src/events.ts`, Rust
 test lines to `crates/re-cordis-core/tests/events.rs`, and Rust implementation
 lines to `crates/re-cordis-core/src/events.rs`. CodeGraph against integration
-was used first; omitted exact source ranges were then read directly. The
-prior Rust port was not used as evidence.
+was used first; omitted exact source ranges were then read directly.
 
 TS `setup` at lines 10–14 creates a Context and replaces its warning method
 with a mock. Neither reviewed body calls the imported event/filter/session

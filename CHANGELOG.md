@@ -9,6 +9,9 @@ This project does not yet follow semantic versioning — the API is unstable.
 
 ### Changed
 
+- Refocused the root README on project purpose, packages, getting started and
+  supported contracts; removed third-party Rust-project comparisons and
+  reference-only commentary from documentation and agent guidance.
 - Expanded the documentation layout to a full-width frame with a desktop header,
   fixed sidebar and right-hand table of contents, following shadcn/AI SDK layouts.
 - GitHub Actions now use major-version tags instead of commit SHA pins;
@@ -156,11 +159,6 @@ This project does not yet follow semantic versioning — the API is unstable.
   source-case inventories, per-slice API/dependency gates, measurable acceptance,
   paired language documentation, and later group/include/HMR/create assessment.
   No satellite implementation or production-core change is included.
-- README matrices compare benefits/tradeoffs and delivered core concepts against
-  pinned TypeScript Cordis and independent cordis-rs, distinguishing explicit
-  Rust adapters, intentional redesigns, deferred satellites and evidence limits.
-  Row-specific star ratings and a quick-choice summary clarify fit without
-  implying benchmark results or an overall winner.
 - Parallel English/Vietnamese user guides and API reference under `docs/en`
   and `docs/vi`, with local dependency setup, executable examples, lifecycle/
   resource contracts, troubleshooting, and a shared glossary.
@@ -261,7 +259,7 @@ This project does not yet follow semantic versioning — the API is unstable.
   validation; executable on Rust 1.85.0 and current stable.
 - M0 results, explicit API restrictions, and a complete pinned core case checklist.
 - Source-backed core implementation plan in `docs/implementation-plan.md`,
-  with pinned TypeScript/prior Rust references, independent agent reviews,
+  with a pinned TypeScript specification, independent agent reviews,
   design gates, staged delivery, and behavioral acceptance criteria; aligned
   roadmap and known limitations.
 - Rust edition 2024 baseline for the planned Cargo workspace.

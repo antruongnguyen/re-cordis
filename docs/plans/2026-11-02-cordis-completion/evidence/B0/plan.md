@@ -28,8 +28,8 @@ and the existing Corepack/Yarn/Yakumo/Vitest runner.
   status corrections; demonstrated production defects get a separate task.
 - No live GitHub, credentials, push, publication or public ingress. Preserve
   the existing fake-process and signed-loopback integration tests.
-- Use CodeGraph first for indexed source. Qualify paths to avoid accidentally
-  citing local/cordis-rs tests as specification or production evidence.
+- Use CodeGraph first for indexed source. Qualify paths to distinguish
+  TypeScript specifications from this project's Rust tests.
 - Planning inspected source and inventories only; no baseline tests ran here.
 
 Planning observations on 2026-11-02:

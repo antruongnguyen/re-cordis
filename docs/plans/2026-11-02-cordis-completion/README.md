@@ -26,7 +26,6 @@ The scope is the repository at Rust revision `808c9f5` and TypeScript revision
 `35fdc969e4b6c48c48ed44717c7a018324e4dd88`. The latter was verified locally
 with no tracked changes on the planning date. Keep the pin fixed throughout
 this program; upgrading upstream requires a separate delta inventory.
-The independent Rust port remains engineering evidence, not a specification.
 
 ## Reading order
 

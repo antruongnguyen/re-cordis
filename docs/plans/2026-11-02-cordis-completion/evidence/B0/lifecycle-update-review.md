@@ -199,8 +199,7 @@ Used CodeGraph MCP first against integration, then qualified codegraph node
 file/range queries for trimmed sections. Inspected the assigned pinned TS
 specs/utils, current plugins/updates/acceptance/hooks tests, relevant parity
 helpers and TS fixture, and carried maps/decisions. Additional candidate reads
-included foundations and the initialized-service baseline test. The independent
-Rust port was not used as specification or production evidence.
+included foundations and the initialized-service baseline test.
 
 Independent standard-library checks executed in this review session:
 

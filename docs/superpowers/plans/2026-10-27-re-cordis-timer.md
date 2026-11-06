@@ -867,8 +867,8 @@ Check off the re-cordis-timer boxes under "1. re-cordis-timer" that are now done
 - [ ] **Step 5: Update `docs/decision.md` with the four locked decisions AND their rationale**
 
 Record, each with the *why* (per the user's explicit request to capture explanations, not just choices):
-1. interval(delay) → Stream + callback form. Why: Stream is the idiomatic Rust async-sequence type and matches what the independent cordis-rs port shipped; the JS async-iterator return-to-all/throw-to-all protocol is an iterator-protocol artifact better served by owner disposal + the callback form. Dropped cases documented in limitation.md.
-2. Ergonomics → sealed `TimerExt` trait on `Context`. Why: closest to the TS `ctx.timeout()` mixin intent and the one existing Rust precedent (cordis-rs sealed TimerExt); sealed so it is not an open extension point; each method returns `Result` for the not-installed case. (Revised from an initial explicit-handle lean after reviewing cordis-rs.)
+1. interval(delay) → Stream + callback form. Why: Stream is the idiomatic Rust async-sequence type; the JS async-iterator return-to-all/throw-to-all protocol is an iterator-protocol artifact better served by owner disposal + the callback form. Dropped cases documented in limitation.md.
+2. Ergonomics → sealed `TimerExt` trait on `Context`. Why: expresses the TS `ctx.timeout()` mixin intent through methods on `Context`; sealed so it is not an open extension point; each method returns `Result` for the not-installed case.
 3. Deprecated setTimeout/setInterval aliases → omitted. Why: deprecated upstream; porting deprecated surface adds no value. Documented in limitation.md.
 4. Clock → monotonic `tokio::time` with deterministic pause/advance tests. Why: it is the clock the LocalSet host drives; monotonic is more correct than wall-clock Date.now() for throttle/debounce windows; enables deterministic tests with no wall-clock sleeps.
 

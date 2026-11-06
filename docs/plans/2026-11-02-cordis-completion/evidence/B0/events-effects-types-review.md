@@ -18,7 +18,7 @@ demonstrated production defects or permission to enter B2.
   and the [report at B0 root](report-events-effects-types.md).
 - Specification: integration `local/cordis` at
   `35fdc969e4b6c48c48ed44717c7a018324e4dd88`. The parent verified its clean pin;
-  the review read that checkout. The independent Rust port was not evidence.
+  the review read that checkout.
 - Read the [resume instructions](../../progress.md#resume-next),
   [reuse rule](../../README.md#prior-decisions-and-evidence-reuse), historical
   [decisions](../../../../decision.md), [limitations](../../../../limitation.md),

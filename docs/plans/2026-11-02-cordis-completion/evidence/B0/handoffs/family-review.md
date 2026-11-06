@@ -17,8 +17,7 @@ execution joins, not a fresh design audit of the delivered core.
 Independently compare every assigned TS declaration and meaningful helper/
 branch with the proposed obligations and cited current Rust assertions.
 Use CodeGraph first against integration, with exact TS paths under local/cordis
-at the fixed pin. Do not use local/cordis-rs as specification or production
-evidence. Reuse the M2–M6 maps and documented representations; examine only
+at the fixed pin. Reuse the M2–M6 maps and documented representations; examine only
 missing/contradictory joins. Check both mapped behavior and claimed missing
 evidence; a gap must explain the uncovered boundary against the relevant
 candidate assertions, not merely lack a similarly named test.

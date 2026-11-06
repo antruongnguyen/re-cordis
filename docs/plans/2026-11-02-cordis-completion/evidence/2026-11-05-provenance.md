@@ -32,8 +32,6 @@ is recorded separately.
 | Input | Exact Git revision | Git tree |
 |---|---|---|
 | TypeScript behavioral specification, `local/cordis`, origin `https://github.com/cordiverse/cordis.git` | `35fdc969e4b6c48c48ed44717c7a018324e4dd88` | `d6c2f0d9fba954a58692f8b8236ce375f8e7752a` |
-| Independent Rust engineering reference, current `local/cordis-rs`, origin `https://github.com/dshbox/cordis-rs.git` | `cd540033487f62c1b574bffd39befb717afb8a35` | `3ac11e813065a8cca1ebe91774717d864782f17a` |
-| Independent Rust reference deliberately cited by the README | `1754062cef67cfc119fc7a2084c0321a231b9092` | `c387c6a4ad065357f3f6c04b654ef99309422e88` |
 
 License/source hashes below are SHA-256 of exact file bytes:
 
@@ -41,7 +39,6 @@ License/source hashes below are SHA-256 of exact file bytes:
 |---|---|---|
 | Root LICENSE and all seven package LICENSE copies | `Copyright (c) 2026 re-cordis contributors` | `d74d38d5593aca56b840d0010cfe6728e7bb5e7f915bc6e3edf481747e5ee5ef` |
 | TypeScript LICENSE | `Copyright (c) 2021-present Shigma` | `034fb52b1d57360ecbae6cb1632a88f86fd7c3d3f5631a5f082710203dda0be7` |
-| Rust-reference LICENSE at both inspected revisions | `Copyright (c) 2026 dshbox contributors`, `Copyright (c) 2024 Shigma` | `147f195ba4597d581df6cfa630e61a3878eac4055357991a5681da8c640c1777` |
 | Installed cosmokit `package.json` | Declares version `1.8.1`, MIT, repository `https://github.com/shigma/cosmokit` | `0a0c4b1ad727fef5ff734b2f824d6476660a0c48ad9fa91a8d5b717b0b85024d` |
 | Installed cosmokit `src/string.ts` | Local bytes used for tokenizer comparison | `ec9fce9f28bc9892736803b3080418ebc9b0724d409de04f086f1bfebe2bd9ec` |
 | Installed cosmokit LICENSE | Exact same bytes as TypeScript LICENSE | `034fb52b1d57360ecbae6cb1632a88f86fd7c3d3f5631a5f082710203dda0be7` |
@@ -155,8 +152,8 @@ execution, which this source review does not rerun or replace.
 
 The saved stdlib script reads baseline Git objects and compares three
 consecutive nonblank, indentation-stripped lines with at least 180 total
-characters across 439 repository text files and 150 pinned TypeScript files,
-plus 385 files at each Rust-reference revision. Its matches beyond the
+characters. The repository/TypeScript inputs comprise 439 repository text
+files and 150 pinned TypeScript files. Its matches beyond the
 manually examined candidates consist of standard MIT wording. This is a
 literal candidate finder: changed syntax, short snippets, translated prose
 and algorithmic derivation can evade it, as the manually identified palette
@@ -172,13 +169,6 @@ The inspected GitHub JSON fixtures are explicitly synthetic in their source
 documentation. No tracked vendor directory, raster/vector media, binary
 library or archive was found by the suffix/path inventory. This says nothing
 about third-party files in ignored build/cache directories.
-
-No concrete additional copied/substantially derived portion from the
-independent Rust port was identified in these inspected candidates/history.
-Shared Rust syntax, framework vocabulary, concepts and common license text
-alone do not justify adding invented dshbox attribution. If later work
-identifies specific prior-port material, preserve the applicable notice from
-that revision, including both of its recorded copyright lines.
 
 ## CI observation and distribution-specific gates
 

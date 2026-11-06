@@ -97,18 +97,14 @@ package remains research evidence; run it with its own `--manifest-path`.
 ## Source of truth
 
 The **TypeScript `cordis`** project is the reference for Cordis concepts and
-intended behavior. When interpreting upstream behavior, its implementation
-wins over the prior Rust port. Rust API and execution choices follow the
+intended behavior. Its implementation defines upstream semantics.
+Rust API and execution choices follow the
 documented Rust contracts and deliberate adaptations in `docs/decision.md`.
 
-Two reference checkouts live under `local/` (git-ignored, cloned locally):
+The reference checkout lives under `local/` (git-ignored, cloned locally):
 
 - `local/cordis` — the original TypeScript Cordis. **This is the spec.**
   Core concepts live in `local/cordis/packages/core/src/`.
-- `local/cordis-rs` — an independent prior Rust port
-  ([dshbox/cordis-rs](https://github.com/dshbox/cordis-rs)). **Reference only.**
-  Useful for seeing how others solved a problem in Rust; it is not a target and
-  may diverge from upstream. Do not treat its decisions as authoritative.
 
 We mirror the *semantics* of TS Cordis, not its mechanisms. The original relies
 on JavaScript-only features (Proxy-based reflection, prototype-chain

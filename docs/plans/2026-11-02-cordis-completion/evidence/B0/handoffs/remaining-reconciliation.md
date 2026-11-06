@@ -14,7 +14,7 @@ in docs/m2.md through docs/m6.md and docs/m0-cases.md as the starting evidence.
 Read only the relevant pinned TS and Rust bodies/helpers needed to attach
 exact missing provenance or resolve contradictions. The TS checkout under
 integration local/cordis at 35fdc969e4b6c48c48ed44717c7a018324e4dd88 is the
-specification; local/cordis-rs is not. Use CodeGraph first for indexed code,
+specification. Use CodeGraph first for indexed code,
 with projectPath naming integration. Do not index or modify upstream.
 
 Carried evidence: accepted matrix at 7d1552a, report re-review b87c1b9,

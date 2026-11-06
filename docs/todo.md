@@ -104,8 +104,8 @@ activation/deployment and registry/docs.rs publication remain separate owner
 and release gates. This does not reopen the 35 accepted work packages.
 
 - [x] Initialize documentation (`AGENTS.md`, `README.md`, `docs/*`).
-- [x] Review and pin both references, including independent read-only agent
-  reviews; write and source-check the initial core implementation plan.
+- [x] Review and pin the TypeScript specification, including independent
+  read-only agent reviews; write and source-check the initial core implementation plan.
 - [x] Select Rust edition 2024 as the initial baseline (no older edition).
 - [x] M0: Inventory all pinned core test declarations and exercise lifecycle,
   typed access/tracing, and event/config API candidates in `spikes/m0`.
@@ -169,9 +169,6 @@ and the [user guide](en/guides/create.md).
 
 The TypeScript specification remains pinned to
 `35fdc969e4b6c48c48ed44717c7a018324e4dd88` in `local/cordis`.
-The independent `local/cordis-rs` at
-`1754062cef67cfc119fc7a2084c0321a231b9092` is an engineering reference only;
-its redesigned timer/loader contracts and older TS parity pin are not our spec.
 
 | Target | Actual prerequisites | Initial focus | Exit evidence |
 |---|---|---|---|
@@ -197,8 +194,7 @@ deviations are in [decision.md](decision.md#timer-satellite) and
 - [x] Review `packages/timer/src/index.ts` and `packages/timer/tests/index.spec.ts`
   at the TS pin. Inventory callback timeout/interval, awaited timeout, interval
   iterator next/return/throw/disposal, throttle, debounce and deprecated aliases.
-  Map every source case to a Rust equivalent or an explicit limitation; do not
-  silently replace the TS API with the independent port's sleep/timeout design.
+  Map every source case to a Rust equivalent or an explicit limitation.
 - [x] Show a concise context map, proposed public Rust API, ownership/cancellation
   rules, dependencies/features, exclusions and measurable exit criteria.
   Review the bounded scope before implementation; do not scaffold other crates.
@@ -314,7 +310,7 @@ execution and wider platform acceptance remain separately deferred proposals.
   `tests/docs/check.py` for each delivered crate's exports/snippet dependencies;
   its current automated export coverage includes core, timer, logger, loader,
   include, HMR and Create; Create also generates/tests/runs an external application.
-- [ ] Keep `README.md` status/layout/star matrices, `CHANGELOG.md`,
+- [ ] Keep `README.md` overview/package map, `CHANGELOG.md`,
   `docs/todo.md`, `docs/decision.md`, `docs/limitation.md` and `AGENTS.md` accurate.
   Preserve old milestone evidence as historical, not claims of new delivery.
 - [ ] Run documentation regressions and both toolchain documentation checks.
@@ -377,8 +373,8 @@ These consumers are not a generic harness or a new satellite/M7 commitment.
   examples with explicitly selected Rust 1.85.0 and stable.
 - [x] Rereview both language sets against public source; correct config-stage,
   initialization/injection and snapshot/filter wording; add checker regressions.
-- [x] Add source-pinned README comparison matrices with row-specific star ratings
-  and explicit limits; no unmeasured performance or universal-winner claim.
+- [x] Present a concise README with the project purpose, package map, runnable
+  example, current availability and supported Rust contracts.
 
 See [the documentation map](README.md). These pages document the existing
 unpublished core, timer, logger, loader/group, Include, HMR and selected offline

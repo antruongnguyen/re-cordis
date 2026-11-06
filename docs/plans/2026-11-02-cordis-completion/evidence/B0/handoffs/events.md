@@ -2,7 +2,7 @@
 
 Repository: /Users/I756434/Projects/private/cordis-rust, branch feat/cordis-completion. Package B0, task 2, bounded recovery of the events family. Role: source evidence execution using gpt-6.1-sol/high. No agents, commits, production edits or progress.md edits.
 
-Read AGENTS.md, docs/plans/2026-11-02-cordis-completion/{README,core,acceptance,progress}.md and evidence/B0/plan.md. The task is authorized locally. CodeGraph exists: use it first for indexed code; use exact paths, TS specification is local/cordis at clean 35fdc969e4b6c48c48ed44717c7a018324e4dd88, prior Rust port is not a specification. Do not modify upstream.
+Read AGENTS.md, docs/plans/2026-11-02-cordis-completion/{README,core,acceptance,progress}.md and evidence/B0/plan.md. The task is authorized locally. CodeGraph exists: use it first for indexed code; use exact paths, TS specification is local/cordis at clean 35fdc969e4b6c48c48ed44717c7a018324e4dd88. Do not modify upstream.
 
 Consume the exact case schema in evidence/B0/ledger/cases.json and current Rust results in evidence/B0/matrix/results.json plus both workspace-test logs. Source/read ownership: ONLY the 19 declarations in packages/core/tests/events.spec.ts, relevant implementation and Rust assertions. No event-types mapping this turn; another bounded task will own it.
 

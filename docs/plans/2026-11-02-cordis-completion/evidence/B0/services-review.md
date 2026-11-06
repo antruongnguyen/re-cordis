@@ -226,7 +226,6 @@ requires a failing public-API reproducer and an actual dependent gate.
 CodeGraph exploration and `codegraph node` against the integration checkout
 provided the complete assigned TS bodies/helpers and cited Rust bodies/guards.
 The exact-path node route was used where broad exploration omitted test bodies.
-No source from the independent Rust port was used as evidence.
 
 The following standard-library command was run from the review worktree. It
 checks the submitted data and execution joins only; the semantic findings above

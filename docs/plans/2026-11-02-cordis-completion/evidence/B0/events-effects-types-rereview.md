@@ -20,7 +20,7 @@ this verdict neither closes those gaps nor accepts the final B0 ledger.
 - Specification: integration's clean `local/cordis` checkout at
   `35fdc969e4b6c48c48ed44717c7a018324e4dd88`. CodeGraph was used against
   integration source first; omitted relevant assertion ranges were read
-  directly. The prior Rust port supplied no evidence.
+  directly.
 
 Read repository instructions, the master's
 [reuse rule](../../README.md#prior-decisions-and-evidence-reuse),

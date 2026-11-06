@@ -14,8 +14,8 @@ core/events.spec.ts:18 and :35, not a redesign of typed event semantics.
 
 Check exact pinned TS bodies/helpers, current Rust assertions and any relevant
 dispatch/registration implementation necessary to establish the mappings.
-Use CodeGraph against integration; local/cordis is the specification, not the
-prior Rust port. Inspect the disclosed split across named/symbol Rust branches
+Use CodeGraph against integration; local/cordis is the specification.
+Inspect the disclosed split across named/symbol Rust branches
 and the once/reentry evidence, actual both-toolchain test/log joins, classes,
 existing representation rationale, original identity/variant/obligation
 preservation and report validation. The implementer reports 2 declarations,

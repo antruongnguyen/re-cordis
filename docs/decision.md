@@ -4,6 +4,22 @@ A lightweight log of decisions made for this project and the reasoning behind
 them. Newest first. This is intentionally not a heavy ADR process; it records
 *what we chose and why* so the choices aren't re-litigated silently.
 
+## 2026-11-06 — Focus documentation on this project's contracts
+
+The project documentation uses pinned TypeScript Cordis as the behavioral
+specification and this repository's Rust contracts as the implementation guide.
+Remove third-party Rust-project comparisons, ratings and reference-only
+commentary from current documentation, historical planning prose and agent
+instructions. Exclude unused reference inputs from CodeGraph's configuration.
+
+The root README presents purpose, package capabilities, a runnable example,
+availability, supported contracts and contributor links. Detailed acceptance
+and delivery records belong in the engineering documentation.
+
+This is a documentation correction requested by the maintainer. Earlier
+wording remains in Git history; accepted test data/results, Rust behavior and
+the applicable Cordis/cosmokit MIT notices remain unchanged.
+
 ## 2026-11-05 — Separate reader documentation from internal records
 
 The user selected a full-width layout following shadcn/AI SDK documentation.
@@ -235,11 +251,10 @@ with explicit Rust registration/configuration contracts, not assumed native
 hot reload. Logger/timer are not automatic loader dependencies.
 
 Each delivered satellite updates both language trees, the AI-agent index,
-README status/comparison ratings and its executable documentation checks.
+README package/status information and its executable documentation checks.
 Existing local/non-Send hosting, parent ownership, exact provider retention,
 explicit recovery and cancellation boundaries remain unless a demonstrated
-requirement justifies a separately reviewed change. Do not adopt independent
-cordis-rs redesigns as TypeScript parity.
+requirement justifies a separately reviewed change.
 
 **Why:** Core delivery and the first consumers are complete; the next framework
 work should progress through bounded satellites rather than more application
@@ -511,8 +526,8 @@ and recovery remain M5. Self/owning-ancestor lifecycle waits are refused from
 attributed callbacks instead of deadlocking their subtree.
 
 **Why:** This preserves the TS parent/resource ownership, validation timing,
-and observable failure semantics without JavaScript callable-object discovery
-or the prior port's parent-unowned spawn model. Callback definitions are
+and observable failure semantics without JavaScript callable-object discovery.
+Callback definitions are
 immutable, so the TS first-spawn metadata snapshot has no mutable counterpart.
 Runtime host lifetime remains explicit; Drop is not successful async teardown.
 See [M3 contracts and evidence](m3.md).
@@ -660,21 +675,19 @@ an older edition does not satisfy the project requirement.
 **Why:** This is a new implementation with no legacy-edition compatibility
 obligation. Edition 2024 requires Rust 1.85 or later, but the exact supported
 compiler minimum will be selected and tested when dependencies and language
-features are chosen. The prior port's Rust 1.88 minimum is not ours by default.
+features are chosen.
 
-## 2026-10-22 — Plan from pinned behavior, not the prior port's architecture
+## 2026-10-22 — Plan from pinned TypeScript behavior
 
 The initial [implementation plan](implementation-plan.md) reviews TypeScript
-Cordis at `35fdc969e4b6c48c48ed44717c7a018324e4dd88` and the independent Rust
-port at `1754062cef67cfc119fc7a2084c0321a231b9092`. Preserve the TS behavior
+Cordis at `35fdc969e4b6c48c48ed44717c7a018324e4dd88`. Preserve the TS behavior
 of parent-owned children, reusable-root disposal, exact binding retention,
 concurrent top-level cleanup, and the five dispatch modes. Runtime ownership,
 typed tracing, and callback/config API choices require design spikes before
 their public contracts are fixed.
 
-**Why:** The prior port intentionally diverges in these areas and its parity
-ledger uses an older TS revision. Its implementation is useful evidence for
-Rust engineering, not authority to silently narrow this project's semantics.
+**Why:** Pinning the behavioral source makes each Rust adaptation and its
+verification criteria explicit.
 
 ## 2026-10-22 — TypeScript `cordis` is the source of truth
 
@@ -682,19 +695,8 @@ The original [cordiverse/cordis](https://github.com/cordiverse/cordis)
 (TypeScript) is the specification. When references disagree or behavior is
 ambiguous, the TS implementation wins.
 
-**Why:** The goal is a faithful reimplementation of the original framework, not
-a variation on an existing Rust port.
-
-## 2026-10-22 — `dshbox/cordis-rs` is reference-only
-
-The existing Rust port [dshbox/cordis-rs](https://github.com/dshbox/cordis-rs)
-is kept locally for comparison and inspiration but is not a target. Its API
-shape and architectural decisions are not authoritative and may be diverged
-from freely.
-
-**Why:** It is an independent effort whose distance from the upstream semantics
-is unknown; adopting its decisions wholesale would undermine the goal of
-verifying the port against the original.
+**Why:** The goal is to re-express the original framework's semantics through
+idiomatic Rust contracts.
 
 ## 2026-10-22 — Mirror semantics, not mechanisms
 
@@ -835,7 +837,7 @@ source identities, normalization and core palettes. They are not reopened.
 
 L0–L5/G0–G1 deliver `re-cordis-loader` as an unpublished Rust 2024/MSRV 1.85
 crate. The semantic reference is pinned TypeScript
-`35fdc969e4b6c48c48ed44717c7a018324e4dd88`, not the prior Rust port.
+`35fdc969e4b6c48c48ed44717c7a018324e4dd88`.
 A private checked adapter retains each original `Plugin<C,R>` and its core
 allocation identity. Native C needs Clone for replay, not Serialize/Send.
 Core `hooks::Value` is reused as Config; decoder contract checks stay separate

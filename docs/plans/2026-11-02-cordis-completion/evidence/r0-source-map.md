@@ -19,8 +19,8 @@ and shared-matrix results are recorded separately in the R0 acceptance report.
 The [idiomatic Rust decision](../../../decision.md#2026-11-03--deliver-cordis-features-through-idiomatic-rust-contracts),
 [difference classification](../../../limitation.md#how-to-classify-rust-differences)
 and [prior-evidence reuse rule](../README.md#prior-decisions-and-evidence-reuse)
-apply. TypeScript supplies intended semantics; the prior Rust port is not the
-specification. Counts below keep their original units and cannot be summed into
+apply. TypeScript supplies intended semantics.
+Counts below keep their original units and cannot be summed into
 a completion percentage or number of equivalent upstream tests.
 
 | Prerequisite | Accepted disposition/evidence carried into R0 | Boundary |

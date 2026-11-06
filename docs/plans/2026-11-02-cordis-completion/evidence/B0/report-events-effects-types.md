@@ -18,8 +18,7 @@ and [implementation plan](../../../../implementation-plan.md).
 
 The specification is integration’s clean TypeScript checkout at
 `35fdc969e4b6c48c48ed44717c7a018324e4dd88`. CodeGraph was queried first for
-affected Rust and TS files; omitted assertion ranges were read directly. The
-independent Rust port supplied no evidence.
+affected Rust and TS files; omitted assertion ranges were read directly.
 
 Typed event keys/ControlFlow, explicit sync/async callback shapes, eager factory
 prefixes, owned one-use Next/AsyncNext, effect ownership, local hosting and

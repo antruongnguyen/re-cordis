@@ -10,24 +10,19 @@ may be adopted deliberately later; an older edition is out of scope.
 
 ## 1. Evidence and scope
 
-Source review date: 2026-10-22. Pin acceptance criteria to these revisions so
+Source review date: 2026-10-22. Pin acceptance criteria to this revision so
 later upstream changes cannot silently redefine the target.
 
 | Reference | Reviewed revision | Role |
 |---|---|---|
 | [cordiverse/cordis](https://github.com/cordiverse/cordis/tree/35fdc969e4b6c48c48ed44717c7a018324e4dd88) | `35fdc969e4b6c48c48ed44717c7a018324e4dd88` (`cordis` package `4.0.0-rc.12`) | Behavioral specification |
-| [dshbox/cordis-rs](https://github.com/dshbox/cordis-rs/tree/1754062cef67cfc119fc7a2084c0321a231b9092) | `1754062cef67cfc119fc7a2084c0321a231b9092` | Rust engineering reference, not a compatibility target |
 
-`TS:` paths below are relative to `local/cordis/`; `RS:` paths are relative
-to `local/cordis-rs/`. These ignored checkouts are research inputs, not future
-build dependencies. Use the revision links above when they are unavailable.
-The prior port's parity ledger targets an older TS revision,
-`8cc9e33fab69e2d0476d126baaf2acb24e6a6ab4`; recheck its conclusions against
-our newer pin rather than treating its parity classifications as current.
+`TS:` paths below are relative to `local/cordis/`. This ignored checkout is a
+research input, not a build dependency. Use the revision link above when it
+is unavailable.
 
-Two independent, read-only child agents reviewed the references separately.
-Their recommendations were reconciled against the pinned implementations;
-neither an agent report nor the prior port overrides the TS source.
+Review recommendations are reconciled against the pinned TypeScript
+implementation; agent reports do not override the behavioral source.
 
 Core scope is Context, reflection/service resolution, Registry, Fiber,
 effects, events, and core logging together. Satellite crates, native dynamic
@@ -155,8 +150,7 @@ also need explicit Rust mappings.
 `EventsService._resolve` admits each listener when it is global, no filter
 was supplied, or the filter accepts its registration context. All five modes,
 including waterfall, use the resulting callback snapshot. Disposing an
-already-selected callback does not remove it from that in-flight dispatch;
-do not import the prior port's per-invocation occurrence-claim behavior.
+already-selected callback does not remove it from that in-flight dispatch.
 
 Logging belongs in core, not only a later console adapter. Preserve contextual
 and service-derived names, intercept overrides, exporter lifetimes, per-exporter
@@ -168,33 +162,6 @@ At logger acquisition, name precedence is explicit argument, intercept name,
 then the hyphenated nearest named Fiber (falling back to root). The returned
 Logger retains that name; convenience methods acquire a logger on each call.
 Keep weak Fiber attribution from retaining an otherwise released lifecycle.
-
-### Lessons from the prior Rust port
-
-Read `RS:crates/re-cordis-core/src/context.rs`, `service.rs`, `plugin.rs`,
-`effect.rs`, `fiber/mod.rs`, `events/dispatch.rs`, and `logger.rs` under that
-same `src/` directory. Relevant tests include
-`RS:crates/re-cordis-core/tests/service_v3.rs`,
-`RS:crates/re-cordis-core/tests/lifecycle_v3.rs`,
-`RS:crates/re-cordis-core/tests/event_dispatch.rs`,
-`RS:crates/re-cordis-core/tests/realms.rs`, and its `ui-*` directories.
-
-Evaluate cheap Context handles, checked type erasure, exact registration tokens,
-snapshot-before-callback dispatch, and avoiding user code under storage locks.
-Its Tokio/futures/parking_lot/thiserror/trybuild/loom choices are not an
-automatic dependency list for this project.
-
-| Prior-port choice | Our disposition |
-|---|---|
-| Edition 2024, MSRV 1.88, resolver 3 (`RS:Cargo.toml`) | Adopt edition 2024/resolver 3; choose our own tested MSRV. |
-| Orthogonal event Scope ancestry; no general Context ancestry | Do not inherit: TS access checks and filters need different relations. |
-| Spawn does not own children; no root disposal | Preserve TS parent effects and reusable-root disposal. |
-| Sequential generation cleanup (`RS:crates/re-cordis-core/src/effect.rs`) | Preserve concurrent top-level and sequential composed cleanup. |
-| Prepared config before admission (`RS:crates/re-cordis-core/src/plugin.rs`) | Use typed validation without changing TS timing/failure visibility. |
-| Async `emit`, `emit_parallel`/`query` surface | Retain five TS modes and distinguish sync/async behavior. |
-| Reclaim listener occurrences before each invocation (`RS:crates/re-cordis-core/src/events/dispatch.rs`) | Retain TS callback-snapshot behavior, including waterfall. |
-| Opt-in buffer exporter (`RS:crates/re-cordis-core/src/logger.rs`) | Keep the default TS core buffer. |
-| Era replacement, observation protocols, completion runtime | No initial requirement; add only for a demonstrated problem. |
 
 ## 3. Proposed Rust shape and design gates
 
@@ -208,8 +175,7 @@ Start with a virtual workspace containing only `crates/re-cordis-core`. Set
 `[workspace] resolver = "3"`. Edition 2024 requires Rust 1.85 or later; that
 was not an MSRV promise during planning. M1 now declares and tests Rust 1.85
 with its actual dependencies and runs CI against 1.85.0 and stable. Future
-changes to that minimum must be deliberate; do not copy the prior port's 1.88
-minimum by default. See the
+changes to that minimum must be deliberate. See the
 [edition guide](https://doc.rust-lang.org/edition-guide/rust-2024/index.html).
 
 | Proposed module in `re-cordis-core/src/` | Responsibility |
@@ -422,8 +388,8 @@ which language features or dependencies require that minimum.
 
 Core acceptance requires runnable source-map evidence and an end-to-end
 load/reconfigure/unload example for a provider-consumer tree, with all
-representation differences and omissions documented. Passing tests copied
-from the prior port alone does not establish TS parity.
+representation differences and omissions documented. Passing Rust tests alone
+does not establish TS parity.
 
 M0's initial choices are local, non-Send execution, explicit bound calls, and
 owned continuations. M1 selects MIT licensing and a tested Rust 1.85 minimum;

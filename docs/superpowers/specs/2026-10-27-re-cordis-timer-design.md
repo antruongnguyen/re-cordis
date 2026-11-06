@@ -16,9 +16,8 @@ Port the TypeScript `cordis` **timer** satellite
 `crates/re-cordis-timer`, mirroring its **semantics** on top of existing
 `re-cordis-core` effects and lifecycle.
 
-The TypeScript project is the specification. The independent
-`local/cordis-rs` port is **reference only** — its contracts are not our spec,
-though we use it as evidence of what is workable in Rust.
+The TypeScript project is the semantic specification. Rust contracts follow
+this project's ownership model, runtime requirements and documented adaptations.
 
 ## 2. Source review (what the spec actually requires)
 
@@ -190,7 +189,7 @@ minus the excluded alias/iterator-exact ones (~15–18 tests):
 - Runnable `crates/re-cordis-timer/examples/timer_lifecycle.rs`.
 - English + Vietnamese guide/API pages; `docs/llms.txt`; extend
   `tests/docs/check.py` for the new crate's exports/snippets.
-- Update `README.md` status/layout/star matrices, `CHANGELOG.md`,
+- Update `README.md` overview/package map, `CHANGELOG.md`,
   `docs/todo.md`, `docs/decision.md`, `docs/limitation.md`, `AGENTS.md`.
 - Add only `crates/re-cordis-timer` to the workspace; keep MSRV 1.85 and
   `publish = false`.
