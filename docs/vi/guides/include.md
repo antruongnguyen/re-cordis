@@ -2,7 +2,7 @@
 
 [English](../../en/guides/include.md) | [Trang tiếng Việt](../README.md)
 
-Vệ tinh `re-cordis-include` chưa phát hành đọc JSON và YAML có giới hạn vào
+Vệ tinh `re-cordis-include` thử nghiệm đã phát hành đọc JSON và YAML có giới hạn vào
 loader có kiểu đã được nghiệm thu. Đăng ký plugin đã liên kết cùng bộ giải mã
 JSON trong `Catalog`, rồi tạo `Include::new` bên trong `Runtime::run`.
 `IncludeOptions::new(path)` chọn tệp gốc. Constructor tiếp nhận quyền sở hữu;

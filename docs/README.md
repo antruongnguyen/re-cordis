@@ -8,16 +8,17 @@
 | Tiếng Việt | [Bắt đầu đọc](vi/README.md) |
 | AI agents | [llms.txt](llms.txt) |
 
-These pages describe the current **unpublished, unstable `re-cordis-core`,
+These pages describe the current **experimental `0.1.0-alpha.1` `re-cordis-core`,
 `re-cordis-timer`, `re-cordis-logger`, `re-cordis-loader`, `re-cordis-include`,
 `re-cordis-hmr` and selected offline `re-cordis-create`** APIs.
+The seven packages are published on crates.io; current guides include updates
+after frozen release source `84fa9bdf0eb4e631fce792bf163494b0a61aeba8`.
 They are organized by user tasks, not implementation milestones. Both language
 trees have matching paths, equivalent explanations, and identical executable
 code. Each page links to its counterpart.
 
 Các trang này mô tả API **`re-cordis-core`, `re-cordis-timer`, `re-cordis-logger`, `re-cordis-loader`, `re-cordis-include`, `re-cordis-hmr` và `re-cordis-create`
-ngoại tuyến đã chọn chưa phát hành,
-chưa ổn định** hiện tại.
+ngoại tuyến đã chọn, bản thử nghiệm `0.1.0-alpha.1` đã phát hành trên crates.io** hiện tại.
 Nội dung tổ chức theo công việc của người dùng, không theo cột mốc triển khai.
 Hai cây ngôn ngữ có đường dẫn tương ứng, diễn giải tương đương và mã chạy giống
 nhau. Mỗi trang liên kết đến bản ngôn ngữ còn lại.
@@ -78,7 +79,8 @@ or `target/doc/re_cordis_loader/index.html`, `target/doc/re_cordis_include/index
 `target/doc/re_cordis_hmr/index.html`, `target/doc/re_cordis_create/index.html`,
 adjusted for `CARGO_TARGET_DIR`.
 The bilingual reference explains contracts and maps public exports; Rustdoc
-supplies exact signatures and bounds. There is no published docs.rs release.
+supplies exact signatures and bounds. The [API index](en/api/README.md#published-rustdoc)
+links verified exact-version docs.rs output for all seven published packages.
 
 ## Using the AI-agent index
 
@@ -130,12 +132,17 @@ checker's core/timer/logger/loader/include/HMR/Create export and snippet-depende
 planned targets distinct from available APIs; see [the satellite roadmap](todo.md#next-implementation-targets-satellites).
 
 Run the standard-library-only documentation checker (Python 3.9+) from the
-repository root:
+repository root (Bash):
 
 ```sh
 python3 -B tests/docs/test_check.py
-python3 tests/docs/check.py --toolchain stable
-python3 tests/docs/check.py --toolchain 1.85.0
+source .github/scripts/rust-tools.sh stable
+"$CORDIS_CARGO" fetch --locked
+python3 -B .github/scripts/restore-docs-dependencies.py
+python3 -B tests/docs/check.py --toolchain stable
+source .github/scripts/rust-tools.sh 1.85.0
+python3 -B .github/scripts/restore-docs-dependencies.py
+python3 -B tests/docs/check.py --toolchain 1.85.0
 ```
 
 It checks local file links/heading anchors, counterpart navigation, identical
@@ -151,8 +158,11 @@ offline into `target/stable` or `target/msrv`, then compiles and executes each
 unique complete Rust documentation example with warnings denied.
 The identical translated examples share that execution evidence.
 It also runs the quick start as an external Cargo application using the shown
-manifest, adjusting only the local core path. Its temporary lockfile is resolved
-offline. Temporary application/example files are removed after the check.
+registry manifest unchanged, resolves its temporary lockfile offline and runs
+with `--offline --locked`. The preparation helper restores its published core
+package and the generated apps' dependency features before the checker; that
+preparation needs registry access if dependencies are not cached. The checker
+remains offline. Temporary application/example files are removed after the check.
 Unchecked Rust attributes and unclosed triple-backtick fences are rejected in
 both languages. The regression checks cover these rejection paths and broken
 local file/heading links.

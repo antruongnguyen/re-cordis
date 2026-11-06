@@ -19,10 +19,10 @@ and resource lifetimes.
 The core and six companion crates are implemented and tested together.
 The workspace requires **Rust 1.85 or newer** and uses edition **2024**.
 
-The seven-package `0.1.0-alpha.1` candidate is being prepared and remains
-unpublished. Use a complete, pinned checkout until registry publication is
-verified. The API is experimental: intentional breaking changes require release
-notes and a new coordinated alpha version; consumers should use exact pins.
+The seven packages are published on [crates.io](https://crates.io/users/antruongnguyen)
+at **`0.1.0-alpha.1`**, with [exact-version Rustdoc](https://docs.rs/re-cordis-core/0.1.0-alpha.1/re_cordis_core/).
+Use exact version pins. The API is experimental: intentional breaking changes
+require release notes and a new coordinated alpha version.
 See [release readiness](docs/release-readiness.md) for the approved contract and
 current distribution requirements.
 
@@ -43,7 +43,10 @@ companion crates they need; HMR's Include adapter is an opt-in feature.
 
 ## Getting started
 
-From a complete checkout, run the integrated lifecycle example:
+Add `re-cordis-core = "=0.1.0-alpha.1"` to your application's dependencies and
+follow the [registry quick start](docs/en/getting-started.md) for a complete app.
+
+From a complete compatible checkout, run the integrated lifecycle example:
 
 ```sh
 cargo run -p re-cordis-hmr --example system_lifecycle --features include --locked
@@ -56,8 +59,11 @@ application and its file-watching mode.
 
 For application setup, start with the [quick start](docs/en/getting-started.md)
 or use [Create](docs/en/guides/create.md) to generate a small application.
-Create requires an explicit `--cordis-path` checkout and does not download,
-install, or launch dependencies.
+Install the CLI with `cargo install re-cordis-create --version '=0.1.0-alpha.1' --locked`.
+Create requires an explicit `--cordis-path` checkout at release source
+`84fa9bdf0eb4e631fce792bf163494b0a61aeba8` and does not download, install, or
+launch application dependencies. Its generated application remains
+`0.0.0` with `publish=false`.
 
 ## Design
 
@@ -87,7 +93,11 @@ Create templates are outside the current scope. See
 
 The [public documentation site](https://antruongnguyen.github.io/re-cordis/)
 provides English and Vietnamese guides, API contracts, and Rustdoc from the
-same build revision. The canonical [English](docs/en/README.md) and
+same build revision. Check its build provenance: the site changes only after a
+manual deployment. Published package source is frozen at
+`84fa9bdf0eb4e631fce792bf163494b0a61aeba8`; current guides include subsequent
+documentation updates. Candidate-preparation statements in that source snapshot
+are historical. The canonical [English](docs/en/README.md) and
 [Vietnamese](docs/vi/README.md) sources cover
 setup, concepts, examples, troubleshooting, and the public API. The
 [documentation map](docs/README.md) also links contributor and engineering

@@ -4,17 +4,16 @@
 
 ## Yêu cầu và khai báo phụ thuộc
 
-Dùng Rust 1.85 trở lên. Bản ứng viên `0.1.0-alpha.1` vẫn chưa phát hành;
-hãy dùng checkout đầy đủ. Cài từ registry cần được kiểm chứng riêng.
+Dùng Rust 1.85 trở lên. Các package thử nghiệm `0.1.0-alpha.1` đã phát hành
+trên crates.io. Ứng dụng viết tay này dùng package registry với pin chính xác;
+không cần checkout Cordis.
 
-Ví dụ ứng dụng nằm cạnh bản checkout `re-cordis`:
+Tạo bố cục ứng dụng sau:
 
 ```text
-workspace/
-  re-cordis/
-  my-app/
-    Cargo.toml
-    src/main.rs
+my-app/
+  Cargo.toml
+  src/main.rs
 ```
 
 Khai báo manifest của ứng dụng như sau:
@@ -27,22 +26,26 @@ edition = "2024"
 rust-version = "1.85"
 
 [dependencies]
-re-cordis-core = { path = "../re-cordis/crates/re-cordis-core", version = "=0.1.0-alpha.1" }
+re-cordis-core = "=0.1.0-alpha.1"
 tokio = { version = "1.48", default-features = false, features = ["rt", "sync"] }
 ```
 
-Điều chỉnh đường dẫn theo checkout của bạn. Tên import là `re_cordis_core`, dùng
+Tên import là `re_cordis_core`, dùng
 dấu gạch dưới. Nếu ứng dụng dùng timer, I/O, signal hoặc macro của Tokio, hãy
 bật các feature tương ứng trong phụ thuộc Tokio của **ứng dụng**; bộ feature
 tối thiểu của core không tự bật chúng.
 
-Chốt checkout đầy đủ tại một revision Git đã review và dùng cùng nguồn đó cho
-mọi crate Cordis. Cargo.lock không đóng băng nội dung phụ thuộc path: sửa checkout
-sẽ ảnh hưởng lần build tiếp theo mà không cần đổi version. Di chuyển checkout cần
-sửa đường dẫn phụ thuộc. Bằng chứng filesystem/watcher chỉ có trên macOS;
-xem [đánh giá phát hành](../release-readiness.md) để biết kết luận hiện chỉ dùng
-local/Git và chính sách alpha đã duyệt. Giữ pin chính xác; thay đổi phá vỡ tương
-thích cần ghi chú phát hành và phiên bản alpha đồng bộ mới.
+Commit Cargo.lock của ứng dụng. Dùng pin chính xác `=0.1.0-alpha.1` cho các
+package Cordis bổ sung; feature `include` của HMR cần bật rõ ràng. Bằng chứng
+filesystem và watcher bao phủ môi trường Apple Silicon macOS đã kiểm thử.
+Xem [đánh giá phát hành](../release-readiness.md) để biết hợp đồng alpha.
+Thay đổi phá vỡ tương thích cần ghi chú phát hành và phiên bản alpha đồng bộ mới.
+
+Để phát triển cục bộ, thay dependency core bằng
+`{ path = "../re-cordis/crates/re-cordis-core", version = "=0.1.0-alpha.1" }`
+và dùng cùng một checkout đầy đủ cho mọi crate Cordis. Mã nguồn phát hành là
+`84fa9bdf0eb4e631fce792bf163494b0a61aeba8`. Cargo.lock không đóng băng nội dung
+path; sửa hoặc di chuyển checkout ảnh hưởng bản dựng.
 
 ## Ứng dụng đầu tiên hoàn chỉnh
 

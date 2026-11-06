@@ -6,9 +6,10 @@ Cordis is a framework for applications whose plugins, services, configuration,
 and resources change over time. `re-cordis` expresses the TypeScript Cordis
 core's semantics through explicit, typed Rust APIs.
 
-The current deliverable is unpublished `re-cordis-core`, `re-cordis-timer`,
+The published experimental alpha contains `re-cordis-core`, `re-cordis-timer`,
 `re-cordis-logger`, `re-cordis-loader`, `re-cordis-include`, `re-cordis-hmr`
-and selected offline `re-cordis-create`, candidate version `0.1.0-alpha.1`, Rust 2024/MSRV 1.85.
+and selected offline `re-cordis-create`, version `0.1.0-alpha.1` on crates.io,
+Rust 2024/MSRV 1.85.
 The API is unstable. Loader owns typed source entries and structural groups;
 Include supplies accepted file reads/refresh, ordered patches and reconciled persistence.
 HMR file watching, optional Include refresh and linked replacement are implemented.
@@ -19,8 +20,9 @@ acceptance are tracked in the [roadmap](../todo.md#next-implementation-targets-s
 This is an explicit Rust API, not transparent JavaScript compatibility.
 
 Read the [release readiness assessment](../release-readiness.md) before choosing
-a distribution channel: current consumption uses a complete local/Git checkout.
-Preparation of the seven-package alpha is approved; it remains unpublished.
+a distribution channel: handwritten apps can use exact registry dependencies;
+Create still needs a complete compatible local/Git checkout at release source
+`84fa9bdf0eb4e631fce792bf163494b0a61aeba8`.
 Use exact pins. Intentional breaking changes need release notes and a new
 coordinated alpha version. Runtime filesystem and watcher evidence covers the
 tested Apple Silicon macOS environment. The [B1 follow-up](../plans/2026-11-02-cordis-completion/evidence/2026-11-05-b1-closure.md)
@@ -34,7 +36,9 @@ redistributing identified adapted material.
 
 The [documentation-channel guide](guides/documentation.md) explains
 the public Fumadocs site, local preview, matching-revision Rustdoc and the
-separate docs.rs release gate. This is development documentation for unpublished crates.
+exact-version docs.rs references. Current guides include documentation updates
+after the frozen release source; candidate-preparation text in that source
+snapshot is historical.
 
 ## Choose a reading path
 

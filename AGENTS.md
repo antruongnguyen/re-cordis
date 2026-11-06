@@ -8,15 +8,17 @@ Instructions for agents (and humans) working in this repository.
 [Cordis](https://github.com/cordiverse/cordis) meta-framework.
 
 **Status: core, selected satellites and offline R0 integration independently accepted.**
-R1 API/package readiness is complete and independently accepted; its verdict
-is local/Git checkout consumption only. See `docs/release-readiness.md` for the
-approved seven-package experimental alpha contract and
-`docs/plans/2026-11-02-cordis-completion/evidence/r1-acceptance.md` for evidence.
-The maintainer approved candidate preparation on 2026-11-06: seven packages
-at `0.1.0-alpha.1`, exact internal pins and `publish=["crates-io"]`.
-The candidate remains unpublished; upload, release tags and a Pages refresh
-require separate authorization. See
-`docs/plans/2026-11-06-public-delivery/release-decision.md`.
+R1 API/package readiness is independently accepted; its original verdict was
+local/Git checkout consumption. The maintainer subsequently approved staged
+publication on 2026-11-06. All seven experimental `0.1.0-alpha.1` packages are
+published on crates.io under antruongnguyen, with exact internal pins and verified
+exact-version docs.rs output. See `docs/release-readiness.md` for current availability
+and `docs/plans/2026-11-02-cordis-completion/evidence/r1-acceptance.md` for historical evidence.
+Published source and Create's compatible complete checkout are frozen at
+`84fa9bdf0eb4e631fce792bf163494b0a61aeba8`. Current main guides include later
+documentation updates; candidate-preparation statements at the frozen source are
+historical. Further registry releases and Pages refreshes require authorization.
+See `docs/plans/2026-11-06-public-delivery/release-decision.md`.
 Each crate carries its MIT notice;
 the generated starter retains that notice in its existing README.
 Bounded B1/local release preparation is independently accepted; all 35 work
@@ -34,8 +36,8 @@ package roots and must not be imported into crate READMEs or Rustdoc.
 All workflow actions use major-version tags; documentation CI uses the
 supported macos-26 runner. Preserve explicit stable/1.85.0 checks and manual
 Pages gates. Rust and documentation CI run on pull requests and pushes to main;
-the main checks and initial manual Pages deployment have succeeded. Registry/docs.rs
-publication and platform expansion remain separate gates.
+the main checks and initial manual Pages deployment have succeeded. Platform expansion remains a separate gate; docs.rs compilation does not establish
+runtime-platform acceptance.
 The completed post-M6 lifecycle-parity slices add six executed Rust/TypeScript
 scenarios (152 Rust integration tests, 17 Rustdoc checks), including bounded
 failure/recovery evidence. See `docs/lifecycle-parity.md` for reproduction and
@@ -52,7 +54,7 @@ HMR H0–H3 is implemented and independently accepted: bounded file watching,
 linked replacement, retained Include refresh and joined shutdown. The explicit
 stable/1.85.0 shared matrix passes; see
 `docs/plans/2026-11-02-cordis-completion/evidence/hmr-acceptance.md`.
-Create S0–S2 is independently accepted: the unpublished stdlib-only
+Create S0–S2 is independently accepted: the published experimental stdlib-only
 `re-cordis-create` crate/binary generates one offline local-checkout application.
 Its Create acceptance matrix passed 508 workspace checks per toolchain,
 including 22 Create tests; generated apps pass five tests with 100 lifecycle cycles.
@@ -68,17 +70,17 @@ application, including 100 complete lifecycle cycles. See
 `docs/plans/2026-11-02-cordis-completion/evidence/r0-acceptance.md` and
 `docs/en/guides/system-lifecycle.md` for review, reproduction and boundaries.
 The **`re-cordis-timer`** satellite is
-delivered (unpublished `crates/re-cordis-timer`: owner-scoped timeout, sleep,
+delivered (published experimental `crates/re-cordis-timer`: owner-scoped timeout, sleep,
 interval/stream, throttle and debounce over core effects, via a sealed
 `TimerExt` trait; the `tokio` `time`/`macros` features live in the timer crate,
 not the core; 48 deterministic integration tests and three Rustdoc checks).
 The T0–T5 repair adds eager checked deadlines, hosted callbacks, bounded stream
 state and joined owner cancellation; six focused core task-bridge tests cover
-the minimal Context::task/TaskControl/Context::invoke_callback seam. The unpublished
+the minimal Context::task/TaskControl/Context::invoke_callback seam. The published experimental
 **`re-cordis-logger`** console adapter is implemented (owned scoped writers,
 plain/ANSI/Auto policy, UTC record rendering, visible I/O errors; 21 tests).
 Console C0–C3 is independently accepted; see its logger work package. The
-unpublished `re-cordis-loader` owns typed catalogs, structural groups, bounded
+published experimental `re-cordis-loader` owns typed catalogs, structural groups, bounded
 JSON transport, source reconciliation and joined rebuilds; it performs no file
 persistence, JavaScript imports/eval or watching.
 Loader L0–L5 and structural groups G0–G1 are independently accepted; see
@@ -89,7 +91,7 @@ Timer repair verification is recorded in
 work packages and scheduling gates. See `docs/todo.md` for source review,
 per-slice design gates and documentation acceptance, and
 `docs/superpowers/specs`/`docs/superpowers/plans` for the timer design and plan.
-The root Rust 2024 workspace contains the unpublished `crates/re-cordis-core`,
+The root Rust 2024 workspace contains the published experimental `crates/re-cordis-core`,
 `crates/re-cordis-timer`, `crates/re-cordis-logger`, `crates/re-cordis-loader`, `crates/re-cordis-include`, `crates/re-cordis-hmr`
 and `crates/re-cordis-create` (Rust 1.85 minimum).
 Use `cargo test --workspace`.

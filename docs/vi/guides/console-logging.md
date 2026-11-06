@@ -2,7 +2,7 @@
 
 [English](../../en/guides/console-logging.md) | [Trang tiếng Việt](../README.md)
 
-`re-cordis-logger` là crate vệ tinh console chưa phát hành, dùng hệ thống log
+`re-cordis-logger` là crate vệ tinh console thử nghiệm đã phát hành, dùng hệ thống log
 sẵn có của core. Đăng ký stdout khi thiết lập plugin hoặc trong thao tác root
 đang được host. Context sở hữu gỡ exporter khi dọn dẹp; core vẫn chọn mức log,
 lưu bản ghi và giữ danh tính lỗi. Xem [API console](../api/console-logger.md)

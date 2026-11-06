@@ -3,8 +3,9 @@
 
 Workspace fetch alone omits futures-util's default async-await-macro feature,
 used by tests/docs/check.py's generated R0 application. This disposable manifest
-matches that application's dependency superset without changing its checker,
-the distributed Create template, or either repository lockfile.
+matches that application's dependency superset and restores the published
+quick-start core package before the offline checker. It changes neither the
+distributed Create template nor either repository lockfile.
 """
 import json
 import os
@@ -27,6 +28,7 @@ def main():
             feature = ', features = ["include"]' if name == "hmr" else ""
             dependencies.append(f"re-cordis-{name} = {{ path = {path}{feature} }}")
         dependencies.extend([
+            'registry-core = { package = "re-cordis-core", version = "=0.1.0-alpha.1" }',
             'futures-util = "0.3"',
             'serde_json = "1"',
             'tokio = { version = "1.48", default-features = false, features = ["rt", "time", "sync", "macros", "test-util"] }',

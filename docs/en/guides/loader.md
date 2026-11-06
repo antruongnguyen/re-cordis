@@ -2,7 +2,7 @@
 
 [Tiếng Việt](../../vi/guides/loader.md) | [English home](../README.md)
 
-The unpublished `re-cordis-loader` crate manages named, already-linked Rust
+The experimental `re-cordis-loader` crate manages named, already-linked Rust
 plugins and an ordered entry tree. Add its local path dependency alongside
 `re-cordis-core` and Tokio. It owns a dedicated core Fiber under the supplied
 Context, so parent cleanup also shuts down the loader.

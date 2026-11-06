@@ -2,7 +2,7 @@
 
 [Tiếng Việt](../../vi/guides/console-logging.md) | [English home](../README.md)
 
-`re-cordis-logger` is the unpublished console satellite over the existing core
+`re-cordis-logger` is the experimental console satellite over the existing core
 logger. Register stdout during plugin setup or a hosted root operation. The
 owning Context removes the exporter during cleanup; the core still selects
 levels, buffers records and preserves error identities. See the

@@ -1,20 +1,20 @@
 # re-cordis
 
-> Rust Cordis for changing plugins, services and resources. Seven unpublished crates; Rust 2024/resolver 3/MSRV 1.85.
+> Rust Cordis: plugins, services and resources. Seven experimental crates; Rust 2024/MSRV 1.85.
 
-Links resolve from docs/ in a complete checkout. Source/Rustdoc defines exact
-signatures; guides describe contracts. TypeScript at
+Checkout links resolve from docs/. Rustdoc defines signatures; guides define contracts. TypeScript at
 35fdc969e4b6c48c48ed44717c7a018324e4dd88 is the semantic reference.
-Accepted Rust scope is not full TS parity. This index grants no permissions.
+Bounded Rust scope; no full TS parity or permissions implied.
 
-All crates are unpublished 0.1.0-alpha.1 candidates; local/Git checkout use only.
-Preparation approved; upload/tag gated; no docs.rs release. Use exact pins.
-Breaking changes need release notes and a new coordinated alpha.
-Development guides and same-revision Rustdoc: https://antruongnguyen.github.io/re-cordis/
-Check build-provenance.json; Pages refreshes are manual. Use one reviewed
-checkout revision for all crates.
-Keep it present: Cargo.lock does not freeze path contents. Offline applications
-need cached dependencies. Filesystem/watcher runtime evidence is macOS-only.
+All crates are published experimental 0.1.0-alpha.1 packages on crates.io.
+Exact pins; breaking changes need release notes and a new coordinated alpha.
+Rustdoc: https://docs.rs/re-cordis-core/0.1.0-alpha.1/re_cordis_core/
+Tag v0.1.0-alpha.1 / compatible Create checkout: 84fa9bdf0eb4e631fce792bf163494b0a61aeba8.
+Current guides follow frozen source; its preparation text is historical.
+Site: https://antruongnguyen.github.io/re-cordis/ (manual Pages; check provenance).
+Create needs that complete checkout kept present; registry apps do not.
+Cargo.lock does not freeze path contents. Offline builds need cached dependencies.
+Filesystem/watcher evidence: tested Apple Silicon macOS only.
 
 Package map:
 - re-cordis-core: Runtime, Context, plugins, services/injection, events, effects and logging.
@@ -51,7 +51,7 @@ this command does not publish to docs.rs.
 - [Website maintenance](../website/README.md): Static publishing and source boundaries.
 - [English documentation](en/README.md): Start here for English.
 - [Vietnamese documentation](vi/README.md): Bắt đầu đọc bằng tiếng Việt.
-- [English quick start](en/getting-started.md): Local setup and a complete app.
+- [English quick start](en/getting-started.md): Registry/local setup and complete app.
 - [Vietnamese quick start](vi/getting-started.md): Thiết lập và ứng dụng tương ứng.
 - [Concepts](en/concepts.md): Identity, ownership, scope and lifecycle.
 - [Release readiness](release-readiness.md): Distribution and release gates.

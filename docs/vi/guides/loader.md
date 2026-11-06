@@ -2,7 +2,7 @@
 
 [English](../../en/guides/loader.md) | [Trang tiếng Việt](../README.md)
 
-Crate `re-cordis-loader` chưa phát hành quản lý plugin Rust đã liên kết theo tên
+Crate `re-cordis-loader` thử nghiệm đã phát hành quản lý plugin Rust đã liên kết theo tên
 và cây entry có thứ tự. Thêm dependency theo đường dẫn cục bộ cùng với
 `re-cordis-core` và Tokio. Loader sở hữu một Fiber riêng dưới Context được
 truyền vào, nên cleanup của cha cũng dừng loader.

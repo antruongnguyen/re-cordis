@@ -6,14 +6,15 @@ Dùng hướng dẫn để hiểu hợp đồng ứng dụng và Rustdoc để t
 ràng buộc generic, trait implementation và trường công khai. Hai nguồn phải
 mô tả cùng revision mã nguồn và cấu hình feature.
 
-Cả bảy crate là bản ứng viên thử nghiệm `0.1.0-alpha.1` chưa phát hành.
-Việc chuẩn bị đã được duyệt; phát hành registry vẫn cần cổng riêng.
+Cả bảy package thử nghiệm `0.1.0-alpha.1` đã phát hành trên crates.io;
+Rustdoc docs.rs theo phiên bản chính xác đã được kiểm chứng. Mã nguồn phát hành
+và checkout tương thích của Create là `84fa9bdf0eb4e631fce792bf163494b0a61aeba8`.
 Site tài liệu phát triển đã công khai trên GitHub Pages, với
 hướng dẫn [tiếng Anh](https://antruongnguyen.github.io/re-cordis/en/docs/) và
 [tiếng Việt](https://antruongnguyen.github.io/re-cordis/vi/docs/) cùng Rustdoc
-cùng revision. Đây không phải bản docs.rs đã phát hành. Tiếp tục
-dùng hướng dẫn checkout cục bộ trong [bắt đầu](../getting-started.md)
-và [Create](create.md).
+cùng revision. Revision bản dựng đã triển khai có thể khác mã nguồn phát hành
+đã chốt. Dùng hướng dẫn registry trong [bắt đầu](../getting-started.md)
+hoặc CLI đã cài vẫn yêu cầu checkout tường minh trong [Create](create.md).
 
 ## Hướng dẫn phát triển
 
@@ -81,24 +82,24 @@ bật feature này rõ ràng để dùng `watch_include` và `replace_include`;
 feature mặc định của HMR vẫn rỗng. Xem [hợp đồng API HMR](../api/hmr.md)
 cho các phương thức phụ thuộc feature.
 
-## Tài liệu phát hành trong tương lai
+## Tài liệu bản phát hành
 
-[docs.rs](https://docs.rs/about/builds) tự động sinh Rustdoc
-từ package được phát hành trên crates.io. Site Fumadocs là artifact riêng;
-không được tải lên docs.rs. [Bản ứng viên alpha đồng bộ](../../release-readiness.md)
-đã được duyệt để chuẩn bị; chính sách manifest chỉ cho crates.io không cho phép tải lên.
-Hiện chưa có bản docs.rs của re-cordis để liên kết.
+[docs.rs](https://docs.rs/about/builds) sinh Rustdoc từ package phát hành
+trên crates.io. Cả bảy trang chính xác `0.1.0-alpha.1` đã được kiểm chứng;
+dùng [liên kết package](../api/README.md#rustdoc-đã-phát-hành) để tra chữ ký đã phát hành.
+[Metadata docs.rs](https://docs.rs/about/metadata) của HMR hiển thị `watch_include`
+và `replace_include`, không đổi feature mặc định rỗng của ứng dụng.
+Tài liệu được host không mở rộng phạm vi runtime Apple Silicon macOS đã kiểm thử.
 
-Trước khi phát hành, chuẩn bị snapshot hướng dẫn bất biến từ cùng revision
-mã nguồn với bộ package. Chỉ liên kết snapshot đến phiên bản phát hành chính
-xác của từng package trên docs.rs sau khi bản dựng được host thành công.
-Giữ đường dẫn quay lại tài liệu phát triển và gắn nhãn rõ cả hai kênh.
-Trang phát triển thay đổi liên tục hay URL docs.rs `latest` không xác định
-đáng tin cậy API của ứng dụng cũ.
+[Snapshot mã nguồn đã chốt](https://github.com/antruongnguyen/re-cordis/tree/84fa9bdf0eb4e631fce792bf163494b0a61aeba8)
+xác định bộ package đã phát hành và checkout tương thích của Create. Hướng dẫn
+và README package trong snapshot vẫn giữ nội dung chuẩn bị ứng viên trước khi
+tải lên; các câu đó mô tả trạng thái lịch sử. Hướng dẫn main hiện tại bổ sung
+cài đặt registry và tình trạng sẵn có sau mã nguồn đã chốt, không đổi package
+đã phát hành. Dùng phiên bản docs.rs chính xác thay vì `latest` khi tra API
+của ứng dụng cũ.
 
-[Metadata docs.rs](https://docs.rs/about/metadata) đã chuẩn bị cho HMR chọn
-`include` để hiển thị API trong tài liệu, không đổi mặc định ứng dụng.
-Kiểm tra Rustdoc stable/MSRV cục bộ xác lập tính tương thích tài liệu cục bộ.
-Chúng không xác lập bản dựng docs.rs được host hay thành công trong sandbox
-Linux/nightly. Tương tự, dựng website hay biên dịch tài liệu đa nền tảng không
-mở rộng bằng chứng runtime filesystem/watcher hiện chỉ có trên macOS.
+Site Fumadocs là artifact riêng, gồm hướng dẫn và Rustdoc cùng revision bản
+dựng được ghi lại. Commit tài liệu, dựng website hay tải package lên registry
+không triển khai Pages. Đọc provenance công khai để xác định snapshot đang
+hoạt động; các lần cập nhật tiếp theo giữ cổng triển khai thủ công.

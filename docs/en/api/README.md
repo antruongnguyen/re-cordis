@@ -15,7 +15,7 @@ Its application types remain example-private and introduce no public exports.
 The [public development website](https://antruongnguyen.github.io/re-cordis/en/docs/api/)
 also bundles exact Rustdoc from its deployed build revision.
 See [documentation channels](../guides/documentation.md) for public and local output,
-HMR's optional Include API and future exact-version docs.rs policy.
+HMR's optional Include API and exact-version docs.rs references.
 
 ## Generate exact API documentation
 
@@ -27,7 +27,22 @@ cargo doc -p re-cordis-core --no-deps --locked
 
 Open `target/doc/re_cordis_core/index.html`, or the equivalent path under your
 `CARGO_TARGET_DIR`. Nothing is published to docs.rs by this command.
-The unpublished `0.1.0-alpha.1` candidate is not yet a verified crates.io installation target.
+## Published Rustdoc
+
+All seven experimental `0.1.0-alpha.1` packages are published on crates.io.
+Use these verified exact-version pages for released signatures:
+
+- [re-cordis-core](https://docs.rs/re-cordis-core/0.1.0-alpha.1/re_cordis_core/)
+- [re-cordis-timer](https://docs.rs/re-cordis-timer/0.1.0-alpha.1/re_cordis_timer/)
+- [re-cordis-logger](https://docs.rs/re-cordis-logger/0.1.0-alpha.1/re_cordis_logger/)
+- [re-cordis-loader](https://docs.rs/re-cordis-loader/0.1.0-alpha.1/re_cordis_loader/)
+- [re-cordis-include](https://docs.rs/re-cordis-include/0.1.0-alpha.1/re_cordis_include/)
+- [re-cordis-hmr](https://docs.rs/re-cordis-hmr/0.1.0-alpha.1/re_cordis_hmr/)
+- [re-cordis-create](https://docs.rs/re-cordis-create/0.1.0-alpha.1/re_cordis_create/)
+
+HMR's hosted output includes its optional Include API. These builds do not
+expand runtime-platform acceptance. Current site Rustdoc follows its build
+revision; release source is `84fa9bdf0eb4e631fce792bf163494b0a61aeba8`.
 
 ## Public export map
 
@@ -69,8 +84,8 @@ new work; see the relevant chapter rather than assuming every method needs
 ## Stability and compatibility
 
 R1 reviewed the API without adding a semver promise. The approved
-[alpha contract](../../release-readiness.md) coordinates the unpublished
-`0.1.0-alpha.1` candidate. Use exact pins; intentional breaking changes require
+[alpha contract](../../release-readiness.md) coordinates the published experimental
+`0.1.0-alpha.1` packages. Use exact pins; intentional breaking changes require
 release notes and a new coordinated alpha version. Public fields,
 trait implementations and dependency re-exports also affect compatibility.
 

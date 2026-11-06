@@ -25,7 +25,22 @@ cargo doc -p re-cordis-core --no-deps --locked
 
 Mở `target/doc/re_cordis_core/index.html`, hoặc đường dẫn tương ứng trong
 `CARGO_TARGET_DIR`. Lệnh không phát hành gì lên docs.rs.
-Bản ứng viên `0.1.0-alpha.1` chưa phát hành chưa phải đích cài đặt crates.io đã kiểm chứng.
+## Rustdoc đã phát hành
+
+Cả bảy package thử nghiệm `0.1.0-alpha.1` đã phát hành trên crates.io.
+Dùng các trang đã kiểm chứng theo phiên bản chính xác để tra chữ ký đã phát hành:
+
+- [re-cordis-core](https://docs.rs/re-cordis-core/0.1.0-alpha.1/re_cordis_core/)
+- [re-cordis-timer](https://docs.rs/re-cordis-timer/0.1.0-alpha.1/re_cordis_timer/)
+- [re-cordis-logger](https://docs.rs/re-cordis-logger/0.1.0-alpha.1/re_cordis_logger/)
+- [re-cordis-loader](https://docs.rs/re-cordis-loader/0.1.0-alpha.1/re_cordis_loader/)
+- [re-cordis-include](https://docs.rs/re-cordis-include/0.1.0-alpha.1/re_cordis_include/)
+- [re-cordis-hmr](https://docs.rs/re-cordis-hmr/0.1.0-alpha.1/re_cordis_hmr/)
+- [re-cordis-create](https://docs.rs/re-cordis-create/0.1.0-alpha.1/re_cordis_create/)
+
+Rustdoc được host của HMR gồm API Include tùy chọn. Các bản dựng này không
+mở rộng nghiệm thu nền tảng runtime. Rustdoc site hiện tại theo revision bản
+dựng; mã nguồn phát hành là `84fa9bdf0eb4e631fce792bf163494b0a61aeba8`.
 
 ## Bản đồ export công khai
 
@@ -67,7 +82,7 @@ xem từng chương thay vì cho rằng mọi phương thức đều cần `run`
 
 R1 đã đánh giá API mà không thêm cam kết semver.
 [Hợp đồng alpha](../../release-readiness.md) đã duyệt dùng bản ứng viên đồng bộ
-`0.1.0-alpha.1` chưa phát hành. Dùng pin chính xác; thay đổi phá vỡ tương thích
+`0.1.0-alpha.1` thử nghiệm đã phát hành. Dùng pin chính xác; thay đổi phá vỡ tương thích
 cần ghi chú phát hành và phiên bản alpha đồng bộ mới. Trường công khai,
 trait implementation và re-export phụ thuộc cũng ảnh hưởng tính tương thích.
 

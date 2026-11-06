@@ -16,12 +16,20 @@ same-revision Rustdoc and a [public AI index](https://antruongnguyen.github.io/r
 The initial manual deployment on 2026-11-06 used revision
 `3718217aac6f8f11f1f11c221bf2730cbe169bd6`; its
 [build provenance](https://antruongnguyen.github.io/re-cordis/build-provenance.json)
-records that revision. Later documentation changes require a new manual deployment.
-The seven `0.1.0-alpha.1` candidate crates remain unpublished and experimental.
-The existing live deployment is a separate snapshot; local candidate changes do
-not refresh it. Website labels, Markdown, llms.txt and public provenance derive
-the crate version from `../Cargo.toml` through generated settings. The private
-website package's own `0.0.0` version is independent.
+identifies the current deployed snapshot. The last accepted snapshot before
+this release refresh is `638ae03a4b7cb1d2b1b646e016eece7ca4a0bdd8`
+([manual deployment](https://github.com/antruongnguyen/re-cordis/actions/runs/42209716004));
+initial `3718217` was the earlier bootstrap. Later documentation changes require
+a new manual deployment.
+All seven experimental `0.1.0-alpha.1` packages are published on crates.io,
+with verified exact-version docs.rs output. Published source and the compatible
+Create checkout are `84fa9bdf0eb4e631fce792bf163494b0a61aeba8`; current guides
+include subsequent documentation updates. The source snapshot retains historical
+candidate-preparation text. The existing live deployment is a separate snapshot;
+local guide updates do not refresh it. Website labels, Markdown, llms.txt and
+public provenance derive the crate version from `../Cargo.toml`; verified published
+status and release source are explicit in generated settings. The private website
+package's own `0.0.0` version is independent.
 
 ## Build and preview
 
@@ -168,8 +176,8 @@ protect the `github-pages` environment with allowed branches/reviewers; set the
 repository Actions variable `PAGES_DEPLOY_ENABLED=true`; dispatch `pages.yml` on
 the reviewed main revision with `deploy=true`. A push alone does not deploy.
 The initial deployment succeeded; retain the same manual gates for
-subsequent refreshes. docs.rs builds from crates published to crates.io; no hosted docs.rs
-release is established by preparing these unpublished candidate crates.
+subsequent refreshes. Exact-version docs.rs output is now verified for all seven
+published packages; hosted Rustdoc does not establish broader runtime-platform acceptance.
 
 ## Official references consulted
 

@@ -283,18 +283,17 @@ def run_examples(toolchain, snippets):
     print(f"Executed {len(snippets)} unique Rust examples on {toolchain}.")
 
     quickstart = dict(blocks((DOCS / "en/getting-started.md").read_text(encoding="utf-8")))
-    dependency = ROOT / "crates/re-cordis-core"
-    manifest = quickstart["toml"].replace(
-        '"../re-cordis/crates/re-cordis-core"', json.dumps(dependency.as_posix())
-    )
+    manifest = quickstart["toml"]
     with tempfile.TemporaryDirectory(prefix="cordis-quickstart-") as directory:
         folder = Path(directory)
         (folder / "Cargo.toml").write_text(manifest, encoding="utf-8")
         (folder / "src").mkdir()
         (folder / "src/main.rs").write_text(quickstart["rust"], encoding="utf-8")
+        run([tools["cargo"], "generate-lockfile", "--manifest-path", str(folder / "Cargo.toml"),
+             "--offline"], env)
         run([tools["cargo"], "run", "--manifest-path", str(folder / "Cargo.toml"),
-             "--offline", "--quiet"], env)
-    print(f"Passed actual quick-start dependency manifest on {toolchain}.")
+             "--offline", "--locked", "--quiet"], env)
+    print(f"Passed actual registry quick-start dependency manifest on {toolchain}.")
 
     create_command = [tools["cargo"], "run", "-p", "re-cordis-create", "--offline", "--locked", "--"]
     help_text = run([*create_command, "--help"], env)

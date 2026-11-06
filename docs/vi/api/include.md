@@ -4,7 +4,7 @@
 
 Sinh chữ ký chính xác bằng `cargo doc --workspace --no-deps --locked`;
 mở `target/doc/re_cordis_include/index.html`. API cục bộ, chưa ổn định
-và chưa phát hành. [Hướng dẫn tệp](../guides/include.md).
+và đã phát hành bản alpha thử nghiệm. [Hướng dẫn tệp](../guides/include.md).
 
 | Export | Hợp đồng |
 |---|---|

@@ -4,7 +4,7 @@
 
 Sinh chữ ký chính xác bằng `cargo doc --workspace --no-deps --locked`;
 mở `target/doc/re_cordis_loader/index.html`. Mọi export cục bộ/non-Send,
-chưa ổn định và chưa phát hành. [Hướng dẫn chạy được](../guides/loader.md).
+còn thử nghiệm và đã phát hành. [Hướng dẫn chạy được](../guides/loader.md).
 
 ## Catalog, entry và snapshot
 

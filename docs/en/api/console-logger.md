@@ -6,7 +6,7 @@ Source: [lib.rs](../../../crates/re-cordis-logger/src/lib.rs).
 Guide: [console logging](../guides/console-logging.md).
 Example: [console.rs](../../../crates/re-cordis-logger/examples/console.rs).
 
-`re-cordis-logger` (`0.1.0-alpha.1`, unpublished, Rust 2024, MSRV 1.85) corresponds
+`re-cordis-logger` (`0.1.0-alpha.1`, experimental, published, Rust 2024, MSRV 1.85) corresponds
 to TypeScript `logger-console`. It adds no Logger service, filter store,
 buffer, hidden runtime or background task. Calendar formatting uses
 `time = 0.3.36` with only std/formatting features; core dependencies are unchanged.

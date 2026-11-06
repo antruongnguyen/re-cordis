@@ -6,7 +6,7 @@ Mã nguồn: [lib.rs](../../../crates/re-cordis-create/src/lib.rs).
 CLI: [main.rs](../../../crates/re-cordis-create/src/main.rs).
 Hướng dẫn: [tạo ứng dụng](../guides/create.md).
 
-`re-cordis-create` (`0.1.0-alpha.1`, chưa phát hành, Rust 2024, MSRV 1.85) cung cấp
+`re-cordis-create` (`0.1.0-alpha.1`, thử nghiệm, đã phát hành, Rust 2024, MSRV 1.85) cung cấp
 một generator đồng bộ chỉ dùng thư viện chuẩn và binary cùng tên.
 Không cần Context, Runtime hay host framework. Triển khai và nghiệm thu S0–S2
 được ghi trong [gói công việc](../../plans/2026-11-02-cordis-completion/create.md).
