@@ -20,8 +20,8 @@ delivery tasks; the 35 accepted implementation work packages remain closed.
   [Public deployment and live verification](plans/2026-11-06-public-delivery/documentation.md) are complete.
 - [x] D3: Approve preparation of the seven-package `0.1.0-alpha.1` candidate.
   [Release decision and publisher designation](plans/2026-11-06-public-delivery/release-decision.md) are recorded.
-- [ ] D4: Candidate metadata/documentation is prepared; full verification,
-  package/archive checks and independent review remain in progress.
+- [x] D4: Prepare and independently review frozen candidate `84fa9bd`.
+  [Verification, archive checksums and remaining registry gates](plans/2026-11-06-public-delivery/release-candidate.md) are recorded.
 - [ ] D5–D6: After approval of the exact candidate, publish and verify actual
   registry/CLI consumers, then close release documentation.
 

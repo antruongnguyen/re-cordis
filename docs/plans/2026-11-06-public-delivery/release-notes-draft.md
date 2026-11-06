@@ -2,8 +2,9 @@
 
 Status: **unpublished candidate; preparation approved, publication not authorized**.
 Proposed release tag: `v0.1.0-alpha.1`. No tag has been created.
-The final reviewed candidate SHA and compatible complete Create checkout are
-recorded separately after commit/review; this draft does not identify its own commit.
+Frozen release source and compatible complete Create checkout:
+`84fa9bdf0eb4e631fce792bf163494b0a61aeba8`. See the [candidate report](release-candidate.md).
+This later evidence-record commit is not a substitute for the frozen release source.
 Publisher designated for the proposed crates.io release: antruongnguyen.
 
 ## Scope
