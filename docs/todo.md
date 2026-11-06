@@ -16,7 +16,8 @@ delivery tasks; the 35 accepted implementation work packages remain closed.
 
 - [x] D1: Integrate the accepted branch and verify hosted Rust/documentation CI.
   [PR #1 and exact-main verification](plans/2026-11-06-public-delivery/integration.md) are complete.
-- [ ] D2: Deploy and verify public EN/VI documentation and exact-revision Rustdoc.
+- [x] D2: Deploy and verify public EN/VI documentation and exact-revision Rustdoc.
+  [Public deployment and live verification](plans/2026-11-06-public-delivery/documentation.md) are complete.
 - [ ] D3–D6: Decide the alpha contract, prepare/review the candidate, then publish,
   verify actual registry/CLI consumers and close release documentation.
 
