@@ -1,6 +1,6 @@
 # Public Documentation and Experimental Alpha Delivery Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to execute this plan task-by-task. The user requested execution on 2026-11-06. D1 is in progress; preserve the subsequent release decision gates.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to execute this plan task-by-task. The user requested execution on 2026-11-06. D1 is complete; preserve the subsequent release decision gates.
 
 **Goal:** Deliver the accepted framework through verified public documentation, then a separately approved seven-package experimental alpha.
 
@@ -47,7 +47,7 @@ Stopping after D2 is a useful completed delivery if the alpha decision is deferr
 
 ## D1 — Integrate the existing branch
 
-**Execution:** In progress; see [integration evidence](../../plans/2026-11-06-public-delivery/integration.md).
+**Execution:** Complete at merged main revision eb5d689; see [integration evidence](../../plans/2026-11-06-public-delivery/integration.md).
 
 **Files:** Read `.github/workflows/{ci,documentation,pages}.yml`, `.github/scripts/{rust-tools.sh,restore-docs-dependencies.py}` and the accepted documentation evidence. Change only reproduced workflow/docs defects.
 **Produces:** Reviewed main revision and run URLs. Record them in `docs/plans/2026-11-06-public-delivery/integration.md` during execution.
@@ -56,9 +56,9 @@ Stopping after D2 is a useful completed delivery if the alpha decision is deferr
 - [x] Review the full branch against main, using existing slice acceptance to focus on integration risk. The five unpushed commits are not the full PR scope.
 - [x] Prepare a PR title/body describing the completed framework and documentation delivery, carried evidence, current unpublished status and fresh checks. Use a body file with actual newlines; open a draft PR only after push/PR authorization and attach it to the Codex chat.
 - [x] Push the reviewed branch and observe both Rust and Documentation workflows for its exact head SHA. Do not substitute the older green run at `94907cb`.
-- [ ] Inspect hosted failures before editing. Fix their cause, add a focused regression only for changed executable behavior, commit, then repeat affected checks. Keep strict link/provenance checks and supported runner/action versions.
-- [ ] Merge after review and required checks. Prefer a merge commit so acceptance/source commits remain in ancestry; if repository policy requires another method, verify referenced commits remain reachable rather than silently rewriting evidence.
-- [ ] Verify Rust and Documentation again at the resulting main SHA and record the PR, merge SHA, run URLs, tool versions and actual results.
+- [x] Inspect hosted failures before editing. Fix their cause, add a focused regression only for changed executable behavior, commit, then repeat affected checks. Keep strict link/provenance checks and supported runner/action versions.
+- [x] Merge after review and required checks. Prefer a merge commit so acceptance/source commits remain in ancestry; if repository policy requires another method, verify referenced commits remain reachable rather than silently rewriting evidence.
+- [x] Verify Rust and Documentation again at the resulting main SHA and record the PR, merge SHA, run URLs, tool versions and actual results.
 
 Initial read-only commands, from the repository root:
 
