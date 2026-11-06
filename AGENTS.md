@@ -25,7 +25,7 @@ and docs/plans/2026-11-05-documentation-site/delivery.md. It uses a full-width
 Fumadocs layout and excludes docs/plans and docs/superpowers from published
 pages, links, search and Markdown/LLM output. Those trees are outside all crate
 package roots and must not be imported into crate READMEs or Rustdoc.
-All workflow actions use audited release SHA pins; documentation CI uses the
+All workflow actions use major-version tags; documentation CI uses the
 supported macos-26 runner. Preserve explicit stable/1.85.0 checks and manual
 Pages gates. Hosted execution/deployment, registry/docs.rs publication and
 platform expansion remain separate gates.
@@ -161,8 +161,8 @@ Extend them for each new delivered satellite.
 - After implementing and verifying each milestone, commit its code and related
   documentation on the current branch. Do not push unless explicitly requested.
 - Never include a `Co-authored-by` trailer in git commit messages.
-- Keep action pins current using official releases and migration notes. Retain
-  the exact version in SHA comments and keep runner images supported.
+- Use action major-version tags and review official releases and migration notes
+  when updating majors. Keep runner images supported.
 - Keep docs/plans and docs/superpowers repository-only. Public exports must not
   contain their routes, URLs or content; retain canonical local evidence links.
 - Use `rg` (ripgrep) instead of `grep` for searching.

@@ -11,8 +11,9 @@ This project does not yet follow semantic versioning — the API is unstable.
 
 - Expanded the documentation layout to a full-width frame with a desktop header,
   fixed sidebar and right-hand table of contents, following shadcn/AI SDK layouts.
-- Refreshed all GitHub Actions to audited current release SHA pins and replaced
-  retired macos-14 with supported macos-26, preserving checks and Pages gates.
+- GitHub Actions now use major-version tags instead of commit SHA pins;
+  retired macos-14 was replaced with supported macos-26, preserving checks
+  and Pages gates.
 - Public documentation now removes links/images/reference definitions targeting
   internal plans/design records before generating HTML, search and Markdown;
   exported artifact and package/Rustdoc visibility checks guard that boundary.

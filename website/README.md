@@ -130,9 +130,9 @@ internal trees; docs.rs builds crate documentation, not the website or root docs
 Browser checks additionally cover search, language switching, keyboard/mobile
 navigation and deep-link reloads against the exported preview.
 
-Workflow actions are pinned to the current audited release commits with exact
-version comments; macOS guide checks run on supported macos-26. The Rustdoc
-artifact is transferred to the Linux site build. Hosted runs remain unverified.
+Workflow actions use major-version tags; macOS guide checks run on supported
+macos-26. The Rustdoc artifact is transferred to the Linux site build. Hosted
+runs remain unverified.
 
 After separate authorization to push reviewed commits, ensure the workflow is
 available on the default branch. Set Settings → Pages → Source to GitHub Actions;
