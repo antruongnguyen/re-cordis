@@ -23,6 +23,11 @@ This project does not yet follow semantic versioning — the API is unstable.
 
 ### Fixed
 
+- The site checker accepts the verified Rustdoc 1.99.1 plain-text rendering of
+  two hidden `syn::parse::Peek::Token` uses, alongside the older 1.97.1 linked
+  rendering. Other dependency omissions/count changes remain errors; compiler
+  output stays byte-identical and framework/site links and assets stay strict.
+
 - Documentation code blocks use native Fumadocs rendering instead of inheriting
   inline-code borders/backgrounds; each block now has a localized copy button,
   with whitespace and blank lines preserved in both themes.

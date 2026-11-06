@@ -1,3 +1,6 @@
+import { load } from 'cheerio';
+import dependencyProseLinks from './rustdoc-prose-links.json';
+
 // Rustdoc 1.97.1 references these scripts but emits no out-of-crate records.
 // This finite set was checked against a complete workspace + dependency build.
 export const emptyImplementorScripts = [
@@ -16,4 +19,20 @@ export function emptyRegistration(owner: string): string {
         window.pending_implementors = implementors;
     }
 })()\n`;
+}
+
+// Rustdoc 1.97.1 links two hidden Peek::Token uses; 1.99.1 renders them as plain text.
+// Recognize that exact signature only; every other omission/count change remains an error.
+export function dependencyProseLinksFor(parseBufferHtml: string) {
+  const html = load(parseBufferHtml);
+  const header = html('[id="method.parse_terminated"] h4.code-header');
+  const target = 'trait.Peek.html#associatedtype.Token';
+  const signature = "pub fn parse_terminated<T, P>( &'a self, parser: fn(ParseStream<'a>) -> Result<T>, separator: P, ) -> Result<Punctuated<T, P::Token>>where P: Peek, P::Token: Parse,";
+  const unlinkedTokens = header.length === 1
+    && header.text().replace(/\s+/g, ' ').trim() === signature
+    && (header.html()?.match(/P::Token/g) ?? []).length === 2
+    && html('a').toArray().every((element) => html(element).attr('href') !== target);
+  return unlinkedTokens
+    ? dependencyProseLinks.filter((entry) => !(entry.file === 'syn/parse/struct.ParseBuffer.html' && entry.target === target))
+    : dependencyProseLinks;
 }

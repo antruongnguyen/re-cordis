@@ -45,10 +45,13 @@ must use exact-version docs.rs links and verified registry dependencies; see
 [documentation channels](en/guides/documentation.md).
 
 The site includes dependency Rustdoc to resolve inherited trait links in the
-re-cordis APIs. The compiler still emits 112 unresolved prose/method references to
-inactive feature/platform APIs or inherited anchors inside dependency documentation
-(76 targets in 32 dependency-owned pages); they are recorded as an exact checked set, not
-interpreted as supported re-cordis APIs. No re-cordis or website page is exempted
+re-cordis APIs. Rustdoc 1.97.1 emits 112 unresolved references in 97 checked entries
+(76 targets, 32 dependency pages); the hosted 1.99.1 artifact emits 110 in 96
+entries (75 targets, 31 pages). The only difference is two hidden
+`syn::parse::Peek::Token` uses: the newer compiler renders them as plain text.
+The checker recognizes that exact signature rendering and still rejects every
+other omission/count change. Retained dependency links do not establish
+supported re-cordis APIs. No re-cordis or website page is exempted
 from link checks. Four absent external-implementor scripts receive empty
 registrations; all compiler-emitted HTML/API bytes remain unchanged. Generated
 Rustdoc may also log non-blocking font-preload warnings in Chromium. See the
@@ -71,8 +74,10 @@ Each crate's own README and nested package root excludes those repository-level
 trees from docs.rs inputs. This is a documentation boundary, not an access-control
 mechanism: tracked engineering records remain in the Git repository.
 
-Current action release pins and supported macos-26 are locally checked; no
-hosted Actions/Pages run or new runtime-platform acceptance is implied.
+Current action major-version tags and supported macos-26 are retained. Initial
+hosted push/PR guide checks passed; their site checks exposed the compiler
+rendering distinction above. Its local repair awaits fresh hosted verification;
+no Pages deployment or new runtime-platform acceptance is implied.
 
 ## How to classify Rust differences
 

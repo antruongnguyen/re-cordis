@@ -4,6 +4,22 @@ A lightweight log of decisions made for this project and the reasoning behind
 them. Newest first. This is intentionally not a heavy ADR process; it records
 *what we chose and why* so the choices aren't re-litigated silently.
 
+## 2026-11-06 — Recognize the verified hidden-associated-type Rustdoc rendering
+
+Compare the actual hosted macOS artifact with the accepted local compiler
+artifact before changing the dependency link inventory. Rustdoc 1.97.1 emits
+two `Peek::Token` links in `syn::parse::ParseBuffer::parse_terminated`, although
+the associated type is hidden and its anchor is absent. Hosted Rustdoc 1.99.1
+renders the identical two source uses as plain `P::Token` text.
+
+Keep the original 97-entry inventory. Select its exact 96-entry variant only
+when the complete method signature matches, both token uses are plain text and
+the old link target is absent. Preserve strict set/count checks for every
+other entry and all framework/site links and assets. Compiler-emitted files
+remain byte-identical; no toolchain, dependency or workflow change is needed.
+See the [repair evidence](plans/2026-11-06-public-delivery/hosted-link-fix.md).
+Fresh hosted revalidation remains outstanding.
+
 ## 2026-11-06 — Focus documentation on this project's contracts
 
 The project documentation uses pinned TypeScript Cordis as the behavioral

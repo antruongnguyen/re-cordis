@@ -57,11 +57,16 @@ assets fail the checker. Compiler-generated Rustdoc font preload warnings are
 retained, while the Fumadocs pages have no browser warnings/errors.
 
 
-A precise dependency-only boundary remains: 112 compiler-owned prose references
-to 76 targets across 32 dependency HTML files (54 Rust-path references, 35
-inherited anchors and 23 inactive/incorrect prose targets).
-`scripts/rustdoc-prose-links.json` fixes their exact 97 file/target/count entries;
-new/changed entries fail. Exceptions apply only to anchor elements on those
+A precise dependency-only boundary remains: the accepted Rustdoc 1.97.1 artifact
+has 112 compiler-owned references in 97 file/target/count entries (76 targets,
+32 dependency files); the hosted Rustdoc 1.99.1 artifact has 110 references in
+96 entries (75 targets, 31 files). The difference is exactly two hidden
+`syn::parse::Peek::Token` uses in `ParseBuffer::parse_terminated`: 1.97.1 emits
+links to an absent anchor; 1.99.1 renders both uses as plain `P::Token` text.
+`scripts/rustdoc-prose-links.json` retains the original 97 entries. The checker
+selects the 96-entry expectation only when that exact method signature contains
+both plain token uses and the old target is absent. Every other omitted/changed
+entry still fails. Exceptions apply only to anchor elements on those
 dependency files. There are zero framework/website exceptions; all assets remain
 strict. `.generated/static-check.json` records each entry's build hash, and the
 checker visibly reports the boundary. Valid Rustdoc re-export redirects preserve
@@ -132,7 +137,9 @@ navigation and deep-link reloads against the exported preview.
 
 Workflow actions use major-version tags; macOS guide checks run on supported
 macos-26. The Rustdoc artifact is transferred to the Linux site build. Hosted
-runs remain unverified.
+push/PR guide jobs passed, while their initial site checks failed on the compiler
+rendering distinction above. Both real artifacts pass the corrected checker
+locally; fresh hosted CI remains required.
 
 After separate authorization to push reviewed commits, ensure the workflow is
 available on the default branch. Set Settings → Pages → Source to GitHub Actions;

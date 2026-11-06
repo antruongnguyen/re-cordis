@@ -13,7 +13,7 @@ import { visit } from 'unist-util-visit';
 import { staticClient } from 'fumadocs-core/search/client/orama-static';
 import type { Root as MdRoot } from 'mdast';
 import type { Root as HtmlRoot } from 'hast';
-import dependencyProseLinks from './rustdoc-prose-links.json';
+import { dependencyProseLinksFor } from './rustdoc';
 import { locales, mapLink, pageUrl, markdownUrl } from './routes';
 import { internalDocumentationPath, isInternalDocumentation } from './visibility';
 
@@ -57,6 +57,7 @@ assert.equal(new Set(pages.map((page) => page.url)).size, pages.length, 'Route c
 const anchorIds = new Map<string, Set<string>>();
 const redirects = new Map<string, string>();
 const rustdocErrors: { source: string; target: string; message: string }[] = [];
+const dependencyProseLinks = dependencyProseLinksFor(await readFile(path.join(output, 'rustdoc', revision, 'syn/parse/struct.ParseBuffer.html'), 'utf8'));
 assert(dependencyProseLinks.every((entry) => !entry.file.startsWith('re_cordis_')), 'Framework entries are forbidden in the dependency prose boundary.');
 const unresolvedCounts = new Map<string, number>();
 let checkedLinks = 0;
@@ -234,5 +235,5 @@ assert.equal(unresolvedCounts.size, dependencyProseLinks.length, 'Dependency pro
       unresolvedDependencyProse.push({ ...entry, sourceSha256 });
     }
     await writeFile('.generated/static-check.json', JSON.stringify({ revision, pages: pages.length, checkedLinks, checkedAssets, unresolvedDependencyProse }, null, 2));
-    console.log('KNOWN BOUNDARY: 112 unresolved dependency prose links (54 Rust-path, 35 inherited-anchor, 23 inactive/incorrect targets; 76 targets, 32 files); ZERO framework/site exceptions. Exact entries/hashes: .generated/static-check.json.');
+    console.log(`KNOWN BOUNDARY: ${dependencyProseLinks.reduce((sum, entry) => sum + entry.count, 0)} unresolved dependency prose references (${dependencyProseLinks.length} exact file/target/count entries; ${new Set(dependencyProseLinks.map((entry) => entry.target)).size} targets, ${new Set(dependencyProseLinks.map((entry) => entry.file)).size} files); ZERO framework/site exceptions. Exact entries/hashes: .generated/static-check.json.`);
     console.log(`PASS: ${pages.length} canonical routes/Markdown files, ${checkedLinks} links/anchors, ${checkedAssets} asset references, complete exact Rustdoc and public llms.txt.`);

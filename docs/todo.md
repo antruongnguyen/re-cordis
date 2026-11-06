@@ -19,6 +19,12 @@ delivery tasks; the 35 accepted implementation work packages remain closed.
 - [ ] D3–D6: Decide the alpha contract, prepare/review the candidate, then publish,
   verify actual registry/CLI consumers and close release documentation.
 
+The initial D1 push/PR documentation runs passed macOS stable/1.85.0 guide checks
+but failed the site inventory on two hidden associated-type links that newer
+Rustdoc renders as plain text. The [scoped repair](plans/2026-11-06-public-delivery/hosted-link-fix.md)
+passes both real compiler artifacts locally; fresh hosted CI and review remain
+required before D1 closes.
+
 Planning does not authorize push, merge, deployment, version changes or
 publication. Keep `0.0.0`/`publish=false` until the recorded release decision.
 
