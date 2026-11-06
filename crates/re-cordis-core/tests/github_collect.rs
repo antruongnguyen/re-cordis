@@ -109,13 +109,8 @@ async fn executable_collects_complete_snapshot_and_preserves_last_good_on_query_
     );
     items.push(items[0].clone());
     script(&dir, &prefix(&items), ":");
-    assert!(
-        collector::collect_once(&config)
-            .await
-            .unwrap_err()
-            .to_string()
-            .contains("more than 100")
-    );
+    let error = collector::collect_once(&config).await.unwrap_err();
+    assert!(error.to_string().contains("more than 100"), "{error}");
     assert_eq!(tokio::fs::read(&config.output).await.unwrap(), bounded);
 }
 
