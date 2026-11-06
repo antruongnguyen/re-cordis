@@ -23,6 +23,10 @@ experimental candidates on 2026-11-06 and designated crates.io account
 all ten exact internal dependency requirements and crates.io-only publish policies
 now reflect that contract. No upload, release tag or hosted docs.rs release has
 occurred. Candidate verification and review remain distinct from registry readiness.
+A focused [D4 fixture correction](plans/2026-11-06-public-delivery/core-archive-fixtures.md)
+makes Rust parity tests/examples use exact package-local trace copies while
+retaining root comparison fixtures. Clean integrated and registry package
+validation remain separate gates.
 
 The approved scope is six runtime libraries and the explicitly offline Create
 library/CLI below, Rust 1.85 minimum and the tested Apple Silicon macOS runtime

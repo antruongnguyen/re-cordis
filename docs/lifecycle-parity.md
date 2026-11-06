@@ -25,7 +25,13 @@ The Rust fixture is
 [`tests/lifecycle_parity.rs`](../crates/re-cordis-core/tests/lifecycle_parity.rs).
 Its TypeScript counterpart is
 [`tests/parity/lifecycle.spec.ts`](../tests/parity/lifecycle.spec.ts).
-Both assert six shared `.txt` traces under `tests/parity/`.
+TypeScript asserts the six root `.txt` traces under `tests/parity/`; Rust embeds
+byte-identical package-local copies under
+`crates/re-cordis-core/tests/fixtures/lifecycle_parity/` so Cargo archive tests
+are self-contained. The paired runner compares actual Rust/TypeScript output,
+retaining the root fixture paths and detecting divergent expectations. The
+[focused D4 package correction](plans/2026-11-06-public-delivery/core-archive-fixtures.md)
+also closes the same timer/loader fixture boundary without changing trace bytes.
 Channel/Promise gates, not sleeps, control load, rollback, cleanup, and recovery
 windows. Each test has a five-second failure bound.
 

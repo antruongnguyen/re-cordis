@@ -10,6 +10,10 @@ breaking changes require release notes and a new alpha version. Use exact pins.
 
 ### Changed
 
+- Made core/loader parity tests and the timer parity example self-contained in
+  Cargo packages using twelve exact package-local trace copies. Root comparison
+  fixtures, expected bytes and runtime behavior remain unchanged.
+
 - Prepared the approved seven-package `0.1.0-alpha.1` experimental candidate,
   restricted manifests to crates.io and added exact internal version requirements
   while retaining local paths. No registry upload or release tag is included.

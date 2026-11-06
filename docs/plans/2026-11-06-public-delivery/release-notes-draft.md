@@ -9,7 +9,8 @@ Publisher designated for the proposed crates.io release: antruongnguyen.
 ## Scope
 
 The first experimental alpha coordinates seven MIT packages. This candidate
-changes release metadata and documentation; the accepted runtime/API semantics,
+changes release metadata/documentation and makes parity test/example inputs
+package-local. The accepted runtime/API semantics, trace expectations,
 dependency features/pins and five-file Create template remain unchanged.
 
 | Package | Capability | Planned exact-version API |

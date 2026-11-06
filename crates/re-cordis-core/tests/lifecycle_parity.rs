@@ -79,13 +79,16 @@ impl Scenario {
         match self {
             Self::Combined => (
                 "combined",
-                include_str!("../../../tests/parity/combined.txt"),
+                include_str!("fixtures/lifecycle_parity/combined.txt"),
             ),
             Self::Coalesced => (
                 "coalesced",
-                include_str!("../../../tests/parity/coalesced.txt"),
+                include_str!("fixtures/lifecycle_parity/coalesced.txt"),
             ),
-            Self::Removed => ("removed", include_str!("../../../tests/parity/removed.txt")),
+            Self::Removed => (
+                "removed",
+                include_str!("fixtures/lifecycle_parity/removed.txt"),
+            ),
         }
     }
 }
@@ -433,11 +436,11 @@ async fn failure_scenario(mode: FailureMode) {
                 let (name, expected) = match mode {
                     FailureMode::Superseded => (
                         "superseded-failure",
-                        include_str!("../../../tests/parity/superseded-failure.txt"),
+                        include_str!("fixtures/lifecycle_parity/superseded-failure.txt"),
                     ),
                     FailureMode::Latest => (
                         "latest-failure",
-                        include_str!("../../../tests/parity/latest-failure.txt"),
+                        include_str!("fixtures/lifecycle_parity/latest-failure.txt"),
                     ),
                 };
                 assert_trace(name, expected, &trace.borrow());
@@ -558,7 +561,7 @@ async fn failed_consumer_ignores_provider_refresh_and_update_awaits_recovery() {
                 trace.borrow_mut().push("baseline restored".into());
                 assert_trace(
                     "explicit-recovery",
-                    include_str!("../../../tests/parity/explicit-recovery.txt"),
+                    include_str!("fixtures/lifecycle_parity/explicit-recovery.txt"),
                     &trace.borrow(),
                 );
             })
