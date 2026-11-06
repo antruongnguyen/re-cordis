@@ -6,11 +6,12 @@ TypeScript original to Rust.
 
 ## Distribution readiness
 
-The [R1 assessment](release-readiness.md) recommends local/Git checkout
-consumption only. All seven crates remain 0.0.0/publish=false. Five satellites
-cannot construct registry archives with their current versionless path
-dependencies; publish dry-runs stop at publish=false. Core/Create archive
-verification does not prove the whole dependency set can be published.
+Current availability remains local/Git checkout consumption. The approved
+[alpha candidate](release-readiness.md) coordinates seven unpublished
+`0.1.0-alpha.1` crates with exact internal requirements and crates.io-only
+publish policies. These metadata changes do not authorize uploads or establish
+registry resolution. Historical R1/B1 archive checks do not prove the versioned
+candidate or the whole dependency set can be published.
 
 Exact crates.io API 404 responses are only time-stamped absence evidence,
 not name reservation or publisher authority. The public development site follows
@@ -21,7 +22,8 @@ notices for identified derived logger code and literal source excerpts; this
 is not legal certification or a binary/vendor dependency-notice audit. Actual
 release versions, registry resolution, normalized
 dev/example dependencies, documentation URLs and compatible Create checkout
-still need validation under a subsequent release decision.
+still need final candidate and progressive registry validation before separately
+approved publication.
 
 The six Create archive scaffold failures recorded by R1 are corrected by a
 test-only explicit checkout fixture; both archive suites pass on stable/1.85.0.
@@ -61,9 +63,9 @@ Rustdoc may also log non-blocking font-preload warnings in Chromium. See the
 
 Path dependencies track current checkout contents, not immutable Cargo.lock
 sources. Moving a checkout needs manifest edits; changing it may change the
-application despite version 0.0.0. Keep reviewed revisions and a common Cordis
+application without a version change. Keep reviewed revisions and a common Cordis
 source. Current local/non-Send contracts and macOS-only runtime filesystem/watch
-evidence remain; a proposed experimental alpha adds no Windows/Linux or stable
+evidence remain; the approved experimental alpha adds no Windows/Linux or stable
 API guarantee. See [the decision](decision.md#2026-11-05--separate-accepted-behavior-from-distribution-readiness).
 
 ## Documentation publication boundary
@@ -297,9 +299,10 @@ integrated framework or resolve every behavioral gap.
   accepted with shared stable/1.85.0 verification. Selected offline Create S0–S2
   is independently accepted; remote scaffolding remains unselected.
   See [the roadmap](todo.md).
-- No cross-revision API stability promise exists for unpublished 0.0.0.
-  Core/satellite behavioral acceptance does not establish semver stability;
-  see the proposed alpha policy in [release readiness](release-readiness.md).
+- The experimental `0.1.0-alpha.1` candidate does not promise stable APIs.
+  Intentional breaking changes require release notes and a new coordinated alpha
+  version; use exact pins. Core/satellite acceptance does not establish 1.0
+  stability; see [release readiness](release-readiness.md).
 - `spikes/m0` uses separate test-only models: one dependency per lifecycle
   Fiber, synchronous setup, and no integrated update/recovery/logger protocol.
   Its passing tests are design evidence, not production parity coverage.
@@ -557,7 +560,7 @@ the [guide](en/guides/create.md) and
   requires manifest edits. Canonical dependency paths must be Unicode; destination
   arguments preserve native OS bytes but the filesystem may reject them
   (macOS EILSEQ was exercised). The three bundled Cordis dependency names are
-  unavailable as project names because their `0.0.0` Cargo identities collide.
+  unavailable as project names under the fixed template's admission contract.
   Checkout validation recognizes the current
   literal manifest/layout spelling, not arbitrary TOML or source integrity.
   Offline Cargo still requires cached third-party

@@ -25,7 +25,7 @@ cargo doc -p re-cordis-core --no-deps --locked
 
 Mở `target/doc/re_cordis_core/index.html`, hoặc đường dẫn tương ứng trong
 `CARGO_TARGET_DIR`. Lệnh không phát hành gì lên docs.rs.
-Package `0.0.0` chưa phát hành không phải đích cài đặt crates.io được hỗ trợ.
+Bản ứng viên `0.1.0-alpha.1` chưa phát hành chưa phải đích cài đặt crates.io đã kiểm chứng.
 
 ## Bản đồ export công khai
 
@@ -65,9 +65,10 @@ xem từng chương thay vì cho rằng mọi phương thức đều cần `run`
 
 ## Tính ổn định và tương thích
 
-R1 đánh giá API hiện tại mà không thêm cam kết semver.
-[Đề xuất phát hành](../../release-readiness.md) mô tả khả năng dùng đồng bộ
-0.1.0-alpha.1; các crate hiện vẫn 0.0.0/publish=false. Trường công khai,
+R1 đã đánh giá API mà không thêm cam kết semver.
+[Hợp đồng alpha](../../release-readiness.md) đã duyệt dùng bản ứng viên đồng bộ
+`0.1.0-alpha.1` chưa phát hành. Dùng pin chính xác; thay đổi phá vỡ tương thích
+cần ghi chú phát hành và phiên bản alpha đồng bộ mới. Trường công khai,
 trait implementation và re-export phụ thuộc cũng ảnh hưởng tính tương thích.
 
 

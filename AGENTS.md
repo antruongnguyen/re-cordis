@@ -10,9 +10,14 @@ Instructions for agents (and humans) working in this repository.
 **Status: core, selected satellites and offline R0 integration independently accepted.**
 R1 API/package readiness is complete and independently accepted; its verdict
 is local/Git checkout consumption only. See `docs/release-readiness.md` for the
-seven-package experimental alpha proposal and
-`docs/plans/2026-11-02-cordis-completion/evidence/r1-acceptance.md` for evidence. Version/dependency/publication changes require a subsequent
-release decision; keep `0.0.0`/`publish=false`. Each crate carries its MIT notice;
+approved seven-package experimental alpha contract and
+`docs/plans/2026-11-02-cordis-completion/evidence/r1-acceptance.md` for evidence.
+The maintainer approved candidate preparation on 2026-11-06: seven packages
+at `0.1.0-alpha.1`, exact internal pins and `publish=["crates-io"]`.
+The candidate remains unpublished; upload, release tags and a Pages refresh
+require separate authorization. See
+`docs/plans/2026-11-06-public-delivery/release-decision.md`.
+Each crate carries its MIT notice;
 the generated starter retains that notice in its existing README.
 Bounded B1/local release preparation is independently accepted; all 35 work
 packages are done within scope. See

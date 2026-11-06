@@ -1,3 +1,4 @@
+import { TOML } from 'bun';
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
@@ -21,7 +22,9 @@ const root = path.resolve('..');
 const output = path.resolve('out');
 const provenance = JSON.parse(await readFile('out/build-provenance.json', 'utf8'));
 const pages: { locale: string; file: string; source: string; title: string; titleId: string; url: string; markdownUrl: string; sourceUrl: string; toc: { url: string }[] }[] = JSON.parse(await readFile('.generated/pages.json', 'utf8'));
-const { basePath, origin, github, revision } = provenance;
+const { basePath, origin, github, revision, version } = provenance;
+assert.equal(version, (TOML.parse(await readFile(path.join(root, 'Cargo.toml'), 'utf8')) as { workspace: { package: { version: string } } }).workspace.package.version, 'Export package version is stale.');
+assert.equal(version, JSON.parse(await readFile('.generated/settings.json', 'utf8')).version);
 assert(!Object.hasOwn(provenance, 'rustdocInput'), 'Private Rustdoc input path must not be published.');
 for await (const file of new Bun.Glob('**/*').scan('out')) {
   assert(!internalDocumentationPath.test(file), 'Internal documentation file exported: ' + file);
@@ -162,10 +165,11 @@ for (const page of pages) {
   assert.equal(html('html').attr('lang'), page.locale, 'Missing static document language.');
   assert(html('[id]').toArray().some((el) => html(el).attr('id') === page.titleId));
   assert(html('#main-content').length, 'Missing keyboard skip destination.');
-  assert(html('body').text().includes('0.0.0'));
+  assert.equal(html('.site-brand span').text(), version, 'Header must show the workspace candidate version.');
   assert(html('a').toArray().some((el) => html(el).attr('href') === page.sourceUrl));
   for (const heading of page.toc) await checkUrl(heading.url, page.url);
   const markdown = await readFile(exportedFile(new URL(origin + page.markdownUrl)), 'utf8');
+  assert(markdown.startsWith(`<!-- Development documentation; unpublished ${version} candidate. Build revision ${revision}. -->`), 'Markdown must identify the matching unpublished candidate.');
   assert(markdown.includes(`Build revision ${revision}`));
   const actual = markdownParser.parse(markdown) as MdRoot;
   const raw = markdownParser.parse(await readFile(path.join(root, page.source), 'utf8')) as MdRoot;
@@ -204,6 +208,7 @@ const missing = await checkHtml(path.join(output, '404.html'), `${basePath}/404.
 assert(missing('h1').text().includes('Không tìm thấy trang'));
 await stat(path.join(output, '.nojekyll'));
 const llms = await readFile('out/llms.txt', 'utf8');
+assert(llms.includes(version) && llms.includes('unpublished'), 'Public index must identify the unpublished candidate.');
 assert(llms.includes('local/Git checkout'));
 assert(llms.includes('no published') || llms.includes('No crates.io or hosted docs.rs'));
 assert(llms.includes('Essential contracts:'));

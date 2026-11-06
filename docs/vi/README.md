@@ -8,7 +8,7 @@ TypeScript bằng API Rust tường minh, có kiểu.
 
 Sản phẩm hiện tại gồm `re-cordis-core`, `re-cordis-timer`, `re-cordis-logger`
 cùng `re-cordis-loader`, `re-cordis-include`, `re-cordis-hmr` và `re-cordis-create`
-ngoại tuyến đã chọn chưa phát hành, phiên bản 0.0.0, Rust 2024/MSRV 1.85.
+ngoại tuyến đã chọn chưa phát hành, bản ứng viên `0.1.0-alpha.1`, Rust 2024/MSRV 1.85.
 API chưa ổn định. Loader sở hữu nguồn entry có kiểu và group cấu trúc;
 Include có đọc/refresh tệp, patch có thứ tự và persistence có hòa giải đã nghiệm thu.
 HMR đã triển khai theo dõi tệp, refresh Include tùy chọn và thay factory đã liên kết.
@@ -20,8 +20,10 @@ tường minh được ghi trong [lộ trình](../todo.md#next-implementation-ta
 
 Đọc [đánh giá mức sẵn sàng phát hành](../release-readiness.md) trước khi chọn
 cách phân phối: hiện dùng checkout đầy đủ từ máy cục bộ/Git.
-Đề xuất alpha gồm bảy package chưa phải bản phát hành có thể cài đặt;
-bằng chứng thực thi filesystem và watcher vẫn chỉ có trên macOS.
+Việc chuẩn bị alpha gồm bảy package đã được duyệt; bản ứng viên vẫn chưa phát hành.
+Dùng pin phiên bản chính xác. Thay đổi phá vỡ tương thích cần ghi chú phát hành
+và phiên bản alpha đồng bộ mới. Bằng chứng filesystem và watcher chỉ bao phủ
+môi trường Apple Silicon macOS đã kiểm thử.
 [Bản bổ sung B1](../plans/2026-11-02-cordis-completion/evidence/2026-11-05-b1-closure.md)
 ghi bản sửa test archive/notice cục bộ và quyết định CI tại mốc đó.
 CI Rust và tài liệu kiểm tra pull request và push vào main. Các kiểm tra trên

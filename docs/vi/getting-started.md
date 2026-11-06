@@ -4,8 +4,8 @@
 
 ## Yêu cầu và khai báo phụ thuộc
 
-Dùng Rust 1.85 trở lên. `re-cordis-core` chưa được phát hành lên crates.io; không
-cài một package khác chỉ vì tên tương tự.
+Dùng Rust 1.85 trở lên. Bản ứng viên `0.1.0-alpha.1` vẫn chưa phát hành;
+hãy dùng checkout đầy đủ. Cài từ registry cần được kiểm chứng riêng.
 
 Ví dụ ứng dụng nằm cạnh bản checkout `re-cordis`:
 
@@ -27,7 +27,7 @@ edition = "2024"
 rust-version = "1.85"
 
 [dependencies]
-re-cordis-core = { path = "../re-cordis/crates/re-cordis-core" }
+re-cordis-core = { path = "../re-cordis/crates/re-cordis-core", version = "=0.1.0-alpha.1" }
 tokio = { version = "1.48", default-features = false, features = ["rt", "sync"] }
 ```
 
@@ -38,10 +38,11 @@ tối thiểu của core không tự bật chúng.
 
 Chốt checkout đầy đủ tại một revision Git đã review và dùng cùng nguồn đó cho
 mọi crate Cordis. Cargo.lock không đóng băng nội dung phụ thuộc path: sửa checkout
-sẽ ảnh hưởng lần build tiếp theo dù version vẫn là 0.0.0. Di chuyển checkout cần
+sẽ ảnh hưởng lần build tiếp theo mà không cần đổi version. Di chuyển checkout cần
 sửa đường dẫn phụ thuộc. Bằng chứng filesystem/watcher chỉ có trên macOS;
 xem [đánh giá phát hành](../release-readiness.md) để biết kết luận hiện chỉ dùng
-local/Git và chính sách alpha được đề xuất riêng.
+local/Git và chính sách alpha đã duyệt. Giữ pin chính xác; thay đổi phá vỡ tương
+thích cần ghi chú phát hành và phiên bản alpha đồng bộ mới.
 
 ## Ứng dụng đầu tiên hoàn chỉnh
 

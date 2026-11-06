@@ -1,6 +1,12 @@
 # re-cordis-create
 
-Unpublished offline scaffold command for Rust 1.85+:
+Planned release references: [tag-pinned guide](https://github.com/antruongnguyen/re-cordis/blob/v0.1.0-alpha.1/docs/en/guides/create.md)
+and [exact-version API](https://docs.rs/re-cordis-create/0.1.0-alpha.1/re_cordis_create/).
+Candidate preparation does not establish these destinations' availability.
+
+Experimental `0.1.0-alpha.1` offline scaffold command for Rust 1.85+:
+Use exact version pins. Intentional breaking changes require release notes and
+a new coordinated alpha version.
 
 ```sh
 cargo run -p re-cordis-create --offline --locked -- my-app --path '../my app' --cordis-path .
@@ -34,10 +40,11 @@ extracted Cargo archive outside that repository, explicitly supply a compatible
 complete checkout through the test-only `CORDIS_CREATE_TEST_CHECKOUT` variable:
 
 ```sh
-CORDIS_CREATE_TEST_CHECKOUT='/absolute/path/to/pinned/cordis-rust' cargo test --manifest-path '/absolute/path/to/extracted/re-cordis-create-0.0.0/Cargo.toml' --locked --offline
+CORDIS_CREATE_TEST_CHECKOUT='/absolute/path/to/pinned/cordis-rust' cargo test --manifest-path '/absolute/path/to/extracted/re-cordis-create-0.1.0-alpha.1/Cargo.toml' --locked --offline
 ```
 
-The fixture was verified with the complete checkout pinned to Git revision
+The historical B1 fixture was verified with the complete checkout pinned to
+Git revision
 `03d255029db6a57ccc17c0b1e26facdb491c058b` on stable and Rust 1.85.0. Keep all
 Cordis crates at that same revision when reproducing this check. The variable
 preserves native OS paths and applies only to tests; CLI use still requires
@@ -46,10 +53,10 @@ Cargo workspace discovery is separate from checkout fixture validation. These
 tests remain dependent on an external checkout; the archive does not bundle the
 runtime crates. Offline generated-app checks also require cached dependencies.
 
-Version remains `0.0.0` with `publish=false`; there is no supported crates.io
-installation or published docs.rs release. The checkout must remain available
+The tool remains explicitly offline, including when installed from a registry.
+Its generated application's own `0.0.0`/`publish=false` is intentional.
+The checkout must remain available
 at the generated absolute paths; moving it requires manifest edits, and its
 source changes affect subsequent builds without a package-version change.
-Runtime filesystem evidence covers macOS only. The checkout's
-`docs/release-readiness.md` records the release proposal; it is not bundled in
-this crate archive. See [LICENSE](LICENSE) for the MIT notice.
+Runtime filesystem evidence covers the tested Apple Silicon macOS environment.
+See [LICENSE](LICENSE) for the MIT notice.

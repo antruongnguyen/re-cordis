@@ -17,7 +17,11 @@ The initial manual deployment on 2026-11-06 used revision
 `3718217aac6f8f11f1f11c221bf2730cbe169bd6`; its
 [build provenance](https://antruongnguyen.github.io/re-cordis/build-provenance.json)
 records that revision. Later documentation changes require a new manual deployment.
-All seven crates remain unpublished and experimental at `0.0.0`/`publish=false`.
+The seven `0.1.0-alpha.1` candidate crates remain unpublished and experimental.
+The existing live deployment is a separate snapshot; local candidate changes do
+not refresh it. Website labels, Markdown, llms.txt and public provenance derive
+the crate version from `../Cargo.toml` through generated settings. The private
+website package's own `0.0.0` version is independent.
 
 ## Build and preview
 
@@ -165,7 +169,7 @@ repository Actions variable `PAGES_DEPLOY_ENABLED=true`; dispatch `pages.yml` on
 the reviewed main revision with `deploy=true`. A push alone does not deploy.
 The initial deployment succeeded; retain the same manual gates for
 subsequent refreshes. docs.rs builds from crates published to crates.io; no hosted docs.rs
-release exists while these crates remain `0.0.0`/`publish=false`.
+release is established by preparing these unpublished candidate crates.
 
 ## Official references consulted
 

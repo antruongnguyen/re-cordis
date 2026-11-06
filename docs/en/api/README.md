@@ -27,7 +27,7 @@ cargo doc -p re-cordis-core --no-deps --locked
 
 Open `target/doc/re_cordis_core/index.html`, or the equivalent path under your
 `CARGO_TARGET_DIR`. Nothing is published to docs.rs by this command.
-An unpublished `0.0.0` package is not a supported crates.io installation target.
+The unpublished `0.1.0-alpha.1` candidate is not yet a verified crates.io installation target.
 
 ## Public export map
 
@@ -68,9 +68,10 @@ new work; see the relevant chapter rather than assuming every method needs
 
 ## Stability and compatibility
 
-R1 reviews this current API surface without adding a semver promise. The
-[release proposal](../../release-readiness.md) describes a possible coordinated
-0.1.0-alpha.1; all current crates remain 0.0.0/publish=false. Public fields,
+R1 reviewed the API without adding a semver promise. The approved
+[alpha contract](../../release-readiness.md) coordinates the unpublished
+`0.1.0-alpha.1` candidate. Use exact pins; intentional breaking changes require
+release notes and a new coordinated alpha version. Public fields,
 trait implementations and dependency re-exports also affect compatibility.
 
 

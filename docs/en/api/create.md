@@ -6,7 +6,7 @@ Source: [lib.rs](../../../crates/re-cordis-create/src/lib.rs).
 CLI: [main.rs](../../../crates/re-cordis-create/src/main.rs).
 Guide: [create an application](../guides/create.md).
 
-`re-cordis-create` (`0.0.0`, unpublished, Rust 2024, MSRV 1.85) supplies
+`re-cordis-create` (`0.1.0-alpha.1`, unpublished, Rust 2024, MSRV 1.85) supplies
 one synchronous standard-library-only generator and a binary of the same name.
 It requires no Context, Runtime or framework host. S0–S2 implementation and
 acceptance are tracked in the

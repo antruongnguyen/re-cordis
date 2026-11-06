@@ -4,8 +4,8 @@
 
 ## Requirements and dependency setup
 
-Use Rust 1.85 or newer. `re-cordis-core` is not published to crates.io; do not
-install an unrelated package with a similar name.
+Use Rust 1.85 or newer. The `0.1.0-alpha.1` candidate remains unpublished;
+use a complete checkout. Registry installation will require separate verification.
 
 For an application next to a local `re-cordis` checkout:
 
@@ -27,7 +27,7 @@ edition = "2024"
 rust-version = "1.85"
 
 [dependencies]
-re-cordis-core = { path = "../re-cordis/crates/re-cordis-core" }
+re-cordis-core = { path = "../re-cordis/crates/re-cordis-core", version = "=0.1.0-alpha.1" }
 tokio = { version = "1.48", default-features = false, features = ["rt", "sync"] }
 ```
 
@@ -38,10 +38,11 @@ feature set does not enable them for you.
 
 Pin the complete checkout to a reviewed Git revision and keep all Cordis crates
 on that source. Cargo.lock does not freeze local path contents: later checkout
-edits affect subsequent builds even at version 0.0.0. Moving it requires updating
+edits affect subsequent builds without a version change. Moving it requires updating
 the dependency paths. Runtime filesystem/watcher evidence covers macOS only;
 see [release readiness](../release-readiness.md) for the current local/Git-only
-verdict and the separately proposed alpha policy.
+verdict and the approved alpha policy. Keep exact pins; breaking changes require
+release notes and a new coordinated alpha version.
 
 ## A complete first application
 

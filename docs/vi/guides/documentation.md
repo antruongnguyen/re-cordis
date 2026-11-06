@@ -6,8 +6,9 @@ Dùng hướng dẫn để hiểu hợp đồng ứng dụng và Rustdoc để t
 ràng buộc generic, trait implementation và trường công khai. Hai nguồn phải
 mô tả cùng revision mã nguồn và cấu hình feature.
 
-Cả bảy crate hiện vẫn chưa phát hành, chưa ổn định ở `0.0.0` với
-`publish=false`. Site tài liệu phát triển đã công khai trên GitHub Pages, với
+Cả bảy crate là bản ứng viên thử nghiệm `0.1.0-alpha.1` chưa phát hành.
+Việc chuẩn bị đã được duyệt; phát hành registry vẫn cần cổng riêng.
+Site tài liệu phát triển đã công khai trên GitHub Pages, với
 hướng dẫn [tiếng Anh](https://antruongnguyen.github.io/re-cordis/en/docs/) và
 [tiếng Việt](https://antruongnguyen.github.io/re-cordis/vi/docs/) cùng Rustdoc
 cùng revision. Đây không phải bản docs.rs đã phát hành. Tiếp tục
@@ -84,8 +85,8 @@ cho các phương thức phụ thuộc feature.
 
 [docs.rs](https://docs.rs/about/builds) tự động sinh Rustdoc
 từ package được phát hành trên crates.io. Site Fumadocs là artifact riêng;
-không được tải lên docs.rs. Package hiện tắt publication và
-[bản alpha đồng bộ](../../release-readiness.md) vẫn là đề xuất.
+không được tải lên docs.rs. [Bản ứng viên alpha đồng bộ](../../release-readiness.md)
+đã được duyệt để chuẩn bị; chính sách manifest chỉ cho crates.io không cho phép tải lên.
 Hiện chưa có bản docs.rs của re-cordis để liên kết.
 
 Trước khi phát hành, chuẩn bị snapshot hướng dẫn bất biến từ cùng revision

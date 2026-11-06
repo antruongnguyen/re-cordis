@@ -6,11 +6,11 @@ edition.workspace = true
 rust-version.workspace = true
 license.workspace = true
 repository.workspace = true
-publish = false
+publish = ["crates-io"]
 
 [dependencies]
-re-cordis-core = { path = "../re-cordis-core" }
-re-cordis-loader = { path = "../re-cordis-loader" }
+re-cordis-core = { path = "../re-cordis-core", version = "=0.1.0-alpha.1" }
+re-cordis-loader = { path = "../re-cordis-loader", version = "=0.1.0-alpha.1" }
 futures-util.workspace = true
 serde_json = "1"
 yaml-rust2 = { version = "0.10", default-features = false }

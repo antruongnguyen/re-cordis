@@ -6,7 +6,7 @@ Source: [timer lib.rs](../../../crates/re-cordis-timer/src/lib.rs).
 Guide: [timers](../guides/timers.md).
 Runnable example: [timer_lifecycle.rs](../../../crates/re-cordis-timer/examples/timer_lifecycle.rs).
 
-`re-cordis-timer` is unpublished (`0.0.0`, Rust 2024, MSRV 1.85).
+`re-cordis-timer` is unpublished (`0.1.0-alpha.1`, Rust 2024, MSRV 1.85).
 Import sealed `TimerExt` on `Context`; no service installation is required.
 Timer tasks use the original Cordis host through
 [`Context::task`](effects.md#hosted-tasks-and-synchronous-callbacks).

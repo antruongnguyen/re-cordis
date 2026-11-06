@@ -1,3 +1,4 @@
+import { TOML } from 'bun';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { readFile, writeFile, mkdir, rm, stat } from 'node:fs/promises';
@@ -24,7 +25,9 @@ const revision = git('rev-parse', 'HEAD');
 if (process.env.CORDIS_REVISION && process.env.CORDIS_REVISION !== revision) {
   throw new Error('CORDIS_REVISION must equal the current full HEAD; mixed revision builds are refused.');
 }
-const settings = { ...repository(git('remote', 'get-url', 'origin')), revision };
+const manifest = await readFile(path.join(root, 'Cargo.toml'), 'utf8');
+const version = (TOML.parse(manifest) as { workspace: { package: { version: string } } }).workspace.package.version;
+const settings = { ...repository(git('remote', 'get-url', 'origin')), revision, version };
 const rustdocDir = process.env.CORDIS_RUSTDOC_DIR;
 if (!rustdocDir) throw new Error('Set CORDIS_RUSTDOC_DIR to freshly generated workspace --all-features Rustdoc including dependencies. See README.md.');
 const crates = ['core', 'timer', 'logger', 'loader', 'include', 'hmr', 'create'];
@@ -46,7 +49,7 @@ const english = [...canonical].filter((file) => file.startsWith('docs/en/')).map
 const vietnamese = [...canonical].filter((file) => file.startsWith('docs/vi/')).map((file) => file.slice(8)).sort();
 if (JSON.stringify(english) !== JSON.stringify(vietnamese)) throw new Error('EN/VI documentation files differ.');
 const pages = [];
-const sources: Record<string, string> = {};
+const sources: Record<string, string> = { 'Cargo.toml': createHash('sha256').update(manifest).digest('hex') };
 const linkSources = new Set<string>();
 const markdownProcessor = unified().use(remarkParse).use(remarkGfm).use(remarkStringify, { fences: true });
 const htmlProcessor = unified().use(remarkRehype).use(rehypeSlug).use(rehypeCode, {
@@ -83,7 +86,7 @@ for (const source of [...canonical].sort()) {
   const mdUrl = markdownUrl(settings.basePath, locale, file);
   const output = path.join('public', mdUrl.slice(settings.basePath.length + 1));
   await mkdir(path.dirname(output), { recursive: true });
-  await writeFile(output, `<!-- Development documentation; unpublished 0.0.0. Build revision ${revision}. -->\n<!-- Page: ${settings.origin}${url} -->\n\n${markdown}`);
+  await writeFile(output, `<!-- Development documentation; unpublished ${version} candidate. Build revision ${revision}. -->\n<!-- Page: ${settings.origin}${url} -->\n\n${markdown}`);
   pages.push({ locale, file, source, title, titleId, body: htmlTree, toc, url, markdownUrl: mdUrl, content: toText(htmlTree), sourceUrl: `${settings.github}/blob/${revision}/${source}` });
 }
 for (const source of linkSources) {
@@ -101,7 +104,7 @@ const start = constraints.indexOf('Package map:');
     const constraintText = start >= 0 && end > start ? constraints.slice(start, end).trim() : '';
     if (!constraintText) throw new Error('Local docs/llms.txt must expose its essential contracts.');
     const publicConstraints = (preamble + '\n\n' + constraintText).replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, label: string, href: string) => `[${label}](${mapLink(href, 'docs/llms.txt', canonical, settings).url})`);
-let llms = `# re-cordis\n\n> Development documentation for unpublished 0.0.0 crates; local/Git checkout consumption only. Rust 1.85 minimum; macOS runtime filesystem/watcher evidence only. No crates.io or hosted docs.rs release is available.\n\nBuild revision: ${revision}. Exact local Rustdoc: ${settings.origin}${settings.basePath}/rustdoc/${revision}/re_cordis_core/index.html\n\n${publicConstraints}\n`;
+let llms = `# re-cordis\n\n> Development documentation for unpublished ${version} candidate crates; local/Git checkout consumption only. Rust 1.85 minimum; macOS runtime filesystem/watcher evidence only. No crates.io or hosted docs.rs release is available.\n\nBuild revision: ${revision}. Exact local Rustdoc: ${settings.origin}${settings.basePath}/rustdoc/${revision}/re_cordis_core/index.html\n\n${publicConstraints}\n`;
 for (const locale of locales) {
   llms += `\n## ${locale === 'en' ? 'English' : 'Tiếng Việt'}\n\n`;
   for (const page of pages.filter((page) => page.locale === locale)) llms += `- [${page.title}](${settings.origin}${page.markdownUrl}): ${settings.origin}${page.url}\n`;

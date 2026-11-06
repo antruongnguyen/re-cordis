@@ -71,9 +71,12 @@ the output still has exactly five files. Preserve that notice when redistributin
 the template or substantial portions. Your additions can carry their own notices.
 Cargo.lock does not pin the contents of the absolute path dependencies. Use a
 reviewed checkout revision; changing it can change the next application build.
-The [release proposal](../../release-readiness.md) would distribute only this
-explicit-checkout tool initially. A registry-backed generator mode remains a
-separate future decision, and no alpha package is available from R1.
+The approved [alpha contract](../../release-readiness.md) retains this
+explicit-checkout tool. The `0.1.0-alpha.1` candidate remains unpublished.
+A registry-backed generator mode remains a separate future decision. The
+released tool will still need a separate complete checkout at the compatible
+revision recorded with the release; package version/layout checks do not prove
+source compatibility. The generated application's `0.0.0`/`publish=false` stays intentional.
 
 ## Testing a Cargo archive
 

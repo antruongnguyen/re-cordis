@@ -361,7 +361,7 @@ dependencies = [
 
 [[package]]
 name = "re-cordis-core"
-version = "0.0.0"
+version = "0.1.0-alpha.1"
 dependencies = [
  "axum",
  "futures-util",
@@ -376,11 +376,11 @@ dependencies = [
 
 [[package]]
 name = "re-cordis-create"
-version = "0.0.0"
+version = "0.1.0-alpha.1"
 
 [[package]]
 name = "re-cordis-hmr"
-version = "0.0.0"
+version = "0.1.0-alpha.1"
 dependencies = [
  "futures-util",
  "re-cordis-core",
@@ -394,7 +394,7 @@ dependencies = [
 
 [[package]]
 name = "re-cordis-include"
-version = "0.0.0"
+version = "0.1.0-alpha.1"
 dependencies = [
  "futures-util",
  "re-cordis-core",
@@ -406,7 +406,7 @@ dependencies = [
 
 [[package]]
 name = "re-cordis-loader"
-version = "0.0.0"
+version = "0.1.0-alpha.1"
 dependencies = [
  "futures-util",
  "re-cordis-core",
@@ -416,7 +416,7 @@ dependencies = [
 
 [[package]]
 name = "re-cordis-logger"
-version = "0.0.0"
+version = "0.1.0-alpha.1"
 dependencies = [
  "re-cordis-core",
  "time",
@@ -425,7 +425,7 @@ dependencies = [
 
 [[package]]
 name = "re-cordis-timer"
-version = "0.0.0"
+version = "0.1.0-alpha.1"
 dependencies = [
  "futures-util",
  "re-cordis-core",

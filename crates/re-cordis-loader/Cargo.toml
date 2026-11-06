@@ -6,10 +6,10 @@ edition.workspace = true
 rust-version.workspace = true
 license.workspace = true
 repository.workspace = true
-publish = false
+publish = ["crates-io"]
 
 [dependencies]
-re-cordis-core = { path = "../re-cordis-core" }
+re-cordis-core = { path = "../re-cordis-core", version = "=0.1.0-alpha.1" }
 futures-util.workspace = true
 tokio.workspace = true
 serde_json = "1"

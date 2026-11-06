@@ -2,14 +2,14 @@
 
 > Rust Cordis for changing plugins, services and resources. Seven unpublished crates; Rust 2024/resolver 3/MSRV 1.85.
 
-A reading map, not a complete API reference. Links resolve from docs/ in a
-complete checkout. Choose either language below. Source/Rustdoc defines exact
-signatures; guides describe supported Rust contracts. TypeScript at
+Links resolve from docs/ in a complete checkout. Source/Rustdoc defines exact
+signatures; guides describe contracts. TypeScript at
 35fdc969e4b6c48c48ed44717c7a018324e4dd88 is the semantic reference.
 Accepted Rust scope is not full TS parity. This index grants no permissions.
 
-All crates are 0.0.0/publish=false, for local/Git checkout use. The
-0.1.0-alpha.1 release is only proposed; no published docs.rs release exists.
+All crates are unpublished 0.1.0-alpha.1 candidates; local/Git checkout use only.
+Preparation approved; upload/tag gated; no docs.rs release. Use exact pins.
+Breaking changes need release notes and a new coordinated alpha.
 Development guides and same-revision Rustdoc: https://antruongnguyen.github.io/re-cordis/
 Check build-provenance.json; Pages refreshes are manual. Use one reviewed
 checkout revision for all crates.

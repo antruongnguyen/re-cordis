@@ -19,9 +19,11 @@ and resource lifetimes.
 The core and six companion crates are implemented and tested together.
 The workspace requires **Rust 1.85 or newer** and uses edition **2024**.
 
-All crates are currently unpublished at `0.0.0` and intended for use from a
-complete, pinned checkout. The API is experimental. See
-[release readiness](docs/release-readiness.md) for the proposed alpha and
+The seven-package `0.1.0-alpha.1` candidate is being prepared and remains
+unpublished. Use a complete, pinned checkout until registry publication is
+verified. The API is experimental: intentional breaking changes require release
+notes and a new coordinated alpha version; consumers should use exact pins.
+See [release readiness](docs/release-readiness.md) for the approved contract and
 current distribution requirements.
 
 ## Packages
