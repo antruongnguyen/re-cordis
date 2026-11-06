@@ -9,6 +9,9 @@ This project does not yet follow semantic versioning — the API is unstable.
 
 ### Changed
 
+- Published development documentation on GitHub Pages with English/Vietnamese
+  guides, API contracts, same-revision Rustdoc and public build provenance.
+  Site refreshes remain manual; crates remain unpublished and experimental.
 - CI and documentation workflows now run on pull requests and pushes to `main`,
   avoiding duplicate feature-branch push runs.
 - Refocused the root README on project purpose, packages, getting started and

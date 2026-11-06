@@ -7,8 +7,10 @@ generic bounds, trait implementations and public fields. Both must describe
 the same source revision and feature configuration.
 
 All seven crates currently remain unpublished, unstable `0.0.0` with
-`publish=false`. This checkout prepares a development documentation site;
-it does not establish a deployed site or a released docs.rs build. Continue
+`publish=false`. The development documentation site is public on GitHub Pages,
+with [English](https://antruongnguyen.github.io/re-cordis/en/docs/) and
+[Vietnamese](https://antruongnguyen.github.io/re-cordis/vi/docs/) guides and
+same-revision Rustdoc. This is not a released docs.rs build. Continue
 using the local-checkout instructions in [getting started](../getting-started.md)
 and [Create](create.md).
 
@@ -21,8 +23,10 @@ pages, search and Markdown downloads omit links to those records; crate packages
 and Rustdoc do not import them. The website uses a full-width documentation frame
 with a fixed sidebar and desktop table of contents.
 
-Development guides follow the checkout and may change without a package-version
-change. Check the build revision before comparing a saved guide with newer code.
+Development guides may change without a package-version change. The public site
+follows its deployed revision, recorded in
+[build provenance](https://antruongnguyen.github.io/re-cordis/build-provenance.json).
+Check that revision before comparing a saved guide with newer checkout code.
 
 The static project-site layout uses `/re-cordis/en/docs/` and
 `/re-cordis/vi/docs/`. Each rendered page provides its source and Markdown links.
@@ -31,8 +35,10 @@ paths. The separate [checkout AI index](../../llms.txt) uses paths relative to
 `docs/` and needs the checkout to resolve them.
 
 See the [website instructions](../../../website/README.md) for building,
-previewing and activating GitHub Pages. Preparing or previewing an export does
-not deploy it; owner-side activation and deployment remain separate steps.
+previewing and refreshing GitHub Pages. Rust and documentation CI check pull
+requests and pushes to main; the initial manual Pages deployment succeeded.
+Preparing or previewing an export does not deploy it. Later documentation
+refreshes require a separate manual deployment from the reviewed main revision.
 
 ## Exact Rustdoc from the checkout
 

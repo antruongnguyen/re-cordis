@@ -23,14 +23,16 @@ a distribution channel: current consumption uses a complete local/Git checkout.
 The proposed seven-package alpha is not an available release; runtime filesystem
 and watcher evidence remains macOS-only. The [B1 follow-up](../plans/2026-11-02-cordis-completion/evidence/2026-11-05-b1-closure.md)
 records local archive-test/notice corrections and the CI decision at that checkpoint.
-Documentation CI and the gated Pages workflow are now implemented locally; hosted
-execution and deployment still require owner action.
+Rust and documentation CI check pull requests and pushes to main. Main checks
+and the initial manual Pages deployment succeeded; the
+[English development guides](https://antruongnguyen.github.io/re-cordis/en/docs/)
+are public. Later site refreshes remain manual.
 Preserve the applicable [upstream notices](../../UPSTREAM-NOTICES.md) when
 redistributing identified adapted material.
 
-The [documentation-channel guide](guides/documentation.md) explains local
-Fumadocs preview, matching-revision Rustdoc and the remaining Pages/docs.rs
-release gates. This is development documentation for unpublished crates.
+The [documentation-channel guide](guides/documentation.md) explains
+the public Fumadocs site, local preview, matching-revision Rustdoc and the
+separate docs.rs release gate. This is development documentation for unpublished crates.
 
 ## Choose a reading path
 

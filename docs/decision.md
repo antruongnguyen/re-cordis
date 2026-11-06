@@ -4,6 +4,21 @@ A lightweight log of decisions made for this project and the reasoning behind
 them. Newest first. This is intentionally not a heavy ADR process; it records
 *what we chose and why* so the choices aren't re-litigated silently.
 
+## 2026-11-06 — Publish development documentation through manual Pages builds
+
+The initial GitHub Pages deployment succeeded at revision
+`3718217aac6f8f11f1f11c221bf2730cbe169bd6` after passing main Rust and documentation
+checks. Link current reader documentation to the public EN/VI guides and API;
+retain checkout-relative canonical sources and the local AI index. Public
+provenance identifies the deployed revision; later documentation changes need
+a new manual deployment. See [website verification](../website/README.md#verification-and-deployment).
+
+CI checks pull requests and pushes to main. Pages remains a separate manual gate.
+Public development documentation does not change the seven crates' experimental
+`0.0.0`/`publish=false` policy, local-checkout consumption, registry/docs.rs release
+decisions or macOS-only filesystem/watcher evidence. Live browser QA acceptance
+is a separate check.
+
 ## 2026-11-06 — Recognize the verified hidden-associated-type Rustdoc rendering
 
 Compare the actual hosted macOS artifact with the accepted local compiler
@@ -18,7 +33,8 @@ the old link target is absent. Preserve strict set/count checks for every
 other entry and all framework/site links and assets. Compiler-emitted files
 remain byte-identical; no toolchain, dependency or workflow change is needed.
 See the [repair evidence](plans/2026-11-06-public-delivery/hosted-link-fix.md).
-Fresh hosted revalidation remains outstanding.
+Fresh hosted revalidation was outstanding at this checkpoint; the subsequent
+main checks and initial deployment are recorded above.
 
 ## 2026-11-06 — Focus documentation on this project's contracts
 

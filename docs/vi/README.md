@@ -24,14 +24,16 @@ cách phân phối: hiện dùng checkout đầy đủ từ máy cục bộ/Git.
 bằng chứng thực thi filesystem và watcher vẫn chỉ có trên macOS.
 [Bản bổ sung B1](../plans/2026-11-02-cordis-completion/evidence/2026-11-05-b1-closure.md)
 ghi bản sửa test archive/notice cục bộ và quyết định CI tại mốc đó.
-CI tài liệu và workflow Pages có cổng kiểm soát hiện đã được triển khai cục bộ;
-chạy trên GitHub và triển khai vẫn cần chủ repository thực hiện.
+CI Rust và tài liệu kiểm tra pull request và push vào main. Các kiểm tra trên
+main và lần triển khai Pages thủ công đầu tiên đã thành công;
+[hướng dẫn phát triển tiếng Việt](https://antruongnguyen.github.io/re-cordis/vi/docs/)
+đã công khai. Những lần cập nhật site tiếp theo vẫn triển khai thủ công.
 Giữ [notice upstream](../../UPSTREAM-NOTICES.md) áp dụng khi phân phối lại
 các phần được xác định là có chuyển thể.
 
-[Hướng dẫn các kênh tài liệu](guides/documentation.md) giải thích cách xem
-Fumadocs cục bộ, Rustdoc cùng revision và các bước Pages/docs.rs còn cần quyết
-định triển khai/phát hành. Đây là tài liệu phát triển cho các crate chưa phát hành.
+[Hướng dẫn các kênh tài liệu](guides/documentation.md) giải thích
+site Fumadocs công khai, bản xem trước cục bộ, Rustdoc cùng revision và cổng
+phát hành docs.rs riêng. Đây là tài liệu phát triển cho các crate chưa phát hành.
 
 ## Chọn lộ trình đọc
 

@@ -9,9 +9,9 @@ resources, and explicit asynchronous cleanup. It is designed for long-lived
 applications that need to reconfigure components while preserving ownership
 and resource lifetimes.
 
-[English documentation](docs/en/README.md) ·
-[Tài liệu tiếng Việt](docs/vi/README.md) ·
-[API reference](docs/en/api/README.md) ·
+[English documentation](https://antruongnguyen.github.io/re-cordis/en/docs/) ·
+[Tài liệu tiếng Việt](https://antruongnguyen.github.io/re-cordis/vi/docs/) ·
+[API reference](https://antruongnguyen.github.io/re-cordis/en/docs/api/) ·
 [Changelog](CHANGELOG.md)
 
 ## Status
@@ -83,7 +83,10 @@ Create templates are outside the current scope. See
 
 ## Documentation
 
-The [English](docs/en/README.md) and [Vietnamese](docs/vi/README.md) guides cover
+The [public documentation site](https://antruongnguyen.github.io/re-cordis/)
+provides English and Vietnamese guides, API contracts, and Rustdoc from the
+same build revision. The canonical [English](docs/en/README.md) and
+[Vietnamese](docs/vi/README.md) sources cover
 setup, concepts, examples, troubleshooting, and the public API. The
 [documentation map](docs/README.md) also links contributor and engineering
 references.
@@ -96,7 +99,8 @@ cargo doc --workspace --all-features --no-deps --locked
 
 See [website development](website/README.md) for the bilingual documentation
 site and its local preview. For AI-assisted development, use the
-[agent reading index](docs/llms.txt) with this checkout.
+[public reading index](https://antruongnguyen.github.io/re-cordis/llms.txt)
+or the [checkout reading index](docs/llms.txt) with this checkout.
 
 ## Development
 
@@ -113,6 +117,8 @@ Maintain compatibility with both stable Rust and Rust 1.85.0. Contributor
 instructions are in [AGENTS.md](AGENTS.md); the
 [roadmap](docs/todo.md) tracks delivery work. Documentation changes follow
 the [documentation checks](docs/README.md#maintaining-these-documents).
+CI runs on pull requests and pushes to `main`; GitHub Pages deployment remains
+manual.
 
 The isolated M0 research package and Rust/TypeScript comparison fixtures have
 their own reproduction instructions in the

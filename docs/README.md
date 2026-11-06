@@ -26,11 +26,15 @@ nhau. Mỗi trang liên kết đến bản ngôn ngữ còn lại.
 
 The full-width [website application](../website/README.md) compiles the canonical
 docs/en and docs/vi Markdown at build time using Fumadocs/Next.js and Bun.
-The development site includes same-revision Rustdoc, browser-side static search,
+The [public development site](https://antruongnguyen.github.io/re-cordis/)
+includes same-revision Rustdoc, browser-side static search,
 public llms.txt and per-page Markdown. The site Rustdoc includes dependency
 documentation so inherited trait links resolve; generated API bytes are preserved.
-It remains unpublished until the owner
-activates and deploys GitHub Pages. The local [llms.txt](llms.txt) stays
+The initial manual GitHub Pages deployment succeeded on 2026-11-06 at revision
+`3718217aac6f8f11f1f11c221bf2730cbe169bd6`; the
+[public provenance](https://antruongnguyen.github.io/re-cordis/build-provenance.json)
+identifies the deployed build. Documentation refreshes require a new manual
+deployment. The local [llms.txt](llms.txt) stays
 checkout-relative and is not copied as the public index.
 
 From the repository root (Bash, Bun 1.4.4 and Node.js 22):
@@ -51,7 +55,7 @@ bun run preview
 Preview the exported files at http://127.0.0.1:4173/re-cordis/ (not the Next.js
 development server). Build and copy Rustdoc from the same checkout revision;
 rebuild after a commit to update pinned source links and provenance. The website
-README documents route mapping, checks and owner-side Pages activation.
+README documents route mapping, checks and manual Pages deployment.
 Only docs/en and docs/vi become reader pages. Links/images/reference definitions
 pointing to docs/plans or docs/superpowers are removed from the public projection;
 local Markdown and historical records remain intact. The export checker scans
@@ -61,7 +65,8 @@ in crate packages or used by docs.rs. This boundary is not Git repository access
 The [EN](en/guides/documentation.md) and [VI](vi/guides/documentation.md)
 channel guides distinguish development guides, exact APIs and future releases.
 [Local delivery evidence](plans/2026-11-05-documentation-site/delivery.md) records
-verification, independent review and the remaining hosted/release gates.
+local verification and independent review at that checkpoint; current hosted
+availability is recorded in the website README. Registry release gates remain.
 
 ## Exact API signatures
 
@@ -167,7 +172,7 @@ selected toolchains; formatting remains stable-only. See the
 [executed R0 evidence](plans/2026-11-02-cordis-completion/evidence/r0-acceptance.md). No production template variant
 is added, and no temporary fixture source becomes a public API.
 
-The new .github/workflows/documentation.yml prepares these regressions and
+The .github/workflows/documentation.yml runs these regressions and
 full guide checks on supported macos-26 with explicit stable/1.85.0 tools and a locked
 Cargo fetch and .github/scripts/restore-docs-dependencies.py before offline
 execution. The latter restores the generated R0 app's default futures-util
@@ -178,8 +183,10 @@ artifact produced by the stable macOS guide job. It does not compile or run
 the framework on Linux, or establish new filesystem/watcher acceptance. The existing
 .github/workflows/ci.yml Rust matrix is preserved. The separate Pages workflow
 is manual, requires PAGES_DEPLOY_ENABLED=true and deploy=true, waits for all
-documentation jobs, and uses the github-pages environment. These files have
-local validation only until the owner pushes them and runs GitHub Actions.
+documentation jobs, and uses the github-pages environment. Rust and documentation
+checks run on pull requests and pushes to main. The main Rust/documentation
+checks passed for the initial deployed revision, and its manual Pages workflow
+succeeded; see [website verification](../website/README.md#verification-and-deployment).
 Other shell examples are not executed. It does not make authenticated requests, install packages,
 or validate external URLs. If dependencies are missing, the offline build fails
 explicitly; restore required dependencies deliberately before retrying.
